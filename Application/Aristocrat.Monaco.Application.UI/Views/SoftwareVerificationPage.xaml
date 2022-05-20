@@ -1,0 +1,95 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.SoftwareVerificationPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               mc:Ignorable="d"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SoftwareVerificationPageViewModel}, IsDesignTimeCreatable=False}"
+                               Background="Transparent" >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ShaConverter x:Key="ShaConverter"/>
+            <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock" x:Key="WrapText">
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Padding" Value="0,10,0,10" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Style="{DynamicResource MonacoLabel}"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelectHashType}}" />
+        <ComboBox Grid.Column="0" Grid.Row="2" Name="AlgorithmComboBox" Style="{DynamicResource MonacoComboBox}"
+                  IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding AlgorithmTypes}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAlgorithmType}"
+                  MinWidth="300" HorizontalAlignment="Left"/>
+
+        <WrapPanel Grid.Column="2" Grid.Row="2" Margin="0" IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox x:Name="HmacTextBox" Style="{DynamicResource MonacoTextBox}" CommandManager.PreviewCanExecute="HandleCanExecute" MaxWidth="830" TextWrapping="Wrap"
+                     Text="{Binding Path=FormattedHmacKey, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ShaConverter}}"
+                     IsEnabled="{Binding Path=CanUseHmacKey}" CharacterCasing="Upper"
+                     PreviewTextInput="HmacTextBox_PreviewTextInput" InputScope="AlphanumericFullWidth" FontFamily="Consolas" 
+                     HorizontalAlignment="Right" FontSize="18" PreviewKeyDown="HmacTextBox_PreviewKeyDown" IsUndoEnabled="False"  />
+        </WrapPanel>
+
+        <Button Grid.Column="4" Grid.Row="0" Name="ResetButton" Command="{Binding ResetCommand}" Style="{DynamicResource MonacoButton}"
+                Width="200" VerticalAlignment="Center"
+                IsEnabled="{Binding Path=IsValidResult, UpdateSourceTrigger=PropertyChanged}"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Reset}}" />
+        <Button Grid.Column="4" Grid.Row="2" Name="GoButton" Command="{Binding CalculateCommand}" Style="{DynamicResource MonacoButton}"
+                Width="200" VerticalAlignment="Center"
+                IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CalculateSignatures}}" />
+
+        <DataGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="6" Margin="0 20 0 35" 
+                  ItemsSource="{Binding ComponentSet}" Style="{DynamicResource MonacoScrollButtonDataGrid}" 
+                  ColumnHeaderHeight="40"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  ScrollViewer.CanContentScroll="True"
+                  VerticalContentAlignment="Top" VerticalAlignment ="Top"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ComponentIdVersion}}" Width="Auto" MinWidth="320"
+                                    Binding="{Binding ComponentId}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HashResult}}" FontFamily="Consolas" MinWidth="600" MaxWidth="800" 
+                                    ElementStyle="{StaticResource WrapText}" Binding="{Binding HashResult, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ShaConverter}}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="6" Orientation="Horizontal" Visibility="{Binding ShowMasterResult, Converter={StaticResource BoolToVisConverter}}">
+            <Label Width="Auto" MinWidth="200" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterResultText}}"/>
+            <Label>
+                <Label.Content>
+                    <AccessText TextWrapping="Wrap" MaxWidth="975" Text="{Binding MasterResult, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ShaConverter}}"/>
+                </Label.Content>
+            </Label>
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<Addin  id="Bootstrap" namespace="Client12Addins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Bootstrap.exe"/>
+  </Runtime>
+
+  <!--Must implement IServiceManager-->
+  <ExtensionPoint path = "/Kernel/ServiceManager">
+    <ExtensionNode name="ServiceManager"/>
+  </ExtensionPoint>
+
+  <!--Must implement ILocalizer-->
+  <ExtensionPoint path = "/Kernel/Localizer">
+    <ExtensionNode name="Localizer"/>
+  </ExtensionPoint>
+
+  <!--Must implement IMessageDisplay-->
+  <ExtensionPoint path = "/Kernel/MessageDisplay">
+    <ExtensionNode name="MessageDisplay"/>
+  </ExtensionPoint>
+
+  <!--Must implement IPlatformDisplay-->
+  <ExtensionPoint path = "/Kernel/PlatformDisplay">
+    <ExtensionNode name="PlatformDisplay"/>
+  </ExtensionPoint>
+
+  <!--Must implement IWpfWindowLauncher-->
+  <ExtensionPoint path = "/Kernel/WindowLauncher">
+    <ExtensionNode name="WindowLauncher"/>
+  </ExtensionPoint>
+
+  <!--Must implement IEventBus-->
+  <ExtensionPoint path = "/Kernel/EventBus">
+    <ExtensionNode name="EventBus"/>
+  </ExtensionPoint>
+
+  <!--Must implement IPropertiesManager-->
+  <ExtensionPoint path = "/Kernel/PropertiesManager">
+    <ExtensionNode name="PropertiesManager"/>
+  </ExtensionPoint>
+
+  <!--Must implement IPathMapper-->
+  <ExtensionPoint path = "/Kernel/PathMapper">
+    <ExtensionNode name="PathMapper"/>
+  </ExtensionPoint>
+
+  <!--Must implement ISystemDisableManager-->
+  <ExtensionPoint path = "/Kernel/SystemDisableManager">
+    <ExtensionNode name="SystemDisableManager"/>
+  </ExtensionPoint>
+
+  <!--Must implement IRunnable-->
+  <ExtensionPoint path = "/Kernel/AssemblyResolver">
+    <ExtensionNode name="AssemblyResolver"/>
+  </ExtensionPoint>
+
+  <!--Must implement IAddinHelper-->
+  <ExtensionPoint path = "/Kernel/AddinHelper">
+    <ExtensionNode name = "AddinHelper" />
+  </ExtensionPoint>
+
+  <!--Must implement IService-->
+  <ExtensionPoint path = "/Kernel/Services">
+    <ExtensionNode name="Service"/>
+  </ExtensionPoint>
+
+  <!--Must implement IRunnable-->
+  <ExtensionPoint path = "/Kernel/Runnables">
+    <ExtensionNode name="Runnable"/>
+  </ExtensionPoint>
+
+  <!--Must implement IRunnable-->
+  <ExtensionPoint path = "/Kernel/BootExtender">
+    <ExtensionNode name="BootExtender"/>
+  </ExtensionPoint>
+
+  <!--Must implement IComponentRegistry-->
+  <ExtensionPoint path = "/Kernel/ComponentRegistry">
+    <ExtensionNode name="ComponentRegistry"/>
+  </ExtensionPoint>
+
+  <!--Must implement IInitializationProvider-->
+  <ExtensionPoint path = "/Kernel/InitializationProvider">
+    <ExtensionNode name="InitializationProvider"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Kernel/CommandLineArguments">
+    <ExtensionNode name="CommandLineArgument" type="Aristocrat.Monaco.Bootstrap.CommandLineArgumentExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Kernel/Processes">
+    <ExtensionNode name="Process" type="Aristocrat.Monaco.Bootstrap.ProcessNode" />
+  </ExtensionPoint>
+
+  <Extension path = "/Kernel/CommandLineArguments">
+    <CommandLineArgument Name="locale">
+      <ArgumentValue ValidValue="string" Description="Any locale code supported by System.Globalization.CultureInfo, ex. en-US for English (United States), the default." />
+    </CommandLineArgument>
+
+    <CommandLineArgument Name="crash-handler">
+      <ArgumentValue ValidValue="disabled" Description="The crash handler should not be used. Default is enabled." />
+    </CommandLineArgument>
+  </Extension>
+</Addin>

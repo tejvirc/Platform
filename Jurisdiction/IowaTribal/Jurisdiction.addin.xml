@@ -1,0 +1,186 @@
+<Addin id="IowaTribalJurisdiction" namespace="Client12Addins" version="1.0">
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Hardware" version="1.0" />
+    <Addin id="Monaco.Accounting" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+    <Addin id="SelectableJurisdiction" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="SasBase" version="1.0" />
+    <Addin id="SasConfiguration" version="1.0" />
+    <Addin id="Sas.Client" version="1.0" />
+  </Dependencies>
+  <Runtime>
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
+  </Runtime>
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableJurisdiction name="Iowa Tribal" description="Top level Iowa Tribal jurisdiction group" id="JUR000122,JUR000998,JUR000999,JUR000033">
+      <AddinConfigurationGroupReference name="BaseOperatorMenus" />
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+      <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalHardwareConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TiltLogger/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalTiltLoggerConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/DoorMonitor/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalDoorMonitorConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ConfigWizard/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalConfigWizardConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalOperatorMenuConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalOperatorMenuSoundConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalGamePreferencesSounds" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalLocaleConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalLocaleOverrides" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalLobbyConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalAccountingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalApplicationConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalGamingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TowerLight/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalTowerLightConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableRegions">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalPrintableRegionsConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableTemplates">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalPrintableTemplatesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrinterOverrides">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalPrinterOverridesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalDisplayMetersConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="IowaTribalAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="IowaTribalAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="IowaTribalAccountingTransferProviders" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalTransactionConfiguration" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalAccountingRunnable" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalErrorMessageConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalSASDefaultConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+        <NodeSpecification addinId="Client12Addins.IowaTribalJurisdiction" filterid="IowaTribalHardMeterMappingConfig" />
+      </ExtensionPointConfiguration>
+    </SelectableJurisdiction>
+  </Extension>
+  <Extension path="/SAS/DefaultConfiguration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\SASDefault.config.xml" filterid="IowaTribalSASDefaultConfig" />
+  </Extension>
+  <Extension path="/Platform/Discovery/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\ConfiguredDevices.config.xml" filterid="IowaTribalHardwareConfig" />
+  </Extension>
+  <Extension path="/TiltLogger/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\TiltLogger.config.xml" filterid="IowaTribalTiltLoggerConfig" />
+  </Extension>
+  <Extension path="/DoorMonitor/Configuration">
+    <DoorMonitorConfiguration>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
+        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="IowaTribalDoorMonitorConfig" />
+      </DoorOpenAlarm>
+    </DoorMonitorConfiguration>
+  </Extension>
+  <Extension path="/ConfigWizard/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\ConfigWizard.config.xml" filterid="IowaTribalConfigWizardConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="IowaTribalOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="IowaTribalOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="IowaTribalOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="IowaTribalOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="IowaTribalOperatorMenuSoundConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/GamePreferences/Sounds">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="IowaTribalGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="IowaTribalGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="IowaTribalGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="IowaTribalGamePreferencesSounds" />
+  </Extension>
+  <Extension path="/OperatorMenu/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\OperatorMenu.config.xml" filterid="IowaTribalOperatorMenuConfig" />
+  </Extension>
+  <Extension path="/Locale/Configuration" filterid="IowaTribalLocaleConfig">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\Locale.config.xml" />
+  </Extension>
+  <Extension path="/Locale/Overrides" filterid="IowaTribalLocaleOverrides">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
+  </Extension>
+  <Extension path="/Lobby/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\Lobby.config.xml" filterid="IowaTribalLobbyConfig" />
+  </Extension>
+  <Extension path="/Accounting/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\Accounting.config.xml" filterid="IowaTribalAccountingConfig" />
+  </Extension>
+  <Extension path="/Application/JurisdictionConfiguration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\Application.config.xml" filterid="IowaTribalApplicationConfig" />
+  </Extension>
+  <Extension path="/Gaming/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\Gaming.config.xml" filterid="IowaTribalGamingConfig" />
+  </Extension>
+  <Extension path="/HardMeterMapping/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="IowaTribalHardMeterMappingConfig" />
+  </Extension>
+  <Extension path="/TowerLight/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\TowerLight.config.xml" filterid="IowaTribalTowerLightConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableRegions">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\printable_regions.xml" filterid="IowaTribalPrintableRegionsConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableTemplates">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\printable_templates.xml" filterid="IowaTribalPrintableTemplatesConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrinterOverrides">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\PrinterOverrides.xml" filterid="IowaTribalPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/ErrorMessage/Configuration">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\ErrorMessage.config.xml" filterid="IowaTribalErrorMessageConfig" />
+  </Extension>
+  <Extension path="/Application/OperatorMenu/DisplayMeters">
+    <FilePath FilePath="..\jurisdiction\IowaTribal\DisplayMeters.config.xml" filterid="IowaTribalDisplayMetersConfig" />
+  </Extension>
+  <Extension path="/Accounting/TransactionHistories" filterid="IowaTribalTransactionConfiguration">
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
+  </Extension>
+  <Extension path="/Accounting/BootExtender" filterid="IowaTribalAccountingRunnable">
+    <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
+  </Extension>
+</Addin>

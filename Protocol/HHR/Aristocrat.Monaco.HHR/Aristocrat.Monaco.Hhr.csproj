@@ -1,0 +1,93 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <RootNamespace>Aristocrat.Monaco.HHR</RootNamespace>
+    <AssemblyName>Aristocrat.Monaco.HHR</AssemblyName>
+    <AssemblyTitle>Aristocrat.Monaco.Hhr</AssemblyTitle>
+    <Product>Aristocrat.Monaco.Hhr</Product>
+    <Copyright>Copyright ©  2020</Copyright>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Storage\Models\PendingRequestEntity.Configuration.cs">
+      <DependentUpon>PendingRequestEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\PrizeInformationEntity.Configuration.cs">
+      <DependentUpon>PrizeInformationEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\GamePlayEntity.Configuration.cs">
+      <DependentUpon>GamePlayEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\ManualHandicapEntity.Configuration.cs">
+      <DependentUpon>ManualHandicapEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\ProgressiveUpdateEntity.Configuration.cs">
+      <DependentUpon>ProgressiveUpdateEntity.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.HHR.Client\Aristocrat.Monaco.HHR.Client.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.HHR.HHRPropertyProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
+    <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
+    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+</Project>

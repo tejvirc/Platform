@@ -1,0 +1,116 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="SliderRepeatButton" TargetType="RepeatButton">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="IsTabStop" Value="false" />
+        <Setter Property="Focusable" Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="Transparent"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderRepeatButton1" TargetType="RepeatButton">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint=".5,1" EndPoint=".5,0">
+                    <GradientStop Color="{DynamicResource LightColor2}" Offset="0"/>
+                    <GradientStop Color="{DynamicResource LightColor5}" Offset=".5"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border SnapsToDevicePixels="True" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="{TemplateBinding Background}" Height="12"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SliderThumb" TargetType="Thumb">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint=".5,1" EndPoint=".5,0">
+                    <GradientStop Color="{DynamicResource LightColor2}"
+                                  Offset="0"/>
+                    <GradientStop Color="{DynamicResource LightColor5}"
+                                  Offset=".5"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <StackPanel Orientation="Vertical">
+                        <Rectangle Height="40" Width="30" Fill="{TemplateBinding Background}" Margin="0,32,0,0"/>
+                        <TextBlock HorizontalAlignment="Center" FontFamily="{DynamicResource MonacoFontFamily}" FontSize="{DynamicResource ButtonFontSize}" Foreground="White" Margin="0,10,0,0" Text="{Binding Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Slider}}}"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="Slider" TargetType="Slider">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TickBar x:Name="TopTick" Fill="LightGray" VerticalAlignment="Top" SnapsToDevicePixels="True" Grid.Row="0" Placement="Top" Height="5" Visibility="Collapsed"/>
+            <Border x:Name="TrackBackground" VerticalAlignment="Center" BorderBrush="{DynamicResource Brush3}" Background="{DynamicResource Brush3}" Height="12" Grid.Row="1" BorderThickness="1"/>
+            <Track Grid.Row="1" x:Name="PART_Track">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderRepeatButton1}" Command="Slider.DecreaseLarge" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource SliderThumb}" x:Name="PART_Thumb"/>
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderRepeatButton}" Command="Slider.IncreaseLarge" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+            <TickBar x:Name="BottomTick" Fill="LightGray" SnapsToDevicePixels="True" Grid.Row="2" Placement="Bottom" Height="4" Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement"  Value="TopLeft">
+                <Setter TargetName="TopTick" Property="Visibility"  Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="BottomTick"  Property="Visibility"  Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" TargetName="TrackBackground" Value="0.7"/>
+                <Setter Property="Opacity" TargetName="PART_Track" Value="0.7"/>
+                <Setter Property="Opacity" TargetName="PART_Thumb" Value="0.9"/>
+                <Setter Property="Foreground" Value="{DynamicResource DarkBrush1}"/>
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="MonacoSlider" TargetType="Slider">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Template" Value="{StaticResource Slider}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

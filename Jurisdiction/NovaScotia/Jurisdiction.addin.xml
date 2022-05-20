@@ -1,0 +1,186 @@
+<Addin id="NovaScotiaJurisdiction" namespace="Client12Addins" version="1.0">
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Hardware" version="1.0" />
+    <Addin id="Monaco.Accounting" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+    <Addin id="SelectableJurisdiction" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="SasBase" version="1.0" />
+    <Addin id="SasConfiguration" version="1.0" />
+    <Addin id="Sas.Client" version="1.0" />
+  </Dependencies>
+  <Runtime>
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
+  </Runtime>
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableJurisdiction name="Nova Scotia" description="Top level Nova Scotia jurisdiction group" id="JUR000017,JUR000998,JUR000999,JUR000033">
+      <AddinConfigurationGroupReference name="BaseOperatorMenus" />
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+      <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaHardwareConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TiltLogger/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaTiltLoggerConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/DoorMonitor/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaDoorMonitorConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ConfigWizard/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaConfigWizardConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaOperatorMenuConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaOperatorMenuSoundConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaGamePreferencesSounds" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaLocaleConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaLocaleOverrides" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaLobbyConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaAccountingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaApplicationConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaGamingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TowerLight/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaTowerLightConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableRegions">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaPrintableRegionsConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableTemplates">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaPrintableTemplatesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrinterOverrides">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaPrinterOverridesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaDisplayMetersConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="NovaScotiaAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="NovaScotiaAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="NovaScotiaAccountingTransferProviders" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaTransactionConfiguration" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaAccountingRunnable" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaErrorMessageConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaSASDefaultConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+        <NodeSpecification addinId="Client12Addins.NovaScotiaJurisdiction" filterid="NovaScotiaHardMeterMappingConfig" />
+      </ExtensionPointConfiguration>
+    </SelectableJurisdiction>
+  </Extension>
+  <Extension path="/SAS/DefaultConfiguration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\SASDefault.config.xml" filterid="NovaScotiaSASDefaultConfig" />
+  </Extension>
+  <Extension path="/Platform/Discovery/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\ConfiguredDevices.config.xml" filterid="NovaScotiaHardwareConfig" />
+  </Extension>
+  <Extension path="/TiltLogger/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\TiltLogger.config.xml" filterid="NovaScotiaTiltLoggerConfig" />
+  </Extension>
+  <Extension path="/DoorMonitor/Configuration">
+    <DoorMonitorConfiguration>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
+        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="NovaScotiaDoorMonitorConfig" />
+      </DoorOpenAlarm>
+    </DoorMonitorConfiguration>
+  </Extension>
+  <Extension path="/ConfigWizard/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\ConfigWizard.config.xml" filterid="NovaScotiaConfigWizardConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="NovaScotiaOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="NovaScotiaOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="NovaScotiaOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="NovaScotiaOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="NovaScotiaOperatorMenuSoundConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/GamePreferences/Sounds">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="NovaScotiaGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="NovaScotiaGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="NovaScotiaGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="NovaScotiaGamePreferencesSounds" />
+  </Extension>
+  <Extension path="/OperatorMenu/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\OperatorMenu.config.xml" filterid="NovaScotiaOperatorMenuConfig" />
+  </Extension>
+  <Extension path="/Locale/Configuration" filterid="NovaScotiaLocaleConfig">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\Locale.config.xml" />
+  </Extension>
+  <Extension path="/Locale/Overrides" filterid="NovaScotiaLocaleOverrides">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
+  </Extension>
+  <Extension path="/Lobby/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\Lobby.config.xml" filterid="NovaScotiaLobbyConfig" />
+  </Extension>
+  <Extension path="/Accounting/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\Accounting.config.xml" filterid="NovaScotiaAccountingConfig" />
+  </Extension>
+  <Extension path="/Application/JurisdictionConfiguration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\Application.config.xml" filterid="NovaScotiaApplicationConfig" />
+  </Extension>
+  <Extension path="/Gaming/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\Gaming.config.xml" filterid="NovaScotiaGamingConfig" />
+  </Extension>
+  <Extension path="/HardMeterMapping/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="NovaScotiaHardMeterMappingConfig" />
+  </Extension>
+  <Extension path="/TowerLight/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\TowerLight.config.xml" filterid="NovaScotiaTowerLightConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableRegions">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\printable_regions.xml" filterid="NovaScotiaPrintableRegionsConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableTemplates">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\printable_templates.xml" filterid="NovaScotiaPrintableTemplatesConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrinterOverrides">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\PrinterOverrides.xml" filterid="NovaScotiaPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/ErrorMessage/Configuration">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\ErrorMessage.config.xml" filterid="NovaScotiaErrorMessageConfig" />
+  </Extension>
+  <Extension path="/Application/OperatorMenu/DisplayMeters">
+    <FilePath FilePath="..\jurisdiction\NovaScotia\DisplayMeters.config.xml" filterid="NovaScotiaDisplayMetersConfig" />
+  </Extension>
+  <Extension path="/Accounting/TransactionHistories" filterid="NovaScotiaTransactionConfiguration">
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
+  </Extension>
+  <Extension path="/Accounting/BootExtender" filterid="NovaScotiaAccountingRunnable">
+    <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
+  </Extension>
+</Addin>

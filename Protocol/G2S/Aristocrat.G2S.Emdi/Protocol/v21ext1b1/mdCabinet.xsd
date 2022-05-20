@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:HCI="http://www.gamingstandards.com/emdi/schemas/v1b/HCI" xmlns:PLC="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" xmlns:CPC="http://www.gamingstandards.com/emdi/schemas/v1b/CPC" targetNamespace="http://mediaDisplay.igt.com" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-21 v1b2">
+	<xs:include schemaLocation="mdInclude.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/HCI" schemaLocation="mdCabinetExtHCI.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" schemaLocation="mdCabinetExtPLC.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/CPC" schemaLocation="mdCabinetExtCPC.xsd"/>
+	<!--Simple Data Types-->
+	<xs:simpleType name="t_egmStates">
+		<xs:annotation>
+			<xs:documentation>EGM States - Not Extensible.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="G2S_transportDisabled"/>
+			<xs:enumeration value="G2S_operatorDisabled"/>
+			<xs:enumeration value="G2S_hostDisabled"/>
+			<xs:enumeration value="G2S_egmDisabled"/>
+			<xs:enumeration value="G2S_enabled"/>
+			<xs:enumeration value="G2S_operatorMode"/>
+			<xs:enumeration value="G2S_demoMode"/>
+			<xs:enumeration value="G2S_auditMode"/>
+			<xs:enumeration value="G2S_operatorLocked"/>
+			<xs:enumeration value="G2S_egmLocked"/>
+			<xs:enumeration value="G2S_hostLocked"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_idReaderTypesBase">
+		<xs:annotation>
+			<xs:documentation>Identification Reader Types - Base Enumerations.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="G2S_magCard"/>
+			<xs:enumeration value="G2S_proxCard"/>
+			<xs:enumeration value="G2S_fingerScan"/>
+			<xs:enumeration value="G2S_retinaScan"/>
+			<xs:enumeration value="G2S_smartCard"/>
+			<xs:enumeration value="G2S_barCode"/>
+			<xs:enumeration value="G2S_keyPad"/>
+			<xs:enumeration value="G2S_hollerith"/>
+			<xs:enumeration value="G2S_none"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_idReaderTypes">
+		<xs:annotation>
+			<xs:documentation>Identification Reader Types - Extensible Union.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="t_idReaderTypesBase t_uniqueIdentifier64"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_idNumber">
+		<xs:annotation>
+			<xs:documentation>Identification Number.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+			<xs:minLength value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Complex Data Types-->
+	<xs:complexType name="c_deviceVisibleStatus">
+		<xs:annotation>
+			<xs:documentation>Device Visible Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="deviceVisibleState" type="xs:boolean" use="optional" default="true"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_setDeviceVisibleState">
+		<xs:annotation>
+			<xs:documentation>Set Device Visible Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="deviceVisibleState" type="xs:boolean" use="optional" default="true"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getDeviceVisibleState">
+		<xs:annotation>
+			<xs:documentation>Get the device visible state</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_setCallAttendantState">
+		<xs:annotation>
+			<xs:documentation>Set Call Attendant Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="enable" type="xs:boolean" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getCallAttendantState">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_callAttendantStatus">
+		<xs:annotation>
+			<xs:documentation>Call Attendant Status Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="callAttendantActive" type="xs:boolean" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getCardState">
+		<xs:annotation>
+			<xs:documentation>Get the card state</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_cardStatus">
+		<xs:annotation>
+			<xs:documentation>EGM card reader status</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="cardIn" type="xs:boolean" use="optional" default="false"/>
+				<xs:attribute name="idReaderType" type="t_idReaderTypes" use="required"/>
+				<xs:attribute name="idNumber" type="t_idNumber" use="optional" default=""/>
+				<xs:attribute name="idValidExpired" type="xs:boolean" use="optional" default="true"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_cabinetStatus">
+		<xs:annotation>
+			<xs:documentation>cabinet status data type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="egmState" type="t_egmStates" use="required"/>
+				<xs:attribute name="deviceClass" type="xs:string" use="optional" default=""/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Commands-->
+	<xs:element name="setDeviceVisibleState">
+		<xs:annotation>
+			<xs:documentation>Set the Visible State command</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_setDeviceVisibleState">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="deviceVisibleStatus">
+		<xs:annotation>
+			<xs:documentation>Device Visible Status response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_deviceVisibleStatus">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getDeviceVisibleState">
+		<xs:annotation>
+			<xs:documentation>Get the visible state command</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getDeviceVisibleState">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setCallAttendantState">
+		<xs:annotation>
+			<xs:documentation>Call Attendant command</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_setCallAttendantState">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getCallAttendantState">
+		<xs:annotation>
+			<xs:documentation>Get the Call Attendant status command</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getCallAttendantState">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="callAttendantStatus">
+		<xs:annotation>
+			<xs:documentation>Call Attendant command</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_callAttendantStatus">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getCardState">
+		<xs:annotation>
+			<xs:documentation>Client can query the EGM for card status</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getCardState">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="cardStatus">
+		<xs:annotation>
+			<xs:documentation>Card status</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_cardStatus">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Elements-->
+	<xs:element name="cabinetStatus">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_cabinetStatus">
+					<xs:attributeGroup ref="PLC:p_cabinetStatusExtPLC"/>
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Functional Command Group Wrapper and Message Header-->
+	<xs:element name="mdCabinet">
+		<xs:annotation>
+			<xs:documentation>MediaDisplay Cabinet Functional Command Group</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_baseClass">
+					<xs:choice minOccurs="0">
+						<xs:element ref="setCallAttendantState"/>
+						<xs:element ref="getCallAttendantState"/>
+						<xs:element ref="callAttendantStatus"/>
+						<xs:element ref="getDeviceVisibleState"/>
+						<xs:element ref="setDeviceVisibleState"/>
+						<xs:element ref="deviceVisibleStatus"/>
+						<xs:element ref="getCardState"/>
+						<xs:element ref="cardStatus"/>
+						<xs:any namespace="##other" processContents="lax"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

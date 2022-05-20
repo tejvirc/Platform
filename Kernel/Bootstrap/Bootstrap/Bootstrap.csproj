@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Aristocrat.Monaco.Bootstrap</RootNamespace>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>Bootstrap</AssemblyTitle>
+    <Company>Aristocrat Technologies Inc.</Company>
+    <Product>Monaco</Product>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DocumentationFile />
+    <NoWarn />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DocumentationFile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL;</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="$(SolutionDir)CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+    <Content Include="Bootstrap.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="CrashHandler.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Platform.addins">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="logging.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

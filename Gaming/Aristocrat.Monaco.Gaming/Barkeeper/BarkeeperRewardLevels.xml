@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BarkeeperRewardLevels>
+  <RewardLevels>
+    <RewardLevel>
+      <TriggerStrategy>CoinIn</TriggerStrategy>
+      <Name>Level-1</Name>
+      <ThresholdInCents>5000</ThresholdInCents>
+      <Led>Button</Led>
+      <Color>Green</Color>
+      <Alert>LightOn</Alert>
+    </RewardLevel>
+    <RewardLevel>
+      <TriggerStrategy>CashIn</TriggerStrategy>
+      <Name>Level-1</Name>
+      <ThresholdInCents>10000</ThresholdInCents>
+      <Led>Halo</Led>
+      <Color>Blue</Color>
+      <Alert>LightOn</Alert>
+    </RewardLevel>
+  </RewardLevels>
+  <CoinInStrategy>
+    <CoinInRate>
+      <SessionRateInMs>60000</SessionRateInMs>
+      <Amount>1000</Amount>
+    </CoinInRate>
+  </CoinInStrategy>
+  <CashInStrategy />
+</BarkeeperRewardLevels>

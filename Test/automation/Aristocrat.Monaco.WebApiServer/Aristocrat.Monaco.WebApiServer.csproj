@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+						<Copyright>Copyright ©  2017</Copyright>
+						<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+						<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+						<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+						<Configurations>Debug;Release;Retail</Configurations>
+						<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+						<OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+		</PropertyGroup>
+
+		<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+						<DebugType>full</DebugType>
+		</PropertyGroup>
+		<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+						<DebugType>pdbonly</DebugType>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+						<DefineConstants>TRACE</DefineConstants>
+						<Optimize>true</Optimize>
+						<DebugType>pdbonly</DebugType>
+						<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+		</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.SelfHost" Version="5.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Aristocrat.Monaco.WebApiServer.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

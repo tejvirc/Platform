@@ -1,0 +1,1 @@
+﻿To create retail (production ready) USB Keys, you should put the private.rsa and public.rsa files in this directory, next to this readme.txt file.

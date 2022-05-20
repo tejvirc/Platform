@@ -1,0 +1,14 @@
+- name: Home
+  href: index.md
+- name: Documentation
+  href: docs/
+- name: API Reference
+  href: api/
+- name: GitHub
+  href: https://github.com/Aristocrat-Monaco-Platform/monaco
+- name: Team City
+  href: http://usan-abuild-01.dev.local/overview.html
+- name: Jira
+  href: http://jerry.aristocrat.com/secure/Dashboard.jspa
+- name: Confluence
+  href: http://confy.aristocrat.com/display/MON/Monaco

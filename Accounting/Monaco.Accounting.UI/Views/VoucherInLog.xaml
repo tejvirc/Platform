@@ -1,0 +1,63 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Accounting.UI.Views.VoucherInLog"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding Path=VoucherInData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  RowHeight="26"
+                  ScrollViewer.CanContentScroll="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SequenceNumberHeader}}"
+                                    IsReadOnly="True" 
+                                    Visibility="Collapsed"
+                                    Binding="{Binding SequenceNumber}"/>
+                <DataGridTextColumn Header="#"
+                                    IsReadOnly="True"
+                                    Binding="{Binding VoucherSequence}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding TimeStamp}"
+                                    MinWidth="200"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AmountHeader}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Amount}"
+                                    MinWidth="160"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TypeOfAccountHeader}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding TypeOfAccount}"
+                                    MinWidth="240"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ValidationNumber}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ValidationId}"
+                                    MinWidth="280"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Status}"
+                                    MinWidth="200"/>                
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DetailsHeader}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Exception}"
+				                    MinWidth="600"/>
+			</DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

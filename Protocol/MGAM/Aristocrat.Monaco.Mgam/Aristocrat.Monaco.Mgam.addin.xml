@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="MgamBase" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Mgam.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Runnables">
+    <ProtocolInterface type="Aristocrat.Monaco.Mgam.MgamBase" protocolId="MGAM" serverProtocolId="9" />
+  </Extension>
+
+  <Extension path="/Application/PropertyProviders">
+    <PropertyProvider type="Aristocrat.Monaco.Mgam.MgamPropertyProvider" />
+  </Extension>
+
+  <Extension path="/Hardware/Service/StartupEventListener">
+    <StartupEventListenerImpl ProtocolName="MGAM" type="Aristocrat.Monaco.Mgam.Services.Event.StartupEventListener" />
+  </Extension>
+
+</Addin>

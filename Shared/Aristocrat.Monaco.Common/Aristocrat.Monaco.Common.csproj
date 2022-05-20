@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>Aristocrat.Monaco.Common</AssemblyTitle>
+    <Company>Aristocrat Technologies Inc.</Company>
+    <Product>Monaco</Product>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DocumentationFile />
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.fr-CA.resx">
+      <LastGenOutput>Resources.fr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
+    <PackageReference Include="FluentValidation" Version="7.4.0" />
+    <PackageReference Include="Humanizer" Version="[2.8.27]" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
+    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.110" />
+  </ItemGroup>
+</Project>

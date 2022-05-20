@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Hardware\Aristocrat.Monaco.Hardware.Contracts\Discovery
+2.  Enter "xsd SupportedDevices.xsd /classes".  This will generate
+    the corresponding class definition in csharp (SupportedDevices.cs).
+-->
+<SupportedDevices>
+  <Devices>
+    <Device Enabled="true" Type="NoteAcceptor" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+      <ExtensionPath>/Hardware/NoteAcceptor</ExtensionPath>
+      <BaudRate></BaudRate>
+      <Parity></Parity>
+      <DataBits></DataBits>
+      <StopBits></StopBits>
+      <Handshake></Handshake>
+    </Device>
+    <Device Enabled="true" Type="NoteAcceptor" Name="MEI USB GDS" Protocol="GDS" Port="USB" Mode="USB" >
+      <ExtensionPath>/Hardware/NoteAcceptor</ExtensionPath>
+      <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
+      <USBVendorId>vid_0bed</USBVendorId>
+      <USBProductId>pid_0103</USBProductId>
+      <USBProductIdDfu>pid_0105</USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="NoteAcceptor" Name="JCM IVizion USB GDS" Protocol="GDS" Port="USB" Mode="USB">
+      <ExtensionPath>/Hardware/NoteAcceptor</ExtensionPath>
+      <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
+      <USBVendorId>vid_2475</USBVendorId>
+      <USBProductId>pid_0105</USBProductId>
+      <USBProductIdDfu>pid_0109</USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="NoteAcceptor" Name="JCM UBA500 USB GDS" Protocol="GDS" Port="USB" Mode="USB">
+      <ExtensionPath>/Hardware/NoteAcceptor</ExtensionPath>
+      <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
+      <USBVendorId>vid_2475</USBVendorId>
+      <USBProductId>pid_0115</USBProductId>
+      <USBProductIdDfu>pid_0116</USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="NoteAcceptor" Name="JCM Serial ID003" Protocol="ID003" Port="COM4" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/NoteAcceptor</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <Parity>Even</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="NoteAcceptor" Name="MEI Serial EBDS" Protocol="EBDS" Port="COM4" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/NoteAcceptor</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>7</DataBits>
+      <Handshake>None</Handshake>
+      <Parity>Even</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+
+    <Device Enabled="true" Type="Printer" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <BaudRate></BaudRate>
+      <Parity></Parity>
+      <DataBits></DataBits>
+      <StopBits></StopBits>
+      <Handshake></Handshake>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="FutureLogic Gen2 USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
+      <USBVendorId>vid_16f5</USBVendorId>
+      <USBProductId>pid_0203</USBProductId>
+      <USBProductIdDfu>pid_0204</USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="FutureLogic Gen2 Serial TCL" Protocol="JCM TCL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="JCM Gen5 USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
+      <USBVendorId>vid_16f5</USBVendorId>
+      <USBProductId>pid_0803</USBProductId>
+      <USBProductIdDfu>pid_0804</USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="JCM Gen5 Serial TCL" Protocol="JCM TCL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen Serial TCL" Protocol="Nanoptix TCL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
+      <USBVendorId>vid_0f0f</USBVendorId>
+      <USBProductId>pid_1503</USBProductId>
+      <USBProductIdDfu>pid_9503</USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. PayCheck 4 Serial TCL" Protocol="Nanoptix TCL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="TransAct Epic Edge USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <USBClassGUID>4d1e55b2-f16f-11cf-88cb-001111000030</USBClassGUID>
+      <USBVendorId>vid_0613</USBVendorId>
+      <USBProductId>pid_0951</USBProductId>
+      <USBProductIdDfu>pid_9503</USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="TransAct Epic950 Serial EpicTTL" Protocol="EpicTTL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="Printer" Name="TransAct EpicEdge Serial EpicTTL" Protocol="EpicTTL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/Printer</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+
+    <Device Enabled="true" Type="IdReader" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+      <ExtensionPath>/Hardware/IdReader</ExtensionPath>
+      <USBVendorId></USBVendorId>
+      <USBProductId></USBProductId>
+      <USBProductIdDfu></USBProductIdDfu>
+    </Device>
+    <Device Enabled="true" Type="IdReader" Name="UNIFORM USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/IdReader</ExtensionPath>
+      <USBVendorId>vid_6352</USBVendorId>
+      <USBProductId>pid_240a</USBProductId>
+      <USBProductIdDfu>pid_240a</USBProductIdDfu>
+    </Device>
+
+    <Device Enabled="true" Type="ReelController" Name="Harkey Reel Controller" Protocol="Harkey" Port="COM10" Mode="RS232" InspectionTimeout="60000">
+      <ExtensionPath>/Hardware/ReelController</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="ReelController" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+      <ExtensionPath>/Hardware/ReelController</ExtensionPath>
+      <USBVendorId></USBVendorId>
+      <USBProductId></USBProductId>
+      <USBProductIdDfu></USBProductIdDfu>
+    </Device>
+  </Devices>
+</SupportedDevices>

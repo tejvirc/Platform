@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Gaming.GameInstaller">
+  <Fields>
+    <Field FieldName="Game.Packages" DataType="Byte" Count="2" />
+  </Fields>
+</BlockFormat>

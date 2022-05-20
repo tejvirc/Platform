@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.PlayerBank" >
+  <Fields>
+    <Field DataType="Guid" FieldName="CurrentTransactionId" />
+  </Fields>
+</BlockFormat>

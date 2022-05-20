@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Aristocrat.Monaco.Asp.Client.DataSources.DataSourceRegistry" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\DataSources\DataSourceRegistry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.DataSources.DummyDataSource" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAACAAAAAAAAAARAAAAAAAAAAAAEQAAAAAA=</HashCode>
+      <FileName>Client\DataSources\DummyDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Devices.Fields.FieldFactory" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Devices\Fields\FieldFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Devices.Fields.ByteField" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQQAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Devices\Fields\ByteField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Devices.Fields.LongField" Collapsed="true">
+    <Position X="10.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQQAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Devices\Fields\LongField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Devices.Fields.StringField" Collapsed="true">
+    <Position X="1.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQQAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Devices\Fields\StringField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Devices.Fields.ULongField" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQQAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Devices\Fields\ULongField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Devices.Fields.WordField" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQQAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Devices\Fields\WordField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Devices.Fields.Field" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgIAAAAAAAgAAAAAAgAQAQCBAAEAAAUAgAAAAAAA=</HashCode>
+      <FileName>Client\Devices\Fields\Field.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.DataSources.EgmMetersDataSource" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAABQAgQAoAACAAAAAAAEQAAAAAA=</HashCode>
+      <FileName>Client\DataSources\EGMMetersDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.DataSources.EgmPropertyDataSource" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAICAAhAAAEAAESRAAAAAAAgABAGQAAAAIE=</HashCode>
+      <FileName>Client\DataSources\EGMPropertyDataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IAspClient">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IAspClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IByteArrayReader">
+    <Position X="15.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAACAUAAAAARgAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IByteArrayReader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IByteArrayWriter">
+    <Position X="17.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Client\Contracts\IByteArrayWriter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IDataBindable">
+    <Position X="1.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAACAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IDataBindable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IDataSource">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAQAAAAAAAAAAAAEQAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IDataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IDataSourceRegistry">
+    <Position X="13" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IDataSourceRegistry.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IField">
+    <Position X="1.25" Y="7.25" Width="1.5" />
+    <InheritanceLine Type="Aristocrat.Monaco.Asp.Client.Contracts.IByteSerializer" ManuallyRouted="true">
+      <Path>
+        <Point X="4.75" Y="5.046" />
+        <Point X="4.75" Y="6.375" />
+        <Point X="2" Y="6.375" />
+        <Point X="2" Y="7.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IField.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IFieldPrototype">
+    <Position X="1.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAABAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IFieldPrototype.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IMask" Collapsed="true">
+    <Position X="8.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAABAAAAAAAAAAAAAAAAAAAgAgAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IMask.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IParameter">
+    <Position X="3.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAgAA=</HashCode>
+      <FileName>Client\Contracts\IParameter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IParameterFactory">
+    <Position X="5.5" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>Client\Contracts\IParameterFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IParameterProcessor">
+    <Position X="19.75" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gIAQAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IParameterProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IParameterPrototype">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAoAAAAAAAAAAAAgAAAAAAAEAAgAAFAAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IParameterPrototype.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Contracts.IByteSerializer">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\IByteSerializer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Contracts.AccessType">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAIAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\AccessType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Contracts.EventAccessType">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIgAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\EventAccessType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Contracts.FieldType">
+    <Position X="8.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAABAAAAAIAAAgFAAAAAAJAAgAAAEAAAAAAAA=</HashCode>
+      <FileName>Client\Contracts\FieldType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Contracts.MaskOperation" Collapsed="true">
+    <Position X="8.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAgAAAAAAAgIAAAAAAAAAAgAAgAAAAAAQAACA=</HashCode>
+      <FileName>Client\Contracts\MaskOperation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

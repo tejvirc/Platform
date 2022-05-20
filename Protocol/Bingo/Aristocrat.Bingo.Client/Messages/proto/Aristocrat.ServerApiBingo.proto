@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+option csharp_namespace = "Aristocrat.ServerApiGateway";
+
+package aristocrat_bingo_server_api_gateway;
+
+message BingoGamePlayResponseMeta {
+    message CardPlayed{
+        uint32 serial = 1;
+        int32 daubBitPattern = 2;
+        bool gewFlag = 3;
+    }
+
+    message WinResult {
+        int32 patternId = 1;
+        int32 payout = 2;
+        int32 ballQuantity = 3;
+        int32 bitPattern = 4;
+        int32 paytableId = 5;
+        string patternName = 6;
+        uint32 cardSerial = 7;
+        bool gewFlag = 8;
+        int32 winIndex = 9;
+    }
+
+    repeated CardPlayed cards = 1;
+    string ballCall = 2;
+    repeated WinResult winResults = 3;
+    string paytable = 4;
+    int32 gameEndWinEligibility = 5;
+    int32 joinBallNumber = 6;
+}
+
+message BingoGamePlayMeta {
+    // special patterns
+    // persistent states (for example coin collection)
+}
+
+message BingoGameClaimWinMeta {
+    uint32 cardSerial = 1;
+}
+
+message BingoGameOutcomeMeta {
+    enum ReportType{
+        Update = 0;
+        End = 1;
+    }
+
+    message CardPlayed {
+        uint32 serial = 1;
+        int32 daubBitPattern = 2;
+        bool gewFlag = 3; // was this the card able to get the game end win
+    }
+
+    // WinResult may be progressive win, payout is win amount from specific pattern win
+    message WinResult {
+        int32 patternId = 1;
+        int64 payout = 2;
+        int32 ballQuantity = 3;
+        int32 bitPattern = 4;
+        int32 paytableId = 5;
+        string patternName = 6;
+        uint32 cardSerial = 7;
+        bool gewFlag = 8; // is this a win result for a game end win
+        int32 winIndex = 9;
+    }
+
+    repeated CardPlayed cards = 1;
+    string ballCall = 2;
+    repeated WinResult winResults = 3;
+    string paytable = 4;
+    ReportType reportType = 5;
+    int32 gameEndWinEligibility = 6;
+    int32 joinBallNumber = 7;
+}

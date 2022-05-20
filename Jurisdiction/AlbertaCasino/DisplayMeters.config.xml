@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DisplayMetersConfiguration>
+  <MeterNodes>
+    <!-- commented out meters are for future releases -->
+    <!-- column 2. Order values over 100 indicate the meter should display in the 2nd column -->
+
+    <MeterNode Page="MainPage" Name="WageredAmount" DisplayName="Coin In" Order="1" />
+    <MeterNode Page="MainPage" Name="EgmPaidGameWonAmt" DisplayName="Coin Out" Order="2" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="3" />
+    <MeterNode Page="MainPage" Name="TotalCashIn" DisplayName="Bill In" Order="4" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="5" />
+    <MeterNode Page="MainPage" Name="TrueCoinIn" DisplayName="Physical Coin In" Order="6" />
+    <MeterNode Page="MainPage" Name="TrueCoinOut" DisplayName="Physical Coin Out" Order="7" />
+    <MeterNode Page="MainPage" Name="CoinDrop" DisplayName="Coin Drop" Order="8" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="9" />
+    <MeterNode Page="MainPage" Name="TotalVoucherInCashableAndPromoAmount" DisplayName="Voucher In" Order="10" />
+    <MeterNode Page="MainPage" Name="TotalVoucherOutCashableAndPromoAmount" DisplayName="Voucher Out" Order="11" />
+    <MeterNode Page="MainPage" Name="VoucherInNonCashablePromotionalValue" DisplayName="Coupon Promotion In" Order="12" />
+    <MeterNode Page="MainPage" Name="VoucherOutNonCashablePromotionalValue" DisplayName="Coupon Promotion Out" Order="13" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="14" />
+    <MeterNode Page="MainPage" Name="HandpaidCancelAmount" DisplayName="Attendant Paid Cancelled Credits" Order="15" />
+    <MeterNode Page="MainPage" Name="HandPaidGameWonAmt" DisplayName="Attendant Paid Jackpots" Order="16" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="17" />
+    <MeterNode Page="MainPage" Name="WageredPromoAmount" DisplayName="Cashable Promotion Credits Wagered" Order="18" />
+    <MeterNode Page="MainPage" Name="WageredNonCashableAmount" DisplayName="Non-Cashable Promotion Credits Wagered" Order="19" />
+    <MeterNode Page="MainPage" Name="Sas.AftDebitTransfers" DisplayName="EFT In (Electronic Funds Transfer In)" Order="101" />
+    <MeterNode Page="MainPage" Name="WatOnCashableValue" DisplayName="WAT In (Wagering Account Transfer In)" Order="102" />
+    <MeterNode Page="MainPage" Name="WatOffCashableValue" DisplayName="WAT Out (Wagering Account Transfer Out)" Order="103" />
+    <MeterNode Page="MainPage" Name="WatOnCashablePromotionalValue" DisplayName="Cashable Electronic Promotion In" Order="104" />
+    <MeterNode Page="MainPage" Name="WatOffCashablePromotionalValue" DisplayName="Cashable Electronic Promotion Out" Order="105" />
+    <MeterNode Page="MainPage" Name="WatOnNonCashablePromotionalValue" DisplayName="Non-Cashable Electronic Promotion In" Order="106" />
+    <MeterNode Page="MainPage" Name="WatOffNonCashablePromotionalValue" DisplayName="Non-Cashable Electronic Promotion Out" Order="107" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="108" />
+    <MeterNode Page="MainPage" Name="EgmPaidBonusAmount" DisplayName="Machine Paid External Bonus Payout" Order="109" />
+    <MeterNode Page="MainPage" Name="AttendantPaidBonusAmount" DisplayName="Attendant Paid External Bonus Payout" Order="110" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="111" />
+    <MeterNode Page="MainPage" Name="EgmPaidProgWonAmt" DisplayName="Machine Paid Progressive Payout" Order="112" />
+    <MeterNode Page="MainPage" Name="HandPaidProgWonAmt" DisplayName="Attendant Paid Progressive Payout" Order="113" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="114" />
+    <MeterNode Page="MainPage" Name="PlayedCount" DisplayName="Games Played Since Initialization" Order="115" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceReboot" DisplayName="Games Played Since Reboot" Period="false" Order="116" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceDoorClosed" DisplayName="Games Played Since Door Closed" Period="false" Order="117" />
+    <MeterNode Page="MainPage" Name="blank line" DisplayName="" Order="118" />
+    <MeterNode Page="MainPage" Name="TotalIn" DisplayName="Total Credits In" Order="119" />
+    <MeterNode Page="MainPage" Name="TotalOut" DisplayName="Total Credits Out" Order="120" />    
+    <MeterNode Page="MainPage" Name="DropMeter" DisplayName="Drop Meter (Bill and Ticket)" Order="121" />
+
+    <MeterNode Page="Hardware" Name="MainDoorOpenTotal" DisplayName="Main Door Access" Order="1" />
+    <MeterNode Page="Hardware" Name="LogicDoorOpenTotal" DisplayName="Logic Door Access" Order="2" />
+    <MeterNode Page="Hardware" Name="BellyDoorOpenTotal" DisplayName="Belly Door Access" Order="3" />
+    <MeterNode Page="Hardware" Name="CashDoorOpenTotal" DisplayName="Stacker Door Access" Order="4" />
+    <MeterNode Page="Hardware" Name="TopBoxDoorOpenTotal" DisplayName="Top Box Door Access" Order="5" />
+    <MeterNode Page="Hardware" Name="DropDoorOpenTotal" DisplayName="Drop Door Access" Order="6" />
+    <MeterNode Page="Hardware" Name="MainOpticDoorOpenTotal" DisplayName="Main Door Optic Access" Order="7" />
+    <MeterNode Page="Hardware" Name="TopBoxOpticDoorOpenTotal" DisplayName="Top Box Optic Door Access" Order="8" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="9" />
+    <MeterNode Page="Hardware" Name="PowerReset" DisplayName="Power Reset" Order="10" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="11" />
+    <MeterNode Page="Hardware" Name="TopTouchScreenDisconnect" DisplayName="Top Touch Screen Disconnect" Order="12" />
+    <MeterNode Page="Hardware" Name="MainTouchScreenDisconnect" DisplayName="Main Touch Screen Disconnect" Order="13" />
+    <MeterNode Page="Hardware" Name="VBDTouchScreenDisconnect" DisplayName="VBD Touch Screen Disconnect" Order="14" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="15" />
+    <MeterNode Page="Hardware" Name="TopperVideoDisplayDisconnect" DisplayName="Topper Video Display Disconnect" Order="16" />
+    <MeterNode Page="Hardware" Name="TopVideoDisplayDisconnect" DisplayName="Top Video Display Disconnect" Order="17" />
+    <MeterNode Page="Hardware" Name="MainVideoDisplayDisconnect" DisplayName="Main Video Display Disconnect" Order="18" />
+    <MeterNode Page="Hardware" Name="VBDVideoDisplayDisconnect" DisplayName="VBD Video Display Disconnect" Order="19" />
+    
+    <MeterNode Page="Hardware" Name="ProgressiveDisconnect" DisplayName="Progressive Disconnect" Order="101" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="102" />
+    <MeterNode Page="Hardware" Name="SmartCardError" DisplayName="Smartcard Error" Order="103" />
+    <MeterNode Page="Hardware" Name="PlayerButtonError" DisplayName="Player Button Error" Order="104" />
+    <MeterNode Page="Hardware" Name="BatteryLow" DisplayName="Battery Low Error" Order="105" />
+    <MeterNode Page="Hardware" Name="MemoryError" DisplayName="Memory Error" Order="106" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="107" />
+    <MeterNode Page="Hardware" Name="NoteAcceptorDisconnect" DisplayName="Note Acceptor Disconnect" Order="108" />
+    <MeterNode Page="Hardware" Name="NoteAcceptorError" DisplayName="Note Acceptor Error" Order="109" />
+    <MeterNode Page="Hardware" Name="StackerRemoved" DisplayName="Stacker Removed" Order="110" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="111" />
+    <MeterNode Page="Hardware" Name="PrinterDisconnect" DisplayName="Printer Disconnect" Order="112" />
+    <MeterNode Page="Hardware" Name="PrinterError" DisplayName="Printer Error" Order="113" />
+    <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="114" />
+    <MeterNode Page="Hardware" Name="MechanicalMeterDoorOpen" DisplayName="Mechanical Meter Door Access" Order="115" />
+    <MeterNode Page="Hardware" Name="MechanicalMeterDisconnect" DisplayName="Mechanical Meter Disconnect" Order="116" />
+    <MeterNode Page="Hardware" Name="MechanicalMeterError" DisplayName="Mechanical Meter Error" Order="117" />
+
+    <MeterNode Page="Game" Name="WageredAmount" DisplayName="Total Coin In (Turnover)" Order="1" />
+    <MeterNode Page="Game" Name="blank line" DisplayName="" Order="2" />
+    <MeterNode Page="Game" Name="TotalEgmPaidAmt" DisplayName="Total Coin Out (Machine Paid)" Order="3" />
+    <MeterNode Page="Game" Name="EgmPaidGameWonAmt" DisplayName="    Machine Paid Paytable Win" Order="4" />
+    <MeterNode Page="Game" Name="EgmPaidProgWonAmt" DisplayName="    Machine Paid Progressive Win" Order="5" />
+    <MeterNode Page="Game" Name="EgmPaidBonusAmount" DisplayName="    Machine Paid External Bonus Win" Order="6" />
+    <MeterNode Page="Game" Name="blank line" DisplayName="" Order="7" />
+    <MeterNode Page="Game" Name="TotalHandPaidAmt" DisplayName="Total Jackpot (Attendant Paid)" Order="8" />
+    <MeterNode Page="Game" Name="HandPaidGameWonAmt" DisplayName="    Attendant Paid Paytable Win" Order="9" />
+    <MeterNode Page="Game" Name="HandPaidProgWonAmt" DisplayName="    Attendant Paid Progressive Win" Order="10" />
+    <MeterNode Page="Game" Name="AttendantPaidBonusAmount" DisplayName="    Attendant Paid External Bonus Win" Order="11" />
+    <MeterNode Page="Game" Name="blank line" DisplayName="" Order="12" />
+    <MeterNode Page="Game" Name="TotalPaidAmt" DisplayName="Total Wins" Order="13" />
+    <MeterNode Page="Game" Name="PlayedCount" DisplayName="Games Played" Order="101" />
+    <MeterNode Page="Game" Name="WonCount" DisplayName="Games Won" Order="102" />
+    <MeterNode Page="Game" Name="LostCount" DisplayName="Games Lost" Order="103" />
+    <MeterNode Page="Game" Name="blank line" DisplayName="" Order="104" />
+    <MeterNode Page="Game" Name="PrimaryWonAmount" DisplayName="Primary Game Amount Won" Order="105" />
+    <MeterNode Page="Game" Name="SecondaryWageredAmount" DisplayName="Double Up Amount Wagered" Order="106" />
+    <MeterNode Page="Game" Name="SecondaryWonAmount" DisplayName="Double Up Amount Won" Order="107" />
+    <MeterNode Page="Game" Name="SecondaryPlayedCount" DisplayName="Double Up Games Played" Order="108" />
+    <MeterNode Page="Game" Name="SecondaryTiedAndWonCount" DisplayName="Double Up Games Won" Order="109" />
+
+    <MeterNode Page="Denom" Name="WageredAmount" DisplayName="Total Coin In (Turnover)" Order="1" />
+    <MeterNode Page="Denom" Name="blank line" DisplayName="" Order="2" />
+    <MeterNode Page="Denom" Name="TotalEgmPaidAmt" DisplayName="Total Coin Out (Machine Paid)" Order="3" />
+    <MeterNode Page="Denom" Name="EgmPaidGameWonAmt" DisplayName="    Machine Paid Paytable Win" Order="4" />
+    <MeterNode Page="Denom" Name="EgmPaidProgWonAmt" DisplayName="    Machine Paid Progressive Win" Order="5" />
+    <MeterNode Page="Denom" Name="EgmPaidBonusAmount" DisplayName="    Machine Paid External Bonus Win" Order="6" />
+    <MeterNode Page="Denom" Name="blank line" DisplayName="" Order="7" />
+    <MeterNode Page="Denom" Name="TotalHandPaidAmt" DisplayName="Total Jackpot (Attendant Paid)" Order="8" />
+    <MeterNode Page="Denom" Name="HandPaidGameWonAmt" DisplayName="    Attendant Paid Paytable Win" Order="9" />
+    <MeterNode Page="Denom" Name="HandPaidProgWonAmt" DisplayName="    Attendant Paid Progressive Win" Order="10" />
+    <MeterNode Page="Denom" Name="AttendantPaidBonusAmount" DisplayName="    Attendant Paid External Bonus Win" Order="11"  />
+    <MeterNode Page="Denom" Name="blank line" DisplayName="" Order="12" />
+    <MeterNode Page="Denom" Name="TotalPaidAmt" DisplayName="Total Wins" Order="13" />
+    <MeterNode Page="Denom" Name="PlayedCount" DisplayName="Games Played" Order="101" />
+    <MeterNode Page="Denom" Name="WonCount" DisplayName="Games Won" Order="102" />
+    <MeterNode Page="Denom" Name="LostCount" DisplayName="Games Lost" Order="103"  />
+
+    <MeterNode Page="Progressives" Name="ProgressivePackName" DisplayName="Pack Name" Order="1" />
+    <MeterNode Page="Progressives" Name="LevelName" DisplayName="Level" Order="2" />
+    <MeterNode Page="Progressives" Name="WagerBetLevels" DisplayName="Bet Level" Order="3" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WageredAmount" DisplayName="Wagered" Order="4" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="5" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="6" />
+  </MeterNodes>
+</DisplayMetersConfiguration>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:CCI="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://mediaDisplay.igt.com" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-26 v1b2">
+	<xs:import namespace="http://mediaDisplay.igt.com" schemaLocation="mdInclude.xsd"/>
+	<!--Simple Data Types-->
+	<!--Attribute Groups.-->
+	<xs:attributeGroup name="p_activeContent">
+		<xs:annotation>
+			<xs:documentation>activeContent Attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="mediaDisplayId" type="CCI:t_deviceId" use="required"/>
+		<xs:attribute name="contentId" type="CCI:t_contentId" use="required"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="p_contentMessage">
+		<xs:annotation>
+			<xs:documentation>contentMessage Attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="mediaDisplayId" type="CCI:t_deviceId" use="required"/>
+		<xs:attribute name="contentId" type="CCI:t_contentId" use="required"/>
+	</xs:attributeGroup>
+	<!--Complex Data Types.-->
+	<xs:complexType name="c_getActiveContent">
+		<xs:annotation>
+			<xs:documentation>getActiveContent Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_activeContentList">
+		<xs:annotation>
+			<xs:documentation>activeContentList Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="CCI:activeContent" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_activeContent">
+		<xs:annotation>
+			<xs:documentation>activeContent Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attributeGroup ref="CCI:p_activeContent"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_contentMessage">
+		<xs:annotation>
+			<xs:documentation>contentMessage Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="CCI:contentData"/>
+				</xs:sequence>
+				<xs:attributeGroup ref="CCI:p_contentMessage"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_contentData">
+		<xs:annotation>
+			<xs:documentation>contentData Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:base64Binary"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="c_contentMessageAck">
+		<xs:annotation>
+			<xs:documentation>contentMessageAck Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Sub-Elements.-->
+	<xs:element name="activeContent">
+		<xs:annotation>
+			<xs:documentation>activeContent Sub-Element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CCI:c_activeContent">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="contentData">
+		<xs:annotation>
+			<xs:documentation>contentData Sub-Element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CCI:c_contentData">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Commands.-->
+	<xs:element name="getActiveContent">
+		<xs:annotation>
+			<xs:documentation>getActiveContent Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CCI:c_getActiveContent">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="activeContentList">
+		<xs:annotation>
+			<xs:documentation>activeContentList Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CCI:c_activeContentList">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="contentMessage">
+		<xs:annotation>
+			<xs:documentation>contentMessage Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CCI:c_contentMessage">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="contentMessageAck">
+		<xs:annotation>
+			<xs:documentation>contentMessageAck Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CCI:c_contentMessageAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Functional Group.-->
+	<xs:element name="mdContentToContent">
+		<xs:annotation>
+			<xs:documentation>mdContentToContent Functional Group.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_baseClass">
+					<xs:choice minOccurs="0">
+						<xs:element ref="CCI:getActiveContent"/>
+						<xs:element ref="CCI:activeContentList"/>
+						<xs:element ref="CCI:contentMessage"/>
+						<xs:element ref="CCI:contentMessageAck"/>
+						<xs:any namespace="##other" processContents="lax"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--End of Extension.-->
+</xs:schema>

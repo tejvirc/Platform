@@ -1,0 +1,84 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>Aristocrat.Monaco.Localization</AssemblyTitle>
+    <Company>Aristocrat Technologies Inc.</Company>
+    <Product>Monaco</Product>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2019</Copyright>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Localization.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Localization.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DocumentationFile />
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.Designer.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.en-CA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.fr-CA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Resources.Designer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\EN_CashOut.png" />
+    <Content Include="Resources\FR_CashOut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+</Project>

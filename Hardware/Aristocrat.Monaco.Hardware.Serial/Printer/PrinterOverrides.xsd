@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Overrides">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Override">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="AuditTickets">
+                <xs:complexType>
+                  <xs:attribute name="PlatformTemplateIds" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="TemplateChanges">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="TemplateChange">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="PlatformTemplateId" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="Regions" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="Replacements">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" name="GlobalRegionTextReplace">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="GlobalReplace">
+                            <xs:complexType>
+                              <xs:attribute name="Replace" type="xs:string" use="required" />
+                              <xs:attribute name="With" type="xs:string" use="required" />
+                              <xs:attribute name="OnlyFirstOccurrencePerLine" type="xs:boolean" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="RegionTextReplace">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="TextReplace">
+                            <xs:complexType>
+                              <xs:attribute name="PlatformTemplateIds" type="xs:string" use="optional" default="" />
+                              <xs:attribute name="RegionId" type="xs:string" use="required" />
+                              <xs:attribute name="Description" type="xs:string" use="required" />
+                              <xs:attribute name="Replace" type="xs:string" use="required" />
+                              <xs:attribute name="With" type="xs:string" use="required" />
+                              <xs:attribute name="LeadingText" type="xs:string" use="optional" default="" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ChangeRegionCase">
+                      <xs:complexType>
+                          <xs:attribute name="RegionId" type="xs:string" use="required" />
+                          <xs:attribute name="Description" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="TextSplitForRegion">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Split">
+                            <xs:complexType>
+                              <xs:attribute name="RegionId" type="xs:string" use="required" />
+                              <xs:attribute name="NewRegionId" type="xs:string" use="required" />
+                              <xs:attribute name="Description" type="xs:string" use="required" />
+                              <xs:attribute name="RegEx" type="xs:string" use="optional" default="" />
+                              <xs:attribute name="FormatString" type="xs:string" use="optional" default="" />
+                              <xs:attribute name="LeadingText" type="xs:string" use="optional" default="" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="TextCombine">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="RegionTextCombine">
+                            <xs:complexType>
+                              <xs:attribute name="PlatformTemplateIds" type="xs:string" use="required" />
+                              <xs:attribute name="RegionIds" type="xs:string" use="required" />
+                              <xs:attribute name="NewRegionId" type="xs:string" use="required" />
+                              <xs:attribute name="LeadingText" type="xs:string" use="optional" default="" />
+                              <xs:attribute name="JoinText" type="xs:string"  use="optional" default="" />
+                              <xs:attribute name="TrailingText" type="xs:string"  use="optional" default="" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="NewPrinterTemplates">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="NewRegion">
+                      <xs:complexType>
+                        <xs:attribute name="Description" type="xs:string" use="required" />
+                        <xs:attribute name="PrinterRegionId" type="xs:string" use="required" />
+                        <xs:attribute name="Command" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="NewTemplate">
+                      <xs:complexType>
+                        <xs:attribute name="Description" type="xs:string" use="required" />
+                        <xs:attribute name="PrinterTemplateId" type="xs:string" use="required" />
+                        <xs:attribute name="Command" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="PrinterTemplateMappings">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Mapping">
+                      <xs:complexType>
+                        <xs:attribute name="Description" type="xs:string" use="required" />
+                        <xs:attribute name="PlatformTemplateId" type="xs:string" use="required" />
+                        <xs:attribute name="PrinterTemplateId" type="xs:string" use="required" />
+                        <xs:attribute name="Regions" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" name="FontOverrides">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="FontOverride">
+                      <xs:complexType>
+                        <xs:attribute name="RegionIds" type="xs:string" use="required" />
+                        <xs:attribute name="OriginalFontNumber" type="xs:string" use="required" />
+                        <xs:attribute name="NewFontNumber" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Protocol" type="xs:string" use="required" />
+            <xs:attribute name="FirmwareBase" type="xs:string" use="required" />
+            <xs:attribute name="UsePrinterDefinedTemplates" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

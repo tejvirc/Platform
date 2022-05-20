@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Application.ConfigWizardConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="ConfigWizard.DoorOptics.Enabled" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Application.ConfigWizardConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="ConfigWizard.DoorOptics.Enabled" />
+      <Field DataType="Int64" FieldName="HardMeterTickValue" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Application.ConfigWizardConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="ConfigWizard.DoorOptics.Enabled" />
+      <Field DataType="Int64" FieldName="HardMeterTickValue" />
+	  <Field DataType="Bool" FieldName="ConfigWizard.BellyPanelDoor.Enabled" />
+      <Field DataType="String" Size="128" FieldName="TowerLightTierTypeSelection" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

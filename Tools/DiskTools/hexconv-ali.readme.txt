@@ -1,0 +1,15 @@
+HEXCONV - hexconv-ali.exe 
+
+convers hex string to binary file
+
+Usage: hexconv-ali.exe hexstr outputfile
+example hexconv-ali.exe deadbeef deadbeef.bin
+
+
+example:
+------------------------------------------------
+rem outputs deadbeef.bin with binary content '0xde' '0xaf' '0xbe' '0xef'
+hexconv-ali.exe deadbeef deadbeef.bin
+------------------------------------------------
+
+

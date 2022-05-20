@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Addin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="Dependencies">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Addin">
+                  <xs:complexType>
+                    <xs:attribute name="id" type="xs:string" use="required" />
+                    <xs:attribute name="version" type="xs:decimal" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Runtime">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="Import">
+                  <xs:complexType>
+                    <xs:attribute name="assembly" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" name="Extension">
+            <xs:complexType mixed="true">
+              <xs:sequence>
+                <xs:element minOccurs="0" name="BootExtender">
+                  <xs:complexType>
+                    <xs:attribute name="type" type="xs:string" use="required" />
+                    <xs:attribute name="filterid" type="xs:string" use="optional" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="TransactionHistoryProvider">
+                  <xs:complexType>
+                    <xs:attribute name="type" type="xs:string" use="required" />
+                    <xs:attribute name="maxTransactions" type="xs:short" use="required" />
+                    <xs:attribute name="persistenceLevel" type="xs:string" use="required" />
+                    <xs:attribute name="isPrintable" type="xs:boolean" use="optional" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="Triggers">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element maxOccurs="unbounded" name="Door">
+                        <xs:complexType>
+                          <xs:attribute name="name" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="Runnable">
+                  <xs:complexType>
+                    <xs:attribute name="type" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="DoorMonitorConfiguration">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="DoorOpenAlarm">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="FilePath">
+                              <xs:complexType>
+                                <xs:attribute name="FilePath" type="xs:string" use="required" />
+                                <xs:attribute name="filterid" type="xs:string" use="required" />
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="RepeatSeconds" type="xs:unsignedByte" use="required" />
+                          <xs:attribute name="LoopCount" type="xs:unsignedByte" use="required" />
+                          <xs:attribute name="OperatorCanCancel" type="xs:boolean" use="required" />
+                          <xs:attribute name="CanStopSoundWhenDoorIsClosed" type="xs:boolean" use="optional" default="true"/>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="FilePath">
+                  <xs:complexType>
+                    <xs:attribute name="FilePath" type="xs:string" use="required" />
+                    <xs:attribute name="filterid" type="xs:string" use="optional" />
+                    <xs:attribute name="Name" type="xs:string" use="optional" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="SelectableJurisdiction">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element maxOccurs="unbounded" name="AddinConfigurationGroupReference">
+                        <xs:complexType>
+                          <xs:attribute name="name" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element maxOccurs="unbounded" name="ExtensionPointConfiguration">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="NodeSpecification">
+                              <xs:complexType>
+                                <xs:attribute name="addinId" type="xs:string" use="required" />
+                                <xs:attribute name="filterid" type="xs:string" use="required" />
+                                <xs:attribute name="typeName" type="xs:string" use="optional" />
+                                <xs:attribute name="order" type="xs:unsignedByte" use="optional" />
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                          <xs:attribute name="extensionPath" type="xs:string" use="required" />
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                    <xs:attribute name="description" type="xs:string" use="required" />
+                    <xs:attribute name="id" type="xs:string" use="optional" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute name="path" type="xs:string" use="required" />
+              <xs:attribute name="filterid" type="xs:string" use="optional" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="ExtensionPoint">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ExtensionNode">
+                  <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute name="path" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:string" use="required" />
+      <xs:attribute name="namespace" type="xs:string" use="required" />
+      <xs:attribute name="version" type="xs:decimal" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

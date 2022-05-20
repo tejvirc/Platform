@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+package Aristocrat.Monaco.v1;
+
+import "messages.proto";
+import "presentationType.proto";
+
+service PresentationService {
+	rpc RegisterPresentation(RegisterPresentationRequest) returns(RegisterPresentationResponse) {}
+}
+ 
+message RegisterPresentationRequest {
+	bool result = 1;
+	repeated PresentationType types = 2;
+}
+
+message RegisterPresentationResponse {
+	bool result = 1;
+}

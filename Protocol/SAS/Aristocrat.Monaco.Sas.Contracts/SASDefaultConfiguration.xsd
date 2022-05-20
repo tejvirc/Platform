@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SASDefaultConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="1" name="SASHostPage">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EGMDisabledOnPowerUp" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="BonusTransferStatus" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="TransferLimit">
+                <xs:complexType>
+                  <xs:attribute name="Default" type="xs:unsignedLong" use="optional" default="10000" />
+                  <xs:attribute name="MaxAllowed" type="xs:unsignedLong" use="optional" default="9999999999" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="EGMDisabledOnHostOffline" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+                  <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="MustHaveDualHost" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false"/>
+                  </xs:complexType>
+              </xs:element>
+              <xs:element name="GeneralControl" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true"/>
+                  </xs:complexType>
+              </xs:element>
+			        <xs:element name="ExceptionOverflow" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:attribute name="Behaviour" type="ExceptionOverflowBehavior" use="optional" default="DiscardOldExceptions"/>
+                  </xs:complexType>
+              </xs:element>
+              <xs:element name="AddressConfigurationOnceOnly" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false"/>
+                  </xs:complexType>
+              </xs:element>
+              <xs:element name="Aft" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:attribute name="HostId" type="HostId" use="optional" default="Host1"/>
+                  </xs:complexType>
+              </xs:element>
+              <xs:element name="Validation" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="HostId" type="HostId" use="optional" default="Host1"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="GameStartEnd" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="HostId" type="GameStartEndHost" use="optional" default="Host1"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ConfigurationChangeNotification" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:attribute name="NotificationType" type="ConfigNotificationTypes" use="optional" default="Always"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="HostId">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Host1" />
+      <xs:enumeration value="Host2" />
+      <xs:enumeration value="None" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GameStartEndHost">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Host1" />
+      <xs:enumeration value="Host2" />
+      <xs:enumeration value="Both" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ExceptionOverflowBehavior">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DiscardNewExceptions" />
+      <xs:enumeration value="DiscardOldExceptions" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ConfigNotificationTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Always" />
+      <xs:enumeration value="ExcludeSAS" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

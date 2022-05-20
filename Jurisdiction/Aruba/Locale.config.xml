@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts
+2.  Enter "xsd LocaleConfiguration.xsd /c".  This will generate
+    the corresponding class definition in csharp (LocaleConfiguration.cs).
+-->
+<LocaleConfiguration>
+  <PlayerTicket Locale="en-US" DateFormat="dd/MM/yyyy"/>
+  <OperatorTicket Locale="en-US" DateFormat="dd/MM/yyyy"/>
+  <Operator DateFormat="dd/MM/yyyy"/>
+</LocaleConfiguration>  

@@ -1,0 +1,544 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=_002A_002Eproto/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/CodeInspection/GeneratedCode/GeneratedFileMasks/=_002A_002Egenerated_002Ecs/@EntryIndexedValue">*.generated.cs</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ArrangeTypeMemberModifiers/@EntryIndexedValue">WARNING</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ArrangeTypeModifiers/@EntryIndexedValue">WARNING</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NotDeclaredInParentCulture/@EntryIndexedValue">SUGGESTION</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=NotOverriddenInSpecificCulture/@EntryIndexedValue">SUGGESTION</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=OverriddenWithEmptyValue/@EntryIndexedValue">SUGGESTION</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_FOR/@EntryValue">Required</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_FOREACH/@EntryValue">Required</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_IFELSE/@EntryValue">Required</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpCodeStyle/BRACES_FOR_WHILE/@EntryValue">Required</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ANONYMOUS_METHOD_DECLARATION_BRACES/@EntryValue">NEXT_LINE</s:String>
+	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/BLANK_LINES_AFTER_CONTROL_TRANSFER_STATEMENTS/@EntryValue">1</s:Int64>
+	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/BLANK_LINES_AROUND_SINGLE_LINE_AUTO_PROPERTY/@EntryValue">1</s:Int64>
+	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/BLANK_LINES_AROUND_SINGLE_LINE_INVOCABLE/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INDENT_STYLE/@EntryValue">Space</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/INITIALIZER_BRACES/@EntryValue">NEXT_LINE</s:String>
+	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_BLANK_LINES_IN_CODE/@EntryValue">1</s:Int64>
+	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_BLANK_LINES_IN_DECLARATIONS/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/KEEP_EXISTING_INITIALIZER_ARRANGEMENT/@EntryValue">False</s:Boolean>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/PLACE_ACCESSORHOLDER_ATTRIBUTE_ON_SAME_LINE_EX/@EntryValue">NEVER</s:String>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/PLACE_CONSTRUCTOR_INITIALIZER_ON_SAME_LINE/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/SPACE_AFTER_TYPECAST_PARENTHESES/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/SPACE_AROUND_MULTIPLICATIVE_OP/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/SPACE_WITHIN_SINGLE_LINE_ARRAY_INITIALIZER_BRACES/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/USE_INDENT_FROM_VS/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_AFTER_DECLARATION_LPAR/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_AFTER_INVOCATION_LPAR/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_ARGUMENTS_STYLE/@EntryValue">CHOP_IF_LONG</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_PARAMETERS_STYLE/@EntryValue">CHOP_IF_LONG</s:String>
+	<s:String x:Key="/Default/CodeStyle/CSharpFileLayoutPatterns/Pattern/@EntryValue">&lt;?xml version="1.0" encoding="utf-16"?&gt;&#xD;
+&lt;Patterns xmlns="urn:schemas-jetbrains-com:member-reordering-patterns"&gt;&#xD;
+  &lt;TypePattern DisplayName="COM interfaces or structs"&gt;&#xD;
+    &lt;TypePattern.Match&gt;&#xD;
+      &lt;Or&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Kind Is="Interface" /&gt;&#xD;
+          &lt;Or&gt;&#xD;
+            &lt;HasAttribute Name="System.Runtime.InteropServices.InterfaceTypeAttribute" /&gt;&#xD;
+            &lt;HasAttribute Name="System.Runtime.InteropServices.ComImport" /&gt;&#xD;
+          &lt;/Or&gt;&#xD;
+        &lt;/And&gt;&#xD;
+        &lt;Kind Is="Struct" /&gt;&#xD;
+      &lt;/Or&gt;&#xD;
+    &lt;/TypePattern.Match&gt;&#xD;
+  &lt;/TypePattern&gt;&#xD;
+  &lt;TypePattern DisplayName="xUnit.net Test Classes" RemoveRegions="All"&gt;&#xD;
+    &lt;TypePattern.Match&gt;&#xD;
+      &lt;And&gt;&#xD;
+        &lt;Kind Is="Class" /&gt;&#xD;
+        &lt;HasMember&gt;&#xD;
+          &lt;And&gt;&#xD;
+            &lt;Kind Is="Method" /&gt;&#xD;
+            &lt;HasAttribute Name="Xunit.FactAttribute" Inherited="True" /&gt;&#xD;
+          &lt;/And&gt;&#xD;
+        &lt;/HasMember&gt;&#xD;
+      &lt;/And&gt;&#xD;
+    &lt;/TypePattern.Match&gt;&#xD;
+    &lt;Entry DisplayName="Setup/Teardown Methods"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;Or&gt;&#xD;
+          &lt;Kind Is="Constructor" /&gt;&#xD;
+          &lt;And&gt;&#xD;
+            &lt;Kind Is="Method" /&gt;&#xD;
+            &lt;ImplementsInterface Name="System.IDisposable" /&gt;&#xD;
+          &lt;/And&gt;&#xD;
+        &lt;/Or&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Kind Order="Constructor" /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="All other members" /&gt;&#xD;
+    &lt;Entry DisplayName="Test Methods" Priority="100"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Kind Is="Method" /&gt;&#xD;
+          &lt;HasAttribute Name="Xunit.FactAttribute" /&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Name /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+  &lt;/TypePattern&gt;&#xD;
+  &lt;TypePattern DisplayName="NUnit Test Fixtures" RemoveRegions="All"&gt;&#xD;
+    &lt;TypePattern.Match&gt;&#xD;
+      &lt;And&gt;&#xD;
+        &lt;Kind Is="Class" /&gt;&#xD;
+        &lt;HasAttribute Name="NUnit.Framework.TestFixtureAttribute" Inherited="True" /&gt;&#xD;
+      &lt;/And&gt;&#xD;
+    &lt;/TypePattern.Match&gt;&#xD;
+    &lt;Entry DisplayName="Setup/Teardown Methods"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Kind Is="Method" /&gt;&#xD;
+          &lt;Or&gt;&#xD;
+            &lt;HasAttribute Name="NUnit.Framework.SetUpAttribute" Inherited="True" /&gt;&#xD;
+            &lt;HasAttribute Name="NUnit.Framework.TearDownAttribute" Inherited="True" /&gt;&#xD;
+            &lt;HasAttribute Name="NUnit.Framework.FixtureSetUpAttribute" Inherited="True" /&gt;&#xD;
+            &lt;HasAttribute Name="NUnit.Framework.FixtureTearDownAttribute" Inherited="True" /&gt;&#xD;
+          &lt;/Or&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="All other members" /&gt;&#xD;
+    &lt;Entry DisplayName="Test Methods" Priority="100"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Kind Is="Method" /&gt;&#xD;
+          &lt;HasAttribute Name="NUnit.Framework.TestAttribute" /&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Name /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+  &lt;/TypePattern&gt;&#xD;
+  &lt;TypePattern DisplayName="Default Pattern" RemoveRegions="AllExceptGenerated"&gt;&#xD;
+    &lt;Entry DisplayName="Public Delegates" Priority="100"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Access Is="Public" /&gt;&#xD;
+          &lt;Kind Is="Delegate" /&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Name /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="Public Enums" Priority="100"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Access Is="Public" /&gt;&#xD;
+          &lt;Kind Is="Enum" /&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Name /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="Static Fields and Constants"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;Or&gt;&#xD;
+          &lt;Kind Is="Constant" /&gt;&#xD;
+          &lt;And&gt;&#xD;
+            &lt;Kind Is="Field" /&gt;&#xD;
+            &lt;Static /&gt;&#xD;
+          &lt;/And&gt;&#xD;
+        &lt;/Or&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Kind Order="Constant Field" /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="Fields"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Kind Is="Field" /&gt;&#xD;
+          &lt;Not&gt;&#xD;
+            &lt;Static /&gt;&#xD;
+          &lt;/Not&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Static /&gt;&#xD;
+        &lt;Readonly /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="Constructors"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;Kind Is="Constructor" /&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Static /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="Properties, Indexers"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;Or&gt;&#xD;
+          &lt;Kind Is="Property" /&gt;&#xD;
+          &lt;Kind Is="Indexer" /&gt;&#xD;
+        &lt;/Or&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Static /&gt;&#xD;
+        &lt;Access /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="Interface Implementations" Priority="100"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;And&gt;&#xD;
+          &lt;Kind Is="Member" /&gt;&#xD;
+          &lt;ImplementsInterface /&gt;&#xD;
+        &lt;/And&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;ImplementsInterface Immediate="True" /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="All other members"&gt;&#xD;
+      &lt;Entry.SortBy&gt;&#xD;
+        &lt;Access /&gt;&#xD;
+        &lt;Static /&gt;&#xD;
+        &lt;Virtual /&gt;&#xD;
+        &lt;Override /&gt;&#xD;
+      &lt;/Entry.SortBy&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+    &lt;Entry DisplayName="Nested Types"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;Kind Is="Type" /&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
+  &lt;/TypePattern&gt;&#xD;
+&lt;/Patterns&gt;</s:String>
+
+	<s:Boolean x:Key="/Default/CodeStyle/CSharpUsing/AddImportsToDeepestScope/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=AED/@EntryIndexedValue">AED</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=AFN/@EntryIndexedValue">AFN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=AMD/@EntryIndexedValue">AMD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ANG/@EntryIndexedValue">ANG</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=AOA/@EntryIndexedValue">AOA</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ARS/@EntryIndexedValue">ARS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=AUD/@EntryIndexedValue">AUD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=AWG/@EntryIndexedValue">AWG</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=AZN/@EntryIndexedValue">AZN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BAM/@EntryIndexedValue">BAM</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BBD/@EntryIndexedValue">BBD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BCD/@EntryIndexedValue">BCD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BDT/@EntryIndexedValue">BDT</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BGN/@EntryIndexedValue">BGN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BHD/@EntryIndexedValue">BHD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BIF/@EntryIndexedValue">BIF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BMD/@EntryIndexedValue">BMD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BND/@EntryIndexedValue">BND</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BOB/@EntryIndexedValue">BOB</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BOV/@EntryIndexedValue">BOV</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BRL/@EntryIndexedValue">BRL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BSD/@EntryIndexedValue">BSD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BTN/@EntryIndexedValue">BTN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BWP/@EntryIndexedValue">BWP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BYR/@EntryIndexedValue">BYR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=BZD/@EntryIndexedValue">BZD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CAD/@EntryIndexedValue">CAD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CDF/@EntryIndexedValue">CDF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CHE/@EntryIndexedValue">CHE</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CHF/@EntryIndexedValue">CHF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CHW/@EntryIndexedValue">CHW</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CLF/@EntryIndexedValue">CLF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CLP/@EntryIndexedValue">CLP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CNY/@EntryIndexedValue">CNY</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=COP/@EntryIndexedValue">COP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=COU/@EntryIndexedValue">COU</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CRC/@EntryIndexedValue">CRC</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CSAP/@EntryIndexedValue">CSAP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CUP/@EntryIndexedValue">CUP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CVE/@EntryIndexedValue">CVE</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=CZK/@EntryIndexedValue">CZK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DC/@EntryIndexedValue">DC</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DJF/@EntryIndexedValue">DJF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DKK/@EntryIndexedValue">DKK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DOP/@EntryIndexedValue">DOP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=DZD/@EntryIndexedValue">DZD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=EEK/@EntryIndexedValue">EEK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=EGP/@EntryIndexedValue">EGP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ERN/@EntryIndexedValue">ERN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ETB/@EntryIndexedValue">ETB</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=EUR/@EntryIndexedValue">EUR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=FJD/@EntryIndexedValue">FJD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=FKP/@EntryIndexedValue">FKP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GBP/@EntryIndexedValue">GBP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GDS/@EntryIndexedValue">GDS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GEL/@EntryIndexedValue">GEL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GEW/@EntryIndexedValue">GEW</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GHS/@EntryIndexedValue">GHS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GIP/@EntryIndexedValue">GIP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GMD/@EntryIndexedValue">GMD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GNF/@EntryIndexedValue">GNF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GTQ/@EntryIndexedValue">GTQ</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=GYD/@EntryIndexedValue">GYD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=HKD/@EntryIndexedValue">HKD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=HNL/@EntryIndexedValue">HNL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=HRK/@EntryIndexedValue">HRK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=HTG/@EntryIndexedValue">HTG</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=HUF/@EntryIndexedValue">HUF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ID/@EntryIndexedValue">ID</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=IDR/@EntryIndexedValue">IDR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ILS/@EntryIndexedValue">ILS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=INR/@EntryIndexedValue">INR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=IO/@EntryIndexedValue">IO</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=IP/@EntryIndexedValue">IP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=IQD/@EntryIndexedValue">IQD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=IRR/@EntryIndexedValue">IRR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ISK/@EntryIndexedValue">ISK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ISO/@EntryIndexedValue">ISO</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=JMD/@EntryIndexedValue">JMD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=JOD/@EntryIndexedValue">JOD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=JPY/@EntryIndexedValue">JPY</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KES/@EntryIndexedValue">KES</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KGS/@EntryIndexedValue">KGS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KHR/@EntryIndexedValue">KHR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KMF/@EntryIndexedValue">KMF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KPW/@EntryIndexedValue">KPW</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KRW/@EntryIndexedValue">KRW</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KWD/@EntryIndexedValue">KWD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KYD/@EntryIndexedValue">KYD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=KZT/@EntryIndexedValue">KZT</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LAK/@EntryIndexedValue">LAK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LBP/@EntryIndexedValue">LBP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LCD/@EntryIndexedValue">LCD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LKR/@EntryIndexedValue">LKR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LP/@EntryIndexedValue">LP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LRD/@EntryIndexedValue">LRD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LSL/@EntryIndexedValue">LSL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LTL/@EntryIndexedValue">LTL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LVL/@EntryIndexedValue">LVL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=LYD/@EntryIndexedValue">LYD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MAD/@EntryIndexedValue">MAD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MDL/@EntryIndexedValue">MDL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MGA/@EntryIndexedValue">MGA</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MKD/@EntryIndexedValue">MKD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MMK/@EntryIndexedValue">MMK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MNT/@EntryIndexedValue">MNT</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MOP/@EntryIndexedValue">MOP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MRU/@EntryIndexedValue">MRU</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MUR/@EntryIndexedValue">MUR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MVR/@EntryIndexedValue">MVR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MWK/@EntryIndexedValue">MWK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MXN/@EntryIndexedValue">MXN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MXV/@EntryIndexedValue">MXV</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MYR/@EntryIndexedValue">MYR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MZN/@EntryIndexedValue">MZN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NAD/@EntryIndexedValue">NAD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NGN/@EntryIndexedValue">NGN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NIGC/@EntryIndexedValue">NIGC</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NIO/@EntryIndexedValue">NIO</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NOK/@EntryIndexedValue">NOK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NPR/@EntryIndexedValue">NPR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NYL/@EntryIndexedValue">NYL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=NZD/@EntryIndexedValue">NZD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=OMR/@EntryIndexedValue">OMR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=OS/@EntryIndexedValue">OS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=PAB/@EntryIndexedValue">PAB</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=PEN/@EntryIndexedValue">PEN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=PGK/@EntryIndexedValue">PGK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=PHP/@EntryIndexedValue">PHP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=PKR/@EntryIndexedValue">PKR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=PLN/@EntryIndexedValue">PLN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=PYG/@EntryIndexedValue">PYG</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=QAR/@EntryIndexedValue">QAR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RG/@EntryIndexedValue">RG</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RON/@EntryIndexedValue">RON</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RS/@EntryIndexedValue">RS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RSD/@EntryIndexedValue">RSD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RTP/@EntryIndexedValue">RTP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RUB/@EntryIndexedValue">RUB</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=RWF/@EntryIndexedValue">RWF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SAP/@EntryIndexedValue">SAP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SAR/@EntryIndexedValue">SAR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SAS/@EntryIndexedValue">SAS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=MGAM/@EntryIndexedValue">MGAM</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SBD/@EntryIndexedValue">SBD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SCR/@EntryIndexedValue">SCR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SDG/@EntryIndexedValue">SDG</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SEK/@EntryIndexedValue">SEK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SGD/@EntryIndexedValue">SGD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SHP/@EntryIndexedValue">SHP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SKK/@EntryIndexedValue">SKK</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SLL/@EntryIndexedValue">SLL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SOS/@EntryIndexedValue">SOS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SRD/@EntryIndexedValue">SRD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=STN/@EntryIndexedValue">STN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SYP/@EntryIndexedValue">SYP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=SZL/@EntryIndexedValue">SZL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=THB/@EntryIndexedValue">THB</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TJS/@EntryIndexedValue">TJS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TMM/@EntryIndexedValue">TMM</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TND/@EntryIndexedValue">TND</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TOP/@EntryIndexedValue">TOP</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TRY/@EntryIndexedValue">TRY</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TTD/@EntryIndexedValue">TTD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TTL/@EntryIndexedValue">TTL</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TWD/@EntryIndexedValue">TWD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=TZS/@EntryIndexedValue">TZS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UAH/@EntryIndexedValue">UAH</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UGX/@EntryIndexedValue">UGX</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UI/@EntryIndexedValue">UI</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=USB/@EntryIndexedValue">USB</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=USD/@EntryIndexedValue">USD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=USN/@EntryIndexedValue">USN</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=USS/@EntryIndexedValue">USS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UTF/@EntryIndexedValue">UTF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UYU/@EntryIndexedValue">UYU</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UZS/@EntryIndexedValue">UZS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=VEF/@EntryIndexedValue">VEF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=VND/@EntryIndexedValue">VND</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=VUV/@EntryIndexedValue">VUV</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=WST/@EntryIndexedValue">WST</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XAF/@EntryIndexedValue">XAF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XAG/@EntryIndexedValue">XAG</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XAU/@EntryIndexedValue">XAU</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XBA/@EntryIndexedValue">XBA</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XBB/@EntryIndexedValue">XBB</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XBC/@EntryIndexedValue">XBC</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XBD/@EntryIndexedValue">XBD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XCD/@EntryIndexedValue">XCD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XDR/@EntryIndexedValue">XDR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XFU/@EntryIndexedValue">XFU</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XOF/@EntryIndexedValue">XOF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XPD/@EntryIndexedValue">XPD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XPF/@EntryIndexedValue">XPF</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XPT/@EntryIndexedValue">XPT</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XTS/@EntryIndexedValue">XTS</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=XXX/@EntryIndexedValue">XXX</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=YER/@EntryIndexedValue">YER</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ZAR/@EntryIndexedValue">ZAR</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ZMW/@EntryIndexedValue">ZMW</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=ZWD/@EntryIndexedValue">ZWD</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateConstants/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateStaticReadonly/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E6CDACEAAD0BC34C81B38EEE49C2994E/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E6CDACEAAD0BC34C81B38EEE49C2994E/AbsolutePath/@EntryValue">E:\Aristocrat\Development\Monaco\Monaco.sln.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=E6CDACEAAD0BC34C81B38EEE49C2994E/RelativePath/@EntryValue"></s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE6CDACEAAD0BC34C81B38EEE49C2994E/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=FileE6CDACEAAD0BC34C81B38EEE49C2994E/RelativePriority/@EntryValue">1</s:Double>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpAttributeForSingleLineMethodUpgrade/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpKeepExistingMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpPlaceEmbeddedOnSameLineMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpRenamePlacementToArrangementMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ECSharpUseContinuousIndentInsideBracesMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EAddAccessorOwnerDeclarationBracesMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EAlwaysTreatStructAsNotReorderableMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002ECSharpPlaceAttributeOnSameLineMigration/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EMigrateBlankLinesAroundFieldToBlankLinesAroundProperty/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EMigrateThisQualifierSettings/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=Aristocrat_002EGdkRuntime_002EContract_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=Aristocrat_002EMonaco_002EJurisdictionData_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=Aristocrat_002EMonaco_002ERobotController_002EContracts_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=Aristocrat_002EMonaco_002ERobotController_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=Aristocrat_002EMonaco_002ETest_002EAutomation_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=Aristocrat_002EMonaco_002ETestController_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=Aristocrat_002EMonaco_002ETest_002ECommon_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	
+	
+	<s:Boolean x:Key="/Default/Housekeeping/ExcludedProjects/ProjectMasksToIgnore/=_002A_002ETests_002Ecsproj/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Addin/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Addins/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Ainsworth/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Alesis/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Analytics/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=APDU/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=argb/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Associators/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Bartop/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Bgra/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Bink/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Bonusing/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Caliente/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Cashable/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Cashout/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Comms/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=coord/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=crosshair/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=CSAP/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Dacom/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Defragment/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Defs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=denom/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=denoms/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=DHCP/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=digimon/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Disp/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Diverter/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=EBDS/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Edgelight/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Emdi/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Endian/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Escrowed/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Everi/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=FFFF/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=FPGA/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=FTPES/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=handpaid/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Handpay/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Handpays/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Handshaked/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Harkey/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=HHMMSS/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Hwnd/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=incrementor/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Keyoff/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Kortek/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Localizer/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Mersenne/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=MGAM/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Milli/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=millicents/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=MMDDYYYY/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Multicast/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=mvvm/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=nack/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Nanoptix/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=NDES/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=nonces/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=NVRAM/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Ocsp/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Pari/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Paytable/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=paytables/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=PKCS/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Playline/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=PRNG/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=PRNG_0027s/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Prog/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Reauth/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Rebet/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=reelstrips/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Reimported/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Requestor/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Rtps/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=RTPs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Runnables/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=SAPs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Scep/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=sqlite/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Stackable/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=startable/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=startables/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Templated/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Theo/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=uint_0027s/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=uncarded/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unconfigured/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Undaubed/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unhide/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unplay/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unregister/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unverify/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Updatable/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Waitable/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Xadf/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=XLDF/@EntryIndexedValue">True</s:Boolean>
+	</wpf:ResourceDictionary>

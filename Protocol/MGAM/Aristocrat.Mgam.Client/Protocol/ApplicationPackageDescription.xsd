@@ -1,0 +1,62 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified">    
+	<xs:element name="ApplicationPackageDescription"> 
+		<xs:complexType>                     
+			<xs:sequence>                            
+				<xs:element name="Header">
+					<xs:complexType>            
+						<xs:sequence>       
+							<xs:element name="Attribute" minOccurs="0" maxOccurs="255">  
+								<xs:complexType>  
+									<xs:attribute name="Name"/>
+									<xs:attribute name="Value"/>   
+									<xs:attribute name="Type"/>    
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="PackageName"/>
+						<xs:attribute name="ApplicationGUID"/>
+						<xs:attribute name="PackageVersion"/>
+						<xs:attribute name="Signature"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Resources">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Resource" minOccurs="0" maxOccurs="255">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Attributes" minOccurs="0" maxOccurs="255">
+											<xs:complexType>
+												<xs:attribute name="Name"/>
+												<xs:attribute name="Value"/>
+												<xs:attribute name="Type"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="FileLocation"/>
+									<xs:attribute name="Name"/>
+									<xs:attribute name="ResourceGUID"/>
+									<xs:attribute name="Checksum"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Footer">
+					<xs:complexType> 
+						<xs:sequence>
+							<xs:element name="Attribute" minOccurs="0" maxOccurs="255">
+								<xs:complexType>
+									<xs:attribute name="Name"/>
+									<xs:attribute name="Value"/>
+									<xs:attribute name="Type"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+    </xs:element>
+</xs:schema> 

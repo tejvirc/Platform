@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="Demonstration" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Demonstration.dll" />
+    <Import assembly="Monaco.Accounting.Contracts.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Demonstration/Runnables">
+    <Demonstration type="Aristocrat.Monaco.Demonstration.DemonstrationRunnable" protocolId="Demonstration" serverProtocolId="126"/>
+  </Extension>
+
+</Addin>

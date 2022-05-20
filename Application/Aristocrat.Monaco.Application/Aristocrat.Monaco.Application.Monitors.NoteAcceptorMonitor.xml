@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Application.Monitors.NoteAcceptorMonitor">
+  <Fields>
+    <Field DataType="Bool" FieldName="Disconnected" />
+    <Field DataType="Bool" FieldName="StackerDisconnected" />
+  </Fields>
+</BlockFormat>

@@ -1,0 +1,35 @@
+<StripCloneMappings>
+  <StripCloneMapping>
+    <From Id="NormalTopperRight"/>
+    <To Id="StaticTopperRight"/>
+  </StripCloneMapping>
+  <StripCloneMapping>
+    <From Id="NormalTopperLeft"/>
+    <To Id="StaticTopperLeft"/>
+  </StripCloneMapping>
+  <StripCloneMapping>
+    <From Id="NormalTopperTop" />
+    <To Id="StaticTopperTop" />
+  </StripCloneMapping>
+  <StripCloneMapping>
+    <From Id="NormalTopperBottom" />
+    <To Id="StaticTopperBottom" />
+  </StripCloneMapping>
+  <StripCloneMapping>
+    <From Id="MainCabinetLeft" />
+    <To Id="VbdLeftStrip" />
+  </StripCloneMapping>
+  <StripCloneMapping>
+    <From Id="MainCabinetBottom" />
+    <To Id="VbdBottomStrip" />
+    <To Id="MainCabinetTop" />
+  </StripCloneMapping>
+  <StripCloneMapping>
+    <From Id="MainCabinetRight" />
+    <To Id="VbdRightStrip" />
+  </StripCloneMapping>
+  <StripCloneMapping>
+    <From Id="MainCabinetBottom" />
+    <To Id="SaddleStrip" />
+  </StripCloneMapping>
+</StripCloneMappings>

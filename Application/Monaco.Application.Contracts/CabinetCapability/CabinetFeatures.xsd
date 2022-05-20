@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Features">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="ScreenBrightnessControl">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="Default" type="xs:int" use="required" />
+            <xs:attribute name="Min" type="xs:int" use="required" />
+            <xs:attribute name="Max" type="xs:int" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="EdgeLightBrightnessControl">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="Default" type="xs:int" use="required" />
+            <xs:attribute name="Min" type="xs:int" use="required" />
+            <xs:attribute name="Max" type="xs:int" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="BottomStrip">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="EdgeLightAsTowerLight">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="Barkeeper">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="SoundChannel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="8" name="Channel">
+                <xs:simpleType>
+                  <xs:restriction base = "xs:string">
+                    <xs:pattern value="SideLeft|SideRight|FrontLeft|FrontRight|Center|RearLeft|RearRight|LowFrequency|All" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="MalfunctionMessage">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="UniversalInterfaceBox">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="HarkeyReelController">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="unbounded" name="DisplayElementsControl">
+	      <xs:complexType>
+		      <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+		      <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+	      </xs:complexType>
+        </xs:element>
+		<xs:element maxOccurs="unbounded" name="BeagleBone">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+            <xs:attribute name="CabinetTypeRegex" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+	  </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

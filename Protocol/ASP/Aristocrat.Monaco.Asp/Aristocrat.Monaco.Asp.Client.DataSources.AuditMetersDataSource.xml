@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<BlockFormat Name="Aristocrat.Monaco.Asp.Client.DataSources.AuditMetersDataSource">
+  <Fields>
+    <Field FieldName="TimeStamp" DataType="Int64" />
+    <Field FieldName="System.CurrentBalance" DataType="Int64" />
+    <Field FieldName="PlayedCount" DataType="Int64" />
+    <Field FieldName="WonCount" DataType="Int64" />
+    <Field FieldName="WageredAmount" DataType="Int64" />
+    <Field FieldName="EgmPaidGameWonAmt" DataType="Int64" />
+    <Field FieldName="TotalHandpaidBonusPayAmount" DataType="Int64" />
+    <Field FieldName="BonusWinCreditMeter" DataType="Int64" />
+    <Field FieldName="MoneyInCoins" DataType="Int64" />
+    <Field FieldName="TotalCashIn" DataType="Int64" />
+    <Field FieldName="TotalEgmPaidAmt" DataType="Int64" />
+    <Field FieldName="ExcessMoneyOut" DataType="Int64" />
+    <Field FieldName="HandpaidCashableAmount" DataType="Int64" />
+    <Field FieldName="MoneyRefills" DataType="Int64" />
+    <Field FieldName="MoneyInCashbox" DataType="Int64" />
+    <Field FieldName="TotalVouchersOut" DataType="Int64" />
+    <Field FieldName="TotalWatOn" DataType="Int64" />
+    <Field FieldName="TotalWatOff" DataType="Int64" />
+    <Field FieldName="TotalVouchersIn" DataType="Int64" />
+    <Field FieldName="TotalHandPaidAmt" DataType="Int64" />
+    <Field FieldName="AuditUpdate" DataType="Bool" />
+  </Fields>
+</BlockFormat>

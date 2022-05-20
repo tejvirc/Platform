@@ -1,0 +1,90 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nuke-build/common/master/source/Nuke.CodeGeneration/schema.json",
+  "references": [
+    "https://tortoisesvn.net/docs/release/TortoiseSVN_en"
+  ],
+  "name": "TortoiseSvn",
+  "officialUrl": "https://tortoisesvn.net/",
+  "help": "TortoiseSVN is a free open-source Windows client for the Apache� Subversion� version control system.",
+  "pathExecutable": "svn",
+  "tasks": [
+    {
+      "help": "Check out a working copy from a repository.",
+      "postfix": "Checkout",
+      "definiteArgument": "checkout",
+      "settingsClass": {
+        "properties": [
+          {
+            "name": "Url",
+            "type": "string",
+            "format": "{value}",
+            "help": "The location of the repository."
+          },
+          {
+            "name": "Path",
+            "type": "string",
+            "format": "{value}",
+            "help": "The local destination path."
+          },
+          {
+            "name": "Depth",
+            "type": "string",
+            "format": "--depth {value}",
+            "help": "Instructs Subversion to limit the scope of an operation to a particular tree depth."
+          },
+          {
+            "name": "IgnoreExternals",
+            "type": "bool",
+            "format": "--ignore-externals",
+            "help": "Tells Subversion to ignore externals definitions and the external working copies managed by them."
+          },
+          {
+            "name": "Revision",
+            "type": "string",
+            "format": "--revision {value}",
+            "help": "Specifies a revision (or range of revisions) on with which to operate."
+          }
+        ]
+      }
+    },
+    {
+      "help": "Exports a clean directory tree from the repository specified by, URL",
+      "postfix": "Export",
+      "definiteArgument": "export",
+      "settingsClass": {
+        "properties": [
+          {
+            "name": "Url",
+            "type": "string",
+            "format": "{value}",
+            "help": "The location of the repository."
+          },
+          {
+            "name": "Path",
+            "type": "string",
+            "format": "{value}",
+            "help": "The local destination path."
+          },
+          {
+            "name": "Depth",
+            "type": "string",
+            "format": "--depth {value}",
+            "help": "Instructs Subversion to limit the scope of an operation to a particular tree depth."
+          },
+          {
+            "name": "IgnoreExternals",
+            "type": "bool",
+            "format": "--ignore-externals",
+            "help": "Tells Subversion to ignore externals definitions and the external working copies managed by them."
+          },
+          {
+            "name": "Revision",
+            "type": "string",
+            "format": "--revision {value}",
+            "help": "Specifies a revision (or range of revisions) on with which to operate."
+          }
+        ]
+      }
+    }
+  ]
+}

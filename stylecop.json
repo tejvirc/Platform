@@ -1,0 +1,15 @@
+﻿{
+  // ACTION REQUIRED: This file was automatically added to your project, but it
+  // will not take effect until additional steps are taken to enable it. See the
+  // following page for additional information:
+  //
+  // https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/EnableConfiguration.md
+
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "companyName": "ARISTOCRAT TECHNOLOGIES AUSTRALIA PTY LTD",
+      "copyrightText": "COPYRIGHT © 2021 {companyName}.\nAbsolutely no use, dissemination or copying in any matter whatsoever\nof this material or any portion of it is to be made without the prior\nwritten authorization of {companyName}.\nAll rights in and to this work are fully reserved"
+    }
+  }
+}

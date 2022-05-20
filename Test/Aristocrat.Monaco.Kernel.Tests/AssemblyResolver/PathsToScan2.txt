@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="PathsToScan2" namespace="Client12Addins" version="1.0">
+	
+	<Dependencies>
+		<Addin id="Monaco.Kernel" version="1.0"/>
+	</Dependencies>
+
+	<Extension path="/Kernel/AssemblyResolver/FileSystemPath">
+		
+		<FileSystemPath fileSystemPath="D:\ThisPathShouldNotExist" recursive="false" />
+		
+	</Extension>
+	
+</Addin>

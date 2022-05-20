@@ -1,0 +1,112 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+    - main
+    - release/*
+    paths:
+    - 'Accounting/**'
+    - 'Application/**'
+    - 'Gaming/**'
+    - 'Hardware/**'
+    - 'Jurisdiction/**'
+    - 'Kernel/**'
+    - 'Protocol/**'
+    - 'Shared/**'
+    - 'Test/**'
+
+  pull_request:
+    branches:
+    - main
+    - release/*
+
+jobs:
+  build:
+    runs-on: windows-2019
+    env:
+      BUILD_COUNTER: ${{ github.run_number }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+      with:
+        dotnet-version: '5.x'
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+    - name: Setup msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Setup VSTest Path
+      uses: darenm/setup-vstest@v1
+    - name: Setup Monaco Tools
+      uses: Aristocrat-Monaco-Platform/actions/setup-monaco@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+    - name: Remove TeamCity NuGet Source
+      run: >
+        dotnet nuget remove source TeamCity --configfile ./NuGet.config
+    - name: Cache .nuke/temp, ~/.nuget/packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          .nuke/temp
+          ~/.nuget/packages
+        key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
+    - name: Build and Test
+      id: buildAndtest
+      shell: pwsh
+      run: |
+        ./build.cmd Coverage --configuration Debug || $True
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: steps.buildAndtest.outcome == 'success'
+      with:
+        name: Unit Tests
+        path: "**/*.trx"
+        reporter: dotnet-trx
+        fail-on-error: true
+    - name: Add Coverage PR Comment
+      continue-on-error: true
+      uses: danhunsaker/clover-reporter-action@v0.2.17-clover
+      if: github.event_name == 'pull_request'
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        clover-file: ./bin/CoverageReport/Clover.xml
+    - name: Build - Release
+      shell: powershell
+      run: |
+        ./build.cmd --target Clean+Compile --configuration Release --deterministic
+    - run: New-Item -ItemType Directory -Name artifacts -Force
+    - name: Create Package - Release
+      if: github.event_name != 'pull_request'
+      run: >
+        monaco image new -d ./bin/Release/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}
+    - name: Create Manifest - Release
+      if: github.event_name != 'pull_request'
+      run: >
+        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.buildAndTest.outputs.assemblySemVer }} -j WinnersWorld
+    - name: Build - Retail
+      shell: powershell
+      run: |
+        ./build.cmd --target Clean+Compile --configuration Retail --deterministic
+    - run: New-Item -ItemType Directory -Name RETAIL_Platform_Files -Path artifacts -Force
+    - name: Create Package - Retail
+      if: github.event_name != 'pull_request'
+      run: >
+        monaco image new -d ./bin/Retail/Platform/bin -p ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}
+    - name: Create Manifest - Release
+      if: github.event_name != 'pull_request'
+      run: >
+        monaco manifest new image -f ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.buildAndTest.outputs.assemblySemVer }} -j WinnersWorld
+    - uses: actions/upload-artifact@v2
+      if: github.event_name != 'pull_request'
+      with:
+        name: ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}
+        path: artifacts/
+        if-no-files-found: error

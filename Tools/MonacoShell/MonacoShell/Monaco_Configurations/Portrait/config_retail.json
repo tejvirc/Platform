@@ -1,0 +1,219 @@
+{
+  "config": {
+    "references": [
+      /* Primary Log Panel */
+      {
+        "PrimaryLogPanelFont": "Arial Bold"
+      },
+      {
+        "PrimaryLogPanelFontSize": 10
+      },
+      {
+        "PrimaryLogPanelFontColor": "00bb22ff"
+      },
+      {
+        "PrimaryLogPanelBackgroundColor": "00000080"
+      },
+      {
+        "PrimaryLogPanelBorderColor": "009bff80"
+      },
+      {
+        "PrimaryLogPanelBorderWidth": 1
+      },
+      /* Progress Bar - Platform Loading */
+      {
+        "ProgressBar-PlatformLoadingFont": "Arial Bold"
+      },
+      {
+        "ProgressBar-PlatformLoadingFontSize": 16
+      },
+      {
+        "ProgressBar-PlatformLoadingFontColor": "ffdd00aa"
+      },
+      {
+        "ProgressBar-PlatformLoadingBackgroundColor": "00000000"
+      },
+      {
+        "ProgressBar-PlatformLoadingFillColor": "0044ddaa"
+      },
+      {
+        "ProgressBar-PlatformLoadingBorderColor": "000000ff"
+      },
+      {
+        "ProgressBar-PlatformLoadingBorderWidth": 1
+      },
+      /* OS Image Version Panel */
+      {
+        "OSImageVersionPanelFont": "Arial"
+      },
+      {
+        "OSImageVersionPanelFontSize": 10
+      },
+      {
+        "OSImageVersionPanelFontColor": "ffdd00ff"
+      },
+      {
+        "OSImageVersionPanelBackgroundColor": "00000000"
+      },
+      {
+        "OSImageVersionPanelBorderColor": "000000ff"
+      },
+      {
+        "OSImageVersionPanelBorderWidth": 0
+      }
+    ],
+    "title": "Platform Shell",
+    "ui": {
+      "title": "Platform Displays",
+      "windows": [
+        { /* Topper Monitor */
+          "title": "Topper",
+          "monitor": "topper",
+          "background": "Image_Resources\\Topper_%s.png"
+        },
+        { /* Top Monitor */
+          "title": "Top",
+          "monitor": "top",
+          "background": "Image_Resources\\Top_%s.png"
+        },
+        { /* Main Monitor */
+          "title": "Main Monitor",
+          "monitor": "main",
+          "background": "Image_Resources\\Main_%s.png",
+          "widgets": [
+            {
+              "type": "textstream",
+              "stream": "os_image_version_panel",
+              "valign": "top",
+              "halign": "left",
+              "margin": 0,
+              "font": "OSImageVersionPanelFont",
+              "fontsize": "OSImageVersionPanelFontSize",
+              "fontcolor": "OSImageVersionPanelFontColor",
+              "bordercolor": "OSImageVersionPanelBorderColor",
+              "borderwidth": "OSImageVersionPanelBorderWidth",
+              "backgroundcolor": "OSImageVersionPanelBackgroundColor",
+              "texthint": "cleartype",
+              "rect": {
+                "x": 0.008,
+                "y": 10,
+                "width": 0.9,
+                "height": 50
+              }
+            },
+            {
+              "type": "textstream",
+              "stream": "primary_log",
+              "margin": 10,
+              "font": "PrimaryLogPanelFont",
+              "fontsize": "PrimaryLogPanelFontSize",
+              "fontcolor": "PrimaryLogPanelFontColor",
+              "bordercolor": "PrimaryLogPanelBorderColor",
+              "borderwidth": "PrimaryLogPanelBorderWidth",
+              "backgroundcolor": "PrimaryLogPanelBackgroundColor",
+              "rect": {
+                "x": 0.008,
+                "y": 0.64,
+                "width": 0.985,
+                "height": 0.33
+              }
+            },
+            { /* Progress Bar - Platform Loading */
+              "type": "progressbar",
+              "dataid": 0,
+              "prefix": "Loading the Platform (",
+              "postfix": ")",
+              "autohide": true,
+              "font": "ProgressBar-PlatformLoadingFont",
+              "fontsize": "ProgressBar-PlatformLoadingFontSize",
+              "fontcolor": "ProgressBar-PlatformLoadingFontColor",
+              "fillcolor": "ProgressBar-PlatformLoadingFillColor",
+              "bordercolor": "ProgressBar-PlatformLoadingBorderColor",
+              "borderwidth": "ProgressBar-PlatformLoadingBorderWidth",
+              "backgroundcolor": "ProgressBar-PlatformLoadingBackgroundColor",
+              "texthint": "cleartype",
+              "rect": {
+                "x": 0.008,
+                "y": 0.98,
+                "width": 0.985,
+                "height": 40
+              }
+            }
+          ]
+        },
+        { /* VBD Monitor */
+          "title": "VBD Display",
+          "monitor": "vbd",
+          "background": "Image_Resources\\VBD_%s.png"
+        }
+      ]
+    },
+    "applications": [
+      {
+        "title": "OS Image Version Display",
+        "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "arguments": "-Command \"& {Write-Host \"\"\"OS Image Version $(Get-Content -Path \"\"\"C:\\\\Aristocrat-VLT-Tools\\\\OS_Image_Version.txt\"\"\")\"\"\"}\"",
+        "workingDirectory": "C:\\Aristocrat-VLT-Tools",
+        "type": "runonce",
+        "wait": false,
+        "stream": "os_image_version_panel",
+        "logging": false,
+        "capture": true,
+        "hidden": true
+      },
+      {
+        "title": "Platform Windows Configuration",
+        "executable": "C:\\Aristocrat-VLT-Tools\\VLT_Configuration.cmd",
+        "arguments": "",
+        "workingDirectory": "C:\\Aristocrat-VLT-Tools",
+        "type": "runonce",
+        "wait": true,
+        "stream": "primary_log",
+        "logging": true,
+        "capture": false,
+        "hidden": true
+      },
+      {
+        "title": "Platform Touch Configuration",
+        "executable": "C:\\Aristocrat-VLT-Tools\\TouchCoordConfig.exe",
+        "arguments": "--winstandard --filelog D:\\Aristocrat-VLT\\Platform\\logs\\Log_TouchCoordConfig.log --version",
+        "workingDirectory": "C:\\Aristocrat-VLT-Tools",
+        "type": "runonce",
+        "restartDelay": 2000,
+        "successCode": 0,
+        "retry": 5,
+        "wait": true,
+        "stream": "primary_log",
+        "logging": true,
+        "capture": false,
+        "hidden": true
+      },
+      {
+        "title": "Platform Key Tools",
+        "executable": "C:\\Aristocrat-VLT-Tools\\MonacoKeyExecutor.exe",
+        "arguments": "--key C:\\Aristocrat-VLT-Tools\\Keys\\vltKeyPublic.rsa",
+        "workingDirectory": "C:\\Aristocrat-VLT-Tools",
+        "type": "runonce",
+        "wait": true,
+        "stream": "primary_log",
+        "logging": true,
+        "capture": false,
+        "hidden": true
+      },
+      {
+        "title": "Platform",
+        "executable": "C:\\Aristocrat-VLT-Platform-Launcher\\Platform.Launcher.exe",
+        "arguments": "-s=C:\\Aristocrat-VLT-Tools\\Keys\\system_manifest_key.pem -g=C:\\Aristocrat-VLT-Tools\\Keys\\game_manifest_key.pem -c=C:\\Aristocrat-VLT-Tools\\Keys\\sc_public_key.pem",
+        "workingDirectory": "C:\\Aristocrat-VLT-Platform-Launcher",
+        "type": "monitor",
+        "restartDelay": 3000,
+        "wait": false,
+        "singleton": true,
+        "stream": "primary_log",
+        "logging": true,
+        "capture": true,
+        "hidden": true
+      }
+    ]
+  }
+}

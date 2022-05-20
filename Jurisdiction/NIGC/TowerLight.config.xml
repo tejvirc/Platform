@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Gaming\Aristocrat.Monaco.Gaming.Contracts\TowerLight
+2.  Enter "xsd TowerLightConfiguration.xsd /c /n:Aristocrat.Monaco.Gaming.Contracts.TowerLight".  This will generate
+    the corresponding class definition in csharp (TowerLightConfiguration.cs).
+-->
+<TowerLightConfiguration>
+    <SignalDefinitions>
+      <OperationalCondition condition="AuditMenu">
+          <DoorCondition condition="DoorOpen">
+            <Set lightTier="Strobe" flashState="Off"/>
+          </DoorCondition>
+          <DoorCondition condition="DoorWasOpenBefore">
+            <Set lightTier="Strobe" flashState="Off"/>
+          </DoorCondition>
+          <DoorCondition condition="AllClosed">
+            <Set lightTier="Strobe" flashState="Off"/>
+          </DoorCondition>
+      </OperationalCondition>
+      <OperationalCondition condition="Handpay">
+          <DoorCondition condition="DoorOpen">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="DoorWasOpenBefore">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="AllClosed">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+      </OperationalCondition>
+      <OperationalCondition condition="Tilt">
+          <DoorCondition condition="DoorOpen">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="DoorWasOpenBefore">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="AllClosed">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+      </OperationalCondition>
+      <OperationalCondition condition="Service">
+          <DoorCondition condition="DoorOpen">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="DoorWasOpenBefore">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="AllClosed">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+      </OperationalCondition>
+      <OperationalCondition condition="SoftError">
+          <DoorCondition condition="DoorOpen">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="DoorWasOpenBefore">
+            <Set lightTier="Strobe" flashState="Off"/>
+          </DoorCondition>
+          <DoorCondition condition="AllClosed">
+            <Set lightTier="Strobe" flashState="Off"/>
+          </DoorCondition>
+      </OperationalCondition>
+      <OperationalCondition condition="Idle">
+          <DoorCondition condition="DoorOpen">
+            <Set lightTier="Strobe" flashState="On"/>
+          </DoorCondition>
+          <DoorCondition condition="DoorWasOpenBefore">
+            <Set lightTier="Strobe" flashState="Off"/>
+          </DoorCondition>
+          <DoorCondition condition="AllClosed">
+            <Set lightTier="Strobe" flashState="Off"/>
+          </DoorCondition>
+      </OperationalCondition>
+    </SignalDefinitions>
+</TowerLightConfiguration>

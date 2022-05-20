@@ -1,0 +1,108 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.AttractPreviewView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
+                               xmlns:converters1="http://monaco.aristocrat.com/common"
+                               mc:Ignorable="d"
+                               MaxHeight="1080"
+                               converters1:DialogParticipation.Register="{Binding}"
+                               d:DesignHeight="300" d:DesignWidth="300"
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance viewModels:AttractPreviewViewModel, IsDesignTimeCreatable=False}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters1:BoolToVisibilityConverter x:Key="BoolToVisible" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid MaxHeight="{Binding MaxHeight}">
+        <StackPanel Orientation="Vertical">
+            <Grid x:Name="TopperAttractScreen"
+                        Visibility="{Binding IsTopperAttractVisible, Converter={StaticResource BoolToVisible}}">
+                <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}">
+                    <bink:BinkGpuControl
+                            x:Name="TopperAttractVideo"
+                            Filename="{Binding TopperAttractVideoPath}"
+                            LoopVideo="True"
+                            VideoCompleted="OnTopperGameAttractVideoCompleted"
+                            Width="{Binding AttractVideoWidth}"
+                            Height="{Binding AttractVideoHeight}">
+                        <bink:BinkGpuControl.Style>
+                            <Style TargetType="bink:BinkGpuControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}" Value="True">
+                                        <Setter Property="VideoState" Value="Playing" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}" Value="False">
+                                        <Setter Property="VideoState" Value="Stopped" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </bink:BinkGpuControl.Style>
+                    </bink:BinkGpuControl>
+                </Border>
+            </Grid>
+
+            <Grid x:Name="TopAttractScreen"
+                        Visibility="{Binding IsTopAttractVisible, Converter={StaticResource BoolToVisible}}">
+                <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}" Margin="0 2 0 0">
+                    <bink:BinkGpuControl
+                            x:Name="TopAttractVideo"
+                            Filename="{Binding TopAttractVideoPath}"
+                            LoopVideo="False"
+                            Width="{Binding AttractVideoWidth}"
+                            Height="{Binding AttractVideoHeight}"
+                            VideoCompleted="OnTopGameAttractVideoCompleted"
+                            ShowFirstFrameOnLoad="True">
+                        <bink:BinkGpuControl.Style>
+                            <Style TargetType="bink:BinkGpuControl">
+                                <Setter Property="VideoState" Value="Stopped" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="True">
+                                        <Setter Property="VideoState" Value="Playing" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="False">
+                                        <Setter Property="VideoState" Value="Stopped" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </bink:BinkGpuControl.Style>
+                    </bink:BinkGpuControl>
+                </Border>
+            </Grid>
+
+            <Grid x:Name="BottomAttractScreen">
+                <Border BorderThickness="1 1 1 1" BorderBrush="{StaticResource Brush3}" Margin="0 2 0 0">
+                    <bink:BinkGpuControl x:Name="BottomAttractVideo"
+                                                Filename="{Binding BottomAttractVideoPath}"
+                                                LoopVideo="False"
+                                                ShowFirstFrameOnLoad="True"
+                                                VideoCompleted="OnBottomGameAttractVideoCompleted"
+                                                Width="{Binding AttractVideoWidth}"
+                                                Height="{Binding AttractVideoHeight}">
+                        <bink:BinkGpuControl.Style>
+                            <Style TargetType="bink:BinkGpuControl">
+                                <Setter Property="VideoState" Value="Stopped" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsBottomAttractFeaturePlaying}" Value="True">
+                                        <Setter Property="VideoState" Value="Playing" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsBottomAttractFeaturePlaying}" Value="False">
+                                        <Setter Property="VideoState" Value="Stopped" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </bink:BinkGpuControl.Style>
+                    </bink:BinkGpuControl>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

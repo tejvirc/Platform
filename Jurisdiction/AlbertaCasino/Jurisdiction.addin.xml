@@ -1,0 +1,186 @@
+<Addin id="AlbertaCasinoJurisdiction" namespace="Client12Addins" version="1.0">
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Hardware" version="1.0" />
+    <Addin id="Monaco.Accounting" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+    <Addin id="SelectableJurisdiction" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="SasBase" version="1.0" />
+    <Addin id="SasConfiguration" version="1.0" />
+    <Addin id="Sas.Client" version="1.0" />
+  </Dependencies>
+  <Runtime>
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
+  </Runtime>
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableJurisdiction name="Alberta Casino" description="Top level Alberta Casino jurisdiction group" id="JUR000099,JUR000998,JUR000999,JUR000033">
+      <AddinConfigurationGroupReference name="BaseOperatorMenus" />
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+      <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoHardwareConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TiltLogger/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoTiltLoggerConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/DoorMonitor/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoDoorMonitorConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ConfigWizard/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoConfigWizardConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoOperatorMenuConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoOperatorMenuSoundConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoGamePreferencesSounds" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoLocaleConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoLocaleOverrides" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoLobbyConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoAccountingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoApplicationConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoGamingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TowerLight/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoTowerLightConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableRegions">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoPrintableRegionsConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableTemplates">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoPrintableTemplatesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrinterOverrides">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaPrinterOverridesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoDisplayMetersConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="AlbertaCasinoAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="AlbertaCasinoAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="AlbertaCasinoAccountingTransferProviders" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoTransactionConfiguration" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoAccountingRunnable" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoErrorMessageConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoSASDefaultConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaCasinoJurisdiction" filterid="AlbertaCasinoHardMeterMappingConfig" />
+      </ExtensionPointConfiguration>
+    </SelectableJurisdiction>
+  </Extension>
+  <Extension path="/SAS/DefaultConfiguration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\SASDefault.config.xml" filterid="AlbertaCasinoSASDefaultConfig" />
+  </Extension>
+  <Extension path="/Platform/Discovery/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\ConfiguredDevices.config.xml" filterid="AlbertaCasinoHardwareConfig" />
+  </Extension>
+  <Extension path="/TiltLogger/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\TiltLogger.config.xml" filterid="AlbertaCasinoTiltLoggerConfig" />
+  </Extension>
+  <Extension path="/DoorMonitor/Configuration">
+    <DoorMonitorConfiguration>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
+        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="AlbertaCasinoDoorMonitorConfig" />
+      </DoorOpenAlarm>
+    </DoorMonitorConfiguration>
+  </Extension>
+  <Extension path="/ConfigWizard/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\ConfigWizard.config.xml" filterid="AlbertaCasinoConfigWizardConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="AlbertaCasinoOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="AlbertaCasinoOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="AlbertaCasinoOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="AlbertaCasinoOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="AlbertaCasinoOperatorMenuSoundConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/GamePreferences/Sounds">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="AlbertaCasinoGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="AlbertaCasinoGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="AlbertaCasinoGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="AlbertaCasinoGamePreferencesSounds" />
+  </Extension>
+  <Extension path="/OperatorMenu/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\OperatorMenu.config.xml" filterid="AlbertaCasinoOperatorMenuConfig" />
+  </Extension>
+  <Extension path="/Locale/Configuration" filterid="AlbertaCasinoLocaleConfig">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\Locale.config.xml" />
+  </Extension>
+  <Extension path="/Locale/Overrides" filterid="AlbertaCasinoLocaleOverrides">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
+  </Extension>
+  <Extension path="/Lobby/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\Lobby.config.xml" filterid="AlbertaCasinoLobbyConfig" />
+  </Extension>
+  <Extension path="/Accounting/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\Accounting.config.xml" filterid="AlbertaCasinoAccountingConfig" />
+  </Extension>
+  <Extension path="/Application/JurisdictionConfiguration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\Application.config.xml" filterid="AlbertaCasinoApplicationConfig" />
+  </Extension>
+  <Extension path="/Gaming/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\Gaming.config.xml" filterid="AlbertaCasinoGamingConfig" />
+  </Extension>
+  <Extension path="/HardMeterMapping/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\HardMeterMapping.config.xml" filterid="AlbertaCasinoHardMeterMappingConfig" />
+  </Extension>
+  <Extension path="/TowerLight/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\TowerLight.config.xml" filterid="AlbertaCasinoTowerLightConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableRegions">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\printable_regions.xml" filterid="AlbertaCasinoPrintableRegionsConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableTemplates">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\printable_templates.xml" filterid="AlbertaCasinoPrintableTemplatesConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrinterOverrides">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\PrinterOverrides.xml" filterid="AlbertacasinoPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/ErrorMessage/Configuration">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\ErrorMessage.config.xml" filterid="AlbertaCasinoErrorMessageConfig" />
+  </Extension>
+  <Extension path="/Application/OperatorMenu/DisplayMeters">
+    <FilePath FilePath="..\jurisdiction\AlbertaCasino\DisplayMeters.config.xml" filterid="AlbertaCasinoDisplayMetersConfig" />
+  </Extension>
+  <Extension path="/Accounting/TransactionHistories" filterid="AlbertaCasinoTransactionConfiguration">
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
+  </Extension>
+  <Extension path="/Accounting/BootExtender" filterid="AlbertaCasinoAccountingRunnable">
+    <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
+  </Extension>
+</Addin>

@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aristocrat.Monaco.Hhr.UI.Settings"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization">
+
+    <DataTemplate DataType="{x:Type local:MachineSettings}">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Style="{DynamicResource SettingNameStyle}"
+                       Grid.Row="0"
+                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerIpAddressLabel}}" />
+            <TextBlock Grid.Column="1"
+                       Style="{DynamicResource SettingValueStyle}"
+                       Grid.Row="0"
+                       Text="{Binding CentralServerIpAddress}" />
+
+            <TextBlock Grid.Column="0"
+                       Style="{DynamicResource SettingNameStyle}"
+                       Grid.Row="1"
+                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerTcpPortNumberLabel}}" />
+            <TextBlock Grid.Column="1"
+                       Style="{DynamicResource SettingValueStyle}"
+                       Grid.Row="1"
+                       Text="{Binding CentralServerTcpPortNumber}" />
+
+            <TextBlock Grid.Column="0"
+                       Style="{DynamicResource SettingNameStyle}"
+                       Grid.Row="2"
+                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerEncryptionKeyLabel}}" />
+            <TextBlock Grid.Column="1"
+                       Style="{DynamicResource SettingValueStyle}"
+                       Grid.Row="2"
+                       Text="{Binding CentralServerEncryptionKey}" />
+
+            <TextBlock Grid.Column="0"
+                       Style="{DynamicResource SettingNameStyle}"
+                       Grid.Row="3"
+                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerUdpPortNumberLabel}}" />
+            <TextBlock Grid.Column="1"
+                       Style="{DynamicResource SettingValueStyle}"
+                       Grid.Row="3"
+                       Text="{Binding CentralServerUdpPortNumber}" />
+        </Grid>
+
+    </DataTemplate>
+
+</ResourceDictionary>

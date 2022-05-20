@@ -1,0 +1,71 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Gaming.GameProvider.Data">
+    <Fields>
+      <Field FieldName="Game.Id" DataType="Int32" />
+      <Field FieldName="Game.ThemeId" DataType="String" Size="32" />
+      <Field FieldName="Game.ThemeName" DataType="String" Size="64" />
+      <Field FieldName="Game.PaytableId" DataType="String" Size="32" />
+      <Field FieldName="Game.Version" DataType="String" Size="32" />
+      <Field FieldName="Game.Status" DataType="Int32" />
+      <Field FieldName="Game.SupportedDenominations" DataType="String" Size="128" />
+      <Field FieldName="Game.Denominations" DataType="String" Size="128" />
+      <Field FieldName="Game.WagerCategories" DataType="String" Size="512" />
+      <Field FieldName="Game.InstallDate" DataType="String" Size="32" />
+      <Field FieldName="Game.Tags" DataType="String" Size="512" />
+      <Field FieldName="Game.Upgraded" DataType="Bool"  />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" Name="Aristocrat.Monaco.Gaming.GameProvider.Data">
+    <Fields>
+      <Field FieldName="Game.Id" DataType="Int32" />
+      <Field FieldName="Game.ThemeId" DataType="String" Size="32" />
+      <Field FieldName="Game.ThemeName" DataType="String" Size="64" />
+      <Field FieldName="Game.PaytableId" DataType="String" Size="32" />
+      <Field FieldName="Game.Version" DataType="String" Size="32" />
+      <Field FieldName="Game.Status" DataType="Int32" />
+      <Field FieldName="Game.SupportedDenominations" DataType="String" Size="128" />
+      <Field FieldName="Game.Denominations" DataType="String" Size="128" />
+      <Field FieldName="Game.WagerCategories" DataType="String" Size="512" />
+      <Field FieldName="Game.InstallDate" DataType="String" Size="32" />
+      <Field FieldName="Game.Tags" DataType="String" Size="512" />
+      <Field FieldName="Game.Upgraded" DataType="Bool"  />
+      <Field FieldName="Game.MaximumWagerCredits" DataType="Int32"  />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" Name="Aristocrat.Monaco.Gaming.GameProvider.Data">
+    <Fields>
+      <Field FieldName="Game.Id" DataType="Int32" />
+      <Field FieldName="Game.ThemeId" DataType="String" Size="64" />
+      <Field FieldName="Game.ThemeName" DataType="String" Size="64" />
+      <Field FieldName="Game.PaytableId" DataType="String" Size="64" />
+      <Field FieldName="Game.Version" DataType="String" Size="32" />
+      <Field FieldName="Game.Status" DataType="Int32" />
+      <Field FieldName="Game.Denominations" DataType="String" Size="32768"/>
+      <Field FieldName="Game.WagerCategories" DataType="String" Size="32768" />
+      <Field FieldName="Game.InstallDate" DataType="String" Size="32" />
+      <Field FieldName="Game.Tags" DataType="String" Size="512" />
+      <Field FieldName="Game.Upgraded" DataType="Bool"  />
+      <Field FieldName="Game.MaximumWagerCredits" DataType="Int32" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" Name="Aristocrat.Monaco.Gaming.GameProvider.Data">
+    <Fields>
+      <Field FieldName="Game.Id" DataType="Int32" />
+      <Field FieldName="Game.ThemeId" DataType="String" Size="64" />
+      <Field FieldName="Game.ThemeName" DataType="String" Size="64" />
+      <Field FieldName="Game.PaytableId" DataType="String" Size="64" />
+      <Field FieldName="Game.Version" DataType="String" Size="32" />
+      <Field FieldName="Game.Status" DataType="Int32" />
+      <Field FieldName="Game.Denominations" DataType="String" Size="32768"/>
+      <Field FieldName="Game.WagerCategories" DataType="String" Size="32768" />
+      <Field FieldName="Game.InstallDate" DataType="String" Size="32" />
+      <Field FieldName="Game.Tags" DataType="String" Size="512" />
+      <Field FieldName="Game.Upgraded" DataType="Bool"  />
+      <Field FieldName="Game.MaximumWagerCredits" DataType="Int32" />
+      <Field FieldName="Game.Category" DataType="Int32" />
+      <Field FieldName="Game.SubCategory" DataType="Int32" />
+      <Field FieldName="Game.Features" DataType="String" Size="32768" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Addin id="Monaco.G2S.UI.OperatorMenu" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.G2S.UI.dll" />
+  </Runtime>
+  <Dependencies>
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+  <Extension path="/Application/OperatorMenu/MainMenu">
+    <OperatorMenu type="Aristocrat.Monaco.G2S.UI.Loaders.CommsMainPageLoader"/>
+  </Extension>
+  <Extension path="/Application/OperatorMenu/CommsMenu">
+    <CommsMenu type="Aristocrat.Monaco.G2S.UI.Loaders.HostConfigurationViewLoader" order="210"/>
+    <CommsMenu type="Aristocrat.Monaco.G2S.UI.Loaders.SecurityConfigurationViewLoader" order="220"/>
+    <CommsMenu type="Aristocrat.Monaco.G2S.UI.Loaders.CertificatesViewLoader" order="230"/>
+    <CommsMenu type="Aristocrat.Monaco.G2S.UI.Loaders.DeviceManagerViewLoader" order="240"/>
+  </Extension>
+</Addin>

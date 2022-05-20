@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<Devices>
+  <DeviceClass ID="2" Name="EGM CONTROL" Version="1.0">
+    <DeviceType ID="1" Name="CONFIGURATION">
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="0" MCIAccess="ReadOnly" Name="EGM CONTROL - CONFIGURATION">
+        <Field DataMemberName="Manufacturer_ID" DataSourceName="NA" ID="1" Name="Manufacturer ID" Size="8" Type="STRING" Value="ALI0" />
+        <Field DataMemberName="Serial_Number" DataSourceName="EGMProperty" ID="2" Name="Serial Number" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Manufacturer_s_Name" DataSourceName="NA" ID="3" Name="Manufacturer's Name" Size="40" Type="STRING" Value="Aristocrat Technologies Australia" />
+        <Field DataMemberName="Firmware_ID" DataSourceName="EGMProperty" ID="4" Name="Firmware ID" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Firmware_VerNo" DataSourceName="EGMProperty" ID="5" Name="Firmware VerNo" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Firmware_Name" DataSourceName="NA" ID="6" Name="Firmware Name" Size="20" Type="STRING" Value="Base Code" />
+        <Field DataMemberName="ASP_Proto_Name" DataSourceName="NA" ID="7" Name="ASP Version" Size="8" Type="STRING" Value="2000B" />
+
+        <Field DataMemberName="Mci_Asp_Ver" DataSourceName="MciProperty" ID="8" Name="ASP Version" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Mci_Model" DataSourceName="MciProperty" ID="9" Name="MCI Model" Size="1" Type="BYTE" Value="" />
+        <Field DataMemberName="Mci_Firmware_Id" DataSourceName="MciProperty" ID="10" Name="MCI Firmware Id" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Mci_Firmware_Ver_No" DataSourceName="MciProperty" ID="11" Name="MCI Firmware Version Number" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Mci_Floor_No" DataSourceName="MciProperty" ID="12" Name="Floor Number" Size="20" Type="STRING" Value="" />
+
+        <Field DataMemberName="EGM_Security_Mode" DataSourceName="EGMProperty" ID="13" Name="EGM Security Mode" Size="1" Type="BYTE" Value="" />
+        <Field DataMemberName="Reserved_04" DataSourceName="NA" ID="14" Name="Reserved 04" Size="2" Type="WORD" Value="" />
+        <Field DataMemberName="Reserved_05" DataSourceName="NA" ID="15" Name="Reserved 05" Size="1" Type="BYTE" Value="" />
+        <Field DataMemberName="Reserved_06" DataSourceName="NA" ID="16" Name="Reserved 06" Size="1" Type="BYTE" Value="" />
+        <Field DataMemberName="ASP_Version" DataSourceName="NA" ID="17" Name="ASP Version" Size="8" Type="STRING" Value="0001.8.2" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="1" MCIAccess="ReadOnly" Name="Manufacture Info">
+        <Field DataMemberName="Manufacturer_ID" DataSourceName="NA" ID="1" Name="Manufacturer ID" Size="8" Type="STRING" Value="ALI0" />
+        <Field DataMemberName="Serial_Number" DataSourceName="EGMProperty" ID="2" Name="Serial Number" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Manufacturer_s_Name" DataSourceName="NA" ID="3" Name="Manufacturer's Name" Size="40" Type="STRING" Value="Aristocrat Technologies Australia" />
+        <Field DataMemberName="Firmware_ID" DataSourceName="EGMProperty" ID="4" Name="Firmware ID" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Firmware_VerNo" DataSourceName="EGMProperty" ID="5" Name="Firmware VerNo" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Firmware_Name" DataSourceName="NA" ID="6" Name="Firmware Name" Size="20" Type="STRING" Value="Base Code" />
+        <Field DataMemberName="ASP_Proto_Name" DataSourceName="NA" ID="7" Name="ASP Version" Size="8" Type="STRING" Value="2000B" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="2" MCIAccess="ReadWrite" Name="MCI Info">
+        <Field DataMemberName="Mci_Asp_Ver" DataSourceName="MciProperty" ID="1" Name="ASP Version" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Mci_Model" DataSourceName="MciProperty" ID="2" Name="MCI Model" Size="1" Type="BYTE" Value="" />
+        <Field DataMemberName="Mci_Firmware_Id" DataSourceName="MciProperty" ID="3" Name="MCI Firmware Id" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Mci_Firmware_Ver_No" DataSourceName="MciProperty" ID="4" Name="MCI Firmware Version Number" Size="8" Type="STRING" Value="" />
+        <Field DataMemberName="Mci_Floor_No" DataSourceName="MciProperty" ID="5" Name="Floor Number" Size="20" Type="STRING" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="3" MCIAccess="ReadOnly" Name="EGM Security Mode">
+        <Field DataMemberName="EGM_Security_Mode" DataSourceName="EGMProperty" ID="1" Name="EGM Security Mode" Size="1" Type="BYTE" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="4" MCIAccess="ReadOnly" Name="EGM Security Mode">
+        <Field DataMemberName="Reserved_04" DataSourceName="NA" ID="1" Name="Reserved 04" Size="2" Type="WORD" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="5" MCIAccess="ReadOnly" Name="EGM Security Mode">
+        <Field DataMemberName="Reserved_05" DataSourceName="NA" ID="1" Name="Reserved 05" Size="1" Type="BYTE" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="6" MCIAccess="ReadOnly" Name="EGM Security Mode">
+        <Field DataMemberName="Reserved_06" DataSourceName="NA" ID="1" Name="Reserved 06" Size="1" Type="BYTE" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="7" MCIAccess="ReadOnly" Name="EGM Security Mode">
+        <Field DataMemberName="ASP_Version" DataSourceName="NA" ID="7" Name="ASP Version" Size="8" Type="STRING" Value="0001.8.2" />
+      </Parameter>
+    </DeviceType>
+    <DeviceType ID="2" Name="CONTROL">
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="0" MCIAccess="ReadOnly" Name="EGM CONTROL - CONTROL">
+        <Field DataMemberName="Card_Inserted" DataSourceName="EGMProperty" ID="13" Name="Card Inserted" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Technician10" Value="30" />
+          <Mask Operation="Equal" TrueText="Technician9" Value="29" />
+          <Mask Operation="Equal" TrueText="Technician8" Value="28" />
+          <Mask Operation="Equal" TrueText="Technician7" Value="27" />
+          <Mask Operation="Equal" TrueText="Technician6" Value="26" />
+          <Mask Operation="Equal" TrueText="Technician5" Value="25" />
+          <Mask Operation="Equal" TrueText="Technician4" Value="24" />
+          <Mask Operation="Equal" TrueText="Technician3" Value="23" />
+          <Mask Operation="Equal" TrueText="Technician2" Value="22" />
+          <Mask Operation="Equal" TrueText="Technician1" Value="21" />
+          <Mask Operation="Equal" TrueText="Bills Card Employee" Value="20" />
+          <Mask Operation="Equal" TrueText="Cash Card Employee" Value="19" />
+
+          <Mask Operation="Equal" TrueText="Employee8" Value="18" />
+          <Mask Operation="Equal" TrueText="Employee7" Value="17" />
+          <Mask Operation="Equal" TrueText="Employee6" Value="16" />
+          <Mask Operation="Equal" TrueText="Employee5" Value="15" />
+          <Mask Operation="Equal" TrueText="Employee4" Value="14" />
+          <Mask Operation="Equal" TrueText="Employee3" Value="13" />
+          <Mask Operation="Equal" TrueText="Employee2" Value="12" />
+          <Mask Operation="Equal" TrueText="Employee1" Value="11" />
+          <Mask Operation="Equal" TrueText="Player10" Value="10" />
+          <Mask Operation="Equal" TrueText="Player9" Value="9" />
+          <Mask Operation="Equal" TrueText="Player8" Value="8" />
+          <Mask Operation="Equal" TrueText="Player7" Value="7" />
+          <Mask Operation="Equal" TrueText="Player6" Value="6" />
+          <Mask Operation="Equal" TrueText="Player5" Value="5" />
+          <Mask Operation="Equal" TrueText="Player4" Value="4" />
+          <Mask Operation="Equal" TrueText="Player3" Value="3" />
+          <Mask Operation="Equal" TrueText="Player2" Value="2" />
+          <Mask Operation="Equal" TrueText="Player1" Value="1" />
+          <Mask Operation="Equal" TrueText="No Card" Value="0" />
+        </Field>
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Always" ID="13" MCIAccess="ReadWrite" Name="Card Inserted">
+        <Field DataMemberName="Card_Inserted" DataSourceName="EGMProperty" ID="1" Name="Card Inserted" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Technician10" Value="30" />
+          <Mask Operation="Equal" TrueText="Technician9" Value="29" />
+          <Mask Operation="Equal" TrueText="Technician8" Value="28" />
+          <Mask Operation="Equal" TrueText="Technician7" Value="27" />
+          <Mask Operation="Equal" TrueText="Technician6" Value="26" />
+          <Mask Operation="Equal" TrueText="Technician5" Value="25" />
+          <Mask Operation="Equal" TrueText="Technician4" Value="24" />
+          <Mask Operation="Equal" TrueText="Technician3" Value="23" />
+          <Mask Operation="Equal" TrueText="Technician2" Value="22" />
+          <Mask Operation="Equal" TrueText="Technician1" Value="21" />
+          <Mask Operation="Equal" TrueText="Bills Card Employee" Value="20" />
+          <Mask Operation="Equal" TrueText="Cash Card Employee" Value="19" />
+          <Mask Operation="Equal" TrueText="Employee8" Value="18" />
+          <Mask Operation="Equal" TrueText="Employee7" Value="17" />
+          <Mask Operation="Equal" TrueText="Employee6" Value="16" />
+          <Mask Operation="Equal" TrueText="Employee5" Value="15" />
+          <Mask Operation="Equal" TrueText="Employee4" Value="14" />
+          <Mask Operation="Equal" TrueText="Employee3" Value="13" />
+          <Mask Operation="Equal" TrueText="Employee2" Value="12" />
+          <Mask Operation="Equal" TrueText="Employee1" Value="11" />
+          <Mask Operation="Equal" TrueText="Player10" Value="10" />
+          <Mask Operation="Equal" TrueText="Player9" Value="9" />
+          <Mask Operation="Equal" TrueText="Player8" Value="8" />
+          <Mask Operation="Equal" TrueText="Player7" Value="7" />
+          <Mask Operation="Equal" TrueText="Player6" Value="6" />
+          <Mask Operation="Equal" TrueText="Player5" Value="5" />
+          <Mask Operation="Equal" TrueText="Player4" Value="4" />
+          <Mask Operation="Equal" TrueText="Player3" Value="3" />
+          <Mask Operation="Equal" TrueText="Player2" Value="2" />
+          <Mask Operation="Equal" TrueText="Player1" Value="1" />
+          <Mask Operation="Equal" TrueText="No Card" Value="0" />
+        </Field>
+      </Parameter>
+    </DeviceType>
+  </DeviceClass>
+  <DeviceClass ID="6" Name="SECURITY" Version="1.0">
+    <DeviceType ID="1" Name="LOGIC SEAL">
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="0" MCIAccess="ReadOnly" Name="Logic Seal Cnt">
+        <Field DataMemberName="Total_LgcSlBroken_Cnt" DataSourceName="Logic_Door" ID="1" Name="Total LgcSl Brkn Cnt" Size="2" Type="WORD" Value="0" />
+        <Field DataMemberName="Logic_Seal_Status" DataSourceName="Logic_Door" ID="2" Name="Logic Seal Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Broken" Value="1" />
+          <Mask Operation="Equal" TrueText="Sealed" Value="0" />
+        </Field>
+        <Field DataMemberName="Verification_Code" DataSourceName="Logic_Door" ID="3" Name="Verification Code" Size="16" Type="STRING" Value="" />
+        <Field DataMemberName="Logic_Door_Status" DataSourceName="Logic_Door" ID="4" Name="Logic Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Open" Value="1" />
+          <Mask Operation="Equal" TrueText="Closed" Value="0" />
+        </Field>
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="1" MCIAccess="ReadOnly" Name="Logic Seal Cnt">
+        <Field DataMemberName="Total_LgcSlBroken_Cnt" DataSourceName="Logic_Door" ID="1" Name="Total LgcSl Brkn Cnt" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Always" ID="2" MCIAccess="ReadOnly" Name="Logic Door Seal">
+        <Field DataMemberName="Logic_Seal_Status" DataSourceName="Logic_Door" ID="1" Name="Logic Seal Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Broken" Value="1" />
+          <Mask Operation="Equal" TrueText="Sealed" Value="0" />
+        </Field>
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="3" MCIAccess="ReadWrite" Name="Logic Seal">
+        <Field DataMemberName="Verification_Code" DataSourceName="Logic_Door" ID="1" Name="Verification Code" Size="16" Type="STRING" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="4" MCIAccess="ReadOnly" Name="Logic Door">
+        <Field DataMemberName="Logic_Door_Status" DataSourceName="Logic_Door" ID="1" Name="Logic Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Open" Value="1" />
+          <Mask Operation="Equal" TrueText="Closed" Value="0" />
+        </Field>
+      </Parameter>
+    </DeviceType>
+    <DeviceType ID="2" Name="EGM DOORS">
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="0" MCIAccess="ReadOnly" Name="SECURITY - EGM DORRS">
+        <Field DataMemberName="Main_Door_Status" DataSourceName="Doors" ID="1" Name="Main Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Closed" Value="1" />
+          <Mask Operation="Equal" TrueText="Open" Value="0" />
+        </Field>
+        <Field DataMemberName="Main_DoorOpndCnt" DataSourceName="Doors" ID="2" Name="Main Door Opnd Cnt" Size="2" Type="WORD" Value="0" />
+        <Field DataMemberName="Illegal_DoorOpndCnt" DataSourceName="Doors" ID="3"  Name="Illegal Main Door Open Count" Size="2" Type="WORD" Value="0" />
+        <Field DataMemberName="CBox_Door_Status" DataSourceName="Doors" ID="4" Name="CBox Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Closed" Value="1" />
+          <Mask Operation="Equal" TrueText="Open" Value="0" />
+        </Field>
+        <Field DataMemberName="CBox_DoorOpndCnt" DataSourceName="Doors" ID="5" Name="CBox Door Opn dCnt" Size="2" Type="WORD" Value="0" />
+        <Field DataMemberName="ICBox_DoorOpndCnt" DataSourceName="Doors" ID="6"  Name="Illegal Cash Box Door Open Count" Size="2" Type="WORD" Value="0" />
+        <Field DataMemberName="Bill_Stkr_Door_Status" DataSourceName="Doors" ID="7" Name="Bill Stkr Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Closed" Value="1" />
+          <Mask Operation="Equal" TrueText="Open" Value="0" />
+        </Field>
+        <Field DataMemberName="Bill_Stacker_DoorCnt" DataSourceName="Doors" ID="8" Name="Bill_Stacker_DoorCnt" Size="2" Type="WORD" Value="0" />
+        <Field DataMemberName="IBill_Stacker_DoorCnt" DataSourceName="Doors" ID="9"  Name="Illegal Bill Stacker Door Count" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="1" MCIAccess="ReadOnly" Name="Main Door Status">
+        <Field DataMemberName="Main_Door_Status" DataSourceName="Doors" ID="1" Name="Main Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Closed" Value="1" />
+          <Mask Operation="Equal" TrueText="Open" Value="0" />
+        </Field>
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Always" ID="2" MCIAccess="ReadOnly" Name="Main Door Open Count">
+        <Field DataMemberName="Main_DoorOpndCnt" DataSourceName="Doors" ID="1" Name="Main Door Opnd Cnt" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Always" ID="3" MCIAccess="ReadOnly" Name="Illegal Main Door Open Count">
+        <Field DataMemberName="Illegal_DoorOpndCnt" DataSourceName="Doors" ID="1"  Name="Illegal Main Door Open Count" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="4" MCIAccess="ReadOnly" Name="Cash Box Door Status">
+        <Field DataMemberName="CBox_Door_Status" DataSourceName="Doors" ID="1" Name="CBox Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Closed" Value="1" />
+          <Mask Operation="Equal" TrueText="Open" Value="0" />
+        </Field>
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Always" ID="5" MCIAccess="ReadOnly" Name="Cash Box Open Door Count">
+        <Field DataMemberName="CBox_DoorOpndCnt" DataSourceName="Doors" ID="1" Name="CBox Door Opnd Cnt" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Always" ID="6" MCIAccess="ReadOnly" Name="Illegal Cash Box Door Open Count">
+        <Field DataMemberName="ICBox_DoorOpndCnt" DataSourceName="Doors" ID="1"  Name="Illegal Cash Box Door Open Count" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="7" MCIAccess="ReadOnly" Name="Bill Stacker Door Status">
+        <Field DataMemberName="Bill_Stkr_Door_Status" DataSourceName="Doors" ID="1" Name="Bill Stkr Door Status" Size="1" Type="BYTE" Value="0">
+          <Mask Operation="Equal" TrueText="Closed" Value="1" />
+          <Mask Operation="Equal" TrueText="Open" Value="0" />
+        </Field>
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Always" ID="8" MCIAccess="ReadOnly" Name="Bill Stacker Door Count">
+        <Field DataMemberName="Bill_Stacker_DoorCnt" DataSourceName="Doors" ID="1" Name="Bill Stacker Door Cnt" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Always" ID="9" MCIAccess="ReadOnly" Name="Illegal Bill Stacker Door Count">
+        <Field DataMemberName="IBill_Stacker_DoorCnt" DataSourceName="Doors" ID="1"  Name="Illegal Bill Stacker Door Count" Size="2" Type="WORD" Value="0" />
+      </Parameter>
+    </DeviceType>
+  </DeviceClass>
+  <DeviceClass ID="7" Name="DISPLAY" Version="1.0">
+    <DeviceType ID="1" Name="SCREEN MESSAGES">
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="0" MCIAccess="ReadOnly" Name="Display - screen messages">
+        <Field DataMemberName="Screen_Message_One" DataSourceName="ScreenMessages" ID="1" Name="Screen Message One" Size="40" Type="STRING" Value="" />
+        <Field DataMemberName="Screen_Message_Two" DataSourceName="ScreenMessages" ID="2" Name="Screen Message Two" Size="40" Type="STRING" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="1" MCIAccess="ReadWrite" Name="Display - screen message one">
+        <Field DataMemberName="Screen_Message_One" DataSourceName="ScreenMessages" ID="1" Name="Screen Message One" Size="40" Type="STRING" Value="" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="2" MCIAccess="ReadWrite" Name="Display - screen message two">
+        <Field DataMemberName="Screen_Message_Two" DataSourceName="ScreenMessages" ID="1" Name="Screen Message Two" Size="40" Type="STRING" Value="" />
+      </Parameter>
+    </DeviceType>
+  </DeviceClass>
+</Devices>

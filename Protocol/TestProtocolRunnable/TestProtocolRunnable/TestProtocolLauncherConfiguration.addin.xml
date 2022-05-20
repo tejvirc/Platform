@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<Addin id="TestProtocolLauncherConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="SelectableProtocol" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <SelectableProtocol name="Test" description="Platform Configuration for Test">
+      <AddinConfigurationGroupReference name="TestProtocolRunnable" />
+    </SelectableProtocol>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="TestProtocolRunnable" description="This is the protocol launcher for test configurations">
+    
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.TestProtocolRunnable" typeName="Aristocrat.Monaco.TestProtocol.TestProtocolRunnable" order="0" />
+      </ExtensionPointConfiguration>
+      
+    </AddinConfigurationGroup>
+  </Extension>
+  
+</Addin>

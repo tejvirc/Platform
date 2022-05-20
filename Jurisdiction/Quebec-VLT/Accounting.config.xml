@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Accounting\Monaco.Accounting.Contracts
+2.  Enter "xsd AccountingConfiguration.xsd /c /n:Aristocrat.Monaco.Accounting.Contracts".  This will generate
+    the corresponding class definition in csharp (AccountingConfiguration.cs).
+-->
+<AccountingConfiguration>
+<!--
+    TenderIn Settings:
+       CheckCreditsIn:
+           "None" = Disable checking the bank balance against max credits in.
+           "Balance" = Enable checking the bank balance against max credits in.
+           "Session" = Enable checking the added note up to the  max credits in. This is session based and is reset when the balance hits zero.
+       AllowCreditUnderLimit:
+           "false" = Dis-allow the insertion of any credit amount if the bank balance would be over the max credit limit after amount is deposited
+                 to the bank.
+           "true" = Allow insertion of any credit amount if the bank balance is below the max credit limit.
+       MaxCreditsIn:
+           "Default" = The default max credits in value (in millicents) to check against the bank balance if check credits in is enabled.  
+           "Editable"= This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
+-->
+  <TenderIn CheckCreditsIn="Balance" AllowCreditUnderLimit="false">
+    <MaxCreditsIn Default="10000000" />
+  </TenderIn>
+    <CreditLimits>
+	<MaxCreditMeter Default="99999000"/>
+  </CreditLimits>
+  <WinLimits>
+	<LargeWinLimit Editable="false"/>
+  </WinLimits>
+  <VoucherIn State="Disabled"/>
+<!--
+    VoucherOut Settings:
+       State:
+           "Enable" = Voucher Out is allowed.
+           "Disabled" = Voucher Out is disabled.
+       LimitDefault:
+           Max allowed limit.
+       AllowCashWinTicket:
+           "false" = .
+           "true" = .
+       Expiration:
+           "Days" = Number of days by which ticket will expire. "0" means Never Expire.
+           "Editable" = This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
+-->
+  <VoucherOut State="Enabled" AllowNonCashableTicket="Disabled"/>
+<!--
+    RebootWhilePrinting Behavior: 
+       "Reprint" = After operator key-off of reboot while printing error, will remove remaining credits and automatically reprint a cashout ticket.
+       "Clear"   = After operator key-off of reboot while printing error, will remove remaining credits.
+       "Prompt"  = After operator key-off of reboot while printing error, will prompt with a pop-up selection to reprint the voucher or cancel.  Either 
+                   option will remove remaining credits.  If cancel is selected, the voucher will not be allowed for reprint.  
+-->  
+  <RebootWhilePrinting Behavior="Clear"/>
+<!--
+    ReprintLoggedVoucher Behavior: 
+       "None" = No vouchers can be reprinted from the Logs - All screen (Reprint button is hidden).
+       "Any"  = Any voucher can be reprinted from the Logs - All screen.
+       "Last" = Only the last voucher can be reprinted from the Logs - All screen (Reprint button is disabled for all other logged vouchers).
+-->  
+  <ReprintLoggedVoucher Behavior="None"/>  
+  <Handpay>
+    <PrintHandpayReceipt Enabled="true"/>
+  </Handpay>
+</AccountingConfiguration>  

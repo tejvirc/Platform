@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+
+package Aristocrat.Monaco.v1;
+
+enum ReelState
+{
+	Stopped = 0;
+	SpinningForward = 1;
+	SpinningBackwards = 2;
+	Stopping = 3;
+	Faulted = 4;
+	Disconnected = 5;
+}

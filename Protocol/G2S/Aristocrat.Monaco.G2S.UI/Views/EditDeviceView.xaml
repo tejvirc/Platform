@@ -1,0 +1,73 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.G2S.UI.Views.EditDeviceView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:EditDeviceViewModel}, IsDesignTimeCreatable=True}"
+                               Width="600">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceCaption}}" VerticalAlignment="Stretch"/>
+        <TextBox Grid.Row="1"
+                 Text="{Binding DeviceName}" IsEnabled="False" VerticalAlignment="Stretch" Width="Auto"/>
+
+        <Label Margin="0 15 0 0" Grid.Row="2"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceIdCaption}}" VerticalAlignment="Stretch"/>
+        <TextBox Grid.Row="3"
+                 Text="{Binding DeviceId}" IsEnabled="False" VerticalAlignment="Stretch" Width="Auto" />
+
+        <Label Margin="0 15 0 0" Grid.Row="4"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewOwnerIdCaption}}" VerticalAlignment="Stretch"/>
+        <ComboBox Grid.Row="5"
+                  ItemsSource="{Binding Path=HostIds, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=OwnerId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <CheckBox Grid.Row="6" Margin="0 15 0 0" HorizontalAlignment="Left" IsEnabled="False" 
+                  IsChecked="{Binding Enabled, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}" 
+                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewEnabledCaption}}"/>
+
+        <CheckBox Grid.Row="7" Margin="0 15 0 0" HorizontalAlignment="Left"
+                  IsChecked="{Binding Active}" 
+                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewActiveCaption}}" />
+        <Label Grid.Row="8" Margin="10 0 0 0">
+            <Label.Style>
+                <Style BasedOn="{StaticResource MonacoWarningLabel}" TargetType="Label">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding FieldAccessStatusText, TargetNullValue=''}" Value="">
+                            <Setter Property="Content" Value="{Binding InputStatusText}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Content" Value="{Binding FieldAccessStatusText}"/>
+                </Style>
+            </Label.Style>
+        </Label>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+
+
+

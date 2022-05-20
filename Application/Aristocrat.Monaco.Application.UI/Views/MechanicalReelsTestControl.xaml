@@ -1,0 +1,215 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.MechanicalReelsTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" d:DesignWidth="800"
+             Loaded="ControlLoaded"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:MechanicalReelsTestViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" MinWidth="300" Margin="0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Border Name="ReelsWrapper" Width="800" Height="360" Margin="0,-20,0,5" />
+        </StackPanel>
+
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}"/>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}" />
+                    <Label Content=" / " Margin="5 0 0 0" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_StepText}}" Margin="5 0 0 0"/>
+                </StackPanel>
+
+                <Button Grid.Row="2" Grid.Column="0"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SpinButton}}" 
+                        Command="{Binding SpinCommand}"
+                        IsEnabled="{Binding SpinEnabled}"
+                        Height="50"
+                        Width="150" />
+
+                <Button Grid.Row="3" Grid.Column="0"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.NudgeButton}}" 
+                        Command="{Binding NudgeCommand}"
+                        IsEnabled="{Binding NudgeEnabled}"
+                        Height="50"
+                        Width="150" />
+
+                <ItemsControl Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" x:Name="ReelInfo" ItemsSource="{Binding ReelInfo}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="HomeEnabled"/>
+                                        <Binding Path="SpinEnabled"/>
+                                        <Binding Path="NudgeEnabled"/>
+                                    </MultiBinding>
+                                </StackPanel.IsEnabled>
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:ReelInfoItem}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="60"/>
+                                    <RowDefinition Height="60"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" Grid.RowSpan="4" BorderThickness="1" Margin="5 0 0 0" BorderBrush="{StaticResource HighlightBrush1}" />
+
+                                <!-- Enabled/Reel Name -->
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <CheckBox
+                                        Name="ReelEnabled"
+                                        HorizontalAlignment="Center"
+                                        IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        IsEnabled="{Binding Connected}">
+                                    </CheckBox>
+                                    <Label Content="{Binding Name}" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                                </StackPanel>
+
+                                <!-- State/Step -->
+                                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Foreground="White">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" Value="">
+                                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="Text" Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock Foreground="White" Margin="5 0 0 0"> / 
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}"/>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock Foreground="White" Margin="5 0 0 0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Step, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" Value="">
+                                                        <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="Text" Value="{Binding Step, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <!-- Spin Steps/Direction -->
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <StackPanel.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                            <Binding Path="Enabled"/>
+                                            <Binding Path="Connected"/>
+                                        </MultiBinding>
+                                    </StackPanel.IsEnabled>
+
+                                    <xctk:DecimalUpDown
+                                        VerticalAlignment="Center"
+                                        Margin="10 0 5 5"
+                                        Value="{Binding SpinStep}"
+                                        Maximum="{Binding MaxReelStep}"
+                                        Minimum="0"
+                                        Increment="1"
+                                        AllowSpin="True"
+                                        FontSize="18"
+                                        Width="60"
+                                        Height="45">
+                                    </xctk:DecimalUpDown>
+
+                                    <CheckBox VerticalAlignment="Center"
+                                              IsChecked="{Binding DirectionToSpin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Margin="5 0 0 0" />
+
+                                    <Label VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Content="{Binding DirectionToSpinText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Width="110"
+                                           Margin="5 0 0 0"/>
+                                </StackPanel>
+
+                                <!-- Nudge Steps/Direction -->
+                                <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <StackPanel.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                            <Binding Path="Enabled"/>
+                                            <Binding Path="Connected"/>
+                                        </MultiBinding>
+                                    </StackPanel.IsEnabled>
+
+                                    <xctk:DecimalUpDown
+                                        VerticalAlignment="Center"
+                                        Margin="10 0 5 5"
+                                        Value="{Binding NudgeSteps}"
+                                        Maximum="{Binding MaxReelStep}"
+                                        Minimum="1"
+                                        Increment="1"
+                                        AllowSpin="True"
+                                        FontSize="18"
+                                        Width="60"
+                                        Height="45">
+                                    </xctk:DecimalUpDown>
+
+                                    <CheckBox VerticalAlignment="Center"
+                                              IsChecked="{Binding DirectionToNudge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Margin="5 0 0 0" />
+
+                                    <Label VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Content="{Binding DirectionToNudgeText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           Width="110"
+                                           Margin="5 0 0 0"/>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HomeButton}}"
+                Command="{Binding HomeCommand}"
+                IsEnabled="{Binding HomeEnabled}"
+                HorizontalAlignment="Left"
+                Margin="5 10 0 0"
+                Height="50"
+                Width="150" />
+    </StackPanel>
+</UserControl>

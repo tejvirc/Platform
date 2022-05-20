@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Application.Time.Time" ElementSize="7">
+  <Fields>
+    <Field DataType="String" Size="7" Count="0" Offset="0" FieldName="TimeZone" />
+  </Fields>
+</BlockFormat>

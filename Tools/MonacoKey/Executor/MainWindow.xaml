@@ -1,0 +1,230 @@
+﻿<Controls:MetroWindow
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    x:Class="Executor.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:Executor.Utils"
+    mc:Ignorable="d"
+    Title="Platform Key Executor" 
+    WindowStartupLocation="CenterScreen"
+    ShowTitleBar="False"
+    ShowCloseButton="False"
+    ShowMinButton="False"
+    ShowMaxRestoreButton="False"
+    BorderThickness="0"
+    ResizeMode="NoResize"
+    WindowStyle="None"   
+    Visibility="{Binding ShowGUI, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+    AllowsTransparency="False"
+    Style="{Binding Source={StaticResource stylePicker}, Path=CurrentStyle}"
+    Width="700"
+    MinWidth="700" 
+    MaxWidth="700">
+
+    <Window.Resources>
+        <utils:BoolToStringConverter x:Key="BooleanToStringConverter" FalseValue="No" TrueValue="Yes" />
+        <utils:BoolToStringConverter x:Key="BooleanToVisibilityConverter" FalseValue="Hidden" TrueValue="Visible" />
+    </Window.Resources>
+
+    <Border BorderBrush="Gray" BorderThickness="1">
+        
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#222222" Offset="0"/>
+                <GradientStop Color="#3b3b3b" Offset=".4"/>
+                <GradientStop Color="#3b3b3b" Offset=".6"/>
+                <GradientStop Color="#222222" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="12"
+            FontSize="20"
+            Content="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+        <Label            
+            VerticalAlignment="Top"
+            Grid.Row="1"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="40 0 0 0"
+            Padding="0"
+            FontSize="20">
+            Status
+        </Label>
+        <TextBlock
+            Margin="0 0 40 0"
+            Foreground="{Binding StatusTextColor, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="3"
+            Grid.ColumnSpan="9"
+            TextWrapping="Wrap"
+            FontSize="20"
+            Text="{Binding CurrentStatus, UpdateSourceTrigger=PropertyChanged}">
+        </TextBlock>
+
+        <Label
+            VerticalAlignment="Top"
+            Grid.Row="2"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="40 0 0 0"
+            Padding="0"
+            FontSize="12">
+            Command
+        </Label>
+        <TextBlock
+            Margin="0 0 40 0"
+            Grid.Row="2"
+            Grid.RowSpan="1"
+            Grid.Column="3"
+            Grid.ColumnSpan="9"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            FontSize="12"
+            Foreground="White"
+            Text="{Binding USBKey.Command.Name, UpdateSourceTrigger=PropertyChanged}">
+        </TextBlock>
+
+        <Label            
+            VerticalAlignment="Top"
+            Grid.Row="3"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="40 0 0 0"
+            Padding="0"
+            FontSize="12">
+            Details
+        </Label>
+        <TextBlock
+            Foreground="White"
+            Margin="0 0 40 0"
+            Grid.Row="3"
+            Grid.RowSpan="2"
+            Grid.Column="3"
+            Grid.ColumnSpan="9"
+            TextWrapping="Wrap"
+            FontSize="12"
+            Text="{Binding CurrentDetails, UpdateSourceTrigger=PropertyChanged}">
+        </TextBlock>
+
+        <!-- Bottom right corner message, with stopwatch output. -->
+        <TextBlock
+            Text="{Binding CornerMessage, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="4"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="12"
+            FontSize="12"
+            Margin="0 0 40 40"
+            Foreground="White"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom">
+        </TextBlock>
+
+        <!-- Debug section -->
+        <Grid
+            Background="Transparent"
+            IsEnabled="{Binding IsDebug, UpdateSourceTrigger=PropertyChanged}"            
+            Grid.Row="5"
+            Grid.RowSpan="10"
+            Grid.Column="0"
+            Grid.ColumnSpan="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label
+                VerticalAlignment="Center"
+                Grid.Row="0"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="40 0 0 0"
+                Padding="0"
+                FontSize="14">
+                Debug Log
+            </Label>
+            <TextBox            
+                Background="Transparent"
+                BorderThickness="1"
+                Name="LogBox"
+                IsReadOnly="True"
+                Grid.Row="0"
+                Padding="0"
+                Margin="0 20 40 40"
+                Grid.RowSpan="5"
+                Grid.Column="3"
+                Grid.ColumnSpan="12"
+                TextWrapping="Wrap"
+                Text="{Binding FullLog, UpdateSourceTrigger=PropertyChanged}"
+                TextChanged="LogBox_ScrollToEnd"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+        </Grid>
+
+    </Grid>
+
+    </Border>
+
+
+</Controls:MetroWindow>

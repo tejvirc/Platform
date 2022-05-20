@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Accounting.Contracts.Transaction" ElementSize="50">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Bool" FieldName="CommitAcknowledged" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Vgt.Client12.Accounting.Contracts.Transaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Bool" FieldName="CommitAcknowledged" />
+      <Field DataType="Int32" FieldName="State" />
+      <Field DataType="Int32" FieldName="Exception" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Vgt.Client12.Accounting.Contracts.Transaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Bool" FieldName="CommitAcknowledged" />
+      <Field DataType="Int32" FieldName="State" />
+      <Field DataType="Int32" FieldName="Exception" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" name="Vgt.Client12.Accounting.Contracts.Transaction">
+	  <Fields>
+		  <Field DataType="Int32" FieldName="DeviceId" />
+		  <Field DataType="Int64" FieldName="LogSequence" />
+		  <Field DataType="Int32" FieldName="VoucherSequence" />
+		  <Field DataType="DateTime" FieldName="TransactionDateTime" />
+		  <Field DataType="Int64" FieldName="TransactionId" />
+		  <Field DataType="Int64" FieldName="Amount" />
+		  <Field DataType="Byte" FieldName="TypeOfAccount" />
+		  <Field DataType="Int32" FieldName="BarcodeLength" />
+		  <Field DataType="Int64" FieldName="Barcode" />
+		  <Field DataType="Bool" FieldName="CommitAcknowledged" />
+		  <Field DataType="Int32" FieldName="State" />
+		  <Field DataType="Int32" FieldName="Exception" />
+		  <Field DataType="String" FieldName="AssociatedTransactions" />
+		  <Field DataType="String" FieldName="LogDisplayType" />
+	  </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

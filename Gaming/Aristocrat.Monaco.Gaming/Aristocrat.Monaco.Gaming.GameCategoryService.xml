@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.GameCategoryService">
+    <Fields>
+      <Field FieldName="AutoPlay" DataType="Bool"  />
+      <Field FieldName="AutoHold" DataType="Bool"  />
+      <Field FieldName="ShowPlayerSpeedButton" DataType="Bool"  />
+      <Field FieldName="VolumeScalar" DataType="Byte" />
+      <Field FieldName="PlaySpeed" DataType="Int32" />
+      <Field FieldName="DealSpeed" DataType="Int32" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.GameCategoryService">
+    <Fields>
+      <Field FieldName="AutoPlay" DataType="Bool"  />
+      <Field FieldName="AutoHold" DataType="Bool"  />
+      <Field FieldName="ShowPlayerSpeedButton" DataType="Bool"  />
+      <Field FieldName="VolumeScalar" DataType="Byte" />
+      <Field FieldName="PlaySpeed" DataType="Int32" />
+      <Field FieldName="DealSpeed" DataType="Int32" />
+      <Field FieldName="BackgroundColor" DataType="String" Size="20" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

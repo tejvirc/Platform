@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<BlockFormat version="1" name="Vgt.Client12.Accounting.TransactionCoordinator" >
+  <Fields>
+    <Field DataType="Guid" FieldName="CurrentRequestId" />
+    <Field DataType="Guid" FieldName="CurrentTransactionId" />
+    <Field DataType="Guid" FieldName="CurrentTransactionRequestorId" />
+    <Field DataType="Guid" FieldName="CurrentRequestorId" />
+  </Fields>
+</BlockFormat>

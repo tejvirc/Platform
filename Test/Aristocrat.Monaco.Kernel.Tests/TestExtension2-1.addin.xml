@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<Addin id="TestExtension2-1" namespace="TestAddins" version="1.0">
+
+  <Dependencies>
+    <Addin id="MonoAddinsHelperUnitTest" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/GenericITestExtensionPoint">
+    <Test type="TestExtension2.TestClass4" />
+  </Extension>
+
+  <Extension path="/GenericITestExtensionPointNotConfigured">
+    <Test type="TestExtension2.TestClass4" />
+  </Extension>
+
+</Addin>

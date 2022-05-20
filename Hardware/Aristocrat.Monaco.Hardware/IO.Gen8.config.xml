@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IOConfigurations>
+
+  <Buttons>
+    <Button PhysicalId="29" LogicalId="101" Enabled="true" Name="Cash Out" LampBit="15" />
+    <Button PhysicalId="30" LogicalId="102" Enabled="true" Name="Line A" LampBit="14" />
+    <Button PhysicalId="31" LogicalId="103" Enabled="true" Name="Line B" LampBit="13" />
+    <Button PhysicalId="32" LogicalId="104" Enabled="true" Name="Line C" LampBit="12" />
+    <Button PhysicalId="33" LogicalId="105" Enabled="true" Name="Line D" LampBit="11" />
+    <Button PhysicalId="34" LogicalId="106" Enabled="true" Name="Line E" LampBit="10" />
+    <Button PhysicalId="28" LogicalId="107" Enabled="true" Name="Call Attendant" LampBit="0" />
+    <Button PhysicalId="27" LogicalId="108" Enabled="true" Name="Bet A/Bet 1" LampBit="1" />
+    <Button PhysicalId="26" LogicalId="109" Enabled="true" Name="Bet B" LampBit="2" />
+    <Button PhysicalId="25" LogicalId="110" Enabled="true" Name="Bet C" LampBit="3" />
+    <Button PhysicalId="24" LogicalId="111" Enabled="true" Name="Bet D" LampBit="4" />
+    <Button PhysicalId="23" LogicalId="112" Enabled="true" Name="Bet E/Bet All" LampBit="5"/>
+    <Button PhysicalId="22" LogicalId="113" Enabled="true" Name="Play/Spin/Draw" LampBit="6" />
+    <Button PhysicalId="22" LogicalId="114" Enabled="true" Name="Bet Max" />
+    <Button PhysicalId="35" LogicalId="124" Enabled="true" Name="Barkeeper" />
+    <Button PhysicalId="1" LogicalId="130" Enabled="true" Name="Jackpot SW" />
+  </Buttons>
+
+  <KeySwitches>
+    <KeySwitch PhysicalId="2" LogicalId="4" Enabled="true" Name="Operator" />
+    <KeySwitch PhysicalId="1" LogicalId="130" Enabled="true" Name="Jackpot" />
+    <KeySwitch PhysicalId="0" LogicalId="55" Enabled="true" Name="Hard Meter Light" />
+  </KeySwitches>
+
+  <Doors>
+    <Door PhysicalId="49" LogicalId="5" Enabled="true" Name="Main Door" />
+    <Door PhysicalId="51" LogicalId="6" Enabled="true" Name="Belly Door" />
+    <Door PhysicalId="45" LogicalId="7" Enabled="true" Name="Logic Door" />
+    <Door PhysicalId="46" LogicalId="12" Enabled="true" Name="Top Box Door" />
+    <Door PhysicalId="46" LogicalId="13" Enabled="true" Name="Universal Interface Box Door" /> <!-- *NOTE* UIB door physical ID same as top box -->
+    <Door PhysicalId="50" LogicalId="23" Enabled="true" Name="Stacker Door" />
+    <!-- <Door PhysicalId="32" LogicalId="24" Enabled="true" Name="Secondary Stacker Door" /> -->
+    <Door PhysicalId="48" LogicalId="25" Enabled="true" Name="Drop Door" />
+    <Door PhysicalId="47" LogicalId="26" Enabled="true" Name="Mechanical Meter Door" />
+    <Door PhysicalId="3" LogicalId="27" Enabled="true" Name="Main Optic Door" />
+    <Door PhysicalId="4" LogicalId="28" Enabled="true" Name="Top Box Optic Door" />
+  </Doors>
+
+  <Lights>
+    <!--<Light PhysicalId="0" LogicalId="0" Enabled="true" Name="It's a Light" />-->
+  </Lights>
+
+  <HardMeters>
+    <HardMeter PhysicalId="0" LogicalId="0" Enabled="true" Type="Output" Name="Credits Bet" />
+    <HardMeter PhysicalId="1" LogicalId="1" Enabled="true" Type="Output" Name="Credit Won" />
+    <HardMeter PhysicalId="2" LogicalId="2" Enabled="true" Type="Output" Name="Drop Coin" />
+    <HardMeter PhysicalId="3" LogicalId="3" Enabled="true" Type="Output" Name="Handpay" />
+    <HardMeter PhysicalId="4" LogicalId="4" Enabled="true" Type="Output" Name="Bill In" />
+    <HardMeter PhysicalId="5" LogicalId="5" Enabled="true" Type="Output" Name="Credit Collect" />
+	<HardMeter PhysicalId="6" LogicalId="6" Enabled="true" Type="Output" Name="MechanicalMeter7" />
+	<HardMeter PhysicalId="7" LogicalId="7" Enabled="true" Type="Output" Name="MechanicalMeter8" />
+  </HardMeters>
+</IOConfigurations>

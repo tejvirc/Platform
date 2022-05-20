@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:HST="http://www.aristocrat.com/emdi/schemas/v1b/HST" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://mediaDisplay.igt.com" targetNamespace="http://www.aristocrat.com/emdi/schemas/v1b/HST" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-26 v1b2">
+	<xs:import namespace="http://mediaDisplay.igt.com" schemaLocation="mdInclude.xsd"/>
+	<!--Simple Data Types-->
+	<!--Attribute Groups.-->
+	<!--Complex Data Types.-->
+	<xs:complexType name="c_getEgmId">
+		<xs:annotation>
+			<xs:documentation>getEgmId Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_egmId">
+		<xs:annotation>
+			<xs:documentation>egmId Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+			  <xs:attribute name="egmId" type="t_egmId" use="required" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Sub-Elements.-->
+	<!--Commands.-->
+	<xs:element name="getEgmId">
+		<xs:annotation>
+			<xs:documentation>getEgmId Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="HST:c_getEgmId">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="egmId">
+		<xs:annotation>
+			<xs:documentation>egmId Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="HST:c_egmId">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Functional Group.-->
+	<xs:element name="mdHost">
+		<xs:annotation>
+			<xs:documentation>mdHost Functional Group.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_baseClass">
+					<xs:choice minOccurs="0">
+						<xs:element ref="HST:getEgmId"/>
+						<xs:element ref="HST:egmId"/>
+						<xs:any namespace="##other" processContents="lax"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--End of Extension.-->
+</xs:schema>

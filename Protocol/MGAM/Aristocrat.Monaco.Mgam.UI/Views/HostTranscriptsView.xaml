@@ -1,0 +1,197 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Mgam.UI.Views.HostTranscriptsView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Mgam.UI.ViewModels"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               mc:Ignorable="d" 
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:HostTranscriptsViewModel}}"
+                               d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <common:TextCaseConverter x:Key="TextCaseConverter" />
+
+            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="TranscriptDataGridRowStyle" 
+                   TargetType="{x:Type DataGridRow}" 
+                   BasedOn="{StaticResource MonacoDataGridRow}">
+                <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsHeartbeat}" Value="True" />
+                            <Condition Binding="{Binding DataContext.IncludeKeepAliveMessages, RelativeSource={RelativeSource AncestorType=DataGrid}}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+            <common:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" 
+               Grid.Column="0" 
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.EgmIdLabel}}"/>
+        <TextBlock Grid.Row="0" 
+                   Grid.Column="1" 
+                   Margin="20 0 0 0" 
+                   Text="{Binding EgmId}" 
+                   VerticalAlignment="Center"/>
+
+        <Label Grid.Row="1" 
+               Grid.Column="0" 
+               Margin="0 10 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"/>
+        <TextBlock Grid.Row="1" 
+                   Grid.Column="1" 
+                   Margin="20 0 0 0"
+                   VerticalAlignment="Bottom">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock"
+                       BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="Text" Value="{lex:BLoc {x:Static loc:ResourceKeys.Offline}}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Online}" Value="True">
+                            <Setter Property="Text" Value="{lex:BLoc {x:Static loc:ResourceKeys.Online}}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+               Margin="0 20 0 0"
+               HorizontalAlignment="Left"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.RegisteredInstance}}"/>
+
+        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                BorderBrush="{StaticResource AccentColorBrush}"
+                BorderThickness="0 0 0 2">
+            <DataGrid ColumnWidth="*"
+                      VerticalAlignment="Stretch"
+                      ItemsSource="{Binding RegisteredInstances, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                         Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}" 
+                         Width="Auto" 
+                         Binding="{Binding Timestamp, Converter={StaticResource DateTimeFormatConverter}}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Address}}" 
+                                        Width="Auto" 
+                                        Binding="{Binding Address}"
+                                        CellStyle="{StaticResource DataGridCellCenter}" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}" 
+                                        Width="Auto" 
+                                        Binding="{Binding DeviceId}"
+                                        CellStyle="{StaticResource DataGridCellCenter}" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InstanceId}}" 
+                                        Width="Auto" 
+                                        Binding="{Binding InstanceId}"
+                                        CellStyle="{StaticResource DataGridCellCenter}" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SiteId}}" 
+                                        Width="Auto" 
+                                        Binding="{Binding SiteId}"
+                                        CellStyle="{StaticResource DataGridCellCenter}" />
+                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Description}}" 
+                                        Width="Auto" 
+                                        Binding="{Binding Description}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <CheckBox Grid.Row="4" Grid.Column="1"
+                  Margin="0 20 0 0"
+                  HorizontalAlignment="Right"
+                  IsChecked="{Binding IncludeKeepAliveMessages}"
+                  Content="{lex:Loc {x:Static loc:ResourceKeys.ShowHeartbeat}}" />
+        <Label Grid.Row="4" Grid.Column="0"
+               Margin="0 20 0 0"
+               HorizontalAlignment="Left"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Transcripts}}"/>
+
+        <DataGrid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                  VerticalAlignment="Stretch"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  SelectedItem="{Binding SelectedHostTranscript, Mode=TwoWay}"
+                  ItemsSource="{Binding Messages, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  RowStyle="{StaticResource TranscriptDataGridRowStyle}"
+                  ScrollViewer.CanContentScroll="True" >
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}" 
+                    Width="Auto" 
+                    Binding="{Binding Timestamp, Converter={StaticResource DateTimeFormatConverter}}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}" 
+                                    Width="Auto" 
+                                    Binding="{Binding Name}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Source}}" 
+                                    Width="Auto" 
+                                    Binding="{Binding Source}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Destination}}" 
+                                    Width="Auto" 
+                                    Binding="{Binding Destination}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResponseCode}}" 
+                                    Width="Auto" 
+                                    Binding="{Binding ResponseCode}"
+                                    CellStyle="{StaticResource DataGridCellCenter}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                Visibility="Collapsed" 
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsViewDetail}}" 
+                Command="{Binding ViewHostTranscriptsCommand, Mode=OneWay}" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                Margin="5 5 5 0" />
+
+        <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+              Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource BoolToVisConverter}}">
+            <Border HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
+                <DockPanel LastChildFill="True">
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDetailTitle}}" 
+                           DockPanel.Dock="Top" 
+                           HorizontalAlignment="Left" />
+                    <Button DockPanel.Dock="Bottom" 
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}" 
+                            Command="{Binding CloseDetailCommand}" 
+                            HorizontalAlignment="Right" />
+                    <Label Margin="10" 
+                           DockPanel.Dock="Bottom" 
+                           Content="{Binding SelectedHostTranscript.RawData}" 
+                           HorizontalAlignment="Center" />
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+
+</operatorMenu:OperatorMenuPage>

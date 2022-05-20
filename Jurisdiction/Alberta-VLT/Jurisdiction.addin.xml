@@ -1,0 +1,200 @@
+<Addin id="AlbertaJurisdiction" namespace="Client12Addins" version="1.0">
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Hardware" version="1.0" />
+    <Addin id="Monaco.Accounting" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+    <Addin id="SelectableJurisdiction" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="SasConfiguration" version="1.0" />
+  </Dependencies>
+  <Runtime>
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.VideoLottery.dll" />
+  </Runtime>
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableJurisdiction name="Alberta" description="Top level Alberta jurisdiction group" id="JUR000025,JUR000998,JUR000999,JUR000033">
+      <AddinConfigurationGroupReference name="BaseOperatorMenus" />
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+      <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaHardwareConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TiltLogger/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaTiltLoggerConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/DoorMonitor/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaDoorMonitorConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ConfigWizard/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaConfigWizardConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaOperatorMenuConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaOperatorMenuSoundConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaGamePreferencesSounds" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaLocaleConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaLocaleOverrides" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaLobbyConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaAccountingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaApplicationConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaGamingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TowerLight/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaTowerLightConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableRegions">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaPrintableRegionsConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableTemplates">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaPrintableTemplatesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrinterOverrides">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaPrinterOverridesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaDisplayMetersConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="AlbertaAccountingTransferProviders" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaTransactionConfiguration" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaAccountingRunnable" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaErrorMessageConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/AuditTicketMonitor/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaAuditTicketMonitorConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Currency/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaCurrencyConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaSASDefaultConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaHardMeterMappingConfig" />
+      </ExtensionPointConfiguration>
+    </SelectableJurisdiction>
+  </Extension>
+  <Extension path="/Currency/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\Currencies.config.xml" filterid="AlbertaCurrencyConfig" />
+  </Extension>
+  <Extension path="/SAS/DefaultConfiguration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\SASDefault.config.xml" filterid="AlbertaSASDefaultConfig" />
+  </Extension>
+  <Extension path="/Platform/Discovery/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\ConfiguredDevices.config.xml" filterid="AlbertaHardwareConfig" />
+  </Extension>
+  <Extension path="/TiltLogger/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\TiltLogger.config.xml" filterid="AlbertaTiltLoggerConfig" />
+  </Extension>
+  <Extension path="/DoorMonitor/Configuration">
+    <DoorMonitorConfiguration>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="24" OperatorCanCancel="true">
+        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="AlbertaDoorMonitorConfig" />
+      </DoorOpenAlarm>
+    </DoorMonitorConfiguration>
+  </Extension>
+  <Extension path="/ConfigWizard/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\ConfigWizard.config.xml" filterid="AlbertaConfigWizardConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" filterid="AlbertaOperatorMenuSoundConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/GamePreferences/Sounds">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="AlbertaGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="AlbertaGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="AlbertaGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="AlbertaGamePreferencesSounds" />
+  </Extension>
+  <Extension path="/OperatorMenu/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\OperatorMenu.config.xml" filterid="AlbertaOperatorMenuConfig" />
+  </Extension>
+  <Extension path="/Locale/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\Locale.config.xml" filterid="AlbertaLocaleConfig" />
+  </Extension>
+  <Extension path="/Locale/Overrides" filterid="AlbertaLocaleOverrides">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\resources\" />
+  </Extension>
+  <Extension path="/Lobby/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\Lobby.config.xml" filterid="AlbertaLobbyConfig" />
+  </Extension>
+  <Extension path="/Accounting/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\Accounting.config.xml" filterid="AlbertaAccountingConfig" />
+  </Extension>
+  <Extension path="/Application/JurisdictionConfiguration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\Application.config.xml" filterid="AlbertaApplicationConfig" />
+  </Extension>
+  <Extension path="/Gaming/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\Gaming.config.xml" filterid="AlbertaGamingConfig" />
+  </Extension>
+  <Extension path="/TowerLight/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\TowerLight.config.xml" filterid="AlbertaTowerLightConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableRegions">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\printable_regions.xml" filterid="AlbertaPrintableRegionsConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableTemplates">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\printable_templates.xml" filterid="AlbertaPrintableTemplatesConfig" />
+  </Extension>
+  <Extension path="/ErrorMessage/Configuration">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\ErrorMessage.config.xml" filterid="AlbertaErrorMessageConfig" />
+  </Extension>
+  <Extension path="/HardMeterMapping/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="AlbertaHardMeterMappingConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrinterOverrides">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\PrinterOverrides.xml" filterid="AlbertaPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/Application/OperatorMenu/DisplayMeters">
+    <FilePath FilePath="..\jurisdiction\Alberta-VLT\DisplayMeters.config.xml" filterid="AlbertaDisplayMetersConfig" />
+  </Extension>
+  <ExtensionPoint path="/Application/Alberta/Runnables">
+    <ExtensionNode name="Runnable" />
+  </ExtensionPoint>
+  <Extension path="/Application/Alberta/Runnables">
+    <Runnable type="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor" />
+  </Extension>
+  <Extension path="/AuditTicketMonitor/Configuration" filterid="AlbertaAuditTicketMonitorConfig">
+    <Triggers>
+      <Door name="Logic Door" />
+      <Door name="Stacker Door" />
+    </Triggers>
+  </Extension>
+  <Extension path="/Accounting/TransactionHistories" filterid="AlbertaTransactionConfiguration">
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+  </Extension>
+  <Extension path="/Accounting/BootExtender" filterid="AlbertaAccountingRunnable">
+    <BootExtender type="Aristocrat.Monaco.Gaming.VideoLottery.VideoLotteryRunnable" />
+  </Extension>
+</Addin>

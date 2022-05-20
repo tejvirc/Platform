@@ -1,0 +1,215 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+  <xs:element name="RequestPlayVoucherResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ResponseCode">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PrizeIndex">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PrizeValue">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int64" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ExtendedInfo">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SessionCashBalance">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SessionCouponBalance">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="IsProgressiveWin">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="bool" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ServerTransactionID">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:long">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int64" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ProgressivePrizeValue">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int64" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VoucherBarcode">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CasinoName">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CasinoAddress">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="VoucherType">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CashAmount">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CouponAmount">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TotalAmount">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AmountLongForm">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Date">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Time">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Expiration">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ID">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="Dir" use="optional" fixed="out" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

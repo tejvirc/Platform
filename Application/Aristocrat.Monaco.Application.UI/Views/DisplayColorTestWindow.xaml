@@ -1,0 +1,47 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Application.UI.Views.DisplayColorTestWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             xmlns:common="http://monaco.aristocrat.com/common"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewModels:DisplayColorTestsViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d" BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" x:Name="ColorTestWindow" Height="720" Width="1024" >
+    <common:BaseWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </common:BaseWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding SelectedTest.Colors}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding SelectedTest.Cols}" Rows="{Binding SelectedTest.Rows}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="{Binding}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Orientation="Horizontal" Name="ControlsPanel" Background="{StaticResource Brush1}">
+            <ComboBox Margin="100 10 10 10" ItemsSource="{Binding ColorTests}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTest}" SelectedIndex="0"></ComboBox>
+            <Button Padding="10 0 10 0" Margin="10"  Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Click="OnExitButtonPressed"/>
+        </StackPanel>
+    </Grid>
+</common:BaseWindow>
+

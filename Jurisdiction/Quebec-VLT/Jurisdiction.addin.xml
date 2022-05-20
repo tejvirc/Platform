@@ -1,0 +1,190 @@
+<Addin id="QuebecJurisdiction" namespace="Client12Addins" version="1.0">
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Hardware" version="1.0" />
+    <Addin id="Monaco.Accounting" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+    <Addin id="SelectableJurisdiction" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="SasConfiguration" version="1.0" />
+  </Dependencies>
+  <Runtime>
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.VideoLottery.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Application.dll" />
+  </Runtime>
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableJurisdiction name="Quebec" description="Top level Quebec jurisdiction group" id="JUR000078,JUR000998,JUR000999,JUR000033">
+      <AddinConfigurationGroupReference name="BaseOperatorMenus" />
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+      <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecHardwareConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TiltLogger/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecTiltLoggerConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/DoorMonitor/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecDoorMonitorConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ConfigWizard/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecConfigWizardConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecOperatorMenuConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecOperatorMenuSoundConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecGamePreferencesSounds" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecLocaleConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecLocaleOverrides" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecLobbyConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecAccountingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecApplicationConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecGamingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/TowerLight/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecTowerLightConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableRegions">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecPrintableRegionsConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrinterOverrides">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecPrinterOverridesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Hardware/PrintableTemplates">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecPrintableTemplatesConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecDisplayMetersConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="QuebecAccountingTransferProviders" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecTransactionConfiguration" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Accounting/BootExtender">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecAccountingRunnable" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/ErrorMessage/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecErrorMessageConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Currency/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecCurrencyConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecSASDefaultConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+        <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecHardMeterMappingConfig" />
+      </ExtensionPointConfiguration>
+    </SelectableJurisdiction>
+  </Extension>
+  <Extension path="/Currency/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\Currencies.config.xml" filterid="QuebecCurrencyConfig" />
+  </Extension>
+  <Extension path="/SAS/DefaultConfiguration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\SASDefault.config.xml" filterid="QuebecSASDefaultConfig" />
+  </Extension>
+  <Extension path="/Platform/Discovery/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\ConfiguredDevices.config.xml" filterid="QuebecHardwareConfig" />
+  </Extension>
+  <Extension path="/TiltLogger/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\TiltLogger.config.xml" filterid="QuebecTiltLoggerConfig" />
+  </Extension>
+  <Extension path="/DoorMonitor/Configuration">
+    <DoorMonitorConfiguration>
+      <DoorOpenAlarm RepeatSeconds="8" LoopCount="8" OperatorCanCancel="true">
+        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="QuebecDoorMonitorConfig" />
+      </DoorOpenAlarm>
+    </DoorMonitorConfiguration>
+  </Extension>
+  <Extension path="/ConfigWizard/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\ConfigWizard.config.xml" filterid="QuebecConfigWizardConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" filterid="QuebecOperatorMenuSoundConfig" />
+  </Extension>
+  <Extension path="/OperatorMenu/GamePreferences/Sounds">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="QuebecGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="QuebecGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="QuebecGamePreferencesSounds" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="QuebecGamePreferencesSounds" />
+  </Extension>
+  <Extension path="/OperatorMenu/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\OperatorMenu.config.xml" filterid="QuebecOperatorMenuConfig" />
+  </Extension>
+  <Extension path="/Locale/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\Locale.config.xml" filterid="QuebecLocaleConfig" />
+  </Extension>
+  <Extension path="/Locale/Overrides" filterid="QuebecLocaleOverrides">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
+  </Extension>
+  <Extension path="/Lobby/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\Lobby.config.xml" filterid="QuebecLobbyConfig" />
+  </Extension>
+  <Extension path="/Accounting/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\Accounting.config.xml" filterid="QuebecAccountingConfig" />
+  </Extension>
+  <Extension path="/Application/JurisdictionConfiguration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\Application.config.xml" filterid="QuebecApplicationConfig" />
+  </Extension>
+  <Extension path="/Gaming/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\Gaming.config.xml" filterid="QuebecGamingConfig" />
+  </Extension>
+  <Extension path="/TowerLight/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\TowerLight.config.xml" filterid="QuebecTowerLightConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableRegions">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\printable_regions.xml" filterid="QuebecPrintableRegionsConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableTemplates">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\printable_templates.xml" filterid="QuebecPrintableTemplatesConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrinterOverrides">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\PrinterOverrides.xml" filterid="QuebecPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/ErrorMessage/Configuration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\ErrorMessage.config.xml" filterid="QuebecErrorMessageConfig" />
+  </Extension>
+  <Extension path="/Application/OperatorMenu/DisplayMeters">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\DisplayMeters.config.xml" filterid="QuebecDisplayMetersConfig" />
+  </Extension>
+  <ExtensionPoint path="/Application/Quebec/Runnables">
+    <ExtensionNode name="Runnable" />
+  </ExtensionPoint>
+  <Extension path="/Application/Quebec/Runnables">&gt;
+    <Runnable type="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor" /></Extension>
+  <Extension path="/Accounting/TransactionHistories" filterid="QuebecTransactionConfiguration">
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+  </Extension>
+  <Extension path="/Accounting/BootExtender" filterid="QuebecAccountingRunnable">
+    <BootExtender type="Aristocrat.Monaco.Gaming.VideoLottery.VideoLotteryRunnable" filterid="QuebecAccountingRunnable" />
+  </Extension>
+  <Extension path="/HardMeterMapping/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="QuebecHardMeterMappingConfig" />
+  </Extension>
+</Addin>

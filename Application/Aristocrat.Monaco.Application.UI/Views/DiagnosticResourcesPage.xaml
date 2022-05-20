@@ -1,0 +1,101 @@
+﻿<operatorMenu:OperatorMenuPage  x:Class="Aristocrat.Monaco.Application.UI.Views.DiagnosticResourcesPage"
+                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                                xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
+                                common:DialogParticipation.Register="{Binding}"
+                                xmlns:lvcwpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                                mc:Ignorable="d"
+                                d:DataContext="{d:DesignInstance viewModels:DiagnosticResourcesViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>     <!-- graph area -->
+            <RowDefinition Height="Auto"/>  <!-- navigation buttons -->
+        </Grid.RowDefinitions>
+
+        <!-- graph area -->
+        <Grid Grid.Row="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>     <!-- graph or details (mutually exclusive) -->
+                    <RowDefinition Height="Auto"/>  <!-- legend -->
+                </Grid.RowDefinitions>
+
+                <!-- graph -->
+                <GroupBox Grid.Row="0" 
+                          Header="{lex:Loc Key={x:Static loc:ResourceKeys.ApplicationPerformance}}" 
+                          Background="Transparent"
+                          Visibility="{Binding Visibility, ElementName=EnterDiagnosticChartModeButton}">
+                    <lvcwpf:CartesianChart x:Name="Chart" 
+                                           Content="{Binding MonacoChart, Mode=TwoWay}"/>
+                </GroupBox>
+
+                <!-- legend -->
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding Metrics}"
+                    Margin="0 10 0 0"
+                    Visibility="{Binding Visibility, ElementName=EnterDiagnosticChartModeButton}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="4">
+                                <CheckBox IsChecked="{Binding MetricEnabled, Mode=TwoWay}"/>
+                                <TextBox MinWidth="350" 
+                                    Text="{Binding DisplayNamePlus, Mode=OneWay}" 
+                                    IsHitTestVisible="False" Focusable="False" IsReadOnly="True"
+                                    BorderThickness="1"
+                                    Foreground="{Binding MetricColor}" />
+                                <TextBox Width="80"  
+                                    Text="{Binding CurrentValue, Mode=OneWay}" 
+                                    IsHitTestVisible="False" Focusable="False" IsReadOnly="True"
+                                    BorderThickness="0 1 1 1" 
+                                    Foreground="{Binding MetricColor}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            <!-- details -->
+            <local:DiagnosticViewDetailChart Grid.Row="0" x:Name="TestControl" 
+                                             DataContext="{Binding TestDiagnosticPerformanceCounterChartViewModel}"
+                                             Visibility="{Binding Visibility, ElementName=ExitDiagnosticChartModeButton}"/>
+        </Grid>
+
+        <!-- navigation buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10 0 0">
+            <Button HorizontalAlignment="Left" 
+                    Content="View Memory" 
+                    Command="{Binding ViewMemoryCommand}"
+                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource BoolToCollapsedConverter}}"/>
+            <Button Name="EnterDiagnosticChartModeButton" 
+                    Content="View Performance Details" 
+                    HorizontalAlignment="Center"
+                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource BoolToCollapsedConverter}}"
+                    Command="{Binding ToggleDiagnosticChartViewModeCommand}"/>
+            <Button Name="ExitDiagnosticChartModeButton" Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource BoolToVisConverter}}"
+                    Command="{Binding ToggleDiagnosticChartViewModeCommand}"
+                    Content="End Performance Details"
+                    HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+
+</operatorMenu:OperatorMenuPage>
+

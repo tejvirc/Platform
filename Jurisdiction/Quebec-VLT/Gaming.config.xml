@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+*NOTE* When adding or removing elements to this file, you will need to
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Gaming\Aristocrat.Monaco.Gaming.Contracts
+2.  Enter "xsd GamingConfiguration.xsd /c /n:Aristocrat.Monaco.Gaming.Contracts".  This will generate
+    the corresponding class definition in csharp (GamingConfiguration.cs).
+-->
+<GamingConfiguration>
+	<GameHistory KeepGameRoundEvents="false" KeepGameRoundMeterSnapshots="false" />
+	<GameEnd CashOutStrategy="Full" />
+	<FreeGames MeterIndependently="false" />
+	<Messages>
+		<MinBetMessage MustDisplay="false" Format="Currency" />
+	</Messages>
+	<ReelStop Enabled="false" />
+	<LockupBehavior CashableLockupStrategy="NotAllowed" />
+	<DefaultCreditDisplay Format="Currency" />
+	<AutoHold Enable="true" Configurable="false" />
+	<Gamble Allowed="false" />
+	<LetItRide Allowed="false" />
+	<!--
+		Some VLT markets deliberately set GameStartButtons/Methods value as empty string and want
+		to start game with Play button only. For such situations we should set "Method" parameter to "None"
+		and hide the UI settings by setting "SettingsVisible" to "false"
+	-->
+	<PhysicalButtons>
+		<GameStartButtons SettingsVisible="false" Method="None" />
+	</PhysicalButtons>
+	<AttractModeOptions KenoAttractSelected="true" PokerAttractSelected="true" BlackjackAttractSelected="true" />
+	<ProgressiveLobbyIndicator Indicator="Disabled" />
+</GamingConfiguration>

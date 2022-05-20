@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Hhr.UI.Controls.PreviousResultHorseNumber"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
+             xmlns:contracts="clr-namespace:Aristocrat.Monaco.Hhr.UI"
+             mc:Ignorable="d"
+             x:Name="ThisHorseNumberControl">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:PreviousResultHorseNumberToImageConverter x:Key="PreviousResultHorseNumberToImageConverter"/>
+            <converters:HorsePickHighlightToImageConverter x:Key="HorsePickHighlightToImageConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Image Source="{Binding HorseNumber, ElementName=ThisHorseNumberControl,
+               Converter={StaticResource PreviousResultHorseNumberToImageConverter}}"/>
+
+        <Image>
+            <Image.Source>
+                <MultiBinding Converter="{StaticResource HorsePickHighlightToImageConverter}">
+                    <Binding ElementName="ThisHorseNumberControl" Path="IsCorrectPick" />
+                    <Binding Source="{x:Static contracts:HhrTileImageSize.Medium}" />
+                </MultiBinding>
+            </Image.Source>
+        </Image>
+
+    </Grid>
+</UserControl>

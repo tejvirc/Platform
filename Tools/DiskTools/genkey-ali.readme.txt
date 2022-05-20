@@ -1,0 +1,20 @@
+GENKEY - genkey-ali.exe 
+
+Usage: genkey-ali.exe [OPTION..] <FILE>
+Generate a RSA/DSA key pair
+
+Options:
+  -b, --bits=BITS    Key size in bits
+  -d, --dsa          Generate DSA key pair
+  -r, --rsa          Generate RSA key pair
+  -V, --version      Display program version and exit
+
+  
+ 
+example dsa 1024:
+------------------------------------------------
+rem outputs masterkey.prv and masterkey.pub
+genkey-ali.exe -d -b 1024  masterkey
+
+------------------------------------------------
+generates a 1024 bit DSA key (private and public file).

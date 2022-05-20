@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:CCI="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" xmlns:PLC="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" targetNamespace="http://mediaDisplay.igt.com" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-26 v1b2">
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" schemaLocation="mdImportExtCCI.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" schemaLocation="mdImportExtPLC.xsd"/>
+	<!--Simple Data Types.-->
+	<xs:simpleType name="t_cmdType">
+		<xs:annotation>
+			<xs:documentation>Command Type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="request"/>
+			<xs:enumeration value="response"/>
+		</xs:restriction>
+	</xs:simpleType>
+  <xs:simpleType name="t_uniqueIdentifier32">
+    <xs:annotation>
+      <xs:documentation>Conforms to G2S conventions for unique identifiers - 32 characters.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z0-9]{3}_[ -~]{1,28}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_uniqueIdentifier64">
+    <xs:annotation>
+      <xs:documentation>Conforms to G2S conventions for unique identifiers - 64 characters.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Z0-9]{3}_[ -~]{1,60}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_sessionId">
+    <xs:annotation>
+      <xs:documentation>session identifier</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:long">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_egmId">
+    <xs:annotation>
+      <xs:documentation>EGM identifier</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="t_uniqueIdentifier32">
+    </xs:restriction>
+  </xs:simpleType>
+	<!--complex base types-->
+	<!--Global base types-->
+	<xs:complexType name="c_baseClass">
+		<xs:annotation>
+			<xs:documentation>Message-level parameters for all functional groups</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="cmdType" type="t_cmdType" use="required"/>
+		<xs:attribute name="sessionId" type="t_sessionId" use="required"/>
+		<xs:attribute name="errorCode" use="optional" default="0">
+			<xs:simpleType>
+				<xs:restriction base="xs:long">
+					<xs:minInclusive value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="c_baseCommand">
+		<xs:annotation>
+			<xs:documentation>Base Command Data Type</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+</xs:schema>

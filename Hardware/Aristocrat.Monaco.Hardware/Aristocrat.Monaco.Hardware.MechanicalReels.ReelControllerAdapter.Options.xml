@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.MechanicalReels.ReelControllerAdapter.Options" >
+    <Fields>
+      <Field DataType="Int32" FieldName="ReelBrightness" />
+      <Field DataType="Int32" Count="6" FieldName="ReelOffsets" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

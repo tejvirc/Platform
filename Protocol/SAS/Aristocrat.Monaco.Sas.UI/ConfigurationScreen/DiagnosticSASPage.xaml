@@ -1,0 +1,125 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.DiagnosticSasPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Sas.UI.ViewModels"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticSasPageViewModel}}"
+             xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+             xmlns:common="http://monaco.aristocrat.com/common"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Sas.UI.ConfigurationScreen"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            
+            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MonacoRadioButton}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="MinWidth" Value="120"/>
+            </Style>
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            </Style>
+            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MonacoTabItem}">
+                <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasMonitoringFilters}}">
+            <Grid Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <controls:ToggleSwitchButton Grid.Column="0"
+                                             IsEnabled="{Binding CanMonitorHost1}"
+                                             IsChecked="{Binding MonitoringSasHost}"
+                                             mah:ControlsHelper.CornerRadius="0"
+                                             common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Host1Label}}"
+                                             common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.Host2Label}}"
+                                             HorizontalAlignment="Left" />
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <CheckBox IsChecked="{Binding MonitoringSyncPoll}" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Sync}}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                    <CheckBox IsChecked="{Binding MonitoringGeneralPoll}" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.GeneralPoll}}" VerticalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="3">
+                    <CheckBox IsChecked="{Binding MonitoringNoActivity}" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowNoActivityLabel}}" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="4">
+                    <CheckBox IsChecked="{Binding MonitoringIncomingPackets}" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasIncomingData}}" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="5">
+                    <CheckBox IsChecked="{Binding MonitoringOutgoingPackets}" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasOutgoingData}}" VerticalAlignment="Center" />
+                </StackPanel>
+                <Button Content="{Binding MonitorButtonName}" Margin="15 0 0 0" Command="{Binding ToggleMonitoringCommand}" HorizontalAlignment="Right" Grid.Column="6"/>
+                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Clear}}" Margin="10 0 0 0" Command="{Binding ClearSasDataCommand}" Grid.Column="7"/>
+            </Grid>
+            </GroupBox>
+
+        <Grid Name="InnerGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Grid.Column="0" Header="{lex:Loc Key={x:Static loc:ResourceKeys.Statistics}}" Margin="0 10"  DataContext="{Binding SelectedSasDiagnostics}">
+                <TabControl Background="Transparent" TabStripPlacement="Top">
+                    <TabItem Header="{lex:Loc Key={x:Static loc:Resources.SasComms}}">
+                        <local:SasCommsStats/>
+                    </TabItem>
+                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasGeneral}}">
+                        <local:SasGeneralStatistics/>
+                    </TabItem>
+                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasPerformance}}">
+                        <local:SasPerformanceStats/>
+                    </TabItem>
+                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasErrors}}">
+                        <local:SasErrorStats/>
+                    </TabItem>
+                </TabControl>
+            </GroupBox>
+
+            <GroupBox Header="{lex:Loc Key={x:Static loc:ResourceKeys.PollData}}" Margin="10 10 0 0" Name="PollDataGroupBox" Grid.Column="1">
+                <local:SasPollData/>
+            </GroupBox>
+        </Grid>
+        </Grid>
+</operatorMenu:OperatorMenuPage>

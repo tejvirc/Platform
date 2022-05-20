@@ -1,0 +1,206 @@
+<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.BarkeeperCoinInReward"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+             xmlns:helpers="http://monaco.aristocrat.com/common"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+             xmlns:barkeeper="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Barkeeper;assembly=Aristocrat.Monaco.Gaming.Contracts"
+             xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:BarkeeperConfigurationViewModel}}"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="ColorsExceptBlack" MethodName="GetColorOptionsExceptBlack" ObjectType="{x:Type local:ColorOptionsProvider}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type Type="barkeeper:ColorOptions"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <ObjectDataProvider x:Key="AlertEnum" MethodName="GetValues" ObjectType="{x:Type core:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type Type="barkeeper:BarkeeperAlertOptions"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+            <Style TargetType="ComboBox" BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+            <Style TargetType="helpers:ExpirationTextBox" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+            <converters:CentsToDecimalConverter x:Key="CurrencyConverter" />
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="15 15 0 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="1" Name="LevelsDataGrid" ItemsSource="{Binding CoinInRewardLevels}" AutoGenerateColumns="False"
+                  RowStyle="{StaticResource MonacoUnselectableDataGridRow}"
+                  CellStyle="{StaticResource MonacoCompactDataGridCell}"
+                  IsEnabled="{Binding InputEnabledByRuleOverride}"
+                  VerticalAlignment="Stretch"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  EnableRowVirtualization="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}" HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
+                            <CheckBox HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="5"
+                                      IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
+                            <Label Content="{Binding Name}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Threshold}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
+                            <helpers:CurrencyTextBox Margin="20 0 0 0" MinWidth="200"
+                                                     IsReadOnly="False" PreventNegatives="True" InputScope="Number"
+                                                     Number="{Binding ThresholdInCents, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                                     IsEnabled="{Binding Enabled}">
+                            </helpers:CurrencyTextBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
+                            <ComboBox FontSize="14" IsEnabled="{Binding Enabled}"
+                                      ItemsSource="{Binding Source={StaticResource ColorsExceptBlack}}"
+                                      SelectedItem="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Alert}}" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
+                            <ComboBox FontSize="14" IsEnabled="{Binding Enabled}"
+                                      ItemsSource="{Binding Source={StaticResource AlertEnum}}"
+                                      SelectedItem="{Binding Alert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <StackPanel Grid.Row="2" Grid.Column="0"  Margin="0 15 0 0" Orientation="Horizontal"
+                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInRateOfPlay}}" />
+            <Button Name="CoinInRateInfoButton" Margin="5 0 0 0"
+                    Style="{StaticResource MonacoInfoButton}"
+                    Command="{Binding ShowInfoPopupCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="CoinInRateInfoButton" />
+                        <Binding ElementName="CoinInRateInfoButtonProxy" Path="Result" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+                <lex:LocProxy x:Name="CoinInRateInfoButtonProxy"
+                              Source="{x:Static loc:ResourceKeys.BarkeeperCoinInRateOfPlayToolTip}" />
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" 
+                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
+            <CheckBox Margin="0,5" Width="46"
+                      IsChecked="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Mode=TwoWay}"
+                      IsEnabled="{Binding InputEnabledByRuleOverride}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Checked" >
+                        <i:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                               CommandParameter="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Unchecked" >
+                        <i:InvokeCommandAction Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                               CommandParameter="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
+            <helpers:CurrencyTextBox Margin="20 0 0 0" MinWidth="200"
+                                     IsReadOnly="False" PreventNegatives="True" InputScope="Number"
+                                     Number="{Binding RewardLevels.CoinInStrategy.CoinInRate.Amount, Converter={StaticResource CurrencyConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                     Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                <helpers:CurrencyTextBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="InputEnabledByRuleOverride" />
+                        <Binding Path="RewardLevels.CoinInStrategy.CoinInRate.Enabled" />
+                    </MultiBinding>
+                </helpers:CurrencyTextBox.IsEnabled>
+            </helpers:CurrencyTextBox>
+            <Label Margin="20 0 0 0"
+                   Content="{lex:Loc Key=Disabled}" VerticalAlignment="Center"
+                   Visibility="{Binding RewardLevels.CoinInStrategy.CoinInRate.Enabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 15 0 0">
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInMeter}}" VerticalAlignment="Center"
+                   Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}"/>
+            <Label Content="{Binding CoinInSessionMeter, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"
+                   Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}"/>
+            <Button Name="CoinInMeterInfoButton" Margin="5 0 0 0"
+                    Style="{StaticResource MonacoInfoButton}" Command="{Binding ShowInfoPopupCommand}"
+                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource BoolToVisConverter}}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="CoinInMeterInfoButton" />
+                        <Binding ElementName="CoinInMeterInfoButtonProxy" Path="Result" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+                <lex:LocProxy Name="CoinInMeterInfoButtonProxy"
+                              Source="{x:Static loc:ResourceKeys.BarkeeperCoinInMeterToolTip}" />
+            </Button>
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInDisabled}}"
+                   Visibility="{Binding CoinInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}" />
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

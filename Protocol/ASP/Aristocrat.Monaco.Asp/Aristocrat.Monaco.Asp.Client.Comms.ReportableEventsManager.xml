@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Asp.Client.Comms.ReportableEventsManager">
+  <Fields>
+    <Field DataType="String" Size="32768" FieldName="AspActiveEvents"/>
+  </Fields>
+</BlockFormat>

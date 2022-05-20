@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="WpfVoucherInHistoryLog" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Monaco.Accounting.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="WpfLogScreensManager" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Accounting/OperatorMenu/WpfMenu/Logs/Pages">
+    <LogPage type="Aristocrat.Monaco.Accounting.UI.VoucherInHistoryLogLoader" />
+  </Extension>
+
+</Addin>

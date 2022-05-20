@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<Addin id="IdentificationPages" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+
+    <AddinConfigurationGroup name="IdentificationPages" description="Identification pages configuration">
+
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/IdentificationMenu">
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="0" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.GamesSummaryViewLoader" order="2" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.JurisdictionSettingsPageLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.SoftwareVerificationPageLoader" order="3" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.SerialGatPageLoader" order="4" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.GameConfigurationViewLoader" order="5" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.LicensePageLoader" order="6" />
+      </ExtensionPointConfiguration>
+
+    </AddinConfigurationGroup>
+
+  </Extension>
+
+</Addin>

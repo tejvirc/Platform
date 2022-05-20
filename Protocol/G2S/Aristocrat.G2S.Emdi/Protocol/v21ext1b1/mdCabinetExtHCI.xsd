@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:HCI="http://www.gamingstandards.com/emdi/schemas/v1b/HCI" xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/HCI" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-6-5 v1.0">
+	<xs:import namespace="http://mediaDisplay.igt.com" schemaLocation="mdInclude.xsd"/>
+	<!--Complex Data Types-->
+	<xs:complexType name="c_hostToContentMessage">
+		<xs:annotation>
+			<xs:documentation>hostToContentMessage Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="HCI:instructionData"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_hostToContentMessageAck">
+		<xs:annotation>
+			<xs:documentation>contentHostToContentMessageAck Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_instructionData">
+		<xs:annotation>
+			<xs:documentation>instructionData Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:base64Binary"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="c_contentToHostMessage">
+		<xs:annotation>
+			<xs:documentation>contentToHostMessage Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="HCI:instructionData"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_contentToHostMessageAck">
+		<xs:annotation>
+			<xs:documentation>contentToHostMessageAck Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Elements-->
+	<xs:element name="instructionData">
+		<xs:annotation>
+			<xs:documentation>instructionData Sub-Element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="HCI:c_instructionData">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Commands-->
+	<xs:element name="hostToContentMessage">
+		<xs:annotation>
+			<xs:documentation>hostToContentMessage Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="HCI:c_hostToContentMessage">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="hostToContentMessageAck">
+		<xs:annotation>
+			<xs:documentation>hostToContentMessageAck Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="HCI:c_hostToContentMessageAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="contentToHostMessage">
+		<xs:annotation>
+			<xs:documentation>contentToHostMessage Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="HCI:c_contentToHostMessage">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="contentToHostMessageAck">
+		<xs:annotation>
+			<xs:documentation>contentToHostMessageAck Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="HCI:c_contentToHostMessageAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--End of Extension.-->
+</xs:schema>

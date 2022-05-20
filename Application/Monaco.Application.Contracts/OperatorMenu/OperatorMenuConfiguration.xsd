@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:attributeGroup name="AttGroupMenu">
+    <xs:attribute name="Type" type="xs:string" />
+    <xs:attribute name="Visible" type="xs:boolean" default="true" />
+    <xs:attribute name="Access" type="xs:string" default="" />
+  </xs:attributeGroup>
+  <xs:attributeGroup name="AttGroupPage">
+    <xs:attribute name="Type" type="xs:string" />
+    <xs:attribute name="TabType" type="xs:string" />
+    <xs:attribute name="Visible" type="xs:boolean" default="true" />
+    <xs:attribute name="Access" type="xs:string" default=""/>
+    <xs:attribute name="TabAccess" type="xs:string"  default=""/>
+    <xs:attribute name="FieldAccess" type="xs:string"  default=""/>
+    <xs:attribute name="PrintButtonEnabled" type="xs:boolean" default="false"/>
+    <xs:attribute name="PrintButtonAccess" type="xs:string" default=""/>
+    <xs:attribute name="HardwareDiagnosticsEnabled" type="xs:boolean" default="false"/>
+    <xs:attribute name="PageName" type="xs:string" use="optional" default=""/>
+  </xs:attributeGroup>
+  <xs:complexType name="SettingType">
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Value" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="AccessRuleSetType">
+    <xs:attribute name="Name" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="AdditionalAccessRuleSetType">
+    <xs:attribute name="ID" type="xs:string" use="required" />
+    <xs:attribute name="RuleSetName" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:element name="OperatorMenuConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Setting" maxOccurs="unbounded" minOccurs="0" type="SettingType">
+        </xs:element>
+        <xs:element name="Menu" maxOccurs="unbounded" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Page" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Setting" maxOccurs="unbounded" minOccurs="0" type="SettingType"/>
+                    <xs:element name="AccessRuleSet" maxOccurs="unbounded" minOccurs="0" type="AdditionalAccessRuleSetType"/>
+                  </xs:sequence>
+                  <xs:attributeGroup ref="AttGroupPage"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attributeGroup ref="AttGroupMenu"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AccessRules">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AccessRuleSet" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Rule" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="DeviceName" type="xs:string" use="optional" />
+                        <xs:attribute name="Restriction" type="xs:string" use="optional" />
+                        <xs:attribute name="RuleSet" type="xs:string" use="optional" />
+                        <xs:attribute name="Operator" type="xs:string" use="optional" />
+                        <xs:attribute name="ErrorMessagePriority" type="xs:string" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AccessRuleSet" maxOccurs="unbounded" minOccurs="0" type="AccessRuleSetType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

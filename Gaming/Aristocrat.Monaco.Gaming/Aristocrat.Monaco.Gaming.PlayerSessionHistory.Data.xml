@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.PlayerSessionHistory.Data">
+  <Fields>
+    <Field DataType="Int64" Count="0" FieldName="LogSequence" />
+    <Field DataType="Int64" FieldName="TransactionId" />
+    <Field DataType="Int32" FieldName="IdReaderType" />
+    <Field DataType="Int32" FieldName="PlayerSessionState" />
+    <Field DataType="String" Size="16" FieldName="PlayerId" />
+    <Field DataType="String" Size="32" FieldName="IdNumber" />
+    <Field DataType="DateTime" FieldName="StartDateTime" />
+    <Field DataType="DateTime" FieldName="EndDateTime" />
+    <Field DataType="Int64" FieldName="OverrideId" />
+    <Field DataType="String" Size="32" FieldName="ThemeId" />
+    <Field DataType="String" Size="32" FieldName="PaytableId" />
+    <Field DataType="Int64" FieldName="DenomId" />
+    <Field DataType="Int32" FieldName="HighestHotLevel" />
+    <Field DataType="Int32" FieldName="CurrentHotLevel" />
+    <Field DataType="Int64" FieldName="BasePointAward" />
+    <Field DataType="Int64" FieldName="OverridePointAward" />
+    <Field DataType="Int64" FieldName="PlayerPointAward" />
+    <Field DataType="Int64" FieldName="HostPointAward" />
+    <Field DataType="Int64" FieldName="HostCarryOver" />
+    <Field DataType="Int64" FieldName="SessionCarryOver" />
+    <Field DataType="Int64" FieldName="WageredCashableAmount" />
+    <Field DataType="Int64" FieldName="WageredPromoAmount" />
+    <Field DataType="Int64" FieldName="WageredNonCashAmount" />
+    <Field DataType="Int64" FieldName="EgmPaidGameWonAmount" />
+    <Field DataType="Int64" FieldName="HandPaidGameWonAmount" />
+    <Field DataType="Int64" FieldName="EgmPaidProgWonAmount" />
+    <Field DataType="Int64" FieldName="HandPaidProgWonAmount" />
+    <Field DataType="Int64" FieldName="EgmPaidBonusWonAmount" />
+    <Field DataType="Int64" FieldName="EgmPaidBonusNonWonAmount" />
+    <Field DataType="Int64" FieldName="HandPaidBonusWonAmount" />
+    <Field DataType="Int64" FieldName="HandPaidBonusNonWonAmount" />
+    <Field DataType="Int64" FieldName="WonCount" />
+    <Field DataType="Int64" FieldName="LostCount" />
+    <Field DataType="Int64" FieldName="TiedCount" />
+    <Field DataType="Int64" FieldName="TheoreticalPaybackAmount" />
+    <Field DataType="Int64" FieldName="TheoreticalHoldAmount" />
+    <Field DataType="Int32" FieldName="Exception" />
+    <Field DataType="Byte" FieldName="SessionMeters" Count="2" />
+  </Fields>
+</BlockFormat>

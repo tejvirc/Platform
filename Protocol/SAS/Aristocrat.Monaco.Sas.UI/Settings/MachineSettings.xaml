@@ -1,0 +1,256 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aristocrat.Monaco.Sas.UI.Settings"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization"
+                    xmlns:helpers="http://monaco.aristocrat.com/common">
+
+    <helpers:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
+
+    <DataTemplate DataType="{x:Type local:MachineSettings}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="0"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DualHost}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="0"
+                           Text="{Binding PortAssignmentSetting.IsDualHost}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="1"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.GeneralControlPortLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="1"
+                           Text="{Binding PortAssignmentSetting.GeneralControlPort}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="2"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.SasHost}}" />
+                <DataGrid Grid.Column="1"
+                          Grid.Row="2"
+                          IsHitTestVisible="False"
+                          VerticalAlignment="Top"
+                          ItemsSource="{Binding SasHostSettings}"
+                          ColumnWidth="*"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Resources>
+                        <helpers:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.ComPortLabel}}" Binding="{Binding HostComPort}" />
+                        <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.SasAccountingDenom}}" Binding="{Binding AccountingDenomDisplay}" />
+                        <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Address}}" Binding="{Binding SasAddress}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="3"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationPortLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="3"
+                           Text="{Binding PortAssignmentSetting.ValidationPort}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="4"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftPortLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="4"
+                           Text="{Binding PortAssignmentSetting.AftPort}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="5"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.LegacyBonusPortLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="5"
+                           Text="{Binding PortAssignmentSetting.LegacyBonusPort}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="6"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.GameStartEndPortLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="6"
+                           Text="{Binding PortAssignmentSetting.GameStartEndHosts}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="7"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ProgressivePortLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="7"
+                           Text="{Binding PortAssignmentSetting.ProgressivePort}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="8"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ProgGroupIdLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="8"
+                           Text="{Binding SasFeaturesSettings.ProgressiveGroupId}" />
+                
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="9"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftInLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="9"
+                           Text="{Binding SasFeaturesSettings.TransferInAllowed}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="10"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftOutLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="10"
+                           Text="{Binding SasFeaturesSettings.TransferOutAllowed}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="11"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftPartialTransfersAllowedLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="11"
+                           Text="{Binding SasFeaturesSettings.PartialTransferAllowed}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="12"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="12"
+                           Text="{Binding SasFeaturesSettings.AftBonusAllowed}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="13"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftWinAmountToHostTransfersEnabledLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="13"
+                           Text="{Binding SasFeaturesSettings.WinTransferAllowed}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="14"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftTransferLimitLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="14"
+                           Text="{Binding SasFeaturesSettings.AftTransferLimitDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="15"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationFeatureLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="15"
+                           Text="{Binding SasFeaturesSettings.ValidationType}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="16"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.HandpayModeLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="16"
+                           Text="{Binding SasFeaturesSettings.HandpayReportingType}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="17"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ConfigChangeNotification}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="17"
+                           Text="{Binding SasFeaturesSettings.ConfigNotification}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="18"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.LegacyBonusAllowed}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="18"
+                           Text="{Binding SasFeaturesSettings.LegacyBonusAllowed}" />
+                
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="19"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.RequireLP02OnPowerUp}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="19"
+                           Text="{Binding SasFeaturesSettings.DisabledOnPowerUp}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="20"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EGMDisabledOnHostOfflineLabel}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="20"
+                           Text="{Binding SasFeaturesSettings.DisableOnDisconnect}" />
+
+                <TextBlock Grid.Column="0"
+                           Grid.Row="21"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.OverflowText}}" />
+                <TextBlock Grid.Column="1"
+                           Grid.Row="21"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Text="{Binding SasFeaturesSettings.OverflowBehavior}" />
+            </Grid>
+        </ScrollViewer>
+    </DataTemplate>
+</ResourceDictionary>

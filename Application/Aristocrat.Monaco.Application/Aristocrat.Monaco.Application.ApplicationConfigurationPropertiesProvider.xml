@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+      <Field DataType="Int32" FieldName="ScreenBrightness" />
+      <Field DataType="Bool" FieldName="BottomEdgeLightingOn" />
+      <Field DataType="String" FieldName="LightingOverrideSelection" Size="50" />
+      <Field DataType="Int32" FieldName="MaximumAllowedEdgeLightingBrightness" />
+      <Field DataType="Int32" FieldName="CabinetType" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+      <Field DataType="Int32" FieldName="ScreenBrightness" />
+      <Field DataType="Bool" FieldName="BottomEdgeLightingOn" />
+      <Field DataType="String" FieldName="LightingOverrideSelection" Size="50" />
+      <Field DataType="Int32" FieldName="MaximumAllowedEdgeLightingBrightness" />
+      <Field DataType="Int32" FieldName="CabinetType" />
+      <Field DataType="Byte" FieldName="Application.AlertVolume" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+      <Field DataType="Int32" FieldName="ScreenBrightness" />
+      <Field DataType="Bool" FieldName="BottomEdgeLightingOn" />
+      <Field DataType="String" FieldName="LightingOverrideSelection" Size="50" />
+      <Field DataType="Int32" FieldName="MaximumAllowedEdgeLightingBrightness" />
+      <Field DataType="Int32" FieldName="CabinetType" />
+      <Field DataType="Byte" FieldName="Application.AlertVolume" />
+      <Field DataType="Int32" FieldName="Application.ExcessiveDocumentReject.Count" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="5" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+      <Field DataType="Bool" FieldName="BottomEdgeLightingOn" />
+      <Field DataType="String" FieldName="LightingOverrideSelection" Size="50" />
+      <Field DataType="Int32" FieldName="CabinetType" />
+      <Field DataType="Byte" FieldName="Application.AlertVolume" />
+      <Field DataType="Int32" FieldName="Application.ExcessiveDocumentReject.Count" />
+      <Field DataType="Int32" FieldName="BarCodeType" />
+      <Field DataType="Byte" FieldName="Application.PlayerVolumeScalar" />
+      <Field DataType="Byte" FieldName="Application.LobbyVolumeScalar" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="6" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+      <Field DataType="Bool" FieldName="BottomEdgeLightingOn" />
+      <Field DataType="String" FieldName="LightingOverrideSelection" Size="50" />
+      <Field DataType="Int32" FieldName="CabinetType" />
+      <Field DataType="Byte" FieldName="Application.AlertVolume" />
+      <Field DataType="Int32" FieldName="Application.ExcessiveDocumentReject.Count" />
+      <Field DataType="Int32" FieldName="BarCodeType" />
+      <Field DataType="Byte" FieldName="Application.PlayerVolumeScalar" />
+      <Field DataType="Byte" FieldName="Application.LobbyVolumeScalar" />
+      <Field DataType="Bool" FieldName="Application.DeletePackageAfterInstall" />
+      <Field DataType="Int32" FieldName="LayoutType" />
+      <Field DataType="Int32" FieldName="ValidationLength" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="7" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+      <Field DataType="Bool" FieldName="BottomEdgeLightingOn" />
+      <Field DataType="String" FieldName="LightingOverrideSelection" Size="50" />
+      <Field DataType="Int32" FieldName="CabinetType" />
+      <Field DataType="Byte" FieldName="Application.AlertVolume" />
+      <Field DataType="Int32" FieldName="Application.ExcessiveDocumentReject.Count" />
+      <Field DataType="Int32" FieldName="BarCodeType" />
+      <Field DataType="Byte" FieldName="Application.PlayerVolumeScalar" />
+      <Field DataType="Byte" FieldName="Application.LobbyVolumeScalar" />
+      <Field DataType="Bool" FieldName="Application.DeletePackageAfterInstall" />
+      <Field DataType="Int32" FieldName="LayoutType" />
+      <Field DataType="Int32" FieldName="ValidationLength" />
+      <Field FieldName="ReserveService.Enabled" DataType="Bool"/>
+      <Field FieldName="ReserveService.TimeoutInSeconds" DataType="Int32"/>
+      <Field FieldName="ReserveService.Pin" DataType="String" Size="4"/>
+      <Field FieldName="ReserveService.Lockup" DataType="Bool"/>
+      <Field DataType="Int64" FieldName="Application.BellConfiguration.InitialValue" />
+      <Field DataType="Int64" FieldName="Application.BellConfiguration.IntervalValue" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="8" name="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Byte" FieldName="Application.DefaultVolumeLevel" />
+      <Field DataType="Bool" FieldName="BottomEdgeLightingOn" />
+      <Field DataType="String" FieldName="LightingOverrideSelection" Size="50" />
+      <Field DataType="Int32" FieldName="CabinetType" />
+      <Field DataType="Byte" FieldName="Application.AlertVolume" />
+      <Field DataType="Int32" FieldName="Application.ExcessiveDocumentReject.Count" />
+      <Field DataType="Int32" FieldName="BarCodeType" />
+      <Field DataType="Byte" FieldName="Application.PlayerVolumeScalar" />
+      <Field DataType="Byte" FieldName="Application.LobbyVolumeScalar" />
+      <Field DataType="Int32" FieldName="Application.VolumeControlLocation" />
+      <Field DataType="Bool" FieldName="Application.DeletePackageAfterInstall" />
+      <Field DataType="Int32" FieldName="LayoutType" />
+      <Field DataType="Int32" FieldName="ValidationLength" />
+      <Field FieldName="ReserveService.Enabled" DataType="Bool"/>
+      <Field FieldName="ReserveService.TimeoutInSeconds" DataType="Int32"/>
+      <Field FieldName="ReserveService.Pin" DataType="String" Size="4"/>
+      <Field FieldName="ReserveService.Lockup" DataType="Bool"/>
+      <Field DataType="Int32" FieldName="ReserveService.LockupRemainingSeconds"/>
+      <Field DataType="Int64" FieldName="Application.BellConfiguration.InitialValue" />
+      <Field DataType="Int64" FieldName="Application.BellConfiguration.IntervalValue" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

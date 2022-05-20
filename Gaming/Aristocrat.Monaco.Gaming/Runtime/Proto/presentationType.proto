@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+
+package Aristocrat.Monaco.v1;
+
+enum PresentationType {
+	PrintingCashoutTicket = 0;
+	PrintingCashwinTicket = 1;
+	TransferingInCredits = 2;
+	TransferingOutCredits = 3;
+	JackpotHandpay = 4;
+	BonusJackpot = 5;
+	CancelledCreditsHandpay = 6;
+}

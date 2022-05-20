@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Application.UI.Views.IOConfigPage">
+  <Fields>
+    <Field DataType="String" Size="16" FieldName="InputOutputConfiguredProtocol" />
+    <Field DataType="Int32" FieldName="InputOutputGroupComboBoxItemCount" />
+    <Field DataType="Int32" FieldName="PersistedGroupIndex" />
+    <Field DataType="Int32" FieldName="PersistedIOGroup" />
+  </Fields>
+</BlockFormat>

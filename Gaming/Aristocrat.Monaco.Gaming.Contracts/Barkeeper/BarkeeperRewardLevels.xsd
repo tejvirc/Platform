@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="BarkeeperRewardLevels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="ColorOptions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Orange" />
+      <xs:enumeration value="Yellow"/>
+      <xs:enumeration value="Green"/>
+      <xs:enumeration value="Blue"/>
+      <xs:enumeration value="Purple"/>
+      <xs:enumeration value="White"/>
+      <xs:enumeration value="Black"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BarkeeperLed">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Halo"/>
+      <xs:enumeration value="Button"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BarkeeperAlertOptions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LightOn"/>
+      <xs:enumeration value="SlowFlash"/>
+      <xs:enumeration value="MediumFlash"/>
+      <xs:enumeration value="RapidFlash"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BarkeeperStrategy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CoinIn" />
+      <xs:enumeration value="CashIn" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="RewardLevel">
+    <xs:all>
+      <xs:element name="TriggerStrategy" type="BarkeeperStrategy"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="ThresholdInCents" type="xs:long"/>
+      <xs:element name="Led" type="BarkeeperLed"/>
+      <xs:element name="Color" type="ColorOptions"/>
+      <xs:element name="Alert" type="BarkeeperAlertOptions"/>
+      <xs:element name="Awarded" type="xs:boolean" default="false"/>
+    </xs:all>
+    <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true"/>
+  </xs:complexType>
+
+  <xs:complexType name="RewardLevels">
+    <xs:sequence>
+      <xs:element name="RewardLevel" type="RewardLevel" minOccurs="1" maxOccurs="5"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CoinInStrategy">
+    <xs:sequence>
+      <xs:element name="IdleColor" type ="ColorOptions" default="Black" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="DisabledColor" type ="ColorOptions" default="Black" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="SessionTimeout" type="xs:long" default="60000" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="CoinInRate" type="CoinInRate" maxOccurs="1"/>
+      <xs:element name="IdleBrightness" type="xs:int" default="50"/>
+      <xs:element name="ActiveBrightness" type="xs:int" default="100"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CashInStrategy">
+    <xs:sequence>
+      <xs:element name="IdleColor" type ="ColorOptions" default="White"/>
+      <xs:element name="DisabledColor" type ="ColorOptions" default="Black"/>
+      <xs:element name="IdleBrightness" type="xs:int" default="50"/>
+      <xs:element name="ActiveBrightness" type="xs:int" default="100"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CoinInRate">
+    <xs:sequence>
+      <xs:element name="SessionRateInMs" type="xs:long"/>
+      <xs:element name="Amount" type="xs:long"/>
+    </xs:sequence>
+    <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true"/>
+  </xs:complexType>
+
+  <xs:element name="BarkeeperRewardLevels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="RewardLevels" type="RewardLevels" maxOccurs="1"/>
+        <xs:element name="CoinInStrategy" type="CoinInStrategy" maxOccurs="1"/>
+        <xs:element name="CashInStrategy" type="CashInStrategy" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

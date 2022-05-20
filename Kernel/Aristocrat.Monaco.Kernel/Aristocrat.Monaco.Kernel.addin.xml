@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin id="Monaco.Kernel" namespace="Client12Addins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <ExtensionPoint path="/Kernel/AssemblyResolver/FileSystemPath">
+    <ExtensionNode name="FileSystemPath" type="Aristocrat.Monaco.Kernel.FileSystemPathNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/PathMapping">
+    <ExtensionNode name="PathMapping" type="Aristocrat.Monaco.Kernel.PathMappingNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/MessageDisplayRemove">
+    <ExtensionNode name="MessageDisplayReason" type="Aristocrat.Monaco.Kernel.MessageDisplayReasonNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/PropertySettings">
+    <ExtensionNode name="PropertySetting" type="Aristocrat.Monaco.Kernel.PropertyNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/AddinConfigurationGroup">
+    <ExtensionNode name="AddinConfigurationGroup" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration">
+    <ExtensionNode name="SelectableAddinConfiguration" type="Aristocrat.Monaco.Kernel.SelectableAddinConfigurationNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Kernel/EventBus">
+    <EventBus type="Aristocrat.Monaco.Kernel.EventBus" />
+  </Extension>
+
+  <Extension path = "/Kernel/ServiceManager">
+    <ServiceManager type="Aristocrat.Monaco.Kernel.ServiceManagerCore" />
+  </Extension>
+
+  <Extension path="/Kernel/PropertiesManager">
+    <PropertiesManager type="Aristocrat.Monaco.Kernel.PropertiesManager" />
+  </Extension>
+
+  <Extension path="/Kernel/SystemDisableManager">
+    <SystemDisableManager type="Aristocrat.Monaco.Kernel.SystemDisableManager" />
+  </Extension>
+
+  <Extension path = "/Kernel/AddinHelper">
+    <AddinHelper type="Aristocrat.Monaco.Kernel.AddinHelper" />
+  </Extension>
+
+  <Extension path = "/Kernel/MessageDisplay">
+    <MessageDisplay type="Aristocrat.Monaco.Kernel.MessageDisplay" />
+  </Extension>
+
+  <Extension path = "/Kernel/PathMapper">
+    <PathMapper type="Aristocrat.Monaco.Kernel.PathMapper" />
+  </Extension>
+
+  <Extension path="/Kernel/ComponentRegistry">
+    <ComponentRegistry type="Aristocrat.Monaco.Kernel.Components.ComponentRegistry" />
+  </Extension>
+
+  <Extension path="/Kernel/InitializationProvider">
+    <InitializationProvider type="Aristocrat.Monaco.Kernel.InitializationProvider" />
+  </Extension>
+
+  <Extension path="/Kernel/AssemblyResolver">
+    <AssemblyResolver type="Aristocrat.Monaco.Kernel.AssemblyResolver" />
+  </Extension>
+
+  <Extension path="/Kernel/Services">
+    <Service type="Aristocrat.Monaco.Kernel.LockManagement.SimpleLockManager" />
+  </Extension>
+
+</Addin>

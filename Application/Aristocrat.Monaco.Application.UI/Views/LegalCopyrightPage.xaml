@@ -1,0 +1,44 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.LegalCopyrightPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                               xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               common:DialogParticipation.Register="{Binding}"
+                               mc:Ignorable="d"
+                               FocusManager.FocusedElement="{Binding ElementName=AcceptButton}"
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance viewModels:LegalCopyrightPageViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <GridLength x:Key="GoldenRatioGridLength">1.618*</GridLength>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <i:Interaction.Triggers>
+            <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}" Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+                <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
+            </events:RoutedEventTrigger>
+            <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
+                <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
+            </events:RoutedEventTrigger>
+        </i:Interaction.Triggers>
+
+        <TextBlock 
+	               AutomationProperties.AutomationId="LegalCopyrightPage_TextBlock_TermsAndConditionsText"
+				   VerticalAlignment="Top"
+                   Text="{Binding PageContent}"
+                   FontWeight="Bold"
+				   />
+    </Grid>
+</operatorMenu:OperatorMenuPage>

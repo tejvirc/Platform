@@ -1,0 +1,16 @@
+EXTRACTHASH - extracthash-ali.exe 
+
+extracts bootloader hashes
+
+Usage: extracthash-ali.exe <deviceindex or file> 
+example extracthash-ali.exe 2
+
+
+example:
+------------------------------------------------
+rem extract hashes for disk device 2
+rem outputs boot_loader_hash.bin and mbr_hash.bin
+extracthash-ali.exe  2
+------------------------------------------------
+calculates aristocrat specific hashes for mbr (sector 0) and bootloader (sector 1-1006)
+

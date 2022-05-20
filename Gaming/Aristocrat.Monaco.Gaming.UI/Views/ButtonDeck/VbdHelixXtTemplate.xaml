@@ -1,0 +1,234 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:contracts="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
+                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
+                    xmlns:buttonDeck1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                    mc:Ignorable="d"
+                    d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../Skins/Styles.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+        <ResourceDictionary Source="VirtualButtonDeckButtonTemplate.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <buttonDeck1:VirtualButtonDeckButtonTemplateSelector x:Key="VbdButtonSelector" />
+
+    <Storyboard x:Key="DisabledFadeInStoryboard" x:Shared="false">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="0.5"
+                         Duration="0:0:0.1" BeginTime="0:0:0" AutoReverse="False" />
+    </Storyboard>
+
+    <Storyboard x:Key="DisabledFadeOutStoryboard" x:Shared="false">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.5" To="0.0"
+                         Duration="0:0:0.75" BeginTime="0:0:0" AutoReverse="False" />
+    </Storyboard>
+
+    <Storyboard x:Key="VbdFadeInStoryboard" x:Shared="false">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0"
+                         Duration="0:0:0.35" BeginTime="0:0:0" AutoReverse="False" />
+    </Storyboard>
+
+    <Storyboard x:Key="VbdFadeOutStoryboard" x:Shared="false">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.0"
+                         Duration="0:0:0.35" BeginTime="0:0:0" AutoReverse="False" />
+    </Storyboard>
+
+    <DataTemplate x:Key="VbdHelixXtTemplate">
+        <Grid Background="Black"
+              Visibility="{Binding IsLobbyVbdVisible, Converter={StaticResource BoolToVisHiddenConverter}}"
+              Width="1903"
+              Height="577"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Left">
+            <!--Lobby Background Image Animation-->
+            <bink:BinkGpuControl
+                x:Name="BinkControl"
+                LoopVideo="True"
+                Cache="True"
+                Width="1903"
+                Height="577"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                ShowFirstFrameOnLoad="True">
+                <bink:BinkGpuControl.RenderTransform>
+                    <TranslateTransform X="12" Y="16" />
+                </bink:BinkGpuControl.RenderTransform>
+                <bink:BinkGpuControl.Style>
+                    <Style TargetType="bink:BinkGpuControl">
+                        <Setter Property="VideoState" Value="Playing" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VbdVideoState}"
+                                         Value="{x:Static contracts:LobbyVbdVideoState.InsertMoney}">
+                                <Setter Property="Filename" Value="{DynamicResource VBD_Helix_InsertMoney}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VbdVideoState}"
+                                         Value="{x:Static contracts:LobbyVbdVideoState.ChooseGame}">
+                                <Setter Property="Filename" Value="{DynamicResource VBD_Helix_ChooseGame}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VbdVideoState}"
+                                         Value="{x:Static contracts:LobbyVbdVideoState.ChooseTime}">
+                                <Setter Property="Filename" Value="{DynamicResource VBD_ChooseTime}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsLobbyVbdVisible}" Value="False">
+                                <Setter Property="VideoState" Value="Stopped" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </bink:BinkGpuControl.Style>
+            </bink:BinkGpuControl>
+
+            <!--Blank background if vbd is blank-->
+            <Viewbox Stretch="Fill"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Width="1903"
+                     Height="577">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="12" Y="16" />
+                </Viewbox.RenderTransform>
+                <Image x:Name="ImageBlankBackground" Stretch="Fill" Source="{DynamicResource VBD_Helix_Blank}"
+                       IsHitTestVisible="{Binding IsLobbyVbdBackgroundBlank}">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Setter Property="Opacity" Value="0" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsLobbyVbdBackgroundBlank}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource VbdFadeInStoryboard}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource VbdFadeOutStoryboard}" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Image.Opacity)}" Value="0">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </Viewbox>
+
+            <Viewbox Stretch="Fill"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Width="1903"
+                     Height="577">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="12" Y="16" />
+                </Viewbox.RenderTransform>
+                <Image x:Name="ImageGameLoadFlickerFix" Stretch="Fill" Source="{DynamicResource VBD_Helix_Blank}"
+                       Visibility="{Binding IsGameLoading, Converter={StaticResource BoolToVisible}}" />
+            </Viewbox>
+            <!--ContentControl selects the buttons template.-->
+            <Viewbox Stretch="Uniform"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Width="1903"
+                     Height="577">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="16" Y="-34" />
+                </Viewbox.RenderTransform>
+                <ContentControl
+                    x:Name="ButtonContentControl"
+                    Visibility="{Binding IsGameLoading, Converter={StaticResource BoolToHiddenConverter}}"
+                    Content="{Binding}"
+                    ContentTemplateSelector="{StaticResource VbdButtonSelector}" />
+            </Viewbox>
+            <!--Displays the confirmation dialog for cash out. Confirmation for service occurs in VirtualButtonDeckOverlayView-->
+            <Viewbox VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Stretch="Fill"
+                     Width="1903"
+                     Height="577">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="12" Y="16" />
+                </Viewbox.RenderTransform>
+                <buttonDeck1:VbdCashOutDlg
+                    Visibility="{Binding IsVbdCashOutDialogVisible, Converter={StaticResource BoolToVisible}}" />
+            </Viewbox>
+            <!-- Rectangle to give screen a disabled look if message overlay is visible -->
+            <Rectangle Fill="Black">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Setter Property="Opacity" Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Value="True" Binding="{Binding IsVirtualButtonDeckDisabled}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource DisabledFadeInStoryboard}" />
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource DisabledFadeOutStoryboard}" />
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Rectangle.Opacity)}" Value="0">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Grid>
+    </DataTemplate>
+
+    <!--overlay disable graphic-->
+    <DataTemplate x:Key="VbdHelixXtDisableTemplate">
+        <Grid>
+            <Image
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Width="1903"
+                Height="577"
+                Stretch="Fill"
+                Source="{DynamicResource VBD_Helix_Disabled}">
+                <Image.RenderTransform>
+                    <TranslateTransform X="12" Y="16" />
+                </Image.RenderTransform>
+            </Image>
+        </Grid>
+    </DataTemplate>
+
+    <!--Overlay for service dlg and malfunction message-->
+    <DataTemplate x:Key="VbdHelixXtOverlayTemplate">
+        <Border>
+            <Border.Background>
+                <SolidColorBrush Color="Transparent" />
+            </Border.Background>
+
+            <Grid x:Name="VbdOverlayRoot">
+                <Viewbox VerticalAlignment="Top"
+                         HorizontalAlignment="Left"
+                         Stretch="Fill"
+                         Width="1903"
+                         Height="577">
+                    <Viewbox.RenderTransform>
+                        <TranslateTransform X="12" Y="16" />
+                    </Viewbox.RenderTransform>
+                    <buttonDeck1:VbdServiceDlg
+                        Visibility="{Binding IsVbdServiceDialogVisible, Converter={StaticResource BoolToVisible}}" />
+                </Viewbox>
+
+                <Viewbox VerticalAlignment="Top"
+                         HorizontalAlignment="Left"
+                         Stretch="Fill"
+                         Width="1903"
+                         Height="577">
+                    <Viewbox.RenderTransform>
+                        <TranslateTransform X="12" Y="16" />
+                    </Viewbox.RenderTransform>
+                    <buttonDeck1:VbdMalfunctionOverlay
+                        Width="1903"
+                        Height="577"
+                        Visibility="{Binding IsVbdMalfunctionOverlayVisible, Converter={StaticResource BoolToVisible}}" />
+                </Viewbox>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="LobbyConfiguration" nillable="true" type="LobbyConfiguration" />
+  <xs:complexType name="LobbyConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="MultiLanguageEnabled" type="xs:boolean" default="false" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ResponsibleGamingTimeLimitEnabled" type="xs:boolean" default="false" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LargeGameIconsEnabled" type="xs:boolean" default="false" />
+      <xs:element minOccurs="1" maxOccurs="1" name="HasIdleAttractVideo" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="HasAttractIntroVideo" type="xs:boolean" default="false" />
+      <xs:element minOccurs="1" maxOccurs="1" name="BottomAttractVideoEnabled" type="xs:boolean" default="false" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DaysAsNew" type="xs:double" default="0" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingTimeLimits" type="ArrayOfDouble" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingPlayBreaks" type="ArrayOfDouble" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ResponsibleGamingSessionLimit" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingInfo" type="ResponsibleGamingInfoOptions" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LobbyUiDirectoryPath" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="SkinFilenames" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LocaleCodes" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LanguageButtonResourceKeys" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DefaultLoadingScreenFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DefaultTopAttractVideoFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DefaultTopperAttractVideoFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LcdInsertMoneyVideoLanguage1" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LcdChooseVideoLanguage1" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LcdInsertMoneyVideoLanguage2" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LcdChooseVideoLanguage2" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttractVideoNoBonusFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttractVideoWithBonusFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TopperLobbyVideoFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TopAttractIntroVideoFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BottomAttractIntroVideoFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TopperAttractIntroVideoFilename" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AlternateAttractModeLanguage" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplaySoftErrors" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplayInformationMessages" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="HideIdleTextOnCashIn" type="xs:boolean" default="true" />
+      <xs:element minOccurs="0" maxOccurs="1" name="VbdDisplayServiceButton" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplayVoucherNotification" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingMode" type="ResponsibleGamingMode" default="Segmented" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ClockMode" type="ClockMode" default="Locale" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplaySessionTimeInClock" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplayAgeWarning" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RotateTopImage" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RotateTopperImage" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DefaultGameDisplayOrderByThemeId" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="NonCashCashoutFailureMessageEnabled" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MinimumWagerCreditsAsFilter" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MaxDisplayedGames" type="xs:int" default="15" />
+      <xs:element minOccurs="0" maxOccurs="1" name="UpiTemplate" type="xs:string" default="StandardUpiTemplate" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AgeWarningTemplate" type="xs:string" default="AgeWarningDialogTemplate" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TimeLimitDialogTemplate" type="xs:string" default="TimeLimitDialogTemplate" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PreserveGameLayoutSideMargins" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DisplayPaidMeter" type="xs:boolean" default="true" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ConsecutiveAttractVideos" type="xs:int" default="1" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttractSecondaryTimerIntervalInSeconds" type="xs:int" default="30" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AttractTimerIntervalInSeconds" type="xs:int" default="30" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RotateTopImageAfterAttractVideo" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RotateTopperImageAfterAttractVideo" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="EdgeLightingOverrideUseGen8IdleMode" type="xs:boolean" default="true"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="RemoveIdlePaidMessageOnSessionStart" type="xs:boolean" default="false"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="DisableMalfunctionMessage" type="xs:boolean" default="false"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ClockMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Military" />
+      <xs:enumeration value="Locale" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ResponsibleGamingMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Segmented" />
+      <xs:enumeration value="Continuous" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfDouble">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="double" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResponsibleGamingInfoOptions">
+    <xs:attribute default="0" name="Pages" type="xs:int" />
+    <xs:attribute default="None" name="ExitStrategy" type="ResponsibleGamingInfoExitStrategy" />
+    <xs:attribute default="false" name="PrintHelpline" type="xs:boolean" />
+    <xs:attribute default="false" name="FullScreen" type="xs:boolean" />
+    <xs:attribute default="0" name="Timeout" type="xs:int" />
+    <xs:attribute default="Hidden" name="ButtonPlacement" type="ResponsibleGamingInfoButtonPlacement" />
+  </xs:complexType>
+  <xs:simpleType name="ResponsibleGamingInfoExitStrategy">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="None" />
+          <xs:enumeration value="PressBash" />
+          <xs:enumeration value="PressButton" />
+          <xs:enumeration value="TouchScreen" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:simpleType name="ResponsibleGamingInfoButtonPlacement">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Hidden" />
+      <xs:enumeration value="Header" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CabinetNamesWithKey">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CabinetName" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="Key" type="xs:string" use="required" />
+  </xs:complexType>
+</xs:schema>

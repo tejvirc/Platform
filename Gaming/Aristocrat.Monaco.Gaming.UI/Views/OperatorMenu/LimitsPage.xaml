@@ -1,0 +1,247 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.LimitsPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                              xmlns:helpers="http://monaco.aristocrat.com/common"
+                              mc:Ignorable="d"
+                              d:DataContext="{d:DesignInstance viewModels:LimitsPageViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Width" Value="80"/>
+            </Style>
+
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Width" Value="400"/>
+            </Style>
+
+            <Style TargetType="{x:Type helpers:CurrencyTextBox}" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="PreventNegatives" Value="True"/>
+                <Setter Property="InputScope" Value="Number"/>
+                <Setter Property="IsReadOnly" Value="False"/>
+                <Setter Property="Width" Value="300"/>
+            </Style>
+
+            <Style TargetType="{x:Type helpers:PercentageTextBox}" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="Width" Value="300"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="Width" Value="300"/>
+            </Style>
+
+            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <AdornerDecorator>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Margin="390 0 0 0"
+                   HorizontalAlignment="Left"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}"/>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 5 0 0">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CreditLimit}}"/>
+                <CheckBox IsChecked="{Binding CreditLimitIsChecked, Mode=TwoWay}"
+                          IsEnabled="{Binding CreditLimitCheckboxEnabled, Mode=OneWay}"/>
+                <helpers:CurrencyTextBox IsEnabled="{Binding PageEnabled}"
+                                         Number="{Binding Path=CreditLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Visibility="{Binding CreditLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                           Visibility="{Binding CreditLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding HandpayLimitVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HandpayLimit}}"/>
+                <CheckBox IsChecked="{Binding HandpayLimitIsChecked, Mode=TwoWay}"
+                          IsEnabled="{Binding HandpayLimitCheckboxEnabled, Mode=OneWay}"/>
+                <helpers:CurrencyTextBox Number="{Binding Path=HandpayLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Visibility="{Binding HandpayLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                           Visibility="{Binding HandpayLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding LargeWinLimitVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LargeWinLimit}}"/>
+                <CheckBox IsChecked="{Binding LargeWinLimitIsChecked, Mode=TwoWay}"
+                          IsEnabled="{Binding LargeWinLimitCheckboxIsEnabled}"/>
+                <helpers:CurrencyTextBox Number="{Binding Path=LargeWinLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         IsEnabled="{Binding LargeWinLimitEditable}"
+                                         Visibility="{Binding LargeWinLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                           Visibility="{Binding LargeWinLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding LargeWinRatioVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LargeWinRatio}}"/>
+                <CheckBox IsChecked="{Binding LargeWinRatioIsChecked, Mode=TwoWay}"
+                          IsEnabled="{Binding LargeWinRatioCheckboxIsEnabled}"/>
+                <helpers:PercentageTextBox EditingFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.RatioEditingFormatter}}"
+                                           DisplayFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.RatioDisplayFormatter}}"
+                                           MaximumValue="{Binding Path=MaximumLargeWinRatio, Mode=OneWay}"
+                                           Number="{Binding Path=LargeWinRatio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                           IsEnabled="{Binding LargeWinRatioCheckboxIsEnabled}" IsReadOnly="False" PreventNegatives="True"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="5" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding LargeWinRatioThresholdVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LargeWinRatioThreshold}}"/>
+                <CheckBox Name="LargeWinRatioThresholdCheckbox" 
+                          IsChecked="{Binding LargeWinRatioThresholdIsChecked, Mode=TwoWay}"
+                          IsEnabled="{Binding LargeWinRatioThresholdCheckboxIsEnabled}"/>
+                <helpers:CurrencyTextBox Number="{Binding Path=LargeWinRatioThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         IsEnabled="{Binding LargeWinRatioThresholdCheckboxIsEnabled}"
+                                         Visibility="{Binding LargeWinRatioThresholdIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                           Visibility="{Binding LargeWinRatioThresholdIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding MaxBetLimitVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBetLimit}}"/>
+                <CheckBox IsChecked="{Binding MaxBetLimitIsChecked, Mode=TwoWay}"
+                          IsEnabled="{Binding MaxBetLimitCheckboxIsEnabled}"/>
+                <helpers:CurrencyTextBox Number="{Binding Path=MaxBetLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         IsEnabled="{Binding MaxBetLimitCheckboxIsEnabled}"
+                                         Visibility="{Binding MaxBetLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                           Visibility="{Binding MaxBetLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding CelebrationLockupLimitVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CelebrationLockupLimit}}"/>
+
+                <CheckBox IsChecked="{Binding CelebrationLockupLimitIsChecked, Mode=TwoWay}"
+                          IsEnabled="{Binding CelebrationLockupLimitCheckboxIsEnabled}"/>
+                <helpers:CurrencyTextBox InputMethod.IsInputMethodEnabled="{Binding PageEnabled}"
+                                     Number="{Binding Path=CelebrationLockupLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                     IsEnabled="{Binding CelebrationLockupLimitCheckboxIsEnabled}"
+                                     Visibility="{Binding CelebrationLockupLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                           Visibility="{Binding CelebrationLockupLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}"
+                        Command="{Binding ShowInfoPopupCommand}"
+                        Margin="10 0 0 10">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="InfoButton"/>
+                            <Binding ElementName="CelebrationLockupLimitTextProxy" Path="Result"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+                <lex:LocProxy x:Name="CelebrationLockupLimitTextProxy" 
+                              Source="{x:Static loc:ResourceKeys.CelebrationLockupLimitText}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding AllowRemoteHandpayResetVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowRemoteHandpayReset}}"/>
+                <controls:ToggleSwitchButton IsEnabled="{Binding AllowRemoteHandpayResetIsEnabled}"
+                                             IsChecked="{Binding AllowRemoteHandpayReset}"
+                                             controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                             controls:ControlsHelper.CornerRadius="0"
+                                             helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                             helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="9" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding LargeWinHandpayResetMethodVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LargeWinHandpayResetMethod}}"/>
+                <ComboBox Width="300" HorizontalAlignment="Left"
+                          ItemsSource="{Binding LargeWinHandpayResetMethods}"
+                          SelectedItem="{Binding SelectedLargeWinHandpayResetMethod}">
+                    <ComboBox.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                            <Binding Path="InputEnabledByRuleOverride" UpdateSourceTrigger="PropertyChanged"/>
+                            <Binding Path="PageEnabled" UpdateSourceTrigger="PropertyChanged"/>
+                        </MultiBinding>
+                    </ComboBox.IsEnabled>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Row="10" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding ShowGambleWagerLimit, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.GambleWagerLimitText}}"/>
+                <helpers:CurrencyTextBox MinWidth="200" InputScope="Number"
+                                         PreventNegatives="True"
+                                         Visibility="{Binding ShowGambleWagerLimit, Converter={StaticResource BoolToVisConverter}}"
+                                         Number="{Binding Path=GambleWagerLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                    <helpers:CurrencyTextBox.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                            <Binding Path="GambleAllowed" />
+                            <Binding Path="GambleWagerLimitConfigurable" />
+                            <Binding Path="PageEnabled" />
+                        </MultiBinding>
+                    </helpers:CurrencyTextBox.IsEnabled>
+                </helpers:CurrencyTextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="11" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding ShowGambleWinLimit, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.GambleWinLimitText}}"/>
+                <helpers:CurrencyTextBox MinWidth="200" InputScope="Number"
+                                         PreventNegatives="True"
+                                         Visibility="{Binding ShowGambleWinLimit, Converter={StaticResource BoolToVisConverter}}"
+                                         Number="{Binding Path=GambleWinLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                    <helpers:CurrencyTextBox.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                            <Binding Path="GambleAllowed" />
+                            <Binding Path="GambleWinLimitConfigurable" />
+                            <Binding Path="PageEnabled" />
+                        </MultiBinding>
+                    </helpers:CurrencyTextBox.IsEnabled>
+                </helpers:CurrencyTextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="12" Orientation="Horizontal" Margin="0 10 0 0"
+                        Visibility="{Binding IncrementThresholdVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding FieldAccessEnabled, Mode=OneWay}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExcessiveMeterIncrementThresholdCaption}}"/>
+                <CheckBox IsChecked="{Binding IncrementThresholdIsChecked, Mode=TwoWay}"/>
+                <helpers:CurrencyTextBox WholeCurrency="True" Number="{Binding Path=IncrementThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Visibility="{Binding IncrementThresholdIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                         />
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                           Visibility="{Binding IncrementThresholdIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </Grid>
+    </AdornerDecorator>
+</operatorMenu:OperatorMenuPage>

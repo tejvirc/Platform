@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AddinOrderConfiguration" nillable="true" type="AddinOrderConfigurationNode" />
+  <xs:complexType name="AddinOrderConfigurationNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AddinOrdering" type="AddinOrderingNode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AddinOrderingNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OrderedAddinType" type="OrderedAddinTypeNode" />
+    </xs:sequence>
+    <xs:attribute name="extensionPath" type="xs:string" />
+    <xs:attribute name="defaultBehavior" type="DefaultOrderedAddinBehavior" use="required" />
+  </xs:complexType>
+  <xs:complexType name="OrderedAddinTypeNode">
+    <xs:attribute name="type" type="xs:string" />
+  </xs:complexType>
+  <xs:simpleType name="DefaultOrderedAddinBehavior">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InsertAtBeginning" />
+      <xs:enumeration value="InsertAtEnd" />
+      <xs:enumeration value="ExcludeFromList" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

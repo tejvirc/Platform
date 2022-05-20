@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.Services.NoteAcceptorService">
+    <Fields>
+      <Field DataType="Bool" FieldName="StackerInError" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="2" name="Aristocrat.Monaco.Hardware.Services.NoteAcceptorService">
+    <Fields>
+      <Field DataType="Bool" FieldName="StackerInError" />
+      <Field DataType="DateTime" Size="8" Count="0" Offset="8" FieldName="ActivationTime" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

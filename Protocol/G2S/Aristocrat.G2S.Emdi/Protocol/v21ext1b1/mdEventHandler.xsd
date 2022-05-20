@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:RCL="http://www.gamingstandards.com/emdi/schemas/v1b/RCL" xmlns:CCI="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" targetNamespace="http://mediaDisplay.igt.com" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-26 v1b2">
+	<xs:include schemaLocation="mdInclude.xsd"/>
+	<xs:include schemaLocation="mdCabinet.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/RCL" schemaLocation="mdEventHandlerExtRCL.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" schemaLocation="mdImportExtCCI.xsd"/>
+	<!--Simple Data Types-->
+	<xs:simpleType name="t_uniqueIdentifier10">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z0-9]{3}_[ -~]{1,6}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_eventCode">
+		<xs:annotation>
+			<xs:documentation>Event Code Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_uniqueIdentifier10"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_eventText">
+		<xs:annotation>
+			<xs:documentation>Event Description Text Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="0"/>
+			<xs:maxLength value="256"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Complex Data Types-->
+	<xs:complexType name="c_clearEventSub">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="eventSubscription" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_eventAck">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_logContentEventAck">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_clearEventSubAck">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_logContentEvent">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="contentName" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="0"/>
+							<xs:maxLength value="32"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="eventName" use="required">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="0"/>
+							<xs:maxLength value="32"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="eventDescription" use="optional" default="">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="0"/>
+							<xs:maxLength value="128"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getEventSubList">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getSupportedEventList">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_supportedEvent">
+		<xs:annotation>
+			<xs:documentation>Supported Event Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="eventCode" type="t_eventCode" use="required"/>
+		<xs:attribute name="eventText" type="t_eventText" use="optional" default=""/>
+	</xs:complexType>
+	<xs:complexType name="c_supportedEventList">
+		<xs:annotation>
+			<xs:documentation>Event List Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element name="supportedEvent" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="c_supportedEvent">
+									<xs:anyAttribute namespace="##other" processContents="lax"/>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_eventReport">
+		<xs:annotation>
+			<xs:documentation>Event Report Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element name="eventItem" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:choice minOccurs="0">
+								<xs:element ref="cabinetStatus"/>
+								<xs:element ref="cardStatus"/>
+								<xs:any namespace="##other" processContents="lax"/>
+							</xs:choice>
+							<xs:attribute name="eventCode" type="t_eventCode" use="required"/>
+							<xs:attribute name="eventText" type="t_eventText" use="optional" default=""/>
+							<xs:anyAttribute namespace="##other" processContents="lax"/>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_eventSubscription">
+		<xs:annotation>
+			<xs:documentation>Event Subscription Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="eventCode" type="t_eventCode" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="c_eventSubList">
+		<xs:annotation>
+			<xs:documentation>Event Subscription List Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="eventSubscription" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_setEventSub">
+		<xs:annotation>
+			<xs:documentation>Set Event Subscription Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="eventSubscription" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Subscription Management Commands Sent by MediaDisplay Applications-->
+	<xs:element name="getSupportedEventList">
+		<xs:annotation>
+			<xs:documentation>Get Event List Request</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getSupportedEventList">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="supportedEventList">
+		<xs:annotation>
+			<xs:documentation>Supported Event List Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_supportedEventList">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="eventSubscription">
+		<xs:annotation>
+			<xs:documentation>Event Subscription Item.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_eventSubscription">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getEventSubList">
+		<xs:annotation>
+			<xs:documentation>Get Event Subscriptions Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getEventSubList">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="eventSubList">
+		<xs:annotation>
+			<xs:documentation>Event Subscription List Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_eventSubList">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setEventSub">
+		<xs:annotation>
+			<xs:documentation>Set Event Subscription Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_setEventSub">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="clearEventSub">
+		<xs:annotation>
+			<xs:documentation>Clear All Event Subscriptions Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_clearEventSub">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="clearEventSubAck">
+		<xs:annotation>
+			<xs:documentation>Clear All Event Subscriptions Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_clearEventSubAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="eventAck">
+		<xs:annotation>
+			<xs:documentation>Event Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_eventAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="logContentEvent">
+		<xs:annotation>
+			<xs:documentation>Log Content Event Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_logContentEvent">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="logContentEventAck">
+		<xs:annotation>
+			<xs:documentation>Log Content Event Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_logContentEventAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--EGM initiated Commands-->
+	<xs:element name="eventReport">
+		<xs:annotation>
+			<xs:documentation>Event Reporting Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_eventReport">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Event Associated Data-->
+	<!--Functional Command Group Wrapper and Message Header-->
+	<xs:element name="mdEventHandler">
+		<xs:annotation>
+			<xs:documentation>MediaDisplay Event Handling Functional Group</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_baseClass">
+					<xs:choice minOccurs="0">
+						<xs:element ref="getSupportedEventList"/>
+						<xs:element ref="supportedEventList"/>
+						<xs:element ref="getEventSubList"/>
+						<xs:element ref="setEventSub"/>
+						<xs:element ref="clearEventSub"/>
+						<xs:element ref="clearEventSubAck"/>
+						<xs:element ref="eventSubList"/>
+						<xs:element ref="eventReport"/>
+						<xs:element ref="eventAck"/>
+						<xs:element ref="logContentEvent"/>
+						<xs:element ref="logContentEventAck"/>
+						<xs:any namespace="##other" processContents="lax"/>
+					</xs:choice>
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

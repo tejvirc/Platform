@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction" ElementSize="51">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int64" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="HostAcknowledged" />
+      <Field DataType="Bool" FieldName="VoucherPrinted" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction" ElementSize="51">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int64" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="HostAcknowledged" />
+      <Field DataType="Bool" FieldName="VoucherPrinted" />
+      <Field FieldName="ManualVerification" DataType="String" Size="90"/>
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int64" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="HostAcknowledged" />
+      <Field DataType="Bool" FieldName="VoucherPrinted" />
+      <Field FieldName="ManualVerification" DataType="String" Size="90"/>
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="HostAcknowledged" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="Int32" FieldName="ReferenceId" />
+      <Field DataType="Bool" FieldName="VoucherPrinted" />
+      <Field FieldName="ManualVerification" DataType="String" Size="90"/>
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Bool" FieldName="LargeWin" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="5" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="HostAcknowledged" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="Int32" FieldName="ReferenceId" />
+      <Field DataType="Bool" FieldName="VoucherPrinted" />
+      <Field FieldName="ManualVerification" DataType="String" Size="90"/>
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Int32" FieldName="Reason" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="6" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="HostAcknowledged" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="Int32" FieldName="ReferenceId" />
+      <Field DataType="Bool" FieldName="VoucherPrinted" />
+      <Field FieldName="ManualVerification" DataType="String" Size="90"/>
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Int32" FieldName="Reason" />
+      <Field DataType="Bool" FieldName="HostOnline" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="7" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="VoucherSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Byte" FieldName="TypeOfAccount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="Int64" FieldName="Barcode" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="HostAcknowledged" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="Int32" FieldName="ReferenceId" />
+      <Field DataType="Bool" FieldName="VoucherPrinted" />
+      <Field FieldName="ManualVerification" DataType="String" Size="90"/>
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Int32" FieldName="Reason" />
+      <Field DataType="Bool" FieldName="HostOnline" />
+      <Field DataType="String" FieldName="TicketDataBlob" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="8" name="Vgt.Client12.Accounting.Contracts.VoucherOutTransaction">
+	  <Fields>
+		  <Field DataType="Int32" FieldName="DeviceId" />
+		  <Field DataType="Int64" FieldName="LogSequence" />
+		  <Field DataType="Int32" FieldName="VoucherSequence" />
+		  <Field DataType="DateTime" FieldName="TransactionDateTime" />
+		  <Field DataType="Int64" FieldName="TransactionId" />
+		  <Field DataType="Int64" FieldName="Amount" />
+		  <Field DataType="Byte" FieldName="TypeOfAccount" />
+		  <Field DataType="Int32" FieldName="BarcodeLength" />
+		  <Field DataType="Int64" FieldName="Barcode" />
+		  <Field DataType="Int32" FieldName="Expiration" />
+		  <Field DataType="Bool" FieldName="HostAcknowledged" />
+		  <Field DataType="Int64" FieldName="HostSequence" />
+		  <Field DataType="Int32" FieldName="ReferenceId" />
+		  <Field DataType="Bool" FieldName="VoucherPrinted" />
+		  <Field FieldName="ManualVerification" DataType="String" Size="90"/>
+		  <Field DataType="Guid" FieldName="BankTransactionId" />
+		  <Field DataType="String" FieldName="AssociatedTransactions" />
+		  <Field DataType="Guid" FieldName="TraceId" />
+		  <Field DataType="Int32" FieldName="Reason" />
+		  <Field DataType="Bool" FieldName="HostOnline" />
+		  <Field DataType="String" FieldName="TicketDataBlob" />
+		  <Field DataType="String" FieldName="LogDisplayType" />
+	  </Fields>
+</BlockFormat>
+</ArrayOfBlockFormat>

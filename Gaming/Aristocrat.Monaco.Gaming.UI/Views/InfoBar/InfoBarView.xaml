@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.InfoBar.InfoBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+             xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+             Loaded="OnLoaded"
+             mc:Ignorable="d" 
+             d:DesignHeight="26" 
+             d:DesignWidth="1080">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="TextFont">Helvetica</FontFamily>
+            <converters:InfoBarColorToBrushConverter x:Key="InfoBarColorToBrushConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Name="InfoBarGrid" 
+          VerticalAlignment="Bottom"
+          d:DataContext="{d:DesignInstance {x:Type local:InfoBarViewModel}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Height" Value="{Binding BarHeight}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsOpen}" Value="false">
+                        <DataTrigger.Setters>
+                            <Setter Property="Height" Value="0.0"/>
+                        </DataTrigger.Setters>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
+        <!--Left Region-->
+        <Grid Grid.Column="0"
+              Name="LeftGrid"
+              Background="{Binding BackgroundColor, Converter={StaticResource InfoBarColorToBrushConverter}}">
+            <Canvas Name="LeftCanvas"
+                    Margin="{Binding RegionMargin}"
+                    ClipToBounds="True">
+                <TextBlock Text="{Binding LeftRegionText}"
+                           Name="LeftText"
+                           Tag="{Binding LeftRegionDuration}"
+                           HorizontalAlignment="Left"
+                           Foreground="{Binding LeftRegionTextColor, Converter={StaticResource InfoBarColorToBrushConverter}}"
+                           FontSize="{Binding FontSize}"
+                           FontFamily="{StaticResource TextFont}"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+            </Canvas>
+        </Grid>
+
+        <!--Center Region-->
+        <Grid Grid.Column="1"
+              Name="CenterGrid"
+              Background="{Binding BackgroundColor, Converter={StaticResource InfoBarColorToBrushConverter}}">
+            <Canvas Name="CenterCanvas"
+                    Margin="{Binding RegionMargin}"
+                    ClipToBounds="True">
+                <TextBlock Text="{Binding CenterRegionText}"
+                           Name="CenterText"
+                           Tag="{Binding CenterRegionDuration}"
+                           HorizontalAlignment="Center"
+                           Foreground="{Binding CenterRegionTextColor, Converter={StaticResource InfoBarColorToBrushConverter}}"
+                           FontSize="{Binding FontSize}"
+                           FontFamily="{StaticResource TextFont}"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+            </Canvas>
+        </Grid>
+
+        <!--Right Region-->
+        <Grid Grid.Column="2"
+              Name="RightGrid"
+              Background="{Binding BackgroundColor, Converter={StaticResource InfoBarColorToBrushConverter}}">
+            <Canvas Name="RightCanvas"
+                    Margin="{Binding RegionMargin}"
+                    ClipToBounds="True">
+                <TextBlock Text="{Binding RightRegionText}"
+                           Name="RightText"
+                           Tag="{Binding RightRegionDuration}"
+                           HorizontalAlignment="Right"
+                           Foreground="{Binding RightRegionTextColor, Converter={StaticResource InfoBarColorToBrushConverter}}"
+                           FontSize="{Binding FontSize}"
+                           FontFamily="{StaticResource TextFont}"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+            </Canvas>
+        </Grid>
+    </Grid>
+</UserControl>

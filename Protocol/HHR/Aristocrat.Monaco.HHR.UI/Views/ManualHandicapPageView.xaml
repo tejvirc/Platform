@@ -1,0 +1,291 @@
+﻿<menu:HHRMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.ManualHandicapPageView"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:loc="http://monaco.aristocrat.com/localization"
+                         xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                         xmlns:local="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
+                         xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
+                         xmlns:converters="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
+                         xmlns:common="http://monaco.aristocrat.com/common"
+                         xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+                         xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
+                         mc:Ignorable="d"
+                         d:DesignHeight="300" d:DesignWidth="808"
+                         d:DataContext="{d:DesignInstance viewModels:ManualHandicapPageViewModel, IsDesignTimeCreatable=False}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:HorseNumberToVisibilityConverter x:Key="HorseNumToVisibilityConverter"/>
+            <common:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
+            <common:BoolToVisibilityConverter x:Key="BoolToHidden" TrueValue="Hidden" FalseValue="Visible"/>
+
+            <SolidColorBrush x:Key="HeaderColor1" Color="GreenYellow"/>
+
+            <Style x:Key="HeaderStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="{StaticResource HeaderColor1}"/>
+                <Setter Property="FontSize" Value="36"/>
+                <Setter Property="Typography.Capitals" Value="SmallCaps"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Center" Width="Auto" VerticalAlignment="Top">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 -20 0 0">
+
+            <TextBlock Style="{StaticResource HeaderStyle}" HorizontalAlignment="Left" >
+                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRemainingRacesToHandicapTitle}}" />
+                <Run Foreground="White" FontSize="40" FontWeight="Bold"
+                     Text="{Binding RemainingRacesToHandicap, Mode=OneWay}" />
+            </TextBlock>
+
+            <Border BorderBrush="{StaticResource HeaderColor1}" BorderThickness="0 2 0 0 "/>
+
+        </StackPanel>
+
+        <!--
+            Panel for the race positions - the green containers that get a horse number placed into them
+        -->
+        <StackPanel Name="HorsePositionPanel" Width="Auto"
+                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                    Orientation="Vertical" HorizontalAlignment="Center">
+
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrYourPicksTitle}}" 
+                       Style="{StaticResource HeaderStyle}" Margin="0 20 0 0"/>
+
+            <DataGrid x:Name="HosePositionDataGrid" ItemsSource="{Binding Path=CurrentHorsePicks}" 
+                      Margin="0 10 0 0" Width="Auto" 
+                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                      Focusable="False"
+                      AutoGenerateColumns="False" Background="Black" BorderThickness="0">
+
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                <Setter Property="BorderBrush">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Black" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Black" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Visibility">
+                            <Setter.Value>Collapsed</Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Visibility">
+                            <Setter.Value>Collapsed</Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90" />
+                    </TransformGroup>
+                </DataGrid.LayoutTransform>
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:HorsePositionModel}">
+                                <local:HorsePosition
+                                    Margin="5 0 5 0"
+                                    HorseNumber="{Binding HorseNumber}"
+                                    Position="{Binding HorsePosition}"
+                                    HorseNumberVisible="{Binding PositionSelected,
+                                        Converter={StaticResource BoolToVisible}, 
+                                        Mode=OneWay,
+                                        UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
+
+        <!--
+            Panel for the touchable horse number icons that get set in the above pick positions 
+        -->
+        <StackPanel Name="HorseNumbersPanel" Width="Auto"
+                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                    Orientation="Vertical" HorizontalAlignment="Center">
+
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrHorseTitle}}" 
+                       Style="{StaticResource HeaderStyle}" Margin="0 10 0 0"/>
+
+            <DataGrid ItemsSource="{Binding Path=CurrentHorseNumbers}" x:Name="HorseNumberPanel"
+                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                      AutoGenerateColumns="False" Focusable="False" Background="Black" BorderThickness="0"
+                      Width="Auto" Height="Auto" Margin="0 10 0 0">
+
+                <DataGrid.CellStyle>
+                    <Style TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                <Setter Property="BorderBrush">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Black" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="Black" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90" />
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Visibility">
+                            <Setter.Value>Collapsed</Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Visibility">
+                            <Setter.Value>Collapsed</Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.LayoutTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90" />
+                    </TransformGroup>
+                </DataGrid.LayoutTransform>
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:HorseModel}">
+                                <local:ManualHandicapHorseNumber
+                                    Margin="5 0 5 0"
+                                    MaxWidth="48"
+                                    MaxHeight="48"
+                                    HorseSelected="False"
+                                    HorseNumber="{Binding Number,
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="{Binding RacePosition,
+                                        Converter={StaticResource HorseNumToVisibilityConverter},
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                    OnClickHandler="{Binding DataContext.HorseNumberClicked,
+                                        RelativeSource={RelativeSource AncestorType=UserControl},
+                                        UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0"
+                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrManualHandicapDisclaimerMessage}}" 
+                   FontSize="12" HorizontalAlignment="Center" TextAlignment="Center"
+                   Foreground="{StaticResource HeaderColor1}"
+                   Visibility="{Binding IsQuickPick, Converter={StaticResource BoolToVisible},
+                                        Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0"
+                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrManualHandicapDisclaimerMessageAuto}}" 
+                   FontSize="12" HorizontalAlignment="Center" TextAlignment="Center"
+                   Foreground="{StaticResource HeaderColor1}" 
+                   Visibility="{Binding IsQuickPick, Converter={StaticResource BoolToHidden},
+                                        Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+
+</menu:HHRMenuPage>
+    

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="BingoOperatorMenu" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Bingo.dll" />
+    <Import assembly="Aristocrat.Monaco.Bingo.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.Bingo.Common.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+	<Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.Bingo.UI.BingoConfigurationWizard" order="7"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/CommsMenu">
+    <CommsMenu type="Aristocrat.Monaco.Bingo.UI.Loaders.BingoServerSettingsLoader" order="310"/>
+    <CommsMenu type="Aristocrat.Monaco.Bingo.UI.Loaders.BingoHostConfigurationLoader" order="320"/>
+  </Extension>
+</Addin>

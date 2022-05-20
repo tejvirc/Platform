@@ -1,0 +1,501 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.MachineSettingsPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                              xmlns:helpers="http://monaco.aristocrat.com/common"
+                              xmlns:uiconverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              mc:Ignorable="d"
+                              d:DataContext="{d:DesignInstance viewModels:MachineSettingsPageViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Controls/LiveSetting.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <uiconverters:DateTimeFormatConverter x:Key="DateTimeFormatConverter"/>
+
+            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin" Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin" Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="helpers:AlphaNumericTextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="Margin" Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Thickness x:Key="LabelMargin">0,0,40,0</Thickness>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="VisibilityChanged">
+            <i:InvokeCommandAction Command="{Binding VisibilityChangedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="LeftSideGrid" 
+              Grid.Row="0" 
+              Grid.Column="0" 
+              HorizontalAlignment="Left"
+              loc:Localizer.For="Operator">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="300"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Serial Number Section -->
+                <Label x:Name="SerialNumberLabel" 
+                   Grid.Row="0" 
+                   Grid.Column="0" 
+                   Margin="{StaticResource LabelMargin}"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
+                <Grid x:Name="SerialNumberGrid" 
+                  Grid.Row="0" 
+                  Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl Grid.Column="0" IsTabStop="False"
+                        ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                        Content="{Binding SerialNumber}"/>
+
+                    <Button x:Name="SerialNumberWarningButton" IsTabStop="False"
+                        Grid.Column="1"
+                        Style="{StaticResource MonacoWarningButton}"
+                        Command="{Binding ShowInfoPopupCommand}"
+                        Margin="10 0 0 0"
+                        Visibility="{
+                            Binding SerialNumberWarningEnabled, 
+                            Mode=OneWay, 
+                            Converter={StaticResource BoolToVisConverter}}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="SerialNumberWarningButton"/>
+                                <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" 
+                                     Path="DataContext.TestWarningText"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </Grid>
+
+                <!-- Asset Number Section -->
+                <Label x:Name="AssetNumberLabel" 
+                   Grid.Row="1" 
+                   Grid.Column="0" 
+                   Margin="{StaticResource LabelMargin}"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}" />
+                <Grid x:Name="AssetNumberGrid" 
+                  Grid.Row="1" 
+                  Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl Grid.Column="0" IsTabStop="False"
+                        ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                        Content="{Binding AssetNumber}"/>
+
+                    <Button x:Name="AssetNumberWarningButton" IsTabStop="False"
+                        Grid.Column="1"
+                        Style="{StaticResource MonacoWarningButton}"
+                        Command="{Binding ShowInfoPopupCommand}"
+                        Margin="10 0 0 0"
+                        Visibility="{
+                            Binding AssetNumberWarningEnabled, 
+                            Mode=OneWay, 
+                            Converter={StaticResource BoolToVisConverter}}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="AssetNumberWarningButton"/>
+                                <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" 
+                                     Path="DataContext.TestWarningText"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </Grid>
+
+                <!-- Area Section -->
+                <Label
+                    Grid.Row="2" 
+                    Grid.Column="0" 
+                    Margin="{StaticResource LabelMargin}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.AreaLabel}}"
+                    Visibility="{Binding Area.IsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <ContentControl Grid.Row="2" Grid.Column="1" IsTabStop="False"
+                    ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                    Content="{Binding Area}"/>
+
+                <!-- Zone Section -->
+                <Label
+                    Grid.Row="3" 
+                    Grid.Column="0" 
+                    Margin="{StaticResource LabelMargin}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZoneText}}" 
+                    Visibility="{Binding Zone.IsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <ContentControl Grid.Row="3" Grid.Column="1" IsTabStop="False"
+                    ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                    Content="{Binding Zone}"/>
+
+                <!-- Bank Section -->
+                <Label
+                    Grid.Row="4" 
+                    Grid.Column="0" 
+                    Margin="{StaticResource LabelMargin}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.BankText}}" 
+                    Visibility="{Binding Bank.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                <ContentControl Grid.Row="4" Grid.Column="1" IsTabStop="False"
+                    ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                    Content="{Binding Bank}"/>
+
+                <!-- Position Section -->
+                <Label
+                    Grid.Row="5" 
+                    Grid.Column="0" 
+                    Margin="{StaticResource LabelMargin}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PositionText}}" 
+                    Visibility="{Binding Position.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                <ContentControl Grid.Row="5" Grid.Column="1" IsTabStop="False"
+                    ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                    Content="{Binding Position}"/>
+
+                <!-- Location Section -->
+                <Label
+                    Grid.Row="6" 
+                    Grid.Column="0" 
+                    Margin="{StaticResource LabelMargin}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.Location}}" 
+                    Visibility="{Binding Location.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                <ContentControl Grid.Row="6" Grid.Column="1" IsTabStop="False"
+                    ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                    Content="{Binding Location}"/>
+
+                <!-- DeviceName Section -->
+                <Label
+                    Grid.Row="7" 
+                    Grid.Column="0" 
+                    Margin="{StaticResource LabelMargin}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}" 
+                    Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+                <ContentControl Grid.Row="7" Grid.Column="1" IsTabStop="False"
+                    ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                    Content="{Binding DeviceName}"/>
+
+            </Grid>
+            <Grid Grid.Row="1" Margin="0,20,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="300"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Hard Boot Time Section -->
+                <Label x:Name="HardBootLabel" 
+                       Grid.Row="0" 
+                       Grid.Column="0" 
+                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardBootTimeLabel}}" />
+                <TextBlock x:Name="HardBootTextBlock" 
+                           Grid.Row="0" 
+                           Grid.Column="1"
+                           Text="{Binding HardBootTime, 
+                            Mode=OneWay, 
+                            UpdateSourceTrigger=PropertyChanged,
+                            Converter={StaticResource DateTimeFormatConverter}}"/>
+                
+                <!-- Soft Boot Time Section -->
+                <Label x:Name="SoftBootLabel" 
+                       Grid.Row="1" 
+                       Grid.Column="0" 
+                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoftBootTimeLabel}}" />
+                <TextBlock x:Name="SoftBootTextBlock" 
+                           Grid.Row="1" 
+                           Grid.Column="1" 
+                           Text="{Binding SoftBootTime, 
+                            Mode=OneWay, 
+                            UpdateSourceTrigger=PropertyChanged,
+                            Converter={StaticResource DateTimeFormatConverter}}"/>
+                
+                <!-- IP Address Section -->
+                <Label x:Name="IpAddressLabel" 
+                       Grid.Row="2" 
+                       Grid.Column="0" 
+                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.IPAddressesLabel}}"/>
+                <TextBlock x:Name="IpAddressTextBlock" 
+                           Grid.Row="2" 
+                           Grid.Column="1" 
+                           Text="{Binding IpAddress, Mode=OneWay}" />
+                
+                <!-- Physical Address Section -->
+                <Label x:Name="PhysicalAddressLabel" 
+                       Grid.Row="3" 
+                       Grid.Column="0" 
+                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}" />
+                <TextBlock x:Name="PhysicalAddressTextBlock" 
+                           Grid.Row="3" 
+                           Grid.Column="1" 
+                           Text="{Binding PhysicalAddress, Mode=OneWay}" />
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="RightSideGrid" 
+              Grid.Row="0"
+              Grid.Column="1" 
+              HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Model Section -->
+            <Label x:Name="ModelLabel" 
+                   Grid.Row="0" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}" />
+            <TextBlock x:Name="ModelTextBlock" 
+                       Grid.Row="0" 
+                       Grid.Column="1" 
+                       Text="{Binding ModelText, Mode=OneWay}"/>
+
+            <!-- Electronics Section -->
+            <Label x:Name="Electronics" 
+                   Grid.Row="1" 
+                   Grid.Column="0" 
+                   loc:Localizer.For="Operator"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.Electronics}}" />
+            <TextBlock x:Name="ElectronicsTextBlock" 
+                       Grid.Row="1" 
+                       Grid.Column="1" 
+                       Text="{Binding Electronics, Mode=OneWay}" />
+
+            <!-- Graphics Card Section -->
+            <Label x:Name="GraphicsCardLabel" 
+                   Grid.Row="2" 
+                   Grid.Column="0" 
+                   loc:Localizer.For="Operator"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.GraphicsCard}}" />
+            <TextBlock x:Name="GraphicsCardTextBlock" 
+                       Grid.Row="2" 
+                       Grid.Column="1" 
+                       Text="{Binding GraphicsCard, Mode=OneWay}" />
+
+            <!-- Button Deck Section -->
+            <Label x:Name="ButtonDeckLabel" 
+                   Grid.Row="3" 
+                   Grid.Column="0" 
+                   loc:Localizer.For="Operator"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonDeck}}" />
+            <TextBlock x:Name="ButtonDeckTextBlock" 
+                       Grid.Row="3" 
+                       Grid.Column="1" 
+                       Text="{Binding ButtonDeck, Mode=OneWay}" />
+
+            <!-- Touch Screen Section -->
+            <Label x:Name="TouchScreenLabel" 
+                   Grid.Row="4" 
+                   Grid.Column="0" 
+                   loc:Localizer.For="Operator"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TouchScreen}}" />
+            <TextBlock x:Name="TouchScreenTextBlock" 
+                       Grid.Row="4" 
+                       Grid.Column="1" 
+                       Text="{Binding TouchScreens, Mode=OneWay}" />
+
+            <!-- Lighting Section -->
+            <Label x:Name="LightingLabel" 
+                   Grid.Row="5" 
+                   Grid.Column="0" 
+                   loc:Localizer.For="Operator"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.EdgeLighting}}" />
+            <TextBlock x:Name="LightingTextBlock" 
+                       Grid.Row="5" 
+                       Grid.Column="1" 
+                       Text="{Binding Lighting, Mode=OneWay}" />
+
+            <!-- Note Acceptor Section -->
+            <Label x:Name="NoteAcceptorLabel" 
+                   Grid.Row="6" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorLabel}}" />
+            <TextBlock x:Name="NoteAcceptorTextBlock" 
+                       Grid.Row="6" 
+                       Grid.Column="1">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding NoteAcceptorModel, Mode=OneWay, TargetNullValue=''}" Value="">
+                                <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="Text" Value="{Binding NoteAcceptorModel, Mode=OneWay}"/>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            
+            <!-- Printer Section -->
+            <Label x:Name="PrinterLabel" 
+                   Grid.Row="7" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrinterLabel}}" />
+            <TextBlock x:Name="PrinterTextBlock" 
+                       Grid.Row="7" 
+                       Grid.Column="1">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding PrinterModel, Mode=OneWay, TargetNullValue=''}" Value="">
+                                <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="Text" Value="{Binding PrinterModel, Mode=OneWay}"/>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <!-- Reels Section -->
+            <Label x:Name="ReelControllerLabel" 
+                   Grid.Row="8" 
+                   Grid.Column="0" 
+                   loc:Localizer.For="Operator"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReelControllerLabel}}" />
+            <TextBlock x:Name="ReelControllerTextBlock" 
+                       Grid.Row="8" 
+                       Grid.Column="1" 
+                       Text="{Binding ReelController, Mode=OneWay}" />
+
+            <!-- Bios Version Section -->
+            <Label x:Name="BiosVersionLabel" 
+                   Grid.Row="9" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BiosVersion}}" />
+            <TextBlock x:Name="BiosVersionTextBlock" 
+                       Grid.Row="9" 
+                       Grid.Column="1">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding BiosVersion, Mode=OneWay, TargetNullValue=''}" Value="">
+                                <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="Text" Value="{Binding BiosVersion, Mode=OneWay}"/>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <!-- Fpga Version Section -->
+            <Label x:Name="FpgaVersionLabel" 
+                   Grid.Row="10" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.FpgaVersion}}" />
+            <TextBlock x:Name="FpgaVersionTextBlock" 
+                       Grid.Row="10" 
+                       Grid.Column="1">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding FpgaVersion, Mode=OneWay, TargetNullValue=''}" Value="">
+                                <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="Text" Value="{Binding FpgaVersion, Mode=OneWay}"/>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <!-- Windows Version Section -->
+            <Label x:Name="WindowsLabel" 
+                   Grid.Row="11" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.WindowsVersionLabel}}" />
+            <TextBlock x:Name="WindowsTextBlock" 
+                       Grid.Row="11" 
+                       Grid.Column="1" 
+                       Text="{Binding WindowsVersion, Mode=OneWay}" />
+
+            <!-- OS Image Section -->
+            <Label x:Name="OsImageLabel" 
+                   Grid.Row="12" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.OSImageVersionLabel}}" />
+            <TextBlock x:Name="OsImageTextBlock" 
+                       Grid.Row="12" 
+                       Grid.Column="1" 
+                       Text="{Binding OsImageVersion, Mode=OneWay}" />
+
+            <!-- Platform Version Section -->
+            <Label x:Name="PlatformLabel" 
+                   Grid.Row="13" 
+                   Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlatformVersionLabel}}" />
+            <TextBlock x:Name="PlatformTextBlock" 
+                       Grid.Row="13" 
+                       Grid.Column="1" 
+                       Text="{Binding PlatformVersion, Mode=OneWay}" />
+
+            <!-- TODO Coin Acceptor, Hopper, Card Reader, Wheel when these are supported -->
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

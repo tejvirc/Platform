@@ -1,0 +1,12 @@
+<Addin id="CustomExtension" namespace="TestAddins" version="1.0">
+
+  <Dependencies>
+    <Addin id="MonoAddinsHelperUnitTest" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/CustomExtension">
+    <CustomExtension data="extension1" />
+    <CustomExtension data="extension2" />
+    <CustomExtension data="extension3" />
+  </Extension>
+</Addin>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<BlockFormat name="Aristocrat.Monaco.Sas.BonusProvider.SasBonusProvider">
+  <Fields>
+    <Field DataType="Byte" FieldName="LegacyBonusTaxStatusDeductible" />
+    <Field DataType="UInt64" FieldName="LegacyBonusAmountDeductible" />
+    <Field DataType="Guid" FieldName="LegacyBonusIdDeductible" />
+    <Field DataType="Byte" FieldName="LegacyBonusTaxStatusNondeductible" />
+    <Field DataType="UInt64" FieldName="LegacyBonusAmountNondeductible" />
+    <Field DataType="Guid" FieldName="LegacyBonusIdNondeductible" />
+    <Field DataType="Byte" FieldName="LegacyBonusTaxStatusWagerMatch" />
+    <Field DataType="UInt64" FieldName="LegacyBonusAmountWagerMatch" />
+    <Field DataType="Guid" FieldName="LegacyBonusIdWagerMatch" />
+  </Fields>
+</BlockFormat>

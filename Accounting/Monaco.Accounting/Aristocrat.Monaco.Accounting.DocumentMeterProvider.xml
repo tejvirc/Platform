@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+  <ArrayOfBlockFormat>
+	<BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Vgt.Client12.Accounting.DocumentMeterProvider" ElementSize="32">
+	  <Fields>
+		<Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="AcceptanceCountLifetime" />
+		<Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="AcceptanceCountPeriod" />
+		<Field DataType="Int64" Size="8" Count="0" Offset="16" FieldName="RejectCountLifetime" />
+		<Field DataType="Int64" Size="8" Count="0" Offset="24" FieldName="RejectCountPeriod" />
+	  </Fields>
+	</BlockFormat>
+    <BlockFormat version="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Vgt.Client12.Accounting.DocumentMeterProvider" ElementSize="64">
+      <Fields>
+		<Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="AcceptanceCountLifetime" />
+		<Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="AcceptanceCountPeriod" />
+		<Field DataType="Int64" Size="8" Count="0" Offset="16" FieldName="RejectCountLifetime" />
+		<Field DataType="Int64" Size="8" Count="0" Offset="24" FieldName="RejectCountPeriod" />
+        <Field DataType="Int64" Size="8" Count="0" Offset="32" FieldName="VouchersRejectedCountLifetime" />
+        <Field DataType="Int64" Size="8" Count="0" Offset="40" FieldName="VouchersRejectedCountPeriod" />
+        <Field DataType="Int64" Size="8" Count="0" Offset="48" FieldName="BillsRejectedCountLifetime" />
+        <Field DataType="Int64" Size="8" Count="0" Offset="56" FieldName="BillsRejectedCountPeriod" />
+      </Fields>
+    </BlockFormat>
+    <BlockFormat version="3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Vgt.Client12.Accounting.DocumentMeterProvider" ElementSize="32">
+        <Fields>
+            <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="AcceptanceCountLifetime" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="AcceptanceCountPeriod" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="16" FieldName="VouchersRejectedCountLifetime" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="24" FieldName="VouchersRejectedCountPeriod" />
+        </Fields>
+    </BlockFormat>
+</ArrayOfBlockFormat>

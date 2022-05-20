@@ -1,0 +1,338 @@
+﻿namespace Aristocrat.Monaco.Application.UI.Tests.ViewModels
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using Contracts.Localization;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Monaco.Localization.Properties;
+    using Moq;
+    using OxyPlot.Axes;
+    using PerformanceCounter;
+    using Test.Common;
+    using UI.ViewModels;
+
+    [TestClass]
+    public class DiagnosticPerformanceCounterChartViewModelTests
+    {
+        private DiagnosticPerformanceCounterChartViewModel _diagnosticViewDetailChartViewModel;
+        private Mock<IPerformanceCounterManager> _performanceCounterManagerMock;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            MockLocalization.Setup(MockBehavior.Strict);
+            _performanceCounterManagerMock =
+                MoqServiceManager.CreateAndAddService<IPerformanceCounterManager>(MockBehavior.Default);
+
+            if (Application.Current == null)
+            {
+                var _ = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+            }
+        }
+
+        [TestCleanup]
+        public void MyTestCleanup()
+        {
+            MoqServiceManager.RemoveInstance();
+        }
+
+        [TestMethod]
+        public void DefaultCreation()
+        {
+            _diagnosticViewDetailChartViewModel =
+                new DiagnosticPerformanceCounterChartViewModel(_performanceCounterManagerMock.Object);
+
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.StartDate, DateTime.Today.AddDays(-29));
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.StartDateForChart, DateTime.Today);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.EndDate, DateTime.Today);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.EndDateForChart, DateTime.Today);
+            Assert.IsNull(_diagnosticViewDetailChartViewModel.MonacoPlotModel);
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.IsLoadingChart);
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.MagnifyMinusEnabled);
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.ZoomingOrPanningDone);
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.MagnifyPlusEnabled);
+            Assert.IsNull(_diagnosticViewDetailChartViewModel.Text);
+        }
+
+        [TestMethod]
+        public void StartDateGreaterThanEndDate()
+        {
+            _performanceCounterManagerMock.Setup(
+                m => m.CountersForParticularDuration(
+                    It.IsAny<DateTime>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<CancellationToken>())).Returns(
+                Task.FromResult<IList<PerformanceCounters>>(
+                    new List<PerformanceCounters>()));
+
+            DefaultCreation();
+
+            _diagnosticViewDetailChartViewModel.StartDateForChart = DateTime.Today.AddDays(-25);
+            _diagnosticViewDetailChartViewModel.EndDateForChart = DateTime.Today.AddDays(-25);
+            _diagnosticViewDetailChartViewModel.StartDateForChart = DateTime.Today.AddDays(-20);
+
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.EndDateForChart,
+                _diagnosticViewDetailChartViewModel.StartDateForChart);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.EndDateForChart, DateTime.Today.AddDays(-20));
+
+            CheckForErrorScenarios();
+        }
+
+        [TestMethod]
+        public void FetchingDataCorrectly()
+        {
+            _performanceCounterManagerMock.Setup(
+                m => m.CountersForParticularDuration(
+                    It.IsAny<DateTime>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<CancellationToken>())).Returns(
+                Task.FromResult<IList<PerformanceCounters>>(
+                    new List<PerformanceCounters>
+                    {
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddMinutes(1),
+                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddMinutes(2),
+                            Values = new[] { 11.23, 32, 102.678, 313.789, 123.456, 5, 3.12 }
+                        }
+                    }));
+
+            DefaultCreation();
+
+            _diagnosticViewDetailChartViewModel.StartDateForChart = DateTime.Today;
+
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.TextEnabled);
+            Assert.IsTrue(string.IsNullOrEmpty(_diagnosticViewDetailChartViewModel.Text));
+            Assert.IsTrue(_diagnosticViewDetailChartViewModel.MagnifyPlusEnabled);
+            Assert.IsNotNull(_diagnosticViewDetailChartViewModel.MonacoPlotModel);
+            Assert.IsNotNull(_diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes.Count, 2);
+
+            foreach (var axis in _diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes)
+            {
+                Assert.IsTrue(axis.IsPanEnabled);
+                Assert.IsTrue(axis.IsZoomEnabled);
+            }
+
+            foreach (var metric in _diagnosticViewDetailChartViewModel.AllMetrics)
+            {
+                Assert.IsTrue(metric.MetricEnabled);
+                Assert.IsNotNull(metric.LineSeries);
+                Assert.AreEqual(metric.LineSeries.Points.Count, 2);
+            }
+
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics.Select(x => x.MaxDataValue).Max(), 3456.789);
+        }
+
+        [TestMethod]
+        public void WhenOperatorCancelledExceptionIsThrown()
+        {
+            _performanceCounterManagerMock.Setup(
+                m => m.CountersForParticularDuration(
+                    It.IsAny<DateTime>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<CancellationToken>())).ThrowsAsync(new OperationCanceledException());
+
+            DefaultCreation();
+
+            _diagnosticViewDetailChartViewModel.StartDateForChart = DateTime.Today;
+
+            CheckForErrorScenarios();
+        }
+
+        [TestMethod]
+        public void WhenTaskCancelledExceptionIsThrown()
+        {
+            _performanceCounterManagerMock.Setup(
+                m => m.CountersForParticularDuration(
+                    It.IsAny<DateTime>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<CancellationToken>())).ThrowsAsync(new TaskCanceledException());
+
+            DefaultCreation();
+
+            _diagnosticViewDetailChartViewModel.StartDateForChart = DateTime.Today;
+
+            CheckForErrorScenarios();
+        }
+
+        [TestMethod]
+        public void TestingFilteringAndFillingOutOfData()
+        {
+            _performanceCounterManagerMock.Setup(
+                m => m.CountersForParticularDuration(
+                    It.IsAny<DateTime>(),
+                    It.IsAny<DateTime>(),
+                    It.IsAny<CancellationToken>())).Returns(
+                Task.FromResult<IList<PerformanceCounters>>(
+                    new List<PerformanceCounters>
+                    {
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddDays(-2).AddMinutes(10),
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddDays(-2).AddMinutes(20),
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddDays(-2).AddMinutes(30),
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddDays(-1).AddMinutes(1),
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 6 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddDays(-1).AddMinutes(2),
+                            Values = new[] { 2.0, 4, 2, 4, 12, 6, 2 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddDays(-1).AddMinutes(3),
+                            Values = new[] { 3.0, 6, 1, 4, 1, 6, 10 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddMinutes(10),
+                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddMinutes(15),
+                            Values = new[] { 11.23, 32, 102.678, 3456.789, 123.456, 5, 3.12 }
+                        },
+                        new PerformanceCounters
+                        {
+                            DateTime = DateTime.Today.AddMinutes(30),
+                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12 }
+                        }
+                    }));
+
+            DefaultCreation();
+
+            _diagnosticViewDetailChartViewModel.StartDateForChart = DateTime.Today.AddDays(-2);
+
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.TextEnabled);
+            Assert.IsTrue(string.IsNullOrEmpty(_diagnosticViewDetailChartViewModel.Text));
+            Assert.IsTrue(_diagnosticViewDetailChartViewModel.MagnifyPlusEnabled);
+            Assert.IsNotNull(_diagnosticViewDetailChartViewModel.MonacoPlotModel);
+            Assert.IsNotNull(_diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes.Count, 2);
+
+            foreach (var axis in _diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes)
+            {
+                Assert.IsTrue(axis.IsPanEnabled);
+                Assert.IsTrue(axis.IsZoomEnabled);
+            }
+
+            var i = 1;
+            foreach (var metric in _diagnosticViewDetailChartViewModel.AllMetrics)
+            {
+                Assert.IsTrue(metric.MetricEnabled);
+                Assert.IsNotNull(metric.LineSeries);
+                Assert.AreEqual(metric.LineSeries.Points.Count, 7);
+                Assert.AreEqual(metric.LineSeries.Points[1].Y, 0);
+                Assert.AreEqual(metric.LineSeries.Points[2].Y, 0);
+                Assert.AreEqual(metric.LineSeries.Points[4].Y, 0);
+                Assert.AreEqual(metric.LineSeries.Points[5].Y, 0);
+                Assert.AreEqual(metric.LineSeries.Points[0].Y, i++);
+            }
+
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[0].LineSeries.Points[0].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(30)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[1].LineSeries.Points[0].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(30)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[2].LineSeries.Points[0].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(30)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[3].LineSeries.Points[0].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(30)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[4].LineSeries.Points[0].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(30)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[5].LineSeries.Points[0].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(30)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[6].LineSeries.Points[0].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(30)));
+
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[0].LineSeries.Points[1].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(31)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[1].LineSeries.Points[1].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(31)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[2].LineSeries.Points[1].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(31)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[3].LineSeries.Points[1].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(31)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[4].LineSeries.Points[1].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(31)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[5].LineSeries.Points[1].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(31)));
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.AllMetrics[6].LineSeries.Points[1].X,
+                Axis.ToDouble(DateTime.Today.AddDays(-2).AddMinutes(31)));
+
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics[0].LineSeries.Points[3].Y, 2);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics[1].LineSeries.Points[3].Y, 4);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics[2].LineSeries.Points[3].Y, 2);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics[3].LineSeries.Points[3].Y, 4);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics[4].LineSeries.Points[3].Y, 6);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics[5].LineSeries.Points[3].Y, 6);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics[6].LineSeries.Points[3].Y, 6);
+
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.AllMetrics.Select(x => x.MaxDataValue).Max(), 3456.789);
+        }
+
+        private void CheckForErrorScenarios()
+        {
+            Assert.AreEqual(
+                _diagnosticViewDetailChartViewModel.Text,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorWhileFetchingData));
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.MagnifyPlusEnabled);
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.MagnifyMinusEnabled);
+            Assert.IsFalse(_diagnosticViewDetailChartViewModel.ZoomingOrPanningDone);
+            Assert.IsNotNull(_diagnosticViewDetailChartViewModel.MonacoPlotModel);
+            Assert.IsNotNull(_diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes);
+            Assert.AreEqual(_diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes.Count, 2);
+
+            foreach (var axis in _diagnosticViewDetailChartViewModel.MonacoPlotModel.Axes)
+            {
+                Assert.IsFalse(axis.IsPanEnabled);
+                Assert.IsFalse(axis.IsZoomEnabled);
+            }
+
+            foreach (var metric in _diagnosticViewDetailChartViewModel.AllMetrics)
+            {
+                Assert.IsFalse(metric.MetricEnabled);
+                Assert.IsNotNull(metric.LineSeries);
+                Assert.AreEqual(metric.LineSeries.Points.Count, 0);
+            }
+        }
+    }
+}

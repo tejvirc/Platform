@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<Devices>
+  <DeviceClass ID="2" Name="ParameterProcessorTest" Version="2.0">
+    <DeviceType ID="1" Name="EGMAccess">
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="1" MCIAccess="ReadOnly" Name="ReadWrite">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="2" MCIAccess="ReadOnly" Name="ReadOnly">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+    </DeviceType>
+    <DeviceType ID="3" Name="MCIAccess">
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="1" MCIAccess="ReadWrite" Name="ReadWrite">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" >
+          <Mask Operation="Equal" TrueText="Security Level 1" Value="1" />
+        </Field>
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="2" MCIAccess="ReadOnly" Name="ReadOnly">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+    </DeviceType>
+    <DeviceType ID="4" Name="EventAccess">
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="1" MCIAccess="ReadWrite" Name="Never2">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Always" ID="2" MCIAccess="ReadOnly" Name="Always1">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Always" ID="3" MCIAccess="ReadWrite" Name="Always2">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="OnRequest" ID="4" MCIAccess="ReadOnly" Name="OnRequest1">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test2" Size="1"
+       Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="5" MCIAccess="ReadWrite" Name="OnRequest2">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadOnly" EventAccess="Never" ID="6" MCIAccess="ReadOnly" Name="Never1">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+    </DeviceType>
+  </DeviceClass>
+
+
+  <DeviceClass ID="3" Name="SharedDeviceTypeEventReportTest" Version="1.0" SharedDeviceTypeEventReport="true">
+    <DeviceType ID="1" Name="MCIAccess">
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="1" MCIAccess="ReadOnly" Name="OnRequest">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="2" MCIAccess="ReadOnly" Name="ReadOnly">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+    </DeviceType>
+    <DeviceType ID="2" Name="MCIAccess">
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="1" MCIAccess="ReadOnly" Name="OnRequest">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="2" MCIAccess="ReadOnly" Name="ReadOnly">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+    </DeviceType>
+    <DeviceType ID="3" Name="MCIAccess">
+      <Parameter EGMAccess="ReadWrite" EventAccess="OnRequest" ID="1" MCIAccess="ReadOnly" Name="OnRequest">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+      <Parameter EGMAccess="ReadWrite" EventAccess="Never" ID="2" MCIAccess="ReadOnly" Name="ReadOnly">
+        <Field DataMemberName="DM1" DataSourceName="DS1" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+    </DeviceType>
+  </DeviceClass>
+
+</Devices>

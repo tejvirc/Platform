@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>Aristocrat.Monaco.G2S.Data</AssemblyTitle>
+    <Company>Aristocrat Technologies Inc.</Company>
+    <Product>Monaco</Product>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\$(Configuration)\Aristocrat.Monaco.G2S.Data.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DocumentationFile>bin\$(Configuration)\Aristocrat.Monaco.G2S.Data.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DocumentationFile />
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.G2S" Version="4.1.35" />
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+</Project>

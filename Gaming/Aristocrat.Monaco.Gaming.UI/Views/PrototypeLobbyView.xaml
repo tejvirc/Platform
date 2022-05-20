@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.PrototypeLobbyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views"
+             xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar"
+             mc:Ignorable="d" 
+             d:DesignHeight="387.5" d:DesignWidth="656.5">
+
+    <DockPanel x:Name="LayoutTemplate">
+
+        <!--PUI-->
+        <Grid x:Name="PuiBottom" Height="60" DockPanel.Dock="Bottom" Background="GreenYellow"></Grid>
+        <Grid x:Name="PuiLeft" Width="100" Background="Green"/>
+        <Grid x:Name="PuiRight" Width="160" DockPanel.Dock="Right" Background="DarkOliveGreen"></Grid>
+
+        <!--This is the single Item that the DockPanel sees and resizes.-->
+        <Grid x:Name="GameLayout" ClipToBounds="True">
+
+
+            <Viewbox x:Name="GameRoot" Panel.ZIndex="1" VerticalAlignment="Top">
+                <!--The actual game grid binds it's height and width to custom values maintained by 
+                GameLayout which enforce uniform aspect ratio behavior, just like the ViewBox does.-->
+                <Grid x:Name="ActualGame" Background="#FFFF00DC" Width="100" Height="100"></Grid>
+            </Viewbox>
+
+            <Viewbox x:Name="ViewBoxLobby" Stretch="Uniform">
+
+                <Grid x:Name="InfoBarAndLobbyContainer" 
+                      Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
+                      Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--This viewbox keeps the main content scaling uniformly during media display resize
+                    Height/Width are bound to LayoutTemplate to establish the lobby aspect ratio-->
+                    <Grid x:Name="LobbyRoot" d:IsLocked="True">
+                        <Grid.Background>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FF5F94E0" Offset="0"/>
+                                <GradientStop Color="#FF00337C" Offset="0.262"/>
+                                <GradientStop Color="#FF15B0B0" Offset="0.567"/>
+                                <GradientStop Color="#FFBCCF00" Offset="0.973"/>
+                                <GradientStop Color="#FF0B27B0" Offset="0.748"/>
+                                <GradientStop Color="#FF00357D" Offset="0.416"/>
+                                <GradientStop Color="#FF142FA6" Offset="0.947"/>
+                            </RadialGradientBrush>
+                        </Grid.Background>
+                    </Grid>
+
+                    <Grid x:Name="InfoBar" Background="Red" Height="20" Grid.Row="1">
+                        <TextBlock HorizontalAlignment="Left">Tim Johnson</TextBlock>
+                        <TextBlock HorizontalAlignment="Center">Insert your money now and begin to gamble!</TextBlock>
+                        <TextBlock HorizontalAlignment="Right">Pts = 100,000</TextBlock>
+                    </Grid>
+                </Grid>
+            </Viewbox>
+
+        </Grid>
+    </DockPanel>
+</UserControl>

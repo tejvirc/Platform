@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PersistentStorageConfig>
+  <Device MediaType="NVRam">
+    <PersistenceLevel level="Static" />
+    <PersistenceLevel level="Critical" />
+    <PersistenceLevel level="Transient" />
+  </Device>
+</PersistentStorageConfig>

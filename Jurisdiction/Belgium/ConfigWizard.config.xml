@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts\ConfigWizard
+2.  Enter "xsd ConfigWizardConfiguration.xsd /classes".  This will generate
+    the corresponding class definition in csharp (ConfigWizardConfiguration.cs).
+-->
+<ConfigWizardConfiguration>
+    <MachineSetupConfig Visibility="Visible">
+      <EnterOutOfServiceWithCredits Enabled="true"/>
+    </MachineSetupConfig>
+    <IOConfigPage>
+        <UseSelection Enabled="false"/>
+    </IOConfigPage>  
+    <CompletionPage ShowGameSetupMessage="true"/>
+    <HardMetersConfig Configurable="true" Enable="false" TickValueConfigurable="true" />
+	<DoorOptics Visible="true" Configurable="true" Enabled="true"/>
+    <ProtocolConfiguration>
+        <ProtocolsAllowed>
+            <Protocol Name="G2S"/>
+            <Protocol Name="SAS"/>
+            <Protocol Name="Test"/>
+        </ProtocolsAllowed>
+        <ExclusiveProtocols>
+            <ExclusiveProtocol Name="SAS" Function="Validation" />
+        </ExclusiveProtocols>
+    </ProtocolConfiguration>
+</ConfigWizardConfiguration>

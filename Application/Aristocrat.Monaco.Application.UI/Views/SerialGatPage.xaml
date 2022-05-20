@@ -1,0 +1,42 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.SerialGatPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              mc:Ignorable="d"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                              d:DataContext="{d:DesignInstance {x:Type viewModels:SerialGatPageViewModel}, IsDesignTimeCreatable=False}"
+                              Background="Transparent">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Style="{DynamicResource MonacoLabel}"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.VersionText}}" />
+        <ComboBox Grid.Column="0" Grid.Row="1" Name="VersionComboBox" Style="{DynamicResource MonacoComboBox}"
+                  MinWidth="200" Width="Auto"
+                  ItemsSource="{Binding Versions}" SelectedItem="{Binding GatVersion}" />
+
+        <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" Style="{DynamicResource MonacoLabel}"
+               Content="{Binding Status, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

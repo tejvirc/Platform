@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.Tickets.AuditTicketCreator" >
+  <Fields>
+    <Field DataType="Int32" FieldName="AuditSlipNumber" />
+  </Fields>
+</BlockFormat>

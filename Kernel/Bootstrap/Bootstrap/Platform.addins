@@ -1,0 +1,37 @@
+<Addins>
+  <!-- This file contains information that mono addins uses to determine -->
+  <!-- where to look for additional addin.xml files.                     -->
+  
+  <!-- list other directories that contain addin.xml files here -->
+  <!-- add one Directory entry for each directory to search -->
+  <!-- The DLL/EXE that the addin refers to should be in the same directory as the addin.xml file -->
+  <Directory include-subdirs="true">..\jurisdiction</Directory>
+
+  <!-- list files or directories to exclude from the mono addin search here -->
+  <!-- random-com.dll gives an error since it doesn't have a manifest -->
+  <!-- Note that this list is case sensitive. -->
+  <Exclude>jurisdiction</Exclude>
+  <Exclude>bink2w32.dll</Exclude>
+  <Exclude>bink2w64.dll</Exclude>
+  <Exclude>chrome_elf.dll</Exclude>
+  <Exclude>CrashHandler.dll</Exclude>
+  <Exclude>d3dcompiler_47.dll</Exclude>
+  <Exclude>fmodex.dll</Exclude>
+  <Exclude>fmodex64.dll</Exclude>
+  <Exclude>grpc_csharp_ext.x64.dll</Exclude>
+  <Exclude>grpc_csharp_ext.x86.dll</Exclude>
+  <Exclude>ReelSim</Exclude>
+  <Exclude>MonacoNVAPI.dll</Exclude>
+  <Exclude>NativeInterop.dll</Exclude>
+  <Exclude>libcef.dll</Exclude>
+  <Exclude>libEGL.dll</Exclude>
+  <Exclude>libGLESv2.dll</Exclude>
+  <Exclude>libusb-1.0.dll</Exclude>
+  <Exclude>SQLite.Interop.dll</Exclude>
+  <Exclude>widevinecdmadapter.dll</Exclude>
+  <Exclude>.\swiftshader\libEGL.dll</Exclude>
+  <Exclude>.\swiftshader\libGLESv2.dll</Exclude>
+  <Exclude>.\x64\SQLite.Interop.dll</Exclude>
+  <Exclude>.\x86\SQLite.Interop.dll</Exclude>
+  <Exclude>Aristocrat.Monaco.SAS.SASQuatch.dll</Exclude>
+</Addins>

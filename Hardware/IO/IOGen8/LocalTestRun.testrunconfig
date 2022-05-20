@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestRunConfiguration name="Local Test Run" id="f8ad94ab-661e-45b9-bf22-0db8a82f4ec9" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <Description>This is a default test run configuration for a local test run.</Description>
+  <Deployment>
+    <DeploymentItem filename="UnitTest\bin\Release\" />
+  </Deployment>
+  <NamingScheme baseName="IOGen8UnitTest" useDefault="false" />
+  <TestTypeSpecific />
+</TestRunConfiguration>

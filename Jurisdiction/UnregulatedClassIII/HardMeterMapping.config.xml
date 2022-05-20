@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HardMeterMappingConfiguration>
+	<HardMeterMapping Name="(1)Games,(2)Turnover,(3)Won,(4)Handpay,(5)SAP Jackpot,(6)Coin Drop,(7)Coins In,(8)Bills In">
+		<HardMeter LogicalId="0" Name="Games Played" TickValue="1" TickValueConfigurable="false" >
+			<SoftMeter Name="PlayedCount" />
+		</HardMeter>
+		<HardMeter LogicalId="1" Name="Turnover" >
+			<SoftMeter Name="WageredAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="2" Name="Total Won">
+			<SoftMeter Name="TotalPaidAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="3" Name="Handpay">
+			<SoftMeter Name="TotalHandpaidGameWonAmount" />
+			<SoftMeter Name="TotalHandpaidBonusPayAmount" />
+			<SoftMeter Name="HandpaidCancelAmount" />
+		</HardMeter>
+		<!-- Note: This is temporarily mapped to the Total Progressive till SAP meter is implemented-->
+		<HardMeter LogicalId="4" Name="SAP Jackpot">
+			<SoftMeter Name="EgmPaidProgWonAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="5" Name="Coin Drop">
+			<SoftMeter Name="CoinDrop" />
+		</HardMeter>
+		<HardMeter LogicalId="6" Name="Coins In">
+			<SoftMeter Name="TotalIn" />
+		</HardMeter>
+		<HardMeter LogicalId="7" Name="Bills In">
+			<SoftMeter Name="TotalCashIn" />
+		</HardMeter>
+	</HardMeterMapping>
+	<HardMeterMapping Name="(1)Games,(2)Turnover,(3)Total Win,(4)Handpay,(5)Coins Out,(6)Coin Drop,(7)Coins In,(8)Bills In">
+		<HardMeter LogicalId="0" Name="Games Played" TickValue="1" TickValueConfigurable="false" >
+			<SoftMeter Name="PlayedCount" />
+		</HardMeter>
+		<HardMeter LogicalId="1" Name="Turnover" >
+			<SoftMeter Name="WageredAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="2" Name="Total Won">
+			<SoftMeter Name="TotalPaidAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="3" Name="Handpay">
+			<SoftMeter Name="TotalHandpaidGameWonAmount" />
+			<SoftMeter Name="TotalHandpaidBonusPayAmount" />
+			<SoftMeter Name="HandpaidCancelAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="4" Name="Coins Out">
+			<SoftMeter Name="TotalOutHard" />
+		</HardMeter>
+		<HardMeter LogicalId="5" Name="Coin Drop">
+			<SoftMeter Name="CoinDrop" />
+		</HardMeter>
+		<HardMeter LogicalId="6" Name="Coins In">
+			<SoftMeter Name="TotalIn" />
+		</HardMeter>
+		<HardMeter LogicalId="7" Name="Bills In">
+			<SoftMeter Name="TotalCashIn" />
+		</HardMeter>
+	</HardMeterMapping>
+	<HardMeterMapping Name="(1)Games,(2)Turnover,(3)Total Win,(4)Handpay,(5)SAP Jackpot,(6)Coin Drop,(7)Coins In,(8)Bills In">
+		<HardMeter LogicalId="0" Name="Games Played" TickValue="1" TickValueConfigurable="false" >
+			<SoftMeter Name="PlayedCount" />
+		</HardMeter>
+		<HardMeter LogicalId="1" Name="Turnover" >
+			<SoftMeter Name="WageredAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="2" Name="Total Won">
+			<SoftMeter Name="TotalPaidAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="3" Name="Handpay">
+			<SoftMeter Name="TotalHandpaidGameWonAmount" />
+			<SoftMeter Name="TotalHandpaidBonusPayAmount" />
+			<SoftMeter Name="HandpaidCancelAmount" />
+		</HardMeter>
+		<!-- Note: This is temporarily mapped to the Total Progressive till SAP meter is implemented-->
+		<HardMeter LogicalId="4" Name="SAP Jackpot">
+			<SoftMeter Name="EgmPaidProgWonAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="5" Name="Coin Drop">
+			<SoftMeter Name="CoinDrop" />
+		</HardMeter>
+		<HardMeter LogicalId="6" Name="Coins In">
+			<SoftMeter Name="TotalIn" />
+		</HardMeter>
+		<HardMeter LogicalId="7" Name="Bills In">
+			<SoftMeter Name="TotalCashIn" />
+		</HardMeter>
+	</HardMeterMapping>
+	<HardMeterMapping Name="(1)Turnover,(2)Total Won,(4)Handpay,(5)Bills In,(7)Coins In,(8)Coins Out">
+		<HardMeter LogicalId="0" Name="Total Bet">
+			<SoftMeter Name="WageredAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="1" Name="Total Won" >
+			<SoftMeter Name="EgmPaidGameWonAmt" />
+			<SoftMeter Name="EgmPaidProgWonAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="3" Name="Handpay">
+			<SoftMeter Name="TotalHandpaidGameWonAmount" />
+			<SoftMeter Name="TotalHandpaidBonusPayAmount" />
+			<SoftMeter Name="HandpaidCancelAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="4" Name="Total Cash In">
+			<SoftMeter Name="TotalCashIn" />
+		</HardMeter>
+		<HardMeter LogicalId="6" Name="Total In">
+			<SoftMeter Name="TotalIn" />
+		</HardMeter>
+		<HardMeter LogicalId="7" Name="Total Out">
+			<SoftMeter Name="TotalOutHard" />
+		</HardMeter>
+	</HardMeterMapping>
+  <HardMeterMapping Name="Macau - (1)Stroke,(2)Turnover,(3)Won,(4)Handpay,(5)Coins Out,(6)Cash Box,(7)Coins In,(8)Bills In">
+    <!-- aka Stroke Hard Meter -->
+    <HardMeter LogicalId="0" Name="Games Played" TickValue="1" TickValueConfigurable="false" >
+      <SoftMeter Name="PlayedCount" />
+    </HardMeter>
+    <HardMeter LogicalId="1" Name="Turnover" >
+      <SoftMeter Name="WageredAmount" />
+    </HardMeter>
+    <HardMeter LogicalId="2" Name="Total Won">
+      <SoftMeter Name="TotalPaidAmt" />
+    </HardMeter>
+    <HardMeter LogicalId="3" Name="Handpay">
+      <SoftMeter Name="TotalHandpaidGameWonAmount" />
+      <SoftMeter Name="TotalHandpaidBonusPayAmount" />
+      <SoftMeter Name="HandpaidCancelAmount" />
+    </HardMeter>
+    <HardMeter LogicalId="4" Name="Coins Out">
+      <SoftMeter Name="TotalOutHard" />
+    </HardMeter>
+    <HardMeter LogicalId="5" Name="Cash Box">
+      <SoftMeter Name="CoinDrop" />
+    </HardMeter>
+    <HardMeter LogicalId="6" Name="Coins In">
+      <SoftMeter Name="TotalIn" />
+    </HardMeter>
+    <HardMeter LogicalId="7" Name="Bills In">
+      <SoftMeter Name="TotalCashIn" />
+    </HardMeter>
+  </HardMeterMapping>
+</HardMeterMappingConfiguration>

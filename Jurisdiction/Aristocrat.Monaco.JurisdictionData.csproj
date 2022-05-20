@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.Net.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <JurisdictionDir>..\bin\$(Configuration)\Platform\bin\jurisdiction\</JurisdictionDir>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Company>Aristocrat</Company>
+    <Authors>Aristocrat</Authors>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <EnableDefaultItems>true</EnableDefaultItems>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <MakeDir Directories="$(JurisdictionDir)" />
+    <Exec Command="xcopy /s /q /y /d * $(JurisdictionDir)" />
+    <Exec Command="del /q $(JurisdictionDir)*.*" />
+    <RemoveDir Directories="$(JurisdictionDir)obj;$(JurisdictionDir)bin" />
+    <Exec Command="&quot;$(MSBuildBinPath)\MSBuild.exe&quot; &quot;$(MSBuildThisFileDirectory)..\Tasks\Resources.msbuild&quot; /v:d /property:TargetDir=$(JurisdictionDir)..\" />
+  </Target>
+  <Target Name="Cleanup" AfterTargets="Clean">
+    <RemoveDir Directories="$(JurisdictionDir)" />
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+  <ItemGroup>
+    <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="KentuckyHHR\resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="LouisianaHHR\resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="NewHampshireHHR\resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="WyomingHHR\resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="KentuckyHHR\resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="LouisianaHHR\resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="NewHampshireHHR\resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="WyomingHHR\resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

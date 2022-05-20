@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.DiagnosticViewDetailChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticPerformanceCounterChartViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Margin="5" >
+            <oxy:PlotView Name="MonacoPlotView" Model="{Binding MonacoPlotModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Background="Transparent" Grid.ZIndex="1"/>
+
+            <TextBlock Style="{StaticResource MonacoTextBlock}" Grid.ZIndex="2"
+                       Text="{Binding Text}" FontSize="30" MinWidth="300" Margin="0 50 0 0"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Visibility="{Binding TextEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}"/>
+
+            <controls:ProgressRing Height="100" Width="100" IsLarge="True" IsActive="True" Grid.ZIndex="1"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Visibility="{Binding IsLoadingChart, Converter={StaticResource BoolToVisConverter}}" />
+
+        </Grid>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <DatePicker  Style="{StaticResource MonacoDatePicker}" Name="StartDatePicker"
+                                Margin="10"  Height="55"
+                                DisplayDateStart="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDate="{Binding StartDateForChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayDateEnd="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <DatePicker Style="{StaticResource MonacoDatePicker}" Name="EndDatePicker"
+                                Margin="10" Height="55"
+                                DisplayDateStart="{Binding StartDateForChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayDateEnd="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedDate="{Binding EndDateForChart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                    <Button Style="{StaticResource MonacoButton}"
+                            HorizontalAlignment="Left" 
+                            Margin="10"
+                            Command="{Binding ResetZoomOrPanCommand}"
+                            IsEnabled="{Binding ZoomingOrPanningDone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <Grid>
+                            <iconPacks:PackIconModern Kind="Reset" Width="40" Height="30"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource MonacoButton}"
+                            HorizontalAlignment="Left" 
+                            Margin="10"
+                            IsEnabled="{Binding MagnifyMinusEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Command="{Binding MagnifyMinusCommand}">
+                        <Grid>
+                            <iconPacks:PackIconModern Kind="MagnifyMinus" Width="40" Height="30"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource MonacoButton}"
+                                HorizontalAlignment="Left" 
+                                Margin="10"
+                                IsEnabled="{Binding MagnifyPlusEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Command="{Binding MagnifyPlusCommand}">
+                        <Grid>
+                            <iconPacks:PackIconModern Kind="MagnifyAdd" Width="40" Height="30"/>
+                        </Grid>
+                    </Button>
+
+                    <Button x:Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
+                            VerticalAlignment="Center" Margin="10 0 0 0"
+                            Command="{Binding ShowInfoPopupCommand}"
+                            Visibility="{Binding TextEnabled, Converter={StaticResource BoolToVisHiddenConverter}}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="WarningButton"/>
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type Control}, Mode=FindAncestor}" Path="DataContext.Text" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <Grid Grid.Row="2" Visibility="{Binding Visibility, ElementName=MonacoPlotView}">
+            <ItemsControl ItemsSource="{Binding AllMetrics}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <DockPanel>
+                                <StackPanel Orientation="Horizontal" Margin="4">
+                                    <CheckBox Style="{StaticResource MonacoCheckBox}" Margin ="2" 
+                                        IsChecked="{Binding MetricEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox MinWidth="200"
+                                        Text="{Binding DisplayNamePlus, Mode=OneWay}" 
+                                        VerticalAlignment="Center"
+                                        IsHitTestVisible="False" Focusable="False" IsReadOnly="True"
+                                        BorderThickness="1"
+                                        Foreground="{Binding MetricColor}" />
+                                </StackPanel>
+                            </DockPanel>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+    
+</UserControl>

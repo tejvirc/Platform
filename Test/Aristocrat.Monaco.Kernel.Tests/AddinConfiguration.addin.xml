@@ -1,0 +1,84 @@
+<Addin id="AddinConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="SelectableGroup1" description="selectable group 1">
+      <AddinConfigurationGroupReference name="Group1" />
+      <AddinConfigurationGroupReference name="Group2" />
+      <ExtensionPointConfiguration extensionPath="/ExtensionPathWithTwoExtensions">
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass2" order="1" />
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass3" order="2" />
+      </ExtensionPointConfiguration>
+    </SelectableAddinConfiguration>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="Group1" description="configuration group 1">
+      <ExtensionPointConfiguration extensionPath="/ExtensionPathWithThreeExtensions">
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass2" order="2" />
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass1" order="1" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="Group2" description="configuration group 2">
+      <ExtensionPointConfiguration extensionPath="/CustomExtension">
+        <NodeSpecification addinId="TestAddins.CustomExtension" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="GroupReferencingNonexistentGroup"
+                             description="configuration group that references a nonexistent group">
+      <AddinConfigurationGroupReference name="NonExistentGroup" />
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="GroupReferencingOptionalNonexistentGroup"
+                             description="configuration group that references an optional nonexistent group">
+      <AddinConfigurationGroupReference name="NonExistentGroup" optional="true" />
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="GroupWithSpecMissingOrder"
+                             description="configuration group containing a NodeSpecification without an order specified">
+      <ExtensionPointConfiguration extensionPath="/ExtensionPathWithThreeExtensions">
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass3" />
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass1" order="1" />
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass2" order="2" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="OrderAcrossConfigurations"
+                             description="the first configuration of two, ordering addins on the same extension point">
+      <AddinConfigurationGroupReference name="OrderAcrossConfigurations2" />
+      <ExtensionPointConfiguration extensionPath="/ExtensionPathWithThreeExtensions">
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass3" order="3" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="OrderAcrossConfigurations2"
+                             description="the second configuration of two, ordering addins on the same extension point">
+      <ExtensionPointConfiguration extensionPath="/ExtensionPathWithThreeExtensions">
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass2" order="2" />
+        <NodeSpecification addinId="TestAddins.TestExtension1" typeName="TestExtension1.TestClass1" order="1" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+</Addin>

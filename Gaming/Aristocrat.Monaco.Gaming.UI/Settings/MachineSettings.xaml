@@ -1,0 +1,76 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.Settings"
+					xmlns:lex="http://wpflocalizeextension.codeplex.com"
+					xmlns:loc="http://monaco.aristocrat.com/localization"
+					xmlns:common="http://monaco.aristocrat.com/common">
+
+    <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+
+    <DataTemplate DataType="{x:Type local:MachineSettings}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="0"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ApplyGameCategorySettings}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="0"
+                           Text="{Binding ApplyGameCategorySettings}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="1"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.IdleTextTitle}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="1"
+                           Text="{Binding IdleText}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="2"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.IdleTimePeriod}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="2"
+                           Text="{Binding IdleTimePeriod}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="3"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.GameRoundDuration}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="3"
+                           Text="{Binding GameRoundDurationMs}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="4"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReelStopConfigured}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="4"
+                           Text="{Binding ReelStopConfigured}" />
+
+            </Grid>
+        </ScrollViewer>
+    </DataTemplate>
+
+</ResourceDictionary>
+	

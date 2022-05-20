@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor">
+    <Fields>
+      <Field FieldName="Ticket" DataType="String" Size="30000" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" Name="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor">
+    <Fields>
+      <Field FieldName="Ticket" DataType="String" Size="30000" />
+      <Field FieldName="Ticket1" DataType="String" Size="30000" />
+      <Field FieldName="Ticket2" DataType="String" Size="30000" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

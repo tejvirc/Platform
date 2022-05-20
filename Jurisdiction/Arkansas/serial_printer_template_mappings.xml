@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a Visual Studio command prompt and change to the directory:
+    Hardware\Aristocrat.Monaco.Hardware.Serial
+2.  Enter "xsd PrinterTemplateMappingConfiguration.xsd /c /n:Aristocrat.Monaco.Hardware.Serial".  This will generate
+    the corresponding class definition in csharp (PrinterTemplateMappingConfiguration.cs).
+-->
+
+<!--
+Please see the following link for descriptions of the elements and atributes in this file:
+
+https://confy.aristocrat.com/display/MON/Serial+Printer+xml+Element+and+Attribute+Description
+
+Please update the confluence page when new elements and attributes are added.
+ -->
+
+<PrinterTemplateMappingConfiguration
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../bin/PrinterTemplateMappingConfiguration.xsd">
+	<PrinterMapping PrinterProtocol="JCM TCL">
+		<Templates>
+			<Template PlatformId="101" IsAuditTicket="true" Description="text" />
+			
+			<Template PlatformId="102" PrinterId="2" Description="cashout">
+				<PrinterRegion>
+					<PlatformRegion PlatformId="107" Description="ValidationNo" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="121" Description="EstablishmentName" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="123" Description="FullAddress" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="106" Description="CashSlipTitle" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="120" Description="ValidationTitle" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="119" Description="AltValidationNo" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="126" Description="AltDateTime - Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="126" Description="AltDateTime - Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="124" Description="AltSeqNo" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="115" Description="CashValueText" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="114" Description="CashValue" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="118" Description="ExpiryDate" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="125" Description="MachineId" ReplaceFrom="#:" ReplaceTo="#" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="117" Description="CashSlipBarcode" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+			</Template>
+
+			<Template PlatformId="103" PrinterId="F" Description="jackpot">
+				<PrinterRegion>
+					<PlatformRegion PlatformId="107" Description="ValidationNo" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="121" Description="EstablishmentName" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="122" Description="LocationName" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="135" Description="LocationAddress" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="106" Description="CashSlipTitle" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="129" Description="CashValue2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="131" Description="AltCashValueText" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="128" Description="AltSeqNo2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="120" Description="ValidationTitle" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="119" Description="AltValidationNo" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="118" Description="ExpiryDate" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="125" Description="MachineId" ReplaceFrom="#:" ReplaceTo="#" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="130" Description="CashSlipBarcode2" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+			</Template>
+
+			<Template PlatformId="104" PrinterId="F" Description="handpay receipt">
+				<PrinterRegion>
+					<PlatformRegion PlatformId="107" Description="ValidationNo" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="121" Description="EstablishmentName" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="122" Description="LocationName" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="135" Description="LocationAddress" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="106" Description="CashSlipTitle" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="129" Description="CashValue2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="131" Description="AltCashValueText" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="128" Description="AltSeqNo2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="120" Description="ValidationTitle" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="119" Description="AltValidationNo" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="118" Description="ExpiryDate" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="125" Description="MachineId" ReplaceFrom="#:" ReplaceTo="#" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="130" Description="CashSlipBarcode2" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+			</Template>
+			
+			<Template PlatformId="105" IsAuditTicket="true" Description="auditText" />
+
+			<Template PlatformId="106" PrinterId="0" Description="jackpot no barcode">
+				<PrinterRegion Description="Validation Number - Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="121" Description="EstablishmentName" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="123" Description="FullAddress" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="106" Description="CashSlipTitle" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+				<PrinterRegion Description="Validation Title - Unused" />
+				<PrinterRegion Description="Validation Number - Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="128" Description="AltSeqNo2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="131" Description="AltCashValueText" TrailingString="\r\n" />
+					<PlatformRegion PlatformId="132" Description="AltCashValueText2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="129" Description="CashValue2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="118" Description="ExpiryDate" />
+				</PrinterRegion>
+				<PrinterRegion Description="Expiration - Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="125" Description="MachineId" ReplaceFrom="#:" ReplaceTo="#" />
+				</PrinterRegion>
+				<PrinterRegion Description="Validation Number - Unused" />
+			</Template>
+
+			<Template PlatformId="107" PrinterId="0" Description="handpay receipt no barcode">
+				<PrinterRegion Description="Validation Number - Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="121" Description="EstablishmentName" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="123" Description="FullAddress" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="106" Description="CashSlipTitle" />
+				</PrinterRegion>
+				<PrinterRegion Description="Unused" />
+				<PrinterRegion Description="Validation Title - Unused" />
+				<PrinterRegion Description="Validation Number - Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="127" Description="AltDateTime2 - Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="128" Description="AltSeqNo2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="131" Description="AltCashValueText" TrailingString="\r\n" />
+					<PlatformRegion PlatformId="132" Description="AltCashValueText2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="129" Description="CashValue2" />
+				</PrinterRegion>
+				<PrinterRegion>
+					<PlatformRegion PlatformId="118" Description="ExpiryDate" />
+				</PrinterRegion>
+				<PrinterRegion Description="Expiration - Unused" />
+				<PrinterRegion>
+					<PlatformRegion PlatformId="125" Description="MachineId" ReplaceFrom="#:" ReplaceTo="#" />
+				</PrinterRegion>
+				<PrinterRegion Description="Validation Number - Unused" />
+			</Template>
+		</Templates>
+	</PrinterMapping>
+</PrinterTemplateMappingConfiguration>

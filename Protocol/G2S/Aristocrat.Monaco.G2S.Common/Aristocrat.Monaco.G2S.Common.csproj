@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>Aristocrat.Monaco.G2S.Common</AssemblyTitle>
+    <Product>Aristocrat.Monaco.G2S.Common</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.G2S.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.G2S.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DocumentationFile />
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.G2S.Data\Aristocrat.Monaco.G2S.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="Expressmapper" Version="1.9.1" />
+    <PackageReference Include="FluentFTP" Version="32.4.3" />
+    <PackageReference Include="FluentValidation" Version="7.4.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="SSH.NET" Version="2016.1.0" />
+    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
+    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.110" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DownloadDirectories.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Transfer\Transfer.addin.xml" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Accounting.Handpay.HandpayPropertyProvider">
+    <Fields>
+      <Field FieldName="Handpay.EnabledLocalHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalCredit" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalWat" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteCredit" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteWat" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalCredit" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalWat" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteCredit" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteWat" DataType="Bool" />
+      <Field FieldName="Handpay.MixCreditTypes" DataType="Bool" />
+      <Field FieldName="Handpay.RequestNonCash" DataType="Bool" />
+      <Field FieldName="Handpay.CombineCashableOut" DataType="Bool" />
+      <Field FieldName="Handpay.LocalKeyOff" DataType="Int32" />
+      <Field FieldName="Handpay.PartialHandpays" DataType="Bool" />
+      <Field FieldName="Handpay.EnableReceipts" DataType="Bool" />
+      <Field FieldName="Handpay.TitleJackpotReceipt" DataType="String" Size="32" />
+      <Field FieldName="Handpay.TitleCancelReceipt" DataType="String" Size="32" />
+      <Field FieldName="Handpay.UsePlayerIdReader" DataType="Bool" />
+      <Field FieldName="Handpay.IdReaderId" DataType="Int32" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" Name="Aristocrat.Monaco.Accounting.Handpay.HandpayPropertyProvider">
+    <Fields>
+      <Field FieldName="Handpay.ValidateHandpays" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalCredit" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalWat" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteCredit" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteWat" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalCredit" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalWat" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteCredit" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteWat" DataType="Bool" />
+      <Field FieldName="Handpay.MixCreditTypes" DataType="Bool" />
+      <Field FieldName="Handpay.RequestNonCash" DataType="Bool" />
+      <Field FieldName="Handpay.CombineCashableOut" DataType="Bool" />
+      <Field FieldName="Handpay.LocalKeyOff" DataType="Int32" />
+      <Field FieldName="Handpay.PartialHandpays" DataType="Bool" />
+      <Field FieldName="Handpay.EnableReceipts" DataType="Bool" />
+      <Field FieldName="Handpay.TitleJackpotReceipt" DataType="String" Size="32" />
+      <Field FieldName="Handpay.TitleCancelReceipt" DataType="String" Size="32" />
+      <Field FieldName="Handpay.UsePlayerIdReader" DataType="Bool" />
+      <Field FieldName="Handpay.IdReaderId" DataType="Int32" />
+      <Field FieldName="Handpay.RemoteHandpayReset.Allowed" DataType="Bool"/>
+      <Field FieldName="Handpay.RemoteHandpayReset.Configurable" DataType="Bool"/>
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" Name="Aristocrat.Monaco.Accounting.Handpay.HandpayPropertyProvider">
+    <Fields>
+      <Field FieldName="Handpay.ValidateHandpays" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalCredit" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledLocalWat" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteCredit" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.EnabledRemoteWat" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalCredit" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledLocalWat" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteHandpay" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteCredit" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteVoucher" DataType="Bool" />
+      <Field FieldName="Handpay.DisabledRemoteWat" DataType="Bool" />
+      <Field FieldName="Handpay.MixCreditTypes" DataType="Bool" />
+      <Field FieldName="Handpay.RequestNonCash" DataType="Bool" />
+      <Field FieldName="Handpay.CombineCashableOut" DataType="Bool" />
+      <Field FieldName="Handpay.LocalKeyOff" DataType="Int32" />
+      <Field FieldName="Handpay.PartialHandpays" DataType="Bool" />
+      <Field FieldName="Handpay.EnableReceipts" DataType="Bool" />
+      <Field FieldName="Handpay.TitleJackpotReceipt" DataType="String" Size="32" />
+      <Field FieldName="Handpay.TitleCancelReceipt" DataType="String" Size="32" />
+      <Field FieldName="Handpay.UsePlayerIdReader" DataType="Bool" />
+      <Field FieldName="Handpay.IdReaderId" DataType="Int32" />
+      <Field FieldName="Handpay.RemoteHandpayReset.Allowed" DataType="Bool"/>
+      <Field FieldName="Handpay.RemoteHandpayReset.Configurable" DataType="Bool"/>
+      <Field FieldName="Handpay.AllowGameWinReceipts" DataType="Bool"/>
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

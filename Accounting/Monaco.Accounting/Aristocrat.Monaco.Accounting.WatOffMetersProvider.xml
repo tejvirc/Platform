@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Accounting.WatOffMetersProvider" ElementSize="96">
+    <Fields>
+      <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="WatOffCashableValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="WatOffCashableValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="16" FieldName="WatOffCashableCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="24" FieldName="WatOffCashableCountPeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="32" FieldName="WatOffCashablePromotionalValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="40" FieldName="WatOffCashablePromotionalValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="48" FieldName="WatOffCashablePromotionalCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="56" FieldName="WatOffCashablePromotionalCountPeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="64" FieldName="WatOffNonCashablePromotionalValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="72" FieldName="WatOffNonCashablePromotionalValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="80" FieldName="WatOffNonCashablePromotionalCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="88" FieldName="WatOffNonCashablePromotionalCountPeriod" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Accounting.WatOffMetersProvider" ElementSize="144">
+    <Fields>
+      <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="WatOffCashableValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="WatOffCashableValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="16" FieldName="WatOffCashableCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="24" FieldName="WatOffCashableCountPeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="32" FieldName="WatOffCashablePromotionalValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="40" FieldName="WatOffCashablePromotionalValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="48" FieldName="WatOffCashablePromotionalCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="56" FieldName="WatOffCashablePromotionalCountPeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="64" FieldName="WatOffNonCashablePromotionalValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="72" FieldName="WatOffNonCashablePromotionalValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="80" FieldName="WatOffNonCashablePromotionalCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="88" FieldName="WatOffNonCashablePromotionalCountPeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="96" FieldName="KeyedOffCashableValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="104" FieldName="KeyedOffCashableValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="112" FieldName="KeyedOffCashableCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="120" FieldName="KeyedOffCashableCountPeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="128" FieldName="KeyedOffCashablePromotionalValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="136" FieldName="KeyedOffCashablePromotionalValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="144" FieldName="KeyedOffCashablePromotionalCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="152" FieldName="KeyedOffCashablePromotionalCountPeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="160" FieldName="KeyedOffNonCashablePromotionalValueLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="168" FieldName="KeyedOffNonCashablePromotionalValuePeriod" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="176" FieldName="KeyedOffNonCashablePromotionalCountLifetime" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="184" FieldName="KeyedOffNonCashablePromotionalCountPeriod" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

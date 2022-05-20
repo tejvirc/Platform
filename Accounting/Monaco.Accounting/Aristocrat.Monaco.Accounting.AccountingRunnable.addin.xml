@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<Addin id="AccountingRunnable" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Monaco.Accounting.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="ApplicationRunnable" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/BootExtender">
+    <BootExtender type="Aristocrat.Monaco.Accounting.AccountingRunnable" />
+  </Extension>
+
+  <ExtensionPoint path="/Accounting/Snapshot">
+    <ExtensionNode name="Snapshot" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IPropertyProvider-->
+  <ExtensionPoint path="/Accounting/PropertyProviders">
+    <ExtensionNode name="PropertyProvider" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Accounting.ITransactionCoordinator-->
+  <ExtensionPoint path="/Accounting/TransactionCoordinator">
+    <ExtensionNode name="TransactionCoordinator" />
+  </ExtensionPoint>
+
+  <!--Must implement Aristocrat.Monaco.Accounting.Contracts.SelfAudit.ICreditMetersProvider-->
+  <ExtensionPoint path="/Accounting/CreditMetersProvider">
+    <ExtensionNode name="CreditMetersProvider" />
+  </ExtensionPoint>
+  
+  <!--Must implement Aristocrat.Monaco.Accounting.Contracts.SelfAudit.IDebitMetersProvider-->
+  <ExtensionPoint path="/Accounting/DebitMetersProvider">
+    <ExtensionNode name="DebitMetersProvider" />
+  </ExtensionPoint>
+  
+  <!--Must implement Aristocrat.Monaco.Accounting.Contracts.SelfAudit.ISelfAuditRunAdviceProvider-->
+  <ExtensionPoint path="/Accounting/SelfAuditRunAdviceProvider">
+    <ExtensionNode name="SelfAuditRunAdviceProvider" />
+  </ExtensionPoint>
+  
+  <!--Must implement Vgt.Client12.Accounting.IBank-->
+  <ExtensionPoint path="/Accounting/Bank">
+    <ExtensionNode name="Bank" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Accounting.ITransactionHistory-->
+  <ExtensionPoint path="/Accounting/TransactionHistory">
+    <ExtensionNode name="TransactionHistory" />
+  </ExtensionPoint>
+
+  <!--Must implement Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler and can optionally implement IService -->
+  <ExtensionPoint path="/Accounting/TransferOutProviders">
+    <ExtensionNode name="TransactionService" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IService-->
+  <ExtensionPoint path="/Accounting/Services">
+    <ExtensionNode name="Service" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IRunnable-->
+  <ExtensionPoint path="/Accounting/Runnables">
+    <ExtensionNode name="Runnable" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IRunnable-->
+  <ExtensionPoint path="/Accounting/BootExtender">
+    <ExtensionNode name="BootExtender" />
+  </ExtensionPoint>
+
+</Addin>

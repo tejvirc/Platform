@@ -1,0 +1,42 @@
+﻿<metro:MetroWindow x:Class="Aristocrat.Monaco.Bingo.UI.Views.GameOverlay.BingoHtmlHostOverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay"
+        xmlns:cefsharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance {x:Type viewModels:BingoHtmlHostOverlayViewModel}}"
+        Loaded="BingoHtmlHostOverlayWindow_OnLoaded"
+        Title="Bingo Html Host Overlay"
+        ShowInTaskbar="False"
+        Width="1440"
+        Height="810"
+        ShowTitleBar="False"
+        ShowIconOnTitleBar="False"
+        ShowCloseButton="False"
+        ShowMaxRestoreButton="False"
+        ShowMinButton="False"
+        IgnoreTaskbarOnMaximize="True"
+        BorderThickness="0">
+
+    <Window.Background>
+        <SolidColorBrush Color="Transparent"/>
+    </Window.Background>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Visibility="{Binding Visible, Converter={StaticResource BoolToVisConverter}}">
+        <Border HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            <cefsharp:ChromiumWebBrowser x:Name="BingoHtmlHost" Address="{Binding Address, Mode=OneWay}"/>
+        </Border>
+    </Grid>
+</metro:MetroWindow>

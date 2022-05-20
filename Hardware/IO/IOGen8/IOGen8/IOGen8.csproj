@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>IOGen8</AssemblyTitle>
+    <Company>Aristocrat Technologies, Inc.</Company>
+    <Product>Monaco</Product>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <UseWPF>true</UseWPF>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <OutputPath>..\..\..\..\bin\$(Configuration)\Platform\bin</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DocumentationFile />
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <OutputPath>..\..\..\..\bin\$(Configuration)\Platform\bin</OutputPath>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DocumentationFile />
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <OutputPath>..\..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Management" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\..\..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+    <Content Include="IOGen8.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
+</Project>

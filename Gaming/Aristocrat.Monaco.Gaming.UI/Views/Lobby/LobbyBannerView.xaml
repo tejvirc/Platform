@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.LobbyBannerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:NegatingConverter x:Key="NegatingConverter" />
+            <converters:FontSizeConverter x:Key="FontSizeConverter"/>
+
+            <Storyboard x:Key="IdleTextPulseStoryboard">
+                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+                         From="0.9" To="1.1" Duration="0:0:1.5" BeginTime="0:0:0"
+                         AutoReverse="True" RepeatBehavior="Forever">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+                         From="0.9" To="1.1" Duration="0:0:1.5" BeginTime="0:0:0"
+                         AutoReverse="True" RepeatBehavior="Forever">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.4" To="1.0" Duration="0:0:1.5" BeginTime="0:0:0"
+                         AutoReverse="True" RepeatBehavior="Forever">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+
+            <!--<Storyboard x:Key="IdleTextScrollingStoryboard" TargetName="txtIdleText">
+                <DoubleAnimation Storyboard.TargetProperty="(Canvas.Left)" 
+                                From="{Binding ActualWidth, ElementName=canvasIdleText}" 
+                                To="{Binding ActualWidth, ElementName=txtIdleText, Converter={StaticResource NegatingConverter}}" 
+                                Duration="00:00:25" />
+            </Storyboard>-->
+
+            <Style x:Key="IdleTextStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#3FF3FF" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="32" />
+                <Setter Property="Text" Value="{Binding IdleText}" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="4"
+                                  Direction="235"
+                                  Color="Black"
+                                  Opacity="1"
+                                  BlurRadius="1"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel RenderTransformOrigin="0.5 0.5" Visibility="{Binding IsBlinkingIdleTextVisible , Converter={StaticResource BoolToVisConverter}}" >
+            <TextBlock HorizontalAlignment="Center" MaxWidth="1920" Style="{StaticResource IdleTextStyle}" />
+            <StackPanel.RenderTransform>
+                <ScaleTransform></ScaleTransform>
+            </StackPanel.RenderTransform>
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StartIdleTextBlinking}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Name="PulseStoryboard" Storyboard="{StaticResource IdleTextPulseStoryboard}"/>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsIdleTextBlinking}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <ResumeStoryboard BeginStoryboardName="PulseStoryboard"/>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsIdleTextBlinking}" Value="False">
+                            <DataTrigger.EnterActions>
+                                <PauseStoryboard BeginStoryboardName="PulseStoryboard" />
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+        <Border x:Name="pnlIdleText" ClipToBounds="True" Visibility="{Binding IsScrollingIdleTextEnabled, Converter={StaticResource BoolToVisHiddenConverter}}">
+            <Border.Resources>
+                <Storyboard x:Key="IdleTextScrollingStoryboard" TargetName="txtIdleText">
+                    <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)" 
+                                     From="{Binding ActualWidth, ElementName=canvasIdleText}" 
+                                     To="{Binding ActualWidth, ElementName=txtIdleText, Converter={StaticResource NegatingConverter}}" 
+                                     Duration="00:01:00" />
+                </Storyboard>
+            </Border.Resources>
+            <i:Interaction.Triggers>
+                <ei:DataTrigger Binding="{Binding IsScrollingIdleTextVisible, Mode=OneWay}" 
+                                Comparison="Equal"
+                                Value="True">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                                                ControlStoryboardOption="Play" />
+                </ei:DataTrigger>
+                <ei:DataTrigger Binding="{Binding IsScrollingIdleTextVisible, Mode=OneWay}" 
+                                Comparison="Equal"
+                                Value="False">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                                                ControlStoryboardOption="Stop" />
+                </ei:DataTrigger>
+                <ei:DataTrigger Binding="{Binding IsIdleTextPaused, Mode=OneWay}" 
+                                Comparison="Equal"
+                                Value="True">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                                                ControlStoryboardOption="Pause" />
+                </ei:DataTrigger>
+                <ei:DataTrigger Binding="{Binding IsIdleTextPaused, Mode=OneWay}" 
+                                Comparison="Equal"
+                                Value="False">
+                    <ei:ControlStoryboardAction Storyboard="{StaticResource IdleTextScrollingStoryboard}"
+                                                ControlStoryboardOption="Resume" />
+                </ei:DataTrigger>
+                <ei:StoryboardCompletedTrigger Storyboard="{StaticResource IdleTextScrollingStoryboard}">
+                    <i:InvokeCommandAction Command="{Binding IdleTextScrollingCompletedCommand}" />
+                </ei:StoryboardCompletedTrigger>
+            </i:Interaction.Triggers>
+            <Canvas x:Name="canvasIdleText"
+                    Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}">
+                <TextBlock x:Name="txtIdleText" 
+                           Style="{StaticResource IdleTextStyle}"
+                           FontSize="{Binding ElementName=pnlIdleText, Path=ActualHeight, Converter={StaticResource FontSizeConverter}, UpdateSourceTrigger=PropertyChanged}"
+                           Visibility="{Binding IsScrollingIdleTextVisible, Converter={StaticResource BoolToVisHiddenConverter}}" >
+                    <TextBlock.RenderTransform>
+                        <TranslateTransform />
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Canvas>
+        </Border>
+    </Grid>
+</UserControl>

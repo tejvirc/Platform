@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<Addin id="TestExtension1" namespace="TestAddins" version="1.0">
+
+  <Dependencies>
+    <Addin id="MonoAddinsHelperUnitTest" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/ExtensionPathWithOneExtension">
+    <Test type="TestExtension1.TestClass1" />
+  </Extension>
+
+  <Extension path="/ExtensionPathWithTwoExtensions">
+    <Test type="TestExtension1.TestClass2" />
+    <Test type="TestExtension1.TestClass3" />
+  </Extension>
+
+  <Extension path="/ExtensionPathWithThreeExtensions">
+    <Test type="TestExtension1.TestClass1" />
+    <Test type="TestExtension1.TestClass2" />
+    <Test type="TestExtension1.TestClass3" />
+  </Extension>
+
+</Addin>

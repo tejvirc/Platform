@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CurrencyDefaults">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="CurrencyInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CurrencyCode" type="xs:string" />
+              <xs:element name="Formats">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Format">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="PositivePattern" minOccurs="0"  type="xs:int" />
+                          <xs:element name="NegativePattern" minOccurs="0"  type="xs:int" />
+                          <xs:element name="DecimalSeparator" type="xs:string" />
+                          <xs:element name="GroupSeparator" type="xs:string" />
+                          <xs:element name="MinorUnits" type="xs:string" />
+                          <xs:element name="MinorUnitsPlural" type="xs:string" />
+                          <xs:element name="MinorUnitSymbol" type="xs:string" />
+                          <xs:element name="Symbol" type="xs:string" />
+                          <xs:element name="DecimalDigits" minOccurs="0"  type="xs:int" />
+                          <xs:element minOccurs="0" name="Multiplier" type="xs:int" />
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:int" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

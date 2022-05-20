@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Gaming.PlayerPropertyProvider">
+  <Fields>
+    <Field FieldName="Player.MinTheoHoldPct" DataType="Int64"/>
+    <Field FieldName="Player.DecimalPoints" DataType="Int32"/>
+    <Field FieldName="Player.InactiveSessionEnd" DataType="Bool"/>
+    <Field FieldName="Player.IntervalPeriod" DataType="Int32"/>
+    <Field FieldName="Player.GamePlayInterval" DataType="Bool"/>
+    <Field FieldName="Player.CountBasis" DataType="String" Size="256"/>
+    <Field FieldName="Player.CountDirection" DataType="Int32"/>
+    <Field FieldName="Player.BaseTarget" DataType="Int32"/>
+    <Field FieldName="Player.BaseIncrement" DataType="Int64"/>
+    <Field FieldName="Player.BaseAward" DataType="Int32"/>
+    <Field FieldName="Player.HotPlayerBasis" DataType="String" Size="256"/>
+    <Field FieldName="Player.HotPlayerPeriod" DataType="Int32"/>
+    <Field FieldName="Player.HotPlayerLimit1" DataType="Int64"/>
+    <Field FieldName="Player.HotPlayerLimit2" DataType="Int64"/>
+    <Field FieldName="Player.HotPlayerLimit3" DataType="Int64"/>
+    <Field FieldName="Player.HotPlayerLimit4" DataType="Int64"/>
+    <Field FieldName="Player.HotPlayerLimit5" DataType="Int64"/>
+  </Fields>
+</BlockFormat>

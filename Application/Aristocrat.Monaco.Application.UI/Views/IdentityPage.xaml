@@ -1,0 +1,103 @@
+﻿<operatorMenu:OperatorMenuPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="Aristocrat.Monaco.Application.UI.Views.IdentityPage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+    xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+    xmlns:helpers="http://monaco.aristocrat.com/common"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:loc="http://monaco.aristocrat.com/localization"
+    FocusManager.FocusedElement="{Binding ElementName=SerialNumber}"
+    Background="Transparent" 
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:IdentityPageViewModel, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Controls/LiveSetting.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel x:Name="Root" HorizontalAlignment="Left">
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
+        <helpers:AlphaNumericTextBox
+                 MinWidth="300" 
+                 IsAlphaNumeric="True"
+                 CharacterCasing="Upper"
+                 Text="{Binding SerialNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=True}" 
+                 ErrorText="{Binding SerialNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
+                 MaxLength="{Binding SerialNumber.MaxLength, Mode=OneWay}" />
+
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}" />
+        <helpers:AlphaNumericTextBox
+                 PreviewTextInput="NumberValidationTextBox"
+                 IsReadOnly="False"
+                 IsAlphaNumeric="False"
+                 CharacterCasing="Upper"
+                 Text="{Binding AssetNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                 ErrorText="{Binding AssetNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
+                 MaxLength="{Binding AssetNumber.MaxLength, Mode=OneWay}" />
+
+        <!-- Area -->
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AreaLabel}}"
+            Visibility="{Binding Area.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+        <ContentControl
+            IsTabStop="False"
+            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+            Content="{Binding Area}"/>
+
+        <!-- Zone -->
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZoneText}}"
+               Visibility="{Binding Zone.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+        <ContentControl
+            IsTabStop="False"
+            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+            Content="{Binding Zone}"/>
+
+        <!-- Bank -->
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BankText}}"
+               Visibility="{Binding Bank.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+        <ContentControl
+            IsTabStop="False"
+            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+            Content="{Binding Bank}"/>
+
+        <!-- Position -->
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PositionText}}"
+               Visibility="{Binding Position.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+        <ContentControl
+            IsTabStop="False"
+            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+            Content="{Binding Position}"/>
+
+        <!-- Location -->
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Location}}"
+               Visibility="{Binding Location.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+        <ContentControl
+            IsTabStop="False"
+            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+            Content="{Binding Location}"/>
+
+        <!-- DeviceName -->
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}"
+               Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource BoolToVisConverter}}" />
+        <ContentControl
+            IsTabStop="False"
+            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+            Content="{Binding DeviceName}"/>
+
+        <CheckBox HorizontalAlignment="Left" 
+                  IsChecked="{Binding PrintIdentityTicket}" 
+                  Style="{DynamicResource MonacoCheckBoxGeneral}" 
+                  Visibility="{Binding PrintTicketEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintIdentityTicketText}}" 
+               Focusable="True"  
+               Visibility="{Binding PrintTicketEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+    </StackPanel>
+</operatorMenu:OperatorMenuPage>
+

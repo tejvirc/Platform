@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="Aristocrat.Monaco.Gaming" namespace="Client12Addins" version="1.0">
+    <Runtime>
+        <Import assembly="Aristocrat.Monaco.Gaming.dll"/>
+        <Import assembly="Aristocrat.Monaco.Gaming.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.Gaming.VideoLottery.dll"/>
+  </Runtime>
+
+    <Dependencies>
+        <Addin id="Bootstrap" version="1.0" />
+        <Addin id="Monaco.Kernel" version="1.0" />
+        <Addin id="HardwareRunnable" version="1.0" />
+        <Addin id="Monaco.Application" version="1.0" />
+        <Addin id="Monaco.Accounting" version="1.0" />
+        <Addin id="AccountingRunnable" version="1.0" />
+        <Addin id="ApplicationRunnable" version="1.0" />
+    </Dependencies>
+
+    <Extension path="/Kernel/CommandLineArguments">
+        <CommandLineArgument Name="runtimeArgs">
+            <ArgumentValue ValidValue="runtime args" Description="An arbitrary list of arguments passed to the runtime." />
+        </CommandLineArgument>
+    </Extension>
+
+    <Extension path="/Kernel/Processes">
+        <Process Name="GDKRuntimeHost"/>
+    </Extension>
+
+    <Extension path="/Hardware/Services">
+        <Service type="Aristocrat.Monaco.Gaming.CurrencyInValidator" />
+    </Extension>
+
+    <Extension path="/Hardware/Service/StartupEventListener">
+        <StartupEventListenerImpl ProtocolName="GAME" type="Aristocrat.Monaco.Gaming.StartupEventListener" />
+    </Extension>
+
+    <Extension path="/Accounting/Services">
+        <Service type="Aristocrat.Monaco.Gaming.SessionInfoService" />
+        <Service type="Aristocrat.Monaco.Gaming.Progressives.ProtocolProgressiveEventsRegistry"/>
+    </Extension>
+
+  <Extension path="/Application/PropertyProviders">
+    <PropertyProvider type="Aristocrat.Monaco.Gaming.Barkeeper.BarkeeperPropertyProvider" />
+  </Extension>
+
+  <Extension path="/Gaming/ImportMachineSettings/PropertyProviders">
+    <PropertyProvider type="Aristocrat.Monaco.Gaming.ImportMachineSettingsPropertyProvider" />
+  </Extension>
+
+  <Extension path="/Application/TicketCreators">
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.AuditTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.DenomMetersTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.GameBonusInfoTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.GameHistoryTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.GameInfoTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.GameMetersTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.JurisdictionSetupInformationTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.ProgressiveSetupAndMetersTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.SingaporeClubsAuditTicketCreator" />
+        <TicketCreator type="Aristocrat.Monaco.Gaming.Tickets.VerificationTicketCreator" />
+    </Extension>
+
+    <!-- //**TODO:  Move the non-gaming and VLT specific configurations to the appropriate layer -->
+    <Extension path="/Application/NoteAcceptorDisable">
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuEnteredEvent, Monaco.Application.Contracts" reason="Disabled during operator menu">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuExitedEvent, Monaco.Application.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.TransferOutStartedEvent, Monaco.Accounting.Contracts" reason="Disabled during cash out" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.TransferOutCompletedEvent, Monaco.Accounting.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.TransferOutFailedEvent, Monaco.Accounting.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent, Monaco.Accounting.Contracts" reason="Disabled during handpay" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayCompletedEvent, Monaco.Accounting.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayCanceledEvent, Monaco.Accounting.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.WatOnStartedEvent, Monaco.Accounting.Contracts" reason="Disabled during WAT on" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.WatOnCompleteEvent, Monaco.Accounting.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransferInitiatedEvent, Monaco.Accounting.Contracts" reason="Disabled during WAT off" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransferCompletedEvent, Monaco.Accounting.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransferCancelRequestedEvent, Monaco.Accounting.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Kernel.SystemDisabledEvent, Aristocrat.Monaco.Kernel.Contracts" reason="Disabled while system disabled">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Kernel.SystemEnabledEvent, Aristocrat.Monaco.Kernel.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Kernel.PlatformBootedEvent, Aristocrat.Monaco.Kernel.Contracts" reason="Disabled until game initialized">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.LobbyInitializedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.GamePlayInitiatedEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game play" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.PrimaryGameFailedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameRequestFailedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.AllowMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameIdleEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.RecoveryStartedEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during recovery" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.PrimaryGameFailedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.AllowMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameIdleEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.ProhibitMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game play" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.AllowMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameIdleEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.GameOperatorMenuEnteredEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game operator menu">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameOperatorMenuExitedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.GameSelectedEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game loading" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameProcessExitedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.MoneyInDisabledEvent, Monaco.Accounting.Contracts" reason="Disabled while deposits are disabled" disabledReason="Backend" enabledReason="Backend">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.MoneyInEnabledEvent, Monaco.Accounting.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.TimeLimitDialogVisibleEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during Time Expired and Cashout required" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.TimeLimitDialogHiddenEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.AgeWarningDialogVisibleEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during Age Warning" disabledReason="GamePlay" enabledReason="GamePlay">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.AgeWarningDialogHiddenEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Hardware.Contracts.Door.DoorOpenMeteredEvent, Aristocrat.Monaco.Hardware.Contracts" reason="Disabled during cash door open" disabledReason="Error" enabledReason="Reset">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Hardware.Contracts.Door.DoorClosedMeteredEvent, Aristocrat.Monaco.Hardware.Contracts"/>
+        </NoteAcceptorDisable>
+        <NoteAcceptorDisable eventType="Aristocrat.Monaco.Application.Contracts.OverlayMenuEnteredEvent, Monaco.Application.Contracts" reason="Disabled during overlay menu">
+            <NoteAcceptorEnable eventType="Aristocrat.Monaco.Application.Contracts.OverlayMenuExitedEvent, Monaco.Application.Contracts"/>
+        </NoteAcceptorDisable>
+    </Extension>
+
+    <Extension path="/Gaming/Metering/GameMeterProvider">
+        <!--NOTE:  Before adding a meter here make sure it will be referenced by gameId, denom, and or wager category.  If not, it doesn't belong here... -->
+        <GameAtomicMeter name="WageredAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="PlayedCount" classification="Occurrence" group="denomination" />
+
+        <GameAtomicMeter name="WagerCategory.WageredAmount" classification="Currency" group="wagerCategory" />
+        <GameAtomicMeter name="WagerCategory.PlayedCount" classification="Occurrence" group="wagerCategory" />
+
+        <GameAtomicMeter name="HandPaidGameWonAmt" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="HandPaidGameWonCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="HandPaidProgWonAmt" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="HandPaidProgWonCount" classification="Occurrence" group="denomination" />
+        <GameCompositeMeter name="HandPaidTotalWonAmt" expression="(HandPaidGameWonAmt + HandPaidProgWonAmt)" classification="Currency" group="denomination" />
+    
+        <GameAtomicMeter name="TotalPaidLinkedProgWonAmt" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidGameWonAmt" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidProgWonAmt" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidProgWonCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="WonCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="LostCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="TiedCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="FailedCount" classification="Occurrence" group="performance" />
+        <GameCompositeMeter name="TotalPaidGameWonAmt" expression="(EgmPaidGameWonAmt + HandPaidGameWonAmt)" classification="Currency" group="denomination"/>
+        <GameCompositeMeter name="AvgPayback" expression="(TheoPayback / WageredAmount)" classification="Percentage" group="denomination" />
+
+        <GameAtomicMeter name="PrimaryWonAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="SecondaryWageredAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="SecondaryWonAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="SecondaryWonCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="SecondaryLostCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="SecondaryTiedCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="SecondaryFailedCount" classification="Occurrence" group="performance" />
+        <GameCompositeMeter name="SecondaryPlayedCount" expression="SecondaryWonCount + SecondaryLostCount + SecondaryTiedCount" classification="Occurrence" group="denomination" />
+        <GameCompositeMeter name="SecondaryTiedAndWonCount" expression="SecondaryWonCount + SecondaryTiedCount" classification="Occurrence" group="denomination" />
+
+        <GameAtomicMeter name="EgmPaidBonusCashableInAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidBonusNonCashInAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidBonusPromoInAmount" classification="Currency" group="denomination" />
+        <GameCompositeMeter name="EgmPaidBonusAmount" expression="EgmPaidBonusCashableInAmount + EgmPaidBonusNonCashInAmount + EgmPaidBonusPromoInAmount" classification="Currency" group="denomination" />
+
+        <GameAtomicMeter name="AttendantPaidBonusCashableInAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidBonusNonCashInAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidBonusPromoInAmount" classification="Currency" group="denomination" />
+        <GameCompositeMeter name="AttendantPaidBonusAmount" expression="AttendantPaidBonusCashableInAmount + AttendantPaidBonusNonCashInAmount + AttendantPaidBonusPromoInAmount" classification="Currency" group="denomination" />
+
+        <GameAtomicMeter name="EgmPaidBonusWagerMatchAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidBonusWagerMatchAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="WagerMatchBonusCount" classification="Occurrence" group="denomination" />
+        <GameCompositeMeter name="WagerMatchBonusAmount" expression="EgmPaidBonusWagerMatchAmount + AttendantPaidBonusWagerMatchAmount" classification="Currency" group="denomination" />
+
+        <GameCompositeMeter name="TotalEgmPaidGameWonAmt" expression="(EgmPaidGameWonAmt + EgmPaidGameWinBonusAmount)" classification="Currency" group="denomination"/>
+        <GameCompositeMeter name="TotalHandPaidGameWonAmt" expression="(HandPaidTotalWonAmt + AttendantPaidGameWinBonusAmount)" classification="Currency" group="denomination"/>
+        <GameCompositeMeter name="TotalEgmPaidAmt" expression="(TotalEgmPaidGameWonAmt + EgmPaidBonusAmount + EgmPaidProgWonAmt)" classification="Currency" group="denomination"/>
+        <GameCompositeMeter name="TotalHandPaidAmt" expression="(TotalHandPaidGameWonAmt + AttendantPaidBonusAmount)" classification="Currency" group="denomination"/>
+        <GameCompositeMeter name="TotalPaidAmt" expression="(TotalEgmPaidAmt + TotalHandPaidAmt)" classification="Currency" group="denomination"/>
+        <GameCompositeMeter name="TotalPaidAmtExcludingTotalPaidLinkedProgAmt" expression="(TotalPaidAmt - TotalPaidLinkedProgWonAmt)" classification="Currency" group="denomination"/>
+
+        <!-- SAS Legacy meter support -->
+        <GameAtomicMeter name="EgmPaidBonusDeductibleAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidBonusDeductibleCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="EgmPaidBonusNonDeductibleAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidBonusNonDeductibleCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidBonusDeductibleAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidBonusDeductibleCount" classification="Occurrence" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidBonusNonDeductibleAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidBonusNonDeductibleCount" classification="Occurrence" group="denomination" />
+
+        <!-- Game Win Bonus support -->
+        <GameAtomicMeter name="EgmPaidGameWinBonusAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="EgmPaidGameWinBonusCount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidGameWinBonusAmount" classification="Currency" group="denomination" />
+        <GameAtomicMeter name="AttendantPaidGameWinBonusCount" classification="Currency" group="denomination" />
+    </Extension>
+
+    <Extension path="/Gaming/Metering/ProgressiveMeterProvider">
+        <ProgressiveAtomicMeter name="ProgressiveLevel.BulkContribution" classification="Currency" group="progressiveLevel" />
+        <ProgressiveAtomicMeter name="ProgressiveLevel.WageredAmount" classification="Currency" group="progressiveLevel" />
+        <ProgressiveAtomicMeter name="ProgressiveLevel.WinOccurrence" classification="Occurrence" group="progressiveLevel" />
+        <ProgressiveAtomicMeter name="ProgressiveLevel.WinAccumulation" classification="Currency" group="progressiveLevel" />
+
+        <ProgressiveAtomicMeter name="SharedLevel.WinOccurrence" classification="Occurrence" group="sharedLevel" />
+        <ProgressiveAtomicMeter name="SharedLevel.WinAccumulation" classification="Currency" group="sharedLevel" />
+  </Extension>
+
+    <ExtensionPoint path="/Gaming/Metering/GameMeterProvider">
+        <ExtensionNode name="GameAtomicMeter" type="Aristocrat.Monaco.Gaming.Contracts.Meters.GameAtomicMeterNode" />
+        <ExtensionNode name="GameCompositeMeter" type="Aristocrat.Monaco.Gaming.Contracts.Meters.GameCompositeMeterNode" />
+    </ExtensionPoint>
+
+    <ExtensionPoint path="/Gaming/Metering/ProgressiveMeterProvider">
+        <ExtensionNode name="ProgressiveAtomicMeter" type="Aristocrat.Monaco.Gaming.Contracts.Meters.ProgressiveAtomicMeterNode" />
+    </ExtensionPoint>
+
+    <ExtensionPoint path = "/Gaming/Configuration">
+        <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+    </ExtensionPoint>
+
+    <ExtensionPoint path = "/TowerLight/Configuration">
+        <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+    </ExtensionPoint>
+
+    <ExtensionPoint path = "/Gaming/ImportMachineSettings/PropertyProviders">
+      <ExtensionNode name="PropertyProvider"/>
+    </ExtensionPoint>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="GamingConfigWizardPages" description="These are the config wizard pages for Gaming">
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.GamingConfigScreen"
+                           typeName="Aristocrat.Monaco.Gaming.UI.Config.GamingConfigWizard" order="20" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <Extension path="/Accounting/CreditMetersProvider">
+    <CreditMetersProvider type="Aristocrat.Monaco.Gaming.SelfAudit.GamingCreditMetersProvider" />
+  </Extension>
+
+  <Extension path="/Accounting/DebitMetersProvider">
+    <DebitMetersProvider type="Aristocrat.Monaco.Gaming.SelfAudit.GamingDebitMetersProvider" />
+  </Extension>
+
+  <Extension path="/Accounting/SelfAuditRunAdviceProvider">
+    <SelfAuditRunAdviceProvider type="Aristocrat.Monaco.Gaming.SelfAudit.GamingSelfAuditRunAdviceProvider" />
+  </Extension>
+
+</Addin>

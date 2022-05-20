@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Hhr.HHRPropertyProvider">
+    <Fields>
+      <Field FieldName="HHR.ServerTcpIp" DataType="String" />
+      <Field FieldName="HHR.ServerTcpPort" DataType="Int32" />
+      <Field FieldName="HHR.ServerUdpPort" DataType="Int32" />
+      <Field FieldName="HHR.EncryptionKey" DataType="String" />
+      <Field FieldName="HHR.HeartbeatInterval" DataType="Double" />
+      <Field FieldName="HHR.LastGamePlayTime" DataType="UInt32" />
+      <Field FieldName="HHR.SequenceId" DataType="UInt32" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" Name="Aristocrat.Monaco.Hhr.HHRPropertyProvider">
+    <Fields>
+      <Field FieldName="HHR.ServerTcpIp" DataType="String" />
+      <Field FieldName="HHR.ServerTcpPort" DataType="Int32" />
+      <Field FieldName="HHR.ServerUdpPort" DataType="Int32" />
+      <Field FieldName="HHR.EncryptionKey" DataType="String" />
+      <Field FieldName="HHR.HeartbeatInterval" DataType="Double" />
+      <Field FieldName="HHR.LastGamePlayTime" DataType="UInt32" />
+      <Field FieldName="HHR.SequenceId" DataType="UInt32" />
+      <Field FieldName="HHR.ManualHandicapMode" DataType="String" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

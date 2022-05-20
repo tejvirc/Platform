@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="BingoBase" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Bingo.dll" />
+    <Import assembly="Aristocrat.Monaco.Bingo.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.Bingo.Common.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Runnables">
+    <ProtocolInterface type="Aristocrat.Monaco.Bingo.UI.BingoBase" protocolId="Bingo" serverProtocolId="11" />
+  </Extension>
+
+  <Extension path="/Kernel/Services">
+    <Service type="Aristocrat.Monaco.Bingo.Common.Storage.Model.BingoDataFactory" />
+  </Extension>
+
+  <Extension path="/Hardware/Service/StartupEventListener">
+    <StartupEventListenerImpl ProtocolName="Bingo" type="Aristocrat.Monaco.Bingo.CompositionRoot.StartupEventListener" />
+  </Extension>
+
+  <Extension path="/Kernel/CommandLineArguments">
+    <CommandLineArgument Name="EnableGrpcLogging">
+      <ArgumentValue ValidValue="true" Description="Enable the GRPC logging" />
+      <ArgumentValue ValidValue="false" Description="Disable the GRPC logging" />
+    </CommandLineArgument>
+  </Extension>
+</Addin>

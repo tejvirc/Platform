@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:PLC="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-21 v1b2">
+	<!--Simple Data Types-->
+	<xs:simpleType name="t_localeId">
+		<xs:annotation>
+			<xs:documentation>localeId Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--End of Extension.-->
+</xs:schema>

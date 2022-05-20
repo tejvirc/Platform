@@ -1,0 +1,864 @@
+﻿<Controls:MetroWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:gen="clr-namespace:Generator" 
+    xmlns:utils="clr-namespace:Generator.Utils"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"        
+    xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro" Dialog:DialogParticipation.Register="{Binding}"    
+    x:Class="Generator.MainWindow"
+    mc:Ignorable="d"
+    ShowIconOnTitleBar="True"
+    WindowStartupLocation="CenterScreen"
+    ShowTitleBar="True"
+    ResizeMode="CanResizeWithGrip"
+    MaxHeight="1100"
+    MinHeight="700"
+    Height="750" 
+    MaxWidth="2100"
+    MinWidth="750"
+    Width="750">
+    <Controls:MetroWindow.Resources>
+        <utils:BoolToBoolConverter x:Key="InverseBooleanConverter" FalseValue="True" TrueValue="False"/>
+        <utils:BoolToStringConverter x:Key="BooleanToStringConverter" FalseValue="No" TrueValue="Yes" />
+        <utils:BoolToStringConverter x:Key="BoolToVisConverter" FalseValue="Collapsed" TrueValue="Visible" />
+        <utils:CollToVisConverter x:Key="CollToVisConverter"/>
+        <utils:BoolToColorConverter x:Key="TextBoolColorConverter" FalseValue="White" TrueValue="White" /> <!-- Created in case I want it, ended up not using it.-->
+        <utils:BoolToColorConverter x:Key="BackgroundBoolColorConverter" FalseValue="IndianRed" TrueValue="None" />
+        <utils:BoolToColorConverter x:Key="BackgroundBoolColorConverter2" FalseValue="IndianRed" TrueValue="Green" />
+        <utils:DoubleToColorConverter x:Key="DoubleToForegroundColorConverter" BadValue="White" GoodValue="White"/><!-- Created in case I want it, ended up not using it.-->
+        <utils:DoubleToColorConverter x:Key="DoubleToBackgroundColorConverter" BadValue="IndianRed" GoodValue="None"/>
+
+        <Style x:Key="MinButtonStyle" TargetType="Button" BasedOn="{StaticResource SquareMetroButton}">
+            <Setter Property="BorderBrush" Value="Blue" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Foreground" Value="Green" />
+        </Style>
+
+        <Style x:Key="DatagridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+
+        <Style x:Key="TransparentDataGrid" TargetType="{x:Type DataGrid}" BasedOn="{StaticResource ResourceKey=MetroDataGrid}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="RowBackground" Value="Transparent"/>
+        </Style>
+
+    </Controls:MetroWindow.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <!-- Menu -->
+            <RowDefinition Height="40"/>
+            <!-- USB Drives -->
+            <RowDefinition Height="{Binding UDDHeight[0], UpdateSourceTrigger=PropertyChanged}"/>
+            <!-- USB Drive Details-->
+            <RowDefinition Height="{Binding UDDHeight[1], UpdateSourceTrigger=PropertyChanged}"/>
+            <!-- Command Selection -->
+            <RowDefinition Height="164"/>
+            <!-- Log -->
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#222222" Offset="0"/>
+                <GradientStop Color="#3b3b3b" Offset=".4"/>
+                <GradientStop Color="#3b3b3b" Offset=".6"/>
+                <GradientStop Color="#222222" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Menu -->
+        <Menu
+            Background="Transparent"
+            Margin="5"
+            IsEnabled="{Binding GUIEnabled}"
+            Grid.Row="0">
+            <MenuItem 
+                Background="Transparent"
+                Header="File">
+                <MenuItem 
+                    Margin="5"
+                    x:Name="About"
+                    Header=" About"
+                    Command="{Binding About}"
+                    Icon=" &#x1f4a1;" />
+                <MenuItem
+                    Margin="5"
+                    x:Name="ViewScript"
+                    Header=" View Selected Script"
+                    Command="{Binding ViewScript}"
+                    Icon="📜"/>
+                <Separator/>
+                <MenuItem 
+                    Margin="5"
+                    x:Name="Generate"
+                    Header="Generate"
+                    Command="{Binding Generate}"
+                    Icon="✅" />
+            </MenuItem>
+        </Menu>
+
+        <!-- USB Drives -->
+        <Grid 
+            Grid.Row="1"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="1"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Margin="10 0 0 0"
+                Padding="0"
+                FontSize="18" Content="USB Drives"/>
+            <Separator
+                Background="White"
+                Margin="115 0 90 0"
+                Grid.Row="0"
+                Grid.Column="1"/>
+            <Label
+                Grid.Row="0"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontWeight="Bold"
+                Margin="10 0 15 0"
+                Padding="0"
+                FontSize="12" 
+                Content="{Binding UsbCountMessage, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Grid
+                Margin="5 0 0 0"
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="10"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <DataGrid
+                    Style="{StaticResource TransparentDataGrid}"
+                    Cursor="Arrow"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    x:Name="UsbDataGrid"
+                    SelectionMode="Single"
+                    Margin="10 0 0 0"
+                    IsEnabled="{Binding GUIEnabled, UpdateSourceTrigger=PropertyChanged}"
+                    AutoGenerateColumns="False"
+                    CanUserDeleteRows="False"
+                    CanUserAddRows="False"
+                    CanUserReorderColumns="False"
+                    CanUserResizeRows="False"
+                    CanUserResizeColumns="False"
+                    CanUserSortColumns="False"
+                    ItemsSource="{Binding USBKeys, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedUSB}"
+                    KeyboardNavigation.ControlTabNavigation="None"
+                    ScrollViewer.CanContentScroll="True" 
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.Header>
+                                <StackPanel>
+                                    <CheckBox 
+                                        Margin="-5 0 0 0"
+                                        ToolTip="Enable / Disable all USB Drives"
+                                        Cursor="Hand" 
+                                        Checked="SelectAll_Click"
+                                        Unchecked="UnselectAll_Click"                                        
+                                        IsChecked="True" />
+                                </StackPanel>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox 
+                                        HorizontalAlignment="Center" 
+                                        HorizontalContentAlignment="Center" 
+                                        IsEnabled="True"
+                                        IsChecked="{Binding Enable, UpdateSourceTrigger=PropertyChanged}"
+                                        Cursor="Hand"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Enable / Disable this USB Drive.&#xA;&#xA;Check this box if you want to write a command to this USB&#xA;when you click the Generate button. If the box is gray and&#xA;you are unable to check it, then this USB is not approved&#xA;for release. You cannot generate a key with the USB.">
+                                        <CheckBox.Style>
+                                            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MetroCheckBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CanToggleEnable}" Value="False">
+                                                        <Setter Property="Background" Value="Gray" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Style.Resources>
+                                                    <SolidColorBrush x:Key="HighlightBrush" Color="White" />
+                                                </Style.Resources>
+                                            </Style>
+                                        </CheckBox.Style>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Format">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox 
+                                        Margin="10 0 0 0"
+                                        HorizontalAlignment="Left" 
+                                        IsEnabled="True"
+                                        IsChecked="{Binding Format, UpdateSourceTrigger=PropertyChanged}" 
+                                        Cursor="Hand"
+                                        ToolTipService.ShowOnDisabled="True"
+                                        ToolTip="Format USB Drive.&#xA;&#xA;Check this box if you want to format the USB drive before&#xA;writing the command to the USB. If the box is checked, and&#xA;you cannot uncheck it, then the USB requires formatting.">
+                                        <CheckBox.Style>
+                                            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MetroCheckBox}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CanToggleFormat}" Value="False">
+                                                        <Setter Property="Background" Value="Gray" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Style.Resources>
+                                                    <SolidColorBrush x:Key="HighlightBrush" Color="White" />
+                                                </Style.Resources>
+                                            </Style>
+                                        </CheckBox.Style>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn                  
+                            KeyboardNavigation.IsTabStop="False"
+                            Binding="{Binding Partitions[0].DriveLetter}" 
+                            Header="Drive"
+                            IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
+                                    <Setter Property="Focusable" Value="False"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Margin" Value="10 0 0 0"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding DiskIndex, StringFormat=\{0:N0\}}" Header="Disk" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Margin" Value="10 0 0 0"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding GB, StringFormat=\{0:n1\}}" Header="GB" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Foreground" Value="{Binding GB, Converter={StaticResource DoubleToForegroundColorConverter}}"/>
+                                    <Setter Property="Background" Value="{Binding GB, Converter={StaticResource DoubleToBackgroundColorConverter}}"/>
+                                    <Setter Property="Margin" Value="10 0 0 0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Command.Name}" Header="Current Command" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Margin" Value="10 0 0 0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn 
+                            Binding="{Binding ProductionReady, Converter={StaticResource BooleanToStringConverter}}" 
+                            Header="Production Ready"                         
+                            IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Background" Value="{Binding ProductionReady, Converter={StaticResource BackgroundBoolColorConverter2}}"/>
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Margin" Value="10 0 0 0"/>
+                                    <Setter Property="Width" Value="120"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Model}" Header="Model" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="Margin" Value="10 0 10 0"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                    </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="DarkBlue"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="MediumPurple"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MetroDataGridColumnHeader}">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Arrow"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+                <TextBlock
+                    Margin="0 50 0 0"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Foreground="LightGray"
+                    Visibility="{Binding USBKeys, Converter={StaticResource CollToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Text="No USB drives detected. Insert 1 or more USB drives to get started."/>
+            </Grid>
+        </Grid>
+        <gen:CircleLoader
+            Margin="0 50 0 0"
+            Panel.ZIndex="5000"
+            Grid.Row="1"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="10"
+            Visibility="{Binding Loading, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+        </gen:CircleLoader>
+
+        <!-- USB Drive Details-->
+        <Grid            
+            Margin="0 0 5 0"
+            Grid.Row="2"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="44"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="7"
+                FontWeight="Bold"
+                FontSize="18"
+                Margin="5 10 0 0"
+                VerticalAlignment="Center" Content="USB Drive Details"/>
+            <Separator
+                Background="White"
+                Margin="110 15 45 0"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"/>
+            <Button
+                Name="CollButton"
+                Cursor="Hand"
+                BorderThickness="1"
+                Margin="0 -25 10 0"
+                Padding="0"
+                HorizontalAlignment="Right"                
+                VerticalAlignment="Center"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="5"
+                Command="{Binding ToggleUDD}"
+                Height="26"
+                Width="26"
+                Panel.ZIndex="1000"                
+                FontSize="18"
+                ToolTip="Collapse or expand the USB Drive Details section.&#xA;&#xA;If you have more than 4 USB's plugged in,&#xA;try collapsing this section for better visibility."
+                Content="&#11109;">
+            </Button>
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="5"
+                Margin="15 0 0 0"
+                Padding="0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Bottom"                
+                FontSize="12" Content="Drive"/>
+            <TextBlock
+                Foreground="White"
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                FontSize="12"
+                Margin="0 0 15 0"
+                VerticalAlignment="Bottom"
+                Text="{Binding SelectedUSB.Partitions[0].DriveLetter, UpdateSourceTrigger=PropertyChanged}"/>
+        
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="5"
+                Margin="15 0 0 0"
+                Padding="0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Bottom"                
+                FontSize="12" Content="GB"/>
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="1"
+                FontSize="12"
+                Margin="0 0 30 0"
+                VerticalAlignment="Bottom"
+                Foreground="{Binding SelectedUSB.GB, Converter={StaticResource DoubleToForegroundColorConverter}}"
+                Background="{Binding SelectedUSB.GB, Converter={StaticResource DoubleToBackgroundColorConverter}}"
+                Text="{Binding SelectedUSB.GB, StringFormat=\{0:n1\}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="5"
+                Margin="0 0 0 0"
+                Padding="0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Bottom"                
+                FontSize="12" Content="Correct Format"/>
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                FontSize="12"
+                Margin="0 0 135 0"
+                VerticalAlignment="Bottom"
+                Foreground="{Binding SelectedUSB.PartitionedCorrectly, Converter={StaticResource TextBoolColorConverter}}"
+                Background="{Binding SelectedUSB.PartitionedCorrectly, Converter={StaticResource BackgroundBoolColorConverter}}"
+                Text="{Binding SelectedUSB.PartitionedCorrectly, Converter={StaticResource BooleanToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label
+                Grid.Row="3"
+                Grid.Column="2"
+                Grid.ColumnSpan="5"
+                Margin="0 0 0 0"
+                Padding="0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Bottom"                
+                FontSize="12" Content="Production Ready"/>
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                FontSize="12"
+                Margin="0 0 135 0"
+                VerticalAlignment="Bottom"
+                Foreground="{Binding SelectedUSB.ProductionReady, Converter={StaticResource TextBoolColorConverter}}"
+                Background="{Binding SelectedUSB.ProductionReady, Converter={StaticResource BackgroundBoolColorConverter}}"
+                Text="{Binding SelectedUSB.ProductionReady, Converter={StaticResource BooleanToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="4"
+                Grid.ColumnSpan="5"
+                Margin="0 0 0 0"
+                Padding="0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Bottom"                
+                FontSize="12" Content="Model"/>
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="5"
+                Grid.ColumnSpan="5"
+                FontSize="12"
+                Margin="0 0 0 0"
+                VerticalAlignment="Bottom"
+                Text="{Binding SelectedUSB.Model, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label
+                Grid.Row="3"
+                Grid.Column="4"
+                Grid.ColumnSpan="5"
+                Margin="0 0 0 0"
+                Padding="0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Bottom"                
+                FontSize="12" Content="UniqueID"/>
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="5"
+                Grid.ColumnSpan="5"
+                FontSize="12"
+                Margin="0 0 0 0"
+                VerticalAlignment="Bottom"
+                Text="{Binding SelectedUSB.UniqueID, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Separator
+                Grid.Row="4"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="9"
+                Margin="15 0 5 0"
+                Background="LightGray"/>
+
+            <Label
+                Grid.Row="5"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="15 0 0 0"
+                Padding="0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Bottom"                
+                FontSize="12" Content="Command"/>
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="2"
+                Grid.ColumnSpan="5"
+                FontSize="12"
+                VerticalAlignment="Bottom"
+                Margin="0 0 0 0"
+                Text="{Binding SelectedUSB.Command.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label
+                Grid.Row="5"
+                Grid.Column="4"
+                VerticalAlignment="Center"
+                Grid.ColumnSpan="2"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                Margin="0 0 0 0"
+                Padding="0"
+                FontSize="12" Content="Restarts EGM"/>
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="6"
+                Grid.ColumnSpan="5"
+                VerticalAlignment="Center"
+                FontSize="12"
+                Text="{Binding SelectedUSB.Command.RestartEGM, Converter={StaticResource BooleanToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label
+                Grid.Row="6"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="15 0 0 0"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                Padding="0"
+                VerticalAlignment="Center"
+                FontSize="12" Content="Description"/>
+            <TextBox
+                Background="Transparent"
+                IsTabStop="False"
+                IsReadOnly="True"
+                Grid.Row="6"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="8"
+                FontSize="12"
+                TextWrapping="WrapWithOverflow"
+                Margin="0 5 5 0"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                Text="{Binding SelectedUSB.Command.Description, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+        <!-- Command Selection -->
+        <Grid
+            Margin="0 0 0 0"
+            Grid.Row="3"
+            Grid.RowSpan="1"
+            Background="Transparent"
+            Grid.Column="2"
+            Grid.ColumnSpan="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="44"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="9"
+                FontSize="18"
+                FontWeight="Bold"
+                Padding="0"
+                Margin="10 0 0 0"
+                VerticalAlignment="Center" Content="Command Selection"/>
+            <Separator
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="10"
+                Margin="193 0 10 0"
+                Background="White"/>
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Center"
+                Margin="10 0 0 0"
+                FontSize="12" Content="Command"/>
+            <ComboBox
+                Background="Transparent"
+                Cursor="Hand"
+                Grid.Row="1"
+                Grid.Column="3"
+                Grid.ColumnSpan="3"
+                Height="25"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0 0 5 0"
+                ItemsSource="{Binding Commands}"
+                IsEnabled="{Binding GUIEnabled, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedCommand}"
+                DisplayMemberPath="Name" />
+            <Button
+                Cursor="Hand"
+                BorderThickness="1"
+                FontSize="14"
+                Margin="10 0 10 0"
+                Padding="0"
+                IsEnabled="{Binding GUIEnabled, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding ViewScript}"
+                Width="26"
+                Height="26"
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                Grid.Column="6"
+                Grid.ColumnSpan="1"
+                Content="&#128441;"
+                ToolTip="View the command script in your default text editor."
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                HorizontalAlignment="Left"/>
+            <Button
+                FontSize="12"
+                Margin="0 0 10 0"
+                Padding="0"
+                IsEnabled="{Binding GUIEnabled, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding Generate}"
+                Cursor="Hand"
+                Height="27"
+                Width="100"
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                Grid.Column="7"
+                Grid.ColumnSpan="3"
+                BorderThickness="1"
+                Content="Generate"
+                ToolTip="Write the selected command to the checked USB Drives. &#xA;This will format USB Drives which have the FORMAT box checked, &#xA;and then write the command to the USB."
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                HorizontalAlignment="Left"/>
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                VerticalAlignment="Center"
+                Margin="10 0 0 0"                
+                FontSize="12" Content="Type"/>
+            <ComboBox
+                Background="Transparent"
+                Cursor="Hand"
+                Grid.Row="2"
+                Grid.RowSpan="1"
+                Grid.Column="3"
+                Grid.ColumnSpan="3"
+                Height="25"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0 0 5 0"
+                IsEnabled="{Binding GUIEnabled, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding RsaService.SelectedKeyPair}"
+                ItemsSource="{Binding RsaService.KeyPairs}"
+                DisplayMemberPath="Name">
+                <ie:Interaction.Triggers>
+                    <ie:EventTrigger EventName="SelectionChanged">
+                        <ie:InvokeCommandAction Command="{Binding RsaKeyPairChange}"/>
+                    </ie:EventTrigger>
+                </ie:Interaction.Triggers>
+            </ComboBox>
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="6"
+                Grid.ColumnSpan="2"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                Margin="5 0 0 0"
+                FontSize="12" Content="Restarts EGM"/>
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="8"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Margin="0 0 20 0"
+                FontSize="12"
+                Text="{Binding SelectedCommand.RestartEGM, Converter={StaticResource BooleanToStringConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label
+                Grid.Row="3"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                FontWeight="Bold"
+                Foreground="DarkGray"
+                Margin="10 0 0 0"
+                VerticalAlignment="Top"
+                FontSize="12" Content="Description"/>
+            <TextBox
+                Background="Transparent"
+                IsTabStop="False"
+                IsReadOnly="True"
+                Grid.Row="3"
+                Grid.RowSpan="2"
+                Grid.Column="3"
+                Grid.ColumnSpan="8"
+                FontSize="12"
+                TextWrapping="WrapWithOverflow"
+                Margin="0 5 10 0"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                Text="{Binding SelectedCommand.Description, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+        <!-- Log -->
+        <Grid
+            Grid.Row="4"
+            Grid.RowSpan="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="9"
+                FontSize="18"
+                FontWeight="Bold"
+                Padding="0"
+                Margin="10 0 0 0"
+                VerticalAlignment="Center" Content="Log"/>
+            <Separator
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="10"
+                Margin="55 0 10 0"
+                Background="White"/>
+            
+            <TextBox
+                Background="Transparent"
+                BorderBrush="LightGray"
+                BorderThickness="1"
+                x:Name="LogBox"
+                Margin="10 0 10 10"
+                Padding="3"
+                IsReadOnly="True"
+                Grid.Row="1"
+                Grid.RowSpan="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                TextChanged="LogBox_ScrollToEnd"
+                Text="{Binding VisibleLog, UpdateSourceTrigger=PropertyChanged}"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+        </Grid>
+
+    </Grid>
+</Controls:MetroWindow>

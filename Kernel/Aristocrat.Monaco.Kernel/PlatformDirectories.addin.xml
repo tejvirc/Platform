@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Addin id="PlatformDirectories" namespace="Client12Addins" version="1.0" >
+
+    <Dependencies>
+        <Addin id="Monaco.Kernel" version="1.0" />
+    </Dependencies>
+
+    <Extension path="/Kernel/PathMapping">
+        <PathMapping platformPath="/OS" fileSystemPath="C:" />
+    </Extension>
+
+</Addin>

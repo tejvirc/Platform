@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.G2S.Services.DisableConditionSaga">
+  <Fields>
+    <Field FieldName="DeviceClass" DataType="String" Size="64" />
+    <Field FieldName="DeviceId" DataType="Int32" />
+    <Field FieldName="Message" DataType="String" Size="256"/>
+  </Fields>
+</BlockFormat>

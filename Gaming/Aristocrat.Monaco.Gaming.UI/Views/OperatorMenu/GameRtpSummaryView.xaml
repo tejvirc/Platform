@@ -1,0 +1,122 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameRtpSummaryView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:converters="http://monaco.aristocrat.com/common"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d" 
+                               Background="Transparent" 
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GameRtpSummaryViewModel}, IsDesignTimeCreatable=True}"
+                               MaxHeight="700">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:TextCaseConverter x:Key="TextCaseConverter"/>
+            <converters:LocalizedTextCaseConverter x:Key="LTextCaseConverter"/>
+
+            <Style x:Key="TextColumnHeader" TargetType="{x:Type TextBlock}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Upper" /><!--Does not work for textblock?-->
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource Brush3}" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" 
+               Grid.ColumnSpan="3"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center"
+               Style="{StaticResource MonacoLabel}"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllGamesDisabled}}"
+               Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
+
+        <DataGrid Grid.Column="0"
+                  ItemsSource="{Binding GameTypeItems}"
+                  Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                  Margin="0 5 10 0"
+                  Padding="0 0 0 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn MaxWidth="150" Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameTypeSummary}}" Binding="{Binding Name}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}" Binding="{Binding BlendedRTP}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}" Binding="{Binding BlendedHold}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Grid.Column="1" 
+                  ItemsSource="{Binding DenomItems}" 
+                  Visibility="{Binding HasDenomItems, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                  Margin="0 5 10 0"
+                  Padding="30 0 0 0"
+                  BorderBrush="{DynamicResource AccentColorBrush}"
+                  BorderThickness="2 0 0 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn MaxWidth="150" Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenomSummary}}" Binding="{Binding Name}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}" Binding="{Binding BlendedRTP}"/>
+                <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}" Binding="{Binding BlendedHold}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <ListBox Grid.Column="2"
+                 SelectionMode="Single"
+                 ItemsSource="{Binding GameItemsByType}"
+                 ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}"
+                 Visibility="{Binding HasMoreThanOneGameType, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                 Margin="0"
+                 Padding="10 0 0 0"
+                 BorderBrush="{DynamicResource AccentColorBrush}"
+                 BorderThickness="2 0 0 0"
+                 Height="{Binding ElementName=GamesDenomsGrid, Path=ActualHeight}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DataGrid Name="DG"
+                              ItemsSource="{Binding Value}"
+                              Margin="0 5">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn MaxWidth="150" Binding="{Binding Name}">
+                                <DataGridTextColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource TextColumnHeader}" Height="Auto">
+                                                <lex:EnumRun Text="{Binding Path=DataContext.Key, ElementName=DG, Mode=OneWay, Converter={StaticResource LTextCaseConverter}, ConverterParameter=Upper}" PrependType="False"/>
+                                                <LineBreak />
+                                                <Run Text="{Binding Source={lex:Loc Key={x:Static loc:ResourceKeys.Summary}}, Mode=OneWay, Converter={StaticResource TextCaseConverter}, ConverterParameter=Upper}"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTextColumn.HeaderTemplate>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}" 
+                                                Binding="{Binding BlendedRTP}"/>
+                            <DataGridTextColumn MaxWidth="120" Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}" 
+                                                Binding="{Binding BlendedHold}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

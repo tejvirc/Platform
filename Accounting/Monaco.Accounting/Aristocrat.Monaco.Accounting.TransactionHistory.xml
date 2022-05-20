@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Vgt.Client12.Accounting.TransactionHistory" ElementSize="16">
+  <Fields>
+    <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="transactionId" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="sequenceNumber" />
+  </Fields>
+</BlockFormat>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<!--GAT3 XML Structures.-->
+	<xs:element name="SpecialFunctions">
+		<xs:annotation>
+			<xs:documentation>List of special functions.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Name" type="xs:string" minOccurs="0"/>
+				<xs:element name="Manufacturer" type="xs:string" minOccurs="0"/>
+				<xs:element name="Function" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Feature" type="xs:string"/>
+							<xs:element name="Parameter" type="xs:string" minOccurs="0" 
+								maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="GatExec" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Components">
+		<xs:annotation>
+			<xs:documentation>List of components and signatures.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Game" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Name" type="xs:string"/>
+							<xs:element name="Manufacturer" type="xs:string"/>
+							<xs:element name="Component" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Name" type="xs:string"/>
+										<xs:element name="Checksum" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="GatExec" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<!--End of Schema.-->
+</xs:schema>

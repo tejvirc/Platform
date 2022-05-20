@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AddinOrderConfiguration>
+  <AddinOrdering extensionPath="/ExtensionPathWithThreeExtensions" defaultBehavior="ExcludeFromList">
+    <OrderedAddinType type="TestExtension1.TestClass3" />
+    <OrderedAddinType type="TestExtension1.TestClass1" />
+  </AddinOrdering>
+</AddinOrderConfiguration>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<Addin  id="UnitTest" namespace="Client12Addins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll"/>
+  </Runtime>
+
+  <ExtensionPoint path="/AddinHelperUnitTest/DeviceImplementations">
+        <ExtensionNode name="DeviceImplementation" type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode"/>
+    </ExtensionPoint>
+
+  <Extension path="/AddinHelperUnitTest/DeviceImplementations">
+    <DeviceImplementation ProtocolName="Protocol1" type="System.Int32"/>
+    <DeviceImplementation ProtocolName="Protocol2" type="System.Object"/>
+    <DeviceImplementation ProtocolName="Protocol3" type="Foo.Bar"/>
+  </Extension>
+
+</Addin>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<Addin id="MgamUIConfiguration" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Mgam.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.Mgam.UI.MgamConfigurationWizard" order="7" />
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/CommsMenu">
+    <CommsMenu type="Aristocrat.Monaco.Mgam.UI.Loaders.HostConfigurationPageLoader" order="310"/>
+  </Extension>
+</Addin>

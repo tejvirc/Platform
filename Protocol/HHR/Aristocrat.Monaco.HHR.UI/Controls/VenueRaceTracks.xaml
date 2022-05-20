@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Hhr.UI.Controls.VenueRaceTracks"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+             x:Name="VenueRaceTracksTitle">
+
+	<UserControl.Resources>
+		<Style x:Key="VenueNameStyle" TargetType="{x:Type Label}">
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="WhiteSmoke"/>
+		</Style>
+	</UserControl.Resources>
+
+	<Grid>
+        <!-- Two grids with the same layout are needed because some the race track background must be trasparent, but the venue name
+             and the horses must not be. Making a grid transparent makes all its children transparent too. So one grid here as the 
+             transparent image backgrounds, and the other has the content -->
+        <Grid x:Name="TransparentImageOverlayGrid" Background="Transparent" Opacity="0.55">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="240"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="376"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" x:Name="FieldTopBorder" />
+            <Border Grid.Row="1" x:Name="FieldMiddleBorder" />
+            <Border Grid.Row="2" x:Name="FieldBottomBorder" />
+
+			<Rectangle x:Name="FinishLine" 
+					Grid.Row="1"
+					HorizontalAlignment="Right" 
+					Width="8" 
+					Height="Auto"
+					Margin="0 0 0 0"
+					Fill="Black">
+				<Rectangle.Style>
+					<Style>
+						<Style.Triggers>
+							<!-- Start/Stop -->
+							<DataTrigger Binding="{Binding RaceStarted, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Value="True">
+								<DataTrigger.EnterActions>
+									<BeginStoryboard x:Name="FinishLineStoryboard">
+										<Storyboard>
+											<ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+												<SplineThicknessKeyFrame KeyTime="00:00:00" Value="0 0 0 0" />
+												<SplineThicknessKeyFrame KeyTime="00:00:2.7" Value="0 0 316 0" />
+											</ThicknessAnimationUsingKeyFrames>
+										</Storyboard>
+									</BeginStoryboard>
+								</DataTrigger.EnterActions>
+								<DataTrigger.ExitActions>
+									<StopStoryboard BeginStoryboardName="FinishLineStoryboard" />
+								</DataTrigger.ExitActions>
+							</DataTrigger>
+							<!-- Pause/Resume -->
+							<DataTrigger Binding="{Binding IsPaused, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Value="True">
+								<DataTrigger.EnterActions>
+									<PauseStoryboard BeginStoryboardName="FinishLineStoryboard" />
+								</DataTrigger.EnterActions>
+								<DataTrigger.ExitActions>
+									<ResumeStoryboard BeginStoryboardName="FinishLineStoryboard" />
+								</DataTrigger.ExitActions>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</Rectangle.Style>
+			</Rectangle>
+		</Grid>
+
+        <Grid x:Name="ContentGrid">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition MinHeight="240"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0">
+                <Label Content="{Binding VenueName}" Style="{StaticResource VenueNameStyle}"
+                       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 -5 0 0" />
+            </Border>
+
+            <Border Grid.Row="1">
+                <local:CanvasAutoSize VerticalAlignment="Top" HorizontalAlignment="Left" ClipToBounds="False">
+                    <ItemsControl ItemsSource="{Binding Path=RacingLanes, ElementName=VenueRaceTracksTitle}" Canvas.Left="0" Canvas.Top="0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:RaceTrackEntryModel}">
+                                <local:RaceTrackEntry IsPaused="{Binding IsPaused, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}" 
+                                                      HorseNumber="{Binding Position}" 
+                                                      Place="{Binding FinishPosition}" 
+                                                      Visibility="{Binding Visibility}"
+                                                      RaceStarted="{Binding RaceStarted}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </local:CanvasAutoSize>
+            </Border>
+
+            <Border Grid.Row="2"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,30 @@
+﻿<Addin id="HHRConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="SelectableProtocol" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <SelectableProtocol name="HHR" description="Platform Configuration for HHR">
+      <AddinConfigurationGroupReference name="HHRProtocolRunnable" />
+      <AddinConfigurationGroupReference name="HHRConfigWizardPages" />
+    </SelectableProtocol>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="HHRProtocolRunnable" description="This is the protocol launcher for HHR">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.HHRBase" typeName="Aristocrat.Monaco.Hhr.UI.HHRBase" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+
+    <AddinConfigurationGroup name="HHRConfigWizardPages" description="These are the config wizard pages for HHR">
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.HHRUIConfiguration"
+                           typeName="Aristocrat.Monaco.Hhr.UI.HHRConfigurationWizard" order="100" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+</Addin>

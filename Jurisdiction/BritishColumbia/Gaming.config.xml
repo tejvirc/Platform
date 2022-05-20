@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+*NOTE* When adding or removing elements to this file, you will need to
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Gaming\Aristocrat.Monaco.Gaming.Contracts
+2.  Enter "xsd GamingConfiguration.xsd /c /n:Aristocrat.Monaco.Gaming.Contracts".  This will generate
+    the corresponding class definition in csharp (GamingConfiguration.cs).
+-->
+<GamingConfiguration>
+	<GameEnd CashOutStrategy="None" />
+	<FreeGames MeterIndependently="false" />
+	<Messages ShowMessages="true" />
+	<StateChangeOverride DisableStrategy="None" />
+	<OperatorMenu DisableDuringGame="true" />
+	<LockupBehavior CashableLockupStrategy="Allowed" />
+	<GameCategory ApplyGameCategorySettings="true" />
+	<ContinuousPlaySupport Configurable="true" />
+<!--
+	GameRestrictions Settings:
+		ReturnToPlayerLimits:
+			ReturnToPlayer:
+				GameType:
+					"Any" = Overrides default Min/Max RTP for all game types, unless a game type sets it own Min/Max
+					"Slot", "Keno", "Poker"... = Override defaults for specific game type
+				Minimum:
+					Default is 0, unless specified
+				Maximum:
+					Default is int max, unless specified
+				IncludeLinkProgressiveIncrementRTP:
+					Default is false. If set to true, will include the link progressive increment RTP in the RTP check
+				IncludeStandaloneProgressiveIncrementRTP:
+					Default is true. If set to false, will not include the standalone progressive increment RTP in the RTP check
+		RestrictedGameTypes:
+			Type:
+				GameType:
+					"Slot", "Keno", "Poker"... = Disable specific game type
+-->
+	<GameRestrictions>
+		<ReturnToPlayerLimits>
+			<ReturnToPlayer GameType="Any" Minimum="85000" />
+			<ReturnToPlayer GameType="Keno" Minimum="75000" />
+		</ReturnToPlayerLimits>
+	</GameRestrictions>
+</GamingConfiguration>

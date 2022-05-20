@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.Services.DoorService">
+    <Fields>
+      <Field FieldName="LogicalId5LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId6LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId7LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId12LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId13LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId23LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId32LastDoorOpen" DataType="DateTime" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Hardware.Services.DoorService">
+    <Fields>
+      <Field FieldName="LogicalId5LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId6LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId7LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId12LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId13LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId23LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId24LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId32LastDoorOpen" DataType="DateTime" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Hardware.Services.DoorService">
+    <Fields>
+      <Field FieldName="LogicalId5LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId6LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId7LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId12LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId13LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId23LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId24LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId32LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId5LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId6LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId7LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId12LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId13LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId23LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId24LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId32LastDoorOpenAction" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" name="Aristocrat.Monaco.Hardware.Services.DoorService">
+    <Fields>
+      <Field FieldName="LogicalId5LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId6LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId7LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId12LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId13LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId23LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId24LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId25LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId26LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId32LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId5LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId6LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId7LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId12LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId13LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId23LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId24LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId25LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId26LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId32LastDoorOpenAction" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="5" name="Aristocrat.Monaco.Hardware.Services.DoorService">
+    <Fields>
+      <Field FieldName="LogicalId5LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId6LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId7LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId12LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId23LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId24LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId25LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId26LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId27LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId28LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId5LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId6LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId7LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId12LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId23LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId24LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId25LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId26LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId27LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId28LastDoorOpenAction" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="6" name="Aristocrat.Monaco.Hardware.Services.DoorService">
+    <Fields>
+      <Field FieldName="LogicalId5LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId6LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId7LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId12LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId13LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId23LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId24LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId25LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId26LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId27LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId28LastDoorOpen" DataType="DateTime" />
+      <Field FieldName="LogicalId5LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId6LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId7LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId12LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId13LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId23LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId24LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId25LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId26LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId27LastDoorOpenAction" DataType="Bool" />
+      <Field FieldName="LogicalId28LastDoorOpenAction" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Application.NetworkService">
+  <Fields>
+    <Field DataType="Bool" FieldName="DhcpEnabled" />
+    <Field DataType="String" Size="32" FieldName="IpAddress" />
+    <Field DataType="String" Size="32" FieldName="SubnetMask" />
+    <Field DataType="String" Size="32" FieldName="DefaultGateway" />
+    <Field DataType="String" Size="32" FieldName="PreferredDnsServer" />
+    <Field DataType="String" Size="32" FieldName="AlternateDnsServer" />
+  </Fields>
+</BlockFormat>

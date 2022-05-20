@@ -1,0 +1,14 @@
+﻿syntax = "proto3";
+
+package Aristocrat.Monaco.v1;
+
+import "reelMessages.proto";
+import "messages.proto";
+
+service RuntimeReelService {
+	rpc UpdateReelState(UpdateReelStateRequest) returns(Empty) {}
+}
+ 
+message UpdateReelStateRequest {
+	map<int32, ReelState> states = 1;
+}

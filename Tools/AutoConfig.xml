@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- The element names are case-sensitive.  The element values are generally case sensitive. -->
+
+<data>
+	<!-- Valid values: {Alberta, Atlantic Lottery Corporation, Class II, Illinois, Manitoba, Nevada, New York Lottery, Oregon, Quebec} -->
+	<Jurisdiction>Quebec</Jurisdiction>
+	
+	<!-- Valid values: {true, false} -->
+	<ShowMode>false</ShowMode>
+
+	<!-- Valid values: {true, false} -->
+	<GameRules>true</GameRules>
+
+	<!-- Valid values: {NYL Host, G2S, SAS, Test} -->
+	<Protocol>G2S</Protocol>
+
+	<!-- Valid values: {true, false} -->
+	<NoteAcceptorEnabled>true</NoteAcceptorEnabled>
+
+	<!-- Valid values: {Fake, JCM USB GDS, MEI USB GDS} -->
+	<NoteAcceptorMake>JCM</NoteAcceptorMake>
+
+	<!-- Valid values: {GDS} -->
+	<NoteAcceptorProtocol>GDS</NoteAcceptorProtocol>
+
+	<!-- Valid values: {USB, COM1, COM2, ...} -->
+	<NoteAcceptorPort>USB</NoteAcceptorPort>
+
+	<!-- Valid values: {true, false} -->
+	<PrinterEnabled>true</PrinterEnabled>
+
+	<!-- Valid values: {Fake, FutureLogic Gen2 Universal USB GDS, Nanoptix NextGen USB GDS, JCM Gen5 USB GDS} -->
+	<PrinterMake>FutureLogic</PrinterMake>
+
+	<!-- Valid values: {GDS} -->
+	<PrinterProtocol>GDS</PrinterProtocol>
+
+	<!-- Valid values: {USB, COM1, COM2, ...} -->
+	<PrinterPort>USB</PrinterPort>
+
+	<!-- Valid values: {true, false} -->
+	<IdReaderEnabled>true</IdReaderEnabled>
+
+	<!-- Valid values: {Fake, UNIFORM USB GDS} -->
+	<IdReaderMake>UNIFORM USB GDS</IdReaderMake>
+
+	<!-- Valid values: {GDS} -->
+	<IdReaderProtocol>GDS</IdReaderProtocol>
+
+	<!-- Valid values: {USB, COM1, COM2, ...} -->
+	<IdReaderPort>USB</IdReaderPort>
+
+	<!-- Valid values: {true, false} -->
+	<ReelControllerEnabled>false</ReelControllerEnabled>
+
+	<!-- Valid values: {Fake, Harkey} -->
+	<ReelControllerMake>Fake</ReelControllerMake>
+
+	<!-- Valid values: {GDS} -->
+	<ReelControllerProtocol>Fake</ReelControllerProtocol>
+
+	<!-- Valid values: {USB, COM1, COM2, ...} -->
+	<ReelControllerPort>Fake</ReelControllerPort>
+
+	<!-- Valid values: {true, false} -->
+	<HardMetersEnabled>false</HardMetersEnabled>
+
+	<!-- Valid values: Alphanumeric -->
+	<SerialNumber>1</SerialNumber>
+
+	<!-- (AKA Asset Number) Valid values: Numeric -->
+	<MachineId>1</MachineId>
+
+	<!-- Optional, Valid values: Alphanumeric -->
+	<Area>Area1</Area>
+
+	<!-- Optional, Valid values: Alphanumeric -->
+	<Zone>Zone1</Zone>
+
+	<!-- Optional, Valid values: Alphanumeric -->
+	<Bank>Bank1</Bank>
+
+	<!-- Optional, Valid values: Alphanumeric -->
+	<Position>Pos1</Position>
+
+	<!-- Optional, Valid values: Alphanumeric -->
+	<Location>Loc1</Location>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<PrintIdentityTicket>true</PrintIdentityTicket>
+
+	<!-- Valid values: a valid URI -->
+	<G2SHostUri>http://localhost:31101/RGS/api-services/G2SAPI</G2SHostUri>
+
+	<!-- Optional, Valid ISO code values: USD, CAD -->
+	<Currency>USD</Currency>
+
+	<!-- Optional, Valid value: currency amount in dollars -->
+	<CreditLimit>0.00</CreditLimit>
+
+	<!-- Optional, Valid value: currency amount in dollars -->
+	<LargeWinLimit>0.00</LargeWinLimit>
+
+	<!-- Optional, Valid value: percentage amount (i.e. 10 = 10%) -->
+	<LargeWinRatio>0</LargeWinRatio>
+
+	<!-- Optional, Valid value: currency amount in dollars -->
+	<LargeWinRatioThreshold>0.00</LargeWinRatioThreshold>
+
+	<!-- Optional, Valid value: currency amount in dollars -->
+	<MaxBetLimit>0.00</MaxBetLimit>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<RequireZeroCredit>true</RequireZeroCredit>
+
+	<!-- Optional, Valid values: {Secure Enhanced, System, None} -->
+	<SasValidationType>Secure Enhanced</SasValidationType>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<AftInEnabled>true</AftInEnabled>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<AftOutEnabled>true</AftOutEnabled>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<AftBonusEnabled>true</AftBonusEnabled>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<AftPartialTransferEnabled>true</AftPartialTransferEnabled>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<AftWinAmountToHostEnabled>true</AftWinAmountToHostEnabled>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<LegacyBonusEnabled>true</LegacyBonusEnabled>
+
+	<!-- Optional, Valid values: currency amount -->
+	<AftTransferLimit>1000</AftTransferLimit>
+
+	<!-- Optional, Valid values: {Secure Handpay Reporting, Legacy Handpay Reporting} -->
+	<HandpayReportingType>Secure Handpay Reporting</HandpayReportingType>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<DisableOnCommunicationsLost>true</DisableOnCommunicationsLost>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<SasDualHost>false</SasDualHost>
+
+	<!-- Optional, Valid values: {1 - 127} -->
+	<SasAddressHost1>1</SasAddressHost1>
+
+	<!-- Optional, Valid values: {1 - 127} -->
+	<SasAddressHost2>1</SasAddressHost2>
+
+	<!-- Optional, Valid values: {0 = No Host, 1 = Host 1, 2 = Host 2} -->
+	<SasValidationHost>1</SasValidationHost>
+
+	<!-- Optional, Valid values: {0 = No Host, 1 = Host 1, 2 = Host 2} -->
+	<SasAftHost>1</SasAftHost>
+
+	<!-- Optional, Valid values: {0 = No Host, 1 = Host 1, 2 = Host 2} -->
+	<SasLegacyBonusHost>1</SasLegacyBonusHost>
+
+	<!-- Optional, Valid values: {0 = No Host, 1 = Host 1, 2 = Host 2} -->
+	<SasGeneralControlHost>1</SasGeneralControlHost>
+
+	<!-- Optional, Valid values: {0 = No Host, 1 = Host 1, 2 = Host 2} -->
+	<SasProgressiveHost>1</SasProgressiveHost>
+
+	<!-- Optional, Valid values: {1 = Host 1, 2 = Host 2, 3 = Both Hosts} -->
+	<SasGameStartEndHost>1</SasGameStartEndHost>
+
+	<!-- Optional, Valid values: {true, false} -->
+	<MgamUseUdpBroadcasting>true</MgamUseUdpBroadcasting>
+
+	<!-- Optional, Valid values: {IP Address} -->
+	<MgamDirectoryIpAddress></MgamDirectoryIpAddress>
+
+	<!-- Optional, Valid values: {Uri} -->
+	<BingoHostName>localhost</BingoHostName>
+
+	<!-- Optional, Valid values: {1, 5000, ...} -->
+	<BingoPort>5000</BingoPort>
+</data>

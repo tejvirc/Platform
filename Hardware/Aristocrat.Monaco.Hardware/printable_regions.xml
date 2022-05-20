@@ -1,0 +1,1098 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DPR_Collection
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="Region.xsd"
+  xml:space="preserve">
+    <DPR name="Cashout Human Readable Validation Number" property="validation number" id="101" x="0" y="0" dx="512" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="104">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Establishment Name" property="establishment name" id="102" x="0" y="1264" dx="64" dy="1236" rot="2" jst="2" type="F=3" m1="2" m2="2" attr="103">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Location 1" property="location name" id="103" x="64" y="1130" dx="24" dy="512" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="110">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Location 2" property="location address" id="104" x="64" y="618" dx="24" dy="512" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="110">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Barcode" property="barcode" id="105" x="144" y="224" dx="144" dy="800" rot="2" jst="2" type="B=12" m1="4" m2="8" attr="101">
+        <D></D>
+	</DPR>
+    <DPR name="Cashout Validation ID label" property="validation label" id="106" x="288" y="966" dx="24" dy="200" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="105+605">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Validation ID" property="validation number" id="107" x="288" y="764" dx="24" dy="530" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="105">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Date Time" property="datetime" id="108" x="312" y="908" dx="24" dy="372" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="600">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Ticket # label" id="109" x="312" y="536" dx="24" dy="124" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="603">
+		<D>Ticket #:</D>
+	</DPR>
+    <DPR name="Cashout Ticket #" property="sequence number" id="110" x="312" y="412" dx="24" dy="126" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Amount Words 1" property="value in words 1" id="111" x="336" y="1236" dx="24" dy="1200" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="107">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Amount" property="value" id="112" x="384" y="1002" dx="64" dy="824" rot="2" jst="2" type="F=3" m1="2" m2="2" attr="102">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Title" property="title" id="113" x="88" y="1200" dx="56" dy="1124" rot="2" jst="2" type="F=1" m1="2" m2="1" attr="106">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Redemption Rule" property="redemption text" id="114" x="448" y="1264" dx="24" dy="520" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="601+109">
+		<D>Void in 24 hours</D>
+	</DPR>
+    <DPR name="Cashout Asset Number and Serial Number label" id="115" x="448" y="920" dx="24" dy="148" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="600">
+		<D>AN:VGT SN:</D>
+	</DPR>
+    <DPR name="Cashout Serial Number" property="serial id" id="116" x="448" y="772" dx="24" dy="100" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Machine Number label" id="117" x="448" y="672" dx="24" dy="54" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="600">
+		<D>MN:</D>
+	</DPR>
+    <DPR name="Cashout Machine Number" property="machine id" id="118" x="448" y="618" dx="24" dy="84" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Zone Number label" id="119" x="448" y="532" dx="24" dy="44" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="600">
+		<D>ZN:</D>
+	</DPR>
+    <DPR name="Cashout Zone Number" property="zone" id="120" x="448" y="488" dx="24" dy="96" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Bank Number label" id="121" x="448" y="392" dx="24" dy="44" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="600">
+		<D>BN:</D>
+	</DPR>
+    <DPR name="Cashout Bank Number" property="bank" id="122" x="448" y="348" dx="24" dy="54" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Position Number label" id="123" x="448" y="294" dx="24" dy="44" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="600">
+		<D>PN:</D>
+	</DPR>
+    <DPR name="Cashout Position Number" property="position" id="124" x="448" y="250" dx="24" dy="52" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Amount Words 2" property="value in words 2" id="125" x="360" y="1236" dx="24" dy="1200" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Amount (restricted)" property="value" id="126" x="144" y="1012" dx="64" dy="800" rot="2" jst="2" type="F=3" m1="2" m2="2" attr="102">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Amount Words 1 (restricted)" property="value in words 1" id="127" x="208" y="1236" dx="24" dy="1200" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="107">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Amount Words 2 (restricted)" property="value in words 2" id="128" x="232" y="1236" dx="24" dy="1200" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="107">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Date Time (restricted)" property="datetime" id="130" x="264" y="956" dx="24" dy="514" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="600">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Ticket # label (restricted)" id="131" x="264" y="442" dx="24" dy="124" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="604">
+		<D>Ticket #:</D>
+	</DPR>
+    <DPR name="Cashout Ticket # (restricted)" property="sequence number" id="132" x="264" y="318" dx="24" dy="100" rot="2" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Cashout Barcode (restricted)" property="barcode" id="133" x="328" y="224" dx="120" dy="800" rot="2" jst="2" type="B=4" m1="4" m2="8" attr="101">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Title" property="title" id="134" x="0" y="0" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>IDENTITY TICKET</D>
+	</DPR>
+    <DPR name="Identity Establishment Name" property="establishment name" id="135" x="0" y="26" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Header 1" property="header 1" id="136" x="0" y="52" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Header 2" property="header 2" id="137" x="0" y="78" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Header 3" property="header 3" id="138" x="0" y="104" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Identity Date Time" property="datetime" id="139" x="0" y="130" dx="490" dy="56" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Identity Ticket Number label" id="141" x="0" y="198" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Tkt.#</D>
+    </DPR>
+    <DPR name="Identity Ticket Number" property="sequence number" id="142" x="72" y="198" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+    </DPR>
+    <DPR name="Identity Validation Number label" id="143" x="198" y="198" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Val.#</D>
+    </DPR>
+    <DPR name="Identity Validation Number" property="legacy validation" id="144" x="276" y="198" dx="176" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+    </DPR>
+    <DPR name="Identity Serial Number label" id="145" x="0" y="224" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ser.#</D>
+	</DPR>
+    <DPR name="Identity Serial Number" property="serial id" id="146" x="76" y="224" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="05">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Machine Number label" id="147" x="198" y="224" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Mach.#</D>
+	</DPR>
+    <DPR name="Identity Machine Number" property="machine id" id="148" x="288" y="224" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Zone label" id="149" x="0" y="276" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Zone:</D>
+	</DPR>
+    <DPR name="Identity Asset ID label" id="150" x="0" y="250" dx="108" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901+601">
+		<D>Asset ID:</D>
+	</DPR>
+    <DPR name="Identity Asset ID" property="asset id" id="151" x="120" y="250" dx="300" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Zone" property="zone" id="152" x="72" y="276" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Bank Number label" id="153" x="186" y="276" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Bank:</D>
+	</DPR>
+    <DPR name="Identity Bank Number" property="bank" id="154" x="258" y="276" dx="64" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Position Number label" id="155" x="324" y="276" dx="62" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Pos:</D>
+	</DPR>
+    <DPR name="Identity Position Number" property="position" id="156" x="388" y="276" dx="64" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Human Readable Barcode 1" property="human readable barcode 1" id="157" x="0" y="302" dx="223" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+    </DPR>
+    <DPR name="Identity Human Readable Barcodes Seperator" id="140" x="210" y="302" dx="14" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>:</D>
+    </DPR>
+    <DPR name="Identity Human Readable Barcode 2" property="human readable barcode 2" id="158" x="224" y="302" dx="212" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+    </DPR>
+    <DPR name="Identity Version" property="version" id="159" x="0" y="328" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Identity Copyright" property="copyright" id="160" x="0" y="354" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Barcode 1" property="legacy barcode 1" id="161" x="40" y="102" dx="144" dy="800" rot="2" jst="2" type="B=99" m1="4" m2="8" attr="108">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Barcode 2" property="legacy barcode 2" id="162" x="272" y="102" dx="144" dy="800" rot="2" jst="2" type="B=99" m1="4" m2="8" attr="108">
+		<D></D>
+	</DPR>
+    <DPR name="Error Title" property="title" id="163" x="0" y="0" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>ERROR</D>
+	</DPR>
+    <DPR name="Error Message" property="error message" id="164" x="0" y="160" dx="520" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Error Contact 1" id="165" x="0" y="184" dx="520" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Please contact VGT service at:</D>
+	</DPR>
+    <DPR name="Error Contact 2" id="166" x="0" y="240" dx="520" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D>866-852-7948</D>
+	</DPR>
+    <DPR name="Error Disclaimer 1" id="167" x="0" y="294" dx="520" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>The following information may be</D>
+	</DPR>
+    <DPR name="Error Disclaimer 2" id="168" x="0" y="318" dx="520" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>inaccurate due to a system failure:</D>
+	</DPR>
+    <DPR name="Error Credits label" id="170" x="0" y="370" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Credits</D>
+	</DPR>
+    <DPR name="Error Credits" property="error credits" id="171" x="100" y="370" dx="204" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Master Since label" id="172" x="0" y="168" dx="320" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Master Since:</D>
+	</DPR>
+    <DPR name="Accounting Master Since" property="master last clear" id="173" x="0" y="196" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Period Since label" id="174" x="0" y="256" dx="324" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Period Since:</D>
+	</DPR>
+    <DPR name="Accounting Period Since" property="period last clear" id="175" x="0" y="284" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Current Time label" id="176" x="0" y="338" dx="318" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Current Time:</D>
+	</DPR>
+    <DPR name="Accounting Current Time" property="datetime" id="177" x="0" y="370" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Machine Totals label" id="178" x="0" y="430" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>MACHINE TOTALS</D>
+	</DPR>
+    <DPR name="Accounting Total label" id="179" x="200" y="492" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D>TOTAL</D>
+	</DPR>
+    <DPR name="Accounting Period label" id="180" x="324" y="492" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D>PERIOD</D>
+	</DPR>
+    <DPR name="Accounting Total In label" id="181" x="0" y="520" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Total In:</D>
+	</DPR>
+    <DPR name="Accounting Total In" property="total in" id="182" x="200" y="520" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Total In Period" property="period in" id="183" x="324" y="520" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Total Out label" id="184" x="0" y="548" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Total Out:</D>
+	</DPR>
+    <DPR name="Accounting Total Out" property="total out" id="185" x="200" y="548" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Total Out Period" property="period out" id="186" x="324" y="548" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Out/In label" id="187" x="12" y="576" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Out/In:</D>
+	</DPR>
+    <DPR name="Accounting Out/In" property="total in out" id="188" x="200" y="576" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Out/In Period" property="period in out" id="189" x="324" y="576" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Ticket Out label" id="190" x="0" y="604" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ticket Out:</D>
+	</DPR>
+    <DPR name="Accounting Ticket Out" property="ticket total out" id="191" x="200" y="604" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Ticket Out Period" property="ticket period out" id="192" x="324" y="604" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Jackpots label" id="193" x="0" y="632" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Jackpots:</D>
+	</DPR>
+    <DPR name="Accounting Jackpots" property="jackpots total" id="194" x="200" y="632" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Jackpots Period" property="jackpots period" id="195" x="324" y="632" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Handpays label" id="196" x="0" y="660" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Handpays:</D>
+	</DPR>
+    <DPR name="Accounting Handpays" property="handpays total" id="197" x="200" y="660" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Handpays Period" property="handpays period" id="198" x="324" y="660" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Total Played label" id="199" x="0" y="688" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Total Played:</D>
+	</DPR>
+    <DPR name="Accounting Total Played " property="played total" id="200" x="200" y="688" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Total Played Period" property="played period" id="201" x="324" y="688" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Total Won label" id="202" x="0" y="716" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Total Won:</D>
+	</DPR>
+    <DPR name="Accounting Total Won" property="won total" id="203" x="200" y="716" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Total Won Period" property="won period" id="204" x="324" y="716" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Won/Bet label" id="205" x="12" y="744" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Won/Bet:</D>
+	</DPR>
+    <DPR name="Accounting Won/Bet" property="won bet total" id="206" x="200" y="744" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Won/Bet Period" property="won bet period" id="207" x="324" y="744" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Games Played label" id="208" x="2" y="772" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Games Played:</D>
+	</DPR>
+    <DPR name="Accounting Games Played" property="games played total" id="209" x="202" y="772" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Games Played Period" property="games played period" id="210" x="326" y="772" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Games Won label" id="211" x="0" y="800" dx="200" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Games Won:</D>
+	</DPR>
+    <DPR name="Accounting Games Won" property="games won total" id="212" x="200" y="800" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Games Won Period" property="games won period" id="213" x="324" y="800" dx="124" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Type label" id="214" x="0" y="876" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="603">
+		<D>Type:</D>
+	</DPR>
+    <DPR name="Accounting Type" property="client type" id="215" x="100" y="876" dx="242" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Game label" id="216" x="2" y="902" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="603">
+		<D>Game:</D>
+	</DPR>
+    <DPR name="Accounting Game" property="game name" id="217" x="102" y="902" dx="242" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Credit label" id="218" x="0" y="928" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Credit:</D>
+	</DPR>
+    <DPR name="Accounting Credit" property="credit value" id="219" x="100" y="928" dx="320" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>data not available</D>
+	</DPR>
+    <DPR name="Accounting Serial Number label" id="220" x="0" y="954" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ser.#</D>
+	</DPR>
+    <DPR name="Accounting Serial Number" property="serial id" id="221" x="76" y="954" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="05">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Machine Number label" id="222" x="198" y="954" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Mach.#</D>
+	</DPR>
+    <DPR name="Accounting Machine Number" property="machine id" id="223" x="288" y="954" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Zone label" id="224" x="0" y="980" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Zone:</D>
+	</DPR>
+    <DPR name="Accounting Zone" property="zone" id="225" x="72" y="980" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Bank label" id="226" x="180" y="980" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Bank:</D>
+	</DPR>
+    <DPR name="Accounting Bank" property="bank" id="227" x="256" y="980" dx="74" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Accounting Position label" id="228" x="334" y="980" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Pos:</D>
+	</DPR>
+    <DPR name="Accounting Position" property="position" id="229" x="394" y="980" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Period Since label" id="230" x="0" y="160" dx="240" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Period Since:</D>
+	</DPR>
+    <DPR name="Game Accounting Period Since" property="period last clear" id="231" x="0" y="186" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Current Time label" id="232" x="0" y="214" dx="240" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Current Time:</D>
+	</DPR>
+    <DPR name="Game Accounting Current Time" property="datetime" id="233" x="0" y="242" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Serial Number label" id="234" x="0" y="268" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ser.#</D>
+	</DPR>
+    <DPR name="Game Accounting Serial Number" property="serial id" id="235" x="76" y="268" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Machine Number label" id="236" x="198" y="268" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Mach.#</D>
+	</DPR>
+    <DPR name="Game Accounting Machine Number" property="machine id" id="237" x="288" y="268" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Zone label" id="238" x="0" y="294" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Zone:</D>
+	</DPR>
+    <DPR name="Game Accounting Zone" property="zone" id="239" x="72" y="294" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Bank label" id="240" x="178" y="294" dx="74" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Bank:</D>
+	</DPR>
+    <DPR name="Game Accounting Bank" property="bank" id="241" x="252" y="294" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Position label" id="242" x="312" y="294" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Pos:</D>
+	</DPR>
+    <DPR name="Game Accounting Position" property="position" id="243" x="372" y="294" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game Meters label" id="244" x="0" y="348" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>GAME METERS</D>
+	</DPR>
+    <DPR name="Game Accounting Header 1" id="245" x="8" y="372" dx="480" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>==================================</D>
+	</DPR>
+    <DPR name="Game Accounting Header 2" id="246" x="202" y="398" dx="260" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>TOTAL      PERIOD</D>
+	</DPR>
+    <DPR name="Game Accounting Game Name" id="247" x="40" y="428" dx="360" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>GAME [NAME]</D>
+	</DPR>
+    <DPR name="Game Accounting Cash Bet Won label" id="248" x="40" y="454" dx="460" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>CASH  BET   WON   |    BET    WON</D>
+	</DPR>
+    <DPR name="Game Accounting Games Played Won label" id="249" x="22" y="480" dx="480" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>GAMES PLAYED WON   |   PLAYED  WON</D>
+	</DPR>
+    <DPR name="Game Accounting Header 3" id="250" x="20" y="506" dx="480" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>==================================</D>
+	</DPR>
+    <DPR name="Game Accounting Game 1" property="game 1" id="251" x="0" y="532" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D>game1</D>
+	</DPR>
+    <DPR name="Game Accounting Game 2" property="game 2" id="252" x="0" y="606" dx="482" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D>game2</D>
+	</DPR>
+    <DPR name="Game Accounting Game 3" property="game 3" id="253" x="0" y="680" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D>game3</D>
+	</DPR>
+    <DPR name="Game Accounting Game 4" property="game 4" id="254" x="0" y="754" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D>game4</D>
+	</DPR>
+    <DPR name="Game Accounting Game 5" property="game 5" id="255" x="0" y="828" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D>game 5</D>
+	</DPR>
+    <DPR name="Game Accounting Game 6" property="game 6" id="256" x="0" y="902" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D>game6</D>
+	</DPR>
+    <DPR name="Game Accounting Next Page" property="next page text" id="257" x="192" y="982" dx="280" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="20201">
+		<D>game 7 next page ==></D>
+	</DPR>
+    <DPR name="Game Accounting Game 7" property="game 7" id="258" x="0" y="0" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 8" property="game 8" id="259" x="0" y="74" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 9" property="game 9" id="260" x="0" y="150" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 10" property="game 10" id="261" x="0" y="224" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 11" property="game 11" id="262" x="0" y="298" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 12" property="game 12" id="263" x="0" y="372" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 13" property="game 13" id="264" x="0" y="446" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 14" property="game 14" id="265" x="0" y="520" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 15" property="game 15" id="266" x="0" y="594" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 16" property="game 16" id="267" x="0" y="668" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 17" property="game 17" id="268" x="0" y="742" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game Accounting Game 18" property="game 18" id="269" x="0" y="816" dx="480" dy="72" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Alert Header 1" property="header 1" id="270" x="0" y="26" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="903">
+		<D>** A L E R T **</D>
+	</DPR>
+    <DPR name="Game History Alert Header 2" property="header 2" id="271" x="0" y="52" dx="484" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="903">
+		<D>Please return ticket to VGT, Inc.</D>
+	</DPR>
+    <DPR name="Game History Alert Header 3" property="header 3" id="272" x="0" y="78" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="903">
+		<D>-------------------------------------------------------------</D>
+	</DPR>
+    <DPR name="Game History Alert Header 4" property="header 4" id="273" x="0" y="104" dx="494" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Title" id="274" x="0" y="184" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>GAME HISTORY</D>
+	</DPR>
+    <DPR name="Game History Played label" id="275" x="0" y="212" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Played:</D>
+	</DPR>
+    <DPR name="Game History Played Start Time" property="game start date" id="276" x="100" y="212" dx="382" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Played End Time" property="game end date" id="277" x="98" y="236" dx="382" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Serial Number label" id="278" x="0" y="262" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ser.#</D>
+	</DPR>
+    <DPR name="Game History Serial Number" property="serial id" id="279" x="76" y="262" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Machine Number label" id="280" x="198" y="262" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Mach.#</D>
+	</DPR>
+    <DPR name="Game History Machine Number" property="machine id" id="281" x="288" y="262" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Zone label" id="282" x="0" y="288" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Zone:</D>
+	</DPR>
+    <DPR name="Game History Zone" property="zone" id="283" x="72" y="288" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Bank label" id="284" x="204" y="288" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Bank:</D>
+	</DPR>
+    <DPR name="Game History Bank" property="bank" id="285" x="280" y="288" dx="50" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Position label" id="286" x="330" y="288" dx="50" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Pos:</D>
+	</DPR>
+    <DPR name="Game History Position" property="position" id="287" x="380" y="288" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Game label" id="288" x="0" y="314" dx="78" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Game:</D>
+	</DPR>
+    <DPR name="Game History Game" property="paytable" id="289" x="78" y="314" dx="180" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+	<DPR name="Game History Game Title" property="game" id="451" x="210" y="314" dx="180" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Game End Award label" id="290" x="0" y="340" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>Game End Award</D>
+	</DPR>
+    <DPR name="Game History Game End Award seperator" id="291" x="232" y="340" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Game End Award" property="game end award" id="292" x="244" y="340" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+	<DPR name="Game History Game End Award label" id="449" x="0" y="368" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>Game Slept</D>
+	</DPR>
+    <DPR name="Game History Game End Award seperator" id="450" x="232" y="368" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Game Slept" property="game slept" id="293" x="244" y="368" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Initial Credit label" id="294" x="0" y="392" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Initial Credit</D>
+	</DPR>
+    <DPR name="Game History Initial Credit seperator" id="295" x="232" y="392" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Initial Credit" property="initial credits" id="296" x="244" y="392" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Credit Value label" id="297" x="0" y="418" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Credit Value</D>
+	</DPR>
+    <DPR name="Game History Credit Value seperator" id="298" x="232" y="418" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Credit Value" property="credit value" id="299" x="244" y="418" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Bet Amount label" id="300" x="0" y="444" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Bet Amount</D>
+	</DPR>
+    <DPR name="Game History Bet Amount seperator" id="301" x="232" y="444" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Bet Amount" property="bet amount" id="302" x="244" y="444" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Win Amount Cash label" id="303" x="0" y="470" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Win Amount(Cash)</D>
+	</DPR>
+    <DPR name="Game History Win Amount Cash seperator" id="304" x="232" y="470" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Win Amount Cash" property="cash won amount" id="305" x="244" y="470" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Win Amount Credits label" id="306" x="0" y="496" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Win Amount(Credits)</D>
+	</DPR>
+    <DPR name="Game History Win Amount Credits seperator" id="307" x="232" y="496" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Win Amount Credits" property="credit won amount" id="308" x="244" y="496" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Total Paid Cash label" id="309" x="0" y="522" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Total Paid(Cash)</D>
+	</DPR>
+    <DPR name="Game History Total Paid Cash seperator" id="310" x="232" y="522" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Total Paid Cash" property="cash paid amount" id="311" x="244" y="522" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Total Paid Credits label" id="312" x="0" y="548" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Total Paid(Credits)</D>
+	</DPR>
+    <DPR name="Game History Total Paid Credits seperator" id="313" x="232" y="548" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Total Paid Credits" property="credit paid amount" id="314" x="244" y="548" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Final Credit label" id="315" x="0" y="574" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Final Credit</D>
+	</DPR>
+    <DPR name="Game History Final Credit seperator" id="316" x="232" y="574" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Final Credit" property="final paid amount" id="317" x="244" y="574" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Bonus Game label" id="318" x="0" y="600" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>Bonus Game</D>
+	</DPR>
+    <DPR name="Game History Bonus Game seperator" id="319" x="232" y="600" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Bonus Game" property="bonus game" id="320" x="244" y="600" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Join Ball label" id="321" x="0" y="626" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>Join Ball</D>
+	</DPR>
+    <DPR name="Game History Join Ball seperator" id="322" x="232" y="626" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Join Ball" property="join ball" id="323" x="244" y="626" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Coverall Ball label" id="324" x="0" y="652" dx="232" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>Coverall Ball</D>
+	</DPR>
+    <DPR name="Game History Coverall Ball seperator" id="325" x="232" y="652" dx="12" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>:</D>
+	</DPR>
+    <DPR name="Game History Coverall Ball" property="coverall ball" id="326" x="244" y="652" dx="200" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game History CSN label" id="327" x="0" y="678" dx="74" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>CSN :</D>
+	</DPR>
+    <DPR name="Game History CSN" property="csn win index" id="328" x="74" y="678" dx="176" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Reel Stops label" id="329" x="0" y="704" dx="156" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901+601">
+		<D>Reel Stops :</D>
+	</DPR>
+    <DPR name="Game History Reel Stops" property="reel stops" id="330" x="166" y="704" dx="280" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Called Numbers label" id="331" x="0" y="730" dx="212" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901+601">
+		<D>Called Numbers:</D>
+	</DPR>
+    <DPR name="Game History Called Numbers" property="called numbers" id="332" x="216" y="730" dx="254" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D>--all not called--</D>
+	</DPR>
+    <DPR name="Game History Bingo Card" property="bingo card" id="334" x="0" y="760" dx="470" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Line 1" property="promo 1" id="335" x="0" y="174" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Line 2" property="promo 2" id="336" x="0" y="200" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Line 3" property="promo 3" id="337" x="0" y="226" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Line 4" property="promo 4" id="339" x="0" y="252" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Line 5" property="promo 5" id="340" x="0" y="278" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Date Time" property="datetime" id="341" x="0" y="344" dx="480" dy="48" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Serial Number label" id="342" x="0" y="434" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ser.#</D>
+	</DPR>
+    <DPR name="Coupon Serial Number" property="serial id" id="343" x="76" y="434" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Machine Number label" id="344" x="198" y="434" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Mach.#</D>
+	</DPR>
+    <DPR name="Coupon Machine Number" property="machine id" id="345" x="288" y="434" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Coupon Name Line" id="346" x="0" y="498" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Name: __________________________________</D>
+	</DPR>
+    <DPR name="Coupon Address label" id="347" x="0" y="558" dx="156" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Address:</D>
+	</DPR>
+    <DPR name="Coupon Address Line 1" id="348" x="0" y="618" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>________________________________________</D>
+	</DPR>
+    <DPR name="Coupon Address Line 2" id="349" x="0" y="680" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>________________________________________</D>
+	</DPR>
+    <DPR name="Coupon Address Line 3" id="350" x="0" y="738" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>________________________________________</D>
+	</DPR>
+    <DPR name="Last Bills Title" property="title" id="351" x="0" y="162" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+        <D>LAST 5 BILLS</D>
+	</DPR>
+    <DPR name="Last Bills Zone label" id="352" x="0" y="250" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Zone:</D>
+	</DPR>
+    <DPR name="Last Bills Zone" property="zone" id="353" x="72" y="250" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Last Bills Bank label" id="354" x="174" y="250" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Bank:</D>
+	</DPR>
+    <DPR name="Last Bills Bank" property="bank" id="355" x="248" y="250" dx="64" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D></D>
+	</DPR>
+    <DPR name="Last Bills Position label" id="356" x="316" y="250" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="601">
+		<D>Pos:</D>
+	</DPR>
+    <DPR name="Last Bills Position" property="position" id="357" x="378" y="250" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Last Bills Detail" property="documents detail" id="358" x="0" y="276" dx="472" dy="678" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Power Loss Line 1" id="359" x="2" y="36" dx="484" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>VOID - VOID - VOID</D>
+	</DPR>
+    <DPR name="Power Loss Line 2" id="360" x="2" y="66" dx="484" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>*** POWER LOSS ***</D>
+	</DPR>
+    <DPR name="Power Loss Line 3" id="361" x="2" y="98" dx="484" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>VOID - VOID - VOID</D>
+	</DPR>
+    <DPR name="QC Test Result Title" property="title" id="362" x="4" y="0" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>QC TEST RESULT</D>
+	</DPR>
+    <DPR name="QC Test Result Line 1" id="363" x="0" y="24" dx="494" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D>_______________________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 2" property="datetime" id="364" x="4" y="76" dx="474" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="QC Test Result Line 3" property="location address" id="365" x="4" y="100" dx="476" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="QC Test Result Line 4" property="promo 2" id="366" x="4" y="124" dx="482" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="QC Test Result Line 5" id="367" x="0" y="148" dx="494" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D>_______________________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 6" property="promo 1" id="368" x="2" y="228" dx="486" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="QC Test Result Line 7" id="369" x="2" y="290" dx="494" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="01">
+		<D>_______________________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 8" id="370" x="0" y="380" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>New:_____________  Refurb:______________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 9" id="371" x="0" y="444" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Cash-In:__________ Cash-Won:___________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 10" id="372" x="0" y="506" dx="492" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Cash-Out:_________ Cash-Play:____________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 11" id="373" x="0" y="580" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Casino:           __________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 12" id="374" x="0" y="612" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>IPP Tag:          ___________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 13" id="375" x="0" y="642" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Security Key S/N: ________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 14" id="376" x="0" y="670" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Art Type:         ___________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 15" id="377" x="0" y="700" dx="490" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Base Type:        __________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 16" id="378" x="0" y="764" dx="496" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Initials: __________________________________</D>
+	</DPR>
+    <DPR name="QC Test Result Line 17" id="379" x="0" y="794" dx="494" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Video Gaming Technologies, Inc.</D>
+	</DPR>
+    <DPR name="Legacy Cashout Title" property="title" id="380" x="0" y="0" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="902">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Reprint label" property="reprint label" id="381" x="0" y="128" dx="482" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="901">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Amount" property="value" id="382" x="0" y="152" dx="512" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="108">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Amount Words" property="value in words 1" id="383" x="0" y="176" dx="512" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	  </DPR>
+<DPR 
+name="Legacy Cashout Amount Words Overflow" 
+property="value in words 2" 
+id="998" 
+x="0" 
+y="200" 
+dx="512" 
+dy="24" 
+rot="1" 
+jst="1" 
+type="F=4" 
+m1="1" 
+m2="1" 
+attr="01"
+>
+
+<D>
+</D>
+
+</DPR>
+
+<DPR 
+name="Legacy Cashout Amount Words Overflow 2" 
+property="value in words 3" 
+id="999" 
+x="0" 
+y="224" 
+dx="512" 
+dy="24" 
+rot="1" 
+jst="1" 
+type="F=4" 
+m1="1" 
+m2="1" 
+attr="01"
+>
+    <D></D>
+
+</DPR>
+    <DPR name="Legacy Cashout Date Time" property="datetime" id="384" x="0" y="248" dx="478" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Game label" id="385" x="0" y="272" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Game:</D>
+	</DPR>
+    <DPR name="Legacy Cashout Game" property="game name" id="386" x="74" y="272" dx="122" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Credit Value label" id="387" x="204" y="272" dx="86" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Cr.Val:</D>
+	</DPR>
+    <DPR name="Legacy Cashout Credit Value" property="credit value" id="388" x="296" y="272" dx="108" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Ticket Number label" id="389" x="0" y="296" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Tkt.#</D>
+	</DPR>
+    <DPR name="Legacy Cashout Ticket Number" property="sequence number" id="390" x="72" y="296" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Validation Number label" id="391" x="198" y="296" dx="130" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Val.#</D>
+	</DPR>
+    <DPR name="Legacy Cashout Validation Number" property="legacy validation" id="392" x="228" y="296" dx="176" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Serial Number label" id="393" x="0" y="320" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ser.#</D>
+	</DPR>
+    <DPR name="Legacy Cashout Serial Number" property="serial id" id="394" x="76" y="320" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Machine Number label" id="395" x="198" y="320" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Mach.#</D>
+	</DPR>
+    <DPR name="Legacy Cashout Machine Number" property="machine id" id="396" x="288" y="320" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Zone label" id="397" x="0" y="344" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Zone:</D>
+	</DPR>
+    <DPR name="Legacy Cashout Zone" property="zone" id="398" x="72" y="344" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Bank label" id="399" x="172" y="344" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Bank:</D>
+	</DPR>
+    <DPR name="Legacy Cashout Bank" property="bank" id="400" x="244" y="344" dx="64" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Position label" id="401" x="310" y="344" dx="60" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Pos:</D>
+	</DPR>
+    <DPR name="Legacy Cashout Position" property="position" id="402" x="370" y="344" dx="64" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Human Readable Barcode 1" property="legacy barcode 1" id="403" x="0" y="368" dx="223" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Human Readable Barcodes seperator" id="404" x="210" y="368" dx="14" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>:</D>
+	</DPR>
+    <DPR name="Legacy Cashout Human Readable Barcode 2" property="legacy barcode 2" id="405" x="224" y="368" dx="212" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Version" property="version" id="406" x="0" y="392" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Legacy Cashout Copyright" property="copyright" id="407" x="0" y="416" dx="480" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="Handpay Receipt Signature Line" id="408" x="422" y="1196" dx="24" dy="1124" rot="2" jst="2" type="F=4" m1="1" m2="1" attr="111">
+		<D>C:__________________________________     P:__________________________________</D>
+	</DPR>
+    <DPR name="AFT Establishment" property="establishment name" id="409" x="0" y="0" dx="508" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="902">
+        <D></D>
+	</DPR>
+    <DPR name="AFT Location 1" property="location name" id="410" x="0" y="26" dx="506" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="902">
+        <D></D>
+	</DPR>
+    <DPR name="AFT Location 2" property="location address" id="411" x="0" y="52" dx="506" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+        <D></D>
+	</DPR>
+    <DPR name="AFT Transfer Description" property="transfer description" id="412" x="0" y="104" dx="504" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Source Destination" property="source destination" id="413" x="0" y="130" dx="502" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Date Time" property="datetime" id="414" x="0" y="180" dx="504" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT EGM label" id="415" x="0" y="232" dx="120" dy="24" rot="1" jst="1" type="F=4" m1="2" m2="1" attr="901">
+		<D>EGM: </D>
+	</DPR>
+    <DPR name="AFT EGM" property="machine id" id="416" x="122" y="232" dx="374" dy="24" rot="1" jst="1" type="F=4" m1="2" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Position label" property="debit pos" id="417" x="0" y="258" dx="120" dy="24" rot="1" jst="1" type="F=4" m1="2" m2="1" attr="901">
+		<D>POS</D>
+	</DPR>
+    <DPR name="AFT Position" property="position id" id="418" x="122" y="258" dx="374" dy="24" rot="1" jst="1" type="F=4" m1="2" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Patron Name" property="patron name" id="419" x="0" y="312" dx="504" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Patron Account Number" property="patron account number" id="420" x="126" y="338" dx="374" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Transaction ID" property="transaction id" id="421" x="0" y="392" dx="504" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Account label" id="422" x="0" y="338" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>Acct:</D>
+	</DPR>
+    <DPR name="AFT Cash In Description" property="cash in description" id="423" x="0" y="418" dx="268" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Cash In" property="cash in" id="424" x="268" y="418" dx="240" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Promo In Description" property="promo in description" id="425" x="0" y="442" dx="268" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Promo In" property="promo in" id="426" x="268" y="442" dx="238" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Transaction Fee label" property="debit fee" id="427" x="0" y="496" dx="360" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D>Transaction Fee</D>
+	</DPR>
+    <DPR name="AFT Transaction Fee" property="transaction fee" id="428" x="360" y="496" dx="142" dy="24" rot="1" jst="3" type="F=4" m1="2" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Account Balance Label" property="account balance label" id="429" x="0" y="520" dx="248" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="901">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Account Balance" property="account balance" id="430" x="248" y="520" dx="254" dy="24" rot="1" jst="3" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Blank Lines Inserter" id="431" x="0" y="572" dx="240" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="820">
+        <D></D>
+	</DPR>
+    <DPR name="AFT Promo Line 1" property="promo 1" id="432" x="0" y="596" dx="504" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Promo Line 2" property="promo 2" id="433" x="0" y="624" dx="504" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Promo Line 3" property="promo 3" id="434" x="0" y="650" dx="504" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="AFT Promo Line 4" property="promo 4" id="435" x="0" y="676" dx="504" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Information Title" property="title" id="437" x="0" y="0" dx="512" dy="24" rot="1" jst="2" type="F=4" m1="2" m2="1" attr="01">
+		<D>INFORMATION TICKET</D>
+	</DPR>
+    <DPR name="Information Serial Number label" id="438" x="0" y="188" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Ser.#</D>
+	</DPR>
+    <DPR name="Information Serial Number" property="serial id" id="439" x="76" y="188" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+    </DPR>
+    <DPR name="Information Machine Number label" id="440" x="198" y="188" dx="136" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D>Mach.#</D>
+    </DPR>
+    <DPR name="Information Machine Number" property="machine id" id="441" x="288" y="188" dx="124" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+        <D></D>
+    </DPR>
+    <DPR name="Information Zone label" id="442" x="0" y="218" dx="72" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Zone:</D>
+	</DPR>
+    <DPR name="Information Zone" property="zone" id="443" x="72" y="218" dx="100" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Information Bank label" id="444" x="174" y="218" dx="64" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Bank:</D>
+	</DPR>
+    <DPR name="Information Bank" property="bank" id="445" x="246" y="218" dx="86" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Information Position label" id="446" x="312" y="218" dx="54" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D>Pos:</D>
+	</DPR>
+    <DPR name="Information Position" property="position" id="447" x="366" y="218" dx="76" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Information Data" property="information data" id="448" x="0" y="328" dx="506" dy="24" rot="1" jst="1" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+    </DPR>
+    <DPR name="Game History Optional Region 1" property="establishment name" id="451" x="0" y="76" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Optional Region 2" property="header 1" id="452" x="0" y="102" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Game History Optional Region 3" property="header 2" id="453" x="0" y="128" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="902">
+		<D></D>
+	</DPR>
+    <DPR name="Information Version" property="version" id="456" x="0" y="248" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+    <DPR name="Information Copyright" property="copyright" id="457" x="0" y="278" dx="490" dy="24" rot="1" jst="2" type="F=4" m1="1" m2="1" attr="01">
+		<D></D>
+	</DPR>
+</DPR_Collection>

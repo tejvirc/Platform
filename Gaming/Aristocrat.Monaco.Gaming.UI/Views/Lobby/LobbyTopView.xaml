@@ -1,0 +1,142 @@
+﻿<metro:MetroWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.LobbyTopView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl" 
+        xmlns:uicommon="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+        xmlns:controls1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
+        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+        xmlns:converters2="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+        mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
+        Title="{Binding TopTitle}"
+        Width="1440"
+        Height="810"
+        ShowTitleBar="False"
+        ShowIconOnTitleBar="False"
+        ShowCloseButton="False"
+        ShowMaxRestoreButton="False"
+        ShowMinButton="False"
+        IgnoreTaskbarOnMaximize="True"
+        Loaded="LobbyTopView_OnLoaded"
+        Closed="LobbyTopView_OnClosed"
+        BorderThickness="0"
+        Name="Root">
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+
+            <!-- Apply MahApps.Metro styles to all controls -->
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters2:ScaleConverter x:Key="ScaleConv"/>
+            <sys:Double x:Key="LogoScaleFactor">0.52</sys:Double>
+
+            <Storyboard x:Key="AttractFadeInStoryboard">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                 From="0.0" To="1.0" Duration="0:0:0.1" BeginTime="0:0:0"
+                                                     AutoReverse="False">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Key="AttractFadeOutStoryboard">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                 From="1.0" To="0.0" Duration="0:0:0.1" BeginTime="0:0:0"
+                                                     AutoReverse="False">
+                    <DoubleAnimation.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+
+    <!--<local:LayoutTemplateDockPanel x:Name="LayoutTemplate" 
+                                   ScreenType="Secondary">-->
+        <Grid Name="LayoutRoot" 
+              DataContext="{Binding ElementName=Root, Path=DataContext}"
+              Background="Black">
+            <Grid x:Name="TopScreenGameRoot">
+                <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded" x:Name="GameTopScreenRoot"
+                                            Visibility="{Binding IsGameTopScreenVisible, Converter={StaticResource BoolToVisConverter}}"
+                                            VerticalAlignment="Stretch"
+                                            HorizontalAlignment="Stretch">
+                <controls1:NativeFormsControl x:Name="GameTopWindowCtrl" BackColor="Black" Dock="Fill"></controls1:NativeFormsControl>
+                </controls1:ExtendedWindowsFormsHost>
+            </Grid>
+            <Grid x:Name="LobbyTopScreenRoot" Visibility="{Binding IsLobbyTopScreenVisible, Converter={StaticResource BoolToVisConverter}}">
+
+                <Image Stretch="Uniform" uicommon:ImageHelper.SourceResourceKey="{Binding TopImageResourceKey}" />
+
+                <bink:BinkGpuControl 
+                        x:Name="GameAttract"
+                        Filename="{Binding TopAttractVideoPath}"
+                        LoopVideo="False"
+                        Visibility="{Binding IsTopAttractFeaturePlaying, Converter={StaticResource BoolToVisHiddenConverter}}"
+                        ShowFirstFrameOnLoad="True"
+                        VideoCompleted="GameAttract_VideoCompleted">
+                    <bink:BinkGpuControl.Style>
+                        <Style TargetType="bink:BinkGpuControl">
+                            <Setter Property="VideoState" Value="Stopped" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="True">
+                                    <Setter Property="VideoState" Value="Playing"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="False">
+                                    <Setter Property="VideoState" Value="Stopped"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </bink:BinkGpuControl.Style>
+                </bink:BinkGpuControl>
+
+            <bink:BinkGpuControl 
+                        x:Name="LobbyTopVideo"
+                        Filename="{Binding TopperLobbyVideoPath}"
+                        LoopVideo="True"
+                        Visibility="{Binding IsTopAttractFeaturePlaying, Converter={StaticResource BoolToHiddenConverter}}"
+                        ShowFirstFrameOnLoad="True">
+                <bink:BinkGpuControl.Style>
+                        <Style TargetType="bink:BinkGpuControl">
+                            <Setter Property="VideoState" Value="Stopped" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="False">
+                                    <Setter Property="VideoState" Value="Playing"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsTopAttractFeaturePlaying}" Value="True">
+                                    <Setter Property="VideoState" Value="Stopped"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsGameLoading}" Value="True">
+                                    <Setter Property="VideoState" Value="Stopped"/>
+                                </DataTrigger>
+                        </Style.Triggers>
+                        </Style>
+                    </bink:BinkGpuControl.Style>
+                </bink:BinkGpuControl>
+            <!-- Some jurisdictions do not have a top loading screen -->
+                <Image Stretch="Uniform" Source="{DynamicResource TopLoading}"  
+                   Visibility="{Binding IsTopLoadingScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
+            </Grid>
+            <Grid Visibility="{Binding IsTopScreenRenderingDisabled, Converter={StaticResource BoolToVisConverter}}">
+                <Image Stretch="Uniform" Source="{DynamicResource TopDisabled}"/>
+            </Grid>
+        </Grid>
+    <!--</local:LayoutTemplateDockPanel>-->
+</metro:MetroWindow>
+        
+        

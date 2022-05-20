@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="AccountingConfiguration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" name="MoneyLaunderingMonitor">
+                    <xs:complexType>
+                        <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="SoundFilePath" type="xs:string" default="" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="TenderIn">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="1" name="MaxCreditsIn">
+                                <xs:complexType>
+                                    <xs:attribute name="Default" type="xs:long" use="optional" default="10000000000" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="CheckLaundryLimit" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="MaxTenderInLimit" type="xs:long" use="optional" default="300000000" />
+                        <xs:attribute name="CheckCreditsIn" type="CheckCreditsStrategy" use="optional" default="None" />
+                        <xs:attribute name="AllowCreditUnderLimit" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="CreditLimit" type="xs:long" use="optional" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="CreditLimits">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="1" name="MaxCreditMeter">
+                                <xs:complexType>
+                                    <xs:attribute name="Default" type="xs:long" use="optional" default="9223372036854775807" />
+                                    <xs:attribute name="MaxAllowed" type="xs:long" use="optional" default="9223372036854775807" />
+                                    <xs:attribute name="ShowMessageWhenCreditLimitReached" type="xs:boolean" use="optional" default="false" />
+                                    <xs:attribute name="DisableBankNoteAcceptorWhenCreditLimitReached" type="xs:boolean" use="optional" default="false" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="MaxBetLimit">
+                                <xs:complexType>
+                                    <xs:attribute name="Default" type="xs:long" use="optional" default="10000000000" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="false" />
+                                    <xs:attribute name="LimitMax" type="xs:long" use="optional" default="9223372036854775807" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="AllowCreditsInAboveMaxCredit" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="WinLimits">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="1" name="LargeWinLimit">
+                                <xs:complexType>
+                                    <xs:attribute name="Default" type="xs:long" use="optional" default="999999999900000" />
+                                    <xs:attribute name="MaxAllowed" type="xs:long" use="optional" default="999999999900000" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true" />
+                                    <xs:attribute name="OverrideTransactionName" type="xs:boolean" use="optional" default="false" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="LargeWinRatio">
+                                <xs:complexType>
+                                    <xs:attribute name="Default" type="xs:long" use="optional" default="0" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="false" />
+                                    <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="LargeWinRatioThreshold">
+                                <xs:complexType>
+                                    <xs:attribute name="Default" type="xs:long" use="optional" default="0" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="false" />
+                                    <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="HandpayResetOptions">
+                                <xs:complexType>
+                                    <xs:attribute name="Visible" type="xs:boolean" use="optional" default="true" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="HandpayLimit" type="xs:long" use="optional" default="999999999900000" />
+                        <xs:attribute name="CelebrationLockupLimit" type="xs:long" use="optional" default="0" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="NoteIn">
+                    <xs:complexType>
+                        <xs:attribute name="State" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="VoucherIn">
+                    <xs:complexType>
+                        <xs:attribute name="State" type="xs:string" use="required" />
+						<xs:attribute name="EnableLimit" type="xs:boolean" use="optional" default="true" />
+                        <xs:attribute name="LimitDefault" type="xs:long" use="optional" default="9223372036854775807" />
+                        <xs:attribute name="LimitMax" type="xs:long" use="optional" default="9223372036854775807" />
+                        <xs:attribute name="AllowLimitEdit" type="xs:boolean" use="optional" default="true" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="VoucherOut">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="1" name="Expiration">
+                                <xs:complexType>
+                                    <xs:attribute name="Days" type="xs:int" use="optional" default="30" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="State" type="xs:string" use="required" />
+                        <xs:attribute name="EnableLimit" type="xs:boolean" use="optional" default="true" />
+                        <xs:attribute name="LimitDefault" type="xs:long" use="optional" default="9223372036854775807" />
+                        <xs:attribute name="AllowCashWinTicket" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="AllowNonCashableTicket" type="xs:string" use="optional" default="Disabled" />
+                        <xs:attribute name="Offline" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="LimitMax" type="xs:long" use="optional" default="9223372036854775807" />
+                        <xs:attribute name="AllowLimitEdit" type="xs:boolean" use="optional" default="true" />
+                        <xs:attribute name="SeparateMeteringCashableAndPromoAmounts" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="MaxSequence" type="xs:long" use="optional" default="9999" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="RebootWhilePrinting">
+                    <xs:complexType>
+                        <xs:attribute name="Behavior" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="ReprintLoggedVoucher">
+                    <xs:complexType>
+                        <xs:attribute name="Behavior" type="xs:string" use="required" />
+                        <xs:attribute name="TitleOverride" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="DoorOpenRequirement" type="xs:string" use="optional" default="None" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="Handpay">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="1" name="RemoteHandpayReset">
+                                <xs:complexType>
+                                    <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
+                                    <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="PrintHandpayReceipt">
+                                <xs:complexType>
+                                    <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="AllowGameWinReceipt">
+                                <xs:complexType>
+                                    <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="NoteAcceptorConnectedRequired" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="LargeWinForcedKeyOff" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="LargeWinKeyOffStrategy" type="KeyOffType" use="optional" default="LocalHandpay" />
+                        <xs:attribute name="HandpayPendingExitEnabled" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="CanKeyOffWhileInLockUp" type="xs:boolean" use="optional" default="true" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="MysteryProgressive">
+                    <xs:complexType>
+                        <xs:attribute name="WinAsExternalBonus" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="CashoutOnCarrierBoardRemoval">
+                    <xs:complexType>
+                        <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="NoteAcceptorTimeLimit">
+                    <xs:complexType>
+                        <xs:attribute default="false" name="Enable" type="xs:boolean" />
+                        <xs:attribute default="5000" name="Value" type="xs:int" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="BillClearance">
+                    <xs:complexType>
+                        <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="TestTicket">
+                    <xs:complexType>
+                        <xs:attribute name="Type" type="xs:string" use="optional" default="" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="SelfAuditErrorChecking">
+                    <xs:complexType>
+                        <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="CheckCreditsStrategy">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None" />
+            <xs:enumeration value="Balance" />
+            <xs:enumeration value="Session" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="KeyOffType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="LocalHandpay" />
+            <xs:enumeration value="LocalVoucher" />
+            <xs:enumeration value="LocalWat" />
+            <xs:enumeration value="LocalCredit" />
+            <xs:enumeration value="RemoteHandpay" />
+            <xs:enumeration value="RemoteVoucher" />
+            <xs:enumeration value="RemoteWat" />
+            <xs:enumeration value="RemoteCredit" />
+            <xs:enumeration value="Cancelled" />
+            <xs:enumeration value="Unknown" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

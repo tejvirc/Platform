@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+    <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction">
+        <Fields>
+            <Field DataType="Int64" FieldName="TransactionId" />
+            <Field DataType="Int64" FieldName="LogSequence" />
+            <Field DataType="Int32" FieldName="DeviceId" />
+            <Field DataType="DateTime" FieldName="TransactionDateTime" />
+            <Field DataType="Int64" FieldName="Amount" /> <!-- i.e. ValueAmount -->
+            <Field DataType="Int16" FieldName="State" />
+            <Field DataType="Int32" FieldName="ProgressiveId" />
+            <Field DataType="Int32" FieldName="LevelId" />
+            <Field DataType="Int32" FieldName="GameId" />
+            <Field DataType="Int64" FieldName="DenomId" />
+            <Field DataType="Int32" FieldName="WinLevelIndex" />
+            <Field DataType="String" Size="256" FieldName="ValueText" />
+            <Field DataType="Int64" FieldName="ValueSequence" />
+            <Field DataType="Int64" FieldName="WinAmount" />
+            <Field DataType="String" Size="256" FieldName="WinText" />
+            <Field DataType="Int64" FieldName="WinSequence" />
+            <Field DataType="Byte" FieldName="PayMethod" />
+            <Field DataType="Int64" FieldName="PaidAmount" />
+            <Field DataType="Byte" FieldName="Exception" />
+            <Field DataType="DateTime" FieldName="PaidDateTime" />
+
+            <Field DataType="Int64" FieldName="ResetValue" />
+            <Field DataType="String" Size="256" FieldName="BonusId" />
+
+            <Field DataType="Int32" FieldName="AssignableProgressiveType" />
+            <Field DataType="String" Size="256" FieldName="AssignedProgressiveKey" />
+        </Fields>
+    </BlockFormat>
+    <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction">
+        <Fields>
+            <Field DataType="Int64" FieldName="TransactionId" />
+            <Field DataType="Int64" FieldName="LogSequence" />
+            <Field DataType="Int32" FieldName="DeviceId" />
+            <Field DataType="DateTime" FieldName="TransactionDateTime" />
+            <Field DataType="Int64" FieldName="Amount" />
+            <Field DataType="Int16" FieldName="State" />
+            <Field DataType="Int32" FieldName="ProgressiveId" />
+            <Field DataType="Int32" FieldName="LevelId" />
+            <Field DataType="Int32" FieldName="GameId" />
+            <Field DataType="Int64" FieldName="DenomId" />
+            <Field DataType="Int32" FieldName="WinLevelIndex" />
+            <Field DataType="String" Size="256" FieldName="ValueText" />
+            <Field DataType="Int64" FieldName="ValueSequence" />
+            <Field DataType="Int64" FieldName="WinAmount" />
+            <Field DataType="String" Size="256" FieldName="WinText" />
+            <Field DataType="Int64" FieldName="WinSequence" />
+            <Field DataType="Byte" FieldName="PayMethod" />
+            <Field DataType="Int64" FieldName="PaidAmount" />
+            <Field DataType="Byte" FieldName="Exception" />
+            <Field DataType="DateTime" FieldName="PaidDateTime" />
+            <Field DataType="Int64" FieldName="HiddenTotal" />
+            <Field DataType="Int64" FieldName="Overflow" />
+
+            <Field DataType="Int64" FieldName="ResetValue" />
+            <Field DataType="String" Size="256" FieldName="BonusId" />
+
+            <Field DataType="Int32" FieldName="AssignableProgressiveType" />
+            <Field DataType="String" Size="256" FieldName="AssignedProgressiveKey" />
+        </Fields>
+    </BlockFormat>
+</ArrayOfBlockFormat>

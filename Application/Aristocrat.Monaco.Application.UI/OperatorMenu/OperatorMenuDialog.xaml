@@ -1,0 +1,67 @@
+﻿<ContentControl x:Class="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+        mc:Ignorable="d" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:OperatorMenuDialogViewModel}, IsDesignTimeCreatable=False}"
+        BorderThickness="2"
+        Background="{DynamicResource DarkBrush1}" 
+        BorderBrush="{DynamicResource Brush3}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <ContentControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Style="{StaticResource MonacoWindowTitle}"
+                   Text="{Binding WindowTitle}"/>
+
+        <ContentControl Grid.Row="1" x:Name="DialogContent" Height="Auto" VerticalAlignment="Top"
+                        Visibility="{Binding ShowTextOnly, Converter={StaticResource BoolToCollapsedConverter}}"/>
+
+        <Label Grid.Row="1" Content="{Binding WindowText}" 
+               MinHeight="100"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               Visibility="{Binding ShowTextOnly, Converter={StaticResource BoolToVisConverter}}"/>
+
+        <TextBlock Grid.Row="2" Text="{Binding WindowInfoText}" TextAlignment="Center" Margin="0 10 0 0"
+                   Style="{StaticResource MonacoWarningTextBlock}" />
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <Button Content="{Binding SaveButtonText}"
+                    Command="{Binding SaveCommand, Mode=OneWay}"
+                    IsEnabled="{Binding CanSave, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding ShowSaveButton, Converter={StaticResource BoolToVisConverter}}"/>
+            <Button Content="{Binding CancelButtonText}"
+                    Command="{Binding CancelCommand, Mode=OneWay}"
+                    IsEnabled="{Binding CanCancel, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding ShowCancelButton, Converter={StaticResource BoolToVisConverter}}"/>
+        </StackPanel>
+    </Grid>
+</ContentControl>

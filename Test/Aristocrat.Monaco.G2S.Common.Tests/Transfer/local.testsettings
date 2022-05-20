@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSettings name="TestSettings" id="350a1732-b798-4794-b711-15b44e8504e9" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Deployment>
+    <DeploymentItem filename="AddinHelper.addin.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Common.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.addin.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Contracts.Bell.LogicalBell.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Discovery.addin.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Services.NoteAcceptorService.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Services.NoteAcceptorServiceDenominations.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Services.NoteAcceptorServiceDisabledReasons.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Services.NoteAcceptorServiceFirmware.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Services.ReelControllerService.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Options.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Options.xml" />
+	<DeploymentItem filename="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Options.xml" />
+	<DeploymentItem filename="AssemblyResolver.addin.xml" />
+	<DeploymentItem filename="Bootstrap.addin.xml" />
+	<DeploymentItem filename="DefaultPropertyProvider.addin.xml" />
+	<DeploymentItem filename="EventBus.addin.xml" />
+	<DeploymentItem filename="MessageDisplay.addin.xml" />
+	<DeploymentItem filename="MonoAddinsHelper.addin.xml" />
+	<DeploymentItem filename="PackageManager.addin.xml" />
+	<DeploymentItem filename="PathMapper.addin.xml" />
+	<DeploymentItem filename="PersistenceCriticalCleared.xml" />
+	<DeploymentItem filename="PersistenceStaticCleared.xml" />
+	<DeploymentItem filename="PersistenceTransientCleared.xml" />
+	<DeploymentItem filename="PropertiesManager.addin.xml" />
+	<DeploymentItem filename="ServiceManagerCore.addin.xml" />
+	<DeploymentItem filename="SystemDisableManager.addin.xml" />
+	<DeploymentItem filename="ThreadMonitor.addin.xml" />
+	<DeploymentItem filename="Template.xsd" />
+	<DeploymentItem filename="Region.xsd" />
+	
+	
+	<DeploymentItem filename="AddinHelper.dll" />
+	<DeploymentItem filename="AssemblyResolver.dll" />
+	<DeploymentItem filename="BaseThreadManagementRunnable.dll" />
+	<DeploymentItem filename="DefaultPropertyProvider.dll" />
+	<DeploymentItem filename="EventBus.dll" />
+	<DeploymentItem filename="LoggerConfigurationManager.dll" />
+	<DeploymentItem filename="MessageDisplay.dll" />
+	<DeploymentItem filename="PathMapper.dll" />
+	<DeploymentItem filename="PropertiesManager.dll" />
+	<DeploymentItem filename="RunnablesManager.dll" />
+	<DeploymentItem filename="ServiceManagerCore.dll" />
+	<DeploymentItem filename="SystemDisableManager.dll" />
+	<DeploymentItem filename="ThreadMonitor.dll" />
+  </Deployment>
+</TestSettings>

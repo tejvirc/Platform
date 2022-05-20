@@ -1,0 +1,23 @@
+<Addin id="SelectableJurisdiction" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="Jurisdiction" order="0"/>
+  </Extension>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <ExtensionNode name="SelectableJurisdiction" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Lobby/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+</Addin>

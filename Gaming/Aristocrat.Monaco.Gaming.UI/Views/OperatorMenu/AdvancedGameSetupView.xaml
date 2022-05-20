@@ -1,0 +1,543 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.AdvancedGameSetupView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:helpers="http://monaco.aristocrat.com/common"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+                               xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors"
+                               mc:Ignorable="d" 
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance viewModels:AdvancedGameSetupViewModel, IsDesignTimeCreatable=True}"
+                               common:DialogParticipation.Register="{Binding}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+
+            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Background" Value="{StaticResource DarkBrush1}"/>
+            </Style>
+
+            <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="FontSize" Value="{DynamicResource LabelFontSize}" />
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+
+            <converters:FormattedCurrencyConverter x:Key="CurrencyConverter" />
+            <converters:PaytableDisplayTextConverter x:Key="PaytableDisplayTextConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Name="View">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                        Margin="0 0 20 0"
+                        Visibility="{Binding HasMultipleGames, Converter={StaticResource BoolToVisConverter}}">
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameType}}" VerticalAlignment="Center"
+                           Margin="0 0 5 0"
+                           FontSize="16"/>
+                <ComboBox VerticalAlignment="Center" MinWidth="150" 
+                          ItemsSource="{Binding GameTypes}" 
+                          SelectedItem="{Binding SelectedGameType}"
+                          MinHeight="40">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock><lex:EnumRun EnumValue="{Binding}" PrependType="False" /></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsVirtualizing="True"/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameText}}" VerticalAlignment="Center"
+                           Margin="20 0 5 0"
+                           FontSize="16"/>
+                <ComboBox MinWidth="250"
+                          ItemsSource="{Binding Games}"
+                          SelectedItem="{Binding SelectedGame}"
+                          MinHeight="40">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ThemeName, Mode=OneWay}" 
+                                       VerticalAlignment="Center"  Padding="0 0 10 0"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsVirtualizing="True"/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Margin="0 0 20 0" Orientation="Horizontal" VerticalAlignment="Center"
+                        Visibility="{Binding HasTopAward, Converter={StaticResource BoolToVisConverter}}">
+                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.MachineTopAward}}"
+                           Margin="0 0 5 0"
+                           FontSize="16"/>
+                <TextBlock MinWidth="200" 
+                           Text="{Binding TopAwardValue, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Border Grid.Row="1" x:Name="ConfigsBorder" Style="{StaticResource MonacoBorder}" Margin="5">
+            <Grid x:Name="GridGameConfigs">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="{Binding SelectedGame.ThemeName, Mode=OneWay}"/>
+                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameOptions}}"/>
+                    <Run Text="{Binding ReadOnlyStatus, Mode=OneWay}"/>
+                </TextBlock>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource BoolToVisConverter}}">
+                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PackageLabel}}" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="16" />
+                    <ComboBox MinWidth="250" MinHeight="40"
+                              DisplayMemberPath="Name"
+                              ItemsSource="{Binding Restrictions, Mode=OneWay}"
+                              SelectedItem="{Binding SelectedRestriction, Mode=TwoWay}"
+                              IsEnabled="{Binding GameOptionsEnabled}"/>
+                </StackPanel>
+
+                <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource BoolToVisConverter}}">
+                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.DenomsSelected}}"/>
+                    <Run Text="{Binding SelectedGame.EnabledGameConfigurationsCount, Mode=OneWay, FallbackValue=0}"/>
+                    <Run Text="of"/>
+                    <Run Text="{Binding DenomSelectionLimit, Mode=OneWay}"/>
+                </TextBlock>
+
+                <DataGrid Grid.Row="2" Margin="0 -15 0 0" 
+                          ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
+                          Height="{Binding ElementName=GridGameConfigs, Path=ActualHeight}"
+                          Width="{Binding ElementName=GridGameConfigs, Path=ActualWidth}"
+                          behaviors:DataGridScrollFirstBehavior.ScrollIntoView="{Binding ResetScrollIntoView}"
+                          RowHeight="75"
+                          RowStyle="{StaticResource MonacoUnselectableDataGridRow}"
+                          CellStyle="{StaticResource MonacoExtraCompactDataGridCell}"
+                          AutoGenerateColumns="False"
+                          VerticalAlignment="Top"
+                          ScrollViewer.PanningMode="VerticalOnly"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          VirtualizingPanel.IsContainerVirtualizable="True"
+                          VirtualizingPanel.VirtualizationMode="Standard"
+                          VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                          VirtualizingPanel.CacheLengthUnit="Item"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.ScrollUnit="Item"
+                          EnableRowVirtualization="True"
+                          EnableColumnVirtualization="True"
+                          SelectedItem="{Binding SelectedConfig}"
+                          CanUserAddRows="False"
+                          CanUserResizeColumns="False"
+                          CanUserResizeRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserSortColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Resources>
+                        <common:BindingProxy x:Key="PageModel" Data="{Binding}"/>
+                        <Style TargetType="ComboBox" BasedOn="{StaticResource MonacoComboBox}">
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="Margin" Value="5 0 0 0"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <StackPanel Margin="10 -20 0 0">
+                                        <Label HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
+                                               Content="{Binding DenomString}" FontSize="16" Margin="0"/>
+                                        <CheckBox HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0"
+                                                  IsChecked="{Binding Path=DataContext.(models:EditableGameConfiguration.Enabled), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
+                                                  IsEnabled="{Binding CanToggleEnabled}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableRTP}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <ComboBox Width="Auto" MinWidth="150"
+                                              ItemsSource="{Binding AvailablePaytables, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedItem="{Binding SelectedPaytable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding CanEditAndEnabled}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{StaticResource PaytableDisplayTextConverter}">
+                                                            <Binding Path="Rtp"/>
+                                                            <Binding Path="GameDetail.VariationId"/>
+                                                            <Binding Path="Data.(viewModels:AdvancedGameSetupViewModel.ShowGameRtpAsRange)" Source="{StaticResource PageModel}" Mode="OneWay"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel IsVirtualizing="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BetOption}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <ComboBox Width="100"
+                                              ItemsSource="{Binding BetOptions}"
+                                              IsSynchronizedWithCurrentItem="False"
+                                              DisplayMemberPath="Name"
+                                              SelectedItem="{Binding SelectedBetOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding BetOptionEnabled}">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel IsVirtualizing="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LineOption}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <ComboBox Width="100"
+                                              ItemsSource="{Binding LineOptions}"
+                                              DisplayMemberPath="Name"
+                                              SelectedItem="{Binding SelectedLineOption, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding LineOptionEnabled}">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel IsVirtualizing="True"/>
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusBet}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsPokerGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                        <ComboBox Width="80"
+                                                  ItemsSource="{Binding BonusBets}"
+                                                  Visibility="{Binding BonusBetAvailable, Converter={StaticResource BoolToVisConverter}}"
+                                                  SelectedValue="{Binding SelectedBonusBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  IsEnabled="{Binding BonusBetEnabled}">
+                                            <ComboBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel IsVirtualizing="True"/>
+                                                </ItemsPanelTemplate>
+                                            </ComboBox.ItemsPanel>
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" FontSize="14"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                                   VerticalAlignment="Center"
+                                                   Width="80"
+                                                   Visibility="{Binding BonusBetAvailable, Converter={StaticResource BoolToCollapsedConverter}}">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}" 
+                                            HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}"
+                                            MaxWidth="120"
+                                            Binding="{Binding MaxBet, Mode=OneWay}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="5 0 0 0" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}"
+                                            HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}"
+                                            MaxWidth="120"
+                                            Binding="{Binding TopAwardValue, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="5 0 0 0" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Header="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleHeaderText), Source={StaticResource PageModel}}" 
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <CheckBox HorizontalAlignment="Center"
+                                              IsChecked="{Binding Gamble, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding CanEditAndEnableGamble}">
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideHeaderText), Source={StaticResource PageModel}}" 
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <CheckBox HorizontalAlignment="Center"
+                                              IsChecked="{Binding LetItRide, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding CanEditAndEnableLetItRide}">
+                                    </CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <helpers:SelectableCurrencyDecimalUpDown Width="120" FontSize="14"
+                                                                             SelectableValues="{Binding MinBetOptions, Mode=OneWay}"
+                                                                             Minimum="{Binding BetMinimum, Mode=OneWay}" 
+                                                                             Maximum="{Binding BetMaximum, Mode=OneWay}" 
+                                                                             Value="{Binding ForcedMinBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                             Style="{StaticResource MonacoDecimalUpDown}"
+                                                                             AllowTextInput="True"
+                                                                             IsEnabled="{Binding CanEditAndEnabled}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <helpers:CurrencyDecimalUpDown Width="120" FontSize="14"
+                                                                   Minimum="{Binding BetMinimum, Mode=OneWay}" 
+                                                                   Maximum="{Binding BetMaximum, Mode=OneWay}"
+                                                                   Increment="{Binding Denom}"
+                                                                   Value="{Binding ForcedMinBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                   Style="{StaticResource MonacoDecimalUpDown}"
+                                                                   AllowTextInput="True"
+                                                                   IsEnabled="{Binding CanEditAndEnabled}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetInside}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <helpers:CurrencyDecimalUpDown Width="120" FontSize="14"
+                                                                   Minimum="{Binding BetMinimum, Mode=OneWay}" 
+                                                                   Maximum="{Binding BetMaximum, Mode=OneWay}"
+                                                                   Increment="{Binding Denom}"
+                                                                   Value="{Binding ForcedMaxBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                   Style="{StaticResource MonacoDecimalUpDown}"
+                                                                   AllowTextInput="True"
+                                                                   IsEnabled="{Binding CanEditAndEnabled}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetOutside}}"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <helpers:CurrencyDecimalUpDown Width="120" FontSize="14"
+                                                                   Minimum="{Binding BetMinimum, Mode=OneWay}" 
+                                                                   Maximum="{Binding BetMaximum, Mode=OneWay}"
+                                                                   Increment="{Binding Denom}"
+                                                                   Value="{Binding ForcedMaxBetOutside, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                   Style="{StaticResource MonacoDecimalUpDown}"
+                                                                   AllowTextInput="True"
+                                                                   IsEnabled="{Binding CanEditAndEnabled}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn MaxWidth="43">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <Button Name="WarningButton" 
+                                            Style="{StaticResource MonacoWarningButton}"
+                                            Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            Visibility="{Binding WarningTextHidden, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}" >
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                                <Binding ElementName="WarningButton"/>
+                                                <Binding Path="WarningText"/>
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveColumnHeader}}" 
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Name="ProgressiveSetupButton" Margin="2 0 0 0"
+                                                Content="{Binding ProgressiveSetupText, UpdateSourceTrigger=PropertyChanged}"
+                                                Command="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.ProgressiveSetupCommand), Source={StaticResource PageModel}}"
+                                                CommandParameter="{Binding}"
+                                                Width="55"
+                                                FontSize="14"
+                                                Visibility="{Binding ProgressiveSetupVisibility, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                IsEnabled="{Binding ProgressiveSetupEnabled}"/>
+                                        <Button Name="ProgressiveViewButton" Margin="2 0 0 0"
+                                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveViewButtonText}}"
+                                                Command="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.ProgressiveViewCommand), Source={StaticResource PageModel}}"
+                                                CommandParameter="{Binding}"
+                                                Width="55"
+                                                FontSize="14"
+                                                Visibility="{Binding ProgressiveViewVisibility, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                                   VerticalAlignment="Center"
+                                                   Visibility="{Binding ProgressivesEnabled, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{Binding SaveButtonText, UpdateSourceTrigger=PropertyChanged}"
+                        Command="{Binding SaveCommand, Mode=OneWay}"
+                        IsEnabled="{Binding CanSave, UpdateSourceTrigger=PropertyChanged}"
+                        Visibility="{Binding ShowSaveButtonOverride, Converter={StaticResource BoolToVisConverter}}"
+                        Width="Auto"/>
+                <Button Name="SaveWarningButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
+                        Command="{Binding ShowInfoPopupCommand}"
+                        Visibility="{Binding Path=SaveWarningEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisConverter}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="SaveWarningButton" />
+                            <Binding Path="SaveWarningText" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+            <Button Content="{Binding CancelButtonText, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding CancelCommand, Mode=OneWay}"
+                    Visibility="{Binding ShowCancelButtonOverride, Converter={StaticResource BoolToVisConverter}}"
+                    Width="Auto"/>
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReconfigureGames}}"
+                    Command="{Binding ConfigCommand, Mode=OneWay}"
+                    IsEnabled="{Binding InputEnabled, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding ConfigureVisible, Converter={StaticResource BoolToVisConverter}}"
+                    Width="Auto"/>
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding ImportVisibleOverride, Converter={StaticResource BoolToVisConverter}}">
+                <Button x:Name="ImportBtn"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImportGameSettings}}"
+                        Command="{Binding ImportCommand}"
+                        Width="Auto" />
+                <Button Name="ImportInfoButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
+                        Command="{Binding ShowInfoPopupCommand}"
+                        Visibility="{Binding Path=CanExecuteImportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="ImportInfoButton" />
+                            <Binding ElementName="GameSetupEKeyImportVerified" Path="Result" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                    <lex:LocProxy x:Name="GameSetupEKeyImportVerified"
+                                  Source="{x:Static loc:ResourceKeys.GameSetupEKeyImportVerified}" />
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Visibility="{Binding ExportVisibleOverride, Converter={StaticResource BoolToVisConverter}}">
+                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExportGameSettings}}" 
+                        Command="{Binding ExportCommand}"
+                        Width="Auto"/>
+                <Button Name="ExportInfoButton" Style="{StaticResource MonacoInfoButton}" Margin="0 0 10 10"
+                        Visibility="{Binding Path=CanExecuteExportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToCollapsedConverter}}"
+                        Command="{Binding ShowInfoPopupCommand}">
+
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="ExportInfoButton" />
+                            <Binding ElementName="GameSetupEKeyExportVerified" Path="Result" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                    <lex:LocProxy x:Name="GameSetupEKeyExportVerified"
+                                  Source="{x:Static loc:ResourceKeys.GameSetupEKeyExportVerified}" />
+                </Button>
+            </StackPanel>
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewRTPSummary}}"
+                    Command="{Binding ShowRtpSummaryCommand}"
+                    Visibility="{Binding ShowSummaryButtons, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Width="Auto"/>
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewProgressiveSummary}}"
+                    Command="{Binding ShowProgressiveSummaryCommand}"
+                    Visibility="{Binding ShowSummaryButtons, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Width="Auto"/>
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

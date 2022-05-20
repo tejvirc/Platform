@@ -1,0 +1,101 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GamePerformanceMetersView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                               xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d" 
+                               common:DialogParticipation.Register="{Binding}"
+                               d:DesignHeight="300" d:DesignWidth="300"
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceMetersViewModel}, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <commonConverters:CurrencyConverter x:Key="CurrencyConverter"/>
+            <converters:ReturnToPlayerConverter x:Key="ReturnToPlayerConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+   
+    <Grid MaxHeight="560">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="Auto" />            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>            
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" 
+                   FontSize="{StaticResource LabelFontSize}">
+                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.Game}}"/>
+                <Run Text="#" />
+                <Run Text="{Binding GameNumber, Mode=OneWay}" />
+                <Run Text=" | " />
+                <Run Text="{Binding GameTheme, Mode=OneWay}" />
+                <Run Text=" | " />
+                <Run Text="{Binding GameDenom, Mode=OneWay, Converter={StaticResource CurrencyConverter}}" />
+                <Run Text=" | " />
+                <Run Text="{Binding GamePaytable, Mode=OneWay}" />
+        </TextBlock>
+
+        <TextBlock Grid.Column="2" Grid.Row="1" Margin="0 10 0 0"
+                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryTitle}}"
+                   FontWeight="Bold" Foreground="{StaticResource Brush3}"/>
+        
+        <DataGrid Grid.Column="0" Grid.Row="2" 
+                  ItemsSource="{Binding MetersLeftColumn}"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
+                                    Binding="{Binding Name}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                                    Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
+                                    HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
+                                    CellStyle="{StaticResource DataGridCellRight}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Grid.Column="2" Grid.Row="2"
+                  ItemsSource="{Binding WagerCategoryMeters}"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">                    
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" 
+                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
+                                    Binding="{Binding Id}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RTP}}" 
+                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
+                                    Binding="{Binding RTP, Converter={StaticResource ReturnToPlayerConverter}}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wagered}}" 
+                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
+                                    Binding="{Binding Wagered, Converter={StaticResource CurrencyConverter}}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="2" Grid.Row="3" Margin="0 10 0 0">                    
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryWeightedAvgCaption}}" 
+                       Foreground="{StaticResource Brush3}"
+                       FontWeight="Bold"/>
+            <TextBlock Margin="0 10 0 0"
+                       Text="{Binding GameTheoreticalWeightedRTP, Converter={StaticResource ReturnToPlayerConverter}}" />
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

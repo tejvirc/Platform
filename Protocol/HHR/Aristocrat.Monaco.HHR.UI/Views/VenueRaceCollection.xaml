@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Hhr.UI.Views.VenueRaceCollection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:VenueRaceCollectionViewModel, IsDesignTimeCreatable=False}">
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<Style x:Key="RaceSetTextBlockStyle" TargetType="TextBlock">
+				<Style.Setters>
+					<Setter Property="Foreground" Value="Green" />
+					<Setter Property="FontWeight" Value="UltraBold" />
+					<Setter Property="FontFamily" Value="Arial Black" />
+					<Setter Property="FontSize" Value="24" />
+					<Setter Property="LineHeight" Value="20" />
+					<Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
+					<Setter Property="HorizontalAlignment" Value="Right" />
+					<Setter Property="VerticalAlignment" Value="Center" />
+				</Style.Setters>
+			</Style>
+
+			<Style TargetType="{x:Type ItemsControl}" x:Key="ItemsControlStyle">
+				<Setter Property="Opacity" Value="0.0"></Setter>
+				<Style.Triggers>
+					<DataTrigger Value="True" Binding="{Binding IsAnimationVisible}">
+						<Setter Property="Opacity" Value="1.0"></Setter>
+					</DataTrigger>
+					<DataTrigger Value="False" Binding="{Binding IsAnimationVisible}">
+						<Setter Property="Opacity" Value="0.0"></Setter>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+	<Viewbox VerticalAlignment="Top" Margin="0 30 30 0">
+
+		<Grid>
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="30"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+
+			<Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<ItemsControl Style="{StaticResource ItemsControlStyle}" 
+                              ItemsSource="{Binding RaceSet1Title}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Style="{StaticResource RaceSetTextBlockStyle}" Text="{Binding}">
+								<TextBlock.RenderTransform>
+									<ScaleTransform ScaleX="1.0" ScaleY="0.8" />
+								</TextBlock.RenderTransform>
+							</TextBlock>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Border>
+
+			<Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+				<ItemsControl Style="{StaticResource ItemsControlStyle}" 
+                              ItemsSource="{Binding RaceSet1Models, Mode=OneWay}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid Rows="1" Columns="{Binding VenuesPerRow}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type models:VenueRaceTracksModel}">
+							<local:VenueRaceTracks IsPaused="{Binding DataContext.IsPaused, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, UpdateSourceTrigger=PropertyChanged}" 
+                                                   VenueName="{Binding VenueName}" 
+                                                   RacingLanes="{Binding RaceTrackModels}" 
+                                                   RaceStarted="{Binding RaceStarted}"/>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Border>
+
+			<Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<ItemsControl Style="{StaticResource ItemsControlStyle}" 
+                              ItemsSource="{Binding RaceSet2Title}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Style="{StaticResource RaceSetTextBlockStyle}" Text="{Binding}">
+								<TextBlock.RenderTransform>
+									<ScaleTransform ScaleX="1.0" ScaleY="0.8" />
+								</TextBlock.RenderTransform>
+							</TextBlock>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Border>
+
+			<Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+				<ItemsControl Style="{StaticResource ItemsControlStyle}"
+                              ItemsSource="{Binding RaceSet2Models, Mode=OneWay}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<UniformGrid  Rows="1" Columns="{Binding VenuesPerRow}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type models:VenueRaceTracksModel}">
+							<local:VenueRaceTracks IsPaused="{Binding DataContext.IsPaused, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, UpdateSourceTrigger=PropertyChanged}"
+                                                   VenueName="{Binding VenueName}" 
+                                                   RacingLanes="{Binding RaceTrackModels}"
+                                                   RaceStarted="{Binding RaceStarted}"/>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Border>
+		</Grid>
+	</Viewbox>
+</UserControl>

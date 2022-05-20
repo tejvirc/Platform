@@ -1,0 +1,77 @@
+<Addin id="AddinConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="TestConfiguration" order="1"/>
+  </Extension>
+    
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/TestConfiguration">
+    <ExtensionNode name="SelectableTestConfiguration" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+  
+	<Extension path="/Kernel/SelectableAddinConfiguration/TestConfiguration">
+    <SelectableTestConfiguration name="Test Configuration" description="Top level Test Configuration group">
+
+      <ExtensionPointConfiguration extensionPath="/Widgets">
+        <NodeSpecification addinId="Client12Addins.AddinConfiguration" typeName="Aristocrat.Monaco.Kernel.EventBus" order="1" />
+      </ExtensionPointConfiguration>
+    </SelectableTestConfiguration>
+  </Extension>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="TestConfigurationDuplicateExtensions" order="0"/>
+  </Extension>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/TestConfigurationDuplicateExtensions">
+    <ExtensionNode name="SelectableTestConfiguration" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+  
+  <Extension path="/Kernel/SelectableAddinConfiguration/TestConfigurationDuplicateExtensions">
+    <SelectableTestConfiguration name="Test Configuration Duplicate Extensions" description="Top level Test Configuration group with a duplicate"/>
+  </Extension>
+  
+  <Extension path="/Kernel/SelectableAddinConfiguration/TestConfigurationDuplicateExtensions">
+    <SelectableTestConfiguration name="Test Configuration Duplicate Extensions" description="Top level Test Configuration group with a duplicate"/>
+  </Extension>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="TestConfigurationNoChildren" order="0"/>
+  </Extension>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/TestConfigurationNoChildren">
+    <ExtensionNode name="SelectableTestConfiguration" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="TestConfigurationAddFilter" order="1"/>
+  </Extension>
+    
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/TestConfigurationAddFilter">
+    <ExtensionNode name="SelectableTestConfiguration" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+  
+  <Extension path="/Kernel/SelectableAddinConfiguration/TestConfigurationAddFilter">
+    <SelectableTestConfiguration name="Test Configuration Add Filter" description="Top level Test Configuration group that adds an extra filter">
+      <ExtensionPointConfiguration extensionPath="/Widgets">
+        <NodeSpecification addinId="Client12Addins.AddinConfiguration" typeName="Aristocrat.Monaco.Kernel.ServiceManagerCore" order="2" />
+      </ExtensionPointConfiguration>
+    </SelectableTestConfiguration>
+  </Extension>
+
+  <ExtensionPoint path="/Widgets">
+    <ExtensionNode name="Widget" />
+  </ExtensionPoint>
+  
+  <Extension path="/Widgets">
+    <Widget type="Aristocrat.Monaco.Kernel.EventBus" />
+    <Widget type="Aristocrat.Monaco.Kernel.ServiceManagerCore" />
+  </Extension>
+
+</Addin>

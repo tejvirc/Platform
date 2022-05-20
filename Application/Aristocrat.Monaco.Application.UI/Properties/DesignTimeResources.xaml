@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/MetroSkin.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Monaco.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.ScrollButtonDataGrid.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.TabButtonListBox.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/XceedToolKit.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

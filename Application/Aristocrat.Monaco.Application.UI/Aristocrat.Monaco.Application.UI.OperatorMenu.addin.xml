@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin id="Monaco.Application.UI.OperatorMenu" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Application.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.G2S.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.SAS.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.Mgam.UI.dll" />
+
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/OperatorMenu/MainMenu">
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.HardwareMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.IdentificationMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.MetersMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.NetworkMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.OptionsMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.OptionsPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.SoftwareMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.StatusMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.SystemMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.SystemResetPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.DiagnosticMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Application.UI.Loaders.ToolsMainPageLoader"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/HardwareMenu">
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.NoteAcceptorPageLoader" order="10"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="20"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.IdReaderPageLoader" order="30"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.DisplaysPageLoader" order="40"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.ButtonPageLoader" order="50"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.EdgeLightingPageLoader" order="60"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.SoundConfigPageLoader" order="70"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.LampsPageLoader" order="80"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.KeyPageLoader" order="90"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.BatteryPageLoader" order="100"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.BellPageLoader" order="110"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.MechanicalReelsPageLoader" order="120"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.BeagleBonePageLoader" order="130"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.HardwareManagerPageLoader" order="999"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/CommsMenu">
+    <CommsMenu type="Aristocrat.Monaco.Application.UI.Loaders.NetworkConfigPageLoader" order="20"/>
+    <CommsMenu type="Aristocrat.Monaco.Application.UI.Loaders.MultiProtocolConfigDisplayPageLoader" order="10"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/MetersMenu">
+    <MetersMenu type="Aristocrat.Monaco.Application.UI.Loaders.MainMetersPageLoader" order="10"/>
+    <MetersMenu type="Aristocrat.Monaco.Application.UI.Loaders.HardwareMetersPageLoader" order="999"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/OptionsMainMenu">
+    <OptionsMainMenu type="Aristocrat.Monaco.Application.UI.Loaders.OptionsPageLoader"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/OptionsMenu">
+    <OptionsMenu type="Aristocrat.Monaco.Application.UI.Loaders.CreditsInPageLoader"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/SoftwareMenu">
+    <SoftwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.SerialGatPageLoader"/>
+    <SoftwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.AlteredMediaPageLoader"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/StatusMenu">
+    <StatusMenu type="Aristocrat.Monaco.Application.UI.Loaders.StatusPageLoader" order="10"/>
+    <StatusMenu type="Aristocrat.Monaco.Application.UI.Loaders.DoorPageLoader" order="30"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/IdentificationMenu">
+    <IdentificationMenu type="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="10"/>
+    <IdentificationMenu type="Aristocrat.Monaco.Application.UI.Loaders.SoftwareVerificationPageLoader" order="40"/>
+    <IdentificationMenu type="Aristocrat.Monaco.Application.UI.Loaders.SerialGatPageLoader" order="50"/>
+    <IdentificationMenu type="Aristocrat.Monaco.Application.UI.Loaders.LicensePageLoader" order="60"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/SystemMenu">
+    <SystemMenu type="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="10"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/DiagnosticMenu">
+    <DiagnosticMenu type="Aristocrat.Monaco.Application.UI.Loaders.DiagnosticResourcesPageLoader" order="10"/>
+    <DiagnosticMenu type="Aristocrat.Monaco.Application.UI.Loaders.DiagnosticNetworkPageLoader" order="20"/>
+    <DiagnosticMenu type="Aristocrat.Monaco.Application.UI.Loaders.IOPageLoader" order="30"/>
+    <DiagnosticMenu type="Aristocrat.Monaco.Sas.UI.Loaders.DiagnosticSasPageLoader" order="110"/>
+    <DiagnosticMenu type="Aristocrat.Monaco.G2S.UI.Loaders.HostTranscriptsViewLoader" order="210"/>
+    <DiagnosticMenu type="Aristocrat.Monaco.Mgam.UI.Loaders.HostTranscriptsPageLoader" order="310"/>
+  </Extension>
+
+  <Extension path ="/Application/OperatorMenu/ToolsMenu">
+    <ToolsMenu type="Aristocrat.Monaco.Application.UI.Loaders.ExportMachineSettingsLoader" order="10"/>
+  </Extension>
+</Addin>

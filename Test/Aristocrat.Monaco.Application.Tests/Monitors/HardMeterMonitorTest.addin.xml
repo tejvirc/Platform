@@ -1,0 +1,31 @@
+<Addin id="HardMeterMonitorTest" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+  	<SelectableAddinConfiguration name="Jurisdiction" order="0"/>
+  	<SelectableAddinConfiguration name="Protocol" order="1"/>
+  </Extension>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <ExtensionNode name="SelectableJurisdiction" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableJurisdiction name="Quebec VLT" description="Test jurisdiction group">
+      <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
+        <NodeSpecification addinId="Client12Addins.Application.Test" filterid="HardMeterMonitorTestJurisdiction" />
+      </ExtensionPointConfiguration>
+    </SelectableJurisdiction>
+  </Extension>
+
+  <Extension path="/Application/JurisdictionConfiguration">
+    <FilePath FilePath=".\HardMeterMonitorTest.Application.config.xml" filterid="HardMeterMonitorTestJurisdiction" />
+  </Extension>
+</Addin>

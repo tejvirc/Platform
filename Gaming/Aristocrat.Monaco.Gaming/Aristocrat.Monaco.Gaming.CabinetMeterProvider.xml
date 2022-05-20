@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.CabinetMeterProvider.xml">
+  <Fields>
+    <Field DataType="Int64" FieldName="GamesPlayedSinceDoorClosedLifetime" />
+    <Field DataType="Int64" FieldName="GamesPlayedSinceDoorClosedPeriod" />
+    <Field DataType="Int64" FieldName="WageredCashableAmountLifetime" />
+    <Field DataType="Int64" FieldName="WageredCashableAmountPeriod" />
+    <Field DataType="Int64" FieldName="WageredPromoAmountLifetime" />
+    <Field DataType="Int64" FieldName="WageredPromoAmountPeriod" />
+    <Field DataType="Int64" FieldName="WageredNonCashableAmountLifetime" />
+    <Field DataType="Int64" FieldName="WageredNonCashableAmountPeriod" />
+  </Fields>
+</BlockFormat>
+<BlockFormat version="2" name="Aristocrat.Monaco.Gaming.CabinetMeterProvider.xml">
+  <Fields>
+    <Field DataType="Int64" FieldName="GamesPlayedSinceDoorClosedLifetime" />
+    <Field DataType="Int64" FieldName="GamesPlayedSinceDoorClosedPeriod" />
+    <Field DataType="Int64" FieldName="WageredCashableAmountLifetime" />
+    <Field DataType="Int64" FieldName="WageredCashableAmountPeriod" />
+    <Field DataType="Int64" FieldName="WageredPromoAmountLifetime" />
+    <Field DataType="Int64" FieldName="WageredPromoAmountPeriod" />
+    <Field DataType="Int64" FieldName="WageredNonCashableAmountLifetime" />
+    <Field DataType="Int64" FieldName="WageredNonCashableAmountPeriod" />
+    <Field DataType="Int64" FieldName="GamesPlayedSinceDoorOpenLifetime" />
+    <Field DataType="Int64" FieldName="GamesPlayedSinceDoorOpenPeriod" />
+  </Fields>
+</BlockFormat>
+</ArrayOfBlockFormat>

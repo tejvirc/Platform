@@ -1,0 +1,227 @@
+﻿<Window x:Class="CabinetConfigurationTester.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CabinetConfigurationTester"
+        mc:Ignorable="d"
+        Title="Cabinet Configuration Tester" Height="600" Width="800">
+    <Window.DataContext>
+        <local:CabinetViewModel />
+    </Window.DataContext>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0">
+            <StackPanel Orientation="Vertical">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Select Display" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top"
+                           FontWeight="Bold" />
+                    <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top"
+                              ItemsSource="{Binding DisplayDevices}" DisplayMemberPath="Name"
+                              SelectedItem="{Binding CurrentDisplayDevice}" SelectedIndex="0" />
+                </Grid>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Resolution" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Stretch" FontWeight="Bold" />
+                    <Label Content="Width" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Stretch" />
+                    <Label Content="Height" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Stretch" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
+                             Text="{Binding DisplayResolutionWidth}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
+                             Text="{Binding DisplayResolutionHeight}" />
+
+                </Grid>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Physical Size(mm)" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Stretch" FontWeight="Bold" />
+                    <Label Content="Width" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Stretch" />
+                    <Label Content="Height" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Stretch" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
+                             Text="{Binding DisplayPhysicalWidth}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
+                             Text="{Binding DisplayPhysicalWidth}" />
+                </Grid>
+                <Button Content="Add Display" HorizontalAlignment="Right" Margin="5" Name="AddDisplayButton"
+                        Click="AddDisplayButton_Click" />
+            </StackPanel>
+            <StackPanel>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Select Touch" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top"
+                           FontWeight="Bold" />
+                    <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top"
+                              ItemsSource="{Binding TouchDevices}"
+                              SelectedItem="{Binding CurrentTouchDevice}" SelectedIndex="0" />
+                </Grid>
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Touch Info" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Stretch" FontWeight="Bold" />
+                    <Label Content="PID" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" />
+                    <Label Content="VID" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
+                             Text="{Binding CurrentTouchDevice.Pid}" />
+                    <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch"
+                             Text="{Binding CurrentTouchDevice.Vid}" />
+                </Grid>
+                <Button Content="Add Touch" HorizontalAlignment="Right" Margin="5" Name="AddTouchButton"
+                        Click="AddTouchButton_Click" />
+            </StackPanel>
+        </StackPanel>
+        <Grid HorizontalAlignment="Stretch" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height=".5*" />
+                <RowDefinition Height=".5*" />
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Content="Auto Detect" Name="DetectDevices" HorizontalAlignment="Left"
+                    Margin="5"
+                    Click="DetectDevices_Click" />
+            <Button Grid.Row="0" Grid.Column="1" Content="Clear Devices" Name="ClearDetectedDevices"
+                    HorizontalAlignment="Right" Margin="5" Click="ClearDetectedDevices_Click" />
+            <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+                <TextBlock Margin="10" Text="Detected display devices" FontWeight="Bold" DockPanel.Dock="Top" />
+                <ListBox ItemsSource="{Binding DetectedDisplayDevices}" MinHeight="100" Name="DetectedDisplays">
+                    <ListBox.InputBindings>
+                        <KeyBinding Key="Delete"
+                                    Command="{Binding DeleteDetectedDisplay, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
+                    </ListBox.InputBindings>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>
+                                        <Run Text="Display:" FontWeight="Bold" />
+                                        <Run Text="{Binding Name}" />
+                                        <LineBreak />
+                                        <Run Text="Resolution:" FontWeight="Bold" />
+                                        <Run Text="{Binding Resolution.X}" />
+                                        <Run Text="x" />
+                                        <Run Text="{Binding Resolution.Y}" />
+                                        <LineBreak />
+                                        <Run Text="Size:" FontWeight="Bold" />
+                                        <Run Text="{Binding PhysicalSize.Width}" />
+                                        <Run Text="x" />
+                                        <Run Text="{Binding PhysicalSize.Height}" />
+                                    </TextBlock>
+                                    <Label Content="Connector Id" VerticalAlignment="Top" FontWeight="Bold" />
+                                    <TextBox Text="{Binding ConnectorId}" VerticalAlignment="Top" Margin="2" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+            </DockPanel>
+            <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+                <TextBlock Margin="10" Text="Detected touch devices" FontWeight="Bold" DockPanel.Dock="Top" />
+                <ListBox ItemsSource="{Binding DetectedTouchDevices}" MinHeight="100" Name="DetectedTouchDevices"
+                         VerticalAlignment="Stretch">
+                    <ListBox.InputBindings>
+                        <KeyBinding Key="Delete"
+                                    Command="{Binding DeleteDetectedTouchDevices, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
+                    </ListBox.InputBindings>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>
+                                    <Run Text="Touch Screen:" FontWeight="Bold" />
+                                    <Run Text="{Binding Name}" />
+                                    <LineBreak />
+                                    <Run Text="PID:" FontWeight="Bold" />
+                                    <Run Text="{Binding Pid}" />
+                                    <Run Text=" VID:" FontWeight="Bold" />
+                                    <Run Text="{Binding Vid}" />
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+            </DockPanel>
+        </Grid>
+        <DockPanel VerticalAlignment="Stretch" Grid.Column="2">
+            <DockPanel DockPanel.Dock="Top">
+                <Button DockPanel.Dock="Left" Content="Identify" Name="IdentifyButton" HorizontalAlignment="Left"
+                        Margin="5" Click="IdentifyButton_Click" />
+                <Button DockPanel.Dock="Left" Content="Refresh" Name="RefreshStatus" HorizontalAlignment="Left"
+                        Margin="5" Click="RefreshStatus_Click" />
+                <Button DockPanel.Dock="Right" Content="Detect and Apply Settings" Name="DetectAndApplySettings"
+                        HorizontalAlignment="Right" Margin="5" Click="DetectAndApplySettings_Click" />
+            </DockPanel>
+            <TextBlock DockPanel.Dock="Top">
+                <Run Text="Cabinet: " FontWeight="Bold" />
+                <Run Text="{Binding Cabinet.CabinetType}" />
+                <Run Text=" Family: " FontWeight="Bold" />
+                <Run Text="{Binding Cabinet.Family}" />
+                <Run Text=" Id: " FontWeight="Bold" />
+                <Run Text="{Binding Cabinet.Id}" />
+            </TextBlock>
+            <StackPanel DockPanel.Dock="Bottom">
+                <Button Content="Save" Name="SaveCabinetFile" Click="SaveCabinetFile_Click" />
+            </StackPanel>
+            <ScrollViewer MinWidth="100" Margin="5" HorizontalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding CabinetXml}" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"
+                           ScrollViewer.CanContentScroll="True" />
+            </ScrollViewer>
+        </DockPanel>
+    </Grid>
+</Window>

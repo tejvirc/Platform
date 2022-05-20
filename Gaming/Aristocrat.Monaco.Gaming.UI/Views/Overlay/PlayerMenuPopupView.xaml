@@ -1,0 +1,535 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Overlay.PlayerMenuPopupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             x:Name="PlayerMenuPopup"
+             mc:Ignorable="d" 
+             Width="Auto" Height="Auto"
+             Margin="10 0 0 166"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Bottom"
+             VerticalContentAlignment="Bottom"
+             IsVisibleChanged="PlayerMenuPopupView_OnIsVisibleChanged"
+             Unloaded="PlayerMenuPopupView_OnUnloaded"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown" >
+            <i:InvokeCommandAction Command="{Binding PlayerMenuPopupViewModel.MouseDownOnMenuCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ImageBrush x:Key="ThreeSectionBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=ThreeSectionBackgroundImage}"/>
+            <ImageBrush x:Key="TwoSectionTrackingBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionTrackingBackgroundImage}"/>
+            <ImageBrush x:Key="TwoSectionReserveBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionReserveBackgroundImage}"/>
+            <ImageBrush x:Key="OneSectionBackgroundImageBrush" Stretch="None" ImageSource="{Binding ElementName=PlayerMenuPopup, Path=OneSectionBackgroundImage}"/>
+
+            <Style x:Key="SessionTrackingValueStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="TextAlignment" Value="Right"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+
+            <Style x:Key="FourDigitPinBoxStyle" TargetType="TextBox">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="CaretBrush" Value="Gray"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Width" Value="90"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="MaxLength" Value="4"/>
+                <Setter Property="FontSize" Value="48"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="Root"
+          HorizontalAlignment="Center" VerticalAlignment="Bottom"
+          Width="{DynamicResource OneSectionBackgroundImage.Width}">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Value="FullMenu" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
+                        <Setter Property="Background" Value="{StaticResource ThreeSectionBackgroundImageBrush}"/>
+                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=ThreeSectionBackgroundImage.Height}"/>
+                    </DataTrigger>
+                    <DataTrigger Value="SessionTrackingAndButtons" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
+                        <Setter Property="Background" Value="{StaticResource TwoSectionTrackingBackgroundImageBrush}"/>
+                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionTrackingBackgroundImage.Height}"/>
+                    </DataTrigger>
+                    <DataTrigger Value="ReserveMachineAndButtons" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
+                        <Setter Property="Background" Value="{StaticResource TwoSectionReserveBackgroundImageBrush}"/>
+                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=TwoSectionReserveBackgroundImage.Height}"/>
+                    </DataTrigger>
+                    <DataTrigger Value="ButtonsOnly" Binding="{Binding PlayerMenuPopupViewModel.MenuBackgroundOption}">
+                        <Setter Property="Background" Value="{StaticResource OneSectionBackgroundImageBrush}"/>
+                        <Setter Property="Height" Value="{Binding ElementName=PlayerMenuPopup, Path=OneSectionBackgroundImage.Height}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
+        <!-- Stack panel containing the 3 sections -->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <!-- Session tracking - top section Margin-->
+            <StackPanel x:Name="SessionTrackingSection"
+                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        Visibility="{Binding PlayerMenuPopupViewModel.IsSessionTrackingSectionVisible,
+                        Converter={StaticResource BoolToVisConverter}}">
+                <Grid x:Name="SessionTrackingValuesGrid"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      Margin="200 43 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="33"/>
+                        <RowDefinition Height="33"/>
+                        <RowDefinition Height="33"/>
+                        <RowDefinition Height="33"/>
+                    </Grid.RowDefinitions>
+                    <!-- Start time -->
+                    <TextBlock x:Name="StartTimeTextBlock"
+                               Grid.Row="0"
+                               Style="{StaticResource SessionTrackingValueStyle}"
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingStartTime}"/>
+                    <!-- Games played -->
+                    <TextBlock x:Name="GamesPlayedTextBlock"
+                               Grid.Row="1"
+                               Style="{StaticResource SessionTrackingValueStyle}"
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingGamesPlayed}"/>
+                    <!-- Amount played -->
+                    <TextBlock x:Name="AmountPlayedTextBlock"
+                               Grid.Row="2"
+                               Style="{StaticResource SessionTrackingValueStyle}"
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingAmountPlayed}"/>
+                    <!-- Amount won -->
+                    <TextBlock x:Name="AmountWonTextBlock"
+                               Grid.Row="3"
+                               Style="{StaticResource SessionTrackingValueStyle}"
+                               Text="{Binding PlayerMenuPopupViewModel.TrackingAmountWon}"/>
+                </Grid>
+                <!-- Start new session button -->
+                <Button x:Name="StartNewSessionButton"
+                        Margin="0 8 0 0"
+                        Command="{Binding PlayerMenuPopupViewModel.StartNewSessionClickedCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Image Name="StartNewSessionButtonImage" Stretch="None" Source="{DynamicResource StartNewSessionNormal}"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="StartNewSessionButtonImage" Property="Source" Value="{DynamicResource StartNewSessionPressed}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+
+            <!-- Reserve Machine - middle section -->
+            <StackPanel x:Name="ReserveMachineSection"
+                        HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                        Visibility="{Binding PlayerMenuPopupViewModel.IsReserveMachineSectionVisible,
+                            Converter={StaticResource BoolToVisConverter}}">
+
+                <!-- PIN entry box -->
+                <TextBox x:Name="FourDigitPinBox"
+                         Style="{StaticResource FourDigitPinBoxStyle}"
+                         Margin="200 27 0 0"
+                         IsReadOnly="True" 
+                         IsReadOnlyCaretVisible="False"
+                         Focusable="False"
+                         Text="{Binding PlayerMenuPopupViewModel.PinBoxContent, Mode=OneWay}"/>
+                <!-- 0-9 digit grid -->
+                <Grid Name="DigitGrid"
+                      Margin="0 6 0 0"
+                      HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="66"/>
+                        <ColumnDefinition Width="66"/>
+                        <ColumnDefinition Width="66"/>
+                        <ColumnDefinition Width="66"/>
+                        <ColumnDefinition Width="66"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="56"/>
+                        <RowDefinition Height="56"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Button for 1 digit -->
+                    <Button Name="Digit1Button"
+                            Grid.Row="0" Grid.Column="0"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="1"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit1Image" Stretch="None" Source="{DynamicResource Digit1Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit1Image" Property="Source" Value="{DynamicResource Digit1Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit1Image" Property="Source" Value="{DynamicResource Digit1Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 2 digit -->
+                    <Button Name="Digit2Button"
+                            Grid.Row="0" Grid.Column="1"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="2"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit2Image" Stretch="None" Source="{DynamicResource Digit2Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit2Image" Property="Source" Value="{DynamicResource Digit2Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit2Image" Property="Source" Value="{DynamicResource Digit2Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 3 digit -->
+                    <Button Name="Digit3Button"
+                            Grid.Row="0" Grid.Column="2"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="3"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit3Image" Stretch="None" Source="{DynamicResource Digit3Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit3Image" Property="Source" Value="{DynamicResource Digit3Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit3Image" Property="Source" Value="{DynamicResource Digit3Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 4 digit -->
+                    <Button Name="Digit4Button"
+                            Grid.Row="0" Grid.Column="3"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="4"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit4Image" Stretch="None" Source="{DynamicResource Digit4Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit4Image" Property="Source" Value="{DynamicResource Digit4Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit4Image" Property="Source" Value="{DynamicResource Digit4Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 5 digit -->
+                    <Button Name="Digit5Button"
+                            Grid.Row="0" Grid.Column="4"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="5"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit5Image" Stretch="None" Source="{DynamicResource Digit5Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit5Image" Property="Source" Value="{DynamicResource Digit5Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit5Image" Property="Source" Value="{DynamicResource Digit5Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 6 digit -->
+                    <Button Name="Digit6Button"
+                            Grid.Row="1" Grid.Column="0"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="6"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit6Image" Stretch="None" Source="{DynamicResource Digit6Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit6Image" Property="Source" Value="{DynamicResource Digit6Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit6Image" Property="Source" Value="{DynamicResource Digit6Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 7 digit -->
+                    <Button Name="Digit7Button"
+                            Grid.Row="1" Grid.Column="1"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="7"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit7Image" Stretch="None" Source="{DynamicResource Digit7Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit7Image" Property="Source" Value="{DynamicResource Digit7Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit7Image" Property="Source" Value="{DynamicResource Digit7Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 8 digit -->
+                    <Button Name="Digit8Button"
+                            Grid.Row="1" Grid.Column="2"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="8"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit8Image" Stretch="None" Source="{DynamicResource Digit8Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit8Image" Property="Source" Value="{DynamicResource Digit8Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit8Image" Property="Source" Value="{DynamicResource Digit8Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 9 digit -->
+                    <Button Name="Digit9Button"
+                            Grid.Row="1" Grid.Column="3"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="9"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit9Image" Stretch="None" Source="{DynamicResource Digit9Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit9Image" Property="Source" Value="{DynamicResource Digit9Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit9Image" Property="Source" Value="{DynamicResource Digit9Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- Button for 0 digit -->
+                    <Button Name="Digit0Button"
+                            Grid.Row="1" Grid.Column="4"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveDigitClickedCommand}"
+                            CommandParameter="0"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="Digit0Image" Stretch="None" Source="{DynamicResource Digit0Normal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Digit0Image" Property="Source" Value="{DynamicResource Digit0Pressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="Digit0Image" Property="Source" Value="{DynamicResource Digit0Disabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+                <!-- Backspace and reserve button -->
+                <StackPanel Name="BackspaceAndReserveButtonPanel"
+                            Orientation="Horizontal" FlowDirection="LeftToRight"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Margin="0">
+                    <!-- The backspace button -->
+                    <Button Name="BackspaceButton"
+                            Click="HandleNonClosingPress"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveBackspaceClickedCommand}"
+                            IsEnabled="{Binding ReserveMachineAllowed}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="BackspaceButtonImage" Stretch="None" Source="{DynamicResource BackspaceNormal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="BackspaceButtonImage" Property="Source" Value="{DynamicResource BackspacePressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter TargetName="BackspaceButtonImage" Property="Source" Value="{DynamicResource BackspaceDisabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <!-- The reserve button, will launch the reserve machine confirm PIN display -->
+                    <Button x:Name="ReserveButton"
+                            Command="{Binding PlayerMenuPopupViewModel.ReserveClickedCommand}"
+                            Margin="0">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                <Binding Path="ReserveMachineAllowed"/>
+                                <Binding Path="PlayerMenuPopupViewModel.ReserveButtonEnabled"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Image Name="ReserveButtonImage" Stretch="None" Source="{DynamicResource ReserveNormal}"/>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="ReserveButtonImage" Property="Source" Value="{DynamicResource ReservePressed}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="ReserveButtonImage" Property="Source" Value="{DynamicResource ReserveDisabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Buttons - bottom section -->
+            <Grid x:Name="ButtonSection"
+                  HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                  Margin="0 0 0 -12">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            Margin="0 0 0 30">
+                    <!-- Top row -->
+                    <StackPanel Name="TopButtonRow"
+                                Orientation="Horizontal" FlowDirection="LeftToRight"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Margin="0 16 0 0">
+                        <!-- CashOut button -->
+                        <Button x:Name="CashOutButton"
+                                Command="{Binding CashOutCommand}"
+                                IsEnabled="{Binding CashOutEnabledInPlayerMenu}"
+                                Margin="0 0 20 0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Image Name="CashOutButtonImage" Stretch="None" Source="{DynamicResource CashoutNormal}"/>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter TargetName="CashOutButtonImage" Property="Source" Value="{DynamicResource CashoutDisabled}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="CashOutButtonImage" Property="Source" Value="{DynamicResource CashoutPressed}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <!-- Return to lobby button -->
+                        <Button x:Name="LobbyButton"
+                                Command="{Binding ReturnToLobbyCommand}"
+                                IsEnabled="{Binding ReturnToLobbyAllowed}"
+                                Margin="0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Image Name="LobbyButtonImage" Stretch="None" Source="{DynamicResource LobbyNormal}"/>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter TargetName="LobbyButtonImage" Property="Source" Value="{DynamicResource LobbyDisabled}"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="LobbyButtonImage" Property="Source" Value="{DynamicResource LobbyPressed}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Bottom row -->
+                    <StackPanel Name="BottomButtonRow"
+                                Orientation="Horizontal" FlowDirection="LeftToRight"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Margin="0 6 0 0">
+                        <!-- Volume control button -->
+                        <Button x:Name="VolumeButton"
+                                Click="HandleNonClosingPress"
+                                Command="{Binding Volume.VolumeCommand}"
+                                Visibility="{Binding PlayerMenuPopupViewModel.IsVolumeButtonVisible,
+                                    Converter={StaticResource BoolToVisConverter}}"
+                                Margin="0 0 20 0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Image Stretch="None" Source="{DynamicResource Volume0}"/>
+                                        <Image Stretch="None">
+                                            <Image.Style>
+                                                <Style TargetType="{x:Type Image}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Value="1" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
+                                                            <Setter Property="Source" Value="{DynamicResource Volume1}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Value="2" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
+                                                            <Setter Property="Source" Value="{DynamicResource Volume2}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Value="3" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
+                                                            <Setter Property="Source" Value="{DynamicResource Volume3}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Value="4" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
+                                                            <Setter Property="Source" Value="{DynamicResource Volume4}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Value="5" Binding="{Binding Volume.VolumeValue, UpdateSourceTrigger=PropertyChanged}">
+                                                            <Setter Property="Source" Value="{DynamicResource Volume5}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <!-- Brightness control button - will go here -->
+                        <!--<Button x:Name="BrightnessButton" Click="HandleNonClosingPress" />-->
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
+   

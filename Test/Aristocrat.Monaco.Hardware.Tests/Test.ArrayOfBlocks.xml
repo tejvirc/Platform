@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+    <BlockFormat version="1" name="Vgt.Client12.Application.SystemPropertiesProvider">
+        <Fields>
+            <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+            <Field DataType="Int32" FieldName="SerialNumber" />
+            <Field DataType="String" Size="16" FieldName="MachineId" />
+            <Field DataType="Byte" FieldName="System.DefaultVolumeLevel" />
+        </Fields>
+    </BlockFormat>
+    <BlockFormat version="2" name="Vgt.Client12.Application.SystemPropertiesProvider">
+        <Fields>
+            <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+            <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+            <Field DataType="Int32" FieldName="SerialNumber" />
+            <Field DataType="String" Size="16" FieldName="MachineId" />
+            <Field DataType="Byte" FieldName="System.DefaultVolumeLevel" />
+        </Fields>
+    </BlockFormat>
+    <BlockFormat version="3" name="Vgt.Client12.Application.SystemPropertiesProvider">
+        <Fields>
+            <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+            <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+            <Field DataType="Bool" FieldName="PrinterEnabled" />
+            <Field DataType="Int32" FieldName="SerialNumber" />
+            <Field DataType="String" Size="16" FieldName="MachineId" />
+            <Field DataType="Byte" FieldName="System.DefaultVolumeLevel" />
+        </Fields>
+    </BlockFormat>
+</ArrayOfBlockFormat>

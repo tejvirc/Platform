@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBlockFormat>
+    <BlockFormat version="1" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+      <Fields>
+        <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+        <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+        <Field FieldName="System.VoucherIn" DataType="Bool" />
+        <Field FieldName="System.VoucherOut" DataType="Bool" />
+        <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+        <Field FieldName="Cabinet.MaxCreditMeter" DataType="Int64" />
+        <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+        <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+        <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+        <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+        <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+        <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      </Fields>
+    </BlockFormat>
+    <BlockFormat version="2" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+        <Fields>
+            <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+            <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+            <Field FieldName="System.VoucherIn" DataType="Bool" />
+            <Field FieldName="System.VoucherOut" DataType="Bool" />
+            <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+            <Field FieldName="Cabinet.MaxCreditMeter" DataType="Int64" />
+            <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+            <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+            <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+            <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+            <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+            <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+            <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+        </Fields>
+    </BlockFormat>
+  <BlockFormat version="3" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="5" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="6" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+      <Field FieldName="TicketProperty.BarcodeLength" DataType="Int32"/>
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="7" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Default" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.MaxAllowed" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+      <Field FieldName="TicketProperty.BarcodeLength" DataType="Int32"/>
+      <Field FieldName="System.NoteIn" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimit" DataType="Int64" />
+      <Field FieldName="Handpay.LargeWinHandpayResetMethod" DataType="Int32" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="8" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Default" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.MaxAllowed" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+      <Field FieldName="TicketProperty.BarcodeLength" DataType="Int32"/>
+      <Field FieldName="System.NoteIn" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimit" DataType="Int64" />
+      <Field FieldName="Handpay.LargeWinHandpayResetMethod" DataType="Int32" />
+      <Field FieldName="System.VoucherOutLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLimitEnabled" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="9" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Default" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.MaxAllowed" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+      <Field FieldName="TicketProperty.BarcodeLength" DataType="Int32"/>
+      <Field FieldName="System.NoteIn" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimit" DataType="Int64" />
+      <Field FieldName="Handpay.LargeWinHandpayResetMethod" DataType="Int32" />
+      <Field FieldName="System.VoucherOutLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLimitEnabled" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Enabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxBetLimitEnabled" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="10" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Default" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.MaxAllowed" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+      <Field FieldName="TicketProperty.BarcodeLength" DataType="Int32"/>
+      <Field FieldName="System.NoteIn" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimit" DataType="Int64" />
+      <Field FieldName="Handpay.LargeWinHandpayResetMethod" DataType="Int32" />
+      <Field FieldName="System.VoucherOutLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLimitEnabled" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Enabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxBetLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLaundry" DataType="Int64" />
+      <Field FieldName="System.CashInLaundry" DataType="Int64" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="11" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.LargeWinRatio" DataType="Int64" />
+      <Field FieldName="Cabinet.LargeWinRatioThreshold" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Default" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.MaxAllowed" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+      <Field FieldName="TicketProperty.BarcodeLength" DataType="Int32"/>
+      <Field FieldName="System.NoteIn" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimit" DataType="Int64" />
+      <Field FieldName="Handpay.LargeWinHandpayResetMethod" DataType="Int32" />
+      <Field FieldName="System.VoucherOutLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLimitEnabled" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinRatioEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinRatioThresholdEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Enabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxBetLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLaundry" DataType="Int64" />
+      <Field FieldName="System.CashInLaundry" DataType="Int64" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="12" Name="Aristocrat.Monaco.Accounting.AccountingPropertyProvider">
+    <Fields>
+      <Field FieldName="System.MaxCreditsIn" DataType="Int64" />
+      <Field FieldName="System.MaxTenderInLimit" DataType="Int64" />
+      <Field FieldName="System.VoucherIn" DataType="Bool" />
+      <Field FieldName="System.VoucherOut" DataType="Bool" />
+      <Field FieldName="System.VoucherOutNonCash" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.LargeWinRatio" DataType="Int64" />
+      <Field FieldName="Cabinet.LargeWinRatioThreshold" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Default" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxCreditMeter.MaxAllowed" DataType="Int64" />
+      <Field FieldName="Cabinet.MaxBetLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.EnableMoneyIn" DataType="Bool" />
+      <Field FieldName="TicketProperty.TicketTextLine1" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine2" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTextLine3" DataType="String" Size="40"/>
+      <Field FieldName="TicketProperty.TicketTitleCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitlePromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleLargeWin" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleBonusNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatPromo" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketTitleWatNonCash" DataType="String" Size="32"/>
+      <Field FieldName="TicketProperty.TicketRedeemText" DataType="String" Size="2"/>
+      <Field FieldName="Cabinet.VoucherInLimit" DataType="Int64" />
+      <Field FieldName="Cabinet.VoucherOutLimit" DataType="Int64" />
+      <Field FieldName="System.CheckCreditsIn" DataType="Int32" />
+      <Field FieldName="System.AllowCreditUnderLimit" DataType="Bool" />
+      <Field FieldName="Cabinet.RebootWhilePrintingBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherBehavior" DataType="String" Size="32"/>
+      <Field FieldName="Cabinet.ReprintLoggedVoucherTitleOverride" DataType="Bool" />
+      <Field FieldName="Cabinet.ReprintLoggedVoucherDoorOpenRequirement" DataType="String" Size="128"/>
+      <Field FieldName="Cabinet.VoucherOutExpirationDays" DataType="Int32" />
+      <Field FieldName="Cabinet.VoucherOutNonCashExpirationDays" DataType="Int32" />
+      <Field FieldName="TransferOut.TransferContext" DataType="String" Size="256"/>
+      <Field FieldName="TicketProperty.IgnoreVoucherStackedDuringReboot" DataType="Bool"/>
+      <Field FieldName="Cabinet.MaxWinAmount" DataType="Int64" />
+      <Field FieldName="Cabinet.CelebrationLockupLimit" DataType="Int64" />
+      <Field FieldName="TicketProperty.BarcodeLength" DataType="Int32"/>
+      <Field FieldName="System.NoteIn" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimit" DataType="Int64" />
+      <Field FieldName="Handpay.LargeWinHandpayResetMethod" DataType="Int32" />
+      <Field FieldName="System.VoucherOutLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLimitEnabled" DataType="Bool" />
+      <Field FieldName="Handpay.HandpayLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinLimitEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinRatioEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.LargeWinRatioThresholdEnabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxCreditMeter.Enabled" DataType="Bool" />
+      <Field FieldName="Cabinet.MaxBetLimitEnabled" DataType="Bool" />
+      <Field FieldName="System.VoucherInLaundry" DataType="Int64" />
+      <Field FieldName="System.CashInLaundry" DataType="Int64" />
+      <Field FieldName="System.SelfAuditErrorOccurred" DataType="Bool" />
+      <Field FieldName="IncrementThreshold" DataType="Int64" />
+      <Field FieldName="ExcessiveMeterValue" DataType="Int64" />
+      <Field FieldName="DisabledDueToExcessiveMeter" DataType="Bool" />
+      <Field FieldName="IncrementThresholdIsChecked" DataType="Bool" />
+      <Field FieldName="ExcessiveDocumentRejectLockupEnabled" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

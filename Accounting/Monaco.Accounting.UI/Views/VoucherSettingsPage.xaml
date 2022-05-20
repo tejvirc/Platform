@@ -1,0 +1,336 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Accounting.UI.Views.VoucherSettingsPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                              xmlns:helpers="http://monaco.aristocrat.com/common"
+                              mc:Ignorable="d"
+                              d:DataContext="{d:DesignInstance viewModels:VoucherSettingsPageViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+            <Style TargetType="ComboBox" BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+            <Style TargetType="helpers:ExpirationTextBox" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="400"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="Auto" MinWidth="400"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowVoucherIn}}" Margin="0 0 0 4"/>
+            <controls:ToggleSwitchButton Grid.Row="1" Grid.Column="0" 
+                                     IsEnabled="{Binding InputEnabledByRuleOverride}"
+                                     IsChecked="{Binding AllowVoucherIn}"
+                                     controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                     controls:ControlsHelper.CornerRadius="0"
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherInLimit}}" />
+            <StackPanel Grid.Row="3" Grid.Column ="0" Orientation="Horizontal" IsEnabled="{Binding InputEnabledByRuleOverride}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Grid.Row="0" Grid.Column ="0" Margin="0 5 20 0" Width="46"
+                          IsChecked="{Binding VoucherInLimitEnabledChecked, Mode=TwoWay}">
+                        <CheckBox.IsEnabled>
+                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                <Binding Path="InputEnabledByRuleOverride"/>
+                                <Binding Path="VoucherInLimitCheckboxEnabled"/>
+                                <Binding Path="VoucherInLimitEditable"/>
+                                <Binding Path="AllowVoucherIn"/>
+                            </MultiBinding>
+                        </CheckBox.IsEnabled>
+                    </CheckBox>
+                    <helpers:CurrencyTextBox Grid.Row="0" Grid.Column="1" MinWidth="200"
+                                          IsReadOnly="False" PreventNegatives="True" InputScope="Number"
+                                          Number="{Binding VoucherInLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                          Visibility="{Binding VoucherInLimitEnabledChecked, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}">
+                        <helpers:CurrencyTextBox.IsEnabled>
+                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                <Binding Path="AllowVoucherIn"/>
+                                <Binding Path="VoucherInLimitEditable"/>
+                            </MultiBinding>
+                        </helpers:CurrencyTextBox.IsEnabled>
+                    </helpers:CurrencyTextBox>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="0 14 0 0" Text="{lex:Loc Key=NoLimit}"
+                           Visibility="{Binding VoucherInLimitEnabledChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </StackPanel>
+
+            <Label Grid.Row="4" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowVoucherOut}}" />
+            <StackPanel Grid.Row="5" Grid.Column ="0" Orientation="Horizontal">
+                <controls:ToggleSwitchButton 
+                    IsChecked="{Binding AllowVoucherOut}"
+                    controls:ControlsHelper.ContentCharacterCasing="Upper"
+                    controls:ControlsHelper.CornerRadius="0"
+                    helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                    helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}">
+                    <controls:ToggleSwitchButton.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                            <Binding Path="InputEnabledByRuleOverride"/>
+                            <Binding Path="AllowVoucherOutIsEnabled"/>
+                            <Binding Path="PrinterEnabled"/>
+                        </MultiBinding>
+                    </controls:ToggleSwitchButton.IsEnabled>
+                </controls:ToggleSwitchButton>
+                <Button Margin="10 10 0 0" HorizontalAlignment="Left"
+                    Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
+                    Command="{Binding ShowInfoPopupCommand}"
+                    Visibility="{Binding PrinterEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="WarningButton"/>
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" Path="DataContext.PrinterDisabledWarningText" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+
+            <Label Grid.Row="6" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherOutLimit}}" />
+            <StackPanel Grid.Row="7" Grid.Column ="0" Orientation="Horizontal" IsEnabled="{Binding InputEnabledByRuleOverride}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Grid.Row="0" Grid.Column ="0" Margin="0 5 20 0" Width="46"
+                          IsChecked="{Binding VoucherOutLimitEnabledChecked, Mode=TwoWay}">
+                        <CheckBox.IsEnabled>
+                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                <Binding Path="InputEnabledByRuleOverride"/>
+                                <Binding Path="VoucherOutLimitCheckboxEnabled"/>
+                                <Binding Path="VoucherOutLimitEditable"/>
+                                <Binding Path="AllowVoucherOut"/>
+                            </MultiBinding>
+                        </CheckBox.IsEnabled>
+                    </CheckBox>
+                    <helpers:CurrencyTextBox Grid.Row="0" Grid.Column="1" MinWidth="200"
+                                         IsReadOnly="False" PreventNegatives="True" InputScope="Number"
+                                         Number="{Binding VoucherOutLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Visibility="{Binding VoucherOutLimitEnabledChecked, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}">
+                        <helpers:CurrencyTextBox.IsEnabled>
+                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                <Binding Path="AllowVoucherOut"/>
+                                <Binding Path="VoucherOutLimitEditable"/>
+                            </MultiBinding>
+                        </helpers:CurrencyTextBox.IsEnabled>
+                    </helpers:CurrencyTextBox>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="0 14 0 0" Text="{lex:Loc Key=NoLimit}"
+                           Visibility="{Binding VoucherOutLimitEnabledChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Allow Non-Cashable Voucher Out -->
+            <Label Grid.Row="8" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllowNonCashableVoucherOut}}" 
+                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}" />
+            <StackPanel Grid.Row="9" Grid.Column ="0" Orientation="Horizontal">
+                <controls:ToggleSwitchButton  
+                                     IsChecked="{Binding AllowNonCashVoucherOut}"
+                                     controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                     controls:ControlsHelper.CornerRadius="0"
+                                         helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                         helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"
+                                         Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}">
+                    <controls:ToggleSwitchButton.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                            <Binding Path="InputEnabledByRuleOverride"/>
+                            <Binding Path="AllowVoucherOut"/>
+                        </MultiBinding>
+                    </controls:ToggleSwitchButton.IsEnabled>
+                </controls:ToggleSwitchButton>
+                <Button Margin="10 10 0 0" HorizontalAlignment="Left"
+                    Name="NonCashWarningButton" Style="{StaticResource MonacoWarningButton}"
+                    Command="{Binding ShowInfoPopupCommand}"
+                    Visibility="{Binding PrinterEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="NonCashWarningButton"/>
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" Path="DataContext.PrinterDisabledWarningText" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+
+            <!-- Allow Handpay Receipt -->
+
+            <Label Grid.Row="10" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintHandpayReceipt}}" />
+            <StackPanel Grid.Row="11" Grid.Column ="0" Orientation="Horizontal">
+                <controls:ToggleSwitchButton  
+                    IsChecked="{Binding PrintHandpayReceipt}"
+                    controls:ControlsHelper.ContentCharacterCasing="Upper"
+                    controls:ControlsHelper.CornerRadius="0"
+                    helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                    helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}">
+                    <controls:ToggleSwitchButton.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                            <Binding Path="InputEnabledByRuleOverride"/>
+                            <Binding Path="HandpayReceiptEditable"/>
+                            <Binding Path="PrinterEnabled"/>
+                        </MultiBinding>
+                    </controls:ToggleSwitchButton.IsEnabled>
+                </controls:ToggleSwitchButton>
+                <Button Margin="10 10 0 0" HorizontalAlignment="Left"
+                    Name="PrintReceiptWarningButton" Style="{StaticResource MonacoWarningButton}"
+                    Command="{Binding ShowInfoPopupCommand}"
+                    Visibility="{Binding PrinterEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="PrintReceiptWarningButton"/>
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" Path="DataContext.PrinterDisabledWarningText" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+
+            <Label Grid.Row="0" Grid.Column="2" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarcodeType}}"  Margin="0 0 0 4" />
+            <ComboBox Grid.Row="1" Grid.Column="2"
+                  IsEnabled="{Binding InputEnabledByRuleOverride}"
+                  DisplayMemberPath="Description"
+                  SelectedValuePath="Value"
+                  ItemsSource="{Binding BarCodeTypes}"
+                  SelectedValue="{Binding SelectedBarcodeType, Mode=TwoWay}" />
+
+            <Label Grid.Row="2" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ValidationLength}}" />
+            <ComboBox Grid.Row="3" Grid.Column="2" 
+                  IsEnabled="{Binding InputEnabledByRuleOverride}"
+                  ItemsSource="{Binding ValidationLengths}" 
+                  SelectedItem="{Binding SelectedValidationLength}" />
+
+            <Label Grid.Row="4" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LayoutType}}" />
+            <ComboBox Grid.Row="5" Grid.Column="2"
+                  IsEnabled="{Binding InputEnabledByRuleOverride}"
+                  ItemsSource="{Binding LayoutTypes}" 
+                  SelectedItem="{Binding SelectedLayoutType}" />
+
+            <Label Grid.Row="6" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherCashExpiration}}" 
+                   Visibility="{Binding IsCashableVoucherExpirationVisible, Converter={StaticResource BoolToVisConverter}}" />
+            <helpers:ExpirationTextBox Grid.Row="7" Grid.Column="2"
+                                   IsReadOnly="False"
+                                   NeverExpires="{lex:Loc Key={x:Static loc:ResourceKeys.NeverExpires}}"
+                                   DaysFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.DaysFormatter}}"
+                                   MaxExpirationDays="365"
+                                   Visibility="{Binding IsCashableVoucherExpirationVisible, Converter={StaticResource BoolToVisConverter}}"
+                                   Number="{Binding VoucherExpirationDays, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <helpers:ExpirationTextBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="InputEnabledByRuleOverride"/>
+                        <Binding Path="VoucherExpirationEditable"/>
+                    </MultiBinding>
+                </helpers:ExpirationTextBox.IsEnabled>
+            </helpers:ExpirationTextBox>
+
+            <Label Grid.Row="8" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherNonCashExpiration}}" 
+                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}" />
+            <helpers:ExpirationTextBox Grid.Row="9" Grid.Column="2"
+                                   IsReadOnly="False"
+                                   NeverExpires="{lex:Loc Key={x:Static loc:ResourceKeys.NeverExpires}}"
+                                   DaysFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.DaysFormatter}}"
+                                   MaxExpirationDays="365"
+                                   Number="{Binding NonCashVoucherExpirationDays, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                   Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource BoolToVisConverter}}">
+                <helpers:ExpirationTextBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="InputEnabledByRuleOverride"/>
+                        <Binding Path="VoucherExpirationEditable"/>
+                    </MultiBinding>
+                </helpers:ExpirationTextBox.IsEnabled>
+            </helpers:ExpirationTextBox>
+
+            <Label Grid.Row="0" Grid.Column="4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PropertyName}}"  Margin="0 0 0 4" />
+            <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding PropertyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="40">
+                <TextBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="InputEnabled"/>
+                        <Binding Path="ArePropertyFieldsEnabled"/>
+                    </MultiBinding>
+                </TextBox.IsEnabled>
+            </TextBox>
+
+            <Label Grid.Row="2" Grid.Column="4" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PropertyAddressLine1}}" />
+            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding PropertyAddress1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="40">
+                <TextBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="InputEnabled"/>
+                        <Binding Path="ArePropertyFieldsEnabled"/>
+                    </MultiBinding>
+                </TextBox.IsEnabled>
+            </TextBox>
+
+            <Label Grid.Row="4" Grid.Column="4" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PropertyAddressLine2}}" />
+            <TextBox Grid.Row="5" Grid.Column="4" Text="{Binding PropertyAddress2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="40">
+                <TextBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="InputEnabled"/>
+                        <Binding Path="ArePropertyFieldsEnabled"/>
+                    </MultiBinding>
+                </TextBox.IsEnabled>
+            </TextBox>
+        </Grid>
+    </Grid>
+
+</operatorMenu:OperatorMenuPage>

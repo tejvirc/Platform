@@ -1,0 +1,14 @@
+SIGN - sign-ali.exe 
+
+usage: sign-ali.exe <deviceindex> <partitionindex> private_key_file
+ example sign-ali.exe 2 1 key.prv
+
+  
+ 
+example:
+------------------------------------------------
+rem calculates hash for disk 2 / partition 1 and writes the signature (created using provided key)
+sign-ali.exe 2 1 master.prv
+
+------------------------------------------------
+writes signature of partition 1 on disk 2

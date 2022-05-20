@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="Monaco.Accounting" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Monaco.Accounting.dll" />
+    <Import assembly="Monaco.Accounting.Contracts.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="TransactionHistoryLog" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Accounting/PropertyProviders">
+    <PropertyProvider type="Aristocrat.Monaco.Accounting.AccountingPropertyProvider" />
+    <PropertyProvider type="Aristocrat.Monaco.Accounting.Handpay.HandpayPropertyProvider" />
+  </Extension>
+
+  <Extension path="/Application/TicketCreators">
+    <TicketCreator type="Aristocrat.Monaco.Accounting.Tickets.BillEventLogTicketCreator" />
+    <TicketCreator type="Aristocrat.Monaco.Accounting.Tickets.CashSlipEventLogTicketCreator" />
+    <TicketCreator type="Aristocrat.Monaco.Accounting.Tickets.HandpayTicketCreator" />
+  </Extension>
+
+  <Extension path="/Accounting/Services">
+    <Service type="Aristocrat.Monaco.Accounting.MoneyLaunderingMonitor" />
+    <Service type="Aristocrat.Monaco.Accounting.Transactions.DocumentRejectedService" />
+    <Service type="Aristocrat.Monaco.Accounting.FundTransferProvider" />
+    <Service type="Aristocrat.Monaco.Accounting.ValidationProvider" />
+    <Service type="Aristocrat.Monaco.Accounting.TransferOutHandler" />
+    <Service type="Aristocrat.Monaco.Accounting.WatOnHandler" />
+    <Service type="Aristocrat.Monaco.Accounting.CurrencyInProvider" />
+    <Service type="Aristocrat.Monaco.Accounting.NoteAcceptorActivityTimeWatcher" />
+    <Service type="Aristocrat.Monaco.Accounting.VoucherInProvider" />
+    <Service type="Aristocrat.Monaco.Accounting.CabinetSwapDetectionService" />
+  </Extension>
+
+  <ExtensionPoint path="/Accounting/TransactionHistories">
+    <ExtensionNode name="TransactionHistoryProvider"
+                   type="Aristocrat.Monaco.Accounting.TransactionHistoryProviderExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Accounting/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Accounting/CreditMetersProvider">
+    <CreditMetersProvider type="Aristocrat.Monaco.Accounting.SelfAudit.AccountingCreditMetersProvider" />
+  </Extension>
+
+  <Extension path="/Accounting/DebitMetersProvider">
+    <DebitMetersProvider type="Aristocrat.Monaco.Accounting.SelfAudit.AccountingDebitMetersProvider" />
+  </Extension>
+
+  <Extension path="/Accounting/SelfAuditRunAdviceProvider">
+    <SelfAuditRunAdviceProvider type="Aristocrat.Monaco.Accounting.SelfAudit.AccountingSelfAuditRunAdviceProvider" />
+  </Extension>
+
+  <Extension path="/Accounting/Bank">
+    <Bank type="Aristocrat.Monaco.Accounting.Bank" />
+  </Extension>
+
+  <Extension path="/Application/Metering/Providers">
+    <MeterProvider type="Aristocrat.Monaco.Accounting.Handpay.HandpayMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.CurrencyInMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherInMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherOutMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.WatOffMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.WatOnMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.DocumentMeterProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.AccountingMeterProvider" />
+  </Extension>
+
+  <Extension path="/Accounting/TicketProxy">
+    <TicketProxy type="Aristocrat.Monaco.Accounting.Handpay.HandpayTicketProxy" />
+    <TicketProxy type="Aristocrat.Monaco.Accounting.VoucherOutTicketProxy" />
+  </Extension>
+
+  <Extension path="/Accounting/TransactionCoordinator">
+    <TransactionCoordinator type="Aristocrat.Monaco.Accounting.TransactionCoordinator" />
+  </Extension>
+
+  <Extension path="/Accounting/TransactionHistory">
+    <TransactionHistory type="Aristocrat.Monaco.Accounting.TransactionHistory" />
+  </Extension>
+
+  <Extension path="/Accounting/TransferOutProviders">
+    <TransactionService type="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" />
+    <TransactionService type="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" />
+    <TransactionService type="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" />
+  </Extension>
+
+  <Extension path="/Application/PersistenceClearRules">
+    <PersistenceClearRule type="Aristocrat.Monaco.Accounting.EmptyCreditBalancePersistenceClearRule" />
+  </Extension>
+
+</Addin>

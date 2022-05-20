@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="TransactionHistoryLog" namespace="Client12Addins" version="1.0" >
+
+  <Runtime>
+    <Import assembly="Monaco.Accounting.UI.dll" />
+  </Runtime>
+
+  <!--Must implement Vgt.Client12.Accounting.ITicketProxy-->
+  <ExtensionPoint path = "/Accounting/TicketProxy">
+    <ExtensionNode name="TicketProxy"/>
+  </ExtensionPoint>
+
+</Addin>

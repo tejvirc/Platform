@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>Aristocrat.Monaco.Hhr.Client</AssemblyTitle>
+    <Product>Aristocrat.Monaco.Hhr.Client</Product>
+    <Copyright>Copyright ©  2020</Copyright>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Hhr.Client.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.0.0" />
+    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
+    <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+  </ItemGroup>
+</Project>

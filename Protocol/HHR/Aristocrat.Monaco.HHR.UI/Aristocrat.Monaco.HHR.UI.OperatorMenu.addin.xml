@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" ?>
+<Addin id="HHRUIConfiguration" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hhr.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.Hhr.UI.HHRConfigurationWizard" order="8" />
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/CommsMenu">
+    <CommsMenu type="Aristocrat.Monaco.Hhr.UI.Loaders.ServerConfigurationPageViewLoader" order="310"/>
+  </Extension>
+</Addin>

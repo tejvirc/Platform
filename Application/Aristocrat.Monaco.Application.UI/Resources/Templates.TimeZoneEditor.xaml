@@ -1,0 +1,115 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="TimeZoneEditorTemplate" DataType="{x:Type viewModels:TimeConfigPageViewModel}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Time Zone -->
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneLabel}}" Grid.Row="0" />
+
+            <Grid Grid.Row="1">
+                <!-- Hack Alert: This ItemsControl is only used to expand the width of the combobox to the width of the largest item -->
+                <ItemsControl ItemsSource="{Binding TimeZones}" Height="0" Margin="30,0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <ComboBox ItemsSource="{Binding Path=TimeZones}" Style="{StaticResource MonacoTimeZoneComboBox}"
+                            SelectedValue="{Binding TimeZoneId}"
+                            SelectedValuePath="Id"
+                            DisplayMemberPath="DisplayName"
+                            IsEnabled="{Binding InputEnabled}"
+                            ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"/>
+            </Grid>
+
+            <Label Grid.Row="2" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneOffsetLabel}}"
+                   Visibility="{Binding OffsetIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+            <TextBlock Grid.Row="3" Style="{StaticResource MonacoTextBlock}"
+                       Text="{Binding TimeZoneOffset, UpdateSourceTrigger=PropertyChanged}"
+                       Visibility="{Binding OffsetIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+
+            <!-- Date -->
+            <Label Grid.Row="4" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Date}}" />
+            <DatePicker Grid.Row="5"
+                        SelectedDateFormat="Long" SelectedDate="{Binding PickerDate}"
+                        DisplayDateStart="1/01/16"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Center" 
+                        IsEnabled="{Binding InputEnabled}" />
+
+            <!-- Time -->
+            <Label Grid.Row="6" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeLabel}}" />
+            <StackPanel Grid.Row="7" Orientation="Horizontal" >
+                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
+                          ItemsSource="{Binding Hours}" 
+                          SelectedItem="{Binding Hour, Mode=TwoWay}" 
+                          IsEnabled="{Binding InputEnabled}"
+                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding StringFormat={}{0:00}}" Style="{DynamicResource MonacoTextBlock}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text=":" Margin="10 0" />
+
+                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
+                          ItemsSource="{Binding Minutes}" 
+                          SelectedItem="{Binding Minute, Mode=TwoWay}" 
+                          IsEnabled="{Binding InputEnabled}"
+                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding StringFormat={}{0:00}}" Style="{DynamicResource MonacoTextBlock}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <TextBlock Text=":" Margin="10 0" />
+
+                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
+                          ItemsSource="{Binding Seconds}" 
+                          SelectedItem="{Binding Second, Mode=TwoWay}" 
+                          IsEnabled="{Binding InputEnabled}"
+                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding StringFormat={}{0:00}}" Style="{DynamicResource MonacoTextBlock}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <Button Grid.Row="8" Margin="0 30 0 0" HorizontalAlignment="Left" 
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+                    IsEnabled="{Binding InputEnabled}"
+                    Command="{Binding ApplyCommand}" 
+                    Visibility="{Binding ApplyButtonIsVisible, Converter={StaticResource BoolToVisConverter}}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

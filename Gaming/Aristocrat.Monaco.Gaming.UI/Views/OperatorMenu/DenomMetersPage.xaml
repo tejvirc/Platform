@@ -1,0 +1,92 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.DenomMetersPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:converters="http://monaco.aristocrat.com/common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d" 
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:DenomMetersPageViewModel}, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <!-- This is the top half of the page, with the meters table -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <DataGrid Grid.Row="0" Grid.Column="0" ItemsSource="{Binding MetersLeftColumn}"
+                          Margin="0 -20 0 0" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                                            Width="360" 
+                                            Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                                            Width="200" 
+                                            Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
+                                            HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
+                                            CellStyle="{StaticResource DataGridCellRight}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid DockPanel.Dock="Top" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding MetersRightColumn}"
+                          Margin="120 -20 0 0" Visibility="{Binding MetersRightColumnVisible, Converter={StaticResource BoolToVisConverter}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}" 
+                                            Width="360" 
+                                            Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}" 
+                                            Width="200" 
+                                            Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
+                                            HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
+                                            CellStyle="{StaticResource DataGridCellRight}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1"  
+                    Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 30 0 0">
+            <Button Margin="0 0 10 0" Width="65" 
+                    Command="{Binding PreviousDenomCommand}"
+                    IsEnabled="{Binding PreviousDenomIsEnabled}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"/>
+            <ComboBox Margin="0 0 10 0" 
+                      VerticalAlignment="Center" 
+                      SelectedValuePath="Id" 
+                      ScrollViewer.CanContentScroll ="True"
+                      Width="400"
+                      DisplayMemberPath="DisplayValue"
+                      ItemsSource="{Binding Denoms}" 
+                      SelectedIndex="{Binding SelectedDenomIndex, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedDenom, Mode=TwoWay}"/>
+            <Button Margin="0 0 10 0" Width="65" 
+                    Command="{Binding NextDenomCommand}"
+                    IsEnabled="{Binding NextDenomIsEnabled}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"/>
+        </StackPanel>
+
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

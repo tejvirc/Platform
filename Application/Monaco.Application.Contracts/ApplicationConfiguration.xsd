@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ApplicationConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="AllowedLocales" type="ArrayOfString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Currency">
+          <xs:complexType>
+            <xs:attribute default="USD" name="Id" type="xs:string" />
+            <xs:attribute default="false" name="Configurable" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="EdgeLightConfiguration">
+          <xs:complexType>
+	          <xs:attribute default="Blue" name="LobbyModeColor" type="xs:string" />
+	          <xs:attribute default="Transparent" name="AttractModeColor" type="xs:string" />
+	          <xs:attribute default="Blue" name="DefaultColor" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GatSerial">
+          <xs:complexType>
+            <xs:attribute default="GAT3.5" name="Version" type="xs:string" />
+            <xs:attribute default="COM9" name="ComPort" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="HardMeterMonitor">
+          <xs:complexType>
+            <xs:attribute default="false" name="DisableOnError" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="NoteAcceptorMonitor">
+          <xs:complexType>
+            <xs:attribute default="Immediate" name="DisableOnError" type="NoteAcceptorMonitorDisableBehavior" />
+            <xs:attribute default="true" name="LockupOnDisconnect" type="xs:boolean" />
+            <xs:attribute default="false" name="SoftErrorOnStackerFull" type="xs:boolean" use="optional"/>
+            <xs:attribute default="true" name="StopAlarmWhenAuditMenuOpened" type="xs:boolean" />
+            <xs:attribute default="false" name="LockupOnStackerFull" type="xs:boolean" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrinterMonitor">
+          <xs:complexType>
+            <xs:attribute default="false" name="FormFeedAfterKeyOff" type="xs:boolean" />
+            <xs:attribute default="true" name="StopAlarmWhenAuditMenuOpened" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="FirmwareCrcMonitor">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
+            <xs:attribute default="0" name="Seed" type="xs:int" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MemoryMonitor">
+          <xs:complexType>
+            <xs:attribute default="524288000" name="LowMemoryThreshold" type="xs:long" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="TicketMode">
+          <xs:complexType>
+            <xs:attribute default="Audit" name="Audit" type="TicketModeAuditBehavior" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MediaDisplay">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DetailedAuditTickets">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GeneralMessages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="DisabledByOperator">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="NoteAcceptorErrorMessages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="BillJam">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="BillStackerError">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="BillStackerFull">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="BillStackerJam">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="BillUnexpectedError">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="BillValidatorFault">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="InvalidBill">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="CashBoxRemoved">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="GeneralFailure">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrinterErrorMessages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="MalfunctionError">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PaperOut">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="ErrorWhilePrinting">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="DrawerOpen">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PrinterOffline">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PaperInChute">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PaperLow">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PaperJam">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PrinterOpen">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="StoppedResponding">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="FailedMinimumRequirements">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="MissingSupplyIndex">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PrinterDfuDownloadInProgress">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="TransferStatusError">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PrinterFirmwareDownloadInterrupted">
+                <xs:complexType>
+                  <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MeterRollover">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="1" name="Currency" type="xs:long" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Occurrence" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="BellConfiguration">
+          <xs:complexType>
+              <xs:attribute name="InitialValue" type="xs:long" use="optional" default="1000000"/>
+              <xs:attribute name="IntervalValue" type="xs:long" use="optional" default="1000000"/>
+              <xs:attribute name="MaxBellValue" type="xs:long" use="optional" default="10000000000"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="StackerRemoveBehavior">
+          <xs:complexType>
+              <xs:attribute name="AutoClearPeriodMeters" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoClearPeriodMetersBehavior">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="1" name="AutoClearPeriodMeters" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="ClearClearPeriodOffsetHours" type="xs:double" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="BillsAccepted">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="1" name="Bill1" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Bill2" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Bill5" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Bill10" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Bill20" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Bill50" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Bill100" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Voucher" type="xs:boolean" />
+              <xs:element minOccurs="1" maxOccurs="1" name="Bills" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="SoundConfiguration">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="DefaultVolumeLevel" type="xs:unsignedByte" />
+              <xs:element minOccurs="0" maxOccurs="1" name="AlertVolume">
+                <xs:complexType>
+                  <xs:attribute default="100" name="Value" type="xs:unsignedByte" />
+                  <xs:attribute default="50" name="Minimum" type="xs:unsignedByte" />
+                  <xs:attribute default="false" name="LogicDoorFullVolumeAlert" type="xs:boolean" />
+                  <xs:attribute default="false" name="Configurable" type="xs:boolean" />
+                  <xs:attribute default="false" name="PlayTestSound" type="xs:boolean" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="VolumeControl">
+                <xs:complexType>
+                  <xs:attribute default="LobbyAndGame" name="Location" type="VolumeControlLocation" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" default="true" name="UseGameTypeVolume" type="xs:boolean" />
+              <xs:element minOccurs="0" maxOccurs="1" default="5" name="LobbyVolumeScalar" type="xs:unsignedByte" />
+              <xs:element minOccurs="0" maxOccurs="1" default="5" name="PlayerVolumeScalar" type="xs:unsignedByte" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ReadOnlyMedia">
+          <xs:complexType>
+            <xs:attribute name="Required" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Demonstration">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="SoftwareInstall">
+          <xs:complexType>
+            <xs:attribute default="false" name="DeletePackageAfter" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="CabinetCapabilities">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="AllowsBrightnessChange">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Cabinets" type="ArrayOfString1" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="AllowsEdgeLightingConfiguration">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="Cabinets" type="ArrayOfString1" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ExcessiveDocumentReject">
+          <xs:complexType>
+            <xs:attribute default="Soft" name="LockupType" type="ExcessiveDocumentRejectLockupType" />
+            <xs:attribute default="-1" name="ConsecutiveRejectsBeforeLockup" type="xs:int" />
+            <xs:attribute default="" name="SoundFilePath" type="xs:string" />
+            <xs:attribute default="MainDoor" name="ResetMethodKey" type="ResetMethodKeyType" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PaperInChuteSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrinterErrorSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PrinterWarningSound">
+            <xs:complexType>
+                <xs:attribute default="" name="FilePath" type="xs:string" />
+            </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="NoteAcceptorErrorSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DiskSpaceMonitorErrorSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="FirmwareCrcErrorSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="LiveAuthenticationFailedSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="TouchSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="CoinInSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="CoinOutSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="FeatureBellSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="CollectSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="HostOfflineSound">
+	        <xs:complexType>
+		        <xs:attribute default="" name="FilePath" type="xs:string" />
+	        </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DingSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="CriticalMemoryIntegrityCheck">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
+            <xs:attribute default="86400" name="Value" type="xs:int" />
+            <xs:attribute default="" name="SoundFilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="BarcodeType" type="BarcodeTypeOptions" default="Interleave2of5" />
+        <xs:element minOccurs="0" maxOccurs="1" name="ValidationLength" type="ValidationLengthOptions" default="System" />
+        <xs:element minOccurs="0" maxOccurs="1" name="LayoutType" type="LayoutTypeOptions" default="ExtendedLayout" />
+        <xs:element minOccurs="0" maxOccurs="1" name="OperatorLockupReset">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="LogTypesAllowedForDisplay" type="ArrayOfStrings" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Clock">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
+            <xs:attribute default="12" name="Format" type="xs:int" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Cashout">
+          <xs:complexType>
+            <xs:attribute default="true" name="ClearWins" type="xs:boolean" />
+            <xs:attribute default="false" name="CommitStorageAfterCashout" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MultiGame">
+          <xs:complexType>
+            <xs:attribute default="true" name="DefaultBetAfterSwitch" type="xs:boolean" />
+            <xs:attribute default="true" name="RestoreRebootStateAfterSwitch" type="xs:boolean" />
+            <xs:attribute default="gamePlayerSession" name="StateStorageLocation" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="SoftwareVerification">
+          <xs:complexType>
+            <xs:attribute name="ShowMasterResult" type="xs:boolean" default="false"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PlatformEnhancedDisplay">
+          <xs:complexType>
+            <xs:attribute default="true" name="Enabled" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="SecondaryStorageMedia">
+          <xs:complexType>
+            <xs:attribute default="false" name="Required" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AuditTicket">
+          <xs:complexType>
+            <xs:attribute name="PrinterProtocol" type="xs:string" default="Fake"/>
+            <xs:attribute default="36" name="LineLimit" type="xs:int" />
+            <xs:attribute default="6" name="EventsPerPage" type="xs:int" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="HandpayReceiptPrinting">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ReserveService">
+          <xs:complexType>
+            <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="TimeoutInSeconds" type="xs:int" use="optional" default="300" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="WaitForProgressiveInitialization">
+            <xs:complexType>
+                <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+            </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="LiveAuthenticationManager">
+          <xs:complexType>
+            <xs:attribute name="RunSignatureVerificationAfterReboot" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Locale" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="NoteAcceptorMonitorDisableBehavior">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Immediate" />
+      <xs:enumeration value="Queue" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TicketModeAuditBehavior">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Audit" />
+      <xs:enumeration value="Inspection" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfString1">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Cabinet" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfStrings">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="ExcessiveDocumentRejectLockupType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Hard" />
+      <xs:enumeration value="Soft" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="BarcodeTypeOptions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Interleave2of5" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ValidationLengthOptions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="System" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LayoutTypeOptions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ExtendedLayout" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ResetMethodKeyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MainDoor" />
+      <xs:enumeration value="JackpotKey" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VolumeControlLocation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Lobby" />
+      <xs:enumeration value="Game" />
+      <xs:enumeration value="LobbyAndGame" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<Addin id="MonoAddinsHelperUnitTest" namespace="TestAddins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.Tests.dll" />
+  </Runtime>
+
+  <!--Must implement TestExtensionCore.ITest-->
+  <ExtensionPoint path="/GenericITestExtensionPoint">
+    <ExtensionNode name="Test" />
+  </ExtensionPoint>
+
+  <!--Must implement TestExtensionCore.ITest-->
+  <ExtensionPoint path="/GenericITestExtensionPointOnlyOne">
+    <ExtensionNode name="Test" />
+  </ExtensionPoint>
+
+  <!--Must implement TestExtensionCore.ITest-->
+  <ExtensionPoint path="/GenericITestExtensionPointNotConfigured">
+    <ExtensionNode name="Test" />
+  </ExtensionPoint>
+
+  <!--Must implement TestExtensionCore.ITest-->
+  <ExtensionPoint path="/ExtensionPathWithNoExtensions">
+    <ExtensionNode name="Test" />
+  </ExtensionPoint>
+
+  <!--Must implement TestExtensionCore.ITest-->
+  <ExtensionPoint path="/ExtensionPathWithOneExtension">
+    <ExtensionNode name="Test" />
+  </ExtensionPoint>
+
+  <!--Must implement TestExtensionCore.ITest-->
+  <ExtensionPoint path="/ExtensionPathWithTwoExtensions">
+    <ExtensionNode name="Test" />
+  </ExtensionPoint>
+
+  <!--Must implement TestExtensionCore.ITest-->
+  <ExtensionPoint path="/ExtensionPathWithThreeExtensions">
+    <ExtensionNode name="Test" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/CustomExtension">
+    <ExtensionNode name="CustomExtension" type="Aristocrat.Monaco.Kernel.Tests.MonoAddinsHelpers.CustomExtensionNode" />
+  </ExtensionPoint>
+
+</Addin>

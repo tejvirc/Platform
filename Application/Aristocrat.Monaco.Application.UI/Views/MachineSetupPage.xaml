@@ -1,0 +1,81 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.MachineSetupPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:helpers="http://monaco.aristocrat.com/common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d" 
+                               d:DataContext="{d:DesignInstance viewModels:MachineSetupPageViewModel, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}"/>
+        <ComboBox Grid.Column="0" Grid.Row="1" MinWidth="300" Width="Auto"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding Currencies}" 
+                  DisplayMemberPath="DescriptionWithMinorSymbol"
+                  SelectedItem="{Binding SelectedCurrency}"
+                  IsEnabled="{Binding CurrencyChangeAllowed}"/>
+        <Label Grid.Column="0" Grid.Row="2" Margin="0 20 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"/>
+        <helpers:AlphaNumericTextBox Grid.Column="0" Grid.Row="3" MinWidth="300"
+                                     HorizontalAlignment="Stretch"
+                                     IsReadOnly="False"
+                                     IsAlphaNumeric="True"
+                                     CharacterCasing="Upper" 
+                                     Text="{Binding SerialNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                     ErrorText="{Binding SerialNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
+                                     MaxLength="{Binding SerialNumber.MaxLength, Mode=OneWay}"/>
+
+        <Label Grid.Column="0" Grid.Row="4" Margin="0 20 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}"/>
+        <helpers:AlphaNumericTextBox Grid.Column="0" Grid.Row="5" MinWidth="300"
+                                     HorizontalAlignment="Stretch"
+                                     IsReadOnly="False"
+                                     IsAlphaNumeric="False"
+                                     CharacterCasing="Upper" 
+                                     Text="{Binding AssetNumber.EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                     ErrorText="{Binding AssetNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
+                                     MaxLength="{Binding AssetNumber.MaxLength, Mode=OneWay}"/>
+
+        <Label Grid.Column="0" Grid.Row="6" Margin="0 20 0 0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequireZeroCredit}}"/>
+        <controls:ToggleSwitchButton Grid.Column="0" Grid.Row="7" 
+                                     IsChecked="{Binding RequireZeroCredit}"
+                                     IsEnabled="{Binding RequireZeroCreditChangeAllowed}"
+                                     controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                     controls:ControlsHelper.CornerRadius="0"
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.OffText}}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.OnText}}" />
+            
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

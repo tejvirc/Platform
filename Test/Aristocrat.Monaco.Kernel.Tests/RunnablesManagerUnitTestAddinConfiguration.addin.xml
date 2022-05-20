@@ -1,0 +1,30 @@
+﻿<Addin id="AddinConfiguration" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+
+    <SelectableAddinConfiguration name="UnitTestGroup" description="unit test group">
+
+      <ExtensionPointConfiguration extensionPath="/UnitTest/Runnables1">
+        <NodeSpecification addinId="Client12Addins.TestExtension1"
+                           typeName="RunnableManagerTestExtension.TestRunnable1" order="1" />
+      </ExtensionPointConfiguration>
+
+      <ExtensionPointConfiguration extensionPath="/UnitTest/Runnables2">
+        <NodeSpecification addinId="Client12Addins.TestExtension1"
+                           typeName="RunnableManagerTestExtension.TestRunnable2A" order="1" />
+        <NodeSpecification addinId="Client12Addins.TestExtension1"
+                           typeName="RunnableManagerTestExtension.TestRunnable2B" order="2" />
+      </ExtensionPointConfiguration>
+
+    </SelectableAddinConfiguration>
+
+  </Extension>
+
+</Addin>

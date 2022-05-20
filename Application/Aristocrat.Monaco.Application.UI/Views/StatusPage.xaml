@@ -1,0 +1,96 @@
+<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.StatusPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:converters="http://monaco.aristocrat.com/common"
+                              xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              common:DialogParticipation.Register="{Binding}"
+                              mc:Ignorable="d"
+                              FocusManager.FocusedElement="{Binding ElementName=Ok}" 
+                              d:DataContext="{d:DesignInstance viewModels:StatusPageViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <converters:NullToVisibilityConverter x:Key="NullToVisConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" Margin="6 10 0 0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" >
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollBar">
+                    <Style.Triggers>
+                        <Trigger Property="Orientation" Value="Vertical">
+                            <Setter Property="Width" Value="40"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ScrollViewer.Resources>
+
+            <ItemsControl Name="DisableReasonsList" ItemsSource="{Binding DisableReasons}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0 0 0 10" HorizontalAlignment="Left" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Message}" Style="{StaticResource MonacoTextBlock}"
+                                       VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="1200"
+                                       loc:Localizer.LocalizationAware="True" />
+                            <Button Name="InfoButton" Grid.Column="1" Margin="10 0 0 0"
+                                    Style="{StaticResource MonacoInfoButton}"
+                                    Visibility="{Binding DataContext.AdditionalInfo, Converter={StaticResource NullToVisConverter}, RelativeSource={RelativeSource Self}}"
+                                    Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                        <Binding ElementName="InfoButton"/>
+                                        <Binding Path="DataContext.AdditionalInfo" RelativeSource="{RelativeSource Self}"/>
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Grid>
+                <Button Content="{Binding OutOfServiceButtonText}" 
+                        TabIndex="2" 
+                        HorizontalAlignment="Left" 
+                        IsEnabled="{Binding OutOfServiceModeButtonActive}"
+                        Command="{Binding OutOfServiceModeButtonCommand}" 
+                        MinWidth="215"/>
+            </Grid>
+            <Grid>
+                <Button
+                        Width="200"
+                        HorizontalAlignment="Left" Margin="10 0 0 0"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitReserve}}"
+                        Command="{Binding ExitReserveCommand}"
+                        Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

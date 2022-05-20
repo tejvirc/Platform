@@ -1,0 +1,24 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.LayoutOverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+        xmlns:common="http://monaco.aristocrat.com/common"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:LayoutTemplateViewModel}}"
+        mc:Ignorable="d" 
+        AllowsTransparency="True"
+        Topmost="False"
+        WindowStyle="None"
+        Width="{Binding WindowWidth, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+        Height="{Binding WindowHeight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+        Background="{x:Null}"
+        BorderThickness="0" 
+        Name="Root"
+        Closed="LayoutOverlayWindow_OnClosed">
+    <Canvas x:Name="OverlayCanvas" 
+            Width="{Binding ElementName=Root, Path=ActualWidth}"
+            Height="{Binding ElementName=Root, Path=ActualHeight}"
+            Background="{x:Null}"/>
+</common:BaseWindow>
+

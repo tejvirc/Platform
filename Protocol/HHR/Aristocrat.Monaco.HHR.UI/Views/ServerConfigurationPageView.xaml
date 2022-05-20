@@ -1,0 +1,106 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.ServerConfigurationPageView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:helpers="http://monaco.aristocrat.com/common"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:ServerConfigurationPageViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" 
+               VerticalAlignment="Center"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerIpAddressLabel}}" />
+        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
+                 Margin="20 0 0 0" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Text="{Binding IpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}" />
+
+        <Label Grid.Column="0" Grid.Row="1" 
+               Margin="0 20 0 0" 
+               VerticalAlignment="Center" 
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerTcpPortNumberLabel}}" />
+        <helpers:AlphaNumericTextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
+                                     Margin="20 20 0 0" 
+                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     IsReadOnly="False"
+                                     IsAlphaNumeric="False"
+                                     Text="{Binding TcpPortNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+
+        <Label Grid.Column="0" Grid.Row="2" 
+               Margin="0 20 0 0" 
+               VerticalAlignment="Center" 
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerEncryptionKeyLabel}}" /> 
+        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
+                 Margin="20 20 0 0" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                 Text="{Binding EncryptionKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}" />
+
+        <Label Grid.Column="0" Grid.Row="3" 
+               Margin="0 20 0 0" 
+               VerticalAlignment="Center" 
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerUdpPortNumberLabel}}" />
+        <helpers:AlphaNumericTextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
+                                     Margin="20 20 0 0" 
+                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     IsReadOnly="False"
+                                     IsAlphaNumeric="False"
+                                     Text="{Binding UdpPortNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
+
+        <Label Grid.Column="0" Grid.Row="4" 
+               Margin="0 20 0 0" 
+               VerticalAlignment="Center" 
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManualHandicapModeLabel}}" />
+        <ComboBox Grid.Column="1" Grid.Row="4" Width="200" 
+                  Margin="20 20 0 0" 
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding ManualHandicapModes}"
+                  Text="{Binding ManualHandicapMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <StackPanel Grid.Column="0" Grid.Row="5" Margin="5 20 0 0"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Orientation="Horizontal" 
+                    Visibility="{Binding IsWizardPage, Converter={StaticResource BoolToCollapsedConverter}}">
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+                    IsEnabled="{Binding IsConfigChanged}" 
+                    Command="{Binding ApplyServerConfigurationCommand}"/>
+            <Button Margin="0 15 0 0"
+                    Style="{StaticResource MonacoWarningButton}"
+                    Name="ApplyInfoButton"
+                    Command="{Binding ShowInfoPopupCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="ApplyInfoButton" />
+                        <Binding ElementName="ApplyInfoButtonProxy" Path="Result" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+                <lex:LocProxy Name="ApplyInfoButtonProxy"
+                              Source="{x:Static loc:ResourceKeys.RebootWarningMessage}" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

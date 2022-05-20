@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:PLC="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/PLC" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-26 v1b2">
+	<xs:import namespace="http://mediaDisplay.igt.com" schemaLocation="mdInclude.xsd"/>
+	<!--Attribute Groups-->
+	<xs:attributeGroup name="p_cabinetStatusExtPLC">
+		<xs:annotation>
+			<xs:documentation>cabinetStatus Extension.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="localeId" type="PLC:t_localeId" use="optional" default="en_US"/>
+	</xs:attributeGroup>
+	<!--Complex Data Types-->
+	<xs:complexType name="c_getCabinetStatus">
+		<xs:annotation>
+			<xs:documentation>getCabinetStatus Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Elements-->
+	<xs:element name="getCabinetStatus">
+		<xs:annotation>
+			<xs:documentation>getCabinetStatus Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="PLC:c_getCabinetStatus">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--End of Extension.-->
+</xs:schema>

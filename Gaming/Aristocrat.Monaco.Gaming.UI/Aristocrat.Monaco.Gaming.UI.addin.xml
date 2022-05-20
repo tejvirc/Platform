@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<Addin id="Monaco.Gaming.UI" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Gaming.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Configuration/Settings">
+    <Settings type="Aristocrat.Monaco.Gaming.UI.Settings.GamingConfigurationSettings" />
+    <Settings type="Aristocrat.Monaco.Gaming.UI.Settings.ProgressiveConfigurationSettings" />
+    <Settings type="Aristocrat.Monaco.Gaming.UI.Settings.BarkeeperConfigurationSettings" />
+  </Extension>
+
+  <ExtensionPoint path="/Gaming/OperatorMenu/GameHistoryMeters">
+	  <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+</Addin>

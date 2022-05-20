@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin id="TestPropertiesManager" namespace="Client12Addins" version="1.0">
+    
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Test.Common.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+  
+  <Extension path="/Kernel/PropertiesManager">
+    <PropertiesManager type="Aristocrat.Monaco.Test.Common.TestPropertiesManager" />
+  </Extension>
+    
+</Addin>

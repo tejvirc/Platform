@@ -1,0 +1,99 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.Licensing"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:LicenseViewModel, IsDesignTimeCreatable=False}" 
+                               FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
+                               dialog:DialogParticipation.Register="{Binding}"
+                               Background="Transparent">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin" Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin" Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LicenseId}}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Id}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LicenseConfiguration}}" />
+            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding LicenseConfiguration}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeRemaining}}" />
+            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TimeRemaining}"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionId}}" />
+            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="{Binding JurisdictionId}"/>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledGamesLimit}}" />
+            <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Text="{Binding EnabledGamesLimit}"/>
+        </Grid>
+
+        <DataGrid Grid.Row="1"
+                  Margin="0 10"
+                  ItemsSource="{Binding Licenses, Mode=OneWay}"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  VerticalAlignment="Stretch"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  Visibility="{Binding HasLicenses, Converter={StaticResource BoolToVisConverter}}">
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource MonacoDataGridCell}">
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </DataGrid.CellStyle>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SoftwareLicense}}" Binding="{Binding}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</operatorMenu:OperatorMenuPage>

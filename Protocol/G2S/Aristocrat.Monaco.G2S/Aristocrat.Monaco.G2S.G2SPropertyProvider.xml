@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.G2S.G2SPropertyProvider">
+    <Fields>
+      <Field FieldName="G2S.StartupContext" DataType="String" Size="256"/>
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" Name="Aristocrat.Monaco.G2S.G2SPropertyProvider">
+    <Fields>
+      <Field FieldName="G2S.StartupContext" DataType="String" Size="256"/>
+      <Field FieldName="G2SClient.Port" DataType="Int32" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

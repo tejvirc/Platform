@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BlockFormat Name="Aristocrat.Monaco.Asp.Client.DataSources.CreditTransferDataSource">
+	<Fields>
+		<Field FieldName="BonusID" DataType="String" />
+		<Field FieldName="BCredits_Win" DataType="UInt32" />
+		<Field FieldName="BReason" DataType="Byte" />
+		<Field FieldName="Source_1stbyte" DataType="Byte" />
+		<Field FieldName="Source_2ndbyte" DataType="Byte" />
+		<Field FieldName="Source_3rdbyte" DataType="Byte" />
+		<Field FieldName="Current_JP_Number" DataType="UInt16" />
+		<Field FieldName="Bonus_Credit_Type" DataType="Byte" />
+	</Fields>
+</BlockFormat>

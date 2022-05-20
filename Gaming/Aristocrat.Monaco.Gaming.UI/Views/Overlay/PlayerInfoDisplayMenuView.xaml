@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Overlay.PlayerInfoDisplayMenuView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+			 xmlns:common="http://monaco.aristocrat.com/common"
+			 x:Name="PlayerInfoDisplayMenu"
+			 mc:Ignorable="d"
+			 Width="auto" Height="auto"
+			 d:DataContext="{d:DesignInstance {x:Type viewModels:PlayerInfoDisplayMenuViewModel}}">
+
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<common:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Visible" FalseValue="Hidden" />
+			<Style x:Key="ExitButtonStyle" TargetType="Button">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Image Name="ExitButtonImage" Stretch="None" Source="{Binding ExitButtonPath}"/>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="ExitButtonImage" Property="Source" Value="{Binding ExitButtonPressedPath}"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="GameInfoButtonStyle" TargetType="Button">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Image Name="GameInfoButtonImage" Stretch="None" Source="{Binding GameInfoButtonPath}"/>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="GameInfoButtonImage" Property="Source" Value="{Binding GameInfoButtonPressedPath}"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="GameRulesButtonStyle" TargetType="Button">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Image Name="GameRulesButtonImage" Stretch="None" Source="{Binding GameRulesButtonPath}"/>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter TargetName="GameRulesButtonImage" Property="Source" Value="{Binding GameRulesButtonPressedPath}"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</UserControl.Resources>
+
+	<Grid x:Name="OuterGrid">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="*"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+			<ColumnDefinition Width="Auto"></ColumnDefinition>
+			<ColumnDefinition Width="*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Column="1" Grid.Row="1">
+			<!-- Game Info button -->
+			<Button
+			        Click="HandleNonClosingPress"
+			        Visibility="{Binding IsGameInfoButtonVisible, Converter={StaticResource BoolToHiddenConverter}}"
+			        Name="GameInfoButton"
+			        Style="{StaticResource GameInfoButtonStyle}"
+			        Command="{Binding GameInfoClickedCommand}">
+			</Button>
+			<!-- Game Rules button -->
+			<Button
+			        Click="HandleNonClosingPress"
+			        Visibility="{Binding IsGameRulesButtonVisible, Converter={StaticResource BoolToHiddenConverter}}"
+			        Name="GameRulesButton"
+			        Style="{StaticResource GameRulesButtonStyle}"
+			        Command="{Binding GameRulesClickedCommand}">
+			</Button>
+			<!-- Exit button -->
+			<Button
+				Click="HandleNonClosingPress"
+				Name="ExitButton"
+				Command="{Binding ExitClickedCommand}"
+				Style="{StaticResource ExitButtonStyle}">
+			</Button>
+		</StackPanel>
+	</Grid>
+</UserControl>
+

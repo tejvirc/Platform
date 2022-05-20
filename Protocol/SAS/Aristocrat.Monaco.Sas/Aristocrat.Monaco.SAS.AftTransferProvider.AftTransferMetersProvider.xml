@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Sas.AftTransferProvider.AftTransferMetersProvider" >
+    <Fields>
+        <Field FieldName="Sas.AftTransfer.AftCashableInLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftCashableInPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftCashableInQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftCashableInQuantityPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftRestrictedInLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftRestrictedInPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftRestrictedInQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftRestrictedInQuantityPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedInLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedInPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedInQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedInQuantityPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftCashableBonusInLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftCashableBonusInPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftCashableBonusInQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftCashableBonusInQuantityPeriod" DataType="Int64"/>
+        
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInQuantityPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftCashableOutLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftCashableOutPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftCashableOutQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftCashableOutQuantityPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftRestrictedOutLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftRestrictedOutPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftRestrictedOutQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftRestrictedOutQuantityPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutPeriod" DataType="Int64"/>
+            
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutQuantityLifetime" DataType="Int64"/>
+        <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutQuantityPeriod" DataType="Int64"/>
+    </Fields>
+</BlockFormat>
+  <BlockFormat version="2" Name="Aristocrat.Monaco.Sas.AftTransferProvider.AftTransferMetersProvider" >
+    <Fields>
+      <Field FieldName="Sas.AftTransfer.AftCashableInLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftCashableInPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftCashableInQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftCashableInQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftRestrictedInLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftRestrictedInPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftRestrictedInQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftRestrictedInQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedInLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedInPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedInQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedInQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftCashableBonusInLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftCashableBonusInPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftCashableBonusInQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftCashableBonusInQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedBonusInQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftCashableOutLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftCashableOutPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftCashableOutQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftCashableOutQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftRestrictedOutLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftRestrictedOutPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftRestrictedOutQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftRestrictedOutQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutQuantityLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftTransfer.AftNonRestrictedOutQuantityPeriod" DataType="Int64"/>
+
+      <Field FieldName="Sas.AftDebitTransfersLifetime" DataType="Int64"/>
+      <Field FieldName="Sas.AftDebitTransfersPeriod" DataType="Int64"/>
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Bingo.UI</AssemblyTitle>
+    <Company>Aristocrat Technologies Inc.</Company>
+    <Product>Monaco</Product>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2019</Copyright>
+    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3270</MSBuildWarningsAsMessages>
+    <LangVersion>latest</LangVersion>
+    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile />
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DocumentationFile />
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="*.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Retail'">
+    <Compile Remove="Views\TestTool\**" />
+    <Page Remove="Views\TestTool\**" />
+    <Compile Remove="ViewModels\TestTool\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Bingo.Common\Aristocrat.Monaco.Bingo.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.0.20" />
+    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
+    <PackageReference Include="CefSharp.Wpf" Version="92.0.260" />
+    <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="MahApps.Metro" Version="1.6.5" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="1.9.1" />
+    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Application.Media.MediaProvider.Log">
+  <Fields>
+    <Field FieldName="Media.Id" DataType="Int64" />
+    <Field FieldName="Media.Address" DataType="String" Size="64" />
+    <Field FieldName="Media.AccessToken" DataType="Int64" />
+    <Field FieldName="Media.State" DataType="Int32" />
+    <Field FieldName="Media.ExceptionCode" DataType="Int32" />
+    <Field FieldName="Media.TransactionId" DataType="Int64" />
+    <Field FieldName="Media.SequenceNumber" DataType="Int64" />
+    <Field FieldName="Media.AuthorizedEvents" DataType="String" Size="1024" />
+    <Field FieldName="Media.AuthorizedCommands" DataType="String" Size="1024" />
+    <Field FieldName="Media.MdContentToken" DataType="Int64" />
+    <Field FieldName="Media.EmdiConnectionRequired" DataType="Bool" />
+    <Field FieldName="Media.EmdiReconnectTimer" DataType="Int32" />
+    <Field FieldName="Media.LoadTime" DataType="Int64" />
+    <Field FieldName="Media.ReleaseTime" DataType="Int64" />
+    <Field FieldName="Media.NativeResolution" DataType="Bool" />
+    <Field FieldName="Media.PlayerId" DataType="Int32" />
+  </Fields>
+</BlockFormat>

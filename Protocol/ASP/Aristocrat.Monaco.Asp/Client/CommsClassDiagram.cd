@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.ApplicationLayer" Collapsed="true">
+    <Position X="1" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAQAAAAAAAAIAAQAAAAAAAAAIEBAAgAEAACiABAEYA=</HashCode>
+      <FileName>Client\Comms\ApplicationLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.ApplicationMessage" Collapsed="true">
+    <Position X="0.75" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAABAAAAAIQBAAAAAAAAAAAARAAAAAAQCA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase" Collapsed="true">
+    <Position X="3" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAgACAAAIABAAAAAAAAAAAAQAAAAAAQAA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.AppResponse" Collapsed="true">
+    <Position X="3" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.AppDataResponse" Collapsed="true">
+    <Position X="3" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQAAEAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.AppEventResponse" Collapsed="true">
+    <Position X="3" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.DataLinkLayer" Collapsed="true">
+    <Position X="1" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAIABAwAaYEAAAAEAEhQAEACIgAAAAAIAAQEABAAAA=</HashCode>
+      <FileName>Client\Comms\DataLinkLayer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.DataLinkPacket" Collapsed="true">
+    <Position X="2.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAhAIgAAATAABgAAAAAAACAAEIBAEAQAA=</HashCode>
+      <FileName>Client\Comms\DataLinkPacket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.TransportLayer" Collapsed="true">
+    <Position X="1" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFBAAAAACAEAACAIAAAAAABAAIAAIAAAFAAAUAAAAAA=</HashCode>
+      <FileName>Client\Comms\TransportLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.TransportPacket" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAhACACAAAABAAAAAAABAAEAAAAABAQCA=</HashCode>
+      <FileName>Client\Comms\TransportMessages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.TransportMessage" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQCABgAAAAAAAAAQAAAAAAQAA=</HashCode>
+      <FileName>Client\Comms\TransportMessages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.AspCrc" Collapsed="true">
+    <Position X="4.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAIAAAAAAAA=</HashCode>
+      <FileName>Client\Comms\AspCRC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Aristocrat.Monaco.Asp.Client.Comms.CommPort" Collapsed="true">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IoAAAAAAACIAIIAAAAAAAAgwACAgBgAAAIAAgAGAAAA=</HashCode>
+      <FileName>Client\Comms\CommPort.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Aristocrat.Monaco.Asp.Client.Comms.ICommPort" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAAAAAAAAAAIAAAAAAAAAAgAAAgAAAAAAAAAAGAAAA=</HashCode>
+      <FileName>Client\Comms\ICommPort.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Comms.AppResponseStatus">
+    <Position X="5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAgAAAAABAEAAAAAAAAAAABIAAAAA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Comms.AppCommandTypes">
+    <Position X="7" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAQAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Comms.AppResponseTypes">
+    <Position X="5" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACABEAAQAAAAAAAAAIAAA=</HashCode>
+      <FileName>Client\Comms\ApplicationMessages.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Aristocrat.Monaco.Asp.Client.Comms.TransportMessageType">
+    <Position X="6.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABEAABAAAAAAAAAAAAAAgAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Client\Comms\TransportMessages.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

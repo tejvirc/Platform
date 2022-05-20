@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Application.LocalizationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="Localization.PlayerTicket.Override" />
+      <Field DataType="String" FieldName="Localization.PlayerTicket.Locale" Size="16" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Application.LocalizationConfigurationPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="Localization.PlayerTicket.Override" />
+      <Field DataType="String" FieldName="Localization.PlayerTicket.Locale" Size="16" />
+      <Field DataType="String" FieldName="Localization.PlayerTicket.DateFormat" Size="16" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Currencies>
+	<CurrencyDefinitions>
+		<Currency>
+		  <CurrencyCode>CAD</CurrencyCode>
+		  <ExcludedDenominations>
+				<int>1</int>
+				<int>2</int>
+				<int>50</int>
+				<int>100</int>
+		  </ExcludedDenominations>
+		  <Format id="1">
+				<ExcludePluralizeMajorUnits>
+					<string>fr-CA</string>
+				</ExcludePluralizeMajorUnits>
+				<ExcludePluralizeMinorUnits>
+					<string>fr-CA</string>
+				</ExcludePluralizeMinorUnits>
+		  </Format>
+		</Currency>
+	</CurrencyDefinitions>
+</Currencies>

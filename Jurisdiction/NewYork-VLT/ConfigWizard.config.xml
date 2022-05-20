@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts\ConfigWizard
+2.  Enter "xsd ConfigWizardConfiguration.xsd /classes".  This will generate
+    the corresponding class definition in csharp (ConfigWizardConfiguration.cs).
+-->
+<ConfigWizardConfiguration>
+    <MachineSetupConfig>
+      <EnterOutOfServiceWithCredits Enabled="false"/>
+    </MachineSetupConfig>
+    <IOConfigPage>
+        <UseSelection Enabled="false"/>
+    </IOConfigPage>
+    <LimitsPage>
+        <CreditLimit CheckboxEditable="false"/>
+        <HandpayLimit CheckboxEditable="false"/>
+    </LimitsPage>
+    <IdentityPage>
+        <PrintIdentity Visibility="Hidden"/>
+        <Area MaxLength="10" DefaultValue="109"/>
+        <Zone MaxLength="10"/>
+        <Bank MaxLength="10"/>
+        <Position Visible="Never"/>
+        <Location MaxLength="10"/>
+        <DeviceName ReadOnly="Always" MinLength="1" Formula="{Area}{Zone}{Bank}{Location}"/>
+    </IdentityPage>
+    <HardMetersConfig CanReconfigure="true"/>
+    <ProtocolConfiguration>
+        <ProtocolsAllowed>
+            <Protocol Name="MGAM" IsMandatory="true"/>
+            <Protocol Name="Test"/>
+        </ProtocolsAllowed>
+        <ExclusiveProtocols>
+            <ExclusiveProtocol Name="MGAM" Function="Validation"/>
+            <ExclusiveProtocol Name="MGAM" Function="Progressive"/>
+        </ExclusiveProtocols>
+        <RequiredFunctionality>
+            <FunctionalityType Type="CentralDeterminationSystem"/>
+        </RequiredFunctionality>
+    </ProtocolConfiguration>
+</ConfigWizardConfiguration>

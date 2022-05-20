@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Devices">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="DeviceClass">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="DeviceType">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="Parameter">
+                      <xs:complexType mixed="true">
+                        <xs:sequence minOccurs="0">
+                          <xs:element maxOccurs="unbounded" name="Field">
+                            <xs:complexType>
+                              <xs:sequence minOccurs="0">
+                                <xs:element maxOccurs="unbounded" name="Mask">
+                                  <xs:complexType>
+                                    <xs:attribute name="Operation" type="MaskOperation" use="required" />
+                                    <xs:attribute name="TrueText" type="xs:string" use="required" />
+                                    <xs:attribute name="Value" type="xs:unsignedShort" use="required" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="DataMemberName" type="xs:string" use="required" />
+                              <xs:attribute name="DataSourceName" type="xs:string" use="required" />
+                              <xs:attribute name="ID" type="xs:unsignedByte" use="required" />
+                              <xs:attribute name="Name" type="xs:string" use="required" />
+                              <xs:attribute name="Size" type="xs:unsignedByte" use="required" />
+                              <xs:attribute name="Type" type="FieldType" use="required" />
+                              <xs:attribute name="Value" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="EGMAccess" type="AccessType" use="required" />
+                        <xs:attribute name="EventAccess" type="EventAccessType" use="required" />
+                        <xs:attribute name="ID" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="MCIAccess" type="AccessType" use="required" />
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="ID" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="ID" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="Name" type="xs:string" use="required" />
+            <xs:attribute name="Version" type="xs:string" use="required" />
+            <xs:attribute name="SharedDeviceTypeEventReport" type="xs:boolean" use="optional" default ="false" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="AccessType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ReadWrite" />
+      <xs:enumeration value="ReadOnly" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EventAccessType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Always" />
+      <xs:enumeration value="OnRequest" />
+      <xs:enumeration value="Never" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FieldType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BYTE" />
+      <xs:enumeration value="WORD" />
+      <xs:enumeration value="LONG" />
+      <xs:enumeration value="CHAR" />
+      <xs:enumeration value="WORD" />
+      <xs:enumeration value="INT" />
+      <xs:enumeration value="ULONG" />
+      <xs:enumeration value="FLOAT" />
+      <xs:enumeration value="STRING" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MaskOperation" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Equal" />
+      <xs:enumeration value="LessThan" />
+      <xs:enumeration value="LessThanEqual" />
+      <xs:enumeration value="GreaterThanEqual" />
+      <xs:enumeration value="NotEqual" />
+      <xs:enumeration value="Xor" />
+      <xs:enumeration value="And" />
+      <xs:enumeration value="Or" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

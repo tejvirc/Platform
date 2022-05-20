@@ -1,0 +1,70 @@
+name: SonarQube
+
+on:
+  workflow_dispatch:
+  
+  push:
+    branches:
+    - main
+    - release/*
+    paths:
+    - 'Accounting/**'
+    - 'Application/**'
+    - 'Gaming/**'
+    - 'Hardware/**'
+    - 'Jurisdiction/**'
+    - 'Kernel/**'
+    - 'Protocol/**'
+    - 'Shared/**'
+    - 'Test/**'
+  
+  pull_request:
+    branches:
+    - main
+    - release/*
+      
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.REGISTRY_TOKEN}}
+      with:
+        dotnet-version: '5.x'
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+    - name: Setup msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Setup VSTest Path
+      uses: darenm/setup-vstest@v1
+    - name: Remove TeamCity NuGet Source
+      run: >
+        dotnet nuget remove source TeamCity --configfile ./NuGet.config
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.11
+    - name: Cache SonarQube packages
+      uses: actions/cache@v1
+      with:
+        path: ~\sonar\cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+    - name: Cache .nuke/temp, ~/.nuget/packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          .nuke/temp
+          ~/.nuget/packages
+        key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
+    - name: Build and analyze
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      shell: powershell
+      run: >
+        ./build.cmd Analyze --configuration Debug --sonar-server "${{ secrets.SONAR_HOST_URL }}" --sonar-login "${{ secrets.SONAR_TOKEN }}" --sonar-project-key "Aristocrat-Monaco-Platform_monaco"

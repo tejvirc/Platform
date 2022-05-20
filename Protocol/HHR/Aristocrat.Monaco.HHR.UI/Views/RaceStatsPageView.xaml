@@ -1,0 +1,104 @@
+﻿<menu:HHRMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.RaceStatsPageView"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
+                         xmlns:converters="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
+                         xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+                         mc:Ignorable="d"
+                         d:DesignHeight="300" d:DesignWidth="808">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:HorseNumberToSmallImage x:Key="HorseNumberToSmallImage"/>
+            <converters:WinningOddsToCollection x:Key="WinningOddsToCollection"/>
+            <converters:WinningOddsToImage x:Key="WinningOddsToImage" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <!-- Header - Race/Race Stats> -->
+
+        <Image Source="../Resources/RaceStats/RaceStatsHeader.png" Height="30" Margin="0 0 0 10" />
+        <ItemsControl ItemsSource="{Binding RaceStatsCharts}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" >
+                    </StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="models:RaceStatsChartModel">
+                    <StackPanel>
+
+                        <ItemsControl ItemsSource="{Binding WinningOddsList}" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="10 0 0 0" Height="521" Width="521">
+                                        <StackPanel.Background>
+                                            <ImageBrush ImageSource="../Resources/RaceStats/RaceStatsBKGD.png" />
+                                        </StackPanel.Background>
+                                    </StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+                                        <StackPanel.LayoutTransform>
+                                            <TransformGroup>
+                                                <RotateTransform Angle="180" />
+                                            </TransformGroup>
+                                        </StackPanel.LayoutTransform>
+
+                                        <!--Horse no. image drawn horizontally in race stat chart-->
+
+                                        <Grid Height="43" Width="43" Margin="0 10 0 0">
+                                            <Image Source="{Binding HorseNo, Converter={StaticResource HorseNumberToSmallImage}}">
+                                                <Image.LayoutTransform>
+                                                    <RotateTransform Angle="180"/>
+                                                </Image.LayoutTransform>
+                                            </Image>
+                                        </Grid>
+
+                                        <!-- Stat increment image drawn vertically in race stat chart-->
+
+                                        <ItemsControl ItemsSource="{Binding WinningOdds,Converter={StaticResource WinningOddsToCollection}}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Vertical" >
+                                                    </StackPanel>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Height="28" Width="34" Margin="0 0 0 10">
+                                                        <Image Source="{Binding  Converter={StaticResource WinningOddsToImage}}">
+                                                            <Image.LayoutTransform>
+                                                                <RotateTransform Angle="180"/>
+                                                            </Image.LayoutTransform>
+                                                        </Image>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!-- Information about the Chart -->
+
+                        <TextBlock FontSize="15" Foreground="White" 
+                                   Text ="{Binding ChartInfo}" 
+                                   FontWeight="Bold" 
+                                   Margin="0 10 0 0" 
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</menu:HHRMenuPage>

@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters">
+    
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisHiddenConverter" TrueValue="Visible" FalseValue="Hidden"/>
+    <converters:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Hidden" FalseValue="Visible"/>
+    <converters:BoolToVisibilityConverter x:Key="BoolToCollapsedConverter" TrueValue="Collapsed" FalseValue="Visible" />
+
+    <converters:CurrencyConverter x:Key="CurrencyConverter"/>
+    <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
+    <converters:DefaultValueConverter x:Key="EmptyToDefaultValue" />
+    <converters:InverseBooleanConverter x:Key="InverseBoolConverter"/>
+    <converters:LogicalAndConverter x:Key="BoolAndConverter" />
+    <converters:LogicalOrConverter x:Key="BoolOrConverter" />
+    <converters:MultiValueConverter x:Key="MultiValueConverter"/>
+</ResourceDictionary>

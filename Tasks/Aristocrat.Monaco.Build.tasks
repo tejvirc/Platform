@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ExtensionTasksPath>$(MSBuildThisFileDirectory)Aristocrat.Monaco.Build\bin\$(Configuration)\</ExtensionTasksPath>
+    </PropertyGroup>
+
+    <UsingTask AssemblyFile="$(ExtensionTasksPath)MSBuild.Extensions.dll" TaskName="MSBuild.Extensions.Tasks.GetResourceAssemblyNames"/>
+    <UsingTask AssemblyFile="$(ExtensionTasksPath)MSBuild.Extensions.dll" TaskName="MSBuild.Extensions.Tasks.GetModifiedResources"/>
+</Project>

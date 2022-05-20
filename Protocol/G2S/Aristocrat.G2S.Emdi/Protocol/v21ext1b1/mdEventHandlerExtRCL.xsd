@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:RCL="http://www.gamingstandards.com/emdi/schemas/v1b/RCL" xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/RCL" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-21 v1b2">
+	<xs:import namespace="http://mediaDisplay.igt.com" schemaLocation="mdInclude.xsd"/>
+	<xs:import namespace="http://mediaDisplay.igt.com" schemaLocation="mdMeters.xsd"/>
+	<!--Simple Data Types-->
+	<xs:simpleType name="t_uniqueIdentifier32">
+		<xs:annotation>
+			<xs:documentation>32-Character Unique Identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z0-9]{3}_[ -~]{1,28}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_themeId">
+		<xs:annotation>
+			<xs:documentation>Theme Identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="RCL:t_uniqueIdentifier32"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_paytableId">
+		<xs:annotation>
+			<xs:documentation>Paytable identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="RCL:t_uniqueIdentifier32"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_denomId">
+		<xs:annotation>
+			<xs:documentation>Denomination identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:maxInclusive value="999999999999999"/>
+			<xs:minInclusive value="-1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_playResults">
+		<xs:annotation>
+			<xs:documentation>Game Play Results - Not Extensible.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="G2S_noResult"/>
+			<xs:enumeration value="G2S_gameFailed"/>
+			<xs:enumeration value="G2S_gameLost"/>
+			<xs:enumeration value="G2S_gameTied"/>
+			<xs:enumeration value="G2S_gameWon"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Complex Dala Types-->
+	<xs:complexType name="c_recallLog">
+		<xs:annotation>
+			<xs:documentation>recallLog Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="themeId" type="RCL:t_themeId" use="required"/>
+				<xs:attribute name="paytableId" type="RCL:t_paytableId" use="required"/>
+				<xs:attribute name="denomId" type="RCL:t_denomId" use="required"/>
+				<xs:attribute name="gameDateTime" type="xs:dateTime" use="required"/>
+				<xs:attribute name="playResult" type="RCL:t_playResults" use="required"/>
+				<xs:attribute name="initialWager" type="t_meterValue" use="required"/>
+				<xs:attribute name="finalWager" type="t_meterValue" use="required"/>
+				<xs:attribute name="initialWin" type="t_meterValue" use="required"/>
+				<xs:attribute name="secondaryPlayed" type="t_meterValue" use="optional" default="0"/>
+				<xs:attribute name="secondaryWager" type="t_meterValue" use="optional" default="0"/>
+				<xs:attribute name="secondaryWin" type="t_meterValue" use="optional" default="0"/>
+				<xs:attribute name="finalWin" type="t_meterValue" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Elements-->
+	<xs:element name="recallLog">
+		<xs:annotation>
+			<xs:documentation>recallLog Element.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="RCL:c_recallLog">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--End of Extension.-->
+</xs:schema>

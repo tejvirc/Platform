@@ -1,0 +1,130 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.DisplaysPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DesignHeight="600" d:DesignWidth="1080"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:DisplaysPageViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Margin="0,0,0,5" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Grid.Row="0">
+            <StackPanel Margin="5">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Detected}}" HorizontalAlignment="Left" />
+                <ItemsControl ItemsSource="{Binding DisplaysDetected}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Name="DisplayStatusBorder" BorderThickness="3" Background="{DynamicResource DarkBrush1}" BorderBrush="{DynamicResource Brush3}" Margin="0 4 0 0">
+                                <StackPanel Width="200" HorizontalAlignment="Center">
+                                    <TextBlock Name="DisplayName" Foreground="{DynamicResource Brush3}" Margin="5 0"
+                                               Text="{Binding DisplayName}"
+                                               FontSize="{StaticResource LabelFontSize}"/>
+                                    <TextBlock Name="DisplayStatus" Foreground="White" Margin="10 0"
+                                               Text="{Binding DisplayStatus}"
+                                               FontSize="{StaticResource LabelFontSize}"/>
+                                    <TextBlock Name="TouchScreenName" Foreground="{DynamicResource Brush3}" Margin="5 0"
+                                               Text="{Binding TouchName}"
+                                               FontSize="{StaticResource LabelFontSize}"/>
+                                    <TextBlock Name="TouchScreenStatus" Foreground="White" Margin="10 0"
+                                               Text="{Binding TouchStatus}"
+                                               FontSize="{StaticResource LabelFontSize}"/>
+                                </StackPanel>
+                            </Border>
+                            <DataTemplate.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsTouchDisconnected}"
+                                    Value="True">
+                                    <Setter Property="Foreground" TargetName="TouchScreenStatus" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding IsTouchDisconnected}"
+                                    Value="False">
+                                    <Setter Property="Foreground" TargetName="TouchScreenStatus" Value="White" />
+                                </DataTrigger>
+
+                                <DataTrigger
+                                    Binding="{Binding IsDisplayConnected}"
+                                    Value="False">
+                                    <Setter Property="Foreground" TargetName="DisplayStatus" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding IsDisplayConnected}"
+                                    Value="True">
+                                    <Setter Property="Foreground" TargetName="DisplayStatus" Value="White" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel MinHeight="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5"
+                    Visibility="{Binding IsCabinetThatAllowsChangingBrightness, Converter={StaticResource BoolToVisConverter}}"
+                    Grid.Row="1">
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.VideoDisplayBrightness}}"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+            <Slider Style="{StaticResource MonacoSlider}" MinWidth="400" IsEnabled="{Binding InputEnabled}"
+                    TickFrequency="10"
+                    IsSnapToTickEnabled="True"
+                    Minimum="{Binding MinimumBrightness, Mode=OneWay}"
+                    Maximum="{Binding MaximumBrightness, Mode=OneWay}"
+                    Value="{Binding BrightnessValue}" />
+        </StackPanel>
+        
+        <Border Grid.Row="2" Margin="0 15 0 0" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal">
+                <Button Name="EnterTouchScreenPixelBtn" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestTouchScreen}}"
+                    Height="50" Width="240"
+                    IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
+                    Command="{Binding EnterTouchScreenCommand}"
+                    CommandParameter="{Binding ElementName=EnterTouchScreenPixelBtn}" 
+                    Visibility="{Binding TestTouchScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <Button Name="CalibrateTouchScreenButton"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrateTouchScreen}}" Height="50" Width="240"
+                        IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
+                        Command="{Binding EnterCalibrateTouchScreenCommand}"
+                        CommandParameter="{Binding ElementName=CalibrateTouchScreenButton}" 
+                        Visibility="{Binding CalibrateTouchScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
+                <Button Name="EnterIdentifyScreenBtn"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.IdentifyVideoDisplay}}" Height="50" Width="240"
+                        IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
+                        Command="{Binding EnterIdentifyScreenCommand}"
+                        CommandParameter="{Binding ElementName=EnterIdentifyScreenBtn}" />
+                <Button Name="EnterColorTestButton"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterDisplayColorTest}}" Height="50" Width="240"
+                        IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
+                        Command="{Binding EnterColorTestCommand}"
+                        CommandParameter="{Binding ElementName=EnterColorTestButton}" />
+                <Button Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
+                        Command="{Binding ShowInfoPopupCommand}"
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource BoolToHiddenConverter}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="WarningButton" />
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}"
+                                     Path="DataContext.TestWarningText" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

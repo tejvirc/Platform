@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+	<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.BonusMeterProvider.xml" >
+		<Fields>
+			<Field DataType="Int64" FieldName="BonusCashableInAmountLifetime" />
+			<Field DataType="Int64" FieldName="BonusCashableInAmountPeriod" />
+			<Field DataType="Int64" FieldName="BonusCashableInCountLifetime" />
+			<Field DataType="Int64" FieldName="BonusCashableInCountPeriod" />
+			<Field DataType="Int64" FieldName="BonusNonCashInAmountLifetime" />
+			<Field DataType="Int64" FieldName="BonusNonCashInAmountPeriod" />
+			<Field DataType="Int64" FieldName="BonusNonCashInCountLifetime" />
+			<Field DataType="Int64" FieldName="BonusNonCashInCountPeriod" />
+			<Field DataType="Int64" FieldName="BonusPromoInAmountLifetime" />
+			<Field DataType="Int64" FieldName="BonusPromoInAmountPeriod" />
+			<Field DataType="Int64" FieldName="BonusPromoInCountLifetime" />
+			<Field DataType="Int64" FieldName="BonusPromoInCountPeriod" />
+		</Fields>
+	</BlockFormat>
+	<BlockFormat version="2" name="Aristocrat.Monaco.Gaming.BonusMeterProvider.xml" >
+		<Fields>
+			<Field DataType="Int64" FieldName="BonusCashableInAmountLifetime" />
+			<Field DataType="Int64" FieldName="BonusCashableInAmountPeriod" />
+			<Field DataType="Int64" FieldName="BonusCashableInCountLifetime" />
+			<Field DataType="Int64" FieldName="BonusCashableInCountPeriod" />
+			<Field DataType="Int64" FieldName="BonusNonCashInAmountLifetime" />
+			<Field DataType="Int64" FieldName="BonusNonCashInAmountPeriod" />
+			<Field DataType="Int64" FieldName="BonusNonCashInCountLifetime" />
+			<Field DataType="Int64" FieldName="BonusNonCashInCountPeriod" />
+			<Field DataType="Int64" FieldName="BonusPromoInAmountLifetime" />
+			<Field DataType="Int64" FieldName="BonusPromoInAmountPeriod" />
+			<Field DataType="Int64" FieldName="BonusPromoInCountLifetime" />
+			<Field DataType="Int64" FieldName="BonusPromoInCountPeriod" />
+
+			<Field DataType="Int64" FieldName="MjtGamesPlayedCountLifetime" />
+			<Field DataType="Int64" FieldName="MjtGamesPlayedCountPeriod" />
+			<Field DataType="Int64" FieldName="MjtGamesPaidCountLifetime" />
+			<Field DataType="Int64" FieldName="MjtGamesPaidCountPeriod" />
+			<Field DataType="Int64" FieldName="MjtBonusAmountLifetime" />
+			<Field DataType="Int64" FieldName="MjtBonusAmountPeriod" />
+
+			<Field DataType="Int64" FieldName="WagerMatchGamesPlayedCountLifetime" />
+			<Field DataType="Int64" FieldName="WagerMatchGamesPlayedCountPeriod" />
+			<Field DataType="Int64" FieldName="WagerMatchBonusAmountLifetime" />
+			<Field DataType="Int64" FieldName="WagerMatchBonusAmountPeriod" />
+		</Fields>
+	</BlockFormat>
+	<BlockFormat version="3" name="Aristocrat.Monaco.Gaming.BonusMeterProvider.xml" >
+		<Fields>
+			<Field DataType="Int64" FieldName="MjtGamesPlayedCountLifetime" />
+			<Field DataType="Int64" FieldName="MjtGamesPlayedCountPeriod" />
+			<Field DataType="Int64" FieldName="AttendantPaidMjtBonusCountLifetime" />
+			<Field DataType="Int64" FieldName="AttendantPaidMjtBonusCountPeriod" />
+			<Field DataType="Int64" FieldName="AttendantPaidMjtBonusAmountLifetime" />
+			<Field DataType="Int64" FieldName="AttendantPaidMjtBonusAmountPeriod" />
+			<Field DataType="Int64" FieldName="EgmPaidMjtBonusCountLifetime" />
+			<Field DataType="Int64" FieldName="EgmPaidMjtBonusCountPeriod" />
+			<Field DataType="Int64" FieldName="EgmPaidMjtBonusAmountLifetime" />
+			<Field DataType="Int64" FieldName="EgmPaidMjtBonusAmountPeriod" />
+
+			<Field DataType="Int64" FieldName="AttendantPaidBonusCountLifetime" />
+			<Field DataType="Int64" FieldName="AttendantPaidBonusCountPeriod" />
+			<Field DataType="Int64" FieldName="EgmPaidBonusCountLifetime" />
+			<Field DataType="Int64" FieldName="EgmPaidBonusCountPeriod" />
+		</Fields>
+	</BlockFormat>
+</ArrayOfBlockFormat>

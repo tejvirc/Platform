@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Vgt.Client12.Testing.Tools.DebugCurrencyHandler.xml" ElementSize="32">
+  <Fields>
+    <Field FieldName="TransactionGuid" DataType="Byte" Count="16" />
+    <Field FieldName="Amount" DataType="Int64" />
+    <Field FieldName="NewAccountBalance" DataType="Int64" />
+  </Fields>
+</BlockFormat>

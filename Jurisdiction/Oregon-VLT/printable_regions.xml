@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DPR_Collection
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../bin/Region.xsd"
+  xml:space="preserve">
+    <DPR name="TextTicketLeft" id="100" x="28" px="00000" y="20" py="00020" dx="476" pdx="00504" dy="2000" pdy="01000" rot="1" jst="1" type="F=009" m1="1" m2="1" attr="001" property="left">
+      <D></D>
+    </DPR>
+    <DPR name="TextTicketCenter" id="101" x="28" px="00000" y="20" py="00020" dx="476" pdx="00496" dy="2000" pdy="01000" rot="1" jst="2" type="F=009" m1="1" m2="1" attr="001" property="center">
+      <D></D>
+    </DPR>
+    <DPR name="TextTicketRight" id="102" x="28" px="00000" y="20" py="00020" dx="476" pdx="00491" dy="2000" pdy="01000" rot="1" jst="3" type="F=009" m1="1" m2="1" attr="001" property="right">
+      <D></D>
+    </DPR>
+    <DPR name="TextTicketTitle" id="103" x="28" px="00000" y="20" py="00000" dx="476" pdx="00504" dy="2000" pdy="01000" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="title">
+      <D></D>
+    </DPR>
+    <DPR name="TextTicketCenterAlt" id="104" x="28" px="00000" y="20" py="00020" dx="476" pdx="00496" dy="2000" pdy="01000" rot="1" jst="2" type="F=009" m1="1" m2="1" attr="001" property="center alt">
+      <D></D>
+    </DPR>
+    <DPR name="CashSlipTitle" id="105" x="28" px="00028" y="15" py="00100" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=007" m1="1" m2="1" attr="001" property="title jackpot top">
+      <D></D>
+    </DPR>
+    <DPR name="CashSlipTitle" id="106" x="28" px="00028" y="15" py="00100" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=007" m1="1" m2="1" attr="001" property="title alt">
+      <D></D>
+    </DPR>
+    <DPR name="ValidationNo" id="107" x="28" px="00028" y="15" py="00050" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="validation number">
+      <D></D>
+    </DPR>
+    <DPR name="CashSlipSeqNo" id="108" x="28" px="00028" y="15" py="00760" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="vlt sequence number alt">
+      <D></D>
+    </DPR>
+    <DPR name="License" id="111" x="28" px="00028" y="15" py="00215" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="license alt">
+      <D></D>
+    </DPR>
+    <DPR name="CashValue" id="114" x="28" px="00028" y="120" py="00360" dx="476" pdx="00476" dy="70" pdy="00100" rot="1" jst="2" type="F=002" m1="1" m2="1" attr="001" property="value">
+      <D></D>
+    </DPR>
+    <DPR name="CashValueText" id="115" x="28" px="00028" y="120" py="00460" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=006" m1="1" m2="1" attr="001" property="value in wrapped words 1">
+      <D></D>
+    </DPR>
+    <DPR name="CashValueText" id="116" x="28" px="00028" y="120" py="00500" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=006" m1="1" m2="1" attr="001" property="value in wrapped words 2">
+      <D></D>
+    </DPR>
+    <DPR name="CashSlipBarcode" id="117" x="28" px="00028" y="120" py="00850" dx="476" pdx="00476" dy="100" pdy="00150" rot="1" jst="2" type="B=001" m1="2" m2="6" attr="080" property="barcode">
+      <D></D>
+    </DPR>
+    <DPR name="EstablishmentName" id="121" x="28" px="00028" y="15" py="00190" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=007" m1="1" m2="1" attr="001" property="establishment name">
+      <D></D>
+    </DPR>
+    <DPR name="Date" id="127" x="28" px="00028" y="120" py="00595" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="date">
+      <D></D>
+    </DPR>
+    <DPR name="Time" id="128" x="28" px="00028" y="120" py="00620" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="time">
+      <D></D>
+    </DPR>
+    <DPR name="SerialId" id="129" x="28" px="00028" y="15" py="00680" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=007" m1="1" m2="1" attr="001" property="serial id alt">
+      <D></D>
+    </DPR>
+    <DPR name="Vendor" id="130" x="28" px="00028" y="15" py="00930" dx="540" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=006" m1="1" m2="1" attr="001" property="vendor">
+      <D></D>
+    </DPR>
+    <DPR name="Regulator" id="131" x="28" px="00028" y="15" py="00240" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=007" m1="1" m2="1" attr="001" property="regulator">
+      <D></D>
+    </DPR>
+    <DPR name="CashSlipTitle" id="132" x="28" px="00028" y="15" py="00730" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="title jackpot bottom">
+      <D></D>
+    </DPR>
+	<DPR name="TextTicketLeftAlt" id="133" x="28" px="00000" y="20" py="00020" dx="476" pdx="00504" dy="2000" pdy="01000" rot="1" jst="1" type="F=009" m1="1" m2="1" attr="001" property="left alt">
+      <D></D>
+    </DPR>
+	<DPR name="CashSlipPaperLevel" id="134" x="28" px="00028" y="85" py="00085" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="paper level">
+      <D></D>                                                                                                   
+    </DPR>     
+</DPR_Collection>

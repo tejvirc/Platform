@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+*NOTE* When adding or removing elements to this file, you will need to
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Hardware\Aristocrat.Monaco.Hardware.Contracts\Discovery
+2.  Enter "xsd ConfiguredDevicesConfiguration.xsd /classes".  This will generate
+    the corresponding class definition in csharp (ConfiguredDevices.cs).
+-->
+<ConfiguredDevices>
+  <Defaults>
+    <Device Name="JCM IVizion USB GDS"/>
+    <Device Name="JCM Gen5 Serial TCL"/>
+    <Device Name="UNIFORM USB GDS"/>
+  </Defaults>
+
+  <Included>
+    <Device Name="JCM IVizion USB GDS" Enabled="false"/>
+    <Device Name="JCM Gen5 Serial TCL" Enabled="false" />
+    <Device Name="UNIFORM USB GDS" Enabled="false" />
+  </Included>
+
+  <Excluded>
+    <Device Type="HardMeters" />
+  </Excluded>
+</ConfiguredDevices>

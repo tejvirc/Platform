@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" ElementSize="4">
+    <Fields>
+      <Field DataType="Int32" Size="4" Count="0" Offset="0" FieldName="Crc" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

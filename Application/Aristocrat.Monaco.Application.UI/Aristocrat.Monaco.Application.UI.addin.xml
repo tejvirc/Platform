@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="Monaco.Application.UI" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Monaco.Application.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.Application.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.UI.Common.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
+    <Addin id="Monaco.Hardware" version="1.0" />
+  </Dependencies>
+
+  <Extension path = "/Kernel/CommandLineArguments">
+    <CommandLineArgument Name="AutoConfigFile">
+      <ArgumentValue ValidValue="string" Description="Relative path from Bootstrap.exe to the config file" />
+    </CommandLineArgument>
+    <CommandLineArgument Name="DisplayFakePrinterTickets">
+      <ArgumentValue ValidValue="false" Description="The normal mode of operation. This is the default." />
+      <ArgumentValue ValidValue="true" Description="Display a MessageBox containing the printer ticket when Fake Printer is in use and print button is clicked." />
+    </CommandLineArgument>
+  </Extension>
+
+  <Extension path="/Kernel/PathMapping">
+    <PathMapping platformPath="/Assets/Skins" fileSystemPath="Skins" />
+  </Extension>
+
+  <Extension path="/Application/IOperatorMenu">
+    <IOperatorMenu type="Aristocrat.Monaco.Application.UI.OperatorMenu.Launcher" />
+  </Extension>
+
+  <Extension path="/Application/ConfigurationWizard">
+    <ConfigurationWizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.Launcher" />
+  </Extension>
+
+  <Extension path = "/Kernel/PlatformDisplay">
+    <PlatformDisplay type="Aristocrat.Monaco.Application.UI.StatusDisplay.Launcher" />
+  </Extension>
+
+  <Extension path = "/Kernel/WindowLauncher">
+    <WindowLauncher type="Aristocrat.Monaco.UI.Common.WpfWindowLauncher" />
+  </Extension>
+  
+  <Extension path="/Kernel/Services">
+    <Service type="Aristocrat.Monaco.Application.UI.OperatorMenu.DialogService" />
+  </Extension>
+
+  <Extension path="/Hardware/Services">
+    <Service type="Aristocrat.Monaco.Application.UI.Input.TouchCalibrationService" />
+  </Extension>
+
+  <Extension path="/Hardware/Services">
+    <Service type="Aristocrat.Monaco.Application.UI.Input.SerialTouchCalibrationService" />
+  </Extension>
+
+  <Extension path="/Application/Services">
+    <Service type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuConfigurationService" />
+    <Service type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuAccessService" />
+    <Service type="Aristocrat.Monaco.UI.Common.Services.Cache" />
+  </Extension>
+
+  <Extension path="/Application/Configuration/Settings">
+    <Settings type="Aristocrat.Monaco.Application.UI.Settings.ApplicationConfigurationSettings" />
+    <Settings type="Aristocrat.Monaco.Application.UI.Settings.EdgeLightingConfigurationSettings" />
+  </Extension>
+
+  <ExtensionPoint path = "/Application/Config/Wizards">
+    <ExtensionNode name="Wizard" type="Aristocrat.Monaco.Application.UI.ConfigWizard.WizardConfigTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Application/Config/Jurisdiction">
+    <ExtensionNode name="JurisdictionWizard"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Application/Config/Protocol">
+    <ExtensionNode name="ProtocolWizard"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.OperatorMenu.IOperatorMenuPage-->
+  <ExtensionPoint path = "/Application/OperatorMenu/MainMenu">
+    <ExtensionNode name="OperatorMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.OperatorMenu.IMetersPage-->
+  <ExtensionPoint path = "/Application/OperatorMenu/MetersMenu">
+    <ExtensionNode name="MetersMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/HardwareMenu">
+    <ExtensionNode name="HardwareMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/NetworkMenu">
+    <ExtensionNode name="NetworkMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/CommsMenu">
+    <ExtensionNode name="CommsMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/OptionsMainMenu">
+    <ExtensionNode name="OptionsMainMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/OptionsMenu">
+    <ExtensionNode name="OptionsMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/DiagnosticMenu">
+    <ExtensionNode name="DiagnosticMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/SoftwareMenu">
+    <ExtensionNode name="SoftwareMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+  
+  <ExtensionPoint path="/Application/OperatorMenu/StatusMenu">
+    <ExtensionNode name="StatusMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/SystemMenu">
+    <ExtensionNode name="SystemMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/IdentificationMenu">
+    <ExtensionNode name="IdentificationMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/GamesMenu">
+    <ExtensionNode name="GamesMenu" type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/DisplayMeters">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/DiagnosticMenu">
+    <ExtensionNode name="DiagnosticMainPage"  type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/OperatorMenu/ToolsMenu">
+    <ExtensionNode name="ToolsMenu"  type="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuTypeExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/ConfigWizard/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>  
+  
+  <ExtensionPoint path = "/OperatorMenu/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Locale/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/OperatorMenu/Sound/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/OperatorMenu/GamePreferences/Sounds">
+      <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/OperatorMenu/Settings/Template">
+    <ExtensionNode name="SettingsTemplate" type="Aristocrat.Monaco.Application.UI.Settings.SettingsTemplateNode" />
+  </ExtensionPoint>
+ 
+  <ConditionType id="Cabinet.isParticipatingInProgressive" type="Aristocrat.Monaco.Kernel.BooleanPropertyCondition" />
+</Addin>

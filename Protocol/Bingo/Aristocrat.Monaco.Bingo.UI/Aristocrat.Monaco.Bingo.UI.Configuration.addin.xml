@@ -1,0 +1,32 @@
+﻿<Addin id="BingoConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="SelectableProtocol" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <SelectableProtocol name="Bingo" description="Platform Configuration for Bingo">
+      <AddinConfigurationGroupReference name="BingoProtocolRunnable" />
+      <AddinConfigurationGroupReference name="BingoConfigWizardPages" />
+    </SelectableProtocol>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="BingoProtocolRunnable" description="This is the protocol launcher for Bingo">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.BingoBase" typeName="Aristocrat.Monaco.Bingo.UI.BingoBase" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+    <AddinConfigurationGroup name="BingoConfigWizardPages" description="These are the config wizard pages for Bingo">
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.BingoOperatorMenu"
+                           typeName="Aristocrat.Monaco.Bingo.UI.BingoConfigurationWizard" order="100" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+    <ExtensionPoint path="/NIGC/Certificate/Configuration">
+        <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+    </ExtensionPoint>
+</Addin>

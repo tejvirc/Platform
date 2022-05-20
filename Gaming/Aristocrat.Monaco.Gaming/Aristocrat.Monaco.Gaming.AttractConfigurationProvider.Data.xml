@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Gaming.AttractConfigurationProvider.Data">
+    <Fields>
+      <Field FieldName="AttractGame.SequenceNumber" DataType="Int32" />
+      <Field FieldName="AttractGame.GameThemeId" DataType="String" Size="64" />
+      <Field FieldName="AttractGame.GameTypeName" DataType="Int32" />
+      <Field FieldName="AttractGame.GameIsSelected" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

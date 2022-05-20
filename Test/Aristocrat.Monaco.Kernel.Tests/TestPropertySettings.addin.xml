@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<Addin id="PropertySettings" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/PropertySettings">
+    <PropertySetting PropertyName="MyTestProperty" PropertyValue="MyTestPropertyValue" />
+  </Extension> 
+
+</Addin>

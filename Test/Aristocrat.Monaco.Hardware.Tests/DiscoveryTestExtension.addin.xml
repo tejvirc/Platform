@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<Addin id="DiscoveryTestExtension" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="DiscoveryUnitTest" version="1.0" />
+  </Dependencies>
+
+  <Extension path = "/Platform/Discovery/Configuration">
+    <FilePath FilePath=".\Config\Jurisdiction\Oklahoma-Class2\PlatformDiscovery.config.xml" />
+  </Extension>
+
+  <Extension path = "/Hardware/Discovery/Configuration">
+    <FilePath FilePath=".\Config\HardwareDiscovery.config.xml" />
+  </Extension>
+
+  <Extension path = "/Hardware/PrintableRegions">
+    <FilePath FilePath=".\Config\Jurisdiction\Oklahoma-Class2\printable_regions.xml" />
+  </Extension>
+
+  <Extension path = "/Hardware/PrintableTemplates">
+    <FilePath FilePath=".\Config\Jurisdiction\Oklahoma-Class2\printable_templates.xml" />
+  </Extension>
+
+  <Extension path = "/IO/Configuration">
+    <IOConfiguration Protocol="Gen8" >
+      <FilePath FilePath=".\Config\IO\IO.Gen8.config.xml" />
+    </IOConfiguration>
+
+    <IOConfiguration Protocol="Innocore" >
+      <FilePath FilePath=".\Config\IO\IO.Innocore.config.xml" />
+    </IOConfiguration>
+
+    <IOConfiguration Protocol="Tews" >
+      <FilePath FilePath=".\Config\IO\IO.Tews.config.xml" />
+    </IOConfiguration>
+
+    <IOConfiguration Protocol="Fake" >
+      <FilePath FilePath=".\Config\IO\IO.Innocore.config.xml" />
+    </IOConfiguration>
+  </Extension>
+
+</Addin>

@@ -1,0 +1,211 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
+
+    <Style x:Key="MonacoToggleButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint=".5,1" EndPoint=".5,0">
+                    <GradientStop Color="{DynamicResource Color6}" Offset="0" />
+                    <GradientStop Color="{DynamicResource LightColor2}" Offset=".3" />
+                    <GradientStop Color="{DynamicResource LightColor4}" Offset=".5" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
+        <Setter Property="controls:ControlsHelper.CornerRadius" Value="3"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MonacoFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource ButtonFontSize}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Foreground" Value="{DynamicResource DarkBrush3}" />
+        <Setter Property="MinHeight" Value="25"/>
+        <Setter Property="Padding" Value="10 12"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{DynamicResource LightColor2}" 
+                                  ShadowDepth="0" 
+                                  Opacity="1"
+                                  BlurRadius="15" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <Border x:Name="Border"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <Border x:Name="DisabledVisualElement"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ControlsDisabledBrush}"
+                                Background="{DynamicResource ControlsDisabledBrush}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <controls:ContentControlEx x:Name="PART_ContentPresenter"
+                                                   ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.ContentCharacterCasing)}"
+                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                   Content="{TemplateBinding Content}"
+                                                   ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                                   ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Margin="{TemplateBinding BorderThickness}"
+                                                   Padding="{TemplateBinding Padding}"
+                                                   RecognizesAccessKey="True"
+                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush3}" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource DarkBrush1}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.7" />
+                            <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Brush3}" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                            <GradientStop Color="{DynamicResource Color1}"
+                                          Offset="0" />
+                            <GradientStop Color="{DynamicResource Color2}"
+                                          Offset=".4" />
+                            <GradientStop Color="{DynamicResource Color3}"
+                                          Offset=".9" />
+                            <GradientStop Color="{DynamicResource Color4}"
+                                          Offset=".95" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource LightBrush3}" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource DarkBrush1}"/>
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="MonacoToggleButton2" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint=".5,1" EndPoint=".5,0">
+                    <GradientStop Color="{DynamicResource LightColor2}"
+                                  Offset="0"/>
+                    <GradientStop Color="{DynamicResource LightColor5}"
+                                  Offset=".5"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource DarkBrush1}" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Upper"/>
+        <Setter Property="controls:ControlsHelper.CornerRadius" Value="0" />
+        <Setter Property="FontFamily" Value="{DynamicResource MonacoFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource ButtonFontSize}" />
+        <Setter Property="Padding" Value="10,13"/>
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{DynamicResource HighlightColor1}" 
+                                  ShadowDepth="0" 
+                                  Opacity="1"
+                                  BlurRadius="20" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <Border x:Name="Border"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <Border x:Name="DisabledVisualElement"
+                                Background="{DynamicResource ControlsDisabledBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{DynamicResource ControlsDisabledBrush}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <controls:ContentControlEx x:Name="PART_ContentPresenter"
+                                                   ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.ContentCharacterCasing)}"
+                                                   ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                   Content="{TemplateBinding Content}"
+                                                   ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                                   ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Margin="{TemplateBinding BorderThickness}"
+                                                   Padding="{TemplateBinding Padding}"
+                                                   RecognizesAccessKey="True"
+                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Brush3}" />
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource DarkBrush1}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.7" />
+                            <Setter TargetName="PART_ContentPresenter" Property="Opacity" Value="0.3" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Brush3}" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                            <GradientStop Color="{DynamicResource Color1}"
+                                          Offset="0" />
+                            <GradientStop Color="{DynamicResource Color2}"
+                                          Offset=".4" />
+                            <GradientStop Color="{DynamicResource Color3}"
+                                          Offset=".9" />
+                            <GradientStop Color="{DynamicResource Color4}"
+                                          Offset=".95" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource LightBrush3}" />
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource DarkBrush1}"/>
+                <Setter Property="Effect" Value="{x:Null}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<BlockFormat version="1" name="Vgt.Client12.Accounting.Bank">
+  <Fields>
+    <Field DataType="Int64" FieldName="Cashable" />
+    <Field DataType="Int64" FieldName="Promo" />
+    <Field DataType="Int64" FieldName="NonCash" />
+    <Field DataType="Int64" FieldName="NontransferablePromo" />
+  </Fields>
+</BlockFormat>

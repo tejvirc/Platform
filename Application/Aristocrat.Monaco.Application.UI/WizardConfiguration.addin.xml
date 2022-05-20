@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<Addin id="WizardConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+
+    <AddinConfigurationGroup name="BaseConfigWizardPages"
+                             description="These are the base platform config wizard addins">
+
+      <AddinConfigurationGroupReference name="GameConfigWizardPages" optional="true" />
+
+      <AddinConfigurationGroupReference name="GamingConfigWizardPages" />
+
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.HardwareConfigLoader" order="2" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.IdentityConfigLoader" order="3" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.MachineConfigLoader" order="4" />
+      </ExtensionPointConfiguration>
+
+    </AddinConfigurationGroup>
+
+  </Extension>
+
+</Addin>

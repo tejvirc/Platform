@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.UI.Common.Controls.DataGridScrollButtons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             Loaded="OnLoaded"
+             Unloaded="OnUnloaded"
+             d:DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" >
+        <Button Name="PageTopButton" Click="PageTopButton_OnClick" Style="{StaticResource MonacoGridNavButton}">
+            <iconPacks:PackIconMaterial Kind="PageLast" Rotation="270"/>
+        </Button>
+        <Button Name="PageUpButton" Click="PageUpButton_OnClick"  Style="{StaticResource MonacoGridNavButton}">
+            <iconPacks:PackIconMaterial Kind="ChevronDoubleUp" />
+        </Button>
+        <Button Name="PreviousButton" Click="PreviousButtonClick"  Style="{StaticResource MonacoGridNavButton}">
+            <iconPacks:PackIconMaterial Kind="ChevronUp" />
+        </Button>
+        <Button Name="NextButton" Click="NextButtonClick" IsDefault="True"  Style="{StaticResource MonacoGridNavButton}">
+            <iconPacks:PackIconMaterial Kind="ChevronDown" />
+        </Button>
+        <Button Name="PageDownButton" Click="PageDownButton_OnClick" IsDefault="True"  Style="{StaticResource MonacoGridNavButton}">
+            <iconPacks:PackIconMaterial Kind="ChevronDoubleDown" />
+        </Button>
+        <Button Name="PageBottomButton" Click="PageBottomButton_OnClick" IsDefault="True"  Style="{StaticResource MonacoGridNavButton}">
+            <iconPacks:PackIconMaterial Kind="PageLast" Rotation="90" />
+        </Button>
+    </StackPanel>
+</UserControl>

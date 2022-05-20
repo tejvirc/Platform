@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.VideoLottery.GameOrderSettings.Data">
+  <Fields>
+    <Field DataType="Byte" Count="2" FieldName="GameOrderBlob" />
+  </Fields>
+</BlockFormat>

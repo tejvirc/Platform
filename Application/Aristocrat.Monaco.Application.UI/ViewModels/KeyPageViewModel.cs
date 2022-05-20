@@ -1,0 +1,123 @@
+﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+{
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using Contracts.Identification;
+    using Hardware.Contracts.Button;
+    using Hardware.Contracts.IO;
+    using Hardware.Contracts.KeySwitch;
+    using Kernel;
+    using MVVM.ViewModel;
+    using OperatorMenu;
+
+    [CLSCompliant(false)]
+    public class KeyPageViewModel : OperatorMenuPageViewModelBase
+    {
+        private const int OperatorKeyId = 4;
+        private const int JackPotId = 130;
+        private const int OperatorBitIndex = 2;
+        private const int JackPotBitIndex = 1;
+
+        private readonly IButtonService _buttonService;
+        private readonly IKeySwitch _key;
+        private readonly IIdentificationValidator _identificationValidator;
+
+        private bool _jackPotInitialStatus;
+        private bool _operatorInitialStatus;
+        private KeyViewModel _playKey;
+
+        public KeyPageViewModel()
+        {
+            _key = ServiceManager.GetInstance().GetService<IKeySwitch>();
+            _buttonService = ServiceManager.GetInstance().GetService<IButtonService>();
+            _identificationValidator = ServiceManager.GetInstance().TryGetService<IIdentificationValidator>();
+        }
+
+        public ObservableCollection<BaseViewModel> Keys { get; } = new ObservableCollection<BaseViewModel>();
+
+        public KeyViewModel PlayKey
+        {
+            get => _playKey;
+
+            set
+            {
+                if (_playKey == value)
+                {
+                    return;
+                }
+
+                _playKey = value;
+                RaisePropertyChanged(nameof(PlayKey));
+            }
+        }
+
+        protected override void OnLoaded()
+        {
+            Access.IgnoreKeySwitches = true;
+
+            if (_identificationValidator != null)
+            {
+                _identificationValidator.IgnoreKeySwitches = true;
+            }
+
+            GetInitialKeyState();
+            foreach (var id in from key in _key.LogicalKeySwitches
+                where key.Key == OperatorKeyId
+                select key.Key)
+            {
+                var viewModel = new KeyViewModel(id);
+
+                Keys.Add(viewModel);
+
+                viewModel.OnLoaded();
+                viewModel.Action = _operatorInitialStatus ? KeySwitchAction.On : KeySwitchAction.Off;
+            }
+
+            foreach (var id in from button in _buttonService.LogicalButtons
+                where button.Key == JackPotId
+                select button.Key)
+            {
+                var viewModel = new ButtonViewModel(id);
+
+                Keys.Add(viewModel);
+
+                viewModel.OnLoaded();
+                viewModel.Action = _jackPotInitialStatus ? ButtonAction.Down : ButtonAction.Up;
+            }
+        }
+
+        protected override void OnUnloaded()
+        {
+            foreach (var k in Keys)
+            {
+                if (k is KeyViewModel key)
+                {
+                    key.OnUnloaded();
+                }
+
+                if (k is ButtonViewModel button)
+                {
+                    button.OnUnloaded();
+                }
+            }
+            Keys.Clear();
+
+            Access.IgnoreKeySwitches = false;
+
+            if (_identificationValidator != null)
+            {
+                _identificationValidator.IgnoreKeySwitches = false;
+            }
+        }
+
+        private void GetInitialKeyState()
+        {
+            var io = ServiceManager.GetInstance().GetService<IIO>();
+            var currentInputs = io.GetInputs;
+
+            _jackPotInitialStatus = ((long)currentInputs & ((long)1 << JackPotBitIndex)) != 0;
+            _operatorInitialStatus = ((long)currentInputs & ((long)1 << OperatorBitIndex)) != 0;
+        }
+    }
+}

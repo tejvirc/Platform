@@ -1,0 +1,27 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Application.UI.Input.TouchCalibrationWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:common="http://monaco.aristocrat.com/common"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
+             mc:Ignorable="d" BorderThickness="0" WindowStyle="None" ResizeMode="NoResize">
+    <i:Interaction.Behaviors>
+        <behaviors:TouchWindowBehavior />
+    </i:Interaction.Behaviors>
+    <Grid x:Name="ContentView" Margin="75,50,75,0">
+        <Viewbox Stretch="Uniform">
+            <Grid VerticalAlignment="Center"> 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Touch Screen Calibration Process" FontSize="120" />
+                <Label Grid.Row="1" HorizontalAlignment="Center" FontSize="40" Margin="0,10,0,0"
+                       Content="1. With a single finger, touch the monitor that displays this text&#xA;2. If the touch does not switch to the next monitor, then &#xA;    use the large play button to switch to the next monitor&#xA;3. Repeat for each monitor" />
+            </Grid>
+        </Viewbox>
+    </Grid>
+</common:BaseWindow>
+

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="BrowserConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="1" name="Browser">
+          <xs:complexType>
+            <xs:attribute name="MaxCpuPerProcess" type="xs:double" use="optional" default="25" />
+            <xs:attribute name="MaxCpuTotal" type="xs:double" use="optional" default="50" />
+            <xs:attribute name="MaxMemoryPerProcess" type="xs:double" use="optional" default="500" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

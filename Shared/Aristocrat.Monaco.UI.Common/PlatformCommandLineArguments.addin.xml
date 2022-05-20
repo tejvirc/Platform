@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Addin id="PlatformCommandLineArguments" namespace="Client12Addins" version="1.0">
+
+    <Dependencies>
+        <Addin id="Bootstrap" version="1.0" />
+    </Dependencies>
+    
+    <Extension path = "/Kernel/CommandLineArguments">
+        <CommandLineArgument Name="display">
+            <ArgumentValue ValidValue="window" Description="Runs the platform in a window" />
+            <ArgumentValue ValidValue="fullscreen" Description="Runs the platform fullscreen, it is the default" />
+        </CommandLineArgument>              
+    </Extension>
+
+</Addin>

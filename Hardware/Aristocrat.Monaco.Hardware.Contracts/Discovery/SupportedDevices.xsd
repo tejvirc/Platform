@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="c_device">
+    <xs:sequence>
+      <xs:element name="ExtensionPath" type="xs:string" />
+      <xs:element name="RestrictToPort" type="xs:boolean" />
+      <xs:choice minOccurs="1">
+        <xs:sequence>
+          <xs:element name="BaudRate" type="xs:string" />
+          <xs:element name="Parity" type="xs:string" />
+          <xs:element name="DataBits" type="xs:string" />
+          <xs:element name="StopBits" type="xs:string" />
+          <xs:element name="Handshake" type="xs:string" />
+        </xs:sequence>
+        <xs:sequence>
+          <xs:element name="USBClassGUID" type="xs:string" />
+          <xs:element name="USBVendorId" type="xs:string" />
+          <xs:element name="USBProductId" type="xs:string" />
+          <xs:element name="USBProductIdDfu" type="xs:string" />
+        </xs:sequence>
+      </xs:choice>
+      <!--<xs:element minOccurs="0" maxOccurs="unbounded" name="MinimumRequirements" type="c_minimumRequirements"/>-->
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Type" type="xs:string" use="required" />
+    <xs:attribute name="Protocol" type="xs:string" use="required" />
+    <xs:attribute name="Port" type="xs:string" use="required" />
+    <xs:attribute name="Mode" type="xs:string" />
+    <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+    <xs:attribute name="InspectionTimeout" type="xs:int" use="optional" default="30000"/>
+  </xs:complexType>
+
+  <!--<xs:complexType name="c_minimumRequirements">
+    <xs:sequence>
+      <xs:element name="Manufacturer" type="xs:string" />
+      <xs:element name="Model" type="xs:string" />
+      <xs:element name="BootVersion" type="xs:string" />
+      <xs:element name="FirmwareID" type="xs:string" />
+      <xs:element name="FirmwareRevision" type="xs:string" />
+      <xs:element name="VariantName" type="xs:string" />
+      <xs:element name="VariantVersion" type="xs:string" />
+      <xs:element name="Protocol" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required" />
+  </xs:complexType>-->
+
+  <xs:element name="SupportedDevices">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="1" name="Devices">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Device">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="c_device">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

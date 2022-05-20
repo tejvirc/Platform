@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Options">
+    <Fields>
+      <Field DataType="Int32" FieldName="IdReaderType" />
+      <Field DataType="Int32" FieldName="IdReaderTrack" />
+      <Field DataType="Byte" FieldName="ValidationMethod" />
+      <Field DataType="Int32" FieldName="WaitTimeout" />
+      <Field DataType="Int32" FieldName="RemovalDelayTimeout" />
+      <Field DataType="Int32" FieldName="ValidationTimeout" />
+      <Field DataType="Bool" FieldName="SupportsOfflineValidation" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

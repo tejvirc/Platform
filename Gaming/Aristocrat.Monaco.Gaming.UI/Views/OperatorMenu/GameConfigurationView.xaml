@@ -1,0 +1,151 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameConfigurationView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:converters1="http://metro.mahapps.com/winfx/xaml/shared"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+                               mc:Ignorable="d" 
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GameConfigurationViewModel}}"
+                               common:DialogParticipation.Register="{Binding}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        
+            <converters1:ToUpperConverter x:Key="ToUpperConverter"/>
+            <converters:FormattedCurrencyConverter x:Key="CurrencyConverter" />
+
+            <Style x:Key="WrappedHeaderStyle" TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="MainGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <Grid x:Name="InfoGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MachineTheoreticalRTPRange}}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding Range}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.NumberOfGamesEnabled}}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding EnabledGamesCount}"/>
+                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBetLimit}}" Visibility="{Binding ShowMaxBetLimit, Converter={StaticResource BoolToVisConverter}}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0" Text="{Binding MaxBetLimit}" Visibility="{Binding ShowMaxBetLimit, Converter={StaticResource BoolToVisConverter}}"/>
+
+            </Grid>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                  Margin="0 10"
+                  ItemsSource="{Binding EnabledGames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedGame}"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+            <DataGrid.Resources>
+                <common:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+            </DataGrid.Resources>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource MonacoDataGridCell}">
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </DataGrid.CellStyle>
+
+            <DataGrid.Columns>
+                <!--<DataGridTemplateColumn Header="Progressive">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="LevelSetupButton"
+                                        Command="{Binding DataContext.LevelMappingCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">Setup</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+                <DataGridTextColumn Header="#" Binding="{Binding UniqueId}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}" Binding="{Binding ThemeName}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VersionText}}" Binding="{Binding Version}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}" Binding="{Binding PaytableId}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}" Binding="{Binding Denomination}" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}" Binding="{Binding MaximumWagerCredits}" HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}" Binding="{Binding MaximumWinAmount, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTP}}" Binding="{Binding BaseGameRTP}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTP}}" Width="140" Binding="{Binding ProgressiveResetRTP}" 
+                                    Visibility="{Binding Path=Data.(viewModels:GameConfigurationViewModel.ProgressiveRTPsVisible), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}, Mode=OneWay}"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTP}}" Width="140" Binding="{Binding ProgressiveIncrementRTP}"
+                                    Visibility="{Binding Path=Data.(viewModels:GameConfigurationViewModel.ProgressiveRTPsVisible), Converter={StaticResource BoolToVisConverter}, Source={StaticResource Proxy}, Mode=OneWay}"/>
+                <DataGridTextColumn Binding="{Binding TotalJurisdictionalRTP}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{lex:BLoc Key={x:Static loc:ResourceKeys.TotalGameRTP}, Converter={StaticResource ToUpperConverter}}" 
+                                           Width="130" TextWrapping="Wrap"/>
+                                <Button Name="InfoButton" Style="{StaticResource MonacoInfoButton}"
+                                        Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                            <Binding ElementName="InfoButton"/>
+                                            <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result"/>
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" 
+                                                  Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}" Binding="{Binding RuntimeVersion}"/>
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameType}}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
+                            <TextBlock>
+                                <lex:EnumRun EnumValue="{Binding GameType}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

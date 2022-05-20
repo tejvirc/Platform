@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:custom="clr-namespace:Aristocrat.Monaco.UI.Common.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Reskin.xaml" />
+        <ResourceDictionary Source="Controls.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MonacoCheckBox}"/>
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MonacoButton}"/>
+    <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource MonacoToggleButton}"/>
+    <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MonacoDataGrid}"/>
+    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MonacoComboBox}"/>
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
+    <Style TargetType="{x:Type custom:AlphaNumericTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
+    <Style TargetType="{x:Type custom:LengthErrorTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
+    <Style TargetType="{x:Type custom:CurrencyTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
+    <Style TargetType="{x:Type custom:ExpirationTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
+    <Style TargetType="{x:Type custom:PercentageTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
+    <Style TargetType="{x:Type controls:ToggleSwitchButton}" BasedOn="{StaticResource MonacoToggleSwitchButton}"/>
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MonacoTextBlock}"/>
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}"/>
+    <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MonacoGroupBox}"/>
+    <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MonacoRadioButton}" />
+    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MonacoDatePicker}" />
+    <Style TargetType="{x:Type Calendar}" BasedOn="{StaticResource MonacoCalendar}"/>
+    <Style TargetType="{x:Type TabControl}" BasedOn="{StaticResource MonacoTabControl}"/>
+    <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MonacoTabItem}"/>
+    <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource MonacoListBox}"/>
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource MonacoListView}"/>
+    
+</ResourceDictionary>

@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="String" FieldName="Barcode" />
+      <Field DataType="Bool" FieldName="RequestAcknowledged" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="Printed" />
+      <Field DataType="Int32" FieldName="HandpayType" />
+      <Field DataType="Int32" FieldName="KeyOffType" />
+      <Field DataType="Int64" FieldName="KeyOffCashableAmount" />
+      <Field DataType="Int64" FieldName="KeyOffPromoAmount" />
+      <Field DataType="Int64" FieldName="KeyOffNonCashAmount" />
+      <Field DataType="DateTime" FieldName="KeyOffDateTime" />
+      <Field DataType="Int32" FieldName="HandpayState" />
+      <Field DataType="Bool" FieldName="PrintTicket" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="Int32" FieldName="ReceiptSequence" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Bool" FieldName="Read" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="String" FieldName="Barcode" />
+      <Field DataType="Bool" FieldName="RequestAcknowledged" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="Printed" />
+      <Field DataType="Int32" FieldName="HandpayType" />
+      <Field DataType="Int32" FieldName="KeyOffType" />
+      <Field DataType="Int64" FieldName="KeyOffCashableAmount" />
+      <Field DataType="Int64" FieldName="KeyOffPromoAmount" />
+      <Field DataType="Int64" FieldName="KeyOffNonCashAmount" />
+      <Field DataType="DateTime" FieldName="KeyOffDateTime" />
+      <Field DataType="Int32" FieldName="HandpayState" />
+      <Field DataType="Bool" FieldName="PrintTicket" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="Int32" FieldName="ReceiptSequence" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Bool" FieldName="Read" />
+      <Field DataType="Bool" FieldName="HostOnline" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="String" FieldName="Barcode" />
+      <Field DataType="Bool" FieldName="RequestAcknowledged" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="Printed" />
+      <Field DataType="Int32" FieldName="HandpayType" />
+      <Field DataType="Int32" FieldName="KeyOffType" />
+      <Field DataType="Int64" FieldName="KeyOffCashableAmount" />
+      <Field DataType="Int64" FieldName="KeyOffPromoAmount" />
+      <Field DataType="Int64" FieldName="KeyOffNonCashAmount" />
+      <Field DataType="DateTime" FieldName="KeyOffDateTime" />
+      <Field DataType="Int32" FieldName="HandpayState" />
+      <Field DataType="Bool" FieldName="PrintTicket" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="Int32" FieldName="ReceiptSequence" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Bool" FieldName="Read" />
+      <Field DataType="Bool" FieldName="HostOnline" />
+      <Field DataType="String" FieldName="TicketDataBlob" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" name="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int32" FieldName="BarcodeLength" />
+      <Field DataType="String" FieldName="Barcode" />
+      <Field DataType="Bool" FieldName="RequestAcknowledged" />
+      <Field DataType="Int32" FieldName="Expiration" />
+      <Field DataType="Bool" FieldName="Printed" />
+      <Field DataType="Int32" FieldName="HandpayType" />
+      <Field DataType="Int32" FieldName="KeyOffType" />
+      <Field DataType="Int64" FieldName="KeyOffCashableAmount" />
+      <Field DataType="Int64" FieldName="KeyOffPromoAmount" />
+      <Field DataType="Int64" FieldName="KeyOffNonCashAmount" />
+      <Field DataType="DateTime" FieldName="KeyOffDateTime" />
+      <Field DataType="Int32" FieldName="HandpayState" />
+      <Field DataType="Bool" FieldName="PrintTicket" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="Int32" FieldName="ReceiptSequence" />
+      <Field DataType="Int64" FieldName="HostSequence" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Bool" FieldName="Read" />
+      <Field DataType="Bool" FieldName="HostOnline" />
+      <Field DataType="String" FieldName="TicketDataBlob" />
+      <Field DataType="Int32" FieldName="Reason" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

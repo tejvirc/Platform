@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mediaDisplay.igt.com" elementFormDefault="qualified" attributeFormDefault="qualified" version="1.3">
+	<xs:include schemaLocation="mdInclude.xsd"/>
+	<!--Simple Data Types-->
+	<xs:simpleType name="t_mdAccessToken">
+		<xs:annotation>
+			<xs:documentation>Access Token Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_groupNameBase">
+		<xs:annotation>
+			<xs:documentation>Functional group base enumerations</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IGT_Comms"/>
+			<xs:enumeration value="IGT_Cabinet"/>
+			<xs:enumeration value="IGT_EventHandler"/>
+			<xs:enumeration value="IGT_Meters"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_groupName">
+		<xs:annotation>
+			<xs:documentation>Functional group name extensible list.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="t_groupNameBase t_uniqueIdentifier64"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_commandName">
+		<xs:annotation>
+			<xs:documentation>command name data type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Complex Data Types-->
+	<xs:complexType name="c_commandItem">
+		<xs:annotation>
+			<xs:documentation>command data type</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="commandName" type="t_commandName" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="c_commsOnLine">
+		<xs:annotation>
+			<xs:documentation>Comms on line Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="mdAccessToken" type="t_mdAccessToken" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_commsOnLineAck">
+		<xs:annotation>
+			<xs:documentation>Comms on line ack Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="sessionValid" type="xs:boolean" use="required"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_heartbeat">
+		<xs:annotation>
+			<xs:documentation>heartbeat data type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_heartbeakAck">
+		<xs:annotation>
+			<xs:documentation>heartbeat response data type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getFunctionalGroup">
+		<xs:annotation>
+			<xs:documentation>Functional group request data type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attribute name="includeCommands" type="xs:boolean" use="optional" default="true"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_functionalGroupList">
+		<xs:annotation>
+			<xs:documentation>Functional group response data type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="functionalGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="c_functionalGroup">
+		<xs:annotation>
+			<xs:documentation>Functional group item data type</xs:documentation>
+		</xs:annotation>
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element ref="commandItem"/>
+		</xs:sequence>
+		<xs:attribute name="groupName" type="t_groupName" use="required"/>
+	</xs:complexType>
+	<!--Commands-->
+	<xs:element name="commsOnLine">
+		<xs:annotation>
+			<xs:documentation>Comms on line command</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_commsOnLine">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="commsOnLineAck">
+		<xs:annotation>
+			<xs:documentation>Comms on line response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_commsOnLineAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="heartbeat">
+		<xs:annotation>
+			<xs:documentation>Heartbeat</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_heartbeat">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="heartbeatAck">
+		<xs:annotation>
+			<xs:documentation>Heartbeat response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_heartbeakAck">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getFunctionalGroups">
+		<xs:annotation>
+			<xs:documentation>Request for the list of functional groups</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getFunctionalGroup">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="functionalGroupList">
+		<xs:annotation>
+			<xs:documentation>Functional group response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_functionalGroupList">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--support sub-elements-->
+	<xs:element name="functionalGroup">
+		<xs:annotation>
+			<xs:documentation>functional group element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_functionalGroup">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="commandItem">
+		<xs:annotation>
+			<xs:documentation>command item element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_commandItem">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Functional Command Group Wrapper and Message Header-->
+	<xs:element name="mdComms">
+		<xs:annotation>
+			<xs:documentation>Communications Functional Command Group</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_baseClass">
+					<xs:choice minOccurs="0">
+						<xs:element ref="commsOnLine"/>
+						<xs:element ref="commsOnLineAck"/>
+						<xs:element ref="heartbeat"/>
+						<xs:element ref="heartbeatAck"/>
+						<xs:element ref="getFunctionalGroups"/>
+						<xs:element ref="functionalGroupList"/>
+						<xs:any namespace="##other" processContents="lax"/>
+					</xs:choice>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

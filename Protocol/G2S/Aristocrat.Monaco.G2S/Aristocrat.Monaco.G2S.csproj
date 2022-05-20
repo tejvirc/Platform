@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <AssemblyTitle>G2SBase</AssemblyTitle>
+    <Company>Aristocrat Technologies Inc.</Company>
+    <Product>Monaco</Product>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DefineConstants>CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DocumentationFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DocumentationFile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.IdentityModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+    <Content Include="Aristocrat.Monaco.G2S.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.G2S.Configuration.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.G2S.G2SPropertyProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.G2S.Services.DisableConditionSaga.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj" />
+    <ProjectReference Include="..\Aristocrat.G2S.Emdi\Aristocrat.G2S.Emdi.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.G2S.Common\Aristocrat.Monaco.G2S.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.G2S.Data\Aristocrat.Monaco.G2S.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.G2S.Options.NoteAcceptorDeviceOptions.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="egm.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.G2S" Version="4.1.35" />
+    <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
+    <PackageReference Include="Expressmapper" Version="1.9.1" />
+    <PackageReference Include="FluentValidation" Version="7.4.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
+    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
+  </ItemGroup>
+</Project>

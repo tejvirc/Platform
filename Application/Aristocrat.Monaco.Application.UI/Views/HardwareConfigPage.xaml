@@ -1,0 +1,338 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.HardwareConfigPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                              xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
+                              xmlns:common="http://monaco.aristocrat.com/common"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              mc:Ignorable="d"
+                              d:DesignHeight="400" d:DesignWidth="1420"
+                              Background="Transparent" 
+                              d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareManagerPageViewModel}, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <converters:DeviceStatusToBrushConverter x:Key="BrushConverter"/>
+
+            <Style x:Key="CellStyle" TargetType="DataGridCell" BasedOn="{StaticResource MonacoDataGridCell}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Foreground" Value="{StaticResource LightBrush4}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MakeCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}" 
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="Visibility" Value="{Binding ManufacturerEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </Style>
+
+            <Style x:Key="ProtocolCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="FontSize" Value="{StaticResource SmallLabelFontSize}"/>
+                <Setter Property="Visibility" Value="{Binding ProtocolEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </Style>
+
+            <Style x:Key="PortCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="Visibility" Value="{Binding PortEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+            </Style>
+
+            <Style x:Key="StatusCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource CellStyle}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="FontSize" Value="{StaticResource SmallLabelFontSize}"/>
+                <Setter Property="Foreground" Value="{Binding Status, Converter={StaticResource BrushConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="Visibility" Value="{Binding StatusEnabled, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Foreground" Value="{Binding Status, Converter={StaticResource BrushConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="RowStyle" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MonacoDataGridRow}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Style.Triggers>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="IsSelected" Value="True" />
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                    </MultiTrigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="IsSelected" Value="True" />
+                            <Condition Property="Selector.IsSelectionActive" Value="False" />
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                    </MultiTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Foreground" Value="{StaticResource LightBrush4}" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Devices}"
+                  RowStyle="{StaticResource RowStyle}"
+                  IsEnabled="{Binding InputEnabled}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceLabel}}" 
+                                    MinWidth="200" FontSize="{StaticResource LabelFontSize}"
+                                    Binding="{Binding DeviceName}"
+                                    CellStyle="{StaticResource CellStyle}"/>
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledLabel}}"
+                                        IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="5"
+                                      IsChecked="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Enabled), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}">
+                                <CheckBox.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="DataContext.IsValidating" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
+                                        <Binding Path="DataContext.(viewModels:DeviceConfigViewModel.IsRequired)" RelativeSource="{RelativeSource Self}" Mode="OneWay" Converter="{StaticResource InverseBoolConverter}"/>
+                                    </MultiBinding>
+                                </CheckBox.IsEnabled>
+                            </CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
+                                        IsReadOnly="False"
+                                        MinWidth="300"
+                                        CellStyle="{StaticResource MakeCellStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
+                            <ComboBox ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturers), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                      SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturer), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
+                                      IsSynchronizedWithCurrentItem="True">
+                                <ComboBox.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="DataContext.IsValidating" RelativeSource="{RelativeSource AncestorType=DataGrid}" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource InverseBoolConverter}"/>
+                                        <Binding Path="DataContext.(viewModels:DeviceConfigViewModel.CanChange)" RelativeSource="{RelativeSource Self}" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </ComboBox.IsEnabled>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}" 
+                                    MinWidth="110"
+                                    CellStyle="{StaticResource ProtocolCellStyle}"
+                                    Binding="{Binding Protocol}"/>
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
+                                        IsReadOnly="False"
+                                        MinWidth="110"
+                                        CellStyle="{StaticResource PortCellStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
+                            <common:VariableItemsControl Items="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Ports), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged}"
+                                                         SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                         ComboBoxIsEnabled="{Binding DataContext.IsValidating, RelativeSource={RelativeSource AncestorType=DataGrid}, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}" 
+                                    FontSize="{StaticResource SmallLabelFontSize}"
+                                    Binding="{Binding Status}"
+                                    CellStyle="{StaticResource StatusCellStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1" Visibility="{Binding ShowHardMeters, Converter={StaticResource BoolToVisConverter}}"
+              IsEnabled="{Binding InputEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="208" />
+                <ColumnDefinition MaxWidth="80" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMetersLabel}}"/>
+            <CheckBox Grid.Row="0" Grid.Column="1" Name="HardMeterEnabled"
+                      IsChecked="{Binding Path=HardMetersEnabled, Mode=TwoWay}"
+                      IsEnabled="{Binding ConfigurableHardMeters}"
+                      Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
+                      Margin="8 4 0 0" />
+
+            <StackPanel Grid.Row="0" Grid.Column="2"
+                        Orientation="Horizontal"
+                        Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AvailableMeterMappings}}"/>
+                <ComboBox Style="{StaticResource MonacoComboBox}"
+                          SelectedValue="{Binding HardMeterMapSelection, Mode=TwoWay}"
+                          ItemsSource="{Binding HardMeterMapNames}"
+                          Margin="10" Width="Auto" HorizontalAlignment="Left"
+                          IsEnabled="{Binding ConfigurableHardMeters}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="2"
+                        Orientation="Horizontal"
+                        Visibility="{Binding TickValueVisible, Converter={StaticResource BoolToVisConverter}}">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMeterTickValue}}"/>
+                <ComboBox ItemsSource="{Binding TickValues}"
+                          DisplayMemberPath="Cents"
+                          SelectedItem="{Binding TickValue}"
+                          IsEditable="{Binding TickValueSelectable}"
+                          IsEnabled="{Binding ConfigurableHardMeters}"
+                          MaxHeight="40" HorizontalAlignment="Left" Margin="10" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Visibility="{Binding VisibleDoorOpticSensor, Converter={StaticResource BoolToVisConverter}}"
+              IsEnabled="{Binding InputEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="208"/>
+                <ColumnDefinition MaxWidth="80"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoorOpticSensor}}"
+                   Margin="4 8 0 0"/>
+            <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Path=EnabledDoorOpticSensor, Mode=TwoWay}"
+                      Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
+                      Margin="8 12 0 10">
+                <CheckBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="ConfigurableDoorOpticSensor"/>
+                        <Binding Path="FieldAccessEnabled"/>
+                    </MultiBinding>
+                </CheckBox.IsEnabled>
+            </CheckBox>
+        </Grid>
+
+        <Grid Grid.Row="3" Visibility="{Binding VisibleBellyPanelDoor, Converter={StaticResource BoolToVisConverter}}"
+              IsEnabled="{Binding InputEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="208"/>
+                <ColumnDefinition MaxWidth="80"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BellyPanelDoor}}"
+                   Margin="4 0 0 0"/>
+            <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Path=BellyPanelDoorEnabled, Mode=TwoWay}"
+                      Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
+                      Margin="8 4 0 10" IsEnabled="{Binding ConfigurableBellyPanelDoor}"/>
+        </Grid>
+
+        <Grid Grid.Row="4" Visibility="{Binding VisibleBell, Converter={StaticResource BoolToVisConverter}}"
+              IsEnabled="{Binding InputEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="208"/>
+                <ColumnDefinition MaxWidth="80"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BellLabel}}"
+                   Margin="4 8 0 0"/>
+            <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding Path=BellEnabled, Mode=TwoWay}"
+                      Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
+                      Margin="8 12 0 10"
+                      IsEnabled="{Binding ConfigurableBell}"/>
+        </Grid>
+
+        <Grid Grid.Row="5" Visibility="{Binding VisibleTowerLightTierTypes, Converter={StaticResource BoolToVisConverter}}"
+              IsEnabled="{Binding InputEnabled}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="208"/>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TowerLightTierType}}"/>
+
+            <ComboBox Grid.Row="0" Grid.Column="1"
+                      Style="{StaticResource MonacoComboBox}"
+                      SelectedValue="{Binding TowerLightConfigSelection, Mode=TwoWay}"
+                      ItemsSource="{Binding AvailableTowerLightTierTypes, Mode=OneWay}"
+                      SelectedValuePath="Item1"
+                      DisplayMemberPath="Item2"
+                      MinWidth="80"
+                      Margin="8 4 0 10" Width="Auto" HorizontalAlignment="Left"
+                      IsEnabled="{Binding ConfigurableTowerLightTierTypes}" />
+        </Grid>
+
+        <StackPanel Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Margin="5 20 0 0">
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Validate}}"
+                    Visibility="{Binding ShowValidateButton, Converter={StaticResource BoolToVisConverter}}"
+                    Command="{Binding ValidateCommand}"/>
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+                    Visibility="{Binding ShowApplyButton, Converter={StaticResource BoolToVisConverter}}"
+                    Command="{Binding ApplyHardwareSettingsCommand}"/>
+            <Button Margin="0 15 0 0"
+                    Style="{StaticResource MonacoWarningButton}"
+                    Name="ApplyInfoButton"
+                    Command="{Binding ShowInfoPopupCommand}"
+                    Visibility="{Binding ShowApplyButton, Converter={StaticResource BoolToVisConverter}}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="ApplyInfoButton" />
+                        <Binding ElementName="ApplyInfoButtonProxy" Path="Result" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+                <lex:LocProxy Name="ApplyInfoButtonProxy"
+                              Source="{x:Static loc:ResourceKeys.RebootWarningMessage}" />
+            </Button>
+            <Label Content="{Binding ValidationStatus}"
+                   Style="{StaticResource MonacoWarningLabel}"
+                   FontSize="{StaticResource LabelFontSize}"
+                   Foreground="{Binding ValidationStatus, Converter={StaticResource BrushConverter}}"/>
+        </StackPanel>
+
+        <controls:ProgressRing Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Center" IsActive="{Binding IsValidating}"/>
+    </Grid>
+</operatorMenu:OperatorMenuPage>
+

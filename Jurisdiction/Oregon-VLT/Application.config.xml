@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts
+2.  Enter "xsd ApplicationConfiguration.xsd /c /n:Aristocrat.Monaco.Application.Contracts".  This will generate
+    the corresponding class definition in csharp (ApplicationConfiguration.cs).
+-->
+<ApplicationConfiguration>
+  <Currency Id="USD"/>
+  <HardMeterMonitor DisableOnError="true"/>
+  <NoteAcceptorMonitor DisableOnError="Immediate"/>
+  <PrinterMonitor FormFeedAfterKeyOff="true"/>
+  <GeneralMessages>
+    <DisabledByOperator Message=""/>
+  </GeneralMessages>
+  <NoteAcceptorErrorMessages>
+    <BillJam Message="1600 Bill Jam"/>
+    <BillStackerError Message="1601 Bill Stacker Error"/>
+    <BillStackerFull Message="1605"/>
+    <BillStackerJam Message="1600 Bill Stacker Jam"/>
+    <BillUnexpectedError Message="1631 Bill Unexpected Error"/>
+    <BillValidatorFault Message="1632 Bill Validator Fault"/>
+    <InvalidBill Message="1633 Invalid Bill"/>
+    <CashBoxRemoved Message="1330 Stacker Box Removed"/>
+    <GeneralFailure Message="1632 Bill Validator Fault"/>
+  </NoteAcceptorErrorMessages>
+  <PrinterErrorMessages>
+    <MalfunctionError Message="1400 Printer Malfunction"/>
+    <PaperOut Message="1200 Printer Paper Out"/>
+    <ErrorWhilePrinting Message="Printer"/>
+    <DrawerOpen Message="1427 Printer Open"/>
+    <PrinterOffline Message="1423 Printer Offline"/>
+    <PaperInChute Message="Printer Paper In Chute"/>
+    <PaperLow Message="1424 Printer Paper Low"/>
+    <PaperJam Message="1425 Printer Paper Jam"/>
+    <PrinterOpen Message="Printer Open"/>
+    <StoppedResponding Message="Printer Stopped Responding"/>
+    <FailedMinimumRequirements Message="1400 Printer Malfunction"/>
+    <MissingSupplyIndex Message="1400 Printer Paper Malfunction"/>
+    <PrinterDfuDownloadInProgress Message="Printer Download In Progress&#13;&#10;Please Do Not Power Off The Gaming Machine"/>
+    <TransferStatusError Message="1400 Printer Malfunction"/>
+    <PrinterFirmwareDownloadInterrupted Message="Rebooted While Printer Download In Progress&#13;&#10;Printer Firmware May Be Corrupted"/>
+  </PrinterErrorMessages>
+  <MeterRollover>
+    <Currency>1000000000000000</Currency> <!-- in millicents. This would roll over at $9,999,999,999.99999 -->
+    <Occurrence>100000000</Occurrence>
+  </MeterRollover>
+  <StackerRemoveBehavior AutoClearPeriodMeters="false" />
+  <AutoClearPeriodMetersBehavior>
+	<AutoClearPeriodMeters>true</AutoClearPeriodMeters>
+	<ClearClearPeriodOffsetHours>3</ClearClearPeriodOffsetHours>
+  </AutoClearPeriodMetersBehavior>  
+  <SoundConfiguration>
+    <DefaultVolumeLevel>3</DefaultVolumeLevel>
+    <AlertVolume Value="50" />
+	<UseGameTypeVolume>false</UseGameTypeVolume>
+  </SoundConfiguration>
+  <ReadOnlyMedia Required="false" />
+  <Demonstration Enabled="true"/>
+  <LogTypesAllowedForDisplay>
+    <string>BillIn</string>
+    <string>Handpay</string>
+    <string>VoucherIn</string>
+    <string>VoucherOut</string>
+    <string>BonusAward</string>
+    <string>TransferIn</string>
+    <string>TransferOut</string>
+    <string>Gameplay</string>
+    <string>Comms</string>
+    <string>Error</string>
+    <string>General</string>
+    <string>Power</string>
+    <string>GameConfigurationChange</string>
+    <string>GPU</string>
+    <string>SoftwareChange</string>
+    <string>Progressive</string>
+  </LogTypesAllowedForDisplay>
+  <Cashout ClearWins="false" />
+  <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />
+  <PlatformEnhancedDisplay Enabled="false" />
+  <HandpayReceiptPrinting Enabled="true"/>
+  <ReserveService Allowed="false"/>
+</ApplicationConfiguration>

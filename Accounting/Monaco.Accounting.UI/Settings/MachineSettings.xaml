@@ -1,0 +1,651 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aristocrat.Monaco.Accounting.UI.Settings"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization">
+
+    <DataTemplate DataType="{x:Type local:MachineSettings}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="0"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.CreditLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="0"
+                           Text="{Binding MaxCreditMeterDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="1"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.HandpayLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="1"
+                           Text="{Binding HandpayLimitDisplay}" />
+                
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="2"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="2"
+                           Text="{Binding LargeWinLimitDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="3"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinRatio}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="3"
+                           Text="{Binding LargeWinRatioDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="4"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinRatioThreshold}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="4"
+                           Text="{Binding LargeWinRatioThresholdDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="5"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.MaxBetLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="5"
+                           Text="{Binding MaxBetLimitDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="6"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.CelebrationLockupLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="6"
+                           Text="{Binding CelebrationLockupLimitDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="7"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowRemoteHandpayReset}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="7"
+                           Text="{Binding AllowRemoteHandpayReset}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="8"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinHandpayResetMethod}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="8"
+                           Text="{Binding LargeWinHandpayResetMethod}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="9"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherInLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="9"
+                           Text="{Binding VoucherInLimitDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="10"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowVoucherOut}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="10"
+                           Text="{Binding VoucherOut}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="11"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherOutLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="11"
+                           Text="{Binding VoucherOutLimitDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="12"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowNonCashableVoucherOut}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="12"
+                           Text="{Binding VoucherOutNonCash}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="13"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.PrintHandpayReceipt}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="13"
+                           Text="{Binding EnableReceipts}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="14"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherCashExpiration}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="14"
+                           Text="{Binding VoucherOutExpirationDaysDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="15"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherNonCashExpiration}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="15"
+                           Text="{Binding VoucherOutNonCashExpirationDaysDisplay}" />
+
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="16"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowCashWinTicket}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="16"
+                           Text="{Binding AllowCashWinTicket}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="17"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowCreditUnderLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="17"
+                           Text="{Binding AllowCreditUnderLimit}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="18"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.CheckCreditsIn}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="18"
+                           Text="{Binding CheckCreditsIn}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="19"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.CombineCashableOut}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="19"
+                           Text="{Binding CombineCashableOut}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="20"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalCredit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="20"
+                           Text="{Binding DisabledLocalCredit}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="21"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalHandpay}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="21"
+                           Text="{Binding DisabledLocalHandpay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="22"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalVoucher}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="22"
+                           Text="{Binding DisabledLocalVoucher}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="23"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalWat}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="23"
+                           Text="{Binding DisabledLocalWat}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="24"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteCredit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="24"
+                           Text="{Binding DisabledRemoteCredit}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="25"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteHandpay}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="25"
+                           Text="{Binding DisabledRemoteHandpay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="26"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteVoucher}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="26"
+                           Text="{Binding DisabledRemoteVoucher}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="27"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteWat}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="27"
+                           Text="{Binding DisabledRemoteWat}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="28"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalCredit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="28"
+                           Text="{Binding EnabledLocalCredit}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="29"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalHandpay}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="29"
+                           Text="{Binding EnabledLocalHandpay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="30"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalVoucher}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="30"
+                           Text="{Binding EnabledLocalVoucher}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="31"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalWat}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="31"
+                           Text="{Binding EnabledLocalWat}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="32"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteCredit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="32"
+                           Text="{Binding EnabledRemoteCredit}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="33"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteHandpay}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="33"
+                           Text="{Binding EnabledRemoteHandpay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="34"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteVoucher}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="34"
+                           Text="{Binding EnabledRemoteVoucher}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="35"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteWat}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="35"
+                           Text="{Binding EnabledRemoteWat}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="36"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.IdReaderId}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="36"
+                           Text="{Binding IdReaderId}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="37"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.IgnoreVoucherStackedDuringReboot}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="37"
+                           Text="{Binding IgnoreVoucherStackedDuringReboot}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="38"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.LocalKeyOff}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="38"
+                           Text="{Binding LocalKeyOff}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="39"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.MaxTenderInLimit}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="39"
+                           Text="{Binding MaxTenderInLimitDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="40"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.MaxWinAmount}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="40"
+                           Text="{Binding MaxWinAmountDisplay}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="41"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.MixCreditTypes}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="41"
+                           Text="{Binding MixCreditTypes}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="42"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.MoneyInEnabled}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="42"
+                           Text="{Binding MoneyInEnabled}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="43"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.PartialHandpays}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="43"
+                           Text="{Binding PartialHandpays}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="44"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.RedeemText}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="44"
+                           Text="{Binding RedeemText}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="45"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReprintLoggedVoucher}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="45"
+                           Text="{Binding ReprintLoggedVoucherBehavior}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="46"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReprintLoggedVoucherDoorOpenRequirement}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="46"
+                           Text="{Binding ReprintLoggedVoucherDoorOpenRequirement}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="47"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReprintLoggedVoucherTitleOverride}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="47"
+                           Text="{Binding ReprintLoggedVoucherTitleOverride}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="48"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.RequestNonCash}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="48"
+                           Text="{Binding RequestNonCash}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="49"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketBarcodeLength}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="49"
+                           Text="{Binding TicketBarcodeLength}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="50"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleBonusCash}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="50"
+                           Text="{Binding TicketTitleBonusCash}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="51"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleBonusNonCash}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="51"
+                           Text="{Binding TicketTitleBonusNonCash}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="52"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleBonusPromo}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="52"
+                           Text="{Binding TicketTitleBonusPromo}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="53"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleCash}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="53"
+                           Text="{Binding TicketTitleCash}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="54"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleLargeWin}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="54"
+                           Text="{Binding TicketTitleLargeWin}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="55"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleNonCash}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="55"
+                           Text="{Binding TicketTitleNonCash}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="56"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitlePromo}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="56"
+                           Text="{Binding TicketTitlePromo}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="57"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleWatNonCash}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="57"
+                           Text="{Binding TicketTitleWatNonCash}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="58"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleWatPromo}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="58"
+                           Text="{Binding TicketTitleWatPromo}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="59"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TitleCancelReceipt}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="59"
+                           Text="{Binding TitleCancelReceipt}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="60"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TitleJackpotReceipt}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="60"
+                           Text="{Binding TitleJackpotReceipt}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="61"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.UsePlayerIdReader}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="61"
+                           Text="{Binding UsePlayerIdReader}" />
+
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="62"
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidateHandpays}}" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="62"
+                           Text="{Binding ValidateHandpays}" />
+            </Grid>
+        </ScrollViewer>
+    </DataTemplate>
+</ResourceDictionary>
