@@ -1,0 +1,574 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class FundsTransferDisable
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class FundsTransferDisable
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable">
+  <h1 id="Aristocrat_Monaco_Gaming_FundsTransferDisable" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable">Class FundsTransferDisable
+  </h1>
+  <div class="markdown level0 summary"><p>This class determines when we can do funds transfers based on the state of
+the gaming machine.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">FundsTransferDisable</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.html">Aristocrat.Monaco.Gaming</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class FundsTransferDisable : IFundsTransferDisable, IService</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Transfers out are allowed only if we are not playing a game and there are
+no tilts present that prevent a cashout from occurring.
+Transfers on are allowed only if we are not playing a game or
+the game has allowed for money to be inserted in a game round and
+there are no tilts present.</p>
+</div>
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable__ctor_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.%23ctor(Aristocrat.Monaco.Gaming.Contracts.IGamePlayState%2CAristocrat.Monaco.Kernel.ISystemDisableManager%2CAristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable__ctor_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable__ctor_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.#ctor(Aristocrat.Monaco.Gaming.Contracts.IGamePlayState,Aristocrat.Monaco.Kernel.ISystemDisableManager,Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable__ctor_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">FundsTransferDisable(IGamePlayState, ISystemDisableManager, IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable__ctor_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FundsTransferDisable(IGamePlayState gameState, ISystemDisableManager disableManager, IEventBus eventBus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGamePlayState.html">IGamePlayState</a></span>
+        <span class="parametername">gameState</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.ISystemDisableManager.html">ISystemDisableManager</a></span>
+        <span class="parametername">disableManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable_Name_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_Name" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.Name"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable_ServiceTypes_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_ServiceTypes" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOffDisabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOffDisabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOffDisabled_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOffDisabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOffDisabled" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOffDisabled"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOffDisabled" class="expander" data-toggle="collapse">TransferOffDisabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOffDisabled" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOffDisabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IFundsTransferDisable.html#Aristocrat_Monaco_Gaming_Contracts_IFundsTransferDisable_TransferOffDisabled">IFundsTransferDisable.TransferOffDisabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledInGame.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledInGame%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledInGame_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledInGame*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledInGame" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledInGame"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledInGame" class="expander" data-toggle="collapse">TransferOnDisabledInGame</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledInGame" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOnDisabledInGame { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IFundsTransferDisable.html#Aristocrat_Monaco_Gaming_Contracts_IFundsTransferDisable_TransferOnDisabledInGame">IFundsTransferDisable.TransferOnDisabledInGame</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledOverlay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledOverlay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledOverlay_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledOverlay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledOverlay" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledOverlay"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledOverlay" class="expander" data-toggle="collapse">TransferOnDisabledOverlay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledOverlay" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOnDisabledOverlay { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IFundsTransferDisable.html#Aristocrat_Monaco_Gaming_Contracts_IFundsTransferDisable_TransferOnDisabledOverlay">IFundsTransferDisable.TransferOnDisabledOverlay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledTilt.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledTilt%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledTilt_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledTilt*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledTilt" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.TransferOnDisabledTilt"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledTilt" class="expander" data-toggle="collapse">TransferOnDisabledTilt</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_TransferOnDisabledTilt" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOnDisabledTilt { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IFundsTransferDisable.html#Aristocrat_Monaco_Gaming_Contracts_IFundsTransferDisable_TransferOnDisabledTilt">IFundsTransferDisable.TransferOnDisabledTilt</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_FundsTransferDisable_Initialize_" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_FundsTransferDisable_Initialize" data-uid="Aristocrat.Monaco.Gaming.FundsTransferDisable.Initialize"><a href="#collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_FundsTransferDisable_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_FundsTransferDisable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.FundsTransferDisable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/FundsTransferDisable.cs/#L20" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

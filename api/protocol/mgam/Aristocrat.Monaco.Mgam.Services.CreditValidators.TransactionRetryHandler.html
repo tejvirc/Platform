@@ -1,0 +1,508 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TransactionRetryHandler
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TransactionRetryHandler
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler">
+  <h1 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler">Class TransactionRetryHandler
+  </h1>
+  <div class="markdown level0 summary"><p>Used to validate currency amounts requested by the EGM with the host.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">TransactionRetryHandler</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.html">Aristocrat.Monaco.Mgam.Services.CreditValidators</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Mgam.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TransactionRetryHandler : ITransactionRetryHandler, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.%23ctor(Aristocrat.Mgam.Client.Logging.ILogger%7BAristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler%7D%2CAristocrat.Monaco.Protocol.Common.Storage.Entity.IUnitOfWorkFactory%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Mgam.Commands.ICommandHandlerFactory)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/TransactionRetryHandler.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__ctor_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.#ctor(Aristocrat.Mgam.Client.Logging.ILogger{Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler},Aristocrat.Monaco.Protocol.Common.Storage.Entity.IUnitOfWorkFactory,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Mgam.Commands.ICommandHandlerFactory)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_" class="expander" data-toggle="collapse">TransactionRetryHandler(ILogger&lt;TransactionRetryHandler&gt;, IUnitOfWorkFactory, IEventBus, ICommandHandlerFactory)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler__Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler.html">ITransactionRetryHandler</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransactionRetryHandler(ILogger&lt;TransactionRetryHandler&gt; logger, IUnitOfWorkFactory unitOfWorkFactory, IEventBus eventBus, ICommandHandlerFactory commandFactory)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Mgam.Client.Logging.ILogger-1.html">ILogger</a>&lt;<a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.html">TransactionRetryHandler</a>&gt;</span>
+        <span class="parametername">logger</span>
+        <p><p>Logger.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.Monaco.Protocol.Common.Storage.Entity.IUnitOfWorkFactory</span></span>
+        <span class="parametername">unitOfWorkFactory</span>
+        <p><p>Unit of work factory.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a>.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Mgam.Commands.ICommandHandlerFactory.html">ICommandHandlerFactory</a></span>
+        <span class="parametername">commandFactory</span>
+        <p><p><a class="xref" href="Aristocrat.Monaco.Mgam.Commands.ICommandHandlerFactory.html">ICommandHandlerFactory</a>.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Add_Aristocrat_Mgam_Client_Messaging_IRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Add(Aristocrat.Mgam.Client.Messaging.IRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/TransactionRetryHandler.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Add_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Add*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Add_Aristocrat_Mgam_Client_Messaging_IRequest_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Add(Aristocrat.Mgam.Client.Messaging.IRequest)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Add_Aristocrat_Mgam_Client_Messaging_IRequest_" class="expander" data-toggle="collapse">Add(IRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Add_Aristocrat_Mgam_Client_Messaging_IRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(IRequest message)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IRequest.html">IRequest</a></span>
+        <span class="parametername">message</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler.html#Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_Add_Aristocrat_Mgam_Client_Messaging_IRequest_">ITransactionRetryHandler.Add(IRequest)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/TransactionRetryHandler.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Dispose_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Dispose" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Dispose"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterCommand_System_Type_System_Func_System_Object_System_Threading_Tasks_Task_Aristocrat_Mgam_Client_Messaging_IResponse___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.RegisterCommand(System.Type%2CSystem.Func%7BSystem.Object%2CSystem.Threading.Tasks.Task%7BAristocrat.Mgam.Client.Messaging.IResponse%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/TransactionRetryHandler.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterCommand_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.RegisterCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterCommand_System_Type_System_Func_System_Object_System_Threading_Tasks_Task_Aristocrat_Mgam_Client_Messaging_IResponse___" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.RegisterCommand(System.Type,System.Func{System.Object,System.Threading.Tasks.Task{Aristocrat.Mgam.Client.Messaging.IResponse}})"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterCommand_System_Type_System_Func_System_Object_System_Threading_Tasks_Task_Aristocrat_Mgam_Client_Messaging_IResponse___" class="expander" data-toggle="collapse">RegisterCommand(Type, Func&lt;Object, Task&lt;IResponse&gt;&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterCommand_System_Type_System_Func_System_Object_System_Threading_Tasks_Task_Aristocrat_Mgam_Client_Messaging_IResponse___" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RegisterCommand(Type command, Func&lt;object, Task&lt;IResponse&gt;&gt; commandRetry)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></span>
+        <span class="parametername">command</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Mgam.Client.Messaging.IResponse.html">IResponse</a>&gt;&gt;</span>
+        <span class="parametername">commandRetry</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler.html#Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_RegisterCommand_System_Type_System_Func_System_Object_System_Threading_Tasks_Task_Aristocrat_Mgam_Client_Messaging_IResponse___">ITransactionRetryHandler.RegisterCommand(Type, Func&lt;Object, Task&lt;IResponse&gt;&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterRetryAction_System_Type_System_Action_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.RegisterRetryAction(System.Type%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/TransactionRetryHandler.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterRetryAction_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.RegisterRetryAction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterRetryAction_System_Type_System_Action_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.RegisterRetryAction(System.Type,System.Action)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterRetryAction_System_Type_System_Action_" class="expander" data-toggle="collapse">RegisterRetryAction(Type, Action)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_RegisterRetryAction_System_Type_System_Action_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RegisterRetryAction(Type command, Action commandAction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></span>
+        <span class="parametername">command</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action">Action</a></span>
+        <span class="parametername">commandAction</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler.html#Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_RegisterRetryAction_System_Type_System_Action_">ITransactionRetryHandler.RegisterRetryAction(Type, Action)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Remove_Aristocrat_Mgam_Client_Messaging_IRequest_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Remove(Aristocrat.Mgam.Client.Messaging.IRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/TransactionRetryHandler.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Remove_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Remove*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Remove_Aristocrat_Mgam_Client_Messaging_IRequest_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler.Remove(Aristocrat.Mgam.Client.Messaging.IRequest)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Remove_Aristocrat_Mgam_Client_Messaging_IRequest_" class="expander" data-toggle="collapse">Remove(IRequest)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler_Remove_Aristocrat_Mgam_Client_Messaging_IRequest_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Remove(IRequest message)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IRequest.html">IRequest</a></span>
+        <span class="parametername">message</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler.html#Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_Remove_Aristocrat_Mgam_Client_Messaging_IRequest_">ITransactionRetryHandler.Remove(IRequest)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Mgam.Client.ReactiveExtensions.html#Aristocrat_Mgam_Client_ReactiveExtensions_Unsubscribe_System_IDisposable_">ReactiveExtensions.Unsubscribe(IDisposable)</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_TransactionRetryHandler.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.TransactionRetryHandler%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/TransactionRetryHandler.cs/#L22" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

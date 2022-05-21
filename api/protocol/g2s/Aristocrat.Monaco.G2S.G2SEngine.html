@@ -1,0 +1,594 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class G2SEngine
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class G2SEngine
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.G2SEngine">
+  <h1 id="Aristocrat_Monaco_G2S_G2SEngine" data-uid="Aristocrat.Monaco.G2S.G2SEngine">Class G2SEngine
+  </h1>
+  <div class="markdown level0 summary"><p>The G2S Engine.  Responsible for starting the G2S client.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">G2SEngine</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.html">Aristocrat.Monaco.G2S</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_G2SEngine_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class G2SEngine : IEngine, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_G2SEngine__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_IDeviceFactory_Aristocrat_Monaco_G2S_IScriptManager_Aristocrat_Monaco_G2S_IPackageDownloadManager_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_Devices_IEgmStateObserver_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_Aristocrat_Monaco_G2S_IGatComponentFactory_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Meters_IG2SMeterProvider_Aristocrat_Monaco_G2S_Services_IVoucherDataService_Aristocrat_Monaco_G2S_Services_IMasterResetService_Aristocrat_Monaco_G2S_Services_ISelfTest_Aristocrat_Monaco_G2S_Common_CertificateManager_ICertificateService_Aristocrat_Monaco_G2S_ICertificateMonitor_Aristocrat_G2S_Emdi_IEmdi_Aristocrat_Monaco_G2S_Services_ICentralService_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.G2SEngine.%23ctor(Aristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.G2S.IHostFactory%2CAristocrat.Monaco.G2S.IDeviceFactory%2CAristocrat.Monaco.G2S.IScriptManager%2CAristocrat.Monaco.G2S.IPackageDownloadManager%2CAristocrat.G2S.Client.Devices.IDeviceObserver%2CAristocrat.G2S.Client.Devices.IEgmStateObserver%2CAristocrat.Monaco.Hardware.Contracts.IDeviceRegistryService%2CAristocrat.Monaco.G2S.IGatComponentFactory%2CAristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager%2CAristocrat.Monaco.G2S.Meters.IG2SMeterProvider%2CAristocrat.Monaco.G2S.Services.IVoucherDataService%2CAristocrat.Monaco.G2S.Services.IMasterResetService%2CAristocrat.Monaco.G2S.Services.ISelfTest%2CAristocrat.Monaco.G2S.Common.CertificateManager.ICertificateService%2CAristocrat.Monaco.G2S.ICertificateMonitor%2CAristocrat.G2S.Emdi.IEmdi%2CAristocrat.Monaco.G2S.Services.ICentralService)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/G2SEngine.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_G2SEngine__ctor_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_G2SEngine__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_IDeviceFactory_Aristocrat_Monaco_G2S_IScriptManager_Aristocrat_Monaco_G2S_IPackageDownloadManager_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_Devices_IEgmStateObserver_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_Aristocrat_Monaco_G2S_IGatComponentFactory_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Meters_IG2SMeterProvider_Aristocrat_Monaco_G2S_Services_IVoucherDataService_Aristocrat_Monaco_G2S_Services_IMasterResetService_Aristocrat_Monaco_G2S_Services_ISelfTest_Aristocrat_Monaco_G2S_Common_CertificateManager_ICertificateService_Aristocrat_Monaco_G2S_ICertificateMonitor_Aristocrat_G2S_Emdi_IEmdi_Aristocrat_Monaco_G2S_Services_ICentralService_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.#ctor(Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.G2S.IHostFactory,Aristocrat.Monaco.G2S.IDeviceFactory,Aristocrat.Monaco.G2S.IScriptManager,Aristocrat.Monaco.G2S.IPackageDownloadManager,Aristocrat.G2S.Client.Devices.IDeviceObserver,Aristocrat.G2S.Client.Devices.IEgmStateObserver,Aristocrat.Monaco.Hardware.Contracts.IDeviceRegistryService,Aristocrat.Monaco.G2S.IGatComponentFactory,Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager,Aristocrat.Monaco.G2S.Meters.IG2SMeterProvider,Aristocrat.Monaco.G2S.Services.IVoucherDataService,Aristocrat.Monaco.G2S.Services.IMasterResetService,Aristocrat.Monaco.G2S.Services.ISelfTest,Aristocrat.Monaco.G2S.Common.CertificateManager.ICertificateService,Aristocrat.Monaco.G2S.ICertificateMonitor,Aristocrat.G2S.Emdi.IEmdi,Aristocrat.Monaco.G2S.Services.ICentralService)"><a href="#collapsible-Aristocrat_Monaco_G2S_G2SEngine__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_IDeviceFactory_Aristocrat_Monaco_G2S_IScriptManager_Aristocrat_Monaco_G2S_IPackageDownloadManager_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_Devices_IEgmStateObserver_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_Aristocrat_Monaco_G2S_IGatComponentFactory_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Meters_IG2SMeterProvider_Aristocrat_Monaco_G2S_Services_IVoucherDataService_Aristocrat_Monaco_G2S_Services_IMasterResetService_Aristocrat_Monaco_G2S_Services_ISelfTest_Aristocrat_Monaco_G2S_Common_CertificateManager_ICertificateService_Aristocrat_Monaco_G2S_ICertificateMonitor_Aristocrat_G2S_Emdi_IEmdi_Aristocrat_Monaco_G2S_Services_ICentralService_" class="expander" data-toggle="collapse">G2SEngine(IG2SEgm, IPropertiesManager, IHostFactory, IDeviceFactory, IScriptManager, IPackageDownloadManager, IDeviceObserver, IEgmStateObserver, IDeviceRegistryService, IGatComponentFactory, IMetersSubscriptionManager, IG2SMeterProvider, IVoucherDataService, IMasterResetService, ISelfTest, ICertificateService, ICertificateMonitor, IEmdi, ICentralService)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_G2SEngine__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_IDeviceFactory_Aristocrat_Monaco_G2S_IScriptManager_Aristocrat_Monaco_G2S_IPackageDownloadManager_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_Devices_IEgmStateObserver_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_Aristocrat_Monaco_G2S_IGatComponentFactory_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Meters_IG2SMeterProvider_Aristocrat_Monaco_G2S_Services_IVoucherDataService_Aristocrat_Monaco_G2S_Services_IMasterResetService_Aristocrat_Monaco_G2S_Services_ISelfTest_Aristocrat_Monaco_G2S_Common_CertificateManager_ICertificateService_Aristocrat_Monaco_G2S_ICertificateMonitor_Aristocrat_G2S_Emdi_IEmdi_Aristocrat_Monaco_G2S_Services_ICentralService_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public G2SEngine(IG2SEgm egm, IPropertiesManager properties, IHostFactory hostFactory, IDeviceFactory deviceFactory, IScriptManager scriptManager, IPackageDownloadManager packageDownloadManager, IDeviceObserver deviceStateObserver, IEgmStateObserver egmStateObserver, IDeviceRegistryService deviceRegistryService, IGatComponentFactory gatComponentFactory, IMetersSubscriptionManager metersSubscriptionManager, IG2SMeterProvider game2SMeterProvider, IVoucherDataService voucherDataService, IMasterResetService masterResetService, ISelfTest selfTest, ICertificateService certificateService, ICertificateMonitor certificateMonitor, IEmdi emdi, ICentralService central)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a></span>
+        <span class="parametername">egm</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IHostFactory.html">IHostFactory</a></span>
+        <span class="parametername">hostFactory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IDeviceFactory.html">IDeviceFactory</a></span>
+        <span class="parametername">deviceFactory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IScriptManager.html">IScriptManager</a></span>
+        <span class="parametername">scriptManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IPackageDownloadManager.html">IPackageDownloadManager</a></span>
+        <span class="parametername">packageDownloadManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceObserver.html">IDeviceObserver</a></span>
+        <span class="parametername">deviceStateObserver</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IEgmStateObserver.html">IEgmStateObserver</a></span>
+        <span class="parametername">egmStateObserver</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IDeviceRegistryService.html">IDeviceRegistryService</a></span>
+        <span class="parametername">deviceRegistryService</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IGatComponentFactory.html">IGatComponentFactory</a></span>
+        <span class="parametername">gatComponentFactory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html">IMetersSubscriptionManager</a></span>
+        <span class="parametername">metersSubscriptionManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IG2SMeterProvider.html">IG2SMeterProvider</a></span>
+        <span class="parametername">game2SMeterProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html">IVoucherDataService</a></span>
+        <span class="parametername">voucherDataService</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.IMasterResetService.html">IMasterResetService</a></span>
+        <span class="parametername">masterResetService</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.ISelfTest.html">ISelfTest</a></span>
+        <span class="parametername">selfTest</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.CertificateManager.ICertificateService.html">ICertificateService</a></span>
+        <span class="parametername">certificateService</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.ICertificateMonitor.html">ICertificateMonitor</a></span>
+        <span class="parametername">certificateMonitor</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Emdi.IEmdi.html">IEmdi</a></span>
+        <span class="parametername">emdi</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.ICentralService.html">ICentralService</a></span>
+        <span class="parametername">central</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_G2SEngine_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.G2SEngine.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/G2SEngine.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_G2SEngine_Dispose_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_G2SEngine_Dispose" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Dispose"><a href="#collapsible-Aristocrat_Monaco_G2S_G2SEngine_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_G2SEngine_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_G2SEngine_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.G2SEngine.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/G2SEngine.cs/#L170" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_G2SEngine_Dispose_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_G2SEngine_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_G2SEngine_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_G2SEngine_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases allocated resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>true to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_G2SEngine_Restart_Aristocrat_G2S_Client_IStartupContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.G2SEngine.Restart(Aristocrat.G2S.Client.IStartupContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/G2SEngine.cs/#L156" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_G2SEngine_Restart_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Restart*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_G2SEngine_Restart_Aristocrat_G2S_Client_IStartupContext_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Restart(Aristocrat.G2S.Client.IStartupContext)"><a href="#collapsible-Aristocrat_Monaco_G2S_G2SEngine_Restart_Aristocrat_G2S_Client_IStartupContext_" class="expander" data-toggle="collapse">Restart(IStartupContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_G2SEngine_Restart_Aristocrat_G2S_Client_IStartupContext_" class="collapse in">
+  <div class="markdown level1 summary"><p>Stops, initializes, and starts the engine.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Restart(IStartupContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IStartupContext.html">IStartupContext</a></span>
+        <span class="parametername">context</span>
+        <p><p>The startup context.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEngine.html#Aristocrat_Monaco_G2S_IEngine_Restart_Aristocrat_G2S_Client_IStartupContext_">IEngine.Restart(IStartupContext)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_G2SEngine_Start_Aristocrat_G2S_Client_IStartupContext_System_Action_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.G2SEngine.Start(Aristocrat.G2S.Client.IStartupContext%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/G2SEngine.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_G2SEngine_Start_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Start*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_G2SEngine_Start_Aristocrat_G2S_Client_IStartupContext_System_Action_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Start(Aristocrat.G2S.Client.IStartupContext,System.Action)"><a href="#collapsible-Aristocrat_Monaco_G2S_G2SEngine_Start_Aristocrat_G2S_Client_IStartupContext_System_Action_" class="expander" data-toggle="collapse">Start(IStartupContext, Action)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_G2SEngine_Start_Aristocrat_G2S_Client_IStartupContext_System_Action_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes and starts the engine.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Start(IStartupContext context, Action onReady = null)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IStartupContext.html">IStartupContext</a></span>
+        <span class="parametername">context</span>
+        <p><p>The startup context.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action">Action</a></span>
+        <span class="parametername">onReady</span>
+        <p><p>An optional callback that will be called when the engine has completed initialization</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEngine.html#Aristocrat_Monaco_G2S_IEngine_Start_Aristocrat_G2S_Client_IStartupContext_System_Action_">IEngine.Start(IStartupContext, Action)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_G2SEngine_Stop.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.G2SEngine.Stop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/G2SEngine.cs/#L142" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_G2SEngine_Stop_" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Stop*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_G2SEngine_Stop" data-uid="Aristocrat.Monaco.G2S.G2SEngine.Stop"><a href="#collapsible-Aristocrat_Monaco_G2S_G2SEngine_Stop" class="expander" data-toggle="collapse">Stop()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_G2SEngine_Stop" class="collapse in">
+  <div class="markdown level1 summary"><p>Stops the engine.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stop()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEngine.html#Aristocrat_Monaco_G2S_IEngine_Stop">IEngine.Stop()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_G2SEngine.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.G2SEngine%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/G2SEngine.cs/#L26" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

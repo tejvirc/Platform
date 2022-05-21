@@ -1,0 +1,819 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Steps for Building and Running the Monaco Platform </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Steps for Building and Running the Monaco Platform ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="steps-for-building-and-running-the-monaco-platform">Steps for Building and Running the Monaco Platform</h1>
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#set-up-intranet-services">Set Up Intranet Services</a></li>
+<li><a href="#tools">Tools</a></li>
+<li><a href="#daily-builds-and-running-builds-on-the-teamcity-server">Daily Builds and Running Builds on the TeamCity Server</a><ul>
+<li><a href="#build-and-release-versioning">Build and Release Versioning</a></li>
+</ul>
+</li>
+<li><a href="#building-and-running-monaco-locally">Building and Running Monaco Locally</a><ul>
+<li><a href="#setup-video">Setup Video</a></li>
+<li><a href="#checkout-and-build-the-platform">Checkout and Build the Platform</a></li>
+<li><a href="#known-platform-build-issues-and-workarounds">Known Platform Build Issues and Workarounds</a></li>
+<li><a href="#download-runtime-and-games">Download Runtime and Game(s)</a></li>
+<li><a href="#set-up-the-platform-on-local-machine-virtual-egm">Set Up the Platform on Local Machine (virtual EGM)</a></li>
+<li><a href="#run-the-platform-on-local-machine-virtual-egm">Run the Platform on Local Machine (virtual EGM)</a></li>
+<li><a href="#reset-the-platform">Reset the Platform</a></li>
+</ul>
+</li>
+<li><a href="#set-up-and-run-on-real-egm-hardware">Set Up and Run on Real EGM Hardware</a><ul>
+<li><a href="#install-vnc-client-on-local-pc">Install VNC Client on Local PC</a></li>
+<li><a href="#remote-desktop-into-egm-using-vnc">Remote Desktop into EGM using VNC</a></li>
+<li><a href="#download-to-the-egm-and-run-the-monaco-platform">Download to the EGM and Run the Monaco Platform</a><ul>
+<li><a href="#download-from-teamcity">Download from TeamCity</a></li>
+</ul>
+</li>
+<li><a href="#run-the-platform">Run the Platform</a></li>
+<li><a href="#troubleshooting-and-typical-commands">Troubleshooting and Typical Commands</a><ul>
+<li><a href="#help-i-cant-get-passed-touch-calibration">HELP! I can&#39;t get passed touch calibration</a></li>
+<li><a href="#after-remoting-into-egm-no-desktop-icons-are-shown-everything-is-black">After remoting into EGM, no desktop icons are shown, everything is black</a></li>
+<li><a href="#after-pressing-connect-in-vnc-viewer-nothing-happens">After Pressing &quot;Connect&quot; in VNC Viewer, nothing happens</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#jiratxm-ticket-lifecycle">JIRA/TXM Ticket Lifecycle</a><ul>
+<li><a href="#start-the-ticket-and-topic-branch">Start the Ticket and Topic Branch</a></li>
+<li><a href="#fix-and-update-the-topic-branch">Fix and Update the Topic Branch</a></li>
+<li><a href="#raise-and-resolve-the-code-review">Raise and Resolve the Code Review</a></li>
+<li><a href="#commit-to-the-parent-branch">Commit to the Parent Branch</a></li>
+<li><a href="#merge-to-other-affected-branches">Merge to Other Affected Branches</a></li>
+<li><a href="#finish-the-jira">Finish the Jira</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h2 id="set-up-intranet-services">Set Up Intranet Services</h2>
+<p>Once you are hired in and have VPN access, request access to the required services below, then ask <a href="https://confy.aristocrat.com/display/~cmayberr">Cory Mayberry</a> for direction on the remaining services, as you probably won&#39;t need them initially.</p>
+<p>Most of our tools use single-sign on credentials, so you&#39;ll use your employee code, e.g. <em>gg105273</em>, as your username for all of these services unless otherwise noted.</p>
+<table>
+  <colgroup>
+    <col style="width: 17%">
+    <col style="width: 11%">
+    <col style="width: 70%">
+  </colgroup>
+  <thead>
+    <tr class="header">
+      <th><strong>Service</strong></th>
+      <th><strong>Use</strong></th>
+      <th><strong>Notes</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="odd">
+      <td><a href="https://jerry.aristocrat.com/">Jira</a></td>
+      <td>Required</td>
+      <td>
+        <ol type="1">
+          <li>
+            <p>
+              Email I.T. and ask for access to Jira group
+              &quot;secu-p-jira-lbtechdev&quot;, copying Steve Lee for authorization.
+            </p>
+          </li>
+          <li>
+            <p>
+              Then, ask <a href="https://confy.aristocrat.com/display/~jl103722">Josh Lauer</a> or another colleague to share their filters and dashboards, or
+              learn to build your own at <a href="https://confluence.atlassian.com/jiracore/blog/2015/08/5-steps-to-a-killer-jira-dashboard">Five Steps to a Killer Jira Dashboard</a>.
+            </p>
+          </li>
+        </ol>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>
+        <a href="https://confy.aristocrat.com/display/MON/Monaco">Confluence</a>
+      </td>
+      <td>Required</td>
+      <td>
+        Ask <a href="https://confy.aristocrat.com/display/~dwestbro">Dietrich Westbrooks</a> first. If he can&#39;t grant you access, email I.T. and copy your manager
+        for authorization, then verify access via your browser.
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>
+        <a href="http://usan-abuild-01.dev.local:8080/aristocrat-vlt-platform-all-branches">UpSource</a>
+      </td>
+      <td>Required</td>
+      <td>
+        <p>1) login to UpSource</p>
+        <p>
+          2) Contact <a href="https://confy.aristocrat.com/display/~dwestbro">Dietrich Westbrooks</a> for access, then verify via your browser.
+        </p>
+      </td>
+    </tr>
+    <tr class="even">
+      <td><a href="http://usan-abuild-01.dev.local/login.html">TeamCity</a></td>
+      <td>Required</td>
+      <td>
+        <ol type="1">
+          <li><p>Email I.T. and copy Steve Lee for authorization.</p></li>
+          <li>
+            <p>
+              Click the <a href="http://usan-abuild-01.dev.local/ntlmLogin.html">Log in using Microsoft Windows domain</a> link on the login page, and use your employee code as the
+              username, e.g. <em>gg105273.</em>
+            </p>
+          </li>
+          <li>
+            <p>
+              In <em>Profile &gt; General</em>, enter your name and Aristocrat
+              email address.
+            </p>
+          </li>
+          <li>
+            <p>
+              Then in <em>Profile &gt; Notification Rules &gt; &quot;Email Notifier (0/2)&quot;</em>, verify that you&#39;ve inherited the team rule to notify you of
+              build success/failure on any builds containing your changes.
+            </p>
+          </li>
+        </ol>
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>
+        <a href="https://svn.ali.global/PlatformArchitecture/Monaco/Trunk">SVN</a>
+      </td>
+      <td>Required</td>
+      <td>
+        <p>
+          Ask
+          <a href="https://confy.aristocrat.com/display/~cfandric">Christopher Fandrich</a>
+          to add your username (e.g. gg105273) to the access list, then verify
+          access via your browser.
+        </p>
+        <p>
+          You need to ask your manager to create an IT support ticket using <a href="https://aristocratprod.service-now.com/sp">https://aristocratprod.service-now.com/sp</a> on your behalf for requesting a write permission. 
+        </p>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>
+        <a href="https://confy.aristocrat.com/display/MON/Remote+Access+to+Austin+EGMs">Remote Access to Austin EGMs</a>
+      </td>
+      <td>Optional</td>
+      <td>
+        <ol type="1">
+          <li>
+            <p>
+              Install a VNC client (e.g. <a href="https://www.tightvnc.com/download.php">TightVNC</a>).
+            </p>
+          </li>
+          <li>
+            <p>
+              Follow the guide to access test rigs in the Austin office, which
+              are useful for troubleshooting problems that can&#39;t be simulated
+              without real hardware.
+            </p>
+          </li>
+          <li>
+            <p>
+              The SMB mounts are &quot;\ip_address\C_Drive&quot; and
+              &quot;\ip_address\D_Drive&quot;, with username and password both &quot;mk7&quot;.
+            </p>
+          </li>
+        </ol>
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>GitHub</td>
+      <td>Optional</td>
+      <td>
+        <ol type="1">
+          <li><p>Email I.T. to have GitHub added to your Okta page.</p></li>
+          <li>
+            <p>
+              Follow our GitHub migration/access guide at <a href="https://confy.aristocrat.com/display/MON/Getting+Started+on+GitHub">Getting Started on GitHub</a>.
+            </p>
+          </li>
+          <li>
+            <p>
+              For futher info, see the official <a href="https://protect-us.mimecast.com/s/uH6MCOYGpghElWgBtvFRPF?domain=docs.github.com">Access Guide at GitHub</a> or ask a colleague.
+            </p>
+          </li>
+        </ol>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2 id="tools">Tools</h2>
+<p>Install and setup the required tools below, then ask <a href="https://confy.aristocrat.com/display/~cmayberr">Cory Mayberry</a> for direction on the remaining tools, as you&#39;ll probably only need a few of them initially.</p>
+<p>Grab the 64-bit versions of the tools (to match the OS) unless otherwise noted.</p>
+<table>
+  <colgroup>
+    <col style="width: 12%">
+    <col style="width: 17%">
+    <col style="width: 70%">
+  </colgroup>
+  <thead>
+    <tr class="header">
+      <th><strong>Tool</strong></th>
+      <th><strong>Use</strong></th>
+      <th><strong>Notes</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="odd">
+      <td>
+        <a href="https://visualstudio.microsoft.com/downloads/">Visual Studio 2019 Professional</a>
+      </td>
+      <td>Required</td>
+      <td>
+        <ol type="1">
+          <li>
+            <p>
+              Install the free 30-day trial, then email I.T. for access, copying
+              Steve Lee for authorization.
+            </p>
+          </li>
+          <li>
+            <p>Run <em>Visual Studio Installer</em> from your Start Menu</p>
+          </li>
+          <li>
+            <p>Click <em>Visual Studio 2019 &gt; Modify.</em></p>
+          </li>
+          <li>
+            <p>
+              Select <em>.Net</em> and <em>C++ Desktop Development</em>, as
+              shown in the screenshot below, then &quot;Modify&quot;.
+            </p>
+          </li>
+          <li>
+            <p>
+              Return to the Installer and click <em>Visual Studio Build Tools 2019 &gt; Modify.</em>
+            </p>
+          </li>
+          <li>
+            <p>
+              Install the remaining .Net framework versions as shown in the
+              screenshot below.
+            </p>
+          </li>
+        </ol>
+        <p>
+          <img src="../../images/getting-started/building/image1.png"><img src="../../images/getting-started/building/image2.png">
+        </p>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>
+        <a href="https://www.jetbrains.com/dotnet/">ReSharper Ultimate</a>
+      </td>
+      <td>Required</td>
+      <td>
+        Install the free 30-day trial, then email I.T. for access, copying your
+        manager for authorization. The license includes ReSharper, dotMemory,
+        dotTrace, etc.
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>
+        <a href="https://confy.aristocrat.com/display/MON/NuGet+Configuration">NuGet Configuration</a>
+      </td>
+      <td>Required</td>
+      <td>
+        <ol type="1">
+          <li><p>Follow the guide.</p></li>
+          <li>
+            <p>
+              Start Visual Studio 2019, open <em>Tools &gt; Options &gt; NuGet Package Manager &gt; Package
+                Sources, </em>add the following required packages, and the optional packages as
+              well if you plan to work without VPN access.
+            </p>
+          </li>
+        </ol>
+        <table>
+          <colgroup>
+            <col style="width: 14%">
+            <col style="width: 17%">
+            <col style="width: 67%">
+          </colgroup>
+          <thead>
+            <tr class="header">
+              <th><strong>Required?</strong></th>
+              <th><strong>Name</strong></th>
+              <th><strong>Source</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="odd">
+              <td>required</td>
+              <td>TeamCity</td>
+              <td>
+                <a href="http://usan-abuild-01.dev.local/guestAuth/app/nuget/feed/_Root/default/v1">http://usan-abuild-01.dev.local/guestAuth/app/nuget/feed/_Root/default/v1</a>
+              </td>
+            </tr>
+            <tr class="even">
+              <td>required</td>
+              <td>local-packages</td>
+              <td><em>/NuGetPackages</em> in your working copy</td>
+            </tr>
+            <tr class="odd">
+              <td>required</td>
+              <td><a href="http://nuget.org">nuget.org</a></td>
+              <td>
+                <a href="https://api.nuget.org/v3/index.json">https://api.nuget.org/v3/index.json</a>
+              </td>
+            </tr>
+            <tr class="even">
+              <td>optional</td>
+              <td>GitHub</td>
+              <td>
+                <a href="https://nuget.pkg.github.com/Aristocrat-Monaco-Platform/index.json">https://nuget.pkg.github.com/Aristocrat-Monaco-Platform/index.json</a>
+              </td>
+            </tr>
+            <tr class="odd">
+              <td>optional</td>
+              <td>Visual Studio Offline Packages</td>
+              <td>
+                typically <em>C:\Program Files (x86)\Microsoft SDKs\NuGetPackages&lt;/em
+                &gt;
+              </em></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <img src="../../images/getting-started/building/image3.png">
+        </p>
+      </td>
+    </tr>
+    <tr class="even">
+      <td><a href="https://tortoisesvn.net/downloads.html">TortoiseSVN</a></td>
+      <td>Required</td>
+      <td></td>
+    </tr>
+    <tr class="odd">
+      <td>
+        <a href="https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-windows-powershell">PowerShell 5 or later</a>.
+      </td>
+      <td>Required</td>
+      <td>
+        To use customized Monaco cmdlets and functions, you will need to import
+        the MonacoPowerShell module: <a href="https://confy.aristocrat.com/display/MON/Monaco+Tools+for+PowerShell">Monaco Tools for PowerShell - Monaco - Confluence (aristocrat.com)</a>
+      </td>
+    </tr>
+    <tr class="even">
+      <td><a href="https://tortoisegit.org/">TortoiseGit</a></td>
+      <td>Optional</td>
+      <td>
+        Set &quot;auto CRLF&quot; to false during setup. Defaults should be ok for the
+        rest.
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>
+        <a href="https://www.radblue.com/products/rgs/">RadBlue G2S Scope (RGS)</a>
+      </td>
+      <td>Simulates a G2S host for EGM testing</td>
+      <td>
+        <p>
+          Download the free 5-day trial, then email <a href="mailto:support@radblue.com">support@radblue.com</a> to ask for a license, explaining you&#39;re with Aristocrat
+          Technologies.
+        </p>
+        <p>
+          <strong>NOTE:</strong> G2S is used in the following VLT markets: OSL,
+          IL, ALC, AGLC, and MBLL.
+        </p>
+      </td>
+    </tr>
+    <tr class="even">
+      <td>
+        <a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=100542800">&quot;Eevee&quot; Everi Simulator</a>
+      </td>
+      <td>Simulates an Everi (&quot;NYL Host&quot;) host for EGM testing</td>
+      <td>
+        <p>Follow the instructions or ask a team member to walk you though.</p>
+        <p>
+          <strong>NOTE:</strong> The Everi host is only used for the NYL market,
+          which uses a central deterministic host.
+        </p>
+      </td>
+    </tr>
+    <tr class="odd">
+      <td>
+        <a href="https://confy.aristocrat.com/display/GT/Video+Lottery+Terminal#VideoLotteryTerminal-PersistentStorage,SQLite,MonacoPlatform">Persistent Database Viewer</a>
+      </td>
+      <td>
+        Inspects the Platform&#39;s SQLite3 databases (as they can&#39;t be inspected
+        with a standard SQLite3 reader).
+      </td>
+      <td>Follow the guide.</td>
+    </tr>
+    <tr class="even">
+      <td>
+        <a href="https://confy.aristocrat.com/display/MON/GSA+Manifest+Tool">GSA Manifest Tool</a>
+      </td>
+      <td>
+        Translates the Runtime/Game&#39;s configuration.xml into a GSA Manifest
+        file, which the Platform can read.
+      </td>
+      <td>
+        Follow the instructions or ask <a href="https://confy.aristocrat.com/display/~dwestbro">Dietrich Westbrooks</a> or <a href="https://confy.aristocrat.com/display/~ca102998">Casey Anderson</a>.
+      </td>
+    </tr>
+    <tr class="odd">
+      <td><a href="https://notepad-plus-plus.org/downloads/">Notepad++</a></td>
+      <td>Optional</td>
+      <td>
+        A useful text editor with folding, coloring and multi-file regex search.
+      </td>
+    </tr>
+    <tr class="even">
+      <td><a href="https://www.cygwin.com/">Cygwin</a></td>
+      <td>Optional</td>
+      <td>
+        A superior shell to the Windows console for grep, Python, curl, etc.
+      </td>
+    </tr>
+    <tr class="odd">
+      <td><a href="https://getgreenshot.org/downloads/">Greenshot</a></td>
+      <td>Optional</td>
+      <td>A handy screenshot tool.</td>
+    </tr>
+    <tr class="even">
+      <td><a href="https://www.goodsync.com/">GoodSync</a></td>
+      <td>Optional</td>
+      <td>
+        A handy synchronization tool for quickly syncing two remote directory
+        trees. It uses an enhanced rsync under the hood with local block hashes,
+        so it can detect and skip unchanged files extremely quickly, which is
+        useful if you&#39;re syncing over the VPN, e.g. between your PC and a remote
+        EGM in Austin.
+      </td>
+    </tr>
+    <tr class="odd">
+      <td><a href="https://www.postman.com/downloads/">Postman</a></td>
+      <td>Optional</td>
+      <td>
+        <p>
+          You may want to use the platform REST API to simulate some hardware
+          events if you don&#39;t have physical peripherals. Some of the more
+          commonly used calls are <a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=68497783">/BNA/:id/Disconnect</a> and <a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=68500492">/Printer/:id/Disconnect</a> where the ID is typically 1.
+        </p>
+        <p>
+          See <a href="https://confy.aristocrat.com/display/ATLBP/Platform+APIs">Platform APIs</a> for how to use most API calls.
+        </p>
+        <p>
+          See  <a href="https://jerry.aristocrat.com/browse/ALBP-3901">ALBP-3901</a> IN PROGRESS  for an example API call using curl, Postman and
+          netstat.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h2 id="daily-builds-and-running-builds-on-the-teamcity-server">Daily Builds and Running Builds on the TeamCity Server</h2>
+<p>All Monaco platform daily builds run on the <a href="http://usan-abuild-01.dev.local/login.html">TeamCity</a> server using pre-configured build agents. In addition, authorized users can launch builds on-demand.</p>
+<p><strong>Team City Server URL</strong></p>
+<ul>
+<li><a href="http://usan-abuild-01.dev.local/">http://usan-abuild-01.dev.local</a></li>
+</ul>
+<p><strong>Build Version</strong></p>
+<p>The daily build will update the assembly info to reflect the built version. It follows the format of <strong><em>Major.Minor.Patch.BuildNumber</em></strong> (for details, see <a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=132416792#StepsforBuildingandRunningtheMonacoPlatform-BuildandReleaseVersioning">Build and Release Versioning</a> below). The first three components are controlled via a parameter in the build server. The last component is maintained by the build server and is auto-incremented.  To see more information about the TeamCity build numbers, go here: <a href="https://confy.aristocrat.com/display/MON/Documentation+-+Monaco+Versioning+and+Branch+Naming">Documentation - Monaco Versioning and Branch Naming</a></p>
+<p>The platform log now contains the version as reflected in the assembly info.</p>
+<p><strong><u>Build Tagging</u></strong></p>
+<p>The build server has the ability to create an SVN tag during a build.  When running a custom build from TeamCity checking the <strong><em>Tag Build</em></strong> check box will create a tag in svn with version number of the build</p>
+<p> <img src="../../images/getting-started/building/image4.png" alt=""></p>
+<h3 id="build-and-release-versioning">Build and Release Versioning</h3>
+<p>Monaco uses a standard <strong>four-digit</strong> versioning pattern for its releases.  (#.#.#.#).</p>
+<ul>
+<li>1st Number - Monaco Platform &#39;Major&#39; version.</li>
+<li>2nd Number - Monaco Platform &#39;Minor&#39; version.</li>
+<li>3rd Number - Monaco Platform &#39;Patch&#39; revision.</li>
+<li>4th Number - Monaco Platform build number, which changes the most often, sometimes daily along with every build iteration.</li>
+</ul>
+<p>For example, the latest NYL release to pre-cert 2 (PC2):</p>
+<p><strong>2.5.0.11</strong></p>
+<p>See also:</p>
+<ul>
+<li><p><a href="https://confy.aristocrat.com/display/MON/Documentation+-+Monaco+Versioning+and+Branch+Naming">Documentation - Monaco Versioning and Branch Naming - Monaco - Confluence (aristocrat.com)</a></p>
+</li>
+<li><p><a href="https://confy.aristocrat.com/display/MON/Documentation+-+TeamCity+Version+Numbering">Documentation - TeamCity Version Numbering - Monaco - Confluence (aristocrat.com)</a></p>
+</li>
+</ul>
+<h2 id="building-and-running-monaco-locally">Building and Running Monaco Locally</h2>
+<p>Once you&#39;ve tooled up, here&#39;s a quick guide to checkout and run the build of Platform, Runtime, and Games.</p>
+<h3 id="setup-video">Setup Video</h3>
+<p><strong>NOTE: **Platform will **only</strong> run if on a laptop with an nVidia graphics card.</p>
+<p>To ensure optimal graphics performance, right-click on the desktop, open <em>nVidia Control Panel</em>, and select &quot;High-performance NVIDIA processor&quot; as shown below.</p>
+<p><img src="../../images/getting-started/building/image5.png" alt=""></p>
+<h3 id="checkout-and-build-the-platform">Checkout and Build the Platform</h3>
+<ol>
+<li>In TortoiseSVN or SVN, checkout the latest Monaco platform trunk source from <a href="https://svn.ali.global/PlatformArchitecture/Monaco/Trunk">https://svn.ali.global/PlatformArchitecture/Monaco/Trunk</a> (5 to 10 minutes).</li>
+<li>In your working copy, shift-right click on <em>noanalysisdev.bat</em> and <em>Run as Administrator</em>, which opens the solution in Visual Studio with advanced code analysis disabled, to make code navigation and builds more simpler.</li>
+<li>Build the solution in Visual Studio (about 2 minutes).</li>
+</ol>
+<h3 id="known-platform-build-issues-and-workarounds">Known Platform Build Issues and Workarounds</h3>
+<ul>
+<li>Platform will <strong>only</strong> run if on a laptop with an nVidia graphics card.</li>
+</ul>
+<h3 id="download-runtime-and-games">Download Runtime and Game(s)</h3>
+<p><strong>NOTE:</strong> The example below is for the New York Lottery jurisdiction project. Contact your manager to determine which project folder(s) you should be working from.</p>
+<ol>
+<li>In your working copy, create a <em>bin\Debug\Platform\packages</em> folder.</li>
+<li>Go to <a href="http://usan-abuild-01.dev.local/project/Monaco?mode=builds#all-projects">Monaco on TeamCity</a> <em>&gt; New York Lottery &gt; Composite (Trunk + GDK 3.0 NYL Games</em>), then select the most recent revision, then* Artifacts, *then open *Platform &gt; Packages, *<a href="http://usan-abuild-01.dev.local/buildConfiguration/Monaco_NewYorkLottery_CompositeGdk30/43140?buildTab=artifacts#%2FPlatform%2Fpackages">e.g. Here.</a></li>
+<li>Download all <em>Runtime</em> ISOs you see, and the <em>Buffalo Gold Revolution</em> ISO, to your new <em>packages</em> folder as shown in the screenshot below. The game is a large file that may take several hours to download.</li>
+</ol>
+<p><img src="../../images/getting-started/building/image6.png" alt=""></p>
+<h3 id="set-up-the-platform-on-local-machine-virtual-egm">Set Up the Platform on Local Machine (virtual EGM)</h3>
+<p><strong>NOTE:</strong> The example below is for the New York Lottery jurisdiction project. Contact your manager to determine which project folder(s) you should be working from.</p>
+<ol>
+<li>Open a console window to <em>yourworkingcopy\bin\Debug\Platform\bin.</em></li>
+<li>Run: Bootstrap.exe display=windowed showTestTool=true showMouseCursor=true ignoreTouchCalibration DisplayFakePrinterTickets=true readonlymediaoptional=true</li>
+<li>In the Monaco setup, select the &quot;NewYork-VLT&quot; jurisdiction, &quot;Test&quot; protocol, fake devices for both note acceptor and printer, and defaults for the remaining pages. (See <a href="https://confy.aristocrat.com/display/MON/Auto+Configuration+-+Aristocrat+VLT+Platform">Auto Configuration - Aristocrat VLT Platform</a> for information about auto-configuring the platform so you won&#39;t have to perform these steps every time)</li>
+<li>When the touchscreen calibration screen appears, press the spacebar to dismiss (once per monitor).</li>
+<li>Setup is now complete.</li>
+</ol>
+<p>Also see <a href="https://confy.aristocrat.com/display/MON/Command+Line+Arguments">Command Line Arguments</a>.</p>
+<h3 id="run-the-platform-on-local-machine-virtual-egm">Run the Platform on Local Machine (virtual EGM)</h3>
+<ol>
+<li>Run the above Bootstrap.exe command again. This time, the platform will launch the game and other screens that reflect a real EGM.</li>
+<li>Press <em>F9</em> to enter shortcut mode<em>, 7</em> to insert $1 into the virtual EGM, then <em>spacebar</em> a few times to play some rounds!</li>
+<li>Press <em>F1</em> to open the Audit Menu and explore its pages/settings.</li>
+<li>To close the Platform, click the shell window&#39;s close button, or Ctrl-C in your console.</li>
+</ol>
+<p>See the other useful shortcuts in <a href="https://confy.aristocrat.com/display/MON/Keyboard+Commands">Keyboard Commands</a>. You can also add new shortcuts to keyboardActions.json or KeyConverter.BuildKeyMapping() bound to custom events, e.g.:</p>
+<p>{ Keys.F3, (type: typeof(Printer.DisconnectedEvent), args: new List&lt;object&gt; { 0 }) },<br>{ Keys.F4, (type: typeof(Printer.ConnectedEvent), args: new List&lt;object&gt; { 0 }) },</p>
+<h3 id="reset-the-platform">Reset the Platform</h3>
+<p>To reset the Platform:</p>
+<ul>
+<li>Remove its persisted state (SQLite3 databases) and logs by deleting all folders under <em>bin\Debug\Platform, *except *bin</em> and <em>packages</em>.</li>
+<li>Remove its Runtime/game ISO mounts by deleting <em>bin\Debug\Games *and *bin\Debug\Runtime</em> (only required if switching Runtime and/or game ISOs).</li>
+</ul>
+<p>The Platform will start the setup process again the next time you run it.</p>
+<h2 id="set-up-and-run-on-real-egm-hardware">Set Up and Run on Real EGM Hardware</h2>
+<p>First, you will need to locate the appropriate EGM system to run on. Depending on your project and location, you may or may not have a machine dedicated for use, so ask your manager for details. For the Austin projects, we have a pool of EGMs online. For example, here is the list of all the Austin EGMs, configuration, and use allocation: <a href="https://confy.aristocrat.com/display/MON/Austin+EGMs+available+for+Development+Work">Austin EGMs available for Development Work - Monaco - Confluence (aristocrat.com)</a>.</p>
+<h3 id="install-vnc-client-on-local-pc">Install VNC Client on Local PC</h3>
+<ol>
+<li>Download TightVNC <a href="https://www.tightvnc.com/download/2.8.27/tightvnc-2.8.27-gpl-setup-64bit.msi">https://www.tightvnc.com/download/2.8.27/tightvnc-2.8.27-gpl-setup-64bit.msi</a></li>
+<li>Run the installer</li>
+<li>Accept GNU license agreement</li>
+<li>Choose Setup Type &quot;Custom&quot;</li>
+<li>Disable install of TightNVC Server (only the VNC Client is needed)</li>
+<li>Complete the installation, &quot;Next&quot;, &quot;Continue&quot;, etc.</li>
+</ol>
+<h3 id="remote-desktop-into-egm-using-vnc">Remote Desktop into EGM using VNC</h3>
+<p><strong>Note:</strong> For most sites, you must be on the VPN Gateway associated with your EGM pool.</p>
+<ol>
+<li><strong>To access the Austin EGM pool:</strong> You must be on the Austin, TX Global Protect VPN</li>
+<li>Run TightVNC Viewer application</li>
+<li>Enter {IP_ADDRESS}::5900 for &quot;Remote Host&quot;</li>
+<li>Click &quot;Connect&quot;</li>
+</ol>
+<h3 id="download-to-the-egm-and-run-the-monaco-platform">Download to the EGM and Run the Monaco Platform</h3>
+<h4 id="download-from-teamcity">Download from TeamCity</h4>
+<ol>
+<li>From the EGM open a browser and log into TeamCity</li>
+<li>Navigate to the appropriate jurisdiction/build tree (for example NYL): </li>
+<li><img src="../../images/getting-started/building/image7.png" alt=""></li>
+<li>Select and download the artifacts .zip to the EGM <em>D:\</em> drive:</li>
+<li><img src="../../images/getting-started/building/image8.png" alt=""></li>
+<li>Extract the .zip file and choose <em>Aristocrat-VLT</em> folder to extract the .zip contents:</li>
+<li><img src="../../images/getting-started/building/image9.png" alt=""></li>
+<li>Navigate to <em>D:\Aristocrat-VLT\Platform\Packages</em> folder and validate that the platform, runtime, game, .iso and manifest files and the license are available.</li>
+<li><img src="../../images/getting-started/building/image10.png" alt=""></li>
+</ol>
+<h3 id="run-the-platform">Run the Platform</h3>
+<ol>
+<li>Go to <em>D:\Aristocrat-VLT\Launcher</em></li>
+<li><img src="../../images/getting-started/building/image11.png" alt=""></li>
+<li>From the Launcher folder using command line or PowerShell, run Platform.Launcher.exe with your choice of arguments. For example: .\Platform.Launcher.exe display=windowed showTestTool=true showMouseCursor=true ignoreTouchCalibration DisplayFakePrinterTickets=true </li>
+<li>Monaco shell will start up:</li>
+<li><img src="../../images/getting-started/building/image12.png" alt=""></li>
+<li>After Monaco loads, the Configuration Wizard will prompt you to begin the initial configuration process:</li>
+<li><img src="../../images/getting-started/building/image13.png" alt=""></li>
+</ol>
+<h3 id="troubleshooting-and-typical-commands">Troubleshooting and Typical Commands</h3>
+<h4 id="help-i-cant-get-passed-touch-calibration">HELP! I can&#39;t get passed touch calibration</h4>
+<p>Add the &quot;ignoreTouchCalibration&quot; command line flag when executing Bootstrap.exe. Then simply press &quot;Enter&quot; to skip through the Touch Calibration screens.</p>
+<p>Below are a few more useful Bootstrap.exe options:</p>
+<p>Depending on screen resolution, it can be hard to see the mouse cursor once you launch the platform, so use the below to make life easier:</p>
+<ul>
+<li>showMouseCursor=true
+If you are doing screen captures on a live EGM, you will want to be in windowed display mode to make it easier to resize the screens and move back and forth between Windows and the platform screens:</li>
+<li>display=windowed</li>
+</ul>
+<h4 id="after-remoting-into-egm-no-desktop-icons-are-shown-everything-is-black">After remoting into EGM, no desktop icons are shown, everything is black</h4>
+<p>It could be in developer mode with the default black Windows wallpaper. Try zooming in close and right click. Can you create a new folder?</p>
+<p>If not, this can happen when the EGM is turned on but <strong>not</strong> in Windows Shell mode. </p>
+<ol>
+<li>To enable Windows Shell mode, open Task manager and Run explorer.exe. To do this, open Windows Remote Desktop and remote-in</li>
+<li>It should prompt for credentials. Enter the normal generic EGM username &amp; password</li>
+<li>Enter Fullscreen mode on Remote Desktop to properly capture all keyboard input</li>
+<li>Press Ctrl-Shift-Esc to open Task manager</li>
+<li>File &gt; Run New Task &gt; type &quot;Explorer.exe&quot; and click &quot;Ok&quot;</li>
+<li>Run D:\VLT_Helper_Commands\Windows-Shell_Activate.cmd</li>
+<li>Reboot EGM. It should now boot into the Standard Windows Shell</li>
+</ol>
+<h4 id="after-pressing-connect-in-vnc-viewer-nothing-happens">After Pressing &quot;Connect&quot; in VNC Viewer, nothing happens</h4>
+<p>This will occur when the viewer is unable to connect to VNC Server on the EGM. </p>
+<ul>
+<li>The TightVNC server may not be running on the EGM. It should auto-start on system startup, but server may have been stopped</li>
+<li>TightVNC Server is not Installed on EGM</li>
+<li>You are not on the Austin VPN, so you do not have access to the EGMs at the office</li>
+</ul>
+<h2 id="jiratxm-ticket-lifecycle">JIRA/TXM Ticket Lifecycle</h2>
+<p><strong>NOTE:</strong> All new Monaco projects past NYL, including HHR and WWR.x are using the TXM process.</p>
+<p>Now that you can edit and run the Platform code, here&#39;s a brief summary of how to fix a Jira ticket. These steps may seem tedious initially, but only take a few minutes per Jira with a bit of practice.</p>
+<p>For simplicity, let&#39;s assume you&#39;re fixing an issue on trunk (the typical case), thus it will be the <em>parent branch</em> in the instructions below.</p>
+<p>Please also read the coding standards and code review process in detail in the links at the top of this page.</p>
+<p><strong>Pro tips:</strong></p>
+<ul>
+<li>To see your working copy&#39;s current branch without a console, right-click on your working copy in Explorer, then <em>Properties &gt; Subversion &gt; URL</em>.</li>
+<li>To see your current revision on that branch, <em>TortoiseSVN &gt; Show log</em>, then find the emboldened line.</li>
+</ul>
+<h3 id="start-the-ticket-and-topic-branch">Start the Ticket and Topic Branch</h3>
+<ol>
+<li>Open the Jira and click <em>In Progress</em>.</li>
+<li>Create a topic branch for your ticket:<ol>
+<li><em>TortoiseSVN &gt; Switch</em> your working copy to the parent branch (e.g. <a href="https://svn.ali.global/PlatformArchitecture/Monaco/Trunk">https://svn.ali.global/PlatformArchitecture/Monaco/Trunk</a>) if not already there.</li>
+<li><em>TortoiseSVN &gt; Branch/Tag</em>.</li>
+<li>In <em>To path</em>, use our conventional format which includes your name and the Jira, e.g. <a href="https://svn.ali.global/PlatformArchitecture/Monaco/Branches/Development/ggallant/VLT-14560">https://svn.ali.global/PlatformArchitecture/Monaco/Branches/Development/ggallant/VLT-14560</a>; click <em>Ok</em>.</li>
+</ol>
+</li>
+<li><em>TortoiseSVN &gt; Switch</em> to your new branch.<br><img src="../../images/getting-started/building/image14.png" alt=""></li>
+</ol>
+<h3 id="fix-and-update-the-topic-branch">Fix and Update the Topic Branch</h3>
+<ol>
+<li>Work on the issue, making commits to your topic branch as you see fit. I suggest prefacing your commit messages with the ticket (e.g. VLT-14560) so you can differentiate between your work and merges later.</li>
+<li>If your topic branch is long running and falls behind its parent branch, you may want to occasionally merge the parent branch (e.g. trunk) into your topic branch as follows:<ol>
+<li><em>TortoiseSVN &gt; Merge &gt; Merge a range of revisions</em>.</li>
+<li>Select the parent branch as <em>URL to merge from</em>. Leave defaults for the rest (specific range with an empty textbox).</li>
+<li>If you get a &quot;mixed revision&quot; error on the merge, it&#39;s probably due to your externals being behind your branch. Select the <em>Update</em> option, then continue the merge.</li>
+<li>Commit to your branch with a suitable message like &quot;merged from trunk&quot;.</li>
+</ol>
+</li>
+</ol>
+<h3 id="raise-and-resolve-the-code-review">Raise and Resolve the Code Review</h3>
+<p>When your code is ready for review:</p>
+<ol>
+<li>Browse to the <a href="http://usan-abuild-01.dev.local:8080/monaco-platform-development-branches">Monaco Platform on UpSource</a>.</li>
+<li>Wait for the first material commit in your branch to appear and turn blue, which indicates that UpSource has indexed the commit from SVN. Then click <em>Create Code Review Request.</em></li>
+<li>Click <em>Add Revisions</em> and cherry-pick the revisions from your topic branch you want to be reviewed.</li>
+<li>Update the Jira issue with the URLs for the branch and code review, a summary of your changes, screenshots, any manual/automated tests you did, notes for QA and so forth. See <a href="https://jerry.aristocrat.com/browse/VLT-18585">VLT-18585</a> for an example.</li>
+<li>Invite others to review/monitor according to <a href="https://confy.aristocrat.com/display/MON/Code+Review+Guidelines">Code Review Guidelines</a>.</li>
+<li>Continue committing to your topic branch (and add those revisions to your review).</li>
+<li>Once all reviewers have accepted your changes, close the review.</li>
+</ol>
+<h3 id="commit-to-the-parent-branch">Commit to the Parent Branch</h3>
+<p>Once all reviewers have accepted your changes and your review is closed, your code is ready to be committed to its parent branch:</p>
+<ol>
+<li><em>TortoiseSVN &gt; Switch</em> your working copy back to the parent branch.</li>
+<li><em>TortoiseSVN &gt; Merge &gt; Merge a range of revisions</em>.</li>
+<li>Select your topic branch as <em>URL to merge from</em>.</li>
+<li>Select <em>Specific Range</em>, and in the textbox, enter only the revisions material to your patch (not merges from trunk or other branches).</li>
+<li>Leave defaults for the other options.</li>
+</ol>
+<p>Review the patch one last time, then commit with a commit message in the following format that includes the Jira and code review:</p>
+<p>VLT-12345: brief description (suitable for someone browsing the SVN history)<br>Jira: <a href="https://jerry.aristocrat.com/browse/VLT-12345">https://jerry.aristocrat.com/browse/VLT-12345</a><br>review: <a href="http://usan-abuild-01.dev.local:8080/monaco-platform-development-branches/review/MPDB-CR-1224">http://usan-abuild-01.dev.local:8080/monaco-platform-development-branches/review/MPDB-CR-1224</a><br>additional details...</p>
+<h3 id="merge-to-other-affected-branches">Merge to Other Affected Branches</h3>
+<p>Sometimes your Jira will include other branches (typically releases) in its <em>Fix Versions</em> list that are also affected. You may have to merge your changes to that branch; and the merge complexity will depend on the divergence of the other branch from your original parent branch, and other factors.</p>
+<p>Reach out to <a href="https://confy.aristocrat.com/display/~cmayberr">Cory Mayberry</a> or a colleague for guidance.</p>
+<h3 id="finish-the-jira">Finish the Jira</h3>
+<p>In the Jira, click <em>Verify</em>, select the resolution (Fixed, No Fix Required, etc.) and mention the revision in the parent branch to which you committed.</p>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Documentation/docs/getting-started/building.md/#L1" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

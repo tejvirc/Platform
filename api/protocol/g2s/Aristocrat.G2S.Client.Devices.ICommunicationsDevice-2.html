@@ -1,0 +1,913 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ICommunicationsDevice&lt;TTransportState, TCommsState&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ICommunicationsDevice&lt;TTransportState, TCommsState&gt;
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2">
+  <h1 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2">Interface ICommunicationsDevice&lt;TTransportState, TCommsState&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Provides a mechanism to interact with and control a Communications device.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Id">IDevice.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Enabled">IDevice.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_HostEnabled">IDevice.HostEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_ConfigurationId">IDevice.ConfigurationId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Owner">IDevice.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Configurator">IDevice.Configurator</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Guests">IDevice.Guests</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Locked">IDevice.Locked</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_HostLocked">IDevice.HostLocked</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Active">IDevice.Active</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_UseDefaultConfig">IDevice.UseDefaultConfig</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_DeviceClass">IDevice.DeviceClass</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_DevicePrefix">IDevice.DevicePrefix</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_ConfigDateTime">IDevice.ConfigDateTime</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_ConfigComplete">IDevice.ConfigComplete</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_ListStateDateTime">IDevice.ListStateDateTime</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_Existing">IDevice.Existing</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_">IDevice.ApplyOptions(DeviceOptionConfigValues)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IRequiredForPlay.html#Aristocrat_G2S_Client_Devices_IRequiredForPlay_RequiredForPlay">IRequiredForPlay.RequiredForPlay</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IRequiredForPlay.html#Aristocrat_G2S_Client_Devices_IRequiredForPlay_DisableText">IRequiredForPlay.DisableText</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_Queue">IDeviceControl.Queue</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_Open_Aristocrat_G2S_Client_IStartupContext_">IDeviceControl.Open(IStartupContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_Close">IDeviceControl.Close()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_RegisterEvents">IDeviceControl.RegisterEvents()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_UnregisterEvents">IDeviceControl.UnregisterEvents()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.INoResponseTimer.html#Aristocrat_G2S_Client_Devices_INoResponseTimer_NoResponseTimer">INoResponseTimer.NoResponseTimer</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.G2S.Client.Devices.html">Aristocrat.G2S.Client.Devices</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.G2S.Client.dll</h6>
+  
+  <h5 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ICommunicationsDevice&lt;out TTransportState, out TCommsState&gt; : IDevice, IRequiredForPlay, IDeviceControl, INoResponseTimer</code></pre>
+  </div>
+  
+  
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TTransportState</span>
+        <p><p>Version specific transport state.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="parametername">TCommsState</span>
+        <p><p>Version specific comms state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_AllowMulticast.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.AllowMulticast%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_AllowMulticast_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.AllowMulticast*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_AllowMulticast" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.AllowMulticast"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_AllowMulticast" class="expander" data-toggle="collapse">AllowMulticast</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_AllowMulticast" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the host is authorized to send multicast messages.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool AllowMulticast { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_DisplayFault.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.DisplayFault%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_DisplayFault_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.DisplayFault*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_DisplayFault" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.DisplayFault"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_DisplayFault" class="expander" data-toggle="collapse">DisplayFault</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_DisplayFault" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether gets a value that indicates whether a communications fault message should be
+displayed if the communications channel is unavailable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DisplayFault { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_InboundOverflow.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.InboundOverflow%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_InboundOverflow_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.InboundOverflow*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_InboundOverflow" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.InboundOverflow"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_InboundOverflow" class="expander" data-toggle="collapse">InboundOverflow</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_InboundOverflow" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether gets the state of the inbound queue.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool InboundOverflow { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_OutboundOverflow.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.OutboundOverflow%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_OutboundOverflow_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.OutboundOverflow*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_OutboundOverflow" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.OutboundOverflow"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_OutboundOverflow" class="expander" data-toggle="collapse">OutboundOverflow</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_OutboundOverflow" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether gets the state of the outbound queue.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool OutboundOverflow { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_State.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.State%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_State_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.State*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_State" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.State"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_State" class="expander" data-toggle="collapse">State</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_State" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current comms state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TCommsState State { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">TCommsState</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TimeToLive.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TimeToLive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TimeToLive_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TimeToLive*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TimeToLive" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TimeToLive"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TimeToLive" class="expander" data-toggle="collapse">TimeToLive</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TimeToLive" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the time-to-live value for requests originated by the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int TimeToLive { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TransportState.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TransportState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TransportState_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TransportState*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TransportState" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TransportState"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TransportState" class="expander" data-toggle="collapse">TransportState</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TransportState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current transport state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TTransportState TransportState { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">TTransportState</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_Configure_System_Int64_System_Boolean_System_Boolean_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.Configure(System.Int64%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L147" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_Configure_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.Configure*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_Configure_System_Int64_System_Boolean_System_Boolean_System_Int32_System_Int32_System_Boolean_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.Configure(System.Int64,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_Configure_System_Int64_System_Boolean_System_Boolean_System_Int32_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">Configure(Int64, Boolean, Boolean, Int32, Int32, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_Configure_System_Int64_System_Boolean_System_Boolean_System_Int32_System_Int32_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Configures the device</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Configure(long id, bool useDefaultConfig, bool requiredForPlay, int timeToLive, int noResponseTimer, bool displayFault)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">id</span>
+        <p><p>Identifier assigned by the host to the set of changes</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">useDefaultConfig</span>
+        <p><p>Indicates whether the default configuration for the device MUST be used when the EGM
+restarts.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">requiredForPlay</span>
+        <p><p>Indicates whether the EGM MUST be disabled if either egmEnabled or hostEnabled is set to
+false.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeToLive</span>
+        <p><p>Time-to-live value for requests originated by the device</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">noResponseTimer</span>
+        <p><p>The no-response timer used to determine whether an EGM has lost communications with a
+host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">displayFault</span>
+        <p><p>Indicates whether a communications fault message should be displayed if the communications
+channel is unavailable.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.NotifyConfigurationChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.NotifyConfigurationChanged*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.NotifyConfigurationChanged"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged" class="expander" data-toggle="collapse">NotifyConfigurationChanged()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged" class="collapse in">
+  <div class="markdown level1 summary"><p>Notifies the host of any configuration changes, if needed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void NotifyConfigurationChanged()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_SetKeepAlive_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.SetKeepAlive(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_SetKeepAlive_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.SetKeepAlive*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_SetKeepAlive_System_Int32_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.SetKeepAlive(System.Int32)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_SetKeepAlive_System_Int32_" class="expander" data-toggle="collapse">SetKeepAlive(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_SetKeepAlive_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the keep alive interval.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetKeepAlive(int interval)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">interval</span>
+        <p><p>The new keep alive interval.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L117" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TriggerStateChange*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_" class="expander" data-toggle="collapse">TriggerStateChange(CommunicationTrigger)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_" class="collapse in">
+  <div class="markdown level1 summary"><p>Changes the state of the communications device with the specified trigger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void TriggerStateChange(CommunicationTrigger trigger)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.CommunicationTrigger.html">CommunicationTrigger</a></span>
+        <span class="parametername">trigger</span>
+        <p><p>CommunicationTrigger to act upon.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TriggerStateChange*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_System_String_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger,System.String)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_System_String_" class="expander" data-toggle="collapse">TriggerStateChange(CommunicationTrigger, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Changes the state of the communications device with the specified trigger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void TriggerStateChange(CommunicationTrigger trigger, string message)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.CommunicationTrigger.html">CommunicationTrigger</a></span>
+        <span class="parametername">trigger</span>
+        <p><p>CommunicationTrigger to act upon.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">message</span>
+        <p><p>The text message to be displayed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_PrefixedDeviceClass_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.PrefixedDeviceClass(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsOwner_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsOwner(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsGuest_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsGuest(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsConfigurator_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsConfigurator(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsOwnerOrGuest_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsOwnerOrGuest(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsMember_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsMember(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsMatching_Aristocrat_G2S_Client_Devices_IDevice_System_String_">DeviceExtensions.IsMatching(IDevice, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsMatching_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsMatching(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsHostOriented_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.IsHostOriented(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsSingle_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.IsSingle(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsEnabled_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.IsEnabled(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Equals_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.Equals(IDevice, IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Owner_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_Aristocrat_G2S_Client_IHostConnector_">DeviceExtensions.Owner(IDevice, IHost, IHostConnector)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_SetQueue_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHostConnector_">DeviceExtensions.SetQueue(IDevice, IHostConnector)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Configurator_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_">DeviceExtensions.Configurator(IDevice, IHost)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Invited_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_">DeviceExtensions.Invited(IDevice, IHost)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Uninvited_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_">DeviceExtensions.Uninvited(IDevice, IHost)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_SetStatus_Aristocrat_G2S_Client_Devices_IDevice_System_Boolean_">DeviceExtensions.SetStatus(IDevice, Boolean)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_LocaleId_Aristocrat_G2S_Client_Devices_IDevice_System_Globalization_CultureInfo_">DeviceExtensions.LocaleId(IDevice, CultureInfo)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.v21.ProtocolExtensions.html#Aristocrat_G2S_Client_Devices_v21_ProtocolExtensions_DeviceList_Aristocrat_G2S_Client_Devices_IDevice_System_Object_">ProtocolExtensions.DeviceList(IDevice, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.v21.ProtocolExtensions.html#Aristocrat_G2S_Client_Devices_v21_ProtocolExtensions_TransactionList_Aristocrat_G2S_Client_Devices_IDevice_System_Object___">ProtocolExtensions.TransactionList(IDevice, Object[])</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L69" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

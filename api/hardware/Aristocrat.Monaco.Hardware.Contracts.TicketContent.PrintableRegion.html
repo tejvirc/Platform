@@ -1,0 +1,2285 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class PrintableRegion
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class PrintableRegion
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion">
+  <h1 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion">Class PrintableRegion
+  </h1>
+  <div class="markdown level0 summary"><p>
+    PrintableRegion is an area (content block) on the printed output that is self described by
+    the syntax of the PDL (Page Description Language) and takes on the printed form of text, barcodes or graphics.
+</p>
+<p>
+    Printer output is defined in terms of printable regions, or content blocks.
+    Each printable region has certain required properties that describe its uniqueness.
+</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">PrintableRegion</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.html">Aristocrat.Monaco.Hardware.Contracts.TicketContent</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PrintableRegion : IComparable</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+    PDL Command Descriptions used for the PrintableRegion is mentioned below.
+    The following is the structure of the DPR command. (&quot;value&quot; would be replaced with the appropriate property
+    value).
+</p>
+<see>.\Hardware\Aristocrat.Monaco.Hardware\printable_regions.xml</see>
+<pre><code><dpr id="value" x="value" y="value" dx="value" dy="value" rot="value" jst="value" type="value" m1="value" m2="value" attr="value">
+<d>value</d>
+</dpr></code></pre>
+<p>
+<ul><li>id
+<p>Three digit printable region identifier.</p>
+<p>Value ranges from 000 to 999.</p>
+<p>000 – 099 are reserved for predefined regions.</p>
+<p>100 – 999 reserved for downloadable use.</p>
+</li><li>x
+<p>Five digit X (dot) axis start position in dots.</p>
+<p>Value ranges from 00000 to 65536.</p>
+</li><li>y
+<p>Five digit Y (paper) axis start position in dots.</p>
+<p>Value ranges from 00000 to 65536.</p>
+</li><li>dx
+<p>Five digit X (dot) axis length of the printable region in dots.</p>
+<p>Value ranges from 00000 to 65536.</p>
+<p>
+    Note that x + dx must not overflow the width of the print head in dots; else,
+    the content block will be rejected and a printable region truncation error will result.
+</p>
+</li><li>dy
+<p>Five digit Y (paper) axis length of printable region in dots.</p>
+<p>Value ranges from 00000 to 65536.</p>
+<p>
+    Note that the y + dy may not exceed printable area in dots. If this is the case,
+    the printable region will be rejected and a printable region truncation error will result.
+</p>
+</li><li>rot
+<p>One digit rotation of strings or data within printable region.</p>
+<p>Value ranges from 1 to 4. (1 = 0 degree, 2 = 90 degree, 3 = 180 degree and 4 = 270 degree).</p>
+</li><li>jst
+<p>
+    One digit justification identifier. Defines justification of data within
+    printable region with respect to top of printable region.
+</p>
+<p>
+    Value ranges from 1 to 3. (1 = left justification, 2 = center justification, 3 = right
+    justification).
+</p>
+</li><li>type
+<p>
+    Three part printable region identifier, comprised of a letter, an equal sign, and three-digit
+    value
+    that points to an element in the data structure of Printer Metrics.
+</p>
+<see>The GDS Printer Communication Protocol.</see>
+<p>
+    This is the print object (barcode, font or graphic) used to format the data from the command to
+    define
+    the template.
+</p>
+<p>
+    1st part: F, G, or B. (F, font: Used when the printable region holds text.
+    G, graphics: Used when printable region holds graphics.
+    B, barcode: Used when printable region holds barcode.).
+</p>
+<p>2nd part: = (equal sign).</p>
+<p>3rd part: 000 to 999.</p>
+<p>
+    F=005 : Points to Font [5] in data structure. G=105 : Points to Graphic [105] in data
+    structure. B=015
+    : Points to Barcode Symbology [015] in data structure.
+</p>
+</li><li>m1
+<p>One digit print object multiplier 1.</p>
+<p>Value ranges from 1 to 6 for text or barcode and 0 for graphics.</p>
+</li><li>m2
+<p>Print object multiplier 2.</p>
+<p>Value ranges from 1 to 6 for text, 0 or 2 to 24 for barcode and 0 for graphics.</p>
+</li><li>attr
+<p>
+    Three digit object printing attribute. This contains special instructions on
+    how to treat the print objects within the printable region.
+</p>
+<p>Value ranges from 001 or 002 for text, 048 or 406 for barcode and 000 for graphics.</p>
+</li></ul>
+</p>
+</div>
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__ctor_System_String_System_String_System_Int32_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_Int32_System_String_System_Int32_System_Int32_System_String_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.%23ctor(System.String%2CSystem.String%2CSystem.Int32%2CSystem.Int32%2CSystem.String%2CSystem.Int32%2CSystem.String%2CSystem.Int32%2CSystem.String%2CSystem.Int32%2CSystem.String%2CSystem.Int32%2CSystem.Int32%2CSystem.String%2CSystem.Int32%2CSystem.Int32%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L183" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__ctor_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__ctor_System_String_System_String_System_Int32_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_Int32_System_String_System_Int32_System_Int32_System_String_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.#ctor(System.String,System.String,System.Int32,System.Int32,System.String,System.Int32,System.String,System.Int32,System.String,System.Int32,System.String,System.Int32,System.Int32,System.String,System.Int32,System.Int32,System.String,System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__ctor_System_String_System_String_System_Int32_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_Int32_System_String_System_Int32_System_Int32_System_String_System_String_" class="expander" data-toggle="collapse">PrintableRegion(String, String, Int32, Int32, String, Int32, String, Int32, String, Int32, String, Int32, Int32, String, Int32, Int32, String, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__ctor_System_String_System_String_System_Int32_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_String_System_Int32_System_Int32_System_String_System_Int32_System_Int32_System_String_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrintableRegion(string name, string property, int id, int originX, string pdlOriginX, int originY, string pdlOriginY, int sizeX, string pdlSizeX, int sizeY, string pdlSizeY, int rotation, int justification, string format, int modifier1, int modifier2, string attribute, string defaultValue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">name</span>
+        <p><p>The property name.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">property</span>
+        <p><p>The property.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">id</span>
+        <p><p>The printable region identifier value.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">originX</span>
+        <p><p>The X (dot) axis start position in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">pdlOriginX</span>
+        <p><p>The PDL X (dot) axis start position in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">originY</span>
+        <p><p>The Y (paper) axis start position in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">pdlOriginY</span>
+        <p><p>The PDL Y (paper) axis start position in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">sizeX</span>
+        <p><p>The X (dot) axis length of the printable region in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">pdlSizeX</span>
+        <p><p>The PDL X (dot) axis length of the printable region in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">sizeY</span>
+        <p><p>The Y (paper) axis length of printable region in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">pdlSizeY</span>
+        <p><p>The PDL Y (paper) axis length of printable region in dots.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">rotation</span>
+        <p><p>The rotation of strings or data within printable region.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">justification</span>
+        <p><p>The justification identifier. Defines justification of data
+within printable region with respect to top of printable region.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">format</span>
+        <p><p>The printable region identifier, comprised of
+a letter, an equal sign, and three-digit value that points to an element in the data structure of Printer Metrics.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">modifier1</span>
+        <p><p>The print object multiplier 1.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">modifier2</span>
+        <p><p>The print object multiplier 2.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">attribute</span>
+        <p><p>The object printing attribute.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">defaultValue</span>
+        <p><p>The default Value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Attribute.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Attribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L272" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Attribute_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Attribute*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Attribute" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Attribute"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Attribute" class="expander" data-toggle="collapse">Attribute</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Attribute" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the object printing attribute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Attribute { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_DefaultText.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.DefaultText%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L275" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_DefaultText_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.DefaultText*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_DefaultText" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.DefaultText"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_DefaultText" class="expander" data-toggle="collapse">DefaultText</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_DefaultText" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets DefaultText.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DefaultText { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Format.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Format%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L263" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Format_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Format*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Format" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Format"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Format" class="expander" data-toggle="collapse">Format</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Format" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets Format.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Format { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Id.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L230" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Id_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Id*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Id" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Id"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Id" class="expander" data-toggle="collapse">Id</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Id" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the printable region identifier value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Id { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Justification.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Justification%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L260" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Justification_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Justification*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Justification" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Justification"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Justification" class="expander" data-toggle="collapse">Justification</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Justification" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the justification identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Justification { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Modifier1%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L266" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier1_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Modifier1*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier1" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Modifier1"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier1" class="expander" data-toggle="collapse">Modifier1</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier1" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the print object multiplier 1.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Modifier1 { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier2.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Modifier2%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L269" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier2_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Modifier2*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier2" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Modifier2"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier2" class="expander" data-toggle="collapse">Modifier2</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Modifier2" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the print object multiplier 2.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Modifier2 { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L224" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Name_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Name" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Name"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Name" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the property Name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_NextPage.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.NextPage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L278" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_NextPage_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.NextPage*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_NextPage" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.NextPage"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_NextPage" class="expander" data-toggle="collapse">NextPage</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_NextPage" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the value for next page from region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int NextPage { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginX.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.OriginX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L233" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginX_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.OriginX*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginX" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.OriginX"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginX" class="expander" data-toggle="collapse">OriginX</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginX" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the X (dot) axis start position in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int OriginX { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginY.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.OriginY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L239" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginY_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.OriginY*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginY" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.OriginY"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginY" class="expander" data-toggle="collapse">OriginY</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_OriginY" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the Y (paper) axis start position in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int OriginY { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginX.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlOriginX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L236" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginX_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlOriginX*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginX" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlOriginX"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginX" class="expander" data-toggle="collapse">PdlOriginX</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginX" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the PDL X (dot) axis start position in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PdlOriginX { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginY.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlOriginY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L242" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginY_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlOriginY*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginY" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlOriginY"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginY" class="expander" data-toggle="collapse">PdlOriginY</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlOriginY" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the PDL Y (paper) axis start position in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PdlOriginY { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeX.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlSizeX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L248" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeX_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlSizeX*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeX" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlSizeX"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeX" class="expander" data-toggle="collapse">PdlSizeX</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeX" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the PDL X (dot) axis length of the printable region in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PdlSizeX { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeY.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlSizeY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L254" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeY_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlSizeY*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeY" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.PdlSizeY"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeY" class="expander" data-toggle="collapse">PdlSizeY</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_PdlSizeY" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the PDL Y (paper) axis length of printable region in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PdlSizeY { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Property.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Property%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L227" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Property_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Property*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Property" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Property"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Property" class="expander" data-toggle="collapse">Property</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Property" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the Property.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Property { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Rotation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Rotation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L257" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Rotation_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Rotation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Rotation" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Rotation"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Rotation" class="expander" data-toggle="collapse">Rotation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Rotation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the rotation of strings or data within printable region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Rotation { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeX.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.SizeX%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L245" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeX_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.SizeX*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeX" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.SizeX"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeX" class="expander" data-toggle="collapse">SizeX</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeX" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the X (dot) axis length of the printable region in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SizeX { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeY.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.SizeY%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L251" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeY_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.SizeY*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeY" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.SizeY"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeY" class="expander" data-toggle="collapse">SizeY</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_SizeY" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the Y (paper) axis length of printable region in dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SizeY { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_ComparisonType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.CompareTo(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CAristocrat.Monaco.Hardware.Contracts.TicketContent.ComparisonType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L436" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.CompareTo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_ComparisonType_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.CompareTo(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,Aristocrat.Monaco.Hardware.Contracts.TicketContent.ComparisonType)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_ComparisonType_" class="expander" data-toggle="collapse">CompareTo(PrintableRegion, ComparisonType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_ComparisonType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Compares this instance to a <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a> and returns an indication of their relative value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CompareTo(PrintableRegion rightRegion, ComparisonType comparisonMethod)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">rightRegion</span>
+        <p><p>The right region.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.ComparisonType.html">ComparisonType</a></span>
+        <span class="parametername">comparisonMethod</span>
+        <p><p>The comparison method.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Indication of relative values.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a>
+        <p><p>Throws an ArgumentOutOfRangeException:
+<code data-dev-comment-type="paramref" class="paramref">comparisonMethod</code></p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.CompareTo(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L295" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.CompareTo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.CompareTo(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_System_Object_" class="expander" data-toggle="collapse">CompareTo(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_CompareTo_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Compares this instance to a <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a> and returns an indication of their relative value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CompareTo(object obj)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">obj</span>
+        <p><p>The object compare against.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Indication of relative values.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.icomparable.compareto#system-icomparable-compareto(system-object)">IComparable.CompareTo(Object)</a></div>
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a>
+        <p><p>Throw an ArgumentException</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Equals(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L484" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Equals*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Equals(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="expander" data-toggle="collapse">Equals(PrintableRegion)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks for equality between two <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(PrintableRegion other)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">other</span>
+        <p><p>The other region.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if both objects are equivalent.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L408" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Equals*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.Equals(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_System_Object_" class="expander" data-toggle="collapse">Equals(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Equals_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Compares this instance to a <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a> and checks for equality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">obj</span>
+        <p><p>The object to compare against.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if equal.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_FindAttribute_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.FindAttribute(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L375" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_FindAttribute_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.FindAttribute*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_FindAttribute_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.FindAttribute(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_FindAttribute_System_String_" class="expander" data-toggle="collapse">FindAttribute(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_FindAttribute_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Searches string delimited by &apos;+&apos; for substring match.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool FindAttribute(string attribute)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">attribute</span>
+        <p><p>The attribute.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if attribute is found.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetContextValue_System_Char_System_Int32_System_Int32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.GetContextValue(System.Char%2CSystem.Int32%2CSystem.Int32%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L388" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetContextValue_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.GetContextValue*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetContextValue_System_Char_System_Int32_System_Int32__" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.GetContextValue(System.Char,System.Int32,System.Int32@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetContextValue_System_Char_System_Int32_System_Int32__" class="expander" data-toggle="collapse">GetContextValue(Char, Int32, out Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetContextValue_System_Char_System_Int32_System_Int32__" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks to see if type of specified length is in region and sets as value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GetContextValue(char type, int length, out int value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a></span>
+        <span class="parametername">type</span>
+        <p><p>The first character of value.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">length</span>
+        <p><p>The length of value.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">value</span>
+        <p><p>The reference to value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Boolean indicating if source contains substring of type and
+length passed in.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetHashCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L515" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetHashCode_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.GetHashCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetHashCode" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.GetHashCode"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetHashCode" class="expander" data-toggle="collapse">GetHashCode()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_GetHashCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Serves as a hash function for a particular type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>A hash code for the current <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsFlagged.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsFlagged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L344" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsFlagged_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsFlagged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsFlagged" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsFlagged"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsFlagged" class="expander" data-toggle="collapse">IsFlagged()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsFlagged" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks whether region is flagged as optional.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsFlagged()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if region is optional.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalNextPage.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalNextPage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L351" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalNextPage_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalNextPage*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalNextPage" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalNextPage"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalNextPage" class="expander" data-toggle="collapse">IsOptionalNextPage()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalNextPage" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks whether next page is optional.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOptionalNextPage()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if next page is optional.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalRegion.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalRegion%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L360" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalRegion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalRegion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalRegion" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalRegion"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalRegion" class="expander" data-toggle="collapse">IsOptionalRegion()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalRegion" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks if this region is optional</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOptionalRegion()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the region is optional.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalStaticRegion.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalStaticRegion%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L367" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalStaticRegion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalStaticRegion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalStaticRegion" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.IsOptionalStaticRegion"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalStaticRegion" class="expander" data-toggle="collapse">IsOptionalStaticRegion()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_IsOptionalStaticRegion" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks if this region is optional and static.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOptionalStaticRegion()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the region is option and static.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToPDL_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.ToPDL(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L458" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToPDL_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.ToPDL*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToPDL_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.ToPDL(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToPDL_System_Boolean_" class="expander" data-toggle="collapse">ToPDL(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToPDL_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Returns the string representation of the PDL DPR command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ToPDL(bool increaseFont)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">increaseFont</span>
+        <p><p>Use larger font size.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The string representation of the PDL DPR command.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L541" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToString_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.ToString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToString" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.ToString"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToString" class="expander" data-toggle="collapse">ToString()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_ToString" class="collapse in">
+  <div class="markdown level1 summary"><p>Returns the string representation of the PrintableRegion</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The string representation of the PrintableRegion</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="operators">Operators
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Equality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_Equality(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L310" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Equality_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_Equality*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Equality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_Equality(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Equality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="expander" data-toggle="collapse">Equality(PrintableRegion, PrintableRegion)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Equality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="collapse in">
+  <div class="markdown level1 summary"><p>Override of equality test for <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(PrintableRegion left, PrintableRegion right)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">left</span>
+        <p><p>The left object.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">right</span>
+        <p><p>The right object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if both objects are equal.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_GreaterThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_GreaterThan(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L328" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_GreaterThan_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_GreaterThan*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_GreaterThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_GreaterThan(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_GreaterThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="expander" data-toggle="collapse">GreaterThan(PrintableRegion, PrintableRegion)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_GreaterThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="collapse in">
+  <div class="markdown level1 summary"><p>Greater than test for <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator&gt;(PrintableRegion left, PrintableRegion right)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">left</span>
+        <p><p>The left object.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">right</span>
+        <p><p>The right object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the left region Id is greater than the right region Id.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Inequality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_Inequality(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L319" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Inequality_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_Inequality*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Inequality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_Inequality(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Inequality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="expander" data-toggle="collapse">Inequality(PrintableRegion, PrintableRegion)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_Inequality_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="collapse in">
+  <div class="markdown level1 summary"><p>Override of inequality test for <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(PrintableRegion left, PrintableRegion right)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">left</span>
+        <p><p>The left object.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">right</span>
+        <p><p>The right object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if both objects are not equal.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_LessThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_LessThan(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L337" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_LessThan_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_LessThan*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_LessThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.op_LessThan(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_LessThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="expander" data-toggle="collapse">LessThan(PrintableRegion, PrintableRegion)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_op_LessThan_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="collapse in">
+  <div class="markdown level1 summary"><p>Less than test for <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;(PrintableRegion left, PrintableRegion right)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">left</span>
+        <p><p>The left object.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">right</span>
+        <p><p>The right object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the left region Id is less than the right region Id.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Tickets.PrintableRegionExtensionMethods.html#Aristocrat_Monaco_Hardware_Tickets_PrintableRegionExtensionMethods_FindAttribute_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_Aristocrat_Monaco_Hardware_Tickets_RenderBase_AttributeIdentifier_">PrintableRegionExtensionMethods.FindAttribute(PrintableRegion, RenderBase.AttributeIdentifier)</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/TicketContent/PrintableRegion.cs/#L156" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

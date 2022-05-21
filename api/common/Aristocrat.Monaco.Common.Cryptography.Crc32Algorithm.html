@@ -1,0 +1,976 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Crc32Algorithm
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Crc32Algorithm
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm">
+  <h1 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm">Class Crc32Algorithm
+  </h1>
+  <div class="markdown level0 summary"><p>Implementation of CRC-32.
+This class supports several convenient static methods returning the CRC as UInt32.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.hashalgorithm">HashAlgorithm</a></div>
+    <div class="level2"><span class="xref">Crc32Algorithm</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.html">Aristocrat.Monaco.Common.Cryptography</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Common.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Crc32Algorithm : HashAlgorithm, ICryptoTransform, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.#ctor"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor" class="expander" data-toggle="collapse">Crc32Algorithm()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.html">Crc32Algorithm</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Crc32Algorithm()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.%23ctor(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor_System_Boolean_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.#ctor(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor_System_Boolean_" class="expander" data-toggle="collapse">Crc32Algorithm(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm__ctor_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.html">Crc32Algorithm</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Crc32Algorithm(bool isBigEndian = true)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isBigEndian</span>
+        <p><p>Should return bytes result as big endian or little endian</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Append(System.UInt32%2CSystem.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Append*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Append(System.UInt32,System.Byte[])"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___" class="expander" data-toggle="collapse">Append(UInt32, Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Computes CRC-32 from multiple buffers.
+Call this method multiple times to chain multiple buffers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint Append(uint initial, byte[] input)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
+        <span class="parametername">initial</span>
+        <p><p>Initial CRC value for the algorithm. It is zero for the first buffer.
+Subsequent buffers should have their initial value set to CRC value returned by previous call to this method.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer containing data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p><p>Accumulated CRC-32 of all buffers processed so far.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Append(System.UInt32%2CSystem.Byte%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Append*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Append(System.UInt32,System.Byte[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___System_Int32_System_Int32_" class="expander" data-toggle="collapse">Append(UInt32, Byte[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Append_System_UInt32_System_Byte___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Computes CRC-32 from multiple buffers.
+Call this method multiple times to chain multiple buffers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint Append(uint initial, byte[] input, int offset, int length)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
+        <span class="parametername">initial</span>
+        <p><p>Initial CRC value for the algorithm. It is zero for the first buffer.
+Subsequent buffers should have their initial value set to CRC value returned by previous call to this method.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer with data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>Offset of the input data within the buffer.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">length</span>
+        <p><p>Length of the input data in the buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p><p>Accumulated CRC-32 of all buffers processed so far.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Compute(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Compute*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Compute(System.Byte[])"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___" class="expander" data-toggle="collapse">Compute(Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Computes CRC-32 from input buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint Compute(byte[] input)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer containing data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p><p>CRC-32 of the buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Compute(System.Byte%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Compute*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Compute(System.Byte[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___System_Int32_System_Int32_" class="expander" data-toggle="collapse">Compute(Byte[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Compute_System_Byte___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Computes CRC-32 from input buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint Compute(byte[] input, int offset, int length)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer with data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>Offset of the input data within the buffer.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">length</span>
+        <p><p>Length of the input data in the buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p><p>CRC-32 of the data in the buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.ComputeAndWriteToEnd(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L140" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.ComputeAndWriteToEnd*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.ComputeAndWriteToEnd(System.Byte[])"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___" class="expander" data-toggle="collapse">ComputeAndWriteToEnd(Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Computes CRC-32 from input buffer - 4 bytes and writes it as last 4 bytes of buffer. Can be used in conjunction
+with <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.html#Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___">IsValidWithCrcAtEnd(Byte[])</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint ComputeAndWriteToEnd(byte[] input)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer with data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p><p>CRC-32 of the data in the buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.ComputeAndWriteToEnd(System.Byte%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.ComputeAndWriteToEnd*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.ComputeAndWriteToEnd(System.Byte[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___System_Int32_System_Int32_" class="expander" data-toggle="collapse">ComputeAndWriteToEnd(Byte[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Computes CRC-32 from input buffer and writes it after end of data (buffer should have 4 bytes reserved space for
+it). Can be used in conjunction with <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.html#Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___System_Int32_System_Int32_">IsValidWithCrcAtEnd(Byte[], Int32, Int32)</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint ComputeAndWriteToEnd(byte[] input, int offset, int length)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer with data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>Offset of the input data within the buffer.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">length</span>
+        <p><p>Length of the input data in the buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p><p>CRC-32 of the data in the buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashCore_System_Byte___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.HashCore(System.Byte%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L190" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashCore_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.HashCore*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashCore_System_Byte___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.HashCore(System.Byte[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashCore_System_Byte___System_Int32_System_Int32_" class="expander" data-toggle="collapse">HashCore(Byte[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashCore_System_Byte___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Appends CRC-32 from given buffer</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void HashCore(byte[] input, int offset, int length)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">length</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.hashalgorithm.hashcore#system-security-cryptography-hashalgorithm-hashcore(system-byte()-system-int32-system-int32)">HashAlgorithm.HashCore(Byte[], Int32, Int32)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashFinal.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.HashFinal%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L198" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashFinal_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.HashFinal*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashFinal" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.HashFinal"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashFinal" class="expander" data-toggle="collapse">HashFinal()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashFinal" class="collapse in">
+  <div class="markdown level1 summary"><p>Computes CRC-32 from <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.html#Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_HashCore_System_Byte___System_Int32_System_Int32_">HashCore(Byte[], Int32, Int32)</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override byte[] HashFinal()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.hashalgorithm.hashfinal#system-security-cryptography-hashalgorithm-hashfinal">HashAlgorithm.HashFinal()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L182" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Initialize_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Initialize" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.Initialize"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_Initialize" class="collapse in">
+  <div class="markdown level1 summary"><p>Resets internal state of the algorithm. Used internally.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.hashalgorithm.initialize#system-security-cryptography-hashalgorithm-initialize">HashAlgorithm.Initialize()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.IsValidWithCrcAtEnd(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L169" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.IsValidWithCrcAtEnd*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.IsValidWithCrcAtEnd(System.Byte[])"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___" class="expander" data-toggle="collapse">IsValidWithCrcAtEnd(Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Validates correctness of CRC-32 data in source buffer with assumption that CRC-32 data located at end of buffer in
+reverse bytes order. Can be used in conjunction with <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.html#Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___System_Int32_System_Int32_">ComputeAndWriteToEnd(Byte[], Int32, Int32)</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsValidWithCrcAtEnd(byte[] input)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer with data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Is checksum valid.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.IsValidWithCrcAtEnd(System.Byte%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.IsValidWithCrcAtEnd*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.IsValidWithCrcAtEnd(System.Byte[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___System_Int32_System_Int32_" class="expander" data-toggle="collapse">IsValidWithCrcAtEnd(Byte[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_IsValidWithCrcAtEnd_System_Byte___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Validates correctness of CRC-32 data in source buffer with assumption that CRC-32 data located at end of buffer in
+reverse bytes order. Can be used in conjunction with <a class="xref" href="Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm.html#Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm_ComputeAndWriteToEnd_System_Byte___System_Int32_System_Int32_">ComputeAndWriteToEnd(Byte[], Int32, Int32)</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsValidWithCrcAtEnd(byte[] input, int offset, int lengthWithCrc)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">input</span>
+        <p><p>Input buffer with data to be check summed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>Offset of the input data within the buffer.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">lengthWithCrc</span>
+        <p><p>Length of the input data in the buffer with CRC-32 bytes.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Is checksum valid.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.EnumExtensions.html#Aristocrat_Monaco_Common_EnumExtensions_GetDescription_System_Object_System_Type_">EnumExtensions.GetDescription(Object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.ObjectExtensions.html#Aristocrat_Monaco_Common_ObjectExtensions_DeepClone__1___0_">ObjectExtensions.DeepClone&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.ObjectExtensions.html#Aristocrat_Monaco_Common_ObjectExtensions_AreEqualOrNull_System_Object_System_Object_">ObjectExtensions.AreEqualOrNull(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.Extensions.EnumExtensions.html#Aristocrat_Monaco_UI_Common_Extensions_EnumExtensions_GetDescription_System_Object_System_Type_">EnumExtensions.GetDescription(Object, Type)</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Common_Cryptography_Crc32Algorithm.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Common.Cryptography.Crc32Algorithm%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.Common/Cryptography/Crc32Algorithm.cs/#L10" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

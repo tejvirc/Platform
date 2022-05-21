@@ -1,0 +1,1231 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SqlitePersistentStore
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SqlitePersistentStore
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore">
+  <h1 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore">Class SqlitePersistentStore
+  </h1>
+  <div class="markdown level0 summary"><p>A sqlite persistent store. </p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">SqlitePersistentStore</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Persistence.html">Aristocrat.Monaco.Hardware.Persistence</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SqlitePersistentStore : IPersistentStore, IKeyLevelStore, IKeyValueStore, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor" class="expander" data-toggle="collapse">SqlitePersistentStore()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SqlitePersistentStore()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor_System_String_System_String_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.%23ctor(System.String%2CSystem.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor_System_String_System_String_System_String_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.#ctor(System.String,System.String,System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor_System_String_System_String_System_String_" class="expander" data-toggle="collapse">SqlitePersistentStore(String, String, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore__ctor_System_String_System_String_System_String_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SqlitePersistentStore(string directory, string name, string password)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">directory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">name</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">password</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateLevel(System.String%2CAristocrat.Monaco.Hardware.Contracts.Persistence.PersistenceLevel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateLevel_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateLevel(System.String,Aristocrat.Monaco.Hardware.Contracts.Persistence.PersistenceLevel)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel_" class="expander" data-toggle="collapse">AddOrUpdateLevel(String, PersistenceLevel)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds or update key persistence level. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AddOrUpdateLevel(string key, PersistenceLevel level)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>The key. </p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.PersistenceLevel.html">PersistenceLevel</a></span>
+        <span class="parametername">level</span>
+        <p><p>The persistence level. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyLevelStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyLevelStore_AddOrUpdateLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel_">IKeyLevelStore.AddOrUpdateLevel(String, PersistenceLevel)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_System_Object___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateValue(System.Collections.Generic.IEnumerable%7BSystem.ValueTuple%7BSystem.String%2CSystem.Object%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L252" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateValue*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_System_Object___" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateValue(System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,System.Object}})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_System_Object___" class="expander" data-toggle="collapse">AddOrUpdateValue(IEnumerable&lt;(String key, Object value)&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_System_Object___" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds an or update. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AddOrUpdateValue(IEnumerable&lt;(string key, object value)&gt; values)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetuple-2">(T1, T2)</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;</span>
+        <span class="parametername">values</span>
+        <p><p>The values. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyValueStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyValueStore_AddOrUpdateValue_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_System_Object___">IKeyValueStore.AddOrUpdateValue(IEnumerable&lt;(String key, Object value)&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue__1_System_String___0_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateValue%60%601(System.String%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L212" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateValue*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue__1_System_String___0_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.AddOrUpdateValue``1(System.String,``0)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue__1_System_String___0_" class="expander" data-toggle="collapse">AddOrUpdateValue&lt;T&gt;(String, T)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_AddOrUpdateValue__1_System_String___0_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds a key/value pair if the key does not already exist,
+or updates a key/value pair if the key already exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AddOrUpdateValue&lt;T&gt;(string key, T value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>The key. </p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">T</span></span>
+        <span class="parametername">value</span>
+        <p><p>The value. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">T</span>
+        <p><p>Generic type parameter. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyValueStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyValueStore_AddOrUpdateValue__1_System_String___0_">IKeyValueStore.AddOrUpdateValue&lt;T&gt;(String, T)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_DeleteStore.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.DeleteStore%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L407" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_DeleteStore_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.DeleteStore*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_DeleteStore" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.DeleteStore"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_DeleteStore" class="expander" data-toggle="collapse">DeleteStore()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_DeleteStore" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeleteStore()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Dispose"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L416" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.LevelData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L173" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelData_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.LevelData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelData" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.LevelData"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelData" class="expander" data-toggle="collapse">LevelData()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelData" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets (key,persistence) information. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;KeyValuePair&lt;string, PersistenceLevel&gt;&gt; LevelData()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.PersistenceLevel.html">PersistenceLevel</a>&gt;&gt;
+        <p><p>An IEnumerator&lt;KeyValuePair&lt;string,PersistenceLevel&gt;&gt; </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyLevelStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyLevelStore_LevelData">IKeyLevelStore.LevelData()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelKeys.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.LevelKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L206" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelKeys_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.LevelKeys*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelKeys" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.LevelKeys"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelKeys" class="expander" data-toggle="collapse">LevelKeys()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_LevelKeys" class="collapse in">
+  <div class="markdown level1 summary"><p>Enumerates level keys in this collection. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; LevelKeys()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p><p>An enumerator that allows foreach to be used to process level keys in this collection.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyLevelStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyLevelStore_LevelKeys">IKeyLevelStore.LevelKeys()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryGetLevel(System.String%2CAristocrat.Monaco.Hardware.Contracts.Persistence.PersistenceLevel%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L148" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetLevel_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryGetLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel__" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryGetLevel(System.String,Aristocrat.Monaco.Hardware.Contracts.Persistence.PersistenceLevel@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel__" class="expander" data-toggle="collapse">TryGetLevel(String, out PersistenceLevel)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to get the value associated with the given key. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetLevel(string key, out PersistenceLevel level)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>The key. </p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.PersistenceLevel.html">PersistenceLevel</a></span>
+        <span class="parametername">level</span>
+        <p><p>[out] The value. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyLevelStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyLevelStore_TryGetLevel_System_String_Aristocrat_Monaco_Hardware_Contracts_Persistence_PersistenceLevel__">IKeyLevelStore.TryGetLevel(String, out PersistenceLevel)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetValue__1_System_String___0__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryGetValue%60%601(System.String%2C%60%600%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L296" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetValue_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryGetValue*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetValue__1_System_String___0__" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryGetValue``1(System.String,``0@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetValue__1_System_String___0__" class="expander" data-toggle="collapse">TryGetValue&lt;T&gt;(String, out T)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryGetValue__1_System_String___0__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to get the value associated with the given key. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetValue&lt;T&gt;(string key, out T value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>The key. </p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">T</span></span>
+        <span class="parametername">value</span>
+        <p><p>[out] The value. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">T</span>
+        <p><p>Generic type parameter. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyValueStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyValueStore_TryGetValue__1_System_String___0__">IKeyValueStore.TryGetValue&lt;T&gt;(String, out T)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_Collections_Generic_IEnumerable_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveLevel(System.Collections.Generic.IEnumerable%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L167" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_Collections_Generic_IEnumerable_System_String__" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveLevel(System.Collections.Generic.IEnumerable{System.String})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_Collections_Generic_IEnumerable_System_String__" class="expander" data-toggle="collapse">TryRemoveLevel(IEnumerable&lt;String&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_Collections_Generic_IEnumerable_System_String__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to remove key levels. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemoveLevel(IEnumerable&lt;string&gt; keys)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">keys</span>
+        <p><p>The values. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyLevelStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyLevelStore_TryRemoveLevel_System_Collections_Generic_IEnumerable_System_String__">IKeyLevelStore.TryRemoveLevel(IEnumerable&lt;String&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveLevel(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L161" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_String_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveLevel(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_String_" class="expander" data-toggle="collapse">TryRemoveLevel(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveLevel_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to remove key level. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemoveLevel(string key)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>The key. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyLevelStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyLevelStore_TryRemoveLevel_System_String_">IKeyLevelStore.TryRemoveLevel(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_Collections_Generic_IEnumerable_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveValue(System.Collections.Generic.IEnumerable%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L308" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveValue*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_Collections_Generic_IEnumerable_System_String__" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveValue(System.Collections.Generic.IEnumerable{System.String})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_Collections_Generic_IEnumerable_System_String__" class="expander" data-toggle="collapse">TryRemoveValue(IEnumerable&lt;String&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_Collections_Generic_IEnumerable_System_String__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to remove value. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemoveValue(IEnumerable&lt;string&gt; keys)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">keys</span>
+        <p><p>The keys. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyValueStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyValueStore_TryRemoveValue_System_Collections_Generic_IEnumerable_System_String__">IKeyValueStore.TryRemoveValue(IEnumerable&lt;String&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveValue(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L302" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveValue*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_String_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.TryRemoveValue(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_String_" class="expander" data-toggle="collapse">TryRemoveValue(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_TryRemoveValue_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to remove value. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemoveValue(string key)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>The key. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyValueStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyValueStore_TryRemoveValue_System_String_">IKeyValueStore.TryRemoveValue(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.ValueData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L349" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueData_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.ValueData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueData" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.ValueData"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueData" class="expander" data-toggle="collapse">ValueData()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueData" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets (key,persistence) information. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;KeyValuePair&lt;string, object&gt;&gt; ValueData()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;
+        <p><p>An IEnumerator&lt;KeyValuePair&lt;string,PersistenceLevel&gt;&gt; </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyValueStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyValueStore_ValueData">IKeyValueStore.ValueData()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueKeys.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.ValueKeys%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L355" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueKeys_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.ValueKeys*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueKeys" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.ValueKeys"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueKeys" class="expander" data-toggle="collapse">ValueKeys()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_ValueKeys" class="collapse in">
+  <div class="markdown level1 summary"><p>Enumerates value keys in this collection. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; ValueKeys()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p><p>An enumerator that allows foreach to be used to process value keys in this collection.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyValueStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IKeyValueStore_ValueKeys">IKeyValueStore.ValueKeys()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Verify_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Verify(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L385" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Verify_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Verify*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Verify_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore.Verify(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Verify_System_Boolean_" class="expander" data-toggle="collapse">Verify(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore_Verify_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Verifies the data integrity of the persistent store. </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Verify(bool full)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">full</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStore.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStore_Verify_System_Boolean_">IPersistentStore.Verify(Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStore.html">IPersistentStore</a></div>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Persistence_SqlitePersistentStore.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Persistence.SqlitePersistentStore%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Persistence/SqlitePersistentStore.cs/#L20" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1661 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GenericBaseMonitor
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GenericBaseMonitor
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor">
+  <h1 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor">Class GenericBaseMonitor
+  </h1>
+  <div class="markdown level0 summary"><p>Base class for common behavior for device monitors.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">GenericBaseMonitor</span></div>
+  </div>
+  
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Application.Monitors.NoteAcceptorMonitor.html">NoteAcceptorMonitor</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Application.Monitors.PrinterMonitor.html">PrinterMonitor</a></div>
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Application.Monitors.html">Aristocrat.Monaco.Application.Monitors</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Application.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class GenericBaseMonitor : IPropertyProvider, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.#ctor"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor" class="expander" data-toggle="collapse">GenericBaseMonitor()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected GenericBaseMonitor()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Kernel_ISystemDisableManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.%23ctor(Aristocrat.Monaco.Kernel.IMessageDisplay%2CAristocrat.Monaco.Kernel.ISystemDisableManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Kernel_ISystemDisableManager_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.#ctor(Aristocrat.Monaco.Kernel.IMessageDisplay,Aristocrat.Monaco.Kernel.ISystemDisableManager)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Kernel_ISystemDisableManager_" class="expander" data-toggle="collapse">GenericBaseMonitor(IMessageDisplay, ISystemDisableManager)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor__ctor_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Kernel_ISystemDisableManager_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected GenericBaseMonitor(IMessageDisplay message, ISystemDisableManager disable)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IMessageDisplay.html">IMessageDisplay</a></span>
+        <span class="parametername">message</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.ISystemDisableManager.html">ISystemDisableManager</a></span>
+        <span class="parametername">disable</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DfuInprogressKey.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DfuInprogressKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DfuInprogressKey" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DfuInprogressKey"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DfuInprogressKey" class="expander" data-toggle="collapse">DfuInprogressKey</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DfuInprogressKey" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected const string DfuInprogressKey = &quot;DfuInprogress&quot;</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisabledKey.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DisabledKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L20" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisabledKey" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DisabledKey"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisabledKey" class="expander" data-toggle="collapse">DisabledKey</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisabledKey" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected const string DisabledKey = &quot;Disabled&quot;</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisconnectedKey.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DisconnectedKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L19" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisconnectedKey" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DisconnectedKey"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisconnectedKey" class="expander" data-toggle="collapse">DisconnectedKey</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DisconnectedKey" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected const string DisconnectedKey = &quot;Disconnected&quot;</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DeviceName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DeviceName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DeviceName_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DeviceName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DeviceName" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.DeviceName"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DeviceName" class="expander" data-toggle="collapse">DeviceName</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_DeviceName" class="collapse in">
+  <div class="markdown level1 summary"><p>Get general device name</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract string DeviceName { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetCollection.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetCollection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetCollection_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetCollection*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetCollection" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetCollection"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetCollection" class="expander" data-toggle="collapse">GetCollection</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetCollection" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;KeyValuePair&lt;string, object&gt;&gt; GetCollection { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertyProvider.html#Aristocrat_Monaco_Kernel_IPropertyProvider_GetCollection">IPropertyProvider.GetCollection</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_AddFault_System_Enum_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.AddFault(System.Enum%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L242" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_AddFault_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.AddFault*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_AddFault_System_Enum_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.AddFault(System.Enum,System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_AddFault_System_Enum_System_String_" class="expander" data-toggle="collapse">AddFault(Enum, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_AddFault_System_Enum_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>A fault causes an EGM lockup, but a warning doesn&apos;t.
+It&apos;s stored for later clearing in either case.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void AddFault(Enum value, string delayedDisableKey = null)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.enum">Enum</a></span>
+        <span class="parametername">value</span>
+        <p><p>A single enumerated value.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">delayedDisableKey</span>
+        <p><p>If non-null/non-empty, this error won&apos;t disable until some later condition is met
+(default null).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ClearFault_System_Enum_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ClearFault(System.Enum)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L254" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ClearFault_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ClearFault*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ClearFault_System_Enum_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ClearFault(System.Enum)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ClearFault_System_Enum_" class="expander" data-toggle="collapse">ClearFault(Enum)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ClearFault_System_Enum_" class="collapse in">
+  <div class="markdown level1 summary"><p>Clear a previously-reported fault.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ClearFault(Enum value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.enum">Enum</a></span>
+        <span class="parametername">value</span>
+        <p><p>A single enumerated value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.Dispose"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor and
+optionally releases the managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_Enum_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey(System.Enum)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L324" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_Enum_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey(System.Enum)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_Enum_" class="expander" data-toggle="collapse">GetKey(Enum)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_Enum_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get a unique key from an enumerated value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string GetKey(Enum value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.enum">Enum</a></span>
+        <span class="parametername">value</span>
+        <p><p>Enumerated value</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Unique key</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L345" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_String_" class="expander" data-toggle="collapse">GetKey(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get a unique key for a binary condition</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string GetKey(string condition)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">condition</span>
+        <p><p>Name of condition</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Unique key</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey__1_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey%60%601(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L335" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey__1_System_Object_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetKey``1(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey__1_System_Object_" class="expander" data-toggle="collapse">GetKey&lt;TEnumType&gt;(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetKey__1_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get a unique key from an enumerated value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string GetKey&lt;TEnumType&gt;(object value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">value</span>
+        <p><p>Enumerated value</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Unique key</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TEnumType</span>
+        <p><p>Enumeration type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetProperty_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetProperty(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetProperty_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetProperty*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetProperty_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.GetProperty(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetProperty_System_String_" class="expander" data-toggle="collapse">GetProperty(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_GetProperty_System_String_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object GetProperty(string propertyName)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertyProvider.html#Aristocrat_Monaco_Kernel_IPropertyProvider_GetProperty_System_String_">IPropertyProvider.GetProperty(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_Enum_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.IsSet(System.Enum)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L355" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.IsSet*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_Enum_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.IsSet(System.Enum)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_Enum_" class="expander" data-toggle="collapse">IsSet(Enum)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_Enum_" class="collapse in">
+  <div class="markdown level1 summary"><p>Query if &apos;value&apos; is set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsSet(Enum value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.enum">Enum</a></span>
+        <span class="parametername">value</span>
+        <p><p>A single enumerated value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if set, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.IsSet(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L365" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.IsSet*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.IsSet(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_String_" class="expander" data-toggle="collapse">IsSet(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_IsSet_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Query if &apos;condition&apos; is set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsSet(string condition)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">condition</span>
+        <p><p>Name of condition</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if set, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageBinaryCondition_System_String_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Guid_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageBinaryCondition(System.String%2CAristocrat.Monaco.Kernel.DisplayableMessageClassification%2CAristocrat.Monaco.Kernel.DisplayableMessagePriority%2CSystem.Guid%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageBinaryCondition_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageBinaryCondition*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageBinaryCondition_System_String_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Guid_System_Boolean_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageBinaryCondition(System.String,Aristocrat.Monaco.Kernel.DisplayableMessageClassification,Aristocrat.Monaco.Kernel.DisplayableMessagePriority,System.Guid,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageBinaryCondition_System_String_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Guid_System_Boolean_" class="expander" data-toggle="collapse">ManageBinaryCondition(String, DisplayableMessageClassification, DisplayableMessagePriority, Guid, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageBinaryCondition_System_String_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Guid_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Manage a binary condition by its name.
+Property key will have the format &quot;[DeviceName]_[condition]&quot; .</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ManageBinaryCondition(string condition, DisplayableMessageClassification classification, DisplayableMessagePriority priority, Guid id, bool isLockup = false)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">condition</span>
+        <p><p>Name of condition</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html">DisplayableMessageClassification</a></span>
+        <span class="parametername">classification</span>
+        <p><p>The <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html">DisplayableMessageClassification</a> category.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a></span>
+        <span class="parametername">priority</span>
+        <p><p>The <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a> category.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">id</span>
+        <p><p>The Guid for the <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessage.html">DisplayableMessage</a></p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isLockup</span>
+        <p><p>Whether to disable the system while this condition goes into effect (default false).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum(System.Enum%2CAristocrat.Monaco.Kernel.DisplayableMessageClassification%2CAristocrat.Monaco.Kernel.DisplayableMessagePriority%2CSystem.Boolean%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum(System.Enum,Aristocrat.Monaco.Kernel.DisplayableMessageClassification,Aristocrat.Monaco.Kernel.DisplayableMessagePriority,System.Boolean,System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="expander" data-toggle="collapse">ManageErrorEnum(Enum, DisplayableMessageClassification, DisplayableMessagePriority, Boolean, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>During startup, set up <span class="xref">Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ErrorInfo</span> object based on the given enum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ManageErrorEnum(Enum value, DisplayableMessageClassification defaultClassification, DisplayableMessagePriority defaultPriority, bool isLockup = false, string ignoreThis = &quot;None&quot;)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.enum">Enum</a></span>
+        <span class="parametername">value</span>
+        <p><p>An enum</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html">DisplayableMessageClassification</a></span>
+        <span class="parametername">defaultClassification</span>
+        <p><p>The default <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html">DisplayableMessageClassification</a> category.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a></span>
+        <span class="parametername">defaultPriority</span>
+        <p><p>The default <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a> category.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isLockup</span>
+        <p><p>Whether to disable the system while this condition goes into effect (default false).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">ignoreThis</span>
+        <p><p>Name of an enumeration value to ignore, if desired; default &quot;None&quot;.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum(System.Enum%2CAristocrat.Monaco.Kernel.DisplayableMessagePriority%2CSystem.Boolean%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum(System.Enum,Aristocrat.Monaco.Kernel.DisplayableMessagePriority,System.Boolean,System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="expander" data-toggle="collapse">ManageErrorEnum(Enum, DisplayableMessagePriority, Boolean, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_System_Enum_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>During startup, set up <span class="xref">Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ErrorInfo</span> object based on the given enum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ManageErrorEnum(Enum value, DisplayableMessagePriority defaultPriority, bool isLockup = false, string ignoreThis = &quot;None&quot;)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.enum">Enum</a></span>
+        <span class="parametername">value</span>
+        <p><p>An enum</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a></span>
+        <span class="parametername">defaultPriority</span>
+        <p><p>The default <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a> category for all values in this
+enum.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isLockup</span>
+        <p><p>Whether to disable the system while this condition goes into effect (default false).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">ignoreThis</span>
+        <p><p>Name of an enumeration value to ignore, if desired; default &quot;None&quot;.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum%60%601(Aristocrat.Monaco.Kernel.DisplayableMessageClassification%2CAristocrat.Monaco.Kernel.DisplayableMessagePriority%2CSystem.Boolean%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L191" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum``1(Aristocrat.Monaco.Kernel.DisplayableMessageClassification,Aristocrat.Monaco.Kernel.DisplayableMessagePriority,System.Boolean,System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="expander" data-toggle="collapse">ManageErrorEnum&lt;TEnumType&gt;(DisplayableMessageClassification, DisplayableMessagePriority, Boolean, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessageClassification_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>During startup, set up <span class="xref">Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ErrorInfo</span> objects based on an enum.
+Behavioral defaults are <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html#Aristocrat_Monaco_Kernel_DisplayableMessageClassification_HardError">HardError</a>
+and <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html#Aristocrat_Monaco_Kernel_DisplayableMessagePriority_Immediate">Immediate</a> for lockups, and
+<a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html#Aristocrat_Monaco_Kernel_DisplayableMessageClassification_SoftError">SoftError</a> and
+<a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html#Aristocrat_Monaco_Kernel_DisplayableMessagePriority_Normal">Normal</a> for non-lockups,
+with no associated icon.
+Property keys will have the format [enumType]_[enumValue] .
+After this call, any individual value of the enum can be tweaked with</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ManageErrorEnum&lt;TEnumType&gt;(DisplayableMessageClassification defaultClassification, DisplayableMessagePriority defaultPriority, bool isLockup = false, string ignoreThis = &quot;None&quot;)
+    where TEnumType : Enum</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html">DisplayableMessageClassification</a></span>
+        <span class="parametername">defaultClassification</span>
+        <p><p>The default <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html">DisplayableMessageClassification</a> category for all values
+in this enum.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a></span>
+        <span class="parametername">defaultPriority</span>
+        <p><p>The default <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a> category for all values in this
+enum.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isLockup</span>
+        <p><p>Whether to disable the system while this condition goes into effect (default false).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">ignoreThis</span>
+        <p><p>Name of an enumeration value to ignore, if desired; default &quot;None&quot;.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TEnumType</span>
+        <p><p>An enum</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum%60%601(Aristocrat.Monaco.Kernel.DisplayableMessagePriority%2CSystem.Boolean%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L221" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ManageErrorEnum``1(Aristocrat.Monaco.Kernel.DisplayableMessagePriority,System.Boolean,System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="expander" data-toggle="collapse">ManageErrorEnum&lt;TEnumType&gt;(DisplayableMessagePriority, Boolean, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_ManageErrorEnum__1_Aristocrat_Monaco_Kernel_DisplayableMessagePriority_System_Boolean_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>During startup, set up <span class="xref">Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.ErrorInfo</span> objects based on an enum.
+Behavioral defaults are <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html#Aristocrat_Monaco_Kernel_DisplayableMessageClassification_HardError">HardError</a>
+and <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html#Aristocrat_Monaco_Kernel_DisplayableMessagePriority_Immediate">Immediate</a> for lockups, and
+<a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessageClassification.html#Aristocrat_Monaco_Kernel_DisplayableMessageClassification_SoftError">SoftError</a> and
+<a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html#Aristocrat_Monaco_Kernel_DisplayableMessagePriority_Normal">Normal</a> for non-lockups,
+with no associated icon.
+Property keys will have the format [enumType]_[enumValue] .
+After this call, any individual value of the enum can be tweaked with</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ManageErrorEnum&lt;TEnumType&gt;(DisplayableMessagePriority defaultPriority, bool isLockup = false, string ignoreThis = &quot;None&quot;)
+    where TEnumType : Enum</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a></span>
+        <span class="parametername">defaultPriority</span>
+        <p><p>The default <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.DisplayableMessagePriority.html">DisplayableMessagePriority</a> category for all values in this
+enum.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isLockup</span>
+        <p><p>Whether to disable the system while this condition goes into effect (default false).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">ignoreThis</span>
+        <p><p>Name of an enumeration value to ignore, if desired; default &quot;None&quot;.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TEnumType</span>
+        <p><p>An enum</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_PerformDelayedDisables_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.PerformDelayedDisables(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L308" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_PerformDelayedDisables_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.PerformDelayedDisables*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_PerformDelayedDisables_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.PerformDelayedDisables(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_PerformDelayedDisables_System_String_" class="expander" data-toggle="collapse">PerformDelayedDisables(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_PerformDelayedDisables_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>For some pending disabling ErrorInfos, let them do the disable now.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void PerformDelayedDisables(string delayedDisableKey)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">delayedDisableKey</span>
+        <p><p>Delayed-disable key that identifies which ones to release</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinary_System_String_System_Boolean_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetBinary(System.String%2CSystem.Boolean%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L271" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinary_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetBinary*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinary_System_String_System_Boolean_System_String_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetBinary(System.String,System.Boolean,System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinary_System_String_System_Boolean_System_String_" class="expander" data-toggle="collapse">SetBinary(String, Boolean, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinary_System_String_System_Boolean_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Handle on/off for a binary condition</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetBinary(string key, bool yes, string delayedDisableKey = null)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>Condition key</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">yes</span>
+        <p><p>True when condition is &quot;on&quot;</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">delayedDisableKey</span>
+        <p><p>If non-null/non-empty, this error won&apos;t disable until some later condition is met
+(default null).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinaryOnWithTimeout_System_String_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetBinaryOnWithTimeout(System.String%2CSystem.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L295" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinaryOnWithTimeout_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetBinaryOnWithTimeout*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinaryOnWithTimeout_System_String_System_String_System_Int32_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetBinaryOnWithTimeout(System.String,System.String,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinaryOnWithTimeout_System_String_System_String_System_Int32_" class="expander" data-toggle="collapse">SetBinaryOnWithTimeout(String, String, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetBinaryOnWithTimeout_System_String_System_String_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Turn on a binary condition, then automatically turn it off after an interval.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetBinaryOnWithTimeout(string key, string delayedDisableKey = null, int msDelay = 2000)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>Condition key</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">delayedDisableKey</span>
+        <p><p>If non-null/non-empty, this error won&apos;t disable until some later condition is met
+(default null).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">msDelay</span>
+        <p><p>Interval in milliseconds after which to turn off condition</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetProperty_System_String_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetProperty(System.String%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetProperty_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetProperty*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetProperty_System_String_System_Object_" data-uid="Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor.SetProperty(System.String,System.Object)"><a href="#collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetProperty_System_String_System_Object_" class="expander" data-toggle="collapse">SetProperty(String, Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor_SetProperty_System_String_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetProperty(string propertyName, object propertyValue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">propertyValue</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertyProvider.html#Aristocrat_Monaco_Kernel_IPropertyProvider_SetProperty_System_String_System_Object_">IPropertyProvider.SetProperty(String, Object)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Monitors_GenericBaseMonitor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Monitors.GenericBaseMonitor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Monitors/GenericBaseMonitor.cs/#L16" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

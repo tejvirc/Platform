@@ -1,0 +1,843 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ICommandQueue
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ICommandQueue
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.G2S.Client.ICommandQueue">
+  <h1 id="Aristocrat_G2S_Client_ICommandQueue" data-uid="Aristocrat.G2S.Client.ICommandQueue">Interface ICommandQueue
+  </h1>
+  <div class="markdown level0 summary"><p>Provides a mechanism to push message into a command queue.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.ICommBehavior.html#Aristocrat_G2S_Client_Communications_ICommBehavior_RetryCount">ICommBehavior.RetryCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.ICommBehavior.html#Aristocrat_G2S_Client_Communications_ICommBehavior_TimeToLiveBehavior">ICommBehavior.TimeToLiveBehavior</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.ITimeoutBehavior.html#Aristocrat_G2S_Client_Communications_ITimeoutBehavior_SessionTimeout">ITimeoutBehavior.SessionTimeout</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_Online">IQueueStatus.Online</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_CanSend">IQueueStatus.CanSend</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_ReceivedCount">IQueueStatus.ReceivedCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_SendCount">IQueueStatus.SendCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_ReceivedElapsedTime">IQueueStatus.ReceivedElapsedTime</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_SentElapsedTime">IQueueStatus.SentElapsedTime</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_OutboundQueueFull">IQueueStatus.OutboundQueueFull</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.IQueueStatus.html#Aristocrat_G2S_Client_IQueueStatus_InboundQueueFull">IQueueStatus.InboundQueueFull</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.G2S.Client.html">Aristocrat.G2S.Client</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.G2S.Client.dll</h6>
+  
+  <h5 id="Aristocrat_G2S_Client_ICommandQueue_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ICommandQueue : ICommBehavior, ITimeoutBehavior, IQueueStatus</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendNotification(IClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L15" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendNotification_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendNotification*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendNotification(IClass)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_" class="expander" data-toggle="collapse">SendNotification(IClass)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a notification to a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SendNotification(IClass notification)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">notification</span>
+        <p><p>The notification to send to the host.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendNotification(IClass%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendNotification_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendNotification*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendNotification(IClass,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_System_TimeSpan_" class="expander" data-toggle="collapse">SendNotification(IClass, TimeSpan)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendNotification_IClass_System_TimeSpan_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a notification to a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SendNotification(IClass notification, TimeSpan sessionTimeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">notification</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></span>
+        <span class="parametername">sessionTimeout</span>
+        <p><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a> that specifies how long the a session time to
+live will be set for.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_" class="expander" data-toggle="collapse">SendRequest(IClass)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a request to a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Session SendRequest(IClass request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">request</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Session</span>
+        <p><p>The session created for the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass%2CSessionCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass,SessionCallback)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a request to a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Session SendRequest(IClass request, SessionCallback callback)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">request</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">SessionCallback</span></span>
+        <span class="parametername">callback</span>
+        <p><p>The <see cref="!:SessionCallback"></see> delegate.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Session</span>
+        <p><p>The session created for the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass%2CSessionCallback%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass,SessionCallback,System.Int32)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a request to a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Session SendRequest(IClass request, SessionCallback callback, int retryCount)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">request</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">SessionCallback</span></span>
+        <span class="parametername">callback</span>
+        <p><p>The <see cref="!:SessionCallback"></see> delegate.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">retryCount</span>
+        <p><p>The number of times to resend a command if the session expires.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Session</span>
+        <p><p>The session created for the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The session time to live defaults to <see cref="P:.DefaultSessionTimeout"></see>.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass%2CSessionCallback%2CSystem.Int32%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass,SessionCallback,System.Int32,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback, Int32, TimeSpan)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a request to a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Session SendRequest(IClass request, SessionCallback callback, int retryCount, TimeSpan sessionTimeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">request</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">SessionCallback</span></span>
+        <span class="parametername">callback</span>
+        <p><p>The <span class="xref">SessionCallback</span> delegate.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">retryCount</span>
+        <p><p>The number of times to resend a command if the session expires.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></span>
+        <span class="parametername">sessionTimeout</span>
+        <p><p>The value that specifies how long the a session time to live will be set for in
+milliseconds.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Session</span>
+        <p><p>The session created for the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Boolean_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Boolean_" class="expander" data-toggle="collapse">SendRequest(IClass, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a request to a host bypassing any queue related checks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Session SendRequest(IClass request, bool alwaysSend)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">request</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">alwaysSend</span>
+        <p><p>Bypasses the allow send on the host queue. This is reserved for communications class
+(commsOnline and commsDisabled).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Session</span>
+        <p><p>The session created for the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Int32_System_Boolean_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">SendRequest(IClass, Int32, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Int32_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a request to a host bypassing any queue related checks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Session SendRequest(IClass request, int retryCount, bool alwaysSend)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">request</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">retryCount</span>
+        <p><p>The number of times to resend a command if the session expires.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">alwaysSend</span>
+        <p><p>Bypasses the allow send on the host queue. This is reserved for communications class
+(commsOnline and commsDisabled).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Session</span>
+        <p><p>The session created for the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_Int32_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendRequest(IClass,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_TimeSpan_" class="expander" data-toggle="collapse">SendRequest(IClass, TimeSpan)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendRequest_IClass_System_TimeSpan_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue a request to a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Session SendRequest(IClass request, TimeSpan sessionTimeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="parametername">request</span>
+        <p><p>The request to send to the host.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></span>
+        <span class="parametername">sessionTimeout</span>
+        <p><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a> that specifies how long the a session time to
+live will be set for.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Session</span>
+        <p><p>The session created for the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue_SendResponse_ClassCommand_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue.SendResponse(ClassCommand)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_ICommandQueue_SendResponse_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendResponse*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_ICommandQueue_SendResponse_ClassCommand_" data-uid="Aristocrat.G2S.Client.ICommandQueue.SendResponse(ClassCommand)"><a href="#collapsible-Aristocrat_G2S_Client_ICommandQueue_SendResponse_ClassCommand_" class="expander" data-toggle="collapse">SendResponse(ClassCommand)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_ICommandQueue_SendResponse_ClassCommand_" class="collapse in">
+  <div class="markdown level1 summary"><p>Queue any responses to the <em>request</em> command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SendResponse(ClassCommand response)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">ClassCommand</span></span>
+        <span class="parametername">response</span>
+        <p><p>The <span class="xref">Aristocrat.G2S.ClassCommand</span> request to respond to.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_ICommandQueue.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.ICommandQueue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/ICommandQueue.cs/#L9" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

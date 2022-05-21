@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IPropertyProvider
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IPropertyProvider
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider">
+  <h1 id="Aristocrat_Monaco_Kernel_IPropertyProvider" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider">Interface IPropertyProvider
+  </h1>
+  <div class="markdown level0 summary"><p>Definition of the IPropertyProvider interface, which provides access to stored properties used throughout the
+system.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Kernel.html">Aristocrat.Monaco.Kernel</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Kernel.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertyProvider_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IPropertyProvider</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertyProvider_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+    Objects that implement this interface are known as Property Providers and are contained by the Properties
+    Manager.
+    Typically,
+    Property Providers are not used outside the context of the Properties Manager. They service requests to store
+    and
+    retrieve
+    properties, which are objects paired with unique names. Often, but not always, a Property Provider component
+    uses a
+    block of
+    persistent storage to retain its property values when the system is re-booted.
+</p>
+<p>
+    In the bootstrap code for each layer in XSpin, a Mono.Addins extension point is defined and components that
+    implement the
+    IPropertyProvider interface are discovered and added to the Properties Manager.
+</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertyProvider_examples"><strong>Examples</strong></h5>
+  <p>Shown below are 2 snippets of XML contained in Mono.Addins configuration files (*.addin.xml). The first defines an
+extension point,
+and the second defines a type of object to be loaded at the extension point. The path attributes must match, and
+the
+type of the
+extension must derive from the object type specified for the extension point.</p>
+<pre><code>{ExtensionPoint path = &quot;/Application/PropertyProviders&quot;}
+ {ExtensionNode objectType=&quot;Vgt.Client12.Kernel.IPropertyProvider&quot;/}
+{/ExtensionPoint}
+
+
+
+{Extension path=&quot;/Application/PropertyProviders&quot;}
+ {Type type=&quot;Vgt.Client12.Application.SystemPropertiesProvider&quot; /}
+{/Extension}</code></pre>
+
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertyProvider_GetCollection.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertyProvider.GetCollection%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertyProvider.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Kernel_IPropertyProvider_GetCollection_" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider.GetCollection*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Kernel_IPropertyProvider_GetCollection" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider.GetCollection"><a href="#collapsible-Aristocrat_Monaco_Kernel_IPropertyProvider_GetCollection" class="expander" data-toggle="collapse">GetCollection</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Kernel_IPropertyProvider_GetCollection" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a reference to a collection of properties stored by the property provider</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICollection&lt;KeyValuePair&lt;string, object&gt;&gt; GetCollection { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>&gt;&gt;
+        <p><p>A read-only reference to a collection of key/value pairs. The keys are property names.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertyProvider_GetProperty_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertyProvider.GetProperty(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertyProvider.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Kernel_IPropertyProvider_GetProperty_" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider.GetProperty*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Kernel_IPropertyProvider_GetProperty_System_String_" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider.GetProperty(System.String)"><a href="#collapsible-Aristocrat_Monaco_Kernel_IPropertyProvider_GetProperty_System_String_" class="expander" data-toggle="collapse">GetProperty(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Kernel_IPropertyProvider_GetProperty_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get an existing property value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">object GetProperty(string propertyName)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p><p>The name of the property.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p><p>an object which contains the property.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertyProvider_GetProperty_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Prior to calling this method, GetCollection should be checked to see if it contains the property name. If not,
+GetProperty will throw an
+exception and should not be called.</p>
+</div>
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Kernel.UnknownPropertyException.html">UnknownPropertyException</a>
+        <p><p>Thrown when the propertyName is not recognized, and the provider has
+no valid path of execution.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertyProvider_SetProperty_System_String_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertyProvider.SetProperty(System.String%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertyProvider.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Kernel_IPropertyProvider_SetProperty_" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider.SetProperty*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Kernel_IPropertyProvider_SetProperty_System_String_System_Object_" data-uid="Aristocrat.Monaco.Kernel.IPropertyProvider.SetProperty(System.String,System.Object)"><a href="#collapsible-Aristocrat_Monaco_Kernel_IPropertyProvider_SetProperty_System_String_System_Object_" class="expander" data-toggle="collapse">SetProperty(String, Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Kernel_IPropertyProvider_SetProperty_System_String_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Set a property to a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetProperty(string propertyName, object propertyValue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p><p>The property to set.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">propertyValue</span>
+        <p><p>The new value for the property.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertyProvider_SetProperty_System_String_System_Object__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Some property providers allow new properties to be added, while others don&apos;t. Typically, those that are Mono.Addins
+extensions and those that
+keep their properties in persistent storage are in the latter category. If the user of this class is intending to
+update a pre-existing property,
+GetCollection should be checked to see if it contains the property name.</p>
+</div>
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Kernel.UnknownPropertyException.html">UnknownPropertyException</a>
+        <p><p>Thrown when the propertyName is not recognized, and the provider has
+no valid path of execution.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Kernel.LoggingExtensions.html#Aristocrat_Monaco_Kernel_LoggingExtensions_Log__1___0_">LoggingExtensions.Log&lt;T&gt;(T)</a>
+  </div>
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertyProvider.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertyProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertyProvider.cs/#L48" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

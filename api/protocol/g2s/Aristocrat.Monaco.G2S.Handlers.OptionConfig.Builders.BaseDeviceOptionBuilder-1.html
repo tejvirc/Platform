@@ -1,0 +1,1384 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class BaseDeviceOptionBuilder&lt;TDevice&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class BaseDeviceOptionBuilder&lt;TDevice&gt;
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1">
+  <h1 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1">Class BaseDeviceOptionBuilder&lt;TDevice&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Base device options builder.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">BaseDeviceOptionBuilder&lt;TDevice&gt;</span></div>
+  </div>
+  
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BonusDeviceOptionBuilder.html">BonusDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.CabinetDeviceOptionBuilder.html">CabinetDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.CentralDeviceOptionBuilder.html">CentralDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ChooserDeviceOptionBuilder.html">ChooserDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.CoinAcceptorDeviceOptionBuilder.html">CoinAcceptorDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.CommConfigDeviceOptionBuilder.html">CommConfigDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.DownloadDeviceOptionBuilder.html">DownloadDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.EventHandlerDeviceOptionBuilder.html">EventHandlerDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.GamePlayDeviceOptionBuilder.html">GamePlayDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.GatDeviceOptionBuilder.html">GatDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.HandpayDeviceOptionBuilder.html">HandpayDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.IdReaderDeviceOptionBuilder.html">IdReaderDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.InformedPlayerDeviceOptionBuilder.html">InformedPlayerDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.MediaDisplayOptionBuilder.html">MediaDisplayOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.NoteAcceptorDeviceOptionBuilder.html">NoteAcceptorDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.OptionConfigDeviceOptionBuilder.html">OptionConfigDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.PlayerDeviceOptionBuilder.html">PlayerDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.PrinterDeviceOptionBuilder.html">PrinterDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.SpcDeviceOptionBuilder.html">SpcDeviceOptionBuilder</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.VoucherDeviceOptionBuilder.html">VoucherDeviceOptionBuilder</a></div>
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.html">Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class BaseDeviceOptionBuilder&lt;TDevice&gt; : IDeviceOptionsBuilder where TDevice : IDevice</code></pre>
+  </div>
+  
+  
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TDevice</span>
+        <p><p>The type of the device.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_DeviceClass.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.DeviceClass%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_DeviceClass_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.DeviceClass*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_DeviceClass" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.DeviceClass"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_DeviceClass" class="expander" data-toggle="collapse">DeviceClass</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_DeviceClass" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract DeviceClass DeviceClass { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.DeviceClass.html">DeviceClass</a>
+        <p><p>The device class.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Build_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.Build(Aristocrat.G2S.Client.Devices.IDevice%2CAristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L35" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Build_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.Build*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Build_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.Build(Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Build_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" class="expander" data-toggle="collapse">Build(IDevice, OptionListCommandBuilderParameters)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Build_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the specified device options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public deviceOptions Build(IDevice device, OptionListCommandBuilderParameters parameters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>The device.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters.html">OptionListCommandBuilderParameters</a></span>
+        <span class="parametername">parameters</span>
+        <p><p>The parameters.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">deviceOptions</span>
+        <p><p>g2s structure for representing options.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.IDeviceOptionsBuilder.html#Aristocrat_Monaco_G2S_Handlers_OptionConfig_IDeviceOptionsBuilder_Build_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_">IDeviceOptionsBuilder.Build(IDevice, OptionListCommandBuilderParameters)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildGroups__0_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildGroups(%600%2CAristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildGroups_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildGroups*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildGroups__0_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildGroups(`0,Aristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildGroups__0_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" class="expander" data-toggle="collapse">BuildGroups(TDevice, OptionListCommandBuilderParameters)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildGroups__0_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the option groups with items for device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract optionGroup[] BuildGroups(TDevice device, OptionListCommandBuilderParameters parameters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">TDevice</span></span>
+        <span class="parametername">device</span>
+        <p><p>The device.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters.html">OptionListCommandBuilderParameters</a></span>
+        <span class="parametername">parameters</span>
+        <p><p>The parameters.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionGroup</span>[]
+        <p><p>Array of groups.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItem_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildOptionItem(System.String%2Ct_securityLevels%2CSystem.Int32%2CSystem.Int32%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItem_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildOptionItem*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItem_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildOptionItem(System.String,t_securityLevels,System.Int32,System.Int32,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItem_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" class="expander" data-toggle="collapse">BuildOptionItem(String, t_securityLevels, Int32, Int32, String, String, String, IEnumerable&lt;ParameterDescription&gt;, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItem_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the option item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected optionItem BuildOptionItem(string optionId, t_securityLevels level, int minSelections, int maxSelections, string paramId, string paramName, string paramHelp, IEnumerable&lt;ParameterDescription&gt; parameters, bool includeDetails)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">optionId</span>
+        <p><p>The option identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">t_securityLevels</span></span>
+        <span class="parametername">level</span>
+        <p><p>The level.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">minSelections</span>
+        <p><p>The minimum selections.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">maxSelections</span>
+        <p><p>The maximum selections.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">paramId</span>
+        <p><p>The parameter identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">paramName</span>
+        <p><p>Name of the parameter.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">paramHelp</span>
+        <p><p>The parameter help.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a>&gt;</span>
+        <span class="parametername">parameters</span>
+        <p><p>The parameters.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">includeDetails</span>
+        <p><p>true to include details</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionItem</span>
+        <p><p>Option item.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemForTable_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Collections_Generic_IEnumerable_complexValue__System_Collections_Generic_IEnumerable_complexValue__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildOptionItemForTable(System.String%2Ct_securityLevels%2CSystem.Int32%2CSystem.Int32%2CSystem.String%2CSystem.String%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription%7D%2CSystem.Collections.Generic.IEnumerable%7BcomplexValue%7D%2CSystem.Collections.Generic.IEnumerable%7BcomplexValue%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemForTable_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildOptionItemForTable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemForTable_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Collections_Generic_IEnumerable_complexValue__System_Collections_Generic_IEnumerable_complexValue__System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildOptionItemForTable(System.String,t_securityLevels,System.Int32,System.Int32,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription},System.Collections.Generic.IEnumerable{complexValue},System.Collections.Generic.IEnumerable{complexValue},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemForTable_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Collections_Generic_IEnumerable_complexValue__System_Collections_Generic_IEnumerable_complexValue__System_Boolean_" class="expander" data-toggle="collapse">BuildOptionItemForTable(String, t_securityLevels, Int32, Int32, String, String, String, IEnumerable&lt;ParameterDescription&gt;, IEnumerable&lt;complexValue&gt;, IEnumerable&lt;complexValue&gt;, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemForTable_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Collections_Generic_IEnumerable_complexValue__System_Collections_Generic_IEnumerable_complexValue__System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the option item with table values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected optionItem BuildOptionItemForTable(string optionId, t_securityLevels level, int minSelections, int maxSelections, string parameterId, string parameterName, string parameterHelp, IEnumerable&lt;ParameterDescription&gt; parameters, IEnumerable&lt;complexValue&gt; currentValues, IEnumerable&lt;complexValue&gt; defaultValues, bool includeDetails)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">optionId</span>
+        <p><p>The option identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">t_securityLevels</span></span>
+        <span class="parametername">level</span>
+        <p><p>The level.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">minSelections</span>
+        <p><p>The minimum selections.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">maxSelections</span>
+        <p><p>The maximum selections.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">parameterId</span>
+        <p><p>The parameter identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">parameterName</span>
+        <p><p>Name of the parameter.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">parameterHelp</span>
+        <p><p>The parameter help.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a>&gt;</span>
+        <span class="parametername">parameters</span>
+        <p><p>The parameters.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">complexValue</span>&gt;</span>
+        <span class="parametername">currentValues</span>
+        <p><p>Table of values.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">complexValue</span>&gt;</span>
+        <span class="parametername">defaultValues</span>
+        <p><p>List of currentValues</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">includeDetails</span>
+        <p><p>true to include details</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionItem</span>
+        <p><p>Option item.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemOfNonComplexType_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildOptionItemOfNonComplexType(System.String%2Ct_securityLevels%2CSystem.Int32%2CSystem.Int32%2CSystem.String%2CSystem.String%2CSystem.String%2CAristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L230" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemOfNonComplexType_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildOptionItemOfNonComplexType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemOfNonComplexType_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildOptionItemOfNonComplexType(System.String,t_securityLevels,System.Int32,System.Int32,System.String,System.String,System.String,Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemOfNonComplexType_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription_System_Boolean_" class="expander" data-toggle="collapse">BuildOptionItemOfNonComplexType(String, t_securityLevels, Int32, Int32, String, String, String, ParameterDescription, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildOptionItemOfNonComplexType_System_String_t_securityLevels_System_Int32_System_Int32_System_String_System_String_System_String_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected optionItem BuildOptionItemOfNonComplexType(string optionId, t_securityLevels level, int minSelections, int maxSelections, string paramId, string paramName, string paramHelp, ParameterDescription parameter, bool includeDetails)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">optionId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">t_securityLevels</span></span>
+        <span class="parametername">level</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">minSelections</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">maxSelections</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">paramId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">paramName</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">paramHelp</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a></span>
+        <span class="parametername">parameter</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">includeDetails</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionItem</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildProtocolAdditionalOptions(%600%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L408" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolAdditionalOptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolAdditionalOptions(`0,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Boolean_" class="expander" data-toggle="collapse">BuildProtocolAdditionalOptions(TDevice, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the protocol additional options (protocol options 3).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected optionItem BuildProtocolAdditionalOptions(TDevice device, bool includeDetails)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">TDevice</span></span>
+        <span class="parametername">device</span>
+        <p><p>The device.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">includeDetails</span>
+        <p><p>true to include details</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionItem</span>
+        <p><p>g2s option item.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildProtocolAdditionalOptions(%600%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L420" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolAdditionalOptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolAdditionalOptions(`0,System.Collections.Generic.IEnumerable{Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" class="expander" data-toggle="collapse">BuildProtocolAdditionalOptions(TDevice, IEnumerable&lt;ParameterDescription&gt;, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolAdditionalOptions__0_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the protocol additional options (protocol options 3).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected optionItem BuildProtocolAdditionalOptions(TDevice device, IEnumerable&lt;ParameterDescription&gt; additionalParameters, bool includeDetails)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">TDevice</span></span>
+        <span class="parametername">device</span>
+        <p><p>The device.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a>&gt;</span>
+        <span class="parametername">additionalParameters</span>
+        <p><p>Additional parameters to include.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">includeDetails</span>
+        <p><p>true to include details</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionItem</span>
+        <p><p>g2s option item.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildProtocolOptions(%600%2CSystem.Boolean%2CSystem.String%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L334" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolOptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolOptions(`0,System.Boolean,System.String,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Boolean_" class="expander" data-toggle="collapse">BuildProtocolOptions(TDevice, Boolean, String, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the protocol options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected optionItem BuildProtocolOptions(TDevice device, bool restartStatus, string itemHelpText, bool includeDetails)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">TDevice</span></span>
+        <span class="parametername">device</span>
+        <p><p>The device.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">restartStatus</span>
+        <p><p>Restart status.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">itemHelpText</span>
+        <p><p>Device specific help text for protocol options item.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">includeDetails</span>
+        <p><p>true to include details</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionItem</span>
+        <p><p>g2s option item.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.BuildProtocolOptions(%600%2CSystem.Boolean%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L352" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolOptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.BuildProtocolOptions(`0,System.Boolean,System.String,System.Collections.Generic.IEnumerable{Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" class="expander" data-toggle="collapse">BuildProtocolOptions(TDevice, Boolean, String, IEnumerable&lt;ParameterDescription&gt;, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_BuildProtocolOptions__0_System_Boolean_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_ParameterDescription__System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Builds the protocol options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected optionItem BuildProtocolOptions(TDevice device, bool restartStatus, string itemHelpText, IEnumerable&lt;ParameterDescription&gt; additionalParameters, bool includeDetails)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">TDevice</span></span>
+        <span class="parametername">device</span>
+        <p><p>The device.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">restartStatus</span>
+        <p><p>Restart status.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">itemHelpText</span>
+        <p><p>Device specific help text for protocol options item.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a>&gt;</span>
+        <span class="parametername">additionalParameters</span>
+        <p><p>Additional parameters to include.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">includeDetails</span>
+        <p><p>true to include details</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">optionItem</span>
+        <p><p>g2s option item.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ConfigIdParameter_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.ConfigIdParameter(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L272" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ConfigIdParameter_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.ConfigIdParameter*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ConfigIdParameter_System_Int64_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.ConfigIdParameter(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ConfigIdParameter_System_Int64_" class="expander" data-toggle="collapse">ConfigIdParameter(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ConfigIdParameter_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Description of the configId parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ParameterDescription ConfigIdParameter(long id)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">id</span>
+        <p><p>The identifier.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a>
+        <p><p>Description of parameter structure.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Matches_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.Matches(Aristocrat.Monaco.G2S.Data.Model.DeviceClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Matches_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.Matches*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Matches_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.Matches(Aristocrat.Monaco.G2S.Data.Model.DeviceClass)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Matches_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_" class="expander" data-toggle="collapse">Matches(DeviceClass)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_Matches_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_" class="collapse in">
+  <div class="markdown level1 summary"><p>Matches the specified device class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Matches(DeviceClass deviceClass)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.DeviceClass.html">DeviceClass</a></span>
+        <span class="parametername">deviceClass</span>
+        <p><p>The device class.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True is matches.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.IDeviceOptionsBuilder.html#Aristocrat_Monaco_G2S_Handlers_OptionConfig_IDeviceOptionsBuilder_Matches_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_">IDeviceOptionsBuilder.Matches(DeviceClass)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_NoResponseParameter_System_TimeSpan_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.NoResponseParameter(System.TimeSpan%2CSystem.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L312" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_NoResponseParameter_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.NoResponseParameter*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_NoResponseParameter_System_TimeSpan_System_String_System_Int32_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.NoResponseParameter(System.TimeSpan,System.String,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_NoResponseParameter_System_TimeSpan_System_String_System_Int32_" class="expander" data-toggle="collapse">NoResponseParameter(TimeSpan, String, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_NoResponseParameter_System_TimeSpan_System_String_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Description of the noResponseTimer parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ParameterDescription NoResponseParameter(TimeSpan time, string helpText, int defaultValue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></span>
+        <span class="parametername">time</span>
+        <p><p>Time for no response param.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">helpText</span>
+        <p><p>Help text to return for param.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">defaultValue</span>
+        <p><p>Default value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a>
+        <p><p>Description of parameter structure.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ShouldIncludeParam_System_String_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.ShouldIncludeParam(System.String%2CAristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ShouldIncludeParam_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.ShouldIncludeParam*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ShouldIncludeParam_System_String_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.ShouldIncludeParam(System.String,Aristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ShouldIncludeParam_System_String_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" class="expander" data-toggle="collapse">ShouldIncludeParam(String, OptionListCommandBuilderParameters)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_ShouldIncludeParam_System_String_Aristocrat_Monaco_G2S_Data_OptionConfig_OptionListCommandBuilderParameters_" class="collapse in">
+  <div class="markdown level1 summary"><p>Defines whether we should include the parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ShouldIncludeParam(string parameterName, OptionListCommandBuilderParameters parameters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">parameterName</span>
+        <p><p>The parameter to consider.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.OptionConfig.OptionListCommandBuilderParameters.html">OptionListCommandBuilderParameters</a></span>
+        <span class="parametername">parameters</span>
+        <p><p>The filter parameters.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Result</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_UseDefaultConfigParameter_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601.UseDefaultConfigParameter(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L291" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_UseDefaultConfigParameter_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.UseDefaultConfigParameter*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_UseDefaultConfigParameter_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder`1.UseDefaultConfigParameter(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_UseDefaultConfigParameter_System_Boolean_" class="expander" data-toggle="collapse">UseDefaultConfigParameter(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1_UseDefaultConfigParameter_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Description of the useDefaultConfig parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ParameterDescription UseDefaultConfigParameter(bool useDefaultConfig)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">useDefaultConfig</span>
+        <p><p>The use default config value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.ParameterDescription.html">ParameterDescription</a>
+        <p><p>Description of parameter structure.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.OptionConfig.IDeviceOptionsBuilder.html">IDeviceOptionsBuilder</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_OptionConfig_Builders_BaseDeviceOptionBuilder_1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.OptionConfig.Builders.BaseDeviceOptionBuilder%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/OptionConfig/Builders/BaseDeviceOptionBuilder.cs/#L17" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

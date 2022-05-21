@@ -1,0 +1,1492 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ButtonService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ButtonService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService">
+  <h1 id="Aristocrat_Monaco_Hardware_Services_ButtonService" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService">Class ButtonService
+  </h1>
+  <div class="markdown level0 summary"><p>Provides access to button services. Implements IButton.
+ButtonService is responsible for mapping and handling of physical
+input events from one or more IO services and posting the associated logical button events to the system.
+This component provides an operator menu plug-in interface for managing buttons.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">ButtonService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Services.html">Aristocrat.Monaco.Hardware.Services</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Services_ButtonService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ButtonService : IDeviceService, IService, IButtonService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService__ctor_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService__ctor" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService__ctor" class="expander" data-toggle="collapse">ButtonService()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ButtonService()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService__ctor_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.%23ctor(Aristocrat.Monaco.Hardware.Contracts.IO.IIO%2CAristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService__ctor_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService__ctor_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.#ctor(Aristocrat.Monaco.Hardware.Contracts.IO.IIO,Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService__ctor_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">ButtonService(IIO, IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService__ctor_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ButtonService(IIO io, IEventBus bus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IO.IIO.html">IIO</a></span>
+        <span class="parametername">io</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">bus</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Enabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L149" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Enabled_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Enabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Enabled" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Enabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Enabled" class="expander" data-toggle="collapse">Enabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Enabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the service is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Enabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Enabled">IDeviceService.Enabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Initialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Initialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Initialized_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Initialized*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Initialized" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Initialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Initialized" class="expander" data-toggle="collapse">Initialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Initialized" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the service is initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Initialized { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Initialized">IDeviceService.Initialized</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_IsTestModeActive.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.IsTestModeActive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_IsTestModeActive_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.IsTestModeActive*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_IsTestModeActive" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.IsTestModeActive"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_IsTestModeActive" class="expander" data-toggle="collapse">IsTestModeActive</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_IsTestModeActive" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets if Test Mode is active.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsTestModeActive { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Is the Test Mode is active?</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_IsTestModeActive">IButtonService.IsTestModeActive</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_LastError.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.LastError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_LastError_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.LastError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_LastError" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.LastError"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_LastError" class="expander" data-toggle="collapse">LastError</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_LastError" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating the last error the service posted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LastError { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_LastError">IDeviceService.LastError</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalButtons.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.LogicalButtons%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalButtons_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.LogicalButtons*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalButtons" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.LogicalButtons"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalButtons" class="expander" data-toggle="collapse">LogicalButtons</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalButtons" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the dictionary of logical buttons.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;int, LogicalButton&gt; LogicalButtons { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.LogicalButton.html">LogicalButton</a>&gt;
+        <p><p>Dictionary of logical buttons.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_LogicalButtons">IButtonService.LogicalButtons</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.LogicalState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalState_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.LogicalState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalState" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.LogicalState"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalState" class="expander" data-toggle="collapse">LogicalState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_LogicalState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the logical button service state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ButtonLogicalState LogicalState { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.ButtonLogicalState.html">ButtonLogicalState</a>
+        <p><p>The logical button service state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_LogicalState">IButtonService.LogicalState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L276" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Name_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Name" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Name"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_ReasonDisabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.ReasonDisabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_ReasonDisabled_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ReasonDisabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_ReasonDisabled" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ReasonDisabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ReasonDisabled" class="expander" data-toggle="collapse">ReasonDisabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ReasonDisabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating the reason the service is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public DisabledReasons ReasonDisabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_ReasonDisabled">IDeviceService.ReasonDisabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceProtocol.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.ServiceProtocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L162" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceProtocol_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ServiceProtocol*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceProtocol" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ServiceProtocol"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceProtocol" class="expander" data-toggle="collapse">ServiceProtocol</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceProtocol" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the service protocol.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ServiceProtocol { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_ServiceProtocol">IDeviceService.ServiceProtocol</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L279" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceTypes_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceTypes" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Disable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L169" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Disable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Disable(DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Disables the service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void Disable(DisabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>Reason for disabling.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_">IDeviceService.Disable(DisabledReasons)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_System_Collections_Generic_IEnumerable_System_Int32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Disable(System.Collections.Generic.IEnumerable%7BSystem.Int32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_System_Collections_Generic_IEnumerable_System_Int32__" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Disable(System.Collections.Generic.IEnumerable{System.Int32})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_System_Collections_Generic_IEnumerable_System_Int32__" class="expander" data-toggle="collapse">Disable(IEnumerable&lt;Int32&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Disable_System_Collections_Generic_IEnumerable_System_Int32__" class="collapse in">
+  <div class="markdown level1 summary"><p>Disables the buttons in the button ID list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Disable(IEnumerable&lt;int&gt; buttonIdList)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</span>
+        <span class="parametername">buttonIdList</span>
+        <p><p>List of logical button IDs to disable.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_Disable_System_Collections_Generic_IEnumerable_System_Int32__">IButtonService.Disable(IEnumerable&lt;Int32&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L269" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Dispose"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L305" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Enable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L186" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Enable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" class="expander" data-toggle="collapse">Enable(EnabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Enables the service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public bool Enable(EnabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons.html">EnabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>Reason for enabling.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if enabling the service succeeded.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_">IDeviceService.Enable(EnabledReasons)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_System_Collections_Generic_IEnumerable_System_Int32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Enable(System.Collections.Generic.IEnumerable%7BSystem.Int32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_System_Collections_Generic_IEnumerable_System_Int32__" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Enable(System.Collections.Generic.IEnumerable{System.Int32})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_System_Collections_Generic_IEnumerable_System_Int32__" class="expander" data-toggle="collapse">Enable(IEnumerable&lt;Int32&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Enable_System_Collections_Generic_IEnumerable_System_Int32__" class="collapse in">
+  <div class="markdown level1 summary"><p>Enables the buttons in the button ID list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Enable(IEnumerable&lt;int&gt; buttonIdList)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</span>
+        <span class="parametername">buttonIdList</span>
+        <p><p>List of logical button IDs to enable.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_Enable_System_Collections_Generic_IEnumerable_System_Int32__">IButtonService.Enable(IEnumerable&lt;Int32&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_EnterButtonTestMode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.EnterButtonTestMode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L138" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_EnterButtonTestMode_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.EnterButtonTestMode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_EnterButtonTestMode" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.EnterButtonTestMode"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_EnterButtonTestMode" class="expander" data-toggle="collapse">EnterButtonTestMode()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_EnterButtonTestMode" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void EnterButtonTestMode()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_EnterButtonTestMode">IButtonService.EnterButtonTestMode()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_ExitButtonTestMode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.ExitButtonTestMode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L143" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_ExitButtonTestMode_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ExitButtonTestMode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_ExitButtonTestMode" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.ExitButtonTestMode"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ExitButtonTestMode" class="expander" data-toggle="collapse">ExitButtonTestMode()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_ExitButtonTestMode" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExitButtonTestMode()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_ExitButtonTestMode">IButtonService.ExitButtonTestMode()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonAction_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonAction(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonAction_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonAction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonAction_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonAction(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonAction_System_Int32_" class="expander" data-toggle="collapse">GetButtonAction(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonAction_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets button action enumeration value for the given logical button ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ButtonAction GetButtonAction(int buttonId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">buttonId</span>
+        <p><p>The logical button ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.ButtonAction.html">ButtonAction</a>
+        <p><p>An enumerated button action.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_GetButtonAction_System_Int32_">IButtonService.GetButtonAction(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonLampBit_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonLampBit(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L133" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonLampBit_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonLampBit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonLampBit_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonLampBit(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonLampBit_System_Int32_" class="expander" data-toggle="collapse">GetButtonLampBit(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonLampBit_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the lamp bit for the given logical button ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetButtonLampBit(int buttonId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">buttonId</span>
+        <p><p>The logical button ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The lamp bit.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_GetButtonLampBit_System_Int32_">IButtonService.GetButtonLampBit(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonName_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonName(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonName_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonName_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonName(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonName_System_Int32_" class="expander" data-toggle="collapse">GetButtonName(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonName_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the button name for the given logical button ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetButtonName(int buttonId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">buttonId</span>
+        <p><p>The logical button ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The button name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_GetButtonName_System_Int32_">IButtonService.GetButtonName(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonPhysicalId_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonPhysicalId(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L115" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonPhysicalId_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonPhysicalId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonPhysicalId_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonPhysicalId(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonPhysicalId_System_Int32_" class="expander" data-toggle="collapse">GetButtonPhysicalId(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonPhysicalId_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the physical button ID for the given logical button ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetButtonPhysicalId(int buttonId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">buttonId</span>
+        <p><p>The logical button ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The physical button ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_GetButtonPhysicalId_System_Int32_">IButtonService.GetButtonPhysicalId(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonState_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonState(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L121" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonState_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonState_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetButtonState(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonState_System_Int32_" class="expander" data-toggle="collapse">GetButtonState(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetButtonState_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the button state enumeration value for the given logical button ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ButtonState GetButtonState(int buttonId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">buttonId</span>
+        <p><p>The logical button ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.ButtonState.html">ButtonState</a>
+        <p><p>An enumerated button state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_GetButtonState_System_Int32_">IButtonService.GetButtonState(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_GetLocalizedButtonName_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.GetLocalizedButtonName(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L127" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetLocalizedButtonName_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetLocalizedButtonName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_GetLocalizedButtonName_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.GetLocalizedButtonName(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetLocalizedButtonName_System_Int32_" class="expander" data-toggle="collapse">GetLocalizedButtonName(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_GetLocalizedButtonName_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the localized button name for the given logical button ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetLocalizedButtonName(int buttonId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">buttonId</span>
+        <p><p>The logical button ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The localized button name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Button.IButtonService.html#Aristocrat_Monaco_Hardware_Contracts_Button_IButtonService_GetLocalizedButtonName_System_Int32_">IButtonService.GetLocalizedButtonName(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L281" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_ButtonService_Initialize_" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_ButtonService_Initialize" data-uid="Aristocrat.Monaco.Hardware.Services.ButtonService.Initialize"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_ButtonService_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_ButtonService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.ButtonService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/ButtonService.cs/#L22" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

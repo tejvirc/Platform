@@ -1,0 +1,2249 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class DownloadDevice
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class DownloadDevice
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice">
+  <h1 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice">Class DownloadDevice
+  </h1>
+  <div class="markdown level0 summary"><p>The download class is used to control software download, upload, installation, and un-installation related to an
+EGM.The class includes commands for managing the software content of an EGM, which includes reading
+the current software content on an EGM, assigning new software content to the EGM, removing unwanted
+content from an EGM, and specifying when the new content is to be installed or uninstalled.The download
+class provides a standardized command set that fulfills the following software download activities:
+• The G2S download protocol will provide:
+• A standardized protocol to manage the software content on all G2S-compliant EGMs from
+all G2S-compliant host systems.This includes both download and upload transfer types.
+• A means for installation of software.
+• A means for removal of software (uninstall).
+• A means for creating software packages on the EGM for upload purposes.
+• A means to schedule the installation and/or un-installation of software, providing various
+scheduling options that relate to a specific time, EGM state, or interaction with the host or
+technician.
+• The G2S message protocol will:
+• Support reading an inventory of software packages and installed modules. This provides the
+capability to effectively manage the content on the EGM.
+• Provide a means to record transaction logs for packages and scripts.This provides an audit
+capability to determine how content came to be on an EGM.
+This strategy provides a central point of control, where a consistent and common interface is used to affect
+software download and upload, with a goal of inter-operation among all G2S hosts and all EGM equipment.
+Additional features provide sequencing of scheduled activities with one or more hosts, providing each host the
+opportunity to read the EGM’s status, logs, and meters.
+The download class is a single-device class. The EGM MUST expose only one active download device.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html">ClientDeviceBase</a></div>
+    <div class="level2"><a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase-1.html">ClientDeviceBase</a>&lt;<span class="xref">download</span>&gt;</div>
+    <div class="level3"><span class="xref">DownloadDevice</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase-1.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_1_DeviceClass">ClientDeviceBase&lt;download&gt;.DeviceClass</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase-1.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_1_CreateClass_System_Int32_">ClientDeviceBase&lt;download&gt;.CreateClass(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_UseDefaultConfig">ClientDeviceBase.UseDefaultConfig</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_DevicePrefix">ClientDeviceBase.DevicePrefix</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_ConfigDateTime">ClientDeviceBase.ConfigDateTime</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_ConfigComplete">ClientDeviceBase.ConfigComplete</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_ListStateDateTime">ClientDeviceBase.ListStateDateTime</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Existing">ClientDeviceBase.Existing</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Id">ClientDeviceBase.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_ConfigurationId">ClientDeviceBase.ConfigurationId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Locked">ClientDeviceBase.Locked</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_HostLocked">ClientDeviceBase.HostLocked</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Owner">ClientDeviceBase.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Configurator">ClientDeviceBase.Configurator</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Guests">ClientDeviceBase.Guests</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Enabled">ClientDeviceBase.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_HostEnabled">ClientDeviceBase.HostEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_RequiredForPlay">ClientDeviceBase.RequiredForPlay</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_DisableText">ClientDeviceBase.DisableText</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Active">ClientDeviceBase.Active</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Queue">ClientDeviceBase.Queue</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_UnregisterEvents">ClientDeviceBase.UnregisterEvents()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Dispose">ClientDeviceBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_HasOwner_System_Int32_System_Boolean_">ClientDeviceBase.HasOwner(Int32, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_HasConfigurator_System_Int32_">ClientDeviceBase.HasConfigurator(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_AddGuest_System_Int32_">ClientDeviceBase.AddGuest(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_RemoveGuest_System_Int32_">ClientDeviceBase.RemoveGuest(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Dispose_System_Boolean_">ClientDeviceBase.Dispose(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_">ClientDeviceBase.SendNotification(IClass)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_System_TimeSpan_">ClientDeviceBase.SendNotification(IClass, TimeSpan)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_">ClientDeviceBase.SendRequest(IClass)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_TimeSpan_">ClientDeviceBase.SendRequest(IClass, TimeSpan)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Boolean_">ClientDeviceBase.SendRequest(IClass, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Int32_System_Boolean_">ClientDeviceBase.SendRequest(IClass, Int32, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_">ClientDeviceBase.SendRequest(IClass, SessionCallback)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_">ClientDeviceBase.SendRequest(IClass, SessionCallback, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_">ClientDeviceBase.SendRequest(IClass, SessionCallback, Int32, TimeSpan)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_ClassCommand_">ClientDeviceBase.SendResponse(ClassCommand)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_NotifyStateChanged_System_String_">ClientDeviceBase.NotifyStateChanged(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_SetDeviceValue_System_String_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_System_Action_System_String__">ClientDeviceBase.SetDeviceValue(String, DeviceOptionConfigValues, Action&lt;String&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.G2S.Client.Devices.v21.html">Aristocrat.G2S.Client.Devices.v21</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.G2S.Client.dll</h6>
+  
+  <h5 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class DownloadDevice : ClientDeviceBase&lt;download&gt;, IDisposable, IDownloadDevice, IDevice, IRequiredForPlay, IDeviceControl, INoResponseTimer, ISingleDevice, IRestartStatus</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.%23ctor(Aristocrat.G2S.Client.Devices.IDeviceObserver%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice__ctor_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.#ctor*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_System_Boolean_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.#ctor(Aristocrat.G2S.Client.Devices.IDeviceObserver,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_System_Boolean_" class="expander" data-toggle="collapse">DownloadDevice(IDeviceObserver, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.html">DownloadDevice</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DownloadDevice(IDeviceObserver deviceStateObserver, bool downloadEnabled)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceObserver.html">IDeviceObserver</a></span>
+        <span class="parametername">deviceStateObserver</span>
+        <p><p>An IDeviceStateObserver instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">downloadEnabled</span>
+        <p><p>Indicates whether downloads are enabled or not</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAbortTransferSupported.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultAbortTransferSupported%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L110" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAbortTransferSupported" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultAbortTransferSupported"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAbortTransferSupported" class="expander" data-toggle="collapse">DefaultAbortTransferSupported</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAbortTransferSupported" class="collapse in">
+  <div class="markdown level1 summary"><p>The abort transfer default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const bool DefaultAbortTransferSupported = false</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitRetries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultAuthorizationWaitRetries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitRetries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultAuthorizationWaitRetries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitRetries" class="expander" data-toggle="collapse">DefaultAuthorizationWaitRetries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitRetries" class="collapse in">
+  <div class="markdown level1 summary"><p>The minimum authorization wait retries default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultAuthorizationWaitRetries = 2</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitTimeOut.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultAuthorizationWaitTimeOut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitTimeOut" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultAuthorizationWaitTimeOut"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitTimeOut" class="expander" data-toggle="collapse">DefaultAuthorizationWaitTimeOut</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultAuthorizationWaitTimeOut" class="collapse in">
+  <div class="markdown level1 summary"><p>The minimum authorization wait timeout default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultAuthorizationWaitTimeOut = 60000</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageListEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinPackageListEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageListEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinPackageListEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageListEntries" class="expander" data-toggle="collapse">DefaultMinPackageListEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageListEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>The minimum package list entries default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultMinPackageListEntries = 10</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageLogEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinPackageLogEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageLogEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinPackageLogEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageLogEntries" class="expander" data-toggle="collapse">DefaultMinPackageLogEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinPackageLogEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>The minimum package log entries default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultMinPackageLogEntries = 35</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptListEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinScriptListEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptListEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinScriptListEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptListEntries" class="expander" data-toggle="collapse">DefaultMinScriptListEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptListEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>The minimum script list entries default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultMinScriptListEntries = 10</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptLogEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinScriptLogEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptLogEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultMinScriptLogEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptLogEntries" class="expander" data-toggle="collapse">DefaultMinScriptLogEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultMinScriptLogEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>The minimum script log entries default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultMinScriptLogEntries = 35</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoMessageTimer.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultNoMessageTimer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L95" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoMessageTimer" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultNoMessageTimer"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoMessageTimer" class="expander" data-toggle="collapse">DefaultNoMessageTimer</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoMessageTimer" class="collapse in">
+  <div class="markdown level1 summary"><p>The no message timer default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultNoMessageTimer = 0</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoResponseTimer.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultNoResponseTimer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoResponseTimer" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultNoResponseTimer"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoResponseTimer" class="expander" data-toggle="collapse">DefaultNoResponseTimer</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultNoResponseTimer" class="collapse in">
+  <div class="markdown level1 summary"><p>The no response timer default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultNoResponseTimer = 0</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultPauseSupported.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultPauseSupported%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultPauseSupported" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultPauseSupported"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultPauseSupported" class="expander" data-toggle="collapse">DefaultPauseSupported</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultPauseSupported" class="collapse in">
+  <div class="markdown level1 summary"><p>The pause supported default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const bool DefaultPauseSupported = false</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultProtocolListSupport.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultProtocolListSupport%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L85" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultProtocolListSupport" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultProtocolListSupport"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultProtocolListSupport" class="expander" data-toggle="collapse">DefaultProtocolListSupport</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultProtocolListSupport" class="collapse in">
+  <div class="markdown level1 summary"><p>The transport protocol list support default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const bool DefaultProtocolListSupport = false</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultRestartStatus.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultRestartStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultRestartStatus" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultRestartStatus"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultRestartStatus" class="expander" data-toggle="collapse">DefaultRestartStatus</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultRestartStatus" class="collapse in">
+  <div class="markdown level1 summary"><p>The restart status default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const bool DefaultRestartStatus = true</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultScriptingEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultScriptingEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultScriptingEnabled" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultScriptingEnabled"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultScriptingEnabled" class="expander" data-toggle="collapse">DefaultScriptingEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultScriptingEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>The scripting enabled default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const bool DefaultScriptingEnabled = true</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultTransferProgressFrequency.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultTransferProgressFrequency%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultTransferProgressFrequency" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultTransferProgressFrequency"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultTransferProgressFrequency" class="expander" data-toggle="collapse">DefaultTransferProgressFrequency</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultTransferProgressFrequency" class="collapse in">
+  <div class="markdown level1 summary"><p>The transfer progress frequency default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultTransferProgressFrequency = 0</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultUploadEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultUploadEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultUploadEnabled" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DefaultUploadEnabled"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultUploadEnabled" class="expander" data-toggle="collapse">DefaultUploadEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DefaultUploadEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>The upload enabled default value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const bool DefaultUploadEnabled = true</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AbortTransferSupported.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AbortTransferSupported%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L129" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AbortTransferSupported_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AbortTransferSupported*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AbortTransferSupported" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AbortTransferSupported"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AbortTransferSupported" class="expander" data-toggle="collapse">AbortTransferSupported</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AbortTransferSupported" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether abort transfer supported flag</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AbortTransferSupported { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_AbortTransferSupported">IDownloadDevice.AbortTransferSupported</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitRetries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AuthenticationWaitRetries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L132" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitRetries_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AuthenticationWaitRetries*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitRetries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AuthenticationWaitRetries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitRetries" class="expander" data-toggle="collapse">AuthenticationWaitRetries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitRetries" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for authentication retries</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AuthenticationWaitRetries { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_AuthenticationWaitRetries">IDownloadDevice.AuthenticationWaitRetries</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitTimeOut.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AuthenticationWaitTimeOut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitTimeOut_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AuthenticationWaitTimeOut*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitTimeOut" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.AuthenticationWaitTimeOut"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitTimeOut" class="expander" data-toggle="collapse">AuthenticationWaitTimeOut</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_AuthenticationWaitTimeOut" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for the authentication timeout, milliseconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AuthenticationWaitTimeOut { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_AuthenticationWaitTimeOut">IDownloadDevice.AuthenticationWaitTimeOut</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DownloadEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DownloadEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L138" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DownloadEnabled_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DownloadEnabled*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DownloadEnabled" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.DownloadEnabled"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DownloadEnabled" class="expander" data-toggle="collapse">DownloadEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_DownloadEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether downloading is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DownloadEnabled { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_DownloadEnabled">IDownloadDevice.DownloadEnabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageListEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinPackageListEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L144" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageListEntries_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinPackageListEntries*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageListEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinPackageListEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageListEntries" class="expander" data-toggle="collapse">MinPackageListEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageListEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for minimum Package list entries.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MinPackageListEntries { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_MinPackageListEntries">IDownloadDevice.MinPackageListEntries</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageLogEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinPackageLogEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L147" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageLogEntries_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinPackageLogEntries*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageLogEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinPackageLogEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageLogEntries" class="expander" data-toggle="collapse">MinPackageLogEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinPackageLogEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for minimum Package log entries.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MinPackageLogEntries { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_MinPackageLogEntries">IDownloadDevice.MinPackageLogEntries</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptListEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinScriptListEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L150" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptListEntries_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinScriptListEntries*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptListEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinScriptListEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptListEntries" class="expander" data-toggle="collapse">MinScriptListEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptListEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for minimum script list entries.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MinScriptListEntries { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_MinScriptListEntries">IDownloadDevice.MinScriptListEntries</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptLogEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinScriptLogEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L153" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptLogEntries_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinScriptLogEntries*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptLogEntries" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.MinScriptLogEntries"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptLogEntries" class="expander" data-toggle="collapse">MinScriptLogEntries</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_MinScriptLogEntries" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for minimum script log entries.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MinScriptLogEntries { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_MinScriptLogEntries">IDownloadDevice.MinScriptLogEntries</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoMessageTimer.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.NoMessageTimer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L156" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoMessageTimer_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.NoMessageTimer*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoMessageTimer" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.NoMessageTimer"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoMessageTimer" class="expander" data-toggle="collapse">NoMessageTimer</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoMessageTimer" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for no message timer, milliseconds</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int NoMessageTimer { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_NoMessageTimer">IDownloadDevice.NoMessageTimer</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoResponseTimer.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.NoResponseTimer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L174" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoResponseTimer_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.NoResponseTimer*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoResponseTimer" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.NoResponseTimer"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoResponseTimer" class="expander" data-toggle="collapse">NoResponseTimer</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_NoResponseTimer" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets specifies the interval used in the no-response timer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan NoResponseTimer { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.INoResponseTimer.html#Aristocrat_G2S_Client_Devices_INoResponseTimer_NoResponseTimer">INoResponseTimer.NoResponseTimer</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_PauseSupported.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.PauseSupported%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L159" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_PauseSupported_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.PauseSupported*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_PauseSupported" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.PauseSupported"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_PauseSupported" class="expander" data-toggle="collapse">PauseSupported</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_PauseSupported" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether PauseSupported</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PauseSupported { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_PauseSupported">IDownloadDevice.PauseSupported</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ProtocolListSupport.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ProtocolListSupport%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L162" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ProtocolListSupport_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ProtocolListSupport*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ProtocolListSupport" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ProtocolListSupport"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ProtocolListSupport" class="expander" data-toggle="collapse">ProtocolListSupport</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ProtocolListSupport" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether ProtocolListSupport</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ProtocolListSupport { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_ProtocolListSupport">IDownloadDevice.ProtocolListSupport</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RestartStatus.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.RestartStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L165" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RestartStatus_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.RestartStatus*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RestartStatus" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.RestartStatus"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RestartStatus" class="expander" data-toggle="collapse">RestartStatus</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RestartStatus" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the HostEnabled attribute is reset or restored.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RestartStatus { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IRestartStatus.html#Aristocrat_G2S_Client_Devices_IRestartStatus_RestartStatus">IRestartStatus.RestartStatus</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ScriptingEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ScriptingEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L168" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ScriptingEnabled_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ScriptingEnabled*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ScriptingEnabled" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ScriptingEnabled"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ScriptingEnabled" class="expander" data-toggle="collapse">ScriptingEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ScriptingEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether ScriptingEnabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ScriptingEnabled { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_ScriptingEnabled">IDownloadDevice.ScriptingEnabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TimeToLive.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.TimeToLive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L177" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TimeToLive_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.TimeToLive*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TimeToLive" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.TimeToLive"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TimeToLive" class="expander" data-toggle="collapse">TimeToLive</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TimeToLive" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the time-to-live value for requests originated by the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int TimeToLive { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_TimeToLive">IDownloadDevice.TimeToLive</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TransferProgressFrequency.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.TransferProgressFrequency%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L171" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TransferProgressFrequency_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.TransferProgressFrequency*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TransferProgressFrequency" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.TransferProgressFrequency"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TransferProgressFrequency" class="expander" data-toggle="collapse">TransferProgressFrequency</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_TransferProgressFrequency" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value for TransferProgressFrequency</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int TransferProgressFrequency { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_TransferProgressFrequency">IDownloadDevice.TransferProgressFrequency</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_UploadEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.UploadEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L141" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_UploadEnabled_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.UploadEnabled*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_UploadEnabled" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.UploadEnabled"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_UploadEnabled" class="expander" data-toggle="collapse">UploadEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_UploadEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether uploading is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UploadEnabled { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_UploadEnabled">IDownloadDevice.UploadEnabled</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ApplyOptions(Aristocrat.G2S.Client.Devices.DeviceOptionConfigValues)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L193" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ApplyOptions_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ApplyOptions*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ApplyOptions(Aristocrat.G2S.Client.Devices.DeviceOptionConfigValues)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_" class="expander" data-toggle="collapse">ApplyOptions(DeviceOptionConfigValues)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void ApplyOptions(DeviceOptionConfigValues optionConfigValues)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceOptionConfigValues.html">DeviceOptionConfigValues</a></span>
+        <span class="parametername">optionConfigValues</span>
+        <p><p>The option configuration values.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_">ClientDeviceBase.ApplyOptions(DeviceOptionConfigValues)</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html#Aristocrat_G2S_Client_Devices_IDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_">IDevice.ApplyOptions(DeviceOptionConfigValues)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Close.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L185" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Close_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.Close*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Close" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.Close"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Close" class="expander" data-toggle="collapse">Close()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Close" class="collapse in">
+  <div class="markdown level1 summary"><p>When overriden in a derived class, signifies that communication is about to be closed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Close()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Close">ClientDeviceBase.Close()</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_Close">IDeviceControl.Close()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ConfigureDefaults.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ConfigureDefaults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L417" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ConfigureDefaults_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ConfigureDefaults*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ConfigureDefaults" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.ConfigureDefaults"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ConfigureDefaults" class="expander" data-toggle="collapse">ConfigureDefaults()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_ConfigureDefaults" class="collapse in">
+  <div class="markdown level1 summary"><p>Allows the device to configure it&apos;s default values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void ConfigureDefaults()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_ConfigureDefaults">ClientDeviceBase.ConfigureDefaults()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Open_Aristocrat_G2S_Client_IStartupContext_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.Open(Aristocrat.G2S.Client.IStartupContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L180" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Open_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.Open*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Open_Aristocrat_G2S_Client_IStartupContext_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.Open(Aristocrat.G2S.Client.IStartupContext)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Open_Aristocrat_G2S_Client_IStartupContext_" class="expander" data-toggle="collapse">Open(IStartupContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_Open_Aristocrat_G2S_Client_IStartupContext_" class="collapse in">
+  <div class="markdown level1 summary"><p>When overriden in a derived class, signifies that communication has just opened.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Open(IStartupContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IStartupContext.html">IStartupContext</a></span>
+        <span class="parametername">context</span>
+        <p><p>Startup data provided to the device.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_Open_Aristocrat_G2S_Client_IStartupContext_">ClientDeviceBase.Open(IStartupContext)</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_Open_Aristocrat_G2S_Client_IStartupContext_">IDeviceControl.Open(IStartupContext)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RegisterEvents.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.RegisterEvents%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L294" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RegisterEvents_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.RegisterEvents*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RegisterEvents" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.RegisterEvents"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RegisterEvents" class="expander" data-toggle="collapse">RegisterEvents()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_RegisterEvents" class="collapse in">
+  <div class="markdown level1 summary"><p>Registers events for the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RegisterEvents()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ClientDeviceBase.html#Aristocrat_G2S_Client_Devices_ClientDeviceBase_RegisterEvents">ClientDeviceBase.RegisterEvents()</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_RegisterEvents">IDeviceControl.RegisterEvents()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_Action_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.SendStatus(c_baseCommand%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L349" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.SendStatus*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_Action_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.SendStatus(c_baseCommand,System.Action)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_Action_" class="expander" data-toggle="collapse">SendStatus(c_baseCommand, Action)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_Action_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends status command to the target host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task SendStatus(c_baseCommand command, Action hostAcknowledgedCallBack = null)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">c_baseCommand</span></span>
+        <span class="parametername">command</span>
+        <p><p>Status command</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action">Action</a></span>
+        <span class="parametername">hostAcknowledgedCallBack</span>
+        <p><p>Callback to signal host acknowledged status.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p><p>Task</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_SendStatus_c_baseCommand_System_Action_">IDownloadDevice.SendStatus(c_baseCommand, Action)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_DateTime_System_Action_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice.SendStatus(c_baseCommand%2CSystem.DateTime%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L355" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.SendStatus*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_DateTime_System_Action_" data-uid="Aristocrat.G2S.Client.Devices.v21.DownloadDevice.SendStatus(c_baseCommand,System.DateTime,System.Action)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_DateTime_System_Action_" class="expander" data-toggle="collapse">SendStatus(c_baseCommand, DateTime, Action)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_DownloadDevice_SendStatus_c_baseCommand_System_DateTime_System_Action_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends status command to the target host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task SendStatus(c_baseCommand command, DateTime endTime, Action hostAcknowledgedCallBack = null)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">c_baseCommand</span></span>
+        <span class="parametername">command</span>
+        <p><p>Status command</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a></span>
+        <span class="parametername">endTime</span>
+        <p><p>Send status end time.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action">Action</a></span>
+        <span class="parametername">hostAcknowledgedCallBack</span>
+        <p><p>Callback to signal host acknowledged status.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p><p>Task</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDownloadDevice.html#Aristocrat_G2S_Client_Devices_IDownloadDevice_SendStatus_c_baseCommand_System_DateTime_System_Action_">IDownloadDevice.SendStatus(c_baseCommand, DateTime, Action)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_PrefixedDeviceClass_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.PrefixedDeviceClass(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsOwner_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsOwner(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsGuest_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsGuest(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsConfigurator_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsConfigurator(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsOwnerOrGuest_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsOwnerOrGuest(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsMember_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsMember(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsMatching_Aristocrat_G2S_Client_Devices_IDevice_System_String_">DeviceExtensions.IsMatching(IDevice, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsMatching_Aristocrat_G2S_Client_Devices_IDevice_System_Int32_">DeviceExtensions.IsMatching(IDevice, Int32)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsHostOriented_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.IsHostOriented(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsSingle_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.IsSingle(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_IsEnabled_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.IsEnabled(IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Equals_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_Devices_IDevice_">DeviceExtensions.Equals(IDevice, IDevice)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Owner_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_Aristocrat_G2S_Client_IHostConnector_">DeviceExtensions.Owner(IDevice, IHost, IHostConnector)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_SetQueue_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHostConnector_">DeviceExtensions.SetQueue(IDevice, IHostConnector)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Configurator_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_">DeviceExtensions.Configurator(IDevice, IHost)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Invited_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_">DeviceExtensions.Invited(IDevice, IHost)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_Uninvited_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_IHost_">DeviceExtensions.Uninvited(IDevice, IHost)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_SetStatus_Aristocrat_G2S_Client_Devices_IDevice_System_Boolean_">DeviceExtensions.SetStatus(IDevice, Boolean)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.DeviceExtensions.html#Aristocrat_G2S_Client_Devices_DeviceExtensions_LocaleId_Aristocrat_G2S_Client_Devices_IDevice_System_Globalization_CultureInfo_">DeviceExtensions.LocaleId(IDevice, CultureInfo)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.v21.ProtocolExtensions.html#Aristocrat_G2S_Client_Devices_v21_ProtocolExtensions_DeviceList_Aristocrat_G2S_Client_Devices_IDevice_System_Object_">ProtocolExtensions.DeviceList(IDevice, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Devices.v21.ProtocolExtensions.html#Aristocrat_G2S_Client_Devices_v21_ProtocolExtensions_TransactionList_Aristocrat_G2S_Client_Devices_IDevice_System_Object___">ProtocolExtensions.TransactionList(IDevice, Object[])</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_DownloadDevice.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.DownloadDevice%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/DownloadDevice.cs/#L35" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2447 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class PrinterGds
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class PrinterGds
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds">
+  <h1 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds">Class PrinterGds
+  </h1>
+  <div class="markdown level0 summary"><p>A printer gds.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html">DfuDeviceBase</a></div>
+    <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html">GdsDeviceBase</a></div>
+    <div class="level3"><span class="xref">PrinterGds</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DefaultResponseTimeout">GdsDeviceBase.DefaultResponseTimeout</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ExtendedResponseTimeout">GdsDeviceBase.ExtendedResponseTimeout</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_MaxRetry">GdsDeviceBase.MaxRetry</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase__communicator">GdsDeviceBase._communicator</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Communicator">GdsDeviceBase.Communicator</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_IsConnected">GdsDeviceBase.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_IsInitialized">GdsDeviceBase.IsInitialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_IsEnabled">GdsDeviceBase.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_GatReport">GdsDeviceBase.GatReport</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Crc">GdsDeviceBase.Crc</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Protocol">GdsDeviceBase.Protocol</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ExternalPower">GdsDeviceBase.ExternalPower</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RequiresReset">GdsDeviceBase.RequiresReset</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Manufacturer">GdsDeviceBase.Manufacturer</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Model">GdsDeviceBase.Model</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SerialNumber">GdsDeviceBase.SerialNumber</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RetryInterval">GdsDeviceBase.RetryInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Initialized">GdsDeviceBase.Initialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_InitializationFailed">GdsDeviceBase.InitializationFailed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Enabled">GdsDeviceBase.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Disabled">GdsDeviceBase.Disabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Connected">GdsDeviceBase.Connected</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Disconnected">GdsDeviceBase.Disconnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ResetSucceeded">GdsDeviceBase.ResetSucceeded</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ResetFailed">GdsDeviceBase.ResetFailed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Close">GdsDeviceBase.Close()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Open">GdsDeviceBase.Open()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_">GdsDeviceBase.Initialize(IGdsCommunicator)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Ack_System_Byte_System_Boolean_">GdsDeviceBase.Ack(Byte, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Enable">GdsDeviceBase.Enable()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Disable">GdsDeviceBase.Disable()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RequestGatReport_System_Int32_">GdsDeviceBase.RequestGatReport(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_CalculateCrc_System_Int32_">GdsDeviceBase.CalculateCrc(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SendCommand_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_System_Threading_CancellationToken_">GdsDeviceBase.SendCommand(GdsSerializableMessage, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SendCommand__1_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_System_Threading_CancellationToken_">GdsDeviceBase.SendCommand&lt;T&gt;(GdsSerializableMessage, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RegisterCallback__1_System_Action___0__">GdsDeviceBase.RegisterCallback&lt;T&gt;(Action&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_WaitForDataReport__1_System_Int32_">GdsDeviceBase.WaitForDataReport&lt;T&gt;(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_WaitForReport__1_System_Int32_">GdsDeviceBase.WaitForReport&lt;T&gt;(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_WaitForReport__1_System_Threading_CancellationToken_">GdsDeviceBase.WaitForReport&lt;T&gt;(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_PublishReport__1___0_System_Int32_">GdsDeviceBase.PublishReport&lt;T&gt;(T, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceAttached_System_Object_System_EventArgs_">GdsDeviceBase.DeviceAttached(Object, EventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_TryOpen_System_Int32_">GdsDeviceBase.TryOpen(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceDetached_System_Object_System_EventArgs_">GdsDeviceBase.DeviceDetached(Object, EventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnDisabled">GdsDeviceBase.OnDisabled()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnEnabled">GdsDeviceBase.OnEnabled()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnFailedReset">GdsDeviceBase.OnFailedReset()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnSuccessReset">GdsDeviceBase.OnSuccessReset()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnConnected">GdsDeviceBase.OnConnected()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnDisconnected">GdsDeviceBase.OnDisconnected()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnInitializationFailed">GdsDeviceBase.OnInitializationFailed()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnInitialized">GdsDeviceBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_PowerStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_PowerStatus_">GdsDeviceBase.PowerStatusReported(PowerStatus)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_GatDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_GatData_">GdsDeviceBase.GatDataReported(GatData)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_CrcDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CrcData_">GdsDeviceBase.CrcDataReported(CrcData)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceStateReported_Aristocrat_Monaco_Hardware_Contracts_Gds_DeviceState_">GdsDeviceBase.DeviceStateReported(DeviceState)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceType">GdsDeviceBase.DeviceType</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ClearStaleReports__1">GdsDeviceBase.ClearStaleReports&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_InDfuMode">DfuDeviceBase.InDfuMode</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_VendorId">DfuDeviceBase.VendorId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_ProductId">DfuDeviceBase.ProductId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_IsDfuCapable">DfuDeviceBase.IsDfuCapable</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_IsDfuInProgress">DfuDeviceBase.IsDfuInProgress</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_DownloadProgressed">DfuDeviceBase.DownloadProgressed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Detach">DfuDeviceBase.Detach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Reconnect">DfuDeviceBase.Reconnect()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Download_System_IO_Stream_">DfuDeviceBase.Download(Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Upload_System_IO_Stream_">DfuDeviceBase.Upload(Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Abort">DfuDeviceBase.Abort()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Dispose">DfuDeviceBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_OnDownloadProgressed_Aristocrat_Monaco_Hardware_Contracts_Communicator_ProgressEventArgs_">DfuDeviceBase.OnDownloadProgressed(ProgressEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.Printer.html">Aristocrat.Monaco.Hardware.Gds.Printer</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Gds.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PrinterGds : GdsDeviceBase, IPrinterImplementation, IGdsDevice, IDfuDevice, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds__ctor_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds__ctor" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds__ctor" class="expander" data-toggle="collapse">PrinterGds()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the Aristocrat.Monaco.Hardware.Printer.PrinterGds class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrinterGds()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_CanRetract.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.CanRetract%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_CanRetract_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.CanRetract*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_CanRetract" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.CanRetract"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_CanRetract" class="expander" data-toggle="collapse">CanRetract</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_CanRetract" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether a ticket can be retracted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanRetract { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if a ticket can be retracted, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_CanRetract">IPrinterImplementation.CanRetract</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Faults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Faults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Faults_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Faults*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Faults" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Faults"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Faults" class="expander" data-toggle="collapse">Faults</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Faults" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the faults.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrinterFaultTypes Faults { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterFaultTypes.html">PrinterFaultTypes</a>
+        <p><p>The faults.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_Faults">IPrinterImplementation.Faults</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_IsPrinting.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.IsPrinting%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_IsPrinting_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.IsPrinting*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_IsPrinting" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.IsPrinting"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_IsPrinting" class="expander" data-toggle="collapse">IsPrinting</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_IsPrinting" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this Aristocrat.Monaco.Hardware.Printer.PrinterGds is print in progress.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsPrinting { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if this Aristocrat.Monaco.Hardware.Printer.PrinterGds is print in progress, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterMetrics.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrinterMetrics%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterMetrics_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrinterMetrics*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterMetrics" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrinterMetrics"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterMetrics" class="expander" data-toggle="collapse">PrinterMetrics</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterMetrics" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the printer metrics.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PrinterMetrics { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The printer metrics.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Warnings.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Warnings%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Warnings_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Warnings*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Warnings" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Warnings"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Warnings" class="expander" data-toggle="collapse">Warnings</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Warnings" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the warnings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrinterWarningTypes Warnings { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterWarningTypes.html">PrinterWarningTypes</a>
+        <p><p>The warnings.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_Warnings">IPrinterImplementation.Warnings</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineRegion_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.DefineRegion(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L198" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineRegion_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.DefineRegion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineRegion_System_String_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.DefineRegion(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineRegion_System_String_" class="expander" data-toggle="collapse">DefineRegion(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineRegion_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Define a print region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; DefineRegion(string region)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">region</span>
+        <p><p>The print region.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_DefineRegion_System_String_">IPrinterImplementation.DefineRegion(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineTemplate_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.DefineTemplate(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L216" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineTemplate_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.DefineTemplate*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineTemplate_System_String_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.DefineTemplate(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineTemplate_System_String_" class="expander" data-toggle="collapse">DefineTemplate(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_DefineTemplate_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Define a print template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; DefineTemplate(string template)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">template</span>
+        <p><p>The print template.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_DefineTemplate_System_String_">IPrinterImplementation.DefineTemplate(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L358" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the Aristocrat.Monaco.Hardware.DfuDeviceBase and optionally
+releases the managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Dispose_System_Boolean_">GdsDeviceBase.Dispose(Boolean)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_FailureStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FailureReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.FailureStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L568" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FailureReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FailureReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_FailureStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FailureReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.FailureStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_FailureStatus_" class="expander" data-toggle="collapse">FailureReported(FailureStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_FailureStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a failure status report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void FailureReported(FailureStatus report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.FailureStatus.html">FailureStatus</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FormFeed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FormFeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L270" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FormFeed_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FormFeed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FormFeed" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FormFeed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FormFeed" class="expander" data-toggle="collapse">FormFeed()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FormFeed" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a form feed command to the printer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; FormFeed()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_FormFeed">IPrinterImplementation.FormFeed()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_MetricsReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_Metrics_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.MetricsReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.Metrics)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L654" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_MetricsReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.MetricsReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_MetricsReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_Metrics_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.MetricsReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.Metrics)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_MetricsReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_Metrics_" class="expander" data-toggle="collapse">MetricsReported(Metrics)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_MetricsReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_Metrics_" class="collapse in">
+  <div class="markdown level1 summary"><p>Metrics reported.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void MetricsReported(Metrics report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.Metrics.html">Metrics</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L516" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultCleared_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFaultCleared*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_" class="expander" data-toggle="collapse">OnFaultCleared(FaultEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.html#Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultCleared">FaultCleared</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnFaultCleared(FaultEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs.html">FaultEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>Event information to send to registered event handlers.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L523" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultOccurred_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFaultOccurred*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_" class="expander" data-toggle="collapse">OnFaultOccurred(FaultEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_FaultEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.html#Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultOccurred">FaultOccurred</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnFaultOccurred(FaultEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs.html">FaultEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>Event information to send to registered event handlers.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFieldOfInterestPrinted_Aristocrat_Monaco_Hardware_Contracts_Printer_FieldOfInterestEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFieldOfInterestPrinted(Aristocrat.Monaco.Hardware.Contracts.Printer.FieldOfInterestEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L543" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFieldOfInterestPrinted_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFieldOfInterestPrinted*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFieldOfInterestPrinted_Aristocrat_Monaco_Hardware_Contracts_Printer_FieldOfInterestEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnFieldOfInterestPrinted(Aristocrat.Monaco.Hardware.Contracts.Printer.FieldOfInterestEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFieldOfInterestPrinted_Aristocrat_Monaco_Hardware_Contracts_Printer_FieldOfInterestEventArgs_" class="expander" data-toggle="collapse">OnFieldOfInterestPrinted(FieldOfInterestEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnFieldOfInterestPrinted_Aristocrat_Monaco_Hardware_Contracts_Printer_FieldOfInterestEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the fault event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnFieldOfInterestPrinted(FieldOfInterestEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.FieldOfInterestEventArgs.html">FieldOfInterestEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintCompleted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintCompleted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L549" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintCompleted_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintCompleted*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintCompleted" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintCompleted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintCompleted" class="expander" data-toggle="collapse">OnPrintCompleted()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintCompleted" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the fault event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPrintCompleted()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintIncomplete.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintIncomplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L555" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintIncomplete_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintIncomplete*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintIncomplete" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintIncomplete"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintIncomplete" class="expander" data-toggle="collapse">OnPrintIncomplete()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintIncomplete" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the fault event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPrintIncomplete()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintInProgress.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintInProgress%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L561" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintInProgress_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintInProgress*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintInProgress" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnPrintInProgress"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintInProgress" class="expander" data-toggle="collapse">OnPrintInProgress()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnPrintInProgress" class="collapse in">
+  <div class="markdown level1 summary"><p>Executes the print in progress action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPrintInProgress()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnWarningCleared(Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L530" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningCleared_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnWarningCleared*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnWarningCleared(Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_" class="expander" data-toggle="collapse">OnWarningCleared(WarningEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningCleared_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.html#Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningCleared">WarningCleared</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnWarningCleared(WarningEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs.html">WarningEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>Event information to send to registered event handlers.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnWarningOccurred(Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L537" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningOccurred_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnWarningOccurred*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.OnWarningOccurred(Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_" class="expander" data-toggle="collapse">OnWarningOccurred(WarningEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_OnWarningOccurred_Aristocrat_Monaco_Hardware_Contracts_Printer_WarningEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.html#Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningOccurred">WarningOccurred</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnWarningOccurred(WarningEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs.html">WarningEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>Event information to send to registered event handlers.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_PrinterStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrinterStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.PrinterStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L662" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterStatusReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrinterStatusReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_PrinterStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrinterStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.PrinterStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_PrinterStatus_" class="expander" data-toggle="collapse">PrinterStatusReported(PrinterStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrinterStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_PrinterStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Printer status reported.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void PrinterStatusReported(PrinterStatus report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.PrinterStatus.html">PrinterStatus</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintTicket(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L234" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintTicket*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintTicket(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_" class="expander" data-toggle="collapse">PrintTicket(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a ticket to the printer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; PrintTicket(string ticket)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">ticket</span>
+        <p><p>A string containing print commands.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_PrintTicket_System_String_">IPrinterImplementation.PrintTicket(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintTicket(System.String%2CSystem.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L240" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintTicket*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_System_Func_System_Threading_Tasks_Task__" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintTicket(System.String,System.Func{System.Threading.Tasks.Task})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_System_Func_System_Threading_Tasks_Task__" class="expander" data-toggle="collapse">PrintTicket(String, Func&lt;Task&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintTicket_System_String_System_Func_System_Threading_Tasks_Task__" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a ticket to the printer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; PrintTicket(string ticket, Func&lt;Task&gt; onFieldOfInterest)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">ticket</span>
+        <p><p>A string containing print commands.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</span>
+        <span class="parametername">onFieldOfInterest</span>
+        <p><p>Invoked when the field of interest (LVEN) is printed</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_PrintTicket_System_String_System_Func_System_Threading_Tasks_Task__">IPrinterImplementation.PrintTicket(String, Func&lt;Task&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_ReadMetrics.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.ReadMetrics%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L294" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_ReadMetrics_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.ReadMetrics*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_ReadMetrics" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.ReadMetrics"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_ReadMetrics" class="expander" data-toggle="collapse">ReadMetrics()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_ReadMetrics" class="collapse in">
+  <div class="markdown level1 summary"><p>Request printer metrics.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;string&gt; ReadMetrics()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p><p>An asynchronous result that yields a string.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_ReadMetrics">IPrinterImplementation.ReadMetrics()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Reset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Reset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L376" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Reset_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Reset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Reset" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.Reset"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Reset" class="expander" data-toggle="collapse">Reset()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_Reset" class="collapse in">
+  <div class="markdown level1 summary"><p>Resets this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override async Task&lt;bool&gt; Reset()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Reset">GdsDeviceBase.Reset()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_RetractTicket.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.RetractTicket%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L305" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_RetractTicket_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.RetractTicket*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_RetractTicket" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.RetractTicket"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_RetractTicket" class="expander" data-toggle="collapse">RetractTicket()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_RetractTicket" class="collapse in">
+  <div class="markdown level1 summary"><p>Retract ticket.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; RetractTicket()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_RetractTicket">IPrinterImplementation.RetractTicket()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to start a self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override async Task&lt;bool&gt; SelfTest(bool nvm)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">nvm</span>
+        <p><p>An flag indicating if Non-volatile Memory (NVM MUST be cleared before the self-test is performed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SelfTest_System_Boolean_">GdsDeviceBase.SelfTest(Boolean)</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.html#Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_System_Boolean_">IGdsDevice.SelfTest(Boolean)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SelfTest_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST initiate a self-test sequence when instructed by the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterFaultTypes_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SetFault(Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterFaultTypes%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L388" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetFault_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SetFault*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterFaultTypes_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SetFault(Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterFaultTypes,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterFaultTypes_System_Boolean_" class="expander" data-toggle="collapse">SetFault(PrinterFaultTypes, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterFaultTypes_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the fault flags for this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void SetFault(PrinterFaultTypes fault, bool set)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterFaultTypes.html">PrinterFaultTypes</a></span>
+        <span class="parametername">fault</span>
+        <p><p>The fault.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">set</span>
+        <p><p>True to set; otherwise fault will be cleared.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetWarning_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterWarningTypes_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SetWarning(Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterWarningTypes%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L423" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetWarning_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SetWarning*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetWarning_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterWarningTypes_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.SetWarning(Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterWarningTypes,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetWarning_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterWarningTypes_System_Boolean_" class="expander" data-toggle="collapse">SetWarning(PrinterWarningTypes, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_SetWarning_Aristocrat_Monaco_Hardware_Contracts_Printer_PrinterWarningTypes_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the warning flags for this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void SetWarning(PrinterWarningTypes warning, bool set)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterWarningTypes.html">PrinterWarningTypes</a></span>
+        <span class="parametername">warning</span>
+        <p><p>The warning.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">set</span>
+        <p><p>True to set; otherwise warning will be cleared.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TicketPrintStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TicketPrintStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TicketPrintStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.TicketPrintStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L608" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TicketPrintStatusReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TicketPrintStatusReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TicketPrintStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TicketPrintStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TicketPrintStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.TicketPrintStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TicketPrintStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TicketPrintStatus_" class="expander" data-toggle="collapse">TicketPrintStatusReported(TicketPrintStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TicketPrintStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TicketPrintStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a ticket print status report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void TicketPrintStatusReported(TicketPrintStatus report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.TicketPrintStatus.html">TicketPrintStatus</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferFile_Aristocrat_Monaco_Hardware_Contracts_Printer_GraphicFileType_System_Int32_System_IO_Stream_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TransferFile(Aristocrat.Monaco.Hardware.Contracts.Printer.GraphicFileType%2CSystem.Int32%2CSystem.IO.Stream)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L319" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferFile_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TransferFile*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferFile_Aristocrat_Monaco_Hardware_Contracts_Printer_GraphicFileType_System_Int32_System_IO_Stream_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TransferFile(Aristocrat.Monaco.Hardware.Contracts.Printer.GraphicFileType,System.Int32,System.IO.Stream)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferFile_Aristocrat_Monaco_Hardware_Contracts_Printer_GraphicFileType_System_Int32_System_IO_Stream_" class="expander" data-toggle="collapse">TransferFile(GraphicFileType, Int32, Stream)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferFile_Aristocrat_Monaco_Hardware_Contracts_Printer_GraphicFileType_System_Int32_System_IO_Stream_" class="collapse in">
+  <div class="markdown level1 summary"><p>Transfer file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; TransferFile(GraphicFileType graphicType, int graphicIndex, Stream stream)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.GraphicFileType.html">GraphicFileType</a></span>
+        <span class="parametername">graphicType</span>
+        <p><p>Type of the graphic.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">graphicIndex</span>
+        <p><p>Zero-based index of the graphic.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.stream">Stream</a></span>
+        <span class="parametername">stream</span>
+        <p><p>The stream.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_TransferFile_Aristocrat_Monaco_Hardware_Contracts_Printer_GraphicFileType_System_Int32_System_IO_Stream_">IPrinterImplementation.TransferFile(GraphicFileType, Int32, Stream)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TransferStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TransferStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.TransferStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L646" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferStatusReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TransferStatusReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TransferStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.TransferStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.TransferStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TransferStatus_" class="expander" data-toggle="collapse">TransferStatusReported(TransferStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_TransferStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_Printer_TransferStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a transfer status report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void TransferStatusReported(TransferStatus report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.Printer.TransferStatus.html">TransferStatus</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_UpdateConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.UpdateConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="expander" data-toggle="collapse">UpdateConfiguration(IDeviceConfiguration)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the device configurations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void UpdateConfiguration(IDeviceConfiguration internalConfiguration)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration.html">IDeviceConfiguration</a></span>
+        <span class="parametername">internalConfiguration</span>
+        <p><p>Internal configuration to update.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_">GdsDeviceBase.UpdateConfiguration(IDeviceConfiguration)</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.html#Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_">IGdsDevice.UpdateConfiguration(IDeviceConfiguration)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WaitForPrintComplete_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.WaitForPrintComplete(System.Func%7BSystem.Threading.Tasks.Task%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L455" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WaitForPrintComplete_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.WaitForPrintComplete*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WaitForPrintComplete_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.WaitForPrintComplete(System.Func{System.Threading.Tasks.Task},System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WaitForPrintComplete_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_" class="expander" data-toggle="collapse">WaitForPrintComplete(Func&lt;Task&gt;, CancellationToken)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WaitForPrintComplete_System_Func_System_Threading_Tasks_Task__System_Threading_CancellationToken_" class="collapse in">
+  <div class="markdown level1 summary"><p>Wait for print complete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected async Task&lt;bool&gt; WaitForPrintComplete(Func&lt;Task&gt; onFieldOfInterest, CancellationToken token)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</span>
+        <span class="parametername">onFieldOfInterest</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="parametername">token</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FaultCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L85" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultCleared" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FaultCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultCleared" class="expander" data-toggle="collapse">FaultCleared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when fault is cleared.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;FaultEventArgs&gt; FaultCleared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs.html">FaultEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_FaultCleared">IPrinterImplementation.FaultCleared</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FaultOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultOccurred" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FaultOccurred"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultOccurred" class="expander" data-toggle="collapse">FaultOccurred</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FaultOccurred" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when fault is detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;FaultEventArgs&gt; FaultOccurred</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.FaultEventArgs.html">FaultEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_FaultOccurred">IPrinterImplementation.FaultOccurred</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FieldOfInterestPrinted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FieldOfInterestPrinted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FieldOfInterestPrinted" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.FieldOfInterestPrinted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FieldOfInterestPrinted" class="expander" data-toggle="collapse">FieldOfInterestPrinted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_FieldOfInterestPrinted" class="collapse in">
+  <div class="markdown level1 summary"><p>Occurs when Field Of Interest Printed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;FieldOfInterestEventArgs&gt; FieldOfInterestPrinted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.FieldOfInterestEventArgs.html">FieldOfInterestEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_FieldOfInterestPrinted">IPrinterImplementation.FieldOfInterestPrinted</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintCompleted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintCompleted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintCompleted" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintCompleted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintCompleted" class="expander" data-toggle="collapse">PrintCompleted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintCompleted" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when Print Completed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; PrintCompleted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_PrintCompleted">IPrinterImplementation.PrintCompleted</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintIncomplete.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintIncomplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintIncomplete" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintIncomplete"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintIncomplete" class="expander" data-toggle="collapse">PrintIncomplete</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintIncomplete" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when Print incomplete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; PrintIncomplete</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_PrintIncomplete">IPrinterImplementation.PrintIncomplete</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintInProgress.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintInProgress%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintInProgress" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.PrintInProgress"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintInProgress" class="expander" data-toggle="collapse">PrintInProgress</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_PrintInProgress" class="collapse in">
+  <div class="markdown level1 summary"><blockquote><p>Event fired when when Print In Progress.</p>
+</blockquote>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; PrintInProgress</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_PrintInProgress">IPrinterImplementation.PrintInProgress</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.WarningCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningCleared" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.WarningCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningCleared" class="expander" data-toggle="collapse">WarningCleared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when fault is cleared.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;WarningEventArgs&gt; WarningCleared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs.html">WarningEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_WarningCleared">IPrinterImplementation.WarningCleared</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.WarningOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningOccurred" data-uid="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds.WarningOccurred"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningOccurred" class="expander" data-toggle="collapse">WarningOccurred</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds_WarningOccurred" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when fault is detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;WarningEventArgs&gt; WarningOccurred</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.WarningEventArgs.html">WarningEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinterImplementation_WarningOccurred">IPrinterImplementation.WarningOccurred</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">Aristocrat.Monaco.Hardware.GdsDeviceBase</span></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html">IPrinterImplementation</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_Printer_PrinterGds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/Printer/PrinterGds.cs/#L19" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

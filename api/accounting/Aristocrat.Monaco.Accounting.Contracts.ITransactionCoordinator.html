@@ -1,0 +1,1003 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ITransactionCoordinator
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ITransactionCoordinator
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator">
+  <h1 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator">Interface ITransactionCoordinator
+  </h1>
+  <div class="markdown level0 summary"><p>This interface is used to coordinate the transaction requests among the different
+platform components.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.html">Aristocrat.Monaco.Accounting.Contracts</a></h6>
+  <h6><strong>Assembly</strong>: Monaco.Accounting.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ITransactionCoordinator</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+    A transaction is an interaction between a component and the accounting layer.
+    All transactions must be executed in a serial order. There must be only one
+    transaction allowed to run at any time in order to avoid the racing for commonly
+    used resource or service, for an example the metering service. If a transaction
+    runs, it must run in its entirety. When failures occur, it’s important to
+    avoid partially completed work. Transactions avoid partial completion by saving
+    state information and continuing execution upon restoration of the system.
+    The life cycle of a transaction starts when permission is obtained from the
+    transaction coordinator to begin a transaction, and the coordinator assigns
+    that transaction a unique identifier. The life cycle of the transaction can
+    be broken by abandoning forcefully. Once a transaction starts, it must be
+    terminated to allow subsequent transactions to begin. If a transaction request
+    cannot complete the transaction successfully, it must perform a necessary
+    rollback and terminate the transaction.
+</p>
+<p>
+    There are two types of transaction for coordination: write and read; the former is
+    involved in the meter value change and the later is only for reading the meter value.
+</p>
+<p>
+    There are two methods defined in the <code>ITransactionCoordinator</code> interface for
+    requesting a transaction. You can request a transaction in either synchronous
+    mode or in asynchronous mode.
+</p>
+</div>
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_IsTransactionActive.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.IsTransactionActive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_IsTransactionActive_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.IsTransactionActive*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_IsTransactionActive" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.IsTransactionActive"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_IsTransactionActive" class="expander" data-toggle="collapse">IsTransactionActive</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_IsTransactionActive" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether a transaction is active or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsTransactionActive { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_AbandonTransactions_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.AbandonTransactions(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_AbandonTransactions_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.AbandonTransactions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_AbandonTransactions_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.AbandonTransactions(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_AbandonTransactions_System_Guid_" class="expander" data-toggle="collapse">AbandonTransactions(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_AbandonTransactions_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Allows a requestor to abandon a transaction or requests for a transaction based
+on their id</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AbandonTransactions(Guid requestorId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">requestorId</span>
+        <p><p>The id of the requestor as provided when the request was made</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_AbandonTransactions_System_Guid__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+    By calling this method, you clear up the currently processing transaction or all
+    queued requests from the coordinator service. As a result, other requests can get
+    their chances to request a transaction from the service for processing.
+</p>
+<p>
+    One thing worthy to note is that multiple transaction requests with the same
+    requestor ID may be saved in the request queue of the coordinator service.
+    Once the <code>AbandonTransaction()</code> is called, all requests with the same
+    requestor ID will be erased.
+</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_AbandonTransactions_System_Guid__examples">Examples</h5>
+  <p>Here is an illustration:</p>
+<pre><code>Guid transactionGuid;
+...
+// Once the “transactionGuid” is returned from the transaction coordinator service, you might start to
+// create and process the transaction.
+...
+// If the component encountered a problem and does not know if it had a transaction started
+// or queued. Call the following to cancel it.
+Coordinator.AbandonTransaction(_requestorGuid);
+...</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_GetCurrent_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.GetCurrent(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L342" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_GetCurrent_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.GetCurrent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_GetCurrent_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.GetCurrent(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_GetCurrent_System_Guid_" class="expander" data-toggle="collapse">GetCurrent(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_GetCurrent_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Retrieve a transaction based on the request id</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Guid GetCurrent(Guid requestId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">requestId</span>
+        <p><p>The id of the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>The transaction id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_ReleaseTransaction_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.ReleaseTransaction(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_ReleaseTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.ReleaseTransaction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_ReleaseTransaction_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.ReleaseTransaction(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_ReleaseTransaction_System_Guid_" class="expander" data-toggle="collapse">ReleaseTransaction(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_ReleaseTransaction_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Release a transaction based on the transaction id</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ReleaseTransaction(Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction id of the transaction to be released</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_ReleaseTransaction_System_Guid__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+    A transaction already started to execute must be released when the processing is
+    finished. It will block the next transaction requestor from starting its transaction
+    without doing so.
+</p>
+<p>
+    The release of any transaction is successful only when the transaction ID
+    provided matches with the currently processing transaction ID. The
+<code>TransactionCompletedEvent</code> is posted whenever the transaction terminates.
+</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_ReleaseTransaction_System_Guid__examples">Examples</h5>
+  <p>Illustrated below:</p>
+<pre><code> Guid transactionGuid;
+ ...
+ // Once the “transactionGuid” is returned by the transaction coordinator service, you might start to
+ // create and process the transaction.
+ ...
+ // Last step in transaction processing should be releasing the transaction from the service.
+ coordinator.ReleaseTransaction(transactionGuid);</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(Aristocrat.Monaco.Accounting.Contracts.ITransactionRequestor%2CAristocrat.Monaco.Accounting.Contracts.TransactionType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L167" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(Aristocrat.Monaco.Accounting.Contracts.ITransactionRequestor,Aristocrat.Monaco.Accounting.Contracts.TransactionType)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_" class="expander" data-toggle="collapse">RequestTransaction(ITransactionRequestor, TransactionType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Request a transaction and queue the request if one is not immediately available</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Guid RequestTransaction(ITransactionRequestor requestor, TransactionType transactionType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransactionRequestor.html">ITransactionRequestor</a></span>
+        <span class="parametername">requestor</span>
+        <p><p>The requestor of the transaction</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransactionType.html">TransactionType</a></span>
+        <span class="parametername">transactionType</span>
+        <p><p>The type of requested transaction</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>If a transaction is immediately available it will be the transaction id otherwise Guid.Empty is returned</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+    It works similarly with the synchronous approach when there is no transaction
+    pending in the service and there is no transaction request already queued. That
+    means the component can start a transaction immediately, and the
+<code> TransactionStartedEvent</code> is posted at the same time.
+</p>
+<p>
+    The subtle difference of this method is: when the service is busy with any existing
+    transaction or request, it will queue the upcoming request for later approval.
+    When a queued request is handled, the service will notify the request owner by
+    calling the method <code>NotifyTransactionReady</code> of interface
+<code>ITransactionRequestor</code>. The <code>TransactionStartedEvent</code> is posted right
+after that callback method is finished.
+</p>
+<p>
+    This method provides a capability of execution concurrency. Your component can
+    continue to run while it is waiting for transaction request to be handled.
+</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType__examples">Examples</h5>
+  <pre><code>  public class OneService : ITransactionRequestor
+  {
+    private static readonly  Guid _requestorId = new Guid(“{...}”);
+    private Guid _requestGuid;
+    private Guid _transactionGuid;
+    public void StartTransaction()
+    {
+      ITransactionCoordinator coordinator = ... // Get the service.
+      _transactionGuid = coordinator.RequestTransaction(this, TransactionType.Write);
+      if (_transactionGuid != Guid.Empty)
+      {
+        // Start to create a transaction and execute it.
+      }
+
+      // When the RequestTransaction() returns Guid.Empty, that means the request is
+      // saved in the coordinator service. It will be notified after the request is handled.
+      // Your program can do other things without having to wait for the approval.
+    }
+
+    public void NotifyTransactionReady(Guid requestId)
+    {
+      // At this point, you should save the “requestId” and use it
+      // to retrieve the transaction GUID for the later reference.
+      _requestGuid = requested;
+      ....
+      ITransactionCoordinator coordinator = ... // Get the service.
+      _transactionGuid = coordinator.RetrieveTransaction(_requestGuid);
+      // Now you can start to create a transaction and execute it.
+    }
+  }</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(Aristocrat.Monaco.Accounting.Contracts.ITransactionRequestor%2CAristocrat.Monaco.Accounting.Contracts.TransactionType%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L230" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(Aristocrat.Monaco.Accounting.Contracts.ITransactionRequestor,Aristocrat.Monaco.Accounting.Contracts.TransactionType,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_" class="expander" data-toggle="collapse">RequestTransaction(ITransactionRequestor, TransactionType, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Request a transaction and queue the request if one is not immediately available</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Guid RequestTransaction(ITransactionRequestor requestor, TransactionType transactionType, bool topOfQueue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransactionRequestor.html">ITransactionRequestor</a></span>
+        <span class="parametername">requestor</span>
+        <p><p>The requestor of the transaction</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransactionType.html">TransactionType</a></span>
+        <span class="parametername">transactionType</span>
+        <p><p>The type of requested transaction</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">topOfQueue</span>
+        <p><p>true to place this request at the top of the queue. This should normally be false...</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>If a transaction is immediately available it will be the transaction id otherwise Guid.Empty is returned</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+    It works similarly with the synchronous approach when there is no transaction
+    pending in the service and there is no transaction request already queued. That
+    means the component can start a transaction immediately, and the
+<code> TransactionStartedEvent</code> is posted at the same time.
+</p>
+<p>
+    The subtle difference of this method is: when the service is busy with any existing
+    transaction or request, it will queue the upcoming request for later approval.
+    When a queued request is handled, the service will notify the request owner by
+    calling the method <code>NotifyTransactionReady</code> of interface
+<code>ITransactionRequestor</code>. The <code>TransactionStartedEvent</code> is posted right
+after that callback method is finished.
+</p>
+<p>
+    This method provides a capability of execution concurrency. Your component can
+    continue to run while it is waiting for transaction request to be handled.
+</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_Aristocrat_Monaco_Accounting_Contracts_ITransactionRequestor_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean__examples">Examples</h5>
+  <pre><code>  public class OneService : ITransactionRequestor
+  {
+    private static readonly  Guid _requestorId = new Guid(“{...}”);
+    private Guid _requestGuid;
+    private Guid _transactionGuid;
+    public void StartTransaction()
+    {
+      ITransactionCoordinator coordinator = ... // Get the service.
+      _transactionGuid = coordinator.RequestTransaction(this, TransactionType.Write);
+      if (_transactionGuid != Guid.Empty)
+      {
+        // Start to create a transaction and execute it.
+      }
+
+      // When the RequestTransaction() returns Guid.Empty, that means the request is
+      // saved in the coordinator service. It will be notified after the request is handled.
+      // Your program can do other things without having to wait for the approval.
+    }
+
+    public void NotifyTransactionReady(Guid requestId)
+    {
+      // At this point, you should save the “requestId” and use it
+      // to retrieve the transaction GUID for the later reference.
+      _requestGuid = requested;
+      ....
+      ITransactionCoordinator coordinator = ... // Get the service.
+      _transactionGuid = coordinator.RetrieveTransaction(_requestGuid);
+      // Now you can start to create a transaction and execute it.
+    }
+  }</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(System.Guid%2CSystem.Int32%2CAristocrat.Monaco.Accounting.Contracts.TransactionType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L275" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(System.Guid,System.Int32,Aristocrat.Monaco.Accounting.Contracts.TransactionType)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_" class="expander" data-toggle="collapse">RequestTransaction(Guid, Int32, TransactionType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Request a transaction and do not queue the request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Guid RequestTransaction(Guid requestorId, int timeout, TransactionType transactionType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">requestorId</span>
+        <p><p>The id of the requestor</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>This is the amount of time in milliseconds to block while waiting to be able to start a
+transaction</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransactionType.html">TransactionType</a></span>
+        <span class="parametername">transactionType</span>
+        <p><p>the type of the requested transaction</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>If a transaction is available before the timeout it will be the transaction id otherwise Guid.Empty is
+returned</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is a blocking call that will wait if another transaction is in progress. It is like queuing for a transaction
+with a
+timeout value where the caller doesn&apos;t have to do anything except make the call.</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType__examples">Examples</h5>
+  <pre><code>public class OneService
+{
+  private static readonly  Guid RequestorId = new Guid(“{...}”);
+  public bool CreateAndProcessTransaction()
+  {
+    // Get the service through the service manager
+    ITransactionCoordinator coordinator = ...;
+    Guid transactionGuid = coordinator.RequestTransaction(RequestorId, 50, TransactionType.Write));
+    if (transactionGuid == Guid.Empty)
+    {
+      return false;
+    }
+    ...
+    // Instantiate a transaction with the transactionGuid, and process it.
+    ...
+    // Last step in transaction processing should be Release or Abandon, depending on the status of
+    // transaction processing.
+    ...
+    return true;
+  }
+}</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(System.Guid%2CSystem.Int32%2CAristocrat.Monaco.Accounting.Contracts.TransactionType%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L321" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RequestTransaction(System.Guid,System.Int32,Aristocrat.Monaco.Accounting.Contracts.TransactionType,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_" class="expander" data-toggle="collapse">RequestTransaction(Guid, Int32, TransactionType, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Request a transaction and do not queue the request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Guid RequestTransaction(Guid requestorId, int timeout, TransactionType transactionType, bool topOfQueue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">requestorId</span>
+        <p><p>The id of the requestor</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>This is the amount of time in milliseconds to block while waiting to be able to start a
+transaction</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransactionType.html">TransactionType</a></span>
+        <span class="parametername">transactionType</span>
+        <p><p>the type of the requested transaction</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">topOfQueue</span>
+        <p><p>true to place this request at the top of the queue. This should normally be false...</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>If a transaction is available before the timeout it will be the transaction id otherwise Guid.Empty is
+returned</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is a blocking call that will wait if another transaction is in progress. It is like queuing for a transaction
+with a
+timeout value where the caller doesn&apos;t have to do anything except make the call.</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RequestTransaction_System_Guid_System_Int32_Aristocrat_Monaco_Accounting_Contracts_TransactionType_System_Boolean__examples">Examples</h5>
+  <pre><code>public class OneService
+{
+  private static readonly  Guid RequestorId = new Guid(“{...}”);
+  public bool CreateAndProcessTransaction()
+  {
+    // Get the service through the service manager
+    ITransactionCoordinator coordinator = ...;
+    Guid transactionGuid = coordinator.RequestTransaction(RequestorId, 50, TransactionType.Write));
+    if (transactionGuid == Guid.Empty)
+    {
+      return false;
+    }
+    ...
+    // Instantiate a transaction with the transactionGuid, and process it.
+    ...
+    // Last step in transaction processing should be Release or Abandon, depending on the status of
+    // transaction processing.
+    ...
+    return true;
+  }
+}</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RetrieveTransaction_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RetrieveTransaction(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L328" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RetrieveTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RetrieveTransaction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RetrieveTransaction_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.RetrieveTransaction(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RetrieveTransaction_System_Guid_" class="expander" data-toggle="collapse">RetrieveTransaction(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_RetrieveTransaction_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Retrieve a transaction based on the request id received from a queued transaction request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Guid RetrieveTransaction(Guid requestId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">requestId</span>
+        <p><p>The id of the request.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>The transaction id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_VerifyCurrentTransaction_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.VerifyCurrentTransaction(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L335" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_VerifyCurrentTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.VerifyCurrentTransaction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_VerifyCurrentTransaction_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.VerifyCurrentTransaction(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_VerifyCurrentTransaction_System_Guid_" class="expander" data-toggle="collapse">VerifyCurrentTransaction(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_VerifyCurrentTransaction_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Verify that the transaction id provided is the currently executing transaction</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool VerifyCurrentTransaction(Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction id in question</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Whether the transaction id passed in is the current transaction</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Transactions/ITransactionCoordinator.cs/#L36" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,555 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IPropertiesManager
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IPropertiesManager
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager">
+  <h1 id="Aristocrat_Monaco_Kernel_IPropertiesManager" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager">Interface IPropertiesManager
+  </h1>
+  <div class="markdown level0 summary"><p>An interface through which a property value can be accessed using a string as a unique property name.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Kernel.html">Aristocrat.Monaco.Kernel</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Kernel.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IPropertiesManager : IService</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+    The Properties Manager service is one of the primary data sharing mechanisms in XSpin. Its function is pairing
+    objects with
+    unique string names. This allows any component with a knowledge of property names to get access to stored
+    objects
+    or properties.
+    The Kernel layer bootstrap uses Mono-Addins and associated configuration files to locate the components
+    implementing this interface
+    and add them to the Service Manager. Components that need to use the Properties Manager service to get or set
+    properties, or to add
+    themselves as property providers, must obtain the Properties Manager object from the Service Manager and access
+    it
+    through this interface.
+</p>
+<p>
+    The Properties Manager manages <a class="xref" href="Aristocrat.Monaco.Kernel.IPropertyProvider.html">IPropertyProvider</a> objects and facilitates the access to their
+    stored
+    properties. Components
+    in the system make the Properties Manager aware of properties either by using
+<a class="xref" href="Aristocrat.Monaco.Kernel.IPropertiesManager.html#Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_Aristocrat_Monaco_Kernel_IPropertyProvider_">AddPropertyProvider(IPropertyProvider)</a> to
+add a property provider
+or by setting a property that does not currently exist in any of the property providers. In the first case,
+when a
+property provider gets
+added, properties in the provider become visible to the Properties Manager. However, properties subsequently
+added
+to the provider will NOT
+be visible to the Properties Manager. In the second case, if a component sets a property that is unknown to the
+Properties Manager, it gets
+added to the DefaultPropertyProvider, which can be thought of as an in-memory property provider. The
+DefaultPropertyProvider retains its
+properties for the duration of the current system boot, but values will not be restored if the system is
+re-booted.
+Once a property is added
+to the Properties Manager there is no mechanism for removal.
+</p>
+<p>
+    The Properties Manager will post a <a class="xref" href="Aristocrat.Monaco.Kernel.PropertyChangedEvent.html">PropertyChangedEvent</a> to the EventBus when new properties are
+    added or a new non-null property value is
+    different than the previous. Components can subscribe to this event, determine the name of the property that
+    was
+    has changed, and respond
+    accordingly.
+</p>
+<p>
+    Creating a component that will be a property provider makes the most sense when the component has a need to
+    store
+    its properties in persistent
+    storage. However, there is not a requirement for property providers to store their properties in persistent
+    storage.
+</p>
+</div>
+  
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_Aristocrat_Monaco_Kernel_IPropertyProvider_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertiesManager.AddPropertyProvider(Aristocrat.Monaco.Kernel.IPropertyProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertiesManager.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.AddPropertyProvider*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_Aristocrat_Monaco_Kernel_IPropertyProvider_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.AddPropertyProvider(Aristocrat.Monaco.Kernel.IPropertyProvider)"><a href="#collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_Aristocrat_Monaco_Kernel_IPropertyProvider_" class="expander" data-toggle="collapse">AddPropertyProvider(IPropertyProvider)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_Aristocrat_Monaco_Kernel_IPropertyProvider_" class="collapse in">
+  <div class="markdown level1 summary"><p>Add a property provider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddPropertyProvider(IPropertyProvider provider)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Kernel.IPropertyProvider.html">IPropertyProvider</a></span>
+        <span class="parametername">provider</span>
+        <p><p>An object that implements the IPropertyProperty interfaces and provides properties to be added
+to the Properties Manager.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_Aristocrat_Monaco_Kernel_IPropertyProvider__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The Properties Manager will obtain the properties in the given Property Provider and make them accessible via its
+interface.
+Properties subsequently added to the provider will NOT be visible to the Properties Manager.</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_AddPropertyProvider_Aristocrat_Monaco_Kernel_IPropertyProvider__examples">Examples</h5>
+  <p>Shown below is code that adds a Property Provider to the Properties Manager. This code is in an object that passes
+a
+reference to itself.
+Therefore, it must implement the IPropertyProvider interface.</p>
+<pre><code>IPropertiesManager propertiesManager = ServiceManager.GetInstance().GetService{IPropertiesManager}();
+propertiesManager.AddPropertyProvider(this);</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertiesManager.GetProperty(System.String%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertiesManager.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.GetProperty*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.GetProperty(System.String,System.Object)"><a href="#collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object_" class="expander" data-toggle="collapse">GetProperty(String, Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a property. If the property is not found, the default value will be returned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">object GetProperty(string propertyName, object defaultValue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p><p>The name of the property to get</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">defaultValue</span>
+        <p><p>The default value for the property if it is not
+currently defined.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p><p>The object associated with the property name</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Typically, a cast is applied to the object returned. Therefore, users must know the type of the property in
+addition
+to its unique name.</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object__examples">Examples</h5>
+  <p>The code below shows how to get two properties from the Properties Manager. In both cases, the names of the
+properties were previously
+assigned to string constants. The first property returned is either an object previously stored in the Properties
+Manager or an empty
+string if the property is not found. It is cast as a string and assigned to machineId. The second property returned
+is either an object
+previously stored or zero if the property is not found. It is cast as an int and assigned to serialNumber. In both
+cases, if the object
+returned cannot be cast to the expected type, an InvalidCastException gets thrown. Typically, the default values
+will
+be outside of the
+range of expected values and will indicate that a property was not found.</p>
+<pre><code>IPropertiesManager propManager = ServiceManager.GetInstance().GetService{IPropertiesManager}();
+string machineId = (string)propManager.GetProperty(MachineIdKey, string.Empty);
+int serialNumber = (int)propManager.GetProperty(SerialNumberKey, 0);</code></pre>
+
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Aristocrat.Monaco.Kernel.IPropertyProvider.html">IPropertyProvider</a></div>
+  </div>
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertiesManager.SetProperty(System.String%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertiesManager.cs/#L150" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.SetProperty*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.SetProperty(System.String,System.Object)"><a href="#collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_" class="expander" data-toggle="collapse">SetProperty(String, Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets a property value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetProperty(string propertyName, object propertyValue)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p><p>The name of the property to set.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">propertyValue</span>
+        <p><p>The value to set the property to.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To set a property, a component must supply a unique string identifier for the property and a value. The Properties
+Manager will either set the
+property or create a new entry in the DefaultPropertyProvider. If a new property is created or if there is a change
+in the value of an existing
+property, the Properties Manager will post a <a class="xref" href="Aristocrat.Monaco.Kernel.PropertyChangedEvent.html">PropertyChangedEvent</a>.</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object__examples">Examples</h5>
+  <p>The code below shows how to set two properties in the Properties Manager. In both cases, the names of the
+properties
+were previously
+assigned to string constants. The first property is a string with a value of &quot;123&quot;. It will be paired with the name
+assigned to MachineIdKey
+and stored as an object. Code that uses <a class="xref" href="Aristocrat.Monaco.Kernel.IPropertiesManager.html#Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object_">GetProperty(String, Object)</a> to retrieve the property will need to apply a
+string cast. The second
+property is an integer value of 123. It will be paired with the name assigned to SerialNumberKey and stored as an
+object. When GetProperty
+is used to retrieve the property, a cast that can be applied to a numeric value must be used.</p>
+<pre><code>IPropertiesManager propManager = ServiceManager.GetInstance().GetService{IPropertiesManager}();
+propManager.SetProperty(MachineIdKey, &quot;123&quot;);
+propManager.SetProperty(SerialNumberKey, 123);</code></pre>
+
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertiesManager.SetProperty(System.String%2CSystem.Object%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertiesManager.cs/#L182" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.SetProperty*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_System_Boolean_" data-uid="Aristocrat.Monaco.Kernel.IPropertiesManager.SetProperty(System.String,System.Object,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_System_Boolean_" class="expander" data-toggle="collapse">SetProperty(String, Object, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets a property value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetProperty(string propertyName, object propertyValue, bool isConfig)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p><p>The name of the property to set.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">propertyValue</span>
+        <p><p>The value to set the property to.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isConfig</span>
+        <p><p>Indicates whether or not this is a property used for configuration.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To set a property, a component must supply a unique string identifier for the property and a value. The Properties
+Manager will either set the
+property or create a new entry in the DefaultPropertyProvider. If a new property is created or if there is a change
+in the value of an existing
+property, the Properties Manager will post a <a class="xref" href="Aristocrat.Monaco.Kernel.PropertyChangedEvent.html">PropertyChangedEvent</a>.</p>
+</div>
+  
+  <h5 id="Aristocrat_Monaco_Kernel_IPropertiesManager_SetProperty_System_String_System_Object_System_Boolean__examples">Examples</h5>
+  <p>The code below shows how to set two properties in the Properties Manager. In both cases, the names of the
+properties
+were previously
+assigned to string constants. The first property is a string with a value of &quot;123&quot;. It will be paired with the name
+assigned to MachineIdKey
+and stored as an object. Code that uses <a class="xref" href="Aristocrat.Monaco.Kernel.IPropertiesManager.html#Aristocrat_Monaco_Kernel_IPropertiesManager_GetProperty_System_String_System_Object_">GetProperty(String, Object)</a> to retrieve the property will need to apply a
+string cast. The second
+property is an integer value of 123. It will be paired with the name assigned to SerialNumberKey and stored as an
+object. When GetProperty
+is used to retrieve the property, a cast that can be applied to a numeric value must be used.</p>
+<pre><code>IPropertiesManager propManager = ServiceManager.GetInstance().GetService{IPropertiesManager}();
+propManager.SetProperty(MachineIdKey, &quot;123&quot;);
+propManager.SetProperty(SerialNumberKey, 123);</code></pre>
+
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Kernel.LoggingExtensions.html#Aristocrat_Monaco_Kernel_LoggingExtensions_Log__1___0_">LoggingExtensions.Log&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Kernel.PropertiesManagerExtensions.html#Aristocrat_Monaco_Kernel_PropertiesManagerExtensions_GetValue__1_Aristocrat_Monaco_Kernel_IPropertiesManager_System_String___0_">PropertiesManagerExtensions.GetValue&lt;T&gt;(IPropertiesManager, String, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Kernel.PropertiesManagerExtensions.html#Aristocrat_Monaco_Kernel_PropertiesManagerExtensions_GetValues__1_Aristocrat_Monaco_Kernel_IPropertiesManager_System_String_">PropertiesManagerExtensions.GetValues&lt;T&gt;(IPropertiesManager, String)</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Kernel_IPropertiesManager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Kernel.IPropertiesManager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Kernel/Aristocrat.Monaco.Kernel.Contracts/Props/IPropertiesManager.cs/#L59" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

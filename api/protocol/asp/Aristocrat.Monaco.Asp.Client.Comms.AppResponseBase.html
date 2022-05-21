@@ -1,0 +1,536 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AppResponseBase
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AppResponseBase
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase">
+  <h1 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase">Class AppResponseBase
+  </h1>
+  <div class="markdown level0 summary"><p>The general formats of messages from the EGM are as follows:
+Command
+= Set_Parameter_Ack (0x81)  Class   Type    Parameter Number    Response Status
+1 byte      1 byte  1 byte  1 byte              1 byte
+Command
+= Get_Parameter_Ack (0x82)  Class   Type    Parameter Number    Response Status Data
+1 byte  1 byte  1 byte  1 byte  1 byte              n bytes
+Command
+= Set_Event_Ack (0x84)  Class   Type    Parameter Number    Response Status
+1 byte      1 byte  1 byte  1 byte              1 byte
+Command
+= Clr_Event_Ack (0x85)  Class   Type    Parameter Number    Response Status
+1 byte      1 byte  1 byte  1 byte              1 byte
+The general format of  Events
+Command
+= Event_Report (0x80)   Class   Type    Parameter Number    Time Stamp      Data
+1 byte      1 byte  1 byte  1 byte              4 bytes         n bytes
+where:
+Command ( 1 byte )      =  Command
+Class ( 1 byte )    =  Device Class
+Type ( 1 byte ) = Type of that device Class
+Parameter Number ( 1 byte ) =  Parameter of the device
+Data ( n bytes )    =  Data associated with the Parameter
+Time Stamp (4 bytes)    =  In seconds from January 1st 1990
+Response Status (1 byte )   =  Error status of response
+0x00    Valid response
+0x01    Bad or unsupported Command
+0x02    Bad or unsupported Class
+0x03    Bad or unsupported Type
+0x04    Bad or unsupported Parameter
+0x05    Invalid Parameter data</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">AppResponseBase</span></div>
+  </div>
+  
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Asp.Client.Comms.AppResponse.html">AppResponse</a></div>
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Asp.Client.Comms.html">Aristocrat.Monaco.Asp.Client.Comms</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Asp.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AppResponseBase</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Buffer.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Buffer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Buffer_" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Buffer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Buffer" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Buffer"><a href="#collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Buffer" class="expander" data-toggle="collapse">Buffer</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Buffer" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte[] Buffer { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Class.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Class%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Class_" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Class*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Class" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Class"><a href="#collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Class" class="expander" data-toggle="collapse">Class</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Class" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte Class { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Command.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Command%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Command_" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Command*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Command" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Command"><a href="#collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Command" class="expander" data-toggle="collapse">Command</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Command" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AppResponseTypes Command { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Asp.Client.Comms.AppResponseTypes.html">AppResponseTypes</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Param.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Param%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L117" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Param_" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Param*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Param" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Param"><a href="#collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Param" class="expander" data-toggle="collapse">Param</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Param" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte Param { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Size.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Size%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Size_" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Size*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Size" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Size"><a href="#collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Size" class="expander" data-toggle="collapse">Size</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Size" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Size { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Type.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Type%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Type_" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Type*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Type" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.Type"><a href="#collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Type" class="expander" data-toggle="collapse">Type</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_Type" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte Type { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_GetSize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.GetSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_GetSize_" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.GetSize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_GetSize" data-uid="Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase.GetSize"><a href="#collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_GetSize" class="expander" data-toggle="collapse">GetSize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase_GetSize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract int GetSize()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Asp.Extensions.EnumerableExtensions.html#Aristocrat_Monaco_Asp_Extensions_EnumerableExtensions_IsAnyOf__1___0___0___">EnumerableExtensions.IsAnyOf&lt;T&gt;(T, T[])</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Asp_Client_Comms_AppResponseBase.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Asp.Client.Comms.AppResponseBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/ASP/Aristocrat.Monaco.Asp/Client/Comms/ApplicationMessages.cs/#L95" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

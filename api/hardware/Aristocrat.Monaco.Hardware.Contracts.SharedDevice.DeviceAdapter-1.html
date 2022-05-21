@@ -1,0 +1,3161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class DeviceAdapter&lt;TImplementation&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class DeviceAdapter&lt;TImplementation&gt;
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1">
+  <h1 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1">Class DeviceAdapter&lt;TImplementation&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A device adapter base.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">DeviceAdapter&lt;TImplementation&gt;</span></div>
+  </div>
+  
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.html">IdReaderAdapter</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.html">NoteAcceptorAdapter</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.html">PrinterAdapter</a></div>
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.Reel.ReelControllerAdapter.html">ReelControllerAdapter</a></div>
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.html">Aristocrat.Monaco.Hardware.Contracts.SharedDevice</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class DeviceAdapter&lt;TImplementation&gt; : IDeviceAdapter, IDeviceService, IService, IFirmwareCrcBridge, IDisposable where TImplementation : IGdsDevice</code></pre>
+  </div>
+  
+  
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TImplementation</span>
+        <p><p>Type of the implementation.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1__ctor_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1__ctor" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1__ctor" class="expander" data-toggle="collapse">DeviceAdapter()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected DeviceAdapter()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.AddinFactory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddinFactory*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddinFactory"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory" class="expander" data-toggle="collapse">AddinFactory</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the addin factory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IAddinFactory AddinFactory { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IAddinFactory.html">IAddinFactory</a>
+        <p><p>The addin factory.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.AnyErrors%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AnyErrors*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AnyErrors"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors" class="expander" data-toggle="collapse">AnyErrors</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether any errors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AnyErrors { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if any errors, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.AnyWarnings%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AnyWarnings*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AnyWarnings"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings" class="expander" data-toggle="collapse">AnyWarnings</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether any warnings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AnyWarnings { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if any warnings, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Connected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Connected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Connected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Connected" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Connected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Connected" class="expander" data-toggle="collapse">Connected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Connected" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the device is connected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool Connected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_Connected">IDeviceAdapter.Connected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Crc%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L175" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Crc*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Crc"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc" class="expander" data-toggle="collapse">Crc</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a the last calculated CRC.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int Crc { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The calculated CRC.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IFirmwareCrcBridge.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IFirmwareCrcBridge_Crc">IFirmwareCrcBridge.Crc</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Description.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Description%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L104" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Description_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Description*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Description" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Description"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Description" class="expander" data-toggle="collapse">Description</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Description" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract string Description { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device Description.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.DeviceConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L166" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DeviceConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DeviceConfiguration"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration" class="expander" data-toggle="collapse">DeviceConfiguration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device configuration</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IDevice DeviceConfiguration { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDevice.html">IDevice</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_DeviceConfiguration">IDeviceAdapter.DeviceConfiguration</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceType.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.DeviceType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceType_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DeviceType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceType" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DeviceType"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceType" class="expander" data-toggle="collapse">DeviceType</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceType" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract DeviceType DeviceType { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceType.html">DeviceType</a>
+        <p><p>The device type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_DeviceType">IDeviceAdapter.DeviceType</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.DisabledByError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L178" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DisabledByError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DisabledByError"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError" class="expander" data-toggle="collapse">DisabledByError</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the device is disabled by an error reason.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool DisabledByError { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_DisabledByError">IDeviceAdapter.DisabledByError</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Disposed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Disposed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Disposed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed" class="expander" data-toggle="collapse">Disposed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the object is disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool Disposed { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if disposed, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L117" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Enabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Enabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled" class="expander" data-toggle="collapse">Enabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the service is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Enabled { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Enabled">IDeviceService.Enabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Implementation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Implementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Implementation_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Implementation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Implementation" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Implementation"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Implementation" class="expander" data-toggle="collapse">Implementation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Implementation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device implementation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract TImplementation Implementation { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">TImplementation</span>
+        <p><p>The device implementation.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Initialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L120" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Initialized*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Initialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized" class="expander" data-toggle="collapse">Initialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the service is initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Initialized { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Initialized">IDeviceService.Initialized</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.InternalConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.InternalConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.InternalConfiguration"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration" class="expander" data-toggle="collapse">InternalConfiguration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the implemented device configuration for internal use only.
+Just directly returns the _deviceConfiguration for inherited class use
+No copying done as in DeviceConfiguration property.
+Had to name this way because we already have DeviceConfiguration property and it
+does something different.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IDeviceConfiguration InternalConfiguration { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration.html">IDeviceConfiguration</a>
+        <p><p>Device configuration.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.LastComConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.LastComConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.LastComConfiguration"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration" class="expander" data-toggle="collapse">LastComConfiguration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the last com configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IComConfiguration LastComConfiguration { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration.html">IComConfiguration</a>
+        <p><p>The last com configuration.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.LastError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.LastError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.LastError"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError" class="expander" data-toggle="collapse">LastError</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating the last error the service posted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual string LastError { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_LastError">IDeviceService.LastError</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L157" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Name_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Name" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Name"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Name" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Path.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Path%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L110" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Path_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Path*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Path" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Path"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Path" class="expander" data-toggle="collapse">Path</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Path" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract string Path { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device path.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ProductId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L169" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ProductId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ProductId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId" class="expander" data-toggle="collapse">ProductId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the identifier of the product.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ProductId { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The identifier of the product.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_ProductId">IDeviceAdapter.ProductId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ReasonDisabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L150" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ReasonDisabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ReasonDisabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled" class="expander" data-toggle="collapse">ReasonDisabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating the reason the service is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DisabledReasons ReasonDisabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_ReasonDisabled">IDeviceService.ReasonDisabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ServiceProtocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L153" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ServiceProtocol*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ServiceProtocol"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol" class="expander" data-toggle="collapse">ServiceProtocol</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the service protocol.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ServiceProtocol { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_ServiceProtocol">IDeviceService.ServiceProtocol</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L163" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceTypes_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceTypes" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Sync%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Sync*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Sync"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync" class="expander" data-toggle="collapse">Sync</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync" class="collapse in">
+  <div class="markdown level1 summary"><p>Object used for locking to protect concurrent access to member variables.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected object Sync { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p><p>The synchronise.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.VendorId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.VendorId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.VendorId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId" class="expander" data-toggle="collapse">VendorId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the identifier of the vendor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int VendorId { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The identifier of the vendor.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_VendorId">IDeviceAdapter.VendorId</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.AddError(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L559" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddError(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_Object_" class="expander" data-toggle="collapse">AddError(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds an error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AddError(object value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">value</span>
+        <p><p>The error object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.AddError(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L542" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddError(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_String_" class="expander" data-toggle="collapse">AddError(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds an error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AddError(string error)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">error</span>
+        <p><p>The error.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.AddWarning(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L582" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddWarning*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddWarning(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_Object_" class="expander" data-toggle="collapse">AddWarning(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds a warning.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AddWarning(object value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">value</span>
+        <p><p>The warning object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.AddWarning(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L566" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddWarning*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.AddWarning(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_String_" class="expander" data-toggle="collapse">AddWarning(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds a warning.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AddWarning(string warning)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">warning</span>
+        <p><p>The warning.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.CalculateCrc(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L358" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.CalculateCrc*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.CalculateCrc(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_System_Int32_" class="expander" data-toggle="collapse">CalculateCrc(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to initiate a 32-bit checksum calculation of the devices ROM memory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;int&gt; CalculateCrc(int seed)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">seed</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <p><p>A Task (allows for asynchronous) with a calculated CRC.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IFirmwareCrcBridge.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IFirmwareCrcBridge_CalculateCrc_System_Int32_">IFirmwareCrcBridge.CalculateCrc(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.CanProceed(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L410" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.CanProceed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.CanProceed(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_System_Boolean_" class="expander" data-toggle="collapse">CanProceed(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Determine if we can proceed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool CanProceed(bool checkEnabled)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">checkEnabled</span>
+        <p><p>True to enable, false to disable the check.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if we can proceed, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ClearError(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L607" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearError(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_Object_" class="expander" data-toggle="collapse">ClearError(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears the specified error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ClearError(object value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">value</span>
+        <p><p>The error object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ClearError(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L590" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearError(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_String_" class="expander" data-toggle="collapse">ClearError(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears the specified error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ClearError(string error)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">error</span>
+        <p><p>The error.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ClearErrors(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L633" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearErrors*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_System_String___" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearErrors(System.String[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_System_String___" class="expander" data-toggle="collapse">ClearErrors(String[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_System_String___" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears the errors described by omitted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ClearErrors(params string[] omitted)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</span>
+        <span class="parametername">omitted</span>
+        <p><p>A variable-length parameters list containing omitted errors.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ClearWarning(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L626" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearWarning*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearWarning(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_Object_" class="expander" data-toggle="collapse">ClearWarning(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears the warning described by warning.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ClearWarning(object value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">value</span>
+        <p><p>The warning object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ClearWarning(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L615" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearWarning*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearWarning(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_String_" class="expander" data-toggle="collapse">ClearWarning(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears the warning described by warning.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ClearWarning(string warning)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">warning</span>
+        <p><p>The warning.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ClearWarnings(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L646" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearWarnings*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_System_String___" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ClearWarnings(System.String[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_System_String___" class="expander" data-toggle="collapse">ClearWarnings(String[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_System_String___" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears the warnings described by omitted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ClearWarnings(params string[] omitted)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>[]</span>
+        <span class="parametername">omitted</span>
+        <p><p>A variable-length parameters list containing omitted warnings.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ContainsError(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L671" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsError(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_Object_" class="expander" data-toggle="collapse">ContainsError(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Query if &apos;error&apos; contains error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ContainsError(object value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">value</span>
+        <p><p>The error object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ContainsError(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L660" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsError(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_String_" class="expander" data-toggle="collapse">ContainsError(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Query if &apos;error&apos; contains error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ContainsError(string error)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">error</span>
+        <p><p>The error.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ContainsWarning(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L690" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsWarning*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_Object_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsWarning(System.Object)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_Object_" class="expander" data-toggle="collapse">ContainsWarning(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Query if &apos;warning&apos; contains error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ContainsWarning(object value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">value</span>
+        <p><p>The warning object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ContainsWarning(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L679" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsWarning*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ContainsWarning(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_String_" class="expander" data-toggle="collapse">ContainsWarning(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Query if &apos;warning&apos; contains warning.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ContainsWarning(string warning)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">warning</span>
+        <p><p>The warning.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Disable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L209" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Disable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Disable(DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Disables the service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Disable(DisabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>Reason for disabling.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_">IDeviceService.Disable(DisabledReasons)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledDetected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.DisabledDetected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L482" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledDetected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DisabledDetected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledDetected" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.DisabledDetected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledDetected" class="expander" data-toggle="collapse">DisabledDetected()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledDetected" class="collapse in">
+  <div class="markdown level1 summary"><p>Disabled detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void DisabledDetected()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L486" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disabling_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Disabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Disabling(DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is disabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void Disabling(DisabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L373" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Dispose"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L388" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the
+Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter and optionally releases the managed
+resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Enable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L239" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Enable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" class="expander" data-toggle="collapse">Enable(EnabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Enables the service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Enable(EnabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons.html">EnabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>Reason for enabling.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if enabling the service succeeded.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_">IDeviceService.Enable(EnabledReasons)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons%2CAristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L491" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabling_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Enabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons,Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Enabling(EnabledReasons, DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is enabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void Enabling(EnabledReasons reason, DisabledReasons remedied)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons.html">EnabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">remedied</span>
+        <p><p>The remedied.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_System_Func_System_Threading_Tasks_Task_System_Boolean___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.ExecuteDisabled(System.Func%7BSystem.Threading.Tasks.Task%7BSystem.Boolean%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L451" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ExecuteDisabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_System_Func_System_Threading_Tasks_Task_System_Boolean___" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.ExecuteDisabled(System.Func{System.Threading.Tasks.Task{System.Boolean}})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_System_Func_System_Threading_Tasks_Task_System_Boolean___" class="expander" data-toggle="collapse">ExecuteDisabled(Func&lt;Task&lt;Boolean&gt;&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_System_Func_System_Threading_Tasks_Task_System_Boolean___" class="collapse in">
+  <div class="markdown level1 summary"><p>Executes the specified method while disabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual async Task ExecuteDisabled(Func&lt;Task&lt;bool&gt;&gt; method)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;&gt;</span>
+        <span class="parametername">method</span>
+        <p><p>The method return a result of success or failed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p><p>An asynchronous result.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L186" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Initialize"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes the runnable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.ServiceException.html">ServiceException</a>
+        <p><p>Thrown when the runnable fails initialization.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initializing.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Initializing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L494" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initializing_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Initializing*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initializing" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Initializing"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initializing" class="expander" data-toggle="collapse">Initializing()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initializing" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is initializing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void Initializing()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Inspect(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L290" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Inspect*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Inspect(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="expander" data-toggle="collapse">Inspect(IComConfiguration, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Inspects the device with the given communication settings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async void Inspect(IComConfiguration config, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration.html">IComConfiguration</a></span>
+        <span class="parametername">config</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>time in milliseconds to notify of failed initialization if expired.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_">IDeviceAdapter.Inspect(IComConfiguration, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L499" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspecting_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Inspecting*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="expander" data-toggle="collapse">Inspecting(IComConfiguration, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is inspecting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void Inspecting(IComConfiguration comConfiguration, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration.html">IComConfiguration</a></span>
+        <span class="parametername">comConfiguration</span>
+        <p><p>The com configuration.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>The timeout.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent__1___0_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.PostEvent%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L506" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.PostEvent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent__1___0_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.PostEvent``1(``0)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent__1___0_" class="expander" data-toggle="collapse">PostEvent&lt;T&gt;(T)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent__1___0_" class="collapse in">
+  <div class="markdown level1 summary"><p>The method used to post an event to the Event Bus</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void PostEvent&lt;T&gt;(T event)
+    where T : IEvent</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">T</span></span>
+        <span class="parametername">event</span>
+        <p><p>The event to be published</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">T</span>
+        <p><p>The type of event to publish</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.RegisterComponent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L708" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.RegisterComponent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.RegisterComponent"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent" class="expander" data-toggle="collapse">RegisterComponent()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent" class="collapse in">
+  <div class="markdown level1 summary"><p>Register Component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void RegisterComponent()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.RegisterDfuAdapter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L518" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.RegisterDfuAdapter*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.RegisterDfuAdapter"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter" class="expander" data-toggle="collapse">RegisterDfuAdapter()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter" class="collapse in">
+  <div class="markdown level1 summary"><p>Registers the dfu adapter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RegisterDfuAdapter()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L343" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to start a self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; SelfTest(bool clear)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">clear</span>
+        <p><p>An flag indicating if memory should be cleared before the self-test is performed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>A Task (allows for asynchronous) with a GatData report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_SelfTest_System_Boolean_">IDeviceAdapter.SelfTest(Boolean)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SelfTest_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST initiate a self-test sequence when instructed by the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.SetInternalConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L696" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.SetInternalConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.SetInternalConfiguration"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration" class="expander" data-toggle="collapse">SetInternalConfiguration()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration" class="collapse in">
+  <div class="markdown level1 summary"><p>Set Internal Configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SetInternalConfiguration()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L538" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SubscribeToEvents_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.SubscribeToEvents*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">SubscribeToEvents(IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Subscribe to events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void SubscribeToEvents(IEventBus eventBus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>The event bus.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.UnregisterComponent(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L761" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.UnregisterComponent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.UnregisterComponent(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_System_Boolean_" class="expander" data-toggle="collapse">UnregisterComponent(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Unregister Component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool UnregisterComponent(bool cycling = false)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">cycling</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601.UnregisterDfuAdapter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L529" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.UnregisterDfuAdapter*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter`1.UnregisterDfuAdapter"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter" class="expander" data-toggle="collapse">UnregisterDfuAdapter()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter" class="collapse in">
+  <div class="markdown level1 summary"><p>Un register dfu adapter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void UnregisterDfuAdapter()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.IDeviceAdapter</span></div>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/DeviceAdapter.cs/#L19" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

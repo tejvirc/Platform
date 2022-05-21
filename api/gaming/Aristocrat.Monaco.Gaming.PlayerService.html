@@ -1,0 +1,1127 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class PlayerService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class PlayerService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.PlayerService">
+  <h1 id="Aristocrat_Monaco_Gaming_PlayerService" data-uid="Aristocrat.Monaco.Gaming.PlayerService">Class PlayerService
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">PlayerService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.html">Aristocrat.Monaco.Gaming</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_PlayerService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public class PlayerService : IPlayerService, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerSessionHistory_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderProvider_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.%23ctor(Aristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Gaming.Contracts.IGamePlayState%2CAristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator%2CAristocrat.Monaco.Gaming.Contracts.IGameHistory%2CAristocrat.Monaco.Application.Contracts.IIdProvider%2CAristocrat.Monaco.Gaming.Contracts.Session.IPlayerSessionHistory%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager%2CAristocrat.Monaco.Application.Contracts.IMeterManager%2CAristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService__ctor_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerSessionHistory_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderProvider_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.#ctor(Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Gaming.Contracts.IGamePlayState,Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator,Aristocrat.Monaco.Gaming.Contracts.IGameHistory,Aristocrat.Monaco.Application.Contracts.IIdProvider,Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerSessionHistory,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager,Aristocrat.Monaco.Application.Contracts.IMeterManager,Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderProvider)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerSessionHistory_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderProvider_" class="expander" data-toggle="collapse">PlayerService(IEventBus, IGamePlayState, ITransactionCoordinator, IGameHistory, IIdProvider, IPlayerSessionHistory, IPropertiesManager, IPersistentStorageManager, IMeterManager, IIdReaderProvider)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Gaming_Contracts_IGamePlayState_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerSessionHistory_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderProvider_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlayerService(IEventBus bus, IGamePlayState gameState, ITransactionCoordinator transactions, IGameHistory gameHistory, IIdProvider idProvider, IPlayerSessionHistory history, IPropertiesManager properties, IPersistentStorageManager storageManager, IMeterManager meterManager, IIdReaderProvider idReaderValidator)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">bus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGamePlayState.html">IGamePlayState</a></span>
+        <span class="parametername">gameState</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../accounting/Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.html">ITransactionCoordinator</a></span>
+        <span class="parametername">transactions</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistory.html">IGameHistory</a></span>
+        <span class="parametername">gameHistory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.IIdProvider.html">IIdProvider</a></span>
+        <span class="parametername">idProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerSessionHistory.html">IPlayerSessionHistory</a></span>
+        <span class="parametername">history</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager.html">IPersistentStorageManager</a></span>
+        <span class="parametername">storageManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.IMeterManager.html">IMeterManager</a></span>
+        <span class="parametername">meterManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderProvider.html">IIdReaderProvider</a></span>
+        <span class="parametername">idReaderValidator</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_ActiveSession.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.ActiveSession%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_ActiveSession_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.ActiveSession*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_ActiveSession" data-uid="Aristocrat.Monaco.Gaming.PlayerService.ActiveSession"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_ActiveSession" class="expander" data-toggle="collapse">ActiveSession</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_ActiveSession" class="collapse in">
+  <div class="markdown level1 summary"><p>Returns the current player session</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPlayerSession ActiveSession { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerSession.html">IPlayerSession</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_ActiveSession">IPlayerService.ActiveSession</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Enabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Enabled_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Enabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Enabled" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Enabled"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Enabled" class="expander" data-toggle="collapse">Enabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Enabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether player sessions are enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Enabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_Enabled">IPlayerService.Enabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_HasActiveSession.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.HasActiveSession%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_HasActiveSession_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.HasActiveSession*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_HasActiveSession" data-uid="Aristocrat.Monaco.Gaming.PlayerService.HasActiveSession"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_HasActiveSession" class="expander" data-toggle="collapse">HasActiveSession</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_HasActiveSession" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether there is an active player session</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasActiveSession { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_HasActiveSession">IPlayerService.HasActiveSession</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L296" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Name_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Name" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Name"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Options.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Options%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Options_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Options*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Options" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Options"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Options" class="expander" data-toggle="collapse">Options</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Options" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlayerOptions Options { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.PlayerOptions.html">PlayerOptions</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_Options">IPlayerService.Options</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L299" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_ServiceTypes_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_ServiceTypes" data-uid="Aristocrat.Monaco.Gaming.PlayerService.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Status.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Status%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L122" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Status_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Status*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Status" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Status"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Status" class="expander" data-toggle="collapse">Status</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Status" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the status of the player service</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlayerStatus Status { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.PlayerStatus.html">PlayerStatus</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_Status">IPlayerService.Status</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_CommitSession_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.CommitSession(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L233" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_CommitSession_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.CommitSession*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_CommitSession_System_Int64_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.CommitSession(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_CommitSession_System_Int64_" class="expander" data-toggle="collapse">CommitSession(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_CommitSession_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CommitSession(long transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_CommitSession_System_Int64_">IPlayerService.CommitSession(Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Disable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Disable(Aristocrat.Monaco.Gaming.Contracts.Session.PlayerStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L270" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Disable_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Disable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Disable(Aristocrat.Monaco.Gaming.Contracts.Session.PlayerStatus)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Disable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_" class="expander" data-toggle="collapse">Disable(PlayerStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Disable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Disable(PlayerStatus status)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.PlayerStatus.html">PlayerStatus</a></span>
+        <span class="parametername">status</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_Disable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_">IPlayerService.Disable(PlayerStatus)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Dispose_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Dispose" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Dispose"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L339" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Dispose_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Enable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Enable(Aristocrat.Monaco.Gaming.Contracts.Session.PlayerStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L246" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Enable_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Enable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Enable(Aristocrat.Monaco.Gaming.Contracts.Session.PlayerStatus)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Enable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_" class="expander" data-toggle="collapse">Enable(PlayerStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Enable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Enables the player session tracking with the provided reason</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Enable(PlayerStatus status)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.PlayerStatus.html">PlayerStatus</a></span>
+        <span class="parametername">status</span>
+        <p><p>The </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_Enable_Aristocrat_Monaco_Gaming_Contracts_Session_PlayerStatus_">IPlayerService.Enable(PlayerStatus)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_GetParameters__1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.GetParameters%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L287" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_GetParameters_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.GetParameters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_GetParameters__1" data-uid="Aristocrat.Monaco.Gaming.PlayerService.GetParameters``1"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_GetParameters__1" class="expander" data-toggle="collapse">GetParameters&lt;TParam&gt;()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_GetParameters__1" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the specified award parameters if configured</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TParam GetParameters&lt;TParam&gt;()
+    where TParam : AwardParameters</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">TParam</span>
+        <p><p>The award parameters if configured</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TParam</span>
+        <p><p>The parameter type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_GetParameters__1">IPlayerService.GetParameters&lt;TParam&gt;()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L302" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_Initialize_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_Initialize" data-uid="Aristocrat.Monaco.Gaming.PlayerService.Initialize"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters(Aristocrat.Monaco.Hardware.Contracts.IdReader.Identity)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L203" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters(Aristocrat.Monaco.Hardware.Contracts.IdReader.Identity)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_" class="expander" data-toggle="collapse">SetSessionParameters(Identity)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the identity parameter for the active session.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSessionParameters(Identity identity)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.IdReader.Identity.html">Identity</a></span>
+        <span class="parametername">identity</span>
+        <p><p>Identity from the ID Reader.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_SetSessionParameters_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_">IPlayerService.SetSessionParameters(Identity)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters(System.Int64%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L148" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters(System.Int64,System.Int64,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_" class="expander" data-toggle="collapse">SetSessionParameters(Int64, Int64, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the session parameters for the active session</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSessionParameters(long transactionId, long pointBalance, long overrideId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The session transaction identifier</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">pointBalance</span>
+        <p><p>The current point balance</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">overrideId</span>
+        <p><p>The identifier for the set of generic override parameters that should be used. Set to 0 (zero)
+if no override should be in use</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_">IPlayerService.SetSessionParameters(Int64, Int64, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Gaming_Contracts_Session_GenericOverrideParameters_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters(System.Int64%2CSystem.Int64%2CSystem.Int64%2CAristocrat.Monaco.Gaming.Contracts.Session.GenericOverrideParameters)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L171" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Gaming_Contracts_Session_GenericOverrideParameters_" data-uid="Aristocrat.Monaco.Gaming.PlayerService.SetSessionParameters(System.Int64,System.Int64,System.Int64,Aristocrat.Monaco.Gaming.Contracts.Session.GenericOverrideParameters)"><a href="#collapsible-Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Gaming_Contracts_Session_GenericOverrideParameters_" class="expander" data-toggle="collapse">SetSessionParameters(Int64, Int64, Int64, GenericOverrideParameters)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_PlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Gaming_Contracts_Session_GenericOverrideParameters_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the session parameters for the active session</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSessionParameters(long transactionId, long pointBalance, long carryOver, GenericOverrideParameters overrideParameters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The session transaction identifier</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">pointBalance</span>
+        <p><p>The current point balance</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">carryOver</span>
+        <p><p>The carry over value</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.GenericOverrideParameters.html">GenericOverrideParameters</a></span>
+        <span class="parametername">overrideParameters</span>
+        <p><p>The optional override parameters</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Session.IPlayerService.html#Aristocrat_Monaco_Gaming_Contracts_Session_IPlayerService_SetSessionParameters_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Gaming_Contracts_Session_GenericOverrideParameters_">IPlayerService.SetSessionParameters(Int64, Int64, Int64, GenericOverrideParameters)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_PlayerService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.PlayerService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/PlayerService.cs/#L20" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

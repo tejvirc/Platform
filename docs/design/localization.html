@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Multi-Language Suport </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Multi-Language Suport ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="multi-language-suport">Multi-Language Suport</h1>
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#current-multi-language-support-in-monaco">Current multi-language support in Monaco</a></li>
+<li><a href="#solution">Solution</a></li>
+<li><a href="#localizationservice">LocalizationService</a><ul>
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li><a href="#cultureprovider">CultureProvider</a><ul>
+<li><a href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a href="#culturescope">CultureScope</a><ul>
+<li><a href="#examples-1">Examples</a></li>
+</ul>
+</li>
+<li><a href="#xaml">XAML</a><ul>
+<li><a href="#examples-2">Examples</a></li>
+<li><a href="#wpflocalizeextensions">WPFLocalizeExtensions</a></li>
+</ul>
+</li>
+<li><a href="#custom-resx-localization-provider">Custom RESX Localization Provider</a><ul>
+<li><a href="#examples-3">Examples</a></li>
+</ul>
+</li>
+<li><a href="#resources">Resources</a><ul>
+<li><a href="#resolving-duplicates">Resolving Duplicates</a></li>
+<li><a href="#resxmanager-tool">ResXManager Tool</a><ul>
+<li><a href="#using-the-resxmanager-tool">Using The ResXManager Tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#jurisdictional-overrides">Jurisdictional Overrides</a><ul>
+<li><a href="#building-the-satellite-assemblies">Building the Satellite Assemblies</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h1 id="requirements">Requirements</h1>
+<p>This feature has the following requirements:</p>
+<ul>
+<li>support English, French, Spanish, and Simple Chinese. </li>
+<li>support adding additional languages</li>
+<li>all Platform messages a player could see need translations into
+these languages</li>
+<li>support the operator setting the language for Platform messages</li>
+<li>support for changing languages at run time</li>
+<li>support for persisting the language selection</li>
+<li>support for jurisdiction specific overrides of messages</li>
+<li>support independent language selections for Players and Operators</li>
+<li>support languages a game must implement to be enabled for play</li>
+<li>support language selection for Tickets</li>
+<li>support the operator setting the language for Tickets</li>
+</ul>
+<p>Not included as part of this epic:</p>
+<ul>
+<li>Providing/showing Game translations or graphics. </li>
+</ul>
+<h1 id="current-multi-language-support-in-monaco">Current multi-language support in Monaco</h1>
+<p>Currently Monaco has a couple of methods for supporting multiple
+languages and jurisdiction specific messages. There isn&#39;t a common
+localization process.</p>
+<ul>
+<li>Multiple Resource files embedded in projects as well as satellite
+DLLs.</li>
+<li>A Localization.xml file in the Config directory that is similar to
+the Linux translation xml file.</li>
+<li>Jurisdiction specific configuration xml files that provide messages
+using properties</li>
+</ul>
+<h1 id="solution">Solution</h1>
+<ul>
+<li>Consolidate resources files into one project. When the project is
+built, a template assembly (Aristocrat.Monaco.Application) and the
+associated satellite assemblies
+(Aristocrat.Monaco.Application.resources.dll) will be created in the
+Platform\bin directory. The satellite assemblies will be in the
+culture sub-folders, i.e. Platform\bin\fr-CA.</li>
+<li>Create a Resources.{culture}.resx file in the jurisdiction config
+folder for overrides. A Post-Event MsBuild script will create the
+resource assemblies in the associated
+Platform\bin\Config\Jurisdiction folders. The resx files can
+include both text and images.</li>
+<li>Create a culture provider that will manage multi-language
+requirements for a specific area. For example, a culture provider
+will be created for the player and operator multi-language
+requirements.</li>
+<li>Resources will be referenced by a string key.</li>
+<li><strong>WPFLocalizationExtensions</strong> library will be used to retrieve the
+localized resource for a particular key in XAML. A custom service
+provider will extend the <strong>WPFLocalizationExtensions</strong> RESX provider
+for jurisdiction overrides.</li>
+</ul>
+<h1 id="localizationservice">LocalizationService</h1>
+<p>The <strong>LocalizationService</strong> will manage the localization services
+initialization logic for the Platform. This service will load in the
+default resources and jurisdiction resources. It will also act as a
+bridge between the culture providers and the RESX localization provider.
+The <strong>LocalizationService</strong> will be created and initialized following
+the properties providers. During initialization, the directory will be
+scanned for culture providers defined in add-ins. When a culture
+provider is discovered, it will be created and registered. The default
+culture will also be added to the provider&#39;s list of available cultures.</p>
+<p><strong>ILocalizationService Interface</strong></p>
+<p>CultureInfo DefaultCulture { get; }</p>
+<p>CultureInfo CurrentCulture { get; set; }</p>
+<p>void Register(params ICultureProvider[] providers);</p>
+<p>ICultureProvider GetProvider(string name);</p>
+<p>bool IsCultureSupported(CultureInfo culture);</p>
+<h2 id="configuration">Configuration</h2>
+<p>The initial configuration information for the <strong>LocalizationService</strong>
+will be retrieved from the Locale.config.xml file located in the
+selected jurisdiction folder. Before a Jurisdiction is selected, all
+resource look-ups will target the default language which is &quot;en-US&quot;.</p>
+<h1 id="cultureprovider">CultureProvider</h1>
+<p>Culture providers are used to manage the localization requirements for a
+specific area. Initially, there will be a player and operator culture
+provider. These two culture providers should cover the majority of the
+multi-language requirements for the Platform. If there are specific
+requirements that are outside of the purview of the existing culture
+providers, a new culture provider can be created to implement the logic
+for these requirements. Providers can be defined in add-in files or
+instantiated by the container for layers that have container services
+available. When created by the container, the provider will need to be
+registered with the <strong>LocalizationService</strong>.</p>
+<p><strong>ICultureProvider Interface</strong></p>
+<p>string ProviderName { get; }</p>
+<p>CultureInfo CurrentCulture { get; set; }</p>
+<p>IReadOnlyCollection&lt;CultureInfo> AvailableCultures { get; }</p>
+<p>CultureInfo[] AddCultures(params CultureInfo[] cultures);</p>
+<p>CultureInfo[] RemoveCultures(params CultureInfo[] cultures);</p>
+<p>CultureInfo CoerceCulture(object parameter, CultureInfo culture);</p>
+<p>bool IsCultureSupported(CultureInfo culture);</p>
+<p>void SwitchTo();</p>
+<p>TResource GetObject&lt;TResource>(string key, object parameter = null);</p>
+<h2 id="examples">Examples</h2>
+<p><strong>Defining a CultureProvider</strong></p>
+<p>&lt;Extension path=&quot;/Application/Localization/CultureProviders&quot;></p>
+<p>&lt;Provider
+type=&quot;Aristocrat.Monaco.Application.Localization.OperatorCultureProvider&quot;
+/></p>
+<p>&lt;/Extension></p>
+<p><strong>Using a Container</strong></p>
+<p>var localization = _container.GetInstance&lt;ILocalizationService>();</p>
+<p>var provider = _container.GetInstance&lt;IPlayerCultureProvider>();</p>
+<p>localization.Register(provider);</p>
+<h1 id="culturescope">CultureScope</h1>
+<p>A <strong>CultureScope</strong> is used to wrap retrievals for localized resources. A
+<strong>CultureScope</strong> can be created with a new statement passing in the
+provider name. The <strong>CultureScope</strong> instance should always be disposed.
+When a <strong>CultureScope</strong> is instantiated, the thread culture will change
+to the current culture of the provider. When it is disposed, the
+previous thread culture will be restored.</p>
+<p><strong>ICultureScope interface</strong></p>
+<p>TResource GetObject&lt;TResource>(string key, object parameter = null);</p>
+<p>string GetString(string key, object parameter = null);</p>
+<p>string FormatString(string key, object parameter = null, params
+object[] args);</p>
+<h2 id="examples-1">Examples</h2>
+<p><strong>Using a CultureScope</strong></p>
+<pre><code class="lang-csharp">using (var scope = new CultureScope(&quot;OperatorTicket&quot;, valueForTheProvider))
+{
+  var title = scope.GetString(&quot;TicketTitle&quot;);
+}
+</code></pre><p><strong>Formatting</strong></p>
+<pre><code class="lang-csharp">using (var scope = new CultureScope(&quot;Player&quot;))
+{
+  var coinIn = scope.FormatString(&quot;CoinInFormat&quot;, args: 100);
+}
+</code></pre><p><strong>Using Localizer Static Class</strong></p>
+<pre><code class="lang-csharp">var billIn = Localizer.For(&quot;Operator&quot;).FormatString(&quot;BillInFormat&quot;,
+args: 100);
+</code></pre><h1 id="xaml">XAML</h1>
+<p><strong>WPFLocalizationExtensions</strong> markup extensions library was installed in
+the UI projects to retrieve localized strings from XAML. This is a
+powerful open source library that contains several built-in markup
+extensions and other localization utilities. The localization strategy
+for the Platform was built on top of this library. The preferred method
+to retrieve localized resources for XAML is using the markup extension
+contained in this library. Custom markup extensions can also be created
+using the markup extension in this library as a guide.</p>
+<h2 id="examples-2">Examples</h2>
+<p><strong>Using WPFLocalizationExtensions in XAML</strong></p>
+<pre><code class="lang-xml">&lt;UserControl xmlns:lex=&quot;http://wpflocalizeextension.codeplex.com&quot;&gt;
+  &lt;Grid&gt;
+    &lt;Button Content=&quot;{x:Static loc:Resources.ReplayText}&quot; /&gt;
+    &lt;!-- should be replace with --&gt;
+    &lt;Button Content=&quot;{lex:Loc Key=ReplayText}&quot; /&gt;
+  &lt;/Grid&gt;
+&lt;/UserControl&gt;
+</code></pre><p><strong>Localized Image</strong></p>
+<pre><code class="lang-xml">&lt;Window xmlns:lex=&quot;http://wpflocalizeextension.codeplex.com&quot;&gt;
+  &lt;Button x:Name=&quot;btnCashOut&quot;&gt;
+    &lt;Image&gt;
+      &lt;Image.Style&gt;
+        &lt;Style TargetType=&quot;Image&quot;&gt;
+          &lt;Setter Property=&quot;Source&quot; Value=&quot;{lex:BLoc Key=CashOutNormal, Converter={StaticResource BitmapToImageConverter}}&quot; /&gt;
+          &lt;Style.Triggers&gt;
+            &lt;DataTrigger Binding=&quot;{Binding ElementName=btnCashOut, Path=IsEnabled}&quot;
+                         Value=&quot;False&quot;/&gt;
+              &lt;Setter Property=&quot;Source&quot;
+                      Value=&quot;{lex:BLoc Key=CashOutDisabled, Converter={StaticResource BitmapToImageConverter}}&quot; /&gt;
+            &lt;/DataTrigger&gt;
+        &lt;/Style.Triggers&gt;
+        &lt;/Style&gt;
+      &lt;/Image.Style&gt;
+    &lt;/Image&gt;
+  &lt;/Button&gt;
+&lt;/Window&gt;
+</code></pre><h2 id="wpflocalizeextensions">WPFLocalizeExtensions</h2>
+<p><a href="https://github.com/XAMLMarkupExtensions/WPFLocalizationExtension">https://github.com/XAMLMarkupExtensions/WPFLocalizationExtension</a></p>
+<p><strong>Installing</strong></p>
+<p>Install-Package WpfLocalizeExtension -Version 3.3.1</p>
+<p><em>Note: Make sure to select the target project before executing the
+command.</em></p>
+<h1 id="custom-resx-localization-provider">Custom RESX Localization Provider</h1>
+<p>The custom RESX localization provider extends the base provider found in
+the <strong>WPFLocalizationExtensions</strong> library. The purpose of this provider
+is to provide the capability for jurisdictional overrides, connect the
+Platform to the <strong>WPFLocalizationExtensions</strong> base provider, and define
+attachable properties that can be included in XAML to target a specific
+culture provider. This custom provider is used by the
+<strong>LocalizationService</strong> and should not be referenced directly from
+anywhere else in the Platform. The custom provider and attachable
+properties for localization are located in the
+Infrastructure/Aristocrat.Monaco.Localization project.</p>
+<h2 id="examples-3">Examples</h2>
+<p><strong>Using Attachable Properties</strong></p>
+<pre><code class="lang-xml">&lt;UserControl xmlns:loc=&quot;http://monaco.aristocrat.com/localization&quot; loc:Localization.CultureFor=&quot;Player&quot;&gt;
+  &lt;StackPanel&gt;
+    &lt;!-- these controls will target the Player culture provider --&gt;
+    &lt;Button Content=&quot;{lex:Loc Key=OkText}&quot; /&gt;
+    &lt;TextBlock Text=&quot;{lex:Loc Key=CancelText}&quot; /&gt;
+    &lt;!-- this control will target the Operator culture provider --&gt;
+    &lt;Button Content=&quot;{lex:Loc Key=OpenText}&quot; 
+            loc:Localization.CultureFor=&quot;Operator&quot; 
+            loc:Localization.CultureForParameter=&quot;{Binding SomeParameter}&quot; /&gt;
+  &lt;/StackPanel&gt;
+&lt;/UserControl&gt;
+</code></pre><p>Note: The attachable properties are bindable.*</p>
+<h1 id="resources">Resources</h1>
+<p>The resources form all the solution projects have been consolidated into
+one project. The consolidation was done approximately on November 6th.
+Hence, any resources added after that date will not be included in the
+centralized resources. Any resources added after that date, should be
+moved to the centralized resources. All other resources located in other
+projects will be removed at a determined time. The centralized resources
+can be found in the Aristocrat.Monaco.Application project under the
+Localization folder. Use the <strong>ResXManager Tool</strong> to view project
+resources in the solution.</p>
+<h2 id="resolving-duplicates">Resolving Duplicates</h2>
+<p>In order to resolve the conflicts when consolidating the resource files,
+some keys have been renamed. You will need to check the centralized
+resource files to see if the key has been changed. For example, if
+<strong>AcceptText</strong> was defined in three different projects, there will be
+three keys named <strong>AcceptText</strong>,  <strong>AcceptText2</strong>, and <strong>AcceptText3</strong>.
+Wherever possible, we need to try to eliminate duplicates. For instance,
+when the localized string is the same for all three in all supported
+languages, you can remove the duplicates and just use the <strong>AcceptText</strong>
+key. Another instance may be when one is lowercase and the other is
+uppercase. The case of text can be controlled in the XAML. Yet another
+instance, maybe when one has a colon at the end of the text. You can use
+Inline elements in the XAML to append a colon.</p>
+<h2 id="resxmanager-tool">ResXManager Tool</h2>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=TomEnglert.ResXManager">ResXManager Visual Studio Extension</a></p>
+<h3 id="using-the-resxmanager-tool">Using The ResXManager Tool</h3>
+<ul>
+<li>Install the ResXManger VS extension tool from the &quot;Tools >
+Extensions and Updates...&quot; dialog.</li>
+<li>Open the ResXManager tool from the Tools menu.</li>
+<li>Initially, all the projects in the solution containing resource
+files will be selected. Deselect all of the resources.</li>
+<li>Under the Aristocrat.Monaco.Application project, select the
+&quot;Properties\Resources&quot; resources. This will show you all the keys
+and localized strings from each language side-by-side.</li>
+<li>You can filter the list by clicking the filter icon in the Keys
+header. The comment column will contain the original project where
+the key was defined.</li>
+</ul>
+<h1 id="jurisdictional-overrides">Jurisdictional Overrides</h1>
+<p>Jurisdictional overrides are defined in the folder for the jurisdiction
+that the override will apply to. The overrides will be defined in resx
+files in the jurisdiction config folder. A resx file will exist for each
+language that defines overrides. For instance, if an override needs to
+be defined for French-Canada and Spanish-Mexico, there will be two resx
+files in the jurisdiction folder named Resources.fr-CA.resx and
+Resources.es-MX.resx, respectively. These files can be edited in Visual
+Studio and can include both text strings and images. References to
+external files in the resx file (i.e. images) should be contained in the
+jurisdiction folder or sub-folders. To target the Invariant culture, a
+Resources.resx file should be created.</p>
+<h2 id="building-the-satellite-assemblies">Building the Satellite Assemblies</h2>
+<p>The satellite assemblies will be built by an MsBuild script that will be
+triggered during the Post-Build event of the Bootstrap project. This
+script will run after the configs are copied to the jurisdiction folders
+located under the Platform/bin/Config/Jurisdiction directory. After the
+script completes, there should be an
+<strong>Aristocrat.Monaco.Jurisdiction.dll</strong> in the jurisdiction folder and a
+<strong>Aristocrat.Monaco.Jurisdiction.resources.dll</strong> satellite assembly in
+culture sub-folders for each of the cultures where overrides exists. The
+script should only build when a resource file has been changed for the
+particular jurisdiction. If no resx file are include in the jurisdiction
+config folder, then no assemblies will be built for that jurisdiction.
+The MsBuild script is located in the Build\Localization folder.</p>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Documentation/docs/design/localization.md/#L1" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

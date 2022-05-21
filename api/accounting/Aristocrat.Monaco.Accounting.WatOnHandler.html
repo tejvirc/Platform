@@ -1,0 +1,921 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class WatOnHandler
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class WatOnHandler
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler">
+  <h1 id="Aristocrat_Monaco_Accounting_WatOnHandler" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler">Class WatOnHandler
+  </h1>
+  <div class="markdown level0 summary"><p>Waits for transfer requests from a host and attempts to start a new transaction in
+which it will work with the bank to deposit funds.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Accounting.TransferInProviderBase.html">TransferInProviderBase</a></div>
+    <div class="level2"><span class="xref">WatOnHandler</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.TransferInProviderBase.html#Aristocrat_Monaco_Accounting_TransferInProviderBase_CheckMaxCreditMeter_System_Int64_">TransferInProviderBase.CheckMaxCreditMeter(Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.TransferInProviderBase.html#Aristocrat_Monaco_Accounting_TransferInProviderBase_CheckLaundry_System_Int64_">TransferInProviderBase.CheckLaundry(Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.TransferInProviderBase.html#Aristocrat_Monaco_Accounting_TransferInProviderBase_UpdateLaundryLimit_Aristocrat_Monaco_Accounting_Contracts_BaseTransaction_">TransferInProviderBase.UpdateLaundryLimit(BaseTransaction)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Accounting.html">Aristocrat.Monaco.Accounting</a></h6>
+  <h6><strong>Assembly</strong>: Monaco.Accounting.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_WatOnHandler_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public sealed class WatOnHandler : TransferInProviderBase, IWatTransferOnHandler, IService</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler__ctor_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler__ctor" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.#ctor"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler__ctor" class="expander" data-toggle="collapse">WatOnHandler()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public WatOnHandler()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_IFundTransferProvider_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.%23ctor(Aristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator%2CAristocrat.Monaco.Accounting.Contracts.ITransactionHistory%2CAristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Application.Contracts.IMeterManager%2CAristocrat.Monaco.Kernel.IMessageDisplay%2CAristocrat.Monaco.Accounting.Contracts.IBank%2CAristocrat.Monaco.Accounting.Contracts.IFundTransferProvider%2CAristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler__ctor_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_IFundTransferProvider_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.#ctor(Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator,Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory,Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Application.Contracts.IMeterManager,Aristocrat.Monaco.Kernel.IMessageDisplay,Aristocrat.Monaco.Accounting.Contracts.IBank,Aristocrat.Monaco.Accounting.Contracts.IFundTransferProvider,Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager)"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_IFundTransferProvider_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" class="expander" data-toggle="collapse">WatOnHandler(IEventBus, ITransactionCoordinator, ITransactionHistory, IPersistentStorageManager, IPropertiesManager, IMeterManager, IMessageDisplay, IBank, IFundTransferProvider, ILockManager)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Kernel_IMessageDisplay_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_IFundTransferProvider_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public WatOnHandler(IEventBus eventBus, ITransactionCoordinator transactionCoordinator, ITransactionHistory transactionHistory, IPersistentStorageManager persistentStorageManager, IPropertiesManager propertiesManager, IMeterManager meterManager, IMessageDisplay messageDisplay, IBank bank, IFundTransferProvider fundTransferProvider, ILockManager lockManager)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.html">ITransactionCoordinator</a></span>
+        <span class="parametername">transactionCoordinator</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory.html">ITransactionHistory</a></span>
+        <span class="parametername">transactionHistory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager.html">IPersistentStorageManager</a></span>
+        <span class="parametername">persistentStorageManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">propertiesManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.IMeterManager.html">IMeterManager</a></span>
+        <span class="parametername">meterManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IMessageDisplay.html">IMessageDisplay</a></span>
+        <span class="parametername">messageDisplay</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html">IBank</a></span>
+        <span class="parametername">bank</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IFundTransferProvider.html">IFundTransferProvider</a></span>
+        <span class="parametername">fundTransferProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager.html">ILockManager</a></span>
+        <span class="parametername">lockManager</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_Name_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_Name" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Name"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_ServiceTypes_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_ServiceTypes" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_AcknowledgeTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.AcknowledgeTransfer(Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L163" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_AcknowledgeTransfer_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.AcknowledgeTransfer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_AcknowledgeTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.AcknowledgeTransfer(Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction)"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_AcknowledgeTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_" class="expander" data-toggle="collapse">AcknowledgeTransfer(WatOnTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_AcknowledgeTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_" class="collapse in">
+  <div class="markdown level1 summary"><p>Used by the host to acknowledge the committed transaction</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AcknowledgeTransfer(WatOnTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction.html">WatOnTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p><p>The Wat On Transaction to acknowledge</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IWatTransferOnHandler.html#Aristocrat_Monaco_Accounting_Contracts_IWatTransferOnHandler_AcknowledgeTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_">IWatTransferOnHandler.AcknowledgeTransfer(WatOnTransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.CancelTransfer(Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.CancelTransfer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_System_Int32_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.CancelTransfer(Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_System_Int32_" class="expander" data-toggle="collapse">CancelTransfer(WatOnTransaction, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Used by the host to cancel a pending request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CancelTransfer(WatOnTransaction transaction, int hostException)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction.html">WatOnTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p><p>The Wat Transaction to cancel</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hostException</span>
+        <p><p>The reason for cancelling the transfer</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the request can be cancelled</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IWatTransferOnHandler.html#Aristocrat_Monaco_Accounting_Contracts_IWatTransferOnHandler_CancelTransfer_Aristocrat_Monaco_Accounting_Contracts_WatOnTransaction_System_Int32_">IWatTransferOnHandler.CancelTransfer(WatOnTransaction, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.CancelTransfer(System.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L95" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.CancelTransfer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_System_String_System_Int32_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.CancelTransfer(System.String,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_System_String_System_Int32_" class="expander" data-toggle="collapse">CancelTransfer(String, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_CancelTransfer_System_String_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Used by the host to cancel a pending request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CancelTransfer(string requestId, int hostException)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">requestId</span>
+        <p><p>The host assigned request Id</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hostException</span>
+        <p><p>The reason for cancelling the transfer</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the request can be cancelled</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IWatTransferOnHandler.html#Aristocrat_Monaco_Accounting_Contracts_IWatTransferOnHandler_CancelTransfer_System_String_System_Int32_">IWatTransferOnHandler.CancelTransfer(String, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_CanRecover_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.CanRecover(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L188" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_CanRecover_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.CanRecover*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_CanRecover_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.CanRecover(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_CanRecover_System_Guid_" class="expander" data-toggle="collapse">CanRecover(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_CanRecover_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks whether or not the provided transaction ID can be recovered</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanRecover(Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction ID to recover</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Whether or not the provided transaction ID can be recovered</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IWatTransferOnHandler.html#Aristocrat_Monaco_Accounting_Contracts_IWatTransferOnHandler_CanRecover_System_Guid_">IWatTransferOnHandler.CanRecover(Guid)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_Initialize_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_Initialize" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Initialize"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_Recover.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.Recover%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_Recover_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Recover*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_Recover" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Recover"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Recover" class="expander" data-toggle="collapse">Recover()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Recover" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Recover()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Accounting.TransferInProviderBase.html#Aristocrat_Monaco_Accounting_TransferInProviderBase_Recover">TransferInProviderBase.Recover()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_Recover_System_Guid_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.Recover(System.Guid%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L194" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_Recover_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Recover*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_Recover_System_Guid_System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.Recover(System.Guid,System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Recover_System_Guid_System_Threading_CancellationToken_" class="expander" data-toggle="collapse">Recover(Guid, CancellationToken)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_Recover_System_Guid_System_Threading_CancellationToken_" class="collapse in">
+  <div class="markdown level1 summary"><p>Will attempt recover the provided transaction ID</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; Recover(Guid transactionId, CancellationToken cancellationToken)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction ID to recover</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="parametername">cancellationToken</span>
+        <p><p>The cancellation token used to cancel the recovery task</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Whether on the recovery has finished</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IWatTransferOnHandler.html#Aristocrat_Monaco_Accounting_Contracts_IWatTransferOnHandler_Recover_System_Guid_System_Threading_CancellationToken_">IWatTransferOnHandler.Recover(Guid, CancellationToken)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler_RequestTransfer_System_Guid_System_String_System_Int64_System_Int64_System_Int64_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler.RequestTransfer(System.Guid%2CSystem.String%2CSystem.Int64%2CSystem.Int64%2CSystem.Int64%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L151" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_WatOnHandler_RequestTransfer_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.RequestTransfer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_WatOnHandler_RequestTransfer_System_Guid_System_String_System_Int64_System_Int64_System_Int64_System_Boolean_" data-uid="Aristocrat.Monaco.Accounting.WatOnHandler.RequestTransfer(System.Guid,System.String,System.Int64,System.Int64,System.Int64,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_RequestTransfer_System_Guid_System_String_System_Int64_System_Int64_System_Int64_System_Boolean_" class="expander" data-toggle="collapse">RequestTransfer(Guid, String, Int64, Int64, Int64, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_WatOnHandler_RequestTransfer_System_Guid_System_String_System_Int64_System_Int64_System_Int64_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Used by the host to request that the specified amounts be transferred on to the EGM</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RequestTransfer(Guid transactionId, string requestId, long cashable, long promo, long nonCashable, bool reduceAmount)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The bank transaction Id to use</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">requestId</span>
+        <p><p>The host transaction request identifier</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">cashable</span>
+        <p><p>The cashable amount</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">promo</span>
+        <p><p>The promotional amount</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">nonCashable</span>
+        <p><p>The non-cashable amount</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">reduceAmount</span>
+        <p><p>Indicates whether the EGM is permitted to subsequently reduce the amounts of the transfer</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the request is to be sent, false if the provider determines it is unable to
+send the request, either as a result of state or if the provider does not
+support this functionality</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IWatTransferOnHandler.html#Aristocrat_Monaco_Accounting_Contracts_IWatTransferOnHandler_RequestTransfer_System_Guid_System_String_System_Int64_System_Int64_System_Int64_System_Boolean_">IWatTransferOnHandler.RequestTransfer(Guid, String, Int64, Int64, Int64, Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_WatOnHandler.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.WatOnHandler%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Wat/WatOnHandler.cs/#L22" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

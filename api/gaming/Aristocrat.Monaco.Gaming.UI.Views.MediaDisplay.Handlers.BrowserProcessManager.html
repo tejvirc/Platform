@@ -1,0 +1,559 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class BrowserProcessManager
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class BrowserProcessManager
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager">
+  <h1 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager">Class BrowserProcessManager
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">BrowserProcessManager</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.html">Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.UI.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BrowserProcessManager : IBrowserProcessManager, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.%23ctor(Aristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager__ctor_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.#ctor(Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">BrowserProcessManager(IPropertiesManager, IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BrowserProcessManager(IPropertiesManager properties, IEventBus eventBus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Name_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Name" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Name"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ServiceTypes_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ServiceTypes" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Dispose"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L113" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Initialize_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Initialize" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.Initialize"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ReleaseBrowser_System_Windows_Controls_Control_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.ReleaseBrowser(System.Windows.Controls.Control)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ReleaseBrowser_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.ReleaseBrowser*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ReleaseBrowser_System_Windows_Controls_Control_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.ReleaseBrowser(System.Windows.Controls.Control)"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ReleaseBrowser_System_Windows_Controls_Control_" class="expander" data-toggle="collapse">ReleaseBrowser(Control)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_ReleaseBrowser_System_Windows_Controls_Control_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReleaseBrowser(Control mediaPlayerView)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.controls.control">Control</a></span>
+        <span class="parametername">mediaPlayerView</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.Media.IBrowserProcessManager.html#Aristocrat_Monaco_Application_Contracts_Media_IBrowserProcessManager_ReleaseBrowser_System_Windows_Controls_Control_">IBrowserProcessManager.ReleaseBrowser(Control)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_StartNewBrowser_Aristocrat_Monaco_Application_Contracts_Media_IMediaPlayerViewModel_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.StartNewBrowser(Aristocrat.Monaco.Application.Contracts.Media.IMediaPlayerViewModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_StartNewBrowser_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.StartNewBrowser*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_StartNewBrowser_Aristocrat_Monaco_Application_Contracts_Media_IMediaPlayerViewModel_" data-uid="Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.StartNewBrowser(Aristocrat.Monaco.Application.Contracts.Media.IMediaPlayerViewModel)"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_StartNewBrowser_Aristocrat_Monaco_Application_Contracts_Media_IMediaPlayerViewModel_" class="expander" data-toggle="collapse">StartNewBrowser(IMediaPlayerViewModel)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager_StartNewBrowser_Aristocrat_Monaco_Application_Contracts_Media_IMediaPlayerViewModel_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ContentControl StartNewBrowser(IMediaPlayerViewModel player)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.Media.IMediaPlayerViewModel.html">IMediaPlayerViewModel</a></span>
+        <span class="parametername">player</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.controls.contentcontrol">ContentControl</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.Media.IBrowserProcessManager.html#Aristocrat_Monaco_Application_Contracts_Media_IBrowserProcessManager_StartNewBrowser_Aristocrat_Monaco_Application_Contracts_Media_IMediaPlayerViewModel_">IBrowserProcessManager.StartNewBrowser(IMediaPlayerViewModel)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Views_MediaDisplay_Handlers_BrowserProcessManager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Views/MediaDisplay/Handlers/BrowserProcessManager.cs/#L19" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

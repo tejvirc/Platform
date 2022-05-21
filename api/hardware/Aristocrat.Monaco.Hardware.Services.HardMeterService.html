@@ -1,0 +1,1456 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HardMeterService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HardMeterService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService">
+  <h1 id="Aristocrat_Monaco_Hardware_Services_HardMeterService" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService">Class HardMeterService
+  </h1>
+  <div class="markdown level0 summary"><p>Provides implementation of HardMeterService. This component handles mapping and handling of physical input events
+from IO services and posting the associated logical events to the system. Also provides and interface for handling
+the device from operator menu.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html">BaseRunnable</a></div>
+    <div class="level2"><span class="xref">HardMeterService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_Disposed">BaseRunnable.Disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_Dispose">BaseRunnable.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_RunState">BaseRunnable.RunState</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_Timeout">BaseRunnable.Timeout</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_Initialize">BaseRunnable.Initialize()</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_Run">BaseRunnable.Run()</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_Stop">BaseRunnable.Stop()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Services.html">Aristocrat.Monaco.Hardware.Services</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HardMeterService : BaseRunnable, IRunnable, IDisposable, IHardMeter, IDeviceService, IService</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor" class="expander" data-toggle="collapse">HardMeterService()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Hardware.Services.HardMeterService.html">HardMeterService</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HardMeterService()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_KeySwitch_IKeySwitch_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.%23ctor(Aristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Hardware.Contracts.IO.IIO%2CAristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Hardware.Contracts.KeySwitch.IKeySwitch)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_KeySwitch_IKeySwitch_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.#ctor(Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Hardware.Contracts.IO.IIO,Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Hardware.Contracts.KeySwitch.IKeySwitch)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_KeySwitch_IKeySwitch_" class="expander" data-toggle="collapse">HardMeterService(IEventBus, IIO, IPersistentStorageManager, IPropertiesManager, IKeySwitch)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_IO_IIO_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_KeySwitch_IKeySwitch_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HardMeterService(IEventBus bus, IIO io, IPersistentStorageManager persistentStorage, IPropertiesManager properties, IKeySwitch keySwitch)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">bus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IO.IIO.html">IIO</a></span>
+        <span class="parametername">io</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager.html">IPersistentStorageManager</a></span>
+        <span class="parametername">persistentStorage</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.KeySwitch.IKeySwitch.html">IKeySwitch</a></span>
+        <span class="parametername">keySwitch</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_Enabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Enabled_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Enabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Enabled" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Enabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Enabled" class="expander" data-toggle="collapse">Enabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Enabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the service is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Enabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Enabled">IDeviceService.Enabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_Initialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.Initialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Initialized_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Initialized*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Initialized" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Initialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Initialized" class="expander" data-toggle="collapse">Initialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Initialized" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the service is initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Initialized { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Initialized">IDeviceService.Initialized</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_LastError.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.LastError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_LastError_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.LastError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_LastError" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.LastError"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_LastError" class="expander" data-toggle="collapse">LastError</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_LastError" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating the last error the service posted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LastError { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_LastError">IDeviceService.LastError</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalHardMeters.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.LogicalHardMeters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalHardMeters_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.LogicalHardMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalHardMeters" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.LogicalHardMeters"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalHardMeters" class="expander" data-toggle="collapse">LogicalHardMeters</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalHardMeters" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the dictionary of logical hard meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;int, LogicalHardMeter&gt; LogicalHardMeters { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.LogicalHardMeter.html">LogicalHardMeter</a>&gt;
+        <p><p>Dictionary of logical hard meters.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_LogicalHardMeters">IHardMeter.LogicalHardMeters</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.LogicalState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L202" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalState_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.LogicalState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalState" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.LogicalState"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalState" class="expander" data-toggle="collapse">LogicalState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_LogicalState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the logical hard meter service state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HardMeterLogicalState LogicalState { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.HardMeterLogicalState.html">HardMeterLogicalState</a>
+        <p><p>Logical hard meter service state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_LogicalState">IHardMeter.LogicalState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L308" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Name_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Name" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Name"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_ReasonDisabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.ReasonDisabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_ReasonDisabled_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.ReasonDisabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_ReasonDisabled" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.ReasonDisabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_ReasonDisabled" class="expander" data-toggle="collapse">ReasonDisabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_ReasonDisabled" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public DisabledReasons ReasonDisabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_ReasonDisabled">IDeviceService.ReasonDisabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceProtocol.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.ServiceProtocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L95" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceProtocol_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.ServiceProtocol*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceProtocol" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.ServiceProtocol"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceProtocol" class="expander" data-toggle="collapse">ServiceProtocol</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceProtocol" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the service protocol.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ServiceProtocol { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_ServiceProtocol">IDeviceService.ServiceProtocol</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L311" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceTypes_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceTypes" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_AdvanceHardMeter_System_Int32_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.AdvanceHardMeter(System.Int32%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L205" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_AdvanceHardMeter_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.AdvanceHardMeter*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_AdvanceHardMeter_System_Int32_System_Int64_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.AdvanceHardMeter(System.Int32,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_AdvanceHardMeter_System_Int32_System_Int64_" class="expander" data-toggle="collapse">AdvanceHardMeter(Int32, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_AdvanceHardMeter_System_Int32_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Advance the hard meter for the given logical hard meter ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AdvanceHardMeter(int hardMeterId, long value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hardMeterId</span>
+        <p><p>The logical hard meter ID.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">value</span>
+        <p><p>The amount to advance the meter.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_AdvanceHardMeter_System_Int32_System_Int64_">IHardMeter.AdvanceHardMeter(Int32, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.Disable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Disable_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Disable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Disable(DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Disables the service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public void Disable(DisabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>Reason for disabling.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_">IDeviceService.Disable(DisabledReasons)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L422" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_Dispose_System_Boolean_">BaseRunnable.Dispose(Boolean)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.Enable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Enable_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.Enable(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" class="expander" data-toggle="collapse">Enable(EnabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Enables the service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public bool Enable(EnabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons.html">EnabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>Reason for enabling.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if enabling the service succeeded.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceService.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceService_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_">IDeviceService.Enable(EnabledReasons)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterAction_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterAction(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L245" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterAction_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterAction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterAction_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterAction(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterAction_System_Int32_" class="expander" data-toggle="collapse">GetHardMeterAction(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterAction_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets hard meter action enumeration value for the given logical hard meter ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HardMeterAction GetHardMeterAction(int hardMeterId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hardMeterId</span>
+        <p><p>The logical hard meter ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.HardMeterAction.html">HardMeterAction</a>
+        <p><p>An enumerated hard meter action.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_GetHardMeterAction_System_Int32_">IHardMeter.GetHardMeterAction(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterName_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterName(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L253" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterName_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterName_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterName(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterName_System_Int32_" class="expander" data-toggle="collapse">GetHardMeterName(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterName_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the hard meter name for the given logical hard meter ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetHardMeterName(int hardMeterId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hardMeterId</span>
+        <p><p>The logical hard meter ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The hard meter name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_GetHardMeterName_System_Int32_">IHardMeter.GetHardMeterName(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterPhysicalId_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterPhysicalId(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L259" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterPhysicalId_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterPhysicalId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterPhysicalId_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterPhysicalId(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterPhysicalId_System_Int32_" class="expander" data-toggle="collapse">GetHardMeterPhysicalId(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterPhysicalId_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the physical hard meter ID for the given logical hard meter ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetHardMeterPhysicalId(int hardMeterId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hardMeterId</span>
+        <p><p>The logical hard meter ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The physical hard meter ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_GetHardMeterPhysicalId_System_Int32_">IHardMeter.GetHardMeterPhysicalId(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterState_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterState(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L265" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterState_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterState_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterState(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterState_System_Int32_" class="expander" data-toggle="collapse">GetHardMeterState(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterState_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the hard meter state enumeration value for the given logical hard meter ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HardMeterState GetHardMeterState(int hardMeterId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hardMeterId</span>
+        <p><p>The logical hard meter ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.HardMeterState.html">HardMeterState</a>
+        <p><p>An enumerated hard meter state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_GetHardMeterState_System_Int32_">IHardMeter.GetHardMeterState(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterValue_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterValue(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L294" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterValue_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterValue*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterValue_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetHardMeterValue(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterValue_System_Int32_" class="expander" data-toggle="collapse">GetHardMeterValue(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetHardMeterValue_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long GetHardMeterValue(int hardMeterId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hardMeterId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_GetHardMeterValue_System_Int32_">IHardMeter.GetHardMeterValue(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_GetLocalizedHardMeterName_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.GetLocalizedHardMeterName(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L273" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetLocalizedHardMeterName_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetLocalizedHardMeterName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_GetLocalizedHardMeterName_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.GetLocalizedHardMeterName(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetLocalizedHardMeterName_System_Int32_" class="expander" data-toggle="collapse">GetLocalizedHardMeterName(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_GetLocalizedHardMeterName_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the localized hard meter name for the given logical hard meter ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetLocalizedHardMeterName(int hardMeterId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hardMeterId</span>
+        <p><p>The logical hard meter ID.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The localized hard meter name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_GetLocalizedHardMeterName_System_Int32_">IHardMeter.GetLocalizedHardMeterName(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_OnInitialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.OnInitialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L314" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_OnInitialize_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.OnInitialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_OnInitialize" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.OnInitialize"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_OnInitialize" class="expander" data-toggle="collapse">OnInitialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_OnInitialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnInitialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_OnInitialize">BaseRunnable.OnInitialize()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_OnRun.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.OnRun%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L371" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_OnRun_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.OnRun*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_OnRun" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.OnRun"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_OnRun" class="expander" data-toggle="collapse">OnRun()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_OnRun" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnRun()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_OnRun">BaseRunnable.OnRun()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_OnStop.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.OnStop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L407" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_OnStop_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.OnStop*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_OnStop" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.OnStop"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_OnStop" class="expander" data-toggle="collapse">OnStop()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_OnStop" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnStop()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseRunnable.html#Aristocrat_Monaco_Kernel_BaseRunnable_OnStop">BaseRunnable.OnStop()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService_UpdateTickValues_System_Collections_Generic_Dictionary_System_Int32_System_Int64__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService.UpdateTickValues(System.Collections.Generic.Dictionary%7BSystem.Int32%2CSystem.Int64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L280" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Services_HardMeterService_UpdateTickValues_" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.UpdateTickValues*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Services_HardMeterService_UpdateTickValues_System_Collections_Generic_Dictionary_System_Int32_System_Int64__" data-uid="Aristocrat.Monaco.Hardware.Services.HardMeterService.UpdateTickValues(System.Collections.Generic.Dictionary{System.Int32,System.Int64})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_UpdateTickValues_System_Collections_Generic_Dictionary_System_Int32_System_Int64__" class="expander" data-toggle="collapse">UpdateTickValues(Dictionary&lt;Int32, Int64&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Services_HardMeterService_UpdateTickValues_System_Collections_Generic_Dictionary_System_Int32_System_Int64__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateTickValues(Dictionary&lt;int, long&gt; listOfMeters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</span>
+        <span class="parametername">listOfMeters</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html#Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_UpdateTickValues_System_Collections_Generic_Dictionary_System_Int32_System_Int64__">IHardMeter.UpdateTickValues(Dictionary&lt;Int32, Int64&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Services_HardMeterService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Services.HardMeterService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Services/HardMeterService.cs/#L27" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1400 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GatService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GatService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.GatService">
+  <h1 id="Aristocrat_Monaco_G2S_GatService" data-uid="Aristocrat.Monaco.G2S.GatService">Class GatService
+  </h1>
+  <div class="markdown level0 summary"><p>Implementation of GAT Service</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">GatService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.html">Aristocrat.Monaco.G2S</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_GatService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class GatService : IGatService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatVerificationRequestRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatComponentVerificationRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatSpecialFunctionRepository_Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.%23ctor(Aristocrat.Monaco.Kernel.Contracts.Components.IComponentRegistry%2CAristocrat.Monaco.G2S.Common.GAT.Storage.IGatVerificationRequestRepository%2CAristocrat.Monaco.G2S.Common.GAT.Storage.IGatComponentVerificationRepository%2CAristocrat.Monaco.G2S.Common.GAT.Storage.IGatSpecialFunctionRepository%2CAristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService%2CAristocrat.Monaco.Common.Storage.IMonacoContextFactory%2CAristocrat.Monaco.Application.Contracts.IIdProvider%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.G2S.IEventLift)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService__ctor_" data-uid="Aristocrat.Monaco.G2S.GatService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatVerificationRequestRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatComponentVerificationRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatSpecialFunctionRepository_Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_" data-uid="Aristocrat.Monaco.G2S.GatService.#ctor(Aristocrat.Monaco.Kernel.Contracts.Components.IComponentRegistry,Aristocrat.Monaco.G2S.Common.GAT.Storage.IGatVerificationRequestRepository,Aristocrat.Monaco.G2S.Common.GAT.Storage.IGatComponentVerificationRepository,Aristocrat.Monaco.G2S.Common.GAT.Storage.IGatSpecialFunctionRepository,Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService,Aristocrat.Monaco.Common.Storage.IMonacoContextFactory,Aristocrat.Monaco.Application.Contracts.IIdProvider,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.G2S.IEventLift)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatVerificationRequestRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatComponentVerificationRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatSpecialFunctionRepository_Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_" class="expander" data-toggle="collapse">GatService(IComponentRegistry, IGatVerificationRequestRepository, IGatComponentVerificationRepository, IGatSpecialFunctionRepository, IAuthenticationService, IMonacoContextFactory, IIdProvider, IEventBus, IG2SEgm, IEventLift)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatVerificationRequestRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatComponentVerificationRepository_Aristocrat_Monaco_G2S_Common_GAT_Storage_IGatSpecialFunctionRepository_Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.G2S.GatService.html">GatService</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GatService(IComponentRegistry componentRegistry, IGatVerificationRequestRepository gatVerificationRequestRepository, IGatComponentVerificationRepository gatComponentVerificationRepository, IGatSpecialFunctionRepository gatSpecialFunctionRepository, IAuthenticationService componentHashService, IMonacoContextFactory contextFactory, IIdProvider idProvider, IEventBus eventBus, IG2SEgm egm, IEventLift eventLift)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.IComponentRegistry.html">IComponentRegistry</a></span>
+        <span class="parametername">componentRegistry</span>
+        <p><p>Component repository</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.IGatVerificationRequestRepository.html">IGatVerificationRequestRepository</a></span>
+        <span class="parametername">gatVerificationRequestRepository</span>
+        <p><p>Verification request repository</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.IGatComponentVerificationRepository.html">IGatComponentVerificationRepository</a></span>
+        <span class="parametername">gatComponentVerificationRepository</span>
+        <p><p>Component verification repository</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.IGatSpecialFunctionRepository.html">IGatSpecialFunctionRepository</a></span>
+        <span class="parametername">gatSpecialFunctionRepository</span>
+        <p><p>Special function repository</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../application/Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html">IAuthenticationService</a></span>
+        <span class="parametername">componentHashService</span>
+        <p><p>Component hash service</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../common/Aristocrat.Monaco.Common.Storage.IMonacoContextFactory.html">IMonacoContextFactory</a></span>
+        <span class="parametername">contextFactory</span>
+        <p><p>An <a class="xref" href="../../common/Aristocrat.Monaco.Common.Storage.IMonacoContextFactory.html">IMonacoContextFactory</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../application/Aristocrat.Monaco.Application.Contracts.IIdProvider.html">IIdProvider</a></span>
+        <span class="parametername">idProvider</span>
+        <p><p>An <a class="xref" href="../../application/Aristocrat.Monaco.Application.Contracts.IIdProvider.html">IIdProvider</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>An <a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a> </p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a></span>
+        <span class="parametername">egm</span>
+        <p><p>EGM.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IEventLift.html">IEventLift</a></span>
+        <span class="parametername">eventLift</span>
+        <p><p>An <a class="xref" href="Aristocrat.Monaco.G2S.IEventLift.html">IEventLift</a></p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_DeleteComponent_System_String_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.DeleteComponent(System.String%2CAristocrat.Monaco.Kernel.Contracts.Components.ComponentType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L232" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_DeleteComponent_" data-uid="Aristocrat.Monaco.G2S.GatService.DeleteComponent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_DeleteComponent_System_String_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_" data-uid="Aristocrat.Monaco.G2S.GatService.DeleteComponent(System.String,Aristocrat.Monaco.Kernel.Contracts.Components.ComponentType)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_DeleteComponent_System_String_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_" class="expander" data-toggle="collapse">DeleteComponent(String, ComponentType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_DeleteComponent_System_String_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Deletes component from persisted data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeleteComponent(string componentId, ComponentType type)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">componentId</span>
+        <p><p>Component Id</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.ComponentType.html">ComponentType</a></span>
+        <span class="parametername">type</span>
+        <p><p>Component type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_DeleteComponent_System_String_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_">IGatService.DeleteComponent(String, ComponentType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_Dispose_" data-uid="Aristocrat.Monaco.G2S.GatService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_Dispose" data-uid="Aristocrat.Monaco.G2S.GatService.Dispose"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L260" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_Dispose_" data-uid="Aristocrat.Monaco.G2S.GatService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.GatService.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_DoVerification_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_DoVerificationArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.DoVerification(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.DoVerificationArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L141" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_DoVerification_" data-uid="Aristocrat.Monaco.G2S.GatService.DoVerification*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_DoVerification_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_DoVerificationArgs_" data-uid="Aristocrat.Monaco.G2S.GatService.DoVerification(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.DoVerificationArgs)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_DoVerification_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_DoVerificationArgs_" class="expander" data-toggle="collapse">DoVerification(DoVerificationArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_DoVerification_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_DoVerificationArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Verify components</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VerificationStatus DoVerification(DoVerificationArgs initVerificationArgs)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.DoVerificationArgs.html">DoVerificationArgs</a></span>
+        <span class="parametername">initVerificationArgs</span>
+        <p><p>InitVerificationArgs contains verification identifier, transaction identifier and
+component to verification</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Models.VerificationStatus.html">VerificationStatus</a>
+        <p><p>Returns list verified components, verification identifier, transaction identifier</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_DoVerification_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_DoVerificationArgs_">IGatService.DoVerification(DoVerificationArgs)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetComponent_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetComponent(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetComponent_" data-uid="Aristocrat.Monaco.G2S.GatService.GetComponent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetComponent_System_String_" data-uid="Aristocrat.Monaco.G2S.GatService.GetComponent(System.String)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetComponent_System_String_" class="expander" data-toggle="collapse">GetComponent(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetComponent_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a component by it&apos;s Id</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Component GetComponent(string componentId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">componentId</span>
+        <p><p>The unique component Id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.Component.html">Component</a>
+        <p><p>A component</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetComponent_System_String_">IGatService.GetComponent(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetComponentList.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetComponentList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetComponentList_" data-uid="Aristocrat.Monaco.G2S.GatService.GetComponentList*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetComponentList" data-uid="Aristocrat.Monaco.G2S.GatService.GetComponentList"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetComponentList" class="expander" data-toggle="collapse">GetComponentList()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetComponentList" class="collapse in">
+  <div class="markdown level1 summary"><p>Load components</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Component&gt; GetComponentList()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.Component.html">Component</a>&gt;
+        <p><p>Returns components list</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetComponentList">IGatService.GetComponentList()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetGatComponentVerificationEntity_System_String_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetGatComponentVerificationEntity(System.String%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L238" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetGatComponentVerificationEntity_" data-uid="Aristocrat.Monaco.G2S.GatService.GetGatComponentVerificationEntity*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetGatComponentVerificationEntity_System_String_System_Int64_" data-uid="Aristocrat.Monaco.G2S.GatService.GetGatComponentVerificationEntity(System.String,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetGatComponentVerificationEntity_System_String_System_Int64_" class="expander" data-toggle="collapse">GetGatComponentVerificationEntity(String, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetGatComponentVerificationEntity_System_String_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets Gat component verification entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GatComponentVerification GetGatComponentVerificationEntity(string componentId, long verificationId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">componentId</span>
+        <p><p>Component Id</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">verificationId</span>
+        <p><p>Verification Id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.GatComponentVerification.html">GatComponentVerification</a>
+        <p><p>Gat component verification.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetGatComponentVerificationEntity_System_String_System_Int64_">IGatService.GetGatComponentVerificationEntity(String, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetLogForTransactionId_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetLogForTransactionId(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L209" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetLogForTransactionId_" data-uid="Aristocrat.Monaco.G2S.GatService.GetLogForTransactionId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetLogForTransactionId_System_Int64_" data-uid="Aristocrat.Monaco.G2S.GatService.GetLogForTransactionId(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetLogForTransactionId_System_Int64_" class="expander" data-toggle="collapse">GetLogForTransactionId(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetLogForTransactionId_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Load GAT verification requests</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GatVerificationRequest GetLogForTransactionId(long transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>Transaction Id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.GatVerificationRequest.html">GatVerificationRequest</a>
+        <p><p>Returns GAT verification requests list</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetLogForTransactionId_System_Int64_">IGatService.GetLogForTransactionId(Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetLogStatus.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetLogStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L225" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetLogStatus_" data-uid="Aristocrat.Monaco.G2S.GatService.GetLogStatus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetLogStatus" data-uid="Aristocrat.Monaco.G2S.GatService.GetLogStatus"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetLogStatus" class="expander" data-toggle="collapse">GetLogStatus()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetLogStatus" class="collapse in">
+  <div class="markdown level1 summary"><p>Get max logSequence verification requests from and count verification requests</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GetLogStatusResult GetLogStatus()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Models.GetLogStatusResult.html">GetLogStatusResult</a>
+        <p><p>Returns GetLogStatusResult contains max logSequence verification requests from and count verification
+requests</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetLogStatus">IGatService.GetLogStatus()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetSpecialFunctions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetSpecialFunctions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L195" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetSpecialFunctions_" data-uid="Aristocrat.Monaco.G2S.GatService.GetSpecialFunctions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetSpecialFunctions" data-uid="Aristocrat.Monaco.G2S.GatService.GetSpecialFunctions"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetSpecialFunctions" class="expander" data-toggle="collapse">GetSpecialFunctions()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetSpecialFunctions" class="collapse in">
+  <div class="markdown level1 summary"><p>Load GAT special functions</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;GatSpecialFunction&gt; GetSpecialFunctions()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.GatSpecialFunction.html">GatSpecialFunction</a>&gt;
+        <p><p>Returns GAT special functions list</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetSpecialFunctions">IGatService.GetSpecialFunctions()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetSupportedAlgorithms_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetSupportedAlgorithms(Aristocrat.Monaco.Kernel.Contracts.Components.ComponentType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L218" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetSupportedAlgorithms_" data-uid="Aristocrat.Monaco.G2S.GatService.GetSupportedAlgorithms*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetSupportedAlgorithms_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_" data-uid="Aristocrat.Monaco.G2S.GatService.GetSupportedAlgorithms(Aristocrat.Monaco.Kernel.Contracts.Components.ComponentType)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetSupportedAlgorithms_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_" class="expander" data-toggle="collapse">GetSupportedAlgorithms(ComponentType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetSupportedAlgorithms_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get supported algorithms list</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IAlgorithm&gt; GetSupportedAlgorithms(ComponentType type)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.ComponentType.html">ComponentType</a></span>
+        <span class="parametername">type</span>
+        <p><p>Component type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Models.IAlgorithm.html">IAlgorithm</a>&gt;
+        <p><p>Returns supported algorithms list</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetSupportedAlgorithms_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType_">IGatService.GetSupportedAlgorithms(ComponentType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetVerificationRequestById_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetVerificationRequestById(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetVerificationRequestById_" data-uid="Aristocrat.Monaco.G2S.GatService.GetVerificationRequestById*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetVerificationRequestById_System_Int64_" data-uid="Aristocrat.Monaco.G2S.GatService.GetVerificationRequestById(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetVerificationRequestById_System_Int64_" class="expander" data-toggle="collapse">GetVerificationRequestById(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetVerificationRequestById_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets GatVerificationRequest the verification Id</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GatVerificationRequest GetVerificationRequestById(long verificationId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">verificationId</span>
+        <p><p>Verification Id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.GatVerificationRequest.html">GatVerificationRequest</a>
+        <p><p>GatVerificationRequest, null if not found</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetVerificationRequestById_System_Int64_">IGatService.GetVerificationRequestById(Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByDeviceArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetVerificationStatus(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.GetVerificationStatusByDeviceArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L167" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_" data-uid="Aristocrat.Monaco.G2S.GatService.GetVerificationStatus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByDeviceArgs_" data-uid="Aristocrat.Monaco.G2S.GatService.GetVerificationStatus(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.GetVerificationStatusByDeviceArgs)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByDeviceArgs_" class="expander" data-toggle="collapse">GetVerificationStatus(GetVerificationStatusByDeviceArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByDeviceArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get verification status by verification identifier, device identifier</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VerificationStatusResult GetVerificationStatus(GetVerificationStatusByDeviceArgs getVerificationStatusByDeviceArgs)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.GetVerificationStatusByDeviceArgs.html">GetVerificationStatusByDeviceArgs</a></span>
+        <span class="parametername">getVerificationStatusByDeviceArgs</span>
+        <p><p>getVerificationStatusByDeviceArgs contains verification identifier,
+device identifier</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Models.VerificationStatusResult.html">VerificationStatusResult</a>
+        <p><p>Returns verified components or components for verification</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByDeviceArgs_">IGatService.GetVerificationStatus(GetVerificationStatusByDeviceArgs)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByTransactionArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.GetVerificationStatus(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.GetVerificationStatusByTransactionArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_" data-uid="Aristocrat.Monaco.G2S.GatService.GetVerificationStatus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByTransactionArgs_" data-uid="Aristocrat.Monaco.G2S.GatService.GetVerificationStatus(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.GetVerificationStatusByTransactionArgs)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByTransactionArgs_" class="expander" data-toggle="collapse">GetVerificationStatus(GetVerificationStatusByTransactionArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByTransactionArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get verification status by verification identifier, transaction identifier</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VerificationStatusResult GetVerificationStatus(GetVerificationStatusByTransactionArgs getVerificationStatusByTransactionArgs)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.GetVerificationStatusByTransactionArgs.html">GetVerificationStatusByTransactionArgs</a></span>
+        <span class="parametername">getVerificationStatusByTransactionArgs</span>
+        <p><p>getVerificationStatusByTransactionArgs contains verification
+identifier, transaction identifier</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Models.VerificationStatusResult.html">VerificationStatusResult</a>
+        <p><p>Returns verified components or components for verification</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_GetVerificationStatus_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_GetVerificationStatusByTransactionArgs_">IGatService.GetVerificationStatus(GetVerificationStatusByTransactionArgs)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_HasTransactionId_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.HasTransactionId(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L110" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_HasTransactionId_" data-uid="Aristocrat.Monaco.G2S.GatService.HasTransactionId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_HasTransactionId_System_Int64_" data-uid="Aristocrat.Monaco.G2S.GatService.HasTransactionId(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_HasTransactionId_System_Int64_" class="expander" data-toggle="collapse">HasTransactionId(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_HasTransactionId_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks that a transaction Id has been used on the EGM.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasTransactionId(long transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction identifier.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if transactionId exists</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_HasTransactionId_System_Int64_">IGatService.HasTransactionId(Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_HasVerificationId_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.HasVerificationId(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_HasVerificationId_" data-uid="Aristocrat.Monaco.G2S.GatService.HasVerificationId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_HasVerificationId_System_Int64_" data-uid="Aristocrat.Monaco.G2S.GatService.HasVerificationId(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_HasVerificationId_System_Int64_" class="expander" data-toggle="collapse">HasVerificationId(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_HasVerificationId_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks for a verification Id has been received from a host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasVerificationId(long verificationId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">verificationId</span>
+        <p><p>The verification identifier.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if verificationId exists</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_HasVerificationId_System_Int64_">IGatService.HasVerificationId(Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_SaveComponent_Aristocrat_Monaco_Kernel_Contracts_Components_Component_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.SaveComponent(Aristocrat.Monaco.Kernel.Contracts.Components.Component)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L188" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_SaveComponent_" data-uid="Aristocrat.Monaco.G2S.GatService.SaveComponent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_SaveComponent_Aristocrat_Monaco_Kernel_Contracts_Components_Component_" data-uid="Aristocrat.Monaco.G2S.GatService.SaveComponent(Aristocrat.Monaco.Kernel.Contracts.Components.Component)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_SaveComponent_Aristocrat_Monaco_Kernel_Contracts_Components_Component_" class="expander" data-toggle="collapse">SaveComponent(Component)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_SaveComponent_Aristocrat_Monaco_Kernel_Contracts_Components_Component_" class="collapse in">
+  <div class="markdown level1 summary"><p>Save or update component</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SaveEntityResult SaveComponent(Component componentEntity)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.Component.html">Component</a></span>
+        <span class="parametername">componentEntity</span>
+        <p><p>Component entity</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../../common/Aristocrat.Monaco.Common.Models.SaveEntityResult.html">SaveEntityResult</a>
+        <p><p>Returns save entity result</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_SaveComponent_Aristocrat_Monaco_Kernel_Contracts_Components_Component_">IGatService.SaveComponent(Component)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_SaveSpecialFunction_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatSpecialFunction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.SaveSpecialFunction(Aristocrat.Monaco.G2S.Common.GAT.Storage.GatSpecialFunction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L202" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_SaveSpecialFunction_" data-uid="Aristocrat.Monaco.G2S.GatService.SaveSpecialFunction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_SaveSpecialFunction_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatSpecialFunction_" data-uid="Aristocrat.Monaco.G2S.GatService.SaveSpecialFunction(Aristocrat.Monaco.G2S.Common.GAT.Storage.GatSpecialFunction)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_SaveSpecialFunction_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatSpecialFunction_" class="expander" data-toggle="collapse">SaveSpecialFunction(GatSpecialFunction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_SaveSpecialFunction_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatSpecialFunction_" class="collapse in">
+  <div class="markdown level1 summary"><p>Save or updates GAT special function</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SaveEntityResult SaveSpecialFunction(GatSpecialFunction gatSpecialFunctionEntity)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.GatSpecialFunction.html">GatSpecialFunction</a></span>
+        <span class="parametername">gatSpecialFunctionEntity</span>
+        <p><p>GAT special function entity</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../../common/Aristocrat.Monaco.Common.Models.SaveEntityResult.html">SaveEntityResult</a>
+        <p><p>Returns GAT special functions list</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_SaveSpecialFunction_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatSpecialFunction_">IGatService.SaveSpecialFunction(GatSpecialFunction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_SaveVerificationAck_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_SaveVerificationAckArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.SaveVerificationAck(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.SaveVerificationAckArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L178" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_SaveVerificationAck_" data-uid="Aristocrat.Monaco.G2S.GatService.SaveVerificationAck*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_SaveVerificationAck_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_SaveVerificationAckArgs_" data-uid="Aristocrat.Monaco.G2S.GatService.SaveVerificationAck(Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.SaveVerificationAckArgs)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_SaveVerificationAck_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_SaveVerificationAckArgs_" class="expander" data-toggle="collapse">SaveVerificationAck(SaveVerificationAckArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_SaveVerificationAck_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_SaveVerificationAckArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Update component verification state of components list</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SaveVerificationAck(SaveVerificationAckArgs saveVerificationAckArgs)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.SaveVerificationAckArgs.html">SaveVerificationAckArgs</a></span>
+        <span class="parametername">saveVerificationAckArgs</span>
+        <p><p>SaveVerificationAckArgs contains verification identifier, transaction identifier,
+components</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_SaveVerificationAck_Aristocrat_Monaco_G2S_Common_GAT_CommandHandlers_SaveVerificationAckArgs_">IGatService.SaveVerificationAck(SaveVerificationAckArgs)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService_UpdateGatComponentVerificationEntity_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatComponentVerification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService.UpdateGatComponentVerificationEntity(Aristocrat.Monaco.G2S.Common.GAT.Storage.GatComponentVerification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L252" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_GatService_UpdateGatComponentVerificationEntity_" data-uid="Aristocrat.Monaco.G2S.GatService.UpdateGatComponentVerificationEntity*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_GatService_UpdateGatComponentVerificationEntity_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatComponentVerification_" data-uid="Aristocrat.Monaco.G2S.GatService.UpdateGatComponentVerificationEntity(Aristocrat.Monaco.G2S.Common.GAT.Storage.GatComponentVerification)"><a href="#collapsible-Aristocrat_Monaco_G2S_GatService_UpdateGatComponentVerificationEntity_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatComponentVerification_" class="expander" data-toggle="collapse">UpdateGatComponentVerificationEntity(GatComponentVerification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_GatService_UpdateGatComponentVerificationEntity_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatComponentVerification_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates GatComponentVerificationEntity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateGatComponentVerificationEntity(GatComponentVerification entity)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.GAT.Storage.GatComponentVerification.html">GatComponentVerification</a></span>
+        <span class="parametername">entity</span>
+        <p><p>GatComponentVerificationEntity to update.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IGatService.html#Aristocrat_Monaco_G2S_IGatService_UpdateGatComponentVerificationEntity_Aristocrat_Monaco_G2S_Common_GAT_Storage_GatComponentVerification_">IGatService.UpdateGatComponentVerificationEntity(GatComponentVerification)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_GatService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.GatService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/GatService.cs/#L29" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

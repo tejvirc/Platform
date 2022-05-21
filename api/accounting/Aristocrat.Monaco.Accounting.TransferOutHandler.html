@@ -1,0 +1,1294 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TransferOutHandler
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TransferOutHandler
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler">
+  <h1 id="Aristocrat_Monaco_Accounting_TransferOutHandler" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler">Class TransferOutHandler
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">TransferOutHandler</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Accounting.html">Aristocrat.Monaco.Accounting</a></h6>
+  <h6><strong>Assembly</strong>: Monaco.Accounting.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_TransferOutHandler_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public class TransferOutHandler : ITransferOutHandler, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler__ctor_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler__ctor" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.#ctor"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler__ctor" class="expander" data-toggle="collapse">TransferOutHandler()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransferOutHandler()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_System_Collections_Generic_IEnumerable_System_ValueTuple_Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_System_Boolean___Aristocrat_Monaco_Accounting_Contracts_IMoneyLaunderingMonitor_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.%23ctor(Aristocrat.Monaco.Accounting.Contracts.IBank%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator%2CAristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CSystem.Collections.Generic.IEnumerable%7BSystem.ValueTuple%7BAristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider%2CSystem.Boolean%7D%7D%2CAristocrat.Monaco.Accounting.Contracts.IMoneyLaunderingMonitor)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler__ctor_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_System_Collections_Generic_IEnumerable_System_ValueTuple_Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_System_Boolean___Aristocrat_Monaco_Accounting_Contracts_IMoneyLaunderingMonitor_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.#ctor(Aristocrat.Monaco.Accounting.Contracts.IBank,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator,Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager,Aristocrat.Monaco.Kernel.IPropertiesManager,System.Collections.Generic.IEnumerable{System.ValueTuple{Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider,System.Boolean}},Aristocrat.Monaco.Accounting.Contracts.IMoneyLaunderingMonitor)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_System_Collections_Generic_IEnumerable_System_ValueTuple_Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_System_Boolean___Aristocrat_Monaco_Accounting_Contracts_IMoneyLaunderingMonitor_" class="expander" data-toggle="collapse">TransferOutHandler(IBank, IEventBus, ITransactionCoordinator, IPersistentStorageManager, IPropertiesManager, IEnumerable&lt;(ITransferOutProvider provider, Boolean permitted)&gt;, IMoneyLaunderingMonitor)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IPropertiesManager_System_Collections_Generic_IEnumerable_System_ValueTuple_Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_System_Boolean___Aristocrat_Monaco_Accounting_Contracts_IMoneyLaunderingMonitor_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransferOutHandler(IBank bank, IEventBus bus, ITransactionCoordinator transactionCoordinator, IPersistentStorageManager storage, IPropertiesManager properties, IEnumerable&lt;(ITransferOutProvider provider, bool permitted)&gt; providers, IMoneyLaunderingMonitor moneyLaunderingMonitor)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html">IBank</a></span>
+        <span class="parametername">bank</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">bus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.html">ITransactionCoordinator</a></span>
+        <span class="parametername">transactionCoordinator</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager.html">IPersistentStorageManager</a></span>
+        <span class="parametername">storage</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetuple-2">(T1, T2)</a>&lt;<a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html">ITransferOutProvider</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;&gt;</span>
+        <span class="parametername">providers</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IMoneyLaunderingMonitor.html">IMoneyLaunderingMonitor</a></span>
+        <span class="parametername">moneyLaunderingMonitor</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_InProgress.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.InProgress%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_InProgress_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.InProgress*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_InProgress" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.InProgress"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_InProgress" class="expander" data-toggle="collapse">InProgress</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_InProgress" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool InProgress { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_InProgress">ITransferOutHandler.InProgress</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_Name_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_Name" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Name"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_Pending.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.Pending%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_Pending_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Pending*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_Pending" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Pending"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Pending" class="expander" data-toggle="collapse">Pending</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Pending" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Pending { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_Pending">ITransferOutHandler.Pending</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_ServiceTypes_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_ServiceTypes" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Dispose"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L460" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_Initialize_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_Initialize" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Initialize"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_Recover.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.Recover%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L418" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_Recover_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Recover*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_Recover" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Recover"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Recover" class="expander" data-toggle="collapse">Recover()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Recover" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;Guid&gt; Recover()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_Recover">ITransferOutHandler.Recover()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_Recover_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.Recover(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L440" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_Recover_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Recover*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_Recover_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.Recover(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Recover_System_Guid_" class="expander" data-toggle="collapse">Recover(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_Recover_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Recover(Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_Recover_System_Guid_">ITransferOutHandler.Recover(Guid)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(Aristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L150" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="expander" data-toggle="collapse">TransferOut(AccountType, Int64, TransferOutReason)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOut(AccountType account, long amount, TransferOutReason reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_">ITransferOutHandler.TransferOut(AccountType, Int64, TransferOutReason)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="expander" data-toggle="collapse">TransferOut(TransferOutReason)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOut(TransferOutReason reason = TransferOutReason.CashOut)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_TransferOut_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_">ITransferOutHandler.TransferOut(TransferOutReason)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(System.Guid%2CAristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CSystem.Collections.Generic.IReadOnlyCollection%7BSystem.Int64%7D%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L267" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(System.Guid,Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,System.Collections.Generic.IReadOnlyCollection{System.Int64},Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="expander" data-toggle="collapse">TransferOut(Guid, AccountType, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOut(Guid transactionId, AccountType account, long amount, IReadOnlyCollection&lt;long&gt; associatedTransactions, TransferOutReason reason, Guid traceId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</span>
+        <span class="parametername">associatedTransactions</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">traceId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_TransferOut_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_">ITransferOutHandler.TransferOut(Guid, AccountType, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(System.Guid%2CSystem.Collections.Generic.IReadOnlyCollection%7BSystem.Int64%7D%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L228" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut(System.Guid,System.Collections.Generic.IReadOnlyCollection{System.Int64},Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="expander" data-toggle="collapse">TransferOut(Guid, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_System_Guid_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOut(Guid transactionId, IReadOnlyCollection&lt;long&gt; associatedTransactions, TransferOutReason reason, Guid traceId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</span>
+        <span class="parametername">associatedTransactions</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">traceId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_TransferOut_System_Guid_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_">ITransferOutHandler.TransferOut(Guid, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut%60%601(Aristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L188" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut``1(Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="expander" data-toggle="collapse">TransferOut&lt;TProvider&gt;(AccountType, Int64, TransferOutReason)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOut&lt;TProvider&gt;(AccountType account, long amount, TransferOutReason reason)
+    where TProvider : ITransferOutProvider</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TProvider</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_TransferOut__1_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_">ITransferOutHandler.TransferOut&lt;TProvider&gt;(AccountType, Int64, TransferOutReason)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut%60%601(System.Guid%2CAristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CSystem.Collections.Generic.IReadOnlyCollection%7BSystem.Int64%7D%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L317" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOut``1(System.Guid,Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,System.Collections.Generic.IReadOnlyCollection{System.Int64},Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="expander" data-toggle="collapse">TransferOut&lt;TProvider&gt;(Guid, AccountType, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOut__1_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOut&lt;TProvider&gt;(Guid transactionId, AccountType account, long amount, IReadOnlyCollection&lt;long&gt; associatedTransactions, TransferOutReason reason, Guid traceId)
+    where TProvider : ITransferOutProvider</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</span>
+        <span class="parametername">associatedTransactions</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">traceId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TProvider</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_TransferOut__1_System_Guid_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_">ITransferOutHandler.TransferOut&lt;TProvider&gt;(Guid, AccountType, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOutWithContinuation__1_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOutWithContinuation%60%601(System.Guid%2CSystem.Int64%2CSystem.Int64%2CSystem.Int64%2CSystem.Collections.Generic.IReadOnlyCollection%7BSystem.Int64%7D%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L372" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOutWithContinuation_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOutWithContinuation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOutWithContinuation__1_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.TransferOutHandler.TransferOutWithContinuation``1(System.Guid,System.Int64,System.Int64,System.Int64,System.Collections.Generic.IReadOnlyCollection{System.Int64},Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOutWithContinuation__1_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="expander" data-toggle="collapse">TransferOutWithContinuation&lt;TProvider&gt;(Guid, Int64, Int64, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_TransferOutHandler_TransferOutWithContinuation__1_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TransferOutWithContinuation&lt;TProvider&gt;(Guid transactionId, long cashableAmount, long promoAmount, long nonCashAmount, IReadOnlyCollection&lt;long&gt; associatedTransactions, TransferOutReason reason, Guid traceId)
+    where TProvider : ITransferOutProvider</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">cashableAmount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">promoAmount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">nonCashAmount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</span>
+        <span class="parametername">associatedTransactions</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">traceId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="parametername">TProvider</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransferOutHandler.html#Aristocrat_Monaco_Accounting_Contracts_ITransferOutHandler_TransferOutWithContinuation__1_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_">ITransferOutHandler.TransferOutWithContinuation&lt;TProvider&gt;(Guid, Int64, Int64, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_TransferOutHandler.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.TransferOutHandler%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/TransferOutHandler.cs/#L20" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

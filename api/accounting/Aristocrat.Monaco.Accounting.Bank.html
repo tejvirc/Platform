@@ -1,0 +1,960 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Bank
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Bank
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Accounting.Bank">
+  <h1 id="Aristocrat_Monaco_Accounting_Bank" data-uid="Aristocrat.Monaco.Accounting.Bank">Class Bank
+  </h1>
+  <div class="markdown level0 summary"><p>Definition of the Bank class.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Bank</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Accounting.html">Aristocrat.Monaco.Accounting</a></h6>
+  <h6><strong>Assembly</strong>: Monaco.Accounting.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Bank_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class Bank : IService, IBank, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank__ctor_" data-uid="Aristocrat.Monaco.Accounting.Bank.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank__ctor" data-uid="Aristocrat.Monaco.Accounting.Bank.#ctor"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank__ctor" class="expander" data-toggle="collapse">Bank()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Accounting.Bank.html">Bank</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Bank()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Application_Contracts_INoteAcceptorMonitor_Aristocrat_Monaco_Accounting_Contracts_SelfAudit_ISelfAuditErrorCheckingService_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.%23ctor(Aristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator%2CAristocrat.Monaco.Application.Contracts.INoteAcceptorMonitor%2CAristocrat.Monaco.Accounting.Contracts.SelfAudit.ISelfAuditErrorCheckingService)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank__ctor_" data-uid="Aristocrat.Monaco.Accounting.Bank.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Application_Contracts_INoteAcceptorMonitor_Aristocrat_Monaco_Accounting_Contracts_SelfAudit_ISelfAuditErrorCheckingService_" data-uid="Aristocrat.Monaco.Accounting.Bank.#ctor(Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator,Aristocrat.Monaco.Application.Contracts.INoteAcceptorMonitor,Aristocrat.Monaco.Accounting.Contracts.SelfAudit.ISelfAuditErrorCheckingService)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Application_Contracts_INoteAcceptorMonitor_Aristocrat_Monaco_Accounting_Contracts_SelfAudit_ISelfAuditErrorCheckingService_" class="expander" data-toggle="collapse">Bank(IPropertiesManager, IPersistentStorageManager, IEventBus, ITransactionCoordinator, INoteAcceptorMonitor, ISelfAuditErrorCheckingService)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank__ctor_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_ITransactionCoordinator_Aristocrat_Monaco_Application_Contracts_INoteAcceptorMonitor_Aristocrat_Monaco_Accounting_Contracts_SelfAudit_ISelfAuditErrorCheckingService_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public Bank(IPropertiesManager properties, IPersistentStorageManager storage, IEventBus bus, ITransactionCoordinator transactionCoordinator, INoteAcceptorMonitor noteAcceptorMonitor, ISelfAuditErrorCheckingService selfAuditService)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager.html">IPersistentStorageManager</a></span>
+        <span class="parametername">storage</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">bus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransactionCoordinator.html">ITransactionCoordinator</a></span>
+        <span class="parametername">transactionCoordinator</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.INoteAcceptorMonitor.html">INoteAcceptorMonitor</a></span>
+        <span class="parametername">noteAcceptorMonitor</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.SelfAudit.ISelfAuditErrorCheckingService.html">ISelfAuditErrorCheckingService</a></span>
+        <span class="parametername">selfAuditService</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_Limit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.Limit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_Limit_" data-uid="Aristocrat.Monaco.Accounting.Bank.Limit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_Limit" data-uid="Aristocrat.Monaco.Accounting.Bank.Limit"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_Limit" class="expander" data-toggle="collapse">Limit</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_Limit" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the Bank max credit limit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long Limit { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_Limit">IBank.Limit</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L282" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_Name_" data-uid="Aristocrat.Monaco.Accounting.Bank.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_Name" data-uid="Aristocrat.Monaco.Accounting.Bank.Name"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L285" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_ServiceTypes_" data-uid="Aristocrat.Monaco.Accounting.Bank.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_ServiceTypes" data-uid="Aristocrat.Monaco.Accounting.Bank.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_CheckDeposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.CheckDeposit(Aristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_CheckDeposit_" data-uid="Aristocrat.Monaco.Accounting.Bank.CheckDeposit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_CheckDeposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Bank.CheckDeposit(Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_CheckDeposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="expander" data-toggle="collapse">CheckDeposit(AccountType, Int64, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_CheckDeposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to test if a deposit to the specified account with the amount is possible
+without exceeding the max credit <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_Limit">Limit</a>. Also checks if the provided
+<code data-dev-comment-type="paramref" class="paramref">transactionId</code> is the active transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CheckDeposit(AccountType account, long amount, Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p><p>Type of account to deposit into.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p><p>Amount check for depositing.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>Guid of the transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the deposit will not exceed the max credit limit otherwise False.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_CheckDeposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_">IBank.CheckDeposit(AccountType, Int64, Guid)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Bank_CheckDeposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Check the example of <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_Deposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_">Deposit(AccountType, Int64, Guid)</a> for more about how this method is used.</p>
+</div>
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.BankException.html">BankException</a>
+        <p><p>Thrown when the provided <code data-dev-comment-type="paramref" class="paramref">transactionId</code> does not belong to the
+current transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_CheckWithdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.CheckWithdraw(Aristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_CheckWithdraw_" data-uid="Aristocrat.Monaco.Accounting.Bank.CheckWithdraw*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_CheckWithdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Bank.CheckWithdraw(Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_CheckWithdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="expander" data-toggle="collapse">CheckWithdraw(AccountType, Int64, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_CheckWithdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to test if a withdraw from the specified account with the amount is possible
+without underflow. Also checks if the provided Guid is the active transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CheckWithdraw(AccountType account, long amount, Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p><p>Type of account to withdraw from.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p><p>Amount to check withdrawing.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>Guid of the transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the withdraw will not underflow otherwise False.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_CheckWithdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_">IBank.CheckWithdraw(AccountType, Int64, Guid)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Bank_CheckWithdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Check the example of <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_Withdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_">Withdraw(AccountType, Int64, Guid)</a> for more about how this method is used.</p>
+</div>
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.BankException.html">BankException</a>
+        <p><p>Thrown when the provided guid does not belong to the current transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_Deposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.Deposit(Aristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_Deposit_" data-uid="Aristocrat.Monaco.Accounting.Bank.Deposit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_Deposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Bank.Deposit(Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_Deposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="expander" data-toggle="collapse">Deposit(AccountType, Int64, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_Deposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to deposit to the specified account with the amount after checking if the
+provided <code data-dev-comment-type="paramref" class="paramref">transactionId</code> is the active transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Deposit(AccountType account, long amount, Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p><p>Type of account to deposit into.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p><p>Amount to deposit.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>Guid of the transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_Deposit_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_">IBank.Deposit(AccountType, Int64, Guid)</a></div>
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.BankException.html">BankException</a>
+        <p><p>Thrown when the provided <code data-dev-comment-type="paramref" class="paramref">transactionId</code> does not belong to the
+current transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L265" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_Dispose_" data-uid="Aristocrat.Monaco.Accounting.Bank.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_Dispose" data-uid="Aristocrat.Monaco.Accounting.Bank.Dispose"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L288" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_Initialize_" data-uid="Aristocrat.Monaco.Accounting.Bank.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_Initialize" data-uid="Aristocrat.Monaco.Accounting.Bank.Initialize"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_QueryBalance.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.QueryBalance%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L232" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_QueryBalance_" data-uid="Aristocrat.Monaco.Accounting.Bank.QueryBalance*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_QueryBalance" data-uid="Aristocrat.Monaco.Accounting.Bank.QueryBalance"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_QueryBalance" class="expander" data-toggle="collapse">QueryBalance()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_QueryBalance" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to query the Bank for its total account balance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long QueryBalance()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p><p>The total of all accounts in the Bank.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_QueryBalance">IBank.QueryBalance()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_QueryBalance_Aristocrat_Monaco_Accounting_Contracts_AccountType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.QueryBalance(Aristocrat.Monaco.Accounting.Contracts.AccountType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L246" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_QueryBalance_" data-uid="Aristocrat.Monaco.Accounting.Bank.QueryBalance*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_QueryBalance_Aristocrat_Monaco_Accounting_Contracts_AccountType_" data-uid="Aristocrat.Monaco.Accounting.Bank.QueryBalance(Aristocrat.Monaco.Accounting.Contracts.AccountType)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_QueryBalance_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="expander" data-toggle="collapse">QueryBalance(AccountType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_QueryBalance_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to query a specific account balance from the Bank.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long QueryBalance(AccountType account)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p><p>AccountType to query.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p><p>The balance stored in the specific AccountType.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_QueryBalance_Aristocrat_Monaco_Accounting_Contracts_AccountType_">IBank.QueryBalance(AccountType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank_Withdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank.Withdraw(Aristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Int64%2CSystem.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L193" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Bank_Withdraw_" data-uid="Aristocrat.Monaco.Accounting.Bank.Withdraw*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Bank_Withdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.Bank.Withdraw(Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Int64,System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Bank_Withdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="expander" data-toggle="collapse">Withdraw(AccountType, Int64, Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Bank_Withdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to withdraw from the specified account with the amount after checking if
+the provided <code data-dev-comment-type="paramref" class="paramref">transactionId</code> is the active transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Withdraw(AccountType account, long amount, Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">account</span>
+        <p><p>Type of account to withdraw from.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p><p>Amount to withdraw.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>Guid of the transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html#Aristocrat_Monaco_Accounting_Contracts_IBank_Withdraw_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Int64_System_Guid_">IBank.Withdraw(AccountType, Int64, Guid)</a></div>
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.BankException.html">BankException</a>
+        <p><p>Thrown when the provided <code data-dev-comment-type="paramref" class="paramref">transactionId</code> does not belong to the
+current transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Bank.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Bank%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Bank/Bank.cs/#L19" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

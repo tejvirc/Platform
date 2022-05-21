@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Principles and Practices </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Principles and Practices ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="principles-and-practices">Principles and Practices</h1>
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#i-design-and-architecture-reviews">I. Design and Architecture Reviews</a></li>
+<li><a href="#ii-continuous-integration">II. Continuous Integration</a></li>
+<li><a href="#iii-code-reviews">III. Code Reviews</a></li>
+<li><a href="#iv-dev-testing">IV. Dev Testing</a></li>
+<li><a href="#v-static-analysis-and-tooling">V. Static Analysis and Tooling</a></li>
+<li><a href="#vi-dynamic-analysis-memory-and-performance-profiling">VI. Dynamic Analysis – Memory and Performance Profiling</a></li>
+<li><a href="#vii-automation-work-in-progress">VII. Automation (Work in progress)</a></li>
+</ul>
+<!-- /code_chunk_output -->
+<p>Monaco is a nice platform. We would like to keep it that way.
+Accordingly, please reference these pages for best practices. It is
+expected that all developers and development teams follow these
+practices. This is a living document, so changes can and will occur.</p>
+<h2 id="i-design-and-architecture-reviews">I. Design and Architecture Reviews</h2>
+<pre><code>1.  If there is a new feature or big change, we generally like to
+    come up with a design.
+2.  We like simple designs that follow the SOLID principles.
+3.  Designs should also conform to the
+    [architecture](https://confy.aristocrat.com/display/MON/High+Level+Diagrams).
+4.  Draw a picture. It helps. It doesn’t have to be fancy.
+5.  Designs should detail APIs at each layer, responsibilities, and
+    dependencies.
+6.  Class and component diagrams are encouraged.
+7.  Designs should be reviewed by peers. [We have a confluence for
+    designs.](https://confy.aristocrat.com/display/MON/Design).
+</code></pre><h2 id="ii-continuous-integration">II. Continuous Integration</h2>
+<pre><code>1.  [We practice Trunk-Based
+    Development.](https://trunkbaseddevelopment.com/)
+2.  [We commit to trunk daily and our commits are
+    small.](https://martinfowler.com/articles/continuousIntegration.html#EveryoneCommitsToTheMainlineEveryDay)
+    (\&lt; 300 LOC)
+3.  Commits should build without warnings or failing unit tests.
+4.  Sometimes unit tests are bad and need to be put out of their
+    misery. We get it.
+5.  Each dev should monitor the CI system for build failures via
+    Slack and TeamCity.
+6.  If you break the build, please fix it ASAP.
+7.  Build breakers will be tarred and feathered in slack. You’ve
+    been warned.
+</code></pre><h2 id="iii-code-reviews">III. Code Reviews</h2>
+<pre><code>1.  100% of all commits should be code reviewed by peers.
+2.  We use Upsource for platform reviews (for now). You should too.
+3.  It’s a good idea to put a dev from each team on the review.
+4.  Add your team lead as a reviewer.
+5.  Add the architects as watchers.
+6.  Reviews should be small (\&lt;300 LOC, see principle 2.B)
+7.  Commits should conform to the [coding
+    standards](https://confy.aristocrat.com/display/MON/Monaco+Coding+Standards)
+    and the [code review
+    guidelines](https://confy.aristocrat.com/display/MON/Code+Review+Guidelines).
+8.  All Devs should use ReSharper to identify issues before the code
+    review.
+</code></pre><h2 id="iv-dev-testing">IV. Dev Testing</h2>
+<pre><code>1.  All code should be dev tested before a commit.
+2.  All developers should attempt to test every execution path
+    before a commit.
+3.  [We like to follow the Beyonce rule of unit
+    testing.](https://github.com/cpp-testing/GUnit) “If you like it
+    put a test on it.”
+4.  Code without a unit test is fair game for removal. You’ve been
+    warned.
+5.  Unit testing should enable rapid development, not slow it down.
+6.  Unit tests should not test private data. It defeats the point of
+    an API.
+7.  There is no specific code coverage target, but more is better.
+    Use your best judgment.
+8.  Devs should write integration tests. We don’t really have any
+    yet, but it’d be nice…
+</code></pre><h2 id="v-static-analysis-and-tooling">V. Static Analysis and Tooling</h2>
+<pre><code>1.  Use ReSharper to find issues in your code.
+2.  No commits should be done without running ReSharper first.
+3.  ReSharper automatically enforces the style guidelines. It makes
+    life easier.
+4.  ReSharper is awesome. Hot keys are your friend. Read the manual
+    and use it.
+5.  Did I mention that you should use ReSharper?
+6.  ReSharper will help you avoid getting roasted in a code review.
+    I promise.
+</code></pre><h2 id="vi-dynamic-analysis--memory-and-performance-profiling">VI. Dynamic Analysis – Memory and Performance Profiling</h2>
+<pre><code>1.  Use Visual Studio to monitor memory usage and performance. It
+    makes life easier.
+2.  [The teams run CI builds in Robot and Super Robot mode in labs
+    regularly.](https://martinfowler.com/articles/continuousIntegration.html#TestInACloneOfTheProductionEnvironment)
+3.  It is a great stress test. It finds a lot of bugs and hits the
+    most common execution paths.
+4.  We have tools to record and track performance while running in
+    robot mode. Use them.
+5.  Memory leaks, CPU spikes, and performance issues should be fixed
+    immediately.
+</code></pre><h2 id="vii-automation-work-in-progress">VII. Automation (Work in progress)</h2>
+<pre><code>1.  Builds should be automated. (They are)
+2.  Dev testing should be automated. (It is)
+3.  Static analysis should be automated. (Not quite there)
+4.  Performance profiling should be automated. (95% there)
+5.  Quality Assurance Testing should be automated. (Getting there)
+</code></pre></article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Documentation/docs/development/principles.md/#L1" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

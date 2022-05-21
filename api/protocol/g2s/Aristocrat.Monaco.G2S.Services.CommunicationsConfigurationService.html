@@ -1,0 +1,1194 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CommunicationsConfigurationService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CommunicationsConfigurationService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService">
+  <h1 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService">Class CommunicationsConfigurationService
+  </h1>
+  <div class="markdown level0 summary"><p>Service for applying changes for commConfig.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html">BaseConfigurationService</a></div>
+    <div class="level2"><span class="xref">CommunicationsConfigurationService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Logger">BaseConfigurationService.Logger</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Egm">BaseConfigurationService.Egm</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Bus">BaseConfigurationService.Bus</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_TaskScheduler">BaseConfigurationService.TaskScheduler</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Abort_System_Int64_Aristocrat_Monaco_G2S_Data_Model_ChangeExceptionErrorCode_">BaseConfigurationService.Abort(Int64, ChangeExceptionErrorCode)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Apply_System_Int64_">BaseConfigurationService.Apply(Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Cancel_System_Int64_">BaseConfigurationService.Cancel(Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Authorize_System_Int64_System_Int32_System_Boolean_">BaseConfigurationService.Authorize(Int64, Int32, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_GenerateEvent_Aristocrat_G2S_Client_Devices_IDevice_System_String_System_Int64_transactionList_">BaseConfigurationService.GenerateEvent(IDevice, String, Int64, transactionList)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_ProcessApplyError_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_System_Exception_">BaseConfigurationService.ProcessApplyError(DbContext, ConfigChangeLog, Exception)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_Finalize_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_System_String_">BaseConfigurationService.Finalize(ConfigChangeLog, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.Services.html">Aristocrat.Monaco.G2S.Services</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CommunicationsConfigurationService : BaseConfigurationService, IConfigurationService</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Services_IDisableConditionSaga_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_Data_Profile_IProfileService_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_v21_ICommConfigDevice_commChangeStatus__Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_CommConfig_ICommChangeLogRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_G2S_IEventLift_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.%23ctor(Aristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.G2S.Services.IDisableConditionSaga%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.G2S.Data.Profile.IProfileService%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.G2S.IHostFactory%2CAristocrat.Monaco.G2S.Handlers.ICommandBuilder%7BAristocrat.G2S.Client.Devices.v21.ICommConfigDevice%2CcommChangeStatus%7D%2CAristocrat.Monaco.Common.Storage.IMonacoContextFactory%2CAristocrat.Monaco.G2S.Data.CommConfig.ICommChangeLogRepository%2CAristocrat.Monaco.Common.Scheduler.ITaskScheduler%2CAristocrat.Monaco.G2S.IEventLift)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService__ctor_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Services_IDisableConditionSaga_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_Data_Profile_IProfileService_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_v21_ICommConfigDevice_commChangeStatus__Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_CommConfig_ICommChangeLogRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_G2S_IEventLift_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.#ctor(Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.G2S.Services.IDisableConditionSaga,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.G2S.Data.Profile.IProfileService,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.G2S.IHostFactory,Aristocrat.Monaco.G2S.Handlers.ICommandBuilder{Aristocrat.G2S.Client.Devices.v21.ICommConfigDevice,commChangeStatus},Aristocrat.Monaco.Common.Storage.IMonacoContextFactory,Aristocrat.Monaco.G2S.Data.CommConfig.ICommChangeLogRepository,Aristocrat.Monaco.Common.Scheduler.ITaskScheduler,Aristocrat.Monaco.G2S.IEventLift)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Services_IDisableConditionSaga_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_Data_Profile_IProfileService_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_v21_ICommConfigDevice_commChangeStatus__Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_CommConfig_ICommChangeLogRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_G2S_IEventLift_" class="expander" data-toggle="collapse">CommunicationsConfigurationService(IG2SEgm, IDisableConditionSaga, IPropertiesManager, IProfileService, IEventBus, IHostFactory, ICommandBuilder&lt;ICommConfigDevice, commChangeStatus&gt;, IMonacoContextFactory, ICommChangeLogRepository, ITaskScheduler, IEventLift)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Services_IDisableConditionSaga_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_G2S_Data_Profile_IProfileService_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_IHostFactory_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_v21_ICommConfigDevice_commChangeStatus__Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_CommConfig_ICommChangeLogRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_G2S_IEventLift_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.html">CommunicationsConfigurationService</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CommunicationsConfigurationService(IG2SEgm egm, IDisableConditionSaga configurationMode, IPropertiesManager properties, IProfileService profiles, IEventBus bus, IHostFactory hostFactory, ICommandBuilder&lt;ICommConfigDevice, commChangeStatus&gt; statusBuilder, IMonacoContextFactory contextFactory, ICommChangeLogRepository changeLogRepository, ITaskScheduler taskScheduler, IEventLift eventLift)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a></span>
+        <span class="parametername">egm</span>
+        <p><p>The egm.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.IDisableConditionSaga.html">IDisableConditionSaga</a></span>
+        <span class="parametername">configurationMode</span>
+        <p><p>The configuration mode.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p><p>The properties.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Profile.IProfileService.html">IProfileService</a></span>
+        <span class="parametername">profiles</span>
+        <p><p>The profiles.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">bus</span>
+        <p><p>The bus.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IHostFactory.html">IHostFactory</a></span>
+        <span class="parametername">hostFactory</span>
+        <p><p>The host factory.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.ICommandBuilder-2.html">ICommandBuilder</a>&lt;<a class="xref" href="Aristocrat.G2S.Client.Devices.v21.ICommConfigDevice.html">ICommConfigDevice</a>, <span class="xref">commChangeStatus</span>&gt;</span>
+        <span class="parametername">statusBuilder</span>
+        <p><p>The status builder.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../common/Aristocrat.Monaco.Common.Storage.IMonacoContextFactory.html">IMonacoContextFactory</a></span>
+        <span class="parametername">contextFactory</span>
+        <p><p>The context factory.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.CommConfig.ICommChangeLogRepository.html">ICommChangeLogRepository</a></span>
+        <span class="parametername">changeLogRepository</span>
+        <p><p>The change log repository.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../common/Aristocrat.Monaco.Common.Scheduler.ITaskScheduler.html">ITaskScheduler</a></span>
+        <span class="parametername">taskScheduler</span>
+        <p><p>The task scheduler.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IEventLift.html">IEventLift</a></span>
+        <span class="parametername">eventLift</span>
+        <p><p>The event lift.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationAbortedEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigConfigurationAbortedEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationAbortedEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigConfigurationAbortedEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationAbortedEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigConfigurationAbortedEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationAbortedEventCode" class="expander" data-toggle="collapse">ConfigConfigurationAbortedEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationAbortedEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the configuration configuration aborted event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string ConfigConfigurationAbortedEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The configuration configuration aborted event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_ConfigConfigurationAbortedEventCode">BaseConfigurationService.ConfigConfigurationAbortedEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationCancelledEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigConfigurationCancelledEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationCancelledEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigConfigurationCancelledEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationCancelledEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigConfigurationCancelledEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationCancelledEventCode" class="expander" data-toggle="collapse">ConfigConfigurationCancelledEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigConfigurationCancelledEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the configuration configuration cancelled event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string ConfigConfigurationCancelledEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The configuration configuration cancelled event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_ConfigConfigurationCancelledEventCode">BaseConfigurationService.ConfigConfigurationCancelledEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationAuthorizedByHostEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationAuthorizedByHostEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationAuthorizedByHostEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostEventCode" class="expander" data-toggle="collapse">ConfigurationAuthorizedByHostEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the configuration authorized by host event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string ConfigurationAuthorizedByHostEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The configuration authorized by host event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_ConfigurationAuthorizedByHostEventCode">BaseConfigurationService.ConfigurationAuthorizedByHostEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostTimeOutEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationAuthorizedByHostTimeOutEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostTimeOutEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationAuthorizedByHostTimeOutEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostTimeOutEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationAuthorizedByHostTimeOutEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostTimeOutEventCode" class="expander" data-toggle="collapse">ConfigurationAuthorizedByHostTimeOutEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationAuthorizedByHostTimeOutEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the configuration authorized by host time out event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string ConfigurationAuthorizedByHostTimeOutEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The configuration authorized by host time out event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_ConfigurationAuthorizedByHostTimeOutEventCode">BaseConfigurationService.ConfigurationAuthorizedByHostTimeOutEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationChangesAppliedEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationChangesAppliedEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationChangesAppliedEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationChangesAppliedEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationChangesAppliedEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ConfigurationChangesAppliedEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationChangesAppliedEventCode" class="expander" data-toggle="collapse">ConfigurationChangesAppliedEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ConfigurationChangesAppliedEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the configuration changes applied event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string ConfigurationChangesAppliedEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The configuration changes applied event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_ConfigurationChangesAppliedEventCode">BaseConfigurationService.ConfigurationChangesAppliedEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_DeviceConfigErrorEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.DeviceConfigErrorEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L85" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_DeviceConfigErrorEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.DeviceConfigErrorEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_DeviceConfigErrorEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.DeviceConfigErrorEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_DeviceConfigErrorEventCode" class="expander" data-toggle="collapse">DeviceConfigErrorEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_DeviceConfigErrorEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device configuration error event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string DeviceConfigErrorEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The device configuration error event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_DeviceConfigErrorEventCode">BaseConfigurationService.DeviceConfigErrorEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmLockedByDeviceEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.EgmLockedByDeviceEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmLockedByDeviceEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.EgmLockedByDeviceEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmLockedByDeviceEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.EgmLockedByDeviceEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmLockedByDeviceEventCode" class="expander" data-toggle="collapse">EgmLockedByDeviceEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmLockedByDeviceEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the egm locked by device event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string EgmLockedByDeviceEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The egm locked by device event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_EgmLockedByDeviceEventCode">BaseConfigurationService.EgmLockedByDeviceEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmNotLockedByDeviceEventCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.EgmNotLockedByDeviceEventCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmNotLockedByDeviceEventCode_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.EgmNotLockedByDeviceEventCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmNotLockedByDeviceEventCode" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.EgmNotLockedByDeviceEventCode"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmNotLockedByDeviceEventCode" class="expander" data-toggle="collapse">EgmNotLockedByDeviceEventCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_EgmNotLockedByDeviceEventCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the egm not locked by device event code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string EgmNotLockedByDeviceEventCode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The egm not locked by device event code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_EgmNotLockedByDeviceEventCode">BaseConfigurationService.EgmNotLockedByDeviceEventCode</a></div>
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ApplyCommand_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ApplyCommand(DbContext%2CAristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L136" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ApplyCommand_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ApplyCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ApplyCommand_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.ApplyCommand(DbContext,Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ApplyCommand_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="expander" data-toggle="collapse">ApplyCommand(DbContext, ConfigChangeLog)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_ApplyCommand_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void ApplyCommand(DbContext context, ConfigChangeLog changeLog)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">DbContext</span></span>
+        <span class="parametername">context</span>
+        <p><p>The context.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog.html">ConfigChangeLog</a></span>
+        <span class="parametername">changeLog</span>
+        <p><p>The change log.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_ApplyCommand_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_">BaseConfigurationService.ApplyCommand(DbContext, ConfigChangeLog)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetChangeLog_DbContext_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetChangeLog(DbContext%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetChangeLog_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetChangeLog*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetChangeLog_DbContext_System_Int64_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetChangeLog(DbContext,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetChangeLog_DbContext_System_Int64_" class="expander" data-toggle="collapse">GetChangeLog(DbContext, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetChangeLog_DbContext_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the change log.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override ConfigChangeLog GetChangeLog(DbContext context, long transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">DbContext</span></span>
+        <span class="parametername">context</span>
+        <p><p>The context.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction identifier.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog.html">ConfigChangeLog</a>
+        <p><p>Config change log.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_GetChangeLog_DbContext_System_Int64_">BaseConfigurationService.GetChangeLog(DbContext, Int64)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetCheckValidityTask_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetCheckValidityTask(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetCheckValidityTask_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetCheckValidityTask*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetCheckValidityTask_System_Int64_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetCheckValidityTask(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetCheckValidityTask_System_Int64_" class="expander" data-toggle="collapse">GetCheckValidityTask(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetCheckValidityTask_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets Check Validity Task job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override ITaskSchedulerJob GetCheckValidityTask(long transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>Transaction Id.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../../common/Aristocrat.Monaco.Common.Scheduler.ITaskSchedulerJob.html">ITaskSchedulerJob</a>
+        <p><p>ITaskSchedulerJob</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_GetCheckValidityTask_System_Int64_">BaseConfigurationService.GetCheckValidityTask(Int64)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetDevice_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetDevice(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L192" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetDevice_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetDevice*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetDevice_System_Int32_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetDevice(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetDevice_System_Int32_" class="expander" data-toggle="collapse">GetDevice(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetDevice_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device used for configuration change</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IDevice GetDevice(int deviceId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">deviceId</span>
+        <p><p>The device identifier</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a>
+        <p><p>The device</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_GetDevice_System_Int32_">BaseConfigurationService.GetDevice(Int32)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetTransactionLog_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_transactionList__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetTransactionLog(Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog%2CtransactionList%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L198" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetTransactionLog_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetTransactionLog*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetTransactionLog_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_transactionList__" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.GetTransactionLog(Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog,transactionList@)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetTransactionLog_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_transactionList__" class="expander" data-toggle="collapse">GetTransactionLog(ConfigChangeLog, out transactionList)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_GetTransactionLog_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_transactionList__" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets transaction list for event report.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override long GetTransactionLog(ConfigChangeLog log, out transactionList transactionList)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog.html">ConfigChangeLog</a></span>
+        <span class="parametername">log</span>
+        <p><p>Change log.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">transactionList</span></span>
+        <span class="parametername">transactionList</span>
+        <p><p>Transaction List.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p><p>Transaction Id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_GetTransactionLog_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_transactionList__">BaseConfigurationService.GetTransactionLog(ConfigChangeLog, out transactionList)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatus_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.SendStatus(Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatus_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.SendStatus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatus_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.SendStatus(Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatus_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="expander" data-toggle="collapse">SendStatus(ConfigChangeLog)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatus_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends the status.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SendStatus(ConfigChangeLog log)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog.html">ConfigChangeLog</a></span>
+        <span class="parametername">log</span>
+        <p><p>The log.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_SendStatus_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_">BaseConfigurationService.SendStatus(ConfigChangeLog)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatusAsync_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.SendStatusAsync(Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatusAsync_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.SendStatusAsync*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatusAsync_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.SendStatusAsync(Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatusAsync_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="expander" data-toggle="collapse">SendStatusAsync(ConfigChangeLog)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_SendStatusAsync_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends the status asynchronously.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SendStatusAsync(ConfigChangeLog log)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog.html">ConfigChangeLog</a></span>
+        <span class="parametername">log</span>
+        <p><p>The log.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_SendStatusAsync_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_">BaseConfigurationService.SendStatusAsync(ConfigChangeLog)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_UpdateChangeLog_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.UpdateChangeLog(DbContext%2CAristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_UpdateChangeLog_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.UpdateChangeLog*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_UpdateChangeLog_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" data-uid="Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService.UpdateChangeLog(DbContext,Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_UpdateChangeLog_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="expander" data-toggle="collapse">UpdateChangeLog(DbContext, ConfigChangeLog)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService_UpdateChangeLog_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the change log.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void UpdateChangeLog(DbContext context, ConfigChangeLog changeLog)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">DbContext</span></span>
+        <span class="parametername">context</span>
+        <p><p>The context.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ConfigChangeLog.html">ConfigChangeLog</a></span>
+        <span class="parametername">changeLog</span>
+        <p><p>The change log.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.BaseConfigurationService.html#Aristocrat_Monaco_G2S_Services_BaseConfigurationService_UpdateChangeLog_DbContext_Aristocrat_Monaco_G2S_Data_Model_ConfigChangeLog_">BaseConfigurationService.UpdateChangeLog(DbContext, ConfigChangeLog)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_CommunicationsConfigurationService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.CommunicationsConfigurationService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/CommunicationsConfigurationService.cs/#L29" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

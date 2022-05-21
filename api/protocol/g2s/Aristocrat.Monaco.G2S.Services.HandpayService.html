@@ -1,0 +1,2299 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HandpayService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HandpayService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService">
+  <h1 id="Aristocrat_Monaco_G2S_Services_HandpayService" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService">Class HandpayService
+  </h1>
+  <div class="markdown level0 summary"><p>Implements <a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayService.html">IHandpayService</a> interface</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">HandpayService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.Services.html">Aristocrat.Monaco.G2S.Services</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_Services_HandpayService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HandpayService : IHandpayService, IHandpayValidator, IService, IHandpayProperties, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IHandpayDevice_handpayStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IHandpayDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.%23ctor(Aristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.G2S.IEventLift%2CAristocrat.Monaco.Accounting.Contracts.ITransactionHistory%2CAristocrat.Monaco.G2S.Services.ITransactionReferenceProvider%2CAristocrat.Monaco.G2S.Handlers.ICommandBuilder%7BAristocrat.G2S.Client.Devices.IHandpayDevice%2ChandpayStatus%7D%2CAristocrat.Monaco.G2S.Meters.IMeterAggregator%7BAristocrat.G2S.Client.Devices.IHandpayDevice%7D%2CAristocrat.Monaco.G2S.Meters.IMeterAggregator%7BAristocrat.G2S.Client.Devices.ICabinetDevice%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService__ctor_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IHandpayDevice_handpayStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IHandpayDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.#ctor(Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.G2S.IEventLift,Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory,Aristocrat.Monaco.G2S.Services.ITransactionReferenceProvider,Aristocrat.Monaco.G2S.Handlers.ICommandBuilder{Aristocrat.G2S.Client.Devices.IHandpayDevice,handpayStatus},Aristocrat.Monaco.G2S.Meters.IMeterAggregator{Aristocrat.G2S.Client.Devices.IHandpayDevice},Aristocrat.Monaco.G2S.Meters.IMeterAggregator{Aristocrat.G2S.Client.Devices.ICabinetDevice})"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IHandpayDevice_handpayStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IHandpayDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__" class="expander" data-toggle="collapse">HandpayService(IEventBus, IPropertiesManager, IG2SEgm, IEventLift, ITransactionHistory, ITransactionReferenceProvider, ICommandBuilder&lt;IHandpayDevice, handpayStatus&gt;, IMeterAggregator&lt;IHandpayDevice&gt;, IMeterAggregator&lt;ICabinetDevice&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IHandpayDevice_handpayStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IHandpayDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HandpayService(IEventBus eventBus, IPropertiesManager properties, IG2SEgm egm, IEventLift eventLift, ITransactionHistory transactionHistory, ITransactionReferenceProvider references, ICommandBuilder&lt;IHandpayDevice, handpayStatus&gt; statusCommandBuilder, IMeterAggregator&lt;IHandpayDevice&gt; handpayMeters, IMeterAggregator&lt;ICabinetDevice&gt; cabinetMeters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a></span>
+        <span class="parametername">egm</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IEventLift.html">IEventLift</a></span>
+        <span class="parametername">eventLift</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory.html">ITransactionHistory</a></span>
+        <span class="parametername">transactionHistory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.ITransactionReferenceProvider.html">ITransactionReferenceProvider</a></span>
+        <span class="parametername">references</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.ICommandBuilder-2.html">ICommandBuilder</a>&lt;<a class="xref" href="Aristocrat.G2S.Client.Devices.IHandpayDevice.html">IHandpayDevice</a>, <span class="xref">handpayStatus</span>&gt;</span>
+        <span class="parametername">statusCommandBuilder</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMeterAggregator-1.html">IMeterAggregator</a>&lt;<a class="xref" href="Aristocrat.G2S.Client.Devices.IHandpayDevice.html">IHandpayDevice</a>&gt;</span>
+        <span class="parametername">handpayMeters</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMeterAggregator-1.html">IMeterAggregator</a>&lt;<a class="xref" href="Aristocrat.G2S.Client.Devices.ICabinetDevice.html">ICabinetDevice</a>&gt;</span>
+        <span class="parametername">cabinetMeters</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalCredit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L409" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalCredit_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalCredit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalCredit" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalCredit"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalCredit" class="expander" data-toggle="collapse">AllowLocalCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalCredit" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether local handpay is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowLocalCredit { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowLocalCredit">IHandpayProperties.AllowLocalCredit</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalHandpay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalHandpay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L341" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalHandpay" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalHandpay"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalHandpay" class="expander" data-toggle="collapse">AllowLocalHandpay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalHandpay" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowLocalHandpay { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.IHandpayValidator.html#Aristocrat_Monaco_Accounting_Contracts_Handpay_IHandpayValidator_AllowLocalHandpay">IHandpayValidator.AllowLocalHandpay</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowLocalHandpay">IHandpayProperties.AllowLocalHandpay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L375" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalVoucher" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalVoucher"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalVoucher" class="expander" data-toggle="collapse">AllowLocalVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalVoucher" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether local handpay is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowLocalVoucher { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowLocalVoucher">IHandpayProperties.AllowLocalVoucher</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalWat.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalWat%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L443" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalWat_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalWat*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalWat" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowLocalWat"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalWat" class="expander" data-toggle="collapse">AllowLocalWat</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowLocalWat" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether local handpay is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowLocalWat { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowLocalWat">IHandpayProperties.AllowLocalWat</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteCredit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L556" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteCredit_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteCredit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteCredit" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteCredit"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteCredit" class="expander" data-toggle="collapse">AllowRemoteCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteCredit" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether local handpay is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowRemoteCredit { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowRemoteCredit">IHandpayProperties.AllowRemoteCredit</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteHandpay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteHandpay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L477" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteHandpay" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteHandpay"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteHandpay" class="expander" data-toggle="collapse">AllowRemoteHandpay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteHandpay" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether local handpay is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowRemoteHandpay { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowRemoteHandpay">IHandpayProperties.AllowRemoteHandpay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L517" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteVoucher" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteVoucher"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteVoucher" class="expander" data-toggle="collapse">AllowRemoteVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteVoucher" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether local handpay is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowRemoteVoucher { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowRemoteVoucher">IHandpayProperties.AllowRemoteVoucher</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteWat.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteWat%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L595" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteWat_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteWat*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteWat" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.AllowRemoteWat"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteWat" class="expander" data-toggle="collapse">AllowRemoteWat</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_AllowRemoteWat" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether local handpay is allowed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AllowRemoteWat { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_AllowRemoteWat">IHandpayProperties.AllowRemoteWat</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_CombineCashableOut.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.CombineCashableOut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L314" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_CombineCashableOut_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.CombineCashableOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_CombineCashableOut" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.CombineCashableOut"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_CombineCashableOut" class="expander" data-toggle="collapse">CombineCashableOut</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_CombineCashableOut" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether promotional credits
+MUST be converted to cashable credits when paid as a handpay</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CombineCashableOut { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_CombineCashableOut">IHandpayProperties.CombineCashableOut</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalCredit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L226" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalCredit_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalCredit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalCredit" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalCredit"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalCredit" class="expander" data-toggle="collapse">DisabledLocalCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalCredit" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local credit handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledLocalCredit { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledLocalCredit">IHandpayProperties.DisabledLocalCredit</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalHandpay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalHandpay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L218" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalHandpay" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalHandpay"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalHandpay" class="expander" data-toggle="collapse">DisabledLocalHandpay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalHandpay" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledLocalHandpay { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledLocalHandpay">IHandpayProperties.DisabledLocalHandpay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L234" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalVoucher" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalVoucher"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalVoucher" class="expander" data-toggle="collapse">DisabledLocalVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalVoucher" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local voucher handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledLocalVoucher { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledLocalVoucher">IHandpayProperties.DisabledLocalVoucher</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalWat.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalWat%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L242" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalWat_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalWat*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalWat" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledLocalWat"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalWat" class="expander" data-toggle="collapse">DisabledLocalWat</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledLocalWat" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local WAT handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledLocalWat { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledLocalWat">IHandpayProperties.DisabledLocalWat</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteCredit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L258" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteCredit_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteCredit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteCredit" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteCredit"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteCredit" class="expander" data-toggle="collapse">DisabledRemoteCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteCredit" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote credit handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledRemoteCredit { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledRemoteCredit">IHandpayProperties.DisabledRemoteCredit</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteHandpay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteHandpay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L250" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteHandpay" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteHandpay"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteHandpay" class="expander" data-toggle="collapse">DisabledRemoteHandpay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteHandpay" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledRemoteHandpay { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledRemoteHandpay">IHandpayProperties.DisabledRemoteHandpay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L266" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteVoucher" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteVoucher"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteVoucher" class="expander" data-toggle="collapse">DisabledRemoteVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteVoucher" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote voucher handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledRemoteVoucher { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledRemoteVoucher">IHandpayProperties.DisabledRemoteVoucher</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteWat.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteWat%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L274" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteWat_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteWat*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteWat" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.DisabledRemoteWat"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteWat" class="expander" data-toggle="collapse">DisabledRemoteWat</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_DisabledRemoteWat" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote WAT handpay is enabled when the device is disabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisabledRemoteWat { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_DisabledRemoteWat">IHandpayProperties.DisabledRemoteWat</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalCredit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L162" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalCredit_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalCredit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalCredit" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalCredit"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalCredit" class="expander" data-toggle="collapse">EnabledLocalCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalCredit" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local credit handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledLocalCredit { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledLocalCredit">IHandpayProperties.EnabledLocalCredit</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalHandpay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalHandpay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L154" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalHandpay" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalHandpay"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalHandpay" class="expander" data-toggle="collapse">EnabledLocalHandpay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalHandpay" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledLocalHandpay { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledLocalHandpay">IHandpayProperties.EnabledLocalHandpay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L170" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalVoucher" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalVoucher"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalVoucher" class="expander" data-toggle="collapse">EnabledLocalVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalVoucher" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local voucher handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledLocalVoucher { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledLocalVoucher">IHandpayProperties.EnabledLocalVoucher</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalWat.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalWat%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L178" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalWat_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalWat*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalWat" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledLocalWat"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalWat" class="expander" data-toggle="collapse">EnabledLocalWat</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledLocalWat" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local WAT handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledLocalWat { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledLocalWat">IHandpayProperties.EnabledLocalWat</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteCredit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L194" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteCredit_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteCredit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteCredit" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteCredit"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteCredit" class="expander" data-toggle="collapse">EnabledRemoteCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteCredit" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote credit handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledRemoteCredit { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledRemoteCredit">IHandpayProperties.EnabledRemoteCredit</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteHandpay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteHandpay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L186" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteHandpay" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteHandpay"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteHandpay" class="expander" data-toggle="collapse">EnabledRemoteHandpay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteHandpay" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledRemoteHandpay { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledRemoteHandpay">IHandpayProperties.EnabledRemoteHandpay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L202" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteVoucher" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteVoucher"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteVoucher" class="expander" data-toggle="collapse">EnabledRemoteVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteVoucher" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote voucher handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledRemoteVoucher { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledRemoteVoucher">IHandpayProperties.EnabledRemoteVoucher</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteWat.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteWat%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L210" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteWat_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteWat*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteWat" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnabledRemoteWat"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteWat" class="expander" data-toggle="collapse">EnabledRemoteWat</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnabledRemoteWat" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether remote WAT handpay is enabled when the device is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnabledRemoteWat { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnabledRemoteWat">IHandpayProperties.EnabledRemoteWat</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_EnableReceipts.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.EnableReceipts%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L146" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_EnableReceipts_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnableReceipts*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_EnableReceipts" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.EnableReceipts"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnableReceipts" class="expander" data-toggle="collapse">EnableReceipts</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_EnableReceipts" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether non-validated receipts are enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnableReceipts { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_EnableReceipts">IHandpayProperties.EnableReceipts</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_HostOnline.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.HostOnline%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L127" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_HostOnline_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.HostOnline*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_HostOnline" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.HostOnline"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_HostOnline" class="expander" data-toggle="collapse">HostOnline</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_HostOnline" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HostOnline { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.IHandpayValidator.html#Aristocrat_Monaco_Accounting_Contracts_Handpay_IHandpayValidator_HostOnline">IHandpayValidator.HostOnline</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_IdReaderId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.IdReaderId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_IdReaderId_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.IdReaderId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_IdReaderId" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.IdReaderId"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_IdReaderId" class="expander" data-toggle="collapse">IdReaderId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_IdReaderId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a device identifier of the idReader device associated with the handpay device; set to
+0 (zero) if there is no associated idReader
+device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IdReaderId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_IdReaderId">IHandpayProperties.IdReaderId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_LocalKeyOff.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.LocalKeyOff%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L282" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_LocalKeyOff_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.LocalKeyOff*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_LocalKeyOff" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.LocalKeyOff"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_LocalKeyOff" class="expander" data-toggle="collapse">LocalKeyOff</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_LocalKeyOff" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local handpay is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LocalKeyOff LocalKeyOff { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.LocalKeyOff.html">LocalKeyOff</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_LocalKeyOff">IHandpayProperties.LocalKeyOff</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_MixCreditTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.MixCreditTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L298" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_MixCreditTypes_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.MixCreditTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_MixCreditTypes" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.MixCreditTypes"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_MixCreditTypes" class="expander" data-toggle="collapse">MixCreditTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_MixCreditTypes" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the EGM is allowed to
+include multiple credit types in a single handpay request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool MixCreditTypes { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_MixCreditTypes">IHandpayProperties.MixCreditTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L121" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_Name_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_Name" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Name"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_PartialHandpays.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.PartialHandpays%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L290" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_PartialHandpays_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.PartialHandpays*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_PartialHandpays" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.PartialHandpays"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_PartialHandpays" class="expander" data-toggle="collapse">PartialHandpays</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_PartialHandpays" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether local handpay is enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PartialHandpays { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_PartialHandpays">IHandpayProperties.PartialHandpays</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_RequestNonCash.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.RequestNonCash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L306" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_RequestNonCash_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.RequestNonCash*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_RequestNonCash" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.RequestNonCash"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_RequestNonCash" class="expander" data-toggle="collapse">RequestNonCash</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_RequestNonCash" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the EGM may include
+non-cashable credits in handpay requests</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RequestNonCash { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_RequestNonCash">IHandpayProperties.RequestNonCash</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_ServiceTypes_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_ServiceTypes" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_TitleCancelReceipt.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.TitleCancelReceipt%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L332" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_TitleCancelReceipt_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.TitleCancelReceipt*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_TitleCancelReceipt" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.TitleCancelReceipt"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_TitleCancelReceipt" class="expander" data-toggle="collapse">TitleCancelReceipt</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_TitleCancelReceipt" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the title printed on cancel credit receipts</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TitleCancelReceipt { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_TitleCancelReceipt">IHandpayProperties.TitleCancelReceipt</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_TitleJackpotReceipt.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.TitleJackpotReceipt%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L322" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_TitleJackpotReceipt_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.TitleJackpotReceipt*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_TitleJackpotReceipt" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.TitleJackpotReceipt"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_TitleJackpotReceipt" class="expander" data-toggle="collapse">TitleJackpotReceipt</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_TitleJackpotReceipt" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the title printed on game win and external bonus receipts</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TitleJackpotReceipt { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_TitleJackpotReceipt">IHandpayProperties.TitleJackpotReceipt</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_UsePlayerIdReader.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.UsePlayerIdReader%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L138" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_UsePlayerIdReader_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.UsePlayerIdReader*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_UsePlayerIdReader" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.UsePlayerIdReader"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_UsePlayerIdReader" class="expander" data-toggle="collapse">UsePlayerIdReader</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_UsePlayerIdReader" class="collapse in">
+  <div class="markdown level1 summary"><p>Get or sets a value indicating whether the EGM MUST use the idReader device associated with the currently active player session; otherwise,
+the EGM MUST use the idReader device specified in the idReaderId attribute of the handpayProfile command.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UsePlayerIdReader { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IHandpayProperties.html#Aristocrat_Monaco_G2S_Services_IHandpayProperties_UsePlayerIdReader">IHandpayProperties.UsePlayerIdReader</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L664" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_Dispose_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_Dispose" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Dispose"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_Finalize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.Finalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L115" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_Finalize_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Finalize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_Finalize" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Finalize"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Finalize" class="expander" data-toggle="collapse">Finalize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Finalize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Finalize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L640" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_Initialize_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_Initialize" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.Initialize"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_LogTransactionRequired_Aristocrat_Monaco_Accounting_Contracts_ITransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.LogTransactionRequired(Aristocrat.Monaco.Accounting.Contracts.ITransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L634" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_LogTransactionRequired_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.LogTransactionRequired*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_LogTransactionRequired_Aristocrat_Monaco_Accounting_Contracts_ITransaction_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.LogTransactionRequired(Aristocrat.Monaco.Accounting.Contracts.ITransaction)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_LogTransactionRequired_Aristocrat_Monaco_Accounting_Contracts_ITransaction_" class="expander" data-toggle="collapse">LogTransactionRequired(ITransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_LogTransactionRequired_Aristocrat_Monaco_Accounting_Contracts_ITransaction_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool LogTransactionRequired(ITransaction _)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.ITransaction.html">ITransaction</a></span>
+        <span class="parametername">_</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.IHandpayValidator.html#Aristocrat_Monaco_Accounting_Contracts_Handpay_IHandpayValidator_LogTransactionRequired_Aristocrat_Monaco_Accounting_Contracts_ITransaction_">IHandpayValidator.LogTransactionRequired(ITransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_RequestHandpay_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.RequestHandpay(Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L692" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_RequestHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.RequestHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_RequestHandpay_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayTransaction_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.RequestHandpay(Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_RequestHandpay_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayTransaction_" class="expander" data-toggle="collapse">RequestHandpay(HandpayTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_RequestHandpay_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayTransaction_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task RequestHandpay(HandpayTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction.html">HandpayTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.IHandpayValidator.html#Aristocrat_Monaco_Accounting_Contracts_Handpay_IHandpayValidator_RequestHandpay_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayTransaction_">IHandpayValidator.RequestHandpay(HandpayTransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService_ValidateHandpay_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService.ValidateHandpay(System.Int64%2CSystem.Int64%2CSystem.Int64%2CAristocrat.Monaco.Accounting.Contracts.Handpay.HandpayType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L653" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_HandpayService_ValidateHandpay_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.ValidateHandpay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_HandpayService_ValidateHandpay_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_" data-uid="Aristocrat.Monaco.G2S.Services.HandpayService.ValidateHandpay(System.Int64,System.Int64,System.Int64,Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayType)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_ValidateHandpay_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_" class="expander" data-toggle="collapse">ValidateHandpay(Int64, Int64, Int64, HandpayType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_HandpayService_ValidateHandpay_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ValidateHandpay(long cashableAmount, long promoAmount, long nonCashAmount, HandpayType handpayType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">cashableAmount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">promoAmount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">nonCashAmount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayType.html">HandpayType</a></span>
+        <span class="parametername">handpayType</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.IHandpayValidator.html#Aristocrat_Monaco_Accounting_Contracts_Handpay_IHandpayValidator_ValidateHandpay_System_Int64_System_Int64_System_Int64_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_">IHandpayValidator.ValidateHandpay(Int64, Int64, Int64, HandpayType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_HandpayService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.HandpayService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/HandpayService.cs/#L32" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

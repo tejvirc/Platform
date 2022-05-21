@@ -1,0 +1,1304 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ContentStackPanel
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ContentStackPanel
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel">
+  <h1 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel">Class ContentStackPanel
+  </h1>
+  <div class="markdown level0 summary"><p>Implementing a scrollable content panel without vertical cutoff for TimeZone comboBox popup box</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.threading.dispatcherobject">DispatcherObject</a></div>
+    <div class="level2"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.dependencyobject">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.media.visual">Visual</a></div>
+    <div class="level4"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.uielement">UIElement</a></div>
+    <div class="level5"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.frameworkelement">FrameworkElement</a></div>
+    <div class="level6"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.controls.panel">Panel</a></div>
+    <div class="level7"><span class="xref">ContentStackPanel</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.UI.Common.Controls.Helpers.html">Aristocrat.Monaco.UI.Common.Controls.Helpers</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.UI.Common.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ContentStackPanel : Panel, DUCE.IResource, IAnimatable, IFrameworkInputElement, IInputElement, ISupportInitialize, IHaveResources, IQueryAmbient, IAddChild, IScrollInfo</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanHorizontallyScroll.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.CanHorizontallyScroll%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanHorizontallyScroll_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.CanHorizontallyScroll*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanHorizontallyScroll" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.CanHorizontallyScroll"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanHorizontallyScroll" class="expander" data-toggle="collapse">CanHorizontallyScroll</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanHorizontallyScroll" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanHorizontallyScroll { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanVerticallyScroll.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.CanVerticallyScroll%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanVerticallyScroll_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.CanVerticallyScroll*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanVerticallyScroll" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.CanVerticallyScroll"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanVerticallyScroll" class="expander" data-toggle="collapse">CanVerticallyScroll</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_CanVerticallyScroll" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanVerticallyScroll { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentHeight.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ExtentHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentHeight_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ExtentHeight*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentHeight" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ExtentHeight"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentHeight" class="expander" data-toggle="collapse">ExtentHeight</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentHeight" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double ExtentHeight { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentWidth.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ExtentWidth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentWidth_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ExtentWidth*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentWidth" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ExtentWidth"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentWidth" class="expander" data-toggle="collapse">ExtentWidth</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ExtentWidth" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double ExtentWidth { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_HorizontalOffset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.HorizontalOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_HorizontalOffset_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.HorizontalOffset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_HorizontalOffset" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.HorizontalOffset"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_HorizontalOffset" class="expander" data-toggle="collapse">HorizontalOffset</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_HorizontalOffset" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double HorizontalOffset { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ScrollOwner.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ScrollOwner%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ScrollOwner_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ScrollOwner*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ScrollOwner" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ScrollOwner"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ScrollOwner" class="expander" data-toggle="collapse">ScrollOwner</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ScrollOwner" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScrollViewer ScrollOwner { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.controls.scrollviewer">ScrollViewer</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_VerticalOffset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.VerticalOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_VerticalOffset_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.VerticalOffset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_VerticalOffset" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.VerticalOffset"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_VerticalOffset" class="expander" data-toggle="collapse">VerticalOffset</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_VerticalOffset" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double VerticalOffset { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportHeight.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ViewportHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportHeight_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ViewportHeight*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportHeight" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ViewportHeight"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportHeight" class="expander" data-toggle="collapse">ViewportHeight</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportHeight" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double ViewportHeight { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportWidth.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ViewportWidth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportWidth_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ViewportWidth*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportWidth" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ViewportWidth"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportWidth" class="expander" data-toggle="collapse">ViewportWidth</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ViewportWidth" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double ViewportWidth { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ArrangeOverride_System_Windows_Size_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ArrangeOverride(System.Windows.Size)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L279" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ArrangeOverride_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ArrangeOverride*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ArrangeOverride_System_Windows_Size_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.ArrangeOverride(System.Windows.Size)"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ArrangeOverride_System_Windows_Size_" class="expander" data-toggle="collapse">ArrangeOverride(Size)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_ArrangeOverride_System_Windows_Size_" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in FrameworkElement</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Size ArrangeOverride(Size finalSize)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.size">Size</a></span>
+        <span class="parametername">finalSize</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.size">Size</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.frameworkelement.arrangeoverride#system-windows-frameworkelement-arrangeoverride(system-windows-size)">FrameworkElement.ArrangeOverride(Size)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineDown.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineDown%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineDown_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineDown*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineDown" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineDown"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineDown" class="expander" data-toggle="collapse">LineDown()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineDown" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LineDown()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineLeft.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineLeft%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineLeft_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineLeft*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineLeft" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineLeft"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineLeft" class="expander" data-toggle="collapse">LineLeft()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineLeft" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LineLeft()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineRight.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineRight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineRight_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineRight*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineRight" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineRight"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineRight" class="expander" data-toggle="collapse">LineRight()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineRight" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LineRight()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineUp.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineUp%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineUp_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineUp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineUp" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.LineUp"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineUp" class="expander" data-toggle="collapse">LineUp()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_LineUp" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LineUp()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MakeVisible_System_Windows_Media_Visual_System_Windows_Rect_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MakeVisible(System.Windows.Media.Visual%2CSystem.Windows.Rect)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MakeVisible_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MakeVisible*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MakeVisible_System_Windows_Media_Visual_System_Windows_Rect_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MakeVisible(System.Windows.Media.Visual,System.Windows.Rect)"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MakeVisible_System_Windows_Media_Visual_System_Windows_Rect_" class="expander" data-toggle="collapse">MakeVisible(Visual, Rect)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MakeVisible_System_Windows_Media_Visual_System_Windows_Rect_" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Rect MakeVisible(Visual visual, Rect rectangle)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.media.visual">Visual</a></span>
+        <span class="parametername">visual</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.rect">Rect</a></span>
+        <span class="parametername">rectangle</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.rect">Rect</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MeasureOverride_System_Windows_Size_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MeasureOverride(System.Windows.Size)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MeasureOverride_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MeasureOverride*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MeasureOverride_System_Windows_Size_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MeasureOverride(System.Windows.Size)"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MeasureOverride_System_Windows_Size_" class="expander" data-toggle="collapse">MeasureOverride(Size)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MeasureOverride_System_Windows_Size_" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in FrameworkElement</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Size MeasureOverride(Size availableSize)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.size">Size</a></span>
+        <span class="parametername">availableSize</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.size">Size</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.frameworkelement.measureoverride#system-windows-frameworkelement-measureoverride(system-windows-size)">FrameworkElement.MeasureOverride(Size)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelDown.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelDown%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelDown_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelDown*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelDown" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelDown"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelDown" class="expander" data-toggle="collapse">MouseWheelDown()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelDown" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MouseWheelDown()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelLeft.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelLeft%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelLeft_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelLeft*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelLeft" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelLeft"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelLeft" class="expander" data-toggle="collapse">MouseWheelLeft()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelLeft" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MouseWheelLeft()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelRight.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelRight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L132" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelRight_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelRight*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelRight" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelRight"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelRight" class="expander" data-toggle="collapse">MouseWheelRight()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelRight" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MouseWheelRight()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelUp.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelUp%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelUp_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelUp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelUp" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.MouseWheelUp"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelUp" class="expander" data-toggle="collapse">MouseWheelUp()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_MouseWheelUp" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MouseWheelUp()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageDown.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageDown%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L140" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageDown_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageDown*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageDown" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageDown"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageDown" class="expander" data-toggle="collapse">PageDown()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageDown" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PageDown()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageLeft.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageLeft%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L156" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageLeft_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageLeft*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageLeft" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageLeft"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageLeft" class="expander" data-toggle="collapse">PageLeft()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageLeft" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PageLeft()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageRight.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageRight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L164" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageRight_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageRight*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageRight" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageRight"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageRight" class="expander" data-toggle="collapse">PageRight()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageRight" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PageRight()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageUp.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageUp%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L148" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageUp_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageUp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageUp" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.PageUp"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageUp" class="expander" data-toggle="collapse">PageUp()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_PageUp" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PageUp()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetHorizontalOffset_System_Double_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.SetHorizontalOffset(System.Double)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L212" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetHorizontalOffset_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.SetHorizontalOffset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetHorizontalOffset_System_Double_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.SetHorizontalOffset(System.Double)"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetHorizontalOffset_System_Double_" class="expander" data-toggle="collapse">SetHorizontalOffset(Double)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetHorizontalOffset_System_Double_" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetHorizontalOffset(double offset)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a></span>
+        <span class="parametername">offset</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetVerticalOffset_System_Double_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.SetVerticalOffset(System.Double)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L227" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetVerticalOffset_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.SetVerticalOffset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetVerticalOffset_System_Double_" data-uid="Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel.SetVerticalOffset(System.Double)"><a href="#collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetVerticalOffset_System_Double_" class="expander" data-toggle="collapse">SetVerticalOffset(Double)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel_SetVerticalOffset_System_Double_" class="collapse in">
+  <div class="markdown level1 summary"><p>declare in IScrollInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetVerticalOffset(double offset)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a></span>
+        <span class="parametername">offset</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.EnumExtensions.html#Aristocrat_Monaco_Common_EnumExtensions_GetDescription_System_Object_System_Type_">EnumExtensions.GetDescription(Object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.ObjectExtensions.html#Aristocrat_Monaco_Common_ObjectExtensions_DeepClone__1___0_">ObjectExtensions.DeepClone&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.ObjectExtensions.html#Aristocrat_Monaco_Common_ObjectExtensions_AreEqualOrNull_System_Object_System_Object_">ObjectExtensions.AreEqualOrNull(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.DependencyObjectExtensions.html#Aristocrat_Monaco_UI_Common_DependencyObjectExtensions_FindParent__1_System_Windows_DependencyObject_">DependencyObjectExtensions.FindParent&lt;T&gt;(DependencyObject)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.DependencyObjectExtensions.html#Aristocrat_Monaco_UI_Common_DependencyObjectExtensions_FindChild__1_System_Windows_DependencyObject_">DependencyObjectExtensions.FindChild&lt;T&gt;(DependencyObject)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.Extensions.EnumExtensions.html#Aristocrat_Monaco_UI_Common_Extensions_EnumExtensions_GetDescription_System_Object_System_Type_">EnumExtensions.GetDescription(Object, Type)</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_Controls_Helpers_ContentStackPanel.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.Controls.Helpers.ContentStackPanel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/Controls/Helpers/ContentStackPanel.cs/#L13" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

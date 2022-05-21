@@ -1,0 +1,2108 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class PrinterAdapter
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class PrinterAdapter
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter">
+  <h1 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter">Class PrinterAdapter
+  </h1>
+  <div class="markdown level0 summary"><p>A printer adapter.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html">DeviceAdapter</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html">IPrinterImplementation</a>&gt;</div>
+    <div class="level2"><span class="xref">PrinterAdapter</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync">DeviceAdapter&lt;IPrinterImplementation&gt;.Sync</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed">DeviceAdapter&lt;IPrinterImplementation&gt;.Disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors">DeviceAdapter&lt;IPrinterImplementation&gt;.AnyErrors</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings">DeviceAdapter&lt;IPrinterImplementation&gt;.AnyWarnings</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory">DeviceAdapter&lt;IPrinterImplementation&gt;.AddinFactory</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration">DeviceAdapter&lt;IPrinterImplementation&gt;.InternalConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration">DeviceAdapter&lt;IPrinterImplementation&gt;.LastComConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled">DeviceAdapter&lt;IPrinterImplementation&gt;.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized">DeviceAdapter&lt;IPrinterImplementation&gt;.Initialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError">DeviceAdapter&lt;IPrinterImplementation&gt;.LastError</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled">DeviceAdapter&lt;IPrinterImplementation&gt;.ReasonDisabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol">DeviceAdapter&lt;IPrinterImplementation&gt;.ServiceProtocol</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration">DeviceAdapter&lt;IPrinterImplementation&gt;.DeviceConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId">DeviceAdapter&lt;IPrinterImplementation&gt;.ProductId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId">DeviceAdapter&lt;IPrinterImplementation&gt;.VendorId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc">DeviceAdapter&lt;IPrinterImplementation&gt;.Crc</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError">DeviceAdapter&lt;IPrinterImplementation&gt;.DisabledByError</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize">DeviceAdapter&lt;IPrinterImplementation&gt;.Initialize()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_">DeviceAdapter&lt;IPrinterImplementation&gt;.Disable(DisabledReasons)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_">DeviceAdapter&lt;IPrinterImplementation&gt;.Enable(EnabledReasons)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_">DeviceAdapter&lt;IPrinterImplementation&gt;.Inspect(IComConfiguration, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_System_Int32_">DeviceAdapter&lt;IPrinterImplementation&gt;.CalculateCrc(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose">DeviceAdapter&lt;IPrinterImplementation&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_System_Boolean_">DeviceAdapter&lt;IPrinterImplementation&gt;.CanProceed(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_System_Func_System_Threading_Tasks_Task_System_Boolean___">DeviceAdapter&lt;IPrinterImplementation&gt;.ExecuteDisabled(Func&lt;Task&lt;Boolean&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent__1___0_">DeviceAdapter&lt;IPrinterImplementation&gt;.PostEvent&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter">DeviceAdapter&lt;IPrinterImplementation&gt;.RegisterDfuAdapter()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter">DeviceAdapter&lt;IPrinterImplementation&gt;.UnregisterDfuAdapter()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_String_">DeviceAdapter&lt;IPrinterImplementation&gt;.AddError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_Object_">DeviceAdapter&lt;IPrinterImplementation&gt;.AddError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_String_">DeviceAdapter&lt;IPrinterImplementation&gt;.AddWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_Object_">DeviceAdapter&lt;IPrinterImplementation&gt;.AddWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_String_">DeviceAdapter&lt;IPrinterImplementation&gt;.ClearError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_Object_">DeviceAdapter&lt;IPrinterImplementation&gt;.ClearError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_String_">DeviceAdapter&lt;IPrinterImplementation&gt;.ClearWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_Object_">DeviceAdapter&lt;IPrinterImplementation&gt;.ClearWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_System_String___">DeviceAdapter&lt;IPrinterImplementation&gt;.ClearErrors(String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_System_String___">DeviceAdapter&lt;IPrinterImplementation&gt;.ClearWarnings(String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_String_">DeviceAdapter&lt;IPrinterImplementation&gt;.ContainsError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_Object_">DeviceAdapter&lt;IPrinterImplementation&gt;.ContainsError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_String_">DeviceAdapter&lt;IPrinterImplementation&gt;.ContainsWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_Object_">DeviceAdapter&lt;IPrinterImplementation&gt;.ContainsWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration">DeviceAdapter&lt;IPrinterImplementation&gt;.SetInternalConfiguration()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent">DeviceAdapter&lt;IPrinterImplementation&gt;.RegisterComponent()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_System_Boolean_">DeviceAdapter&lt;IPrinterImplementation&gt;.UnregisterComponent(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Printer.html">Aristocrat.Monaco.Hardware.Printer</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PrinterAdapter : DeviceAdapter&lt;IPrinterImplementation&gt;, IDisposable, IPrinter, IDeviceAdapter, IDeviceService, IService, IFirmwareCrcBridge, IStorageAccessor&lt;PrinterOptions&gt;</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ActivationTime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.ActivationTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ActivationTime_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.ActivationTime*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ActivationTime" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.ActivationTime"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ActivationTime" class="expander" data-toggle="collapse">ActivationTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ActivationTime" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the host enabled ActivationTime.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime ActivationTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a>
+        <p><p>ActivationTime.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_ActivationTime">IPrinter.ActivationTime</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_CanPrint.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.CanPrint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_CanPrint_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.CanPrint*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_CanPrint" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.CanPrint"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_CanPrint" class="expander" data-toggle="collapse">CanPrint</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_CanPrint" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the printer is in a state to print.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanPrint { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_CanPrint">IPrinter.CanPrint</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Connected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Connected_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Connected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Connected" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Connected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Connected" class="expander" data-toggle="collapse">Connected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Connected" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the device is connected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Connected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Connected</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_Connected">IDeviceAdapter.Connected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Description.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Description%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Description_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Description*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Description" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Description"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Description" class="expander" data-toggle="collapse">Description</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Description" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string Description { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device Description.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Description</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DeviceType.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.DeviceType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DeviceType_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.DeviceType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DeviceType" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.DeviceType"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DeviceType" class="expander" data-toggle="collapse">DeviceType</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DeviceType" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DeviceType DeviceType { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceType.html">DeviceType</a>
+        <p><p>The device type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.DeviceType</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_DeviceType">IDeviceAdapter.DeviceType</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Faults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Faults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Faults_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Faults*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Faults" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Faults"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Faults" class="expander" data-toggle="collapse">Faults</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Faults" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current faults.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrinterFaultTypes Faults { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterFaultTypes.html">PrinterFaultTypes</a>
+        <p><p>The current faults.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_Faults">IPrinter.Faults</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Implementation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Implementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Implementation_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Implementation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Implementation" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Implementation"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Implementation" class="expander" data-toggle="collapse">Implementation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Implementation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device implementation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IPrinterImplementation Implementation { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html">IPrinterImplementation</a>
+        <p><p>The device implementation.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Implementation</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_LogicalState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.LogicalState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_LogicalState_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.LogicalState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_LogicalState" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.LogicalState"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_LogicalState" class="expander" data-toggle="collapse">LogicalState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_LogicalState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the logical printer state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrinterLogicalState LogicalState { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterLogicalState.html">PrinterLogicalState</a>
+        <p><p>Printer state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_LogicalState">IPrinter.LogicalState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L193" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Name_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Name" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Name"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Name</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PaperState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PaperState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L166" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PaperState_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PaperState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PaperState" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PaperState"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PaperState" class="expander" data-toggle="collapse">PaperState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PaperState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current paper state for the printer</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PaperStates PaperState { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PaperStates.html">PaperStates</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_PaperState">IPrinter.PaperState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Path.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Path%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Path_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Path*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Path" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Path"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Path" class="expander" data-toggle="collapse">Path</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Path" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string Path { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device path.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Path</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PrinterId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterId_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PrinterId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterId" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PrinterId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterId" class="expander" data-toggle="collapse">PrinterId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the id of the printer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int PrinterId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_PrinterId">IPrinter.PrinterId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterImplementation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PrinterImplementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterImplementation_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PrinterImplementation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterImplementation" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.PrinterImplementation"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterImplementation" class="expander" data-toggle="collapse">PrinterImplementation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_PrinterImplementation" class="collapse in">
+  <div class="markdown level1 summary"><p>Get printer implementation for automation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IPrinterImplementation PrinterImplementation { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html">IPrinterImplementation</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Regions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Regions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Regions_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Regions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Regions" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Regions"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Regions" class="expander" data-toggle="collapse">Regions</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Regions" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a collection of available <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;PrintableRegion&gt; Regions { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_Regions">IPrinter.Regions</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_RenderTarget.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.RenderTarget%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L129" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_RenderTarget_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.RenderTarget*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_RenderTarget" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.RenderTarget"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_RenderTarget" class="expander" data-toggle="collapse">RenderTarget</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_RenderTarget" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the render target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RenderTarget { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_RenderTarget">IPrinter.RenderTarget</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L197" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ServiceTypes_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ServiceTypes" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.ServiceTypes</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Templates.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Templates%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L156" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Templates_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Templates*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Templates" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Templates"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Templates" class="expander" data-toggle="collapse">Templates</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Templates" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a collection of <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableTemplate.html">PrintableTemplate</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;PrintableTemplate&gt; Templates { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableTemplate.html">PrintableTemplate</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_Templates">IPrinter.Templates</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_UseLargeFont.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.UseLargeFont%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L191" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_UseLargeFont_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.UseLargeFont*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_UseLargeFont" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.UseLargeFont"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_UseLargeFont" class="expander" data-toggle="collapse">UseLargeFont</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_UseLargeFont" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the use larger font.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseLargeFont { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_UseLargeFont">IPrinter.UseLargeFont</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Warnings.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Warnings%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L163" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Warnings_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Warnings*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Warnings" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Warnings"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Warnings" class="expander" data-toggle="collapse">Warnings</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Warnings" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the warnings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrinterWarningTypes Warnings { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.PrinterWarningTypes.html">PrinterWarningTypes</a>
+        <p><p>The warnings.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_Warnings">IPrinter.Warnings</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.AddPrintableRegion(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L298" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.AddPrintableRegion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.AddPrintableRegion(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="expander" data-toggle="collapse">AddPrintableRegion(PrintableRegion)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds the printable region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddPrintableRegion(PrintableRegion region)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">region</span>
+        <p><p>The region.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_AddPrintableRegion_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_">IPrinter.AddPrintableRegion(PrintableRegion)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableTemplate_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableTemplate_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.AddPrintableTemplate(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableTemplate)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L304" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableTemplate_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.AddPrintableTemplate*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableTemplate_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableTemplate_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.AddPrintableTemplate(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableTemplate)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableTemplate_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableTemplate_" class="expander" data-toggle="collapse">AddPrintableTemplate(PrintableTemplate)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_AddPrintableTemplate_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableTemplate_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds the printable template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddPrintableTemplate(PrintableTemplate template)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableTemplate.html">PrintableTemplate</a></span>
+        <span class="parametername">template</span>
+        <p><p>The template.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_AddPrintableTemplate_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableTemplate_">IPrinter.AddPrintableTemplate(PrintableTemplate)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DisabledDetected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.DisabledDetected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L378" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DisabledDetected_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.DisabledDetected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DisabledDetected" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.DisabledDetected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DisabledDetected" class="expander" data-toggle="collapse">DisabledDetected()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_DisabledDetected" class="collapse in">
+  <div class="markdown level1 summary"><p>Disabled detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void DisabledDetected()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.DisabledDetected()</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L384" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Disabling_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Disabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Disabling(DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is disabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Disabling(DisabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L337" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the
+Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter and optionally releases the managed
+resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Dispose(System.Boolean)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons%2CAristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L393" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Enabling_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Enabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons,Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Enabling(EnabledReasons, DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is enabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons.html">EnabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">remedied</span>
+        <p><p>The remedied.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons, Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_FormFeed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.FormFeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L227" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_FormFeed_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.FormFeed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_FormFeed" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.FormFeed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_FormFeed" class="expander" data-toggle="collapse">FormFeed()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_FormFeed" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a form feed command to the printer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; FormFeed()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_FormFeed">IPrinter.FormFeed()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_GetCharactersPerLine_System_Boolean_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.GetCharactersPerLine(System.Boolean%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L217" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_GetCharactersPerLine_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.GetCharactersPerLine*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_GetCharactersPerLine_System_Boolean_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.GetCharactersPerLine(System.Boolean,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_GetCharactersPerLine_System_Boolean_System_Int32_" class="expander" data-toggle="collapse">GetCharactersPerLine(Boolean, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_GetCharactersPerLine_System_Boolean_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the characters per line for the given print orientation and font index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetCharactersPerLine(bool isLandscape, int fontIndex)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isLandscape</span>
+        <p><p>Indicates if the targeted line of printed content is in a landscape orientation.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">fontIndex</span>
+        <p><p>Index of the font used for the target line of printed content.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of characters per line that can be printed in the given orientation and with the given font.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_GetCharactersPerLine_System_Boolean_System_Int32_">IPrinter.GetCharactersPerLine(Boolean, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Initializing.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Initializing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L417" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Initializing_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Initializing*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Initializing" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Initializing"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Initializing" class="expander" data-toggle="collapse">Initializing()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Initializing" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is initializing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Initializing()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Initializing()</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L458" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Inspecting_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Inspecting*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="expander" data-toggle="collapse">Inspecting(IComConfiguration, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is inspecting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Inspecting(IComConfiguration comConfiguration, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration.html">IComConfiguration</a></span>
+        <span class="parametername">comConfiguration</span>
+        <p><p>The com configuration.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>The timeout.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration, System.Int32)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Print(Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L240" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Print*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Print(Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_" class="expander" data-toggle="collapse">Print(Ticket)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_" class="collapse in">
+  <div class="markdown level1 summary"><p>Prints the given ticket.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; Print(Ticket ticket)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket.html">Ticket</a></span>
+        <span class="parametername">ticket</span>
+        <p><p>The ticket to print.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_">IPrinter.Print(Ticket)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A ticket is an object defined and obtained from the TicketContent component. A ticket object is created by a
+user, all of the require information is applied to it, and then the user prints the ticket with this method.
+This method call the TicketContent&apos;s Render method, which converts the ticket to a stream of characters that
+will print a correctly formatted form.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_System_Func_System_Threading_Tasks_Task__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Print(Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket%2CSystem.Func%7BSystem.Threading.Tasks.Task%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L246" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Print*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_System_Func_System_Threading_Tasks_Task__" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Print(Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket,System.Func{System.Threading.Tasks.Task})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_System_Func_System_Threading_Tasks_Task__" class="expander" data-toggle="collapse">Print(Ticket, Func&lt;Task&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_System_Func_System_Threading_Tasks_Task__" class="collapse in">
+  <div class="markdown level1 summary"><p>Prints the given ticket.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; Print(Ticket ticket, Func&lt;Task&gt; onFieldOfInterest)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket.html">Ticket</a></span>
+        <span class="parametername">ticket</span>
+        <p><p>The ticket to print.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</span>
+        <span class="parametername">onFieldOfInterest</span>
+        <p><p>Invoked when the field of interest (LVEN) is printed</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html#Aristocrat_Monaco_Hardware_Contracts_Printer_IPrinter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_System_Func_System_Threading_Tasks_Task__">IPrinter.Print(Ticket, Func&lt;Task&gt;)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_Print_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_System_Func_System_Threading_Tasks_Task___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A ticket is an object defined and obtained from the TicketContent component. A ticket object is created by a
+user, all of the require information is applied to it, and then the user prints the ticket with this method.
+This method call the TicketContent&apos;s Render method, which converts the ticket to a stream of characters that
+will print a correctly formatted form.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override async Task&lt;bool&gt; SelfTest(bool clear)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">clear</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.SelfTest(System.Boolean)</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_SelfTest_System_Boolean_">IDeviceAdapter.SelfTest(Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L464" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SubscribeToEvents_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.SubscribeToEvents*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">SubscribeToEvents(IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Subscribe to events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SubscribeToEvents(IEventBus eventBus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>The event bus.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation&gt;.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.TryAddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.Int32%2CAristocrat.Monaco.Hardware.Printer.PrinterOptions%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L310" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryAddBlock_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.TryAddBlock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.TryAddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor,System.Int32,Aristocrat.Monaco.Hardware.Printer.PrinterOptions@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__" class="expander" data-toggle="collapse">TryAddBlock(IPersistentStorageAccessor, Int32, out PrinterOptions)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to initialize block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAddBlock(IPersistentStorageAccessor accessor, int blockIndex, out PrinterOptions block)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">accessor</span>
+        <p><p>The accessor.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">blockIndex</span>
+        <p><p>Zero-based index of the block.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Printer.PrinterOptions.html">PrinterOptions</a></span>
+        <span class="parametername">block</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor-1.html#Aristocrat_Monaco_Hardware_Contracts_IStorageAccessor_1_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32__0__">IStorageAccessor&lt;TBlock&gt;.TryAddBlock(IPersistentStorageAccessor, Int32, out TBlock)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.TryGetBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.Int32%2CAristocrat.Monaco.Hardware.Printer.PrinterOptions%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L325" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryGetBlock_" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.TryGetBlock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__" data-uid="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.TryGetBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor,System.Int32,Aristocrat.Monaco.Hardware.Printer.PrinterOptions@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__" class="expander" data-toggle="collapse">TryGetBlock(IPersistentStorageAccessor, Int32, out PrinterOptions)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Printer_PrinterAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_Printer_PrinterOptions__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to read block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetBlock(IPersistentStorageAccessor accessor, int blockIndex, out PrinterOptions block)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">accessor</span>
+        <p><p>The accessor.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">blockIndex</span>
+        <p><p>Zero-based index of the block.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Printer.PrinterOptions.html">PrinterOptions</a></span>
+        <span class="parametername">block</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor-1.html#Aristocrat_Monaco_Hardware_Contracts_IStorageAccessor_1_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32__0__">IStorageAccessor&lt;TBlock&gt;.TryGetBlock(IPersistentStorageAccessor, Int32, out TBlock)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html">DeviceAdapter</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation.html">IPrinterImplementation</a>&gt;</div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinter.html">IPrinter</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Printer_PrinterAdapter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Printer.PrinterAdapter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Printer/PrinterAdapter.cs/#L27" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

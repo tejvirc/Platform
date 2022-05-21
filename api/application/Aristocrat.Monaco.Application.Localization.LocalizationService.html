@@ -1,0 +1,1015 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LocalizationService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LocalizationService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService">
+  <h1 id="Aristocrat_Monaco_Application_Localization_LocalizationService" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService">Class LocalizationService
+  </h1>
+  <div class="markdown level0 summary"><p>Localization service that implements <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html">ILocalization</a> interface.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">LocalizationService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Application.Localization.html">Aristocrat.Monaco.Application.Localization</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Application.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Application_Localization_LocalizationService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class LocalizationService : ILocalization, ILocalizerFactory, ILocalizationClient, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService__ctor_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService__ctor" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.#ctor"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService__ctor" class="expander" data-toggle="collapse">LocalizationService()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Application.Localization.LocalizationService.html">LocalizationService</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LocalizationService()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.%23ctor(Aristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Kernel.IPropertiesManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService__ctor_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.#ctor(Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Kernel.IPropertiesManager)"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_" class="expander" data-toggle="collapse">LocalizationService(IEventBus, IPropertiesManager)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Application.Localization.LocalizationService.html">LocalizationService</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LocalizationService(IEventBus eventBus, IPropertiesManager properties)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p><p><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a> instance.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_CurrentCulture.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.CurrentCulture%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_CurrentCulture_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.CurrentCulture*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_CurrentCulture" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.CurrentCulture"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_CurrentCulture" class="expander" data-toggle="collapse">CurrentCulture</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_CurrentCulture" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current culture.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CultureInfo CurrentCulture { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalization_CurrentCulture">ILocalization.CurrentCulture</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Application_Localization_LocalizationService_CurrentCulture_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property should only be set by <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ICultureProvider.html">ICultureProvider</a> derived classes.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_DefaultCulture.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.DefaultCulture%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_DefaultCulture_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.DefaultCulture*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_DefaultCulture" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.DefaultCulture"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_DefaultCulture" class="expander" data-toggle="collapse">DefaultCulture</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_DefaultCulture" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the default culture.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CultureInfo DefaultCulture { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalization_DefaultCulture">ILocalization.DefaultCulture</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_Name_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_Name" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Name"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_RegionInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.RegionInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_RegionInfo_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.RegionInfo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_RegionInfo" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.RegionInfo"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_RegionInfo" class="expander" data-toggle="collapse">RegionInfo</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_RegionInfo" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current region info</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegionInfo RegionInfo { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.globalization.regioninfo">RegionInfo</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalization_RegionInfo">ILocalization.RegionInfo</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_ServiceTypes_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_ServiceTypes" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_SupportedCultures.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.SupportedCultures%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_SupportedCultures_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.SupportedCultures*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_SupportedCultures" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.SupportedCultures"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_SupportedCultures" class="expander" data-toggle="collapse">SupportedCultures</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_SupportedCultures" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the supported cultures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;CultureInfo&gt; SupportedCultures { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalization_SupportedCultures">ILocalization.SupportedCultures</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L217" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_Dispose_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_Dispose" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Dispose"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_Finalize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.Finalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_Finalize_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Finalize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_Finalize" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Finalize"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Finalize" class="expander" data-toggle="collapse">Finalize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Finalize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Finalize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_For_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.For(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L211" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_For_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.For*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_For_System_String_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.For(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_For_System_String_" class="expander" data-toggle="collapse">For(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_For_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get the provider with specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ILocalizer For(string name)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">name</span>
+        <p><p>Provider name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalizer.html">ILocalizer</a>
+        <p><p>The provider with the specified name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalizerFactory.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalizerFactory_For_System_String_">ILocalizerFactory.For(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_GetCultureFor_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.GetCultureFor(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_GetCultureFor_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.GetCultureFor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_GetCultureFor_System_String_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.GetCultureFor(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_GetCultureFor_System_String_" class="expander" data-toggle="collapse">GetCultureFor(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_GetCultureFor_System_String_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CultureInfo GetCultureFor(string name)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">name</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../common/Aristocrat.Monaco.Localization.ILocalizationClient.html#Aristocrat_Monaco_Localization_ILocalizationClient_GetCultureFor_System_String_">ILocalizationClient.GetCultureFor(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_GetProvider_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.GetProvider(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_GetProvider_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.GetProvider*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_GetProvider_System_String_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.GetProvider(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_GetProvider_System_String_" class="expander" data-toggle="collapse">GetProvider(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_GetProvider_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get the provider with specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICultureProvider GetProvider(string name)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">name</span>
+        <p><p>Provider name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ICultureProvider.html">ICultureProvider</a>
+        <p><p>The culture provider with the specied name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalization_GetProvider_System_String_">ILocalization.GetProvider(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_Initialize_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_Initialize" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.Initialize"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_IsCultureSupported_System_Globalization_CultureInfo_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.IsCultureSupported(System.Globalization.CultureInfo)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L193" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_IsCultureSupported_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.IsCultureSupported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_IsCultureSupported_System_Globalization_CultureInfo_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.IsCultureSupported(System.Globalization.CultureInfo)"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_IsCultureSupported_System_Globalization_CultureInfo_" class="expander" data-toggle="collapse">IsCultureSupported(CultureInfo)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_IsCultureSupported_System_Globalization_CultureInfo_" class="collapse in">
+  <div class="markdown level1 summary"><p>Determines if the specified culture is supported.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCultureSupported(CultureInfo culture)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a></span>
+        <span class="parametername">culture</span>
+        <p><p>The culture.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if culture is supported.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalization_IsCultureSupported_System_Globalization_CultureInfo_">ILocalization.IsCultureSupported(CultureInfo)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_LocalizationError_Aristocrat_Monaco_Localization_LocalizationErrorArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.LocalizationError(Aristocrat.Monaco.Localization.LocalizationErrorArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L205" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_LocalizationError_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.LocalizationError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_LocalizationError_Aristocrat_Monaco_Localization_LocalizationErrorArgs_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.LocalizationError(Aristocrat.Monaco.Localization.LocalizationErrorArgs)"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_LocalizationError_Aristocrat_Monaco_Localization_LocalizationErrorArgs_" class="expander" data-toggle="collapse">LocalizationError(LocalizationErrorArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_LocalizationError_Aristocrat_Monaco_Localization_LocalizationErrorArgs_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LocalizationError(LocalizationErrorArgs args)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.Localization.LocalizationErrorArgs.html">LocalizationErrorArgs</a></span>
+        <span class="parametername">args</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../common/Aristocrat.Monaco.Localization.ILocalizationClient.html#Aristocrat_Monaco_Localization_ILocalizationClient_LocalizationError_Aristocrat_Monaco_Localization_LocalizationErrorArgs_">ILocalizationClient.LocalizationError(LocalizationErrorArgs)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService_TryGetProvider_System_String_Aristocrat_Monaco_Application_Contracts_Localization_ICultureProvider__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService.TryGetProvider(System.String%2CAristocrat.Monaco.Application.Contracts.Localization.ICultureProvider%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L184" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Localization_LocalizationService_TryGetProvider_" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.TryGetProvider*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Localization_LocalizationService_TryGetProvider_System_String_Aristocrat_Monaco_Application_Contracts_Localization_ICultureProvider__" data-uid="Aristocrat.Monaco.Application.Localization.LocalizationService.TryGetProvider(System.String,Aristocrat.Monaco.Application.Contracts.Localization.ICultureProvider@)"><a href="#collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_TryGetProvider_System_String_Aristocrat_Monaco_Application_Contracts_Localization_ICultureProvider__" class="expander" data-toggle="collapse">TryGetProvider(String, out ICultureProvider)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Localization_LocalizationService_TryGetProvider_System_String_Aristocrat_Monaco_Application_Contracts_Localization_ICultureProvider__" class="collapse in">
+  <div class="markdown level1 summary"><p>Get the provider with specified name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetProvider(string name, out ICultureProvider provider)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">name</span>
+        <p><p>Provider name.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ICultureProvider.html">ICultureProvider</a></span>
+        <span class="parametername">provider</span>
+        <p><p>The culture provider with the specied name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True, if the provider with the specified name is found.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Localization.ILocalization.html#Aristocrat_Monaco_Application_Contracts_Localization_ILocalization_TryGetProvider_System_String_Aristocrat_Monaco_Application_Contracts_Localization_ICultureProvider__">ILocalization.TryGetProvider(String, out ICultureProvider)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Localization_LocalizationService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Localization.LocalizationService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Localization/LocalizationService.cs/#L24" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

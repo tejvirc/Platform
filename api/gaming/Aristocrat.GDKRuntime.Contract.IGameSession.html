@@ -1,0 +1,2255 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IGameSession
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IGameSession
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession">
+  <h1 id="Aristocrat_GDKRuntime_Contract_IGameSession" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession">Interface IGameSession
+  </h1>
+  <div class="markdown level0 summary"><p>IGameSession</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.GDKRuntime.Contract.html">Aristocrat.GDKRuntime.Contract</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.GdkRuntime.Contract.dll</h6>
+  
+  <h5 id="Aristocrat_GDKRuntime_Contract_IGameSession_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IGameRuntime))]
+public interface IGameSession</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRound_System_UInt32_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRound(System.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L447" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRound_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRound*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRound_System_UInt32_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRound(System.UInt32)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRound_System_UInt32_" class="expander" data-toggle="collapse">BeginGameRound(UInt32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRound_System_UInt32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Begin game round (synchronous)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool BeginGameRound(uint denom)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
+        <span class="parametername">denom</span>
+        <p><p>Denomination</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundAsync_System_UInt32_System_UInt32_Aristocrat_GDKRuntime_Contract_CentralOutcome_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_GameInfo__System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundAsync(System.UInt32%2CSystem.UInt32%2CAristocrat.GDKRuntime.Contract.CentralOutcome%2CSystem.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.GameInfo%7D%2CSystem.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L459" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundAsync_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundAsync*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundAsync_System_UInt32_System_UInt32_Aristocrat_GDKRuntime_Contract_CentralOutcome_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_GameInfo__System_Byte___" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundAsync(System.UInt32,System.UInt32,Aristocrat.GDKRuntime.Contract.CentralOutcome,System.Collections.Generic.IList{Aristocrat.GDKRuntime.Contract.GameInfo},System.Byte[])"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundAsync_System_UInt32_System_UInt32_Aristocrat_GDKRuntime_Contract_CentralOutcome_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_GameInfo__System_Byte___" class="expander" data-toggle="collapse">BeginGameRoundAsync(UInt32, UInt32, CentralOutcome, IList&lt;GameInfo&gt;, Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundAsync_System_UInt32_System_UInt32_Aristocrat_GDKRuntime_Contract_CentralOutcome_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_GameInfo__System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Begin game round, asynchronous</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool BeginGameRoundAsync(uint denom, uint betAmount, CentralOutcome request, IList&lt;GameInfo&gt; gameDetails, byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
+        <span class="parametername">denom</span>
+        <p><p>Denomination</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
+        <span class="parametername">betAmount</span>
+        <p><p>Wager</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.CentralOutcome.html">CentralOutcome</a></span>
+        <span class="parametername">request</span>
+        <p><p>Central outcome request</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.GDKRuntime.Contract.GameInfo.html">GameInfo</a>&gt;</span>
+        <span class="parametername">gameDetails</span>
+        <p><p>Game details</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p><p>Additional data</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundResult(System.Collections.Generic.IList%7BSystem.UInt32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L490" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundResult_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundResult*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundResult(System.Collections.Generic.IList{System.UInt32})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__" class="expander" data-toggle="collapse">BeginGameRoundResult(IList&lt;UInt32&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__" class="collapse in">
+  <div class="markdown level1 summary"><p>Begin game round result</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void BeginGameRoundResult(IList&lt;uint&gt; pendingJackpotTriggers)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>&gt;</span>
+        <span class="parametername">pendingJackpotTriggers</span>
+        <p><p>Pending jackpot triggers</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_ButtonDeckImageChanged.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.ButtonDeckImageChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L542" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_ButtonDeckImageChanged_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.ButtonDeckImageChanged*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_ButtonDeckImageChanged" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.ButtonDeckImageChanged"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_ButtonDeckImageChanged" class="expander" data-toggle="collapse">ButtonDeckImageChanged()</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_ButtonDeckImageChanged" class="collapse in">
+  <div class="markdown level1 summary"><p>Notifies the platform that the image of a button deck display has changed.
+The platform is expected to grab the changed data from shared memory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = true, IsInitiating = true, IsTerminating = false)]
+void ButtonDeckImageChanged()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_ClaimJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.ClaimJackpot(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String%2CSystem.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L621" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_ClaimJackpot_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.ClaimJackpot*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_ClaimJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt64__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.ClaimJackpot(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode,System.String,System.Collections.Generic.IList{System.UInt64})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_ClaimJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt64__" class="expander" data-toggle="collapse">ClaimJackpot(GameRoundPlayMode, String, IList&lt;UInt64&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_ClaimJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt64__" class="collapse in">
+  <div class="markdown level1 summary"><p>Claims one or multiple levels as won</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IDictionary&lt;uint, ulong&gt; ClaimJackpot(GameRoundPlayMode mode, string poolName, IList&lt;ulong&gt; transactionIds)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.GameRoundPlayMode.html">GameRoundPlayMode</a></span>
+        <span class="parametername">mode</span>
+        <p><p>Play mode</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">poolName</span>
+        <p><p>Name of jackpot pool.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</span>
+        <span class="parametername">transactionIds</span>
+        <p><p>Transaction ids</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;
+        <p><p>Jackpots claimed</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_ConnectJackpotPool_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.ConnectJackpotPool(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L581" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_ConnectJackpotPool_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.ConnectJackpotPool*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_ConnectJackpotPool_System_String_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.ConnectJackpotPool(System.String)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_ConnectJackpotPool_System_String_" class="expander" data-toggle="collapse">ConnectJackpotPool(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_ConnectJackpotPool_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Connects to external jackpot pool, allowing data and events available to the runtime.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool ConnectJackpotPool(string poolName)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">poolName</span>
+        <p><p>Name of jackpot pool.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if pool is available, otherwise false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_EndGameRound_System_UInt64_System_UInt64_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.EndGameRound(System.UInt64%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L483" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_EndGameRound_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.EndGameRound*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_EndGameRound_System_UInt64_System_UInt64_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.EndGameRound(System.UInt64,System.UInt64)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_EndGameRound_System_UInt64_System_UInt64_" class="expander" data-toggle="collapse">EndGameRound(UInt64, UInt64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_EndGameRound_System_UInt64_System_UInt64_" class="collapse in">
+  <div class="markdown level1 summary"><p>End game round</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void EndGameRound(ulong betAmount, ulong winAmount)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></span>
+        <span class="parametername">betAmount</span>
+        <p><p>Bet amount</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></span>
+        <span class="parametername">winAmount</span>
+        <p><p>Win amount</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GameRoundEvent_Aristocrat_GDKRuntime_Contract_GameRoundEventType_Aristocrat_GDKRuntime_Contract_GameRoundEventStage_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_Collections_Generic_IList_System_String__System_UInt64_System_UInt64_System_UInt64_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GameRoundEvent(Aristocrat.GDKRuntime.Contract.GameRoundEventType%2CAristocrat.GDKRuntime.Contract.GameRoundEventStage%2CAristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.Collections.Generic.IList%7BSystem.String%7D%2CSystem.UInt64%2CSystem.UInt64%2CSystem.UInt64%2CSystem.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L473" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GameRoundEvent_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GameRoundEvent*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GameRoundEvent_Aristocrat_GDKRuntime_Contract_GameRoundEventType_Aristocrat_GDKRuntime_Contract_GameRoundEventStage_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_Collections_Generic_IList_System_String__System_UInt64_System_UInt64_System_UInt64_System_Byte___" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GameRoundEvent(Aristocrat.GDKRuntime.Contract.GameRoundEventType,Aristocrat.GDKRuntime.Contract.GameRoundEventStage,Aristocrat.GDKRuntime.Contract.GameRoundPlayMode,System.Collections.Generic.IList{System.String},System.UInt64,System.UInt64,System.UInt64,System.Byte[])"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GameRoundEvent_Aristocrat_GDKRuntime_Contract_GameRoundEventType_Aristocrat_GDKRuntime_Contract_GameRoundEventStage_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_Collections_Generic_IList_System_String__System_UInt64_System_UInt64_System_UInt64_System_Byte___" class="expander" data-toggle="collapse">GameRoundEvent(GameRoundEventType, GameRoundEventStage, GameRoundPlayMode, IList&lt;String&gt;, UInt64, UInt64, UInt64, Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GameRoundEvent_Aristocrat_GDKRuntime_Contract_GameRoundEventType_Aristocrat_GDKRuntime_Contract_GameRoundEventStage_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_Collections_Generic_IList_System_String__System_UInt64_System_UInt64_System_UInt64_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Game round event</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void GameRoundEvent(GameRoundEventType eventType, GameRoundEventStage stage, GameRoundPlayMode playMode, IList&lt;string&gt; gameRoundInfo, ulong bet, ulong win, ulong stake, byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.GameRoundEventType.html">GameRoundEventType</a></span>
+        <span class="parametername">eventType</span>
+        <p><p>Event type</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.GameRoundEventStage.html">GameRoundEventStage</a></span>
+        <span class="parametername">stage</span>
+        <p><p>Event stage</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.GameRoundPlayMode.html">GameRoundPlayMode</a></span>
+        <span class="parametername">playMode</span>
+        <p><p>Play mode</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">gameRoundInfo</span>
+        <p><p>Game round information</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></span>
+        <span class="parametername">bet</span>
+        <p><p>Wager</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></span>
+        <span class="parametername">win</span>
+        <p><p>Win amount</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></span>
+        <span class="parametername">stake</span>
+        <p><p>Stake</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p><p>Additional data</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetConnectedReels.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetConnectedReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L714" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetConnectedReels_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetConnectedReels*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetConnectedReels" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetConnectedReels"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetConnectedReels" class="expander" data-toggle="collapse">GetConnectedReels()</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetConnectedReels" class="collapse in">
+  <div class="markdown level1 summary"><p>Get connected reels</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IList&lt;int&gt; GetConnectedReels()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <p><p>List of connected reels</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetDisplaysToBeCaptured_System_Int32___.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetDisplaysToBeCaptured(System.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L552" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetDisplaysToBeCaptured_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetDisplaysToBeCaptured*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetDisplaysToBeCaptured_System_Int32___" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetDisplaysToBeCaptured(System.Int32[])"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetDisplaysToBeCaptured_System_Int32___" class="expander" data-toggle="collapse">GetDisplaysToBeCaptured(Int32[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetDisplaysToBeCaptured_System_Int32___" class="collapse in">
+  <div class="markdown level1 summary"><p>Used to tell the platform the displays that will be screen captured and available to
+the platform.  (Usually this will only be the button deck display so that platform can
+pump it over the USB for display, but we have made the API flexibile.)  The actual
+displays will be configured from some data source at initialization time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = true, IsTerminating = false)]
+void GetDisplaysToBeCaptured(int[] displayIndices)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>[]</span>
+        <span class="parametername">displayIndices</span>
+        <p><p>Array of indices identifying the displays that will be captured.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetJackpotValues(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L590" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetJackpotValues_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetJackpotValues*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetJackpotValues(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode,System.String)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_" class="expander" data-toggle="collapse">GetJackpotValues(GameRoundPlayMode, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Retrieves game specific jackpot values for given pool</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IDictionary&lt;uint, ulong&gt; GetJackpotValues(GameRoundPlayMode mode, string poolName)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.GameRoundPlayMode.html">GameRoundPlayMode</a></span>
+        <span class="parametername">mode</span>
+        <p><p>Play mode</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">poolName</span>
+        <p><p>Name of jackpot pool.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;
+        <p><p>Jackpot values for given pool name</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetLocalStorage.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetLocalStorage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L652" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetLocalStorage_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetLocalStorage*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetLocalStorage" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetLocalStorage"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetLocalStorage" class="expander" data-toggle="collapse">GetLocalStorage()</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetLocalStorage" class="collapse in">
+  <div class="markdown level1 summary"><p>Read local storage</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IDictionary&lt;StorageLocation, IDictionary&lt;string, string&gt;&gt; GetLocalStorage()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="Aristocrat.GDKRuntime.Contract.StorageLocation.html">StorageLocation</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;
+        <p><p>local storage objects</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetMeters.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetMeters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L562" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetMeters_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetMeters*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetMeters" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetMeters"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetMeters" class="expander" data-toggle="collapse">GetMeters()</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetMeters" class="collapse in">
+  <div class="markdown level1 summary"><p>Retrieve all game specific meters</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IDictionary&lt;string, ulong&gt; GetMeters()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;
+        <p><p>Returns all meters associated with the game.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU32_System_UInt32_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetRandomNumberU32(System.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L520" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU32_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetRandomNumberU32*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU32_System_UInt32_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetRandomNumberU32(System.UInt32)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU32_System_UInt32_" class="expander" data-toggle="collapse">GetRandomNumberU32(UInt32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU32_System_UInt32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get unsigned 32-bit random number</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+uint GetRandomNumberU32(uint range)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
+        <span class="parametername">range</span>
+        <p><p>High end of random range (exclusive).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p><p>Random</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU64_System_UInt64_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetRandomNumberU64(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L512" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU64_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetRandomNumberU64*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU64_System_UInt64_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetRandomNumberU64(System.UInt64)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU64_System_UInt64_" class="expander" data-toggle="collapse">GetRandomNumberU64(UInt64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetRandomNumberU64_System_UInt64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get unsigned 64-bit random number</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+ulong GetRandomNumberU64(ulong range)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></span>
+        <span class="parametername">range</span>
+        <p><p>High end of random range (exclusive).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>
+        <p><p>Random</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_GetReelsState.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.GetReelsState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L707" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_GetReelsState_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetReelsState*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_GetReelsState" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.GetReelsState"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetReelsState" class="expander" data-toggle="collapse">GetReelsState()</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_GetReelsState" class="collapse in">
+  <div class="markdown level1 summary"><p>Get reels states</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IDictionary&lt;int, ReelState&gt; GetReelsState()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="Aristocrat.GDKRuntime.Contract.ReelState.html">ReelState</a>&gt;
+        <p><p>State of each reel</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_IncrementJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_PoolValue__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.IncrementJackpotValues(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String%2CSystem.Collections.Generic.IDictionary%7BSystem.UInt32%2CAristocrat.GDKRuntime.Contract.PoolValue%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L599" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_IncrementJackpotValues_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.IncrementJackpotValues*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_IncrementJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_PoolValue__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.IncrementJackpotValues(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode,System.String,System.Collections.Generic.IDictionary{System.UInt32,Aristocrat.GDKRuntime.Contract.PoolValue})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_IncrementJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_PoolValue__" class="expander" data-toggle="collapse">IncrementJackpotValues(GameRoundPlayMode, String, IDictionary&lt;UInt32, PoolValue&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_IncrementJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_PoolValue__" class="collapse in">
+  <div class="markdown level1 summary"><p>Increments game specific jackpot values for given pool</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void IncrementJackpotValues(GameRoundPlayMode mode, string poolName, IDictionary&lt;uint, PoolValue&gt; values)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.GameRoundPlayMode.html">GameRoundPlayMode</a></span>
+        <span class="parametername">mode</span>
+        <p><p>Play mode</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">poolName</span>
+        <p><p>Name of jackpot pool.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>, <a class="xref" href="Aristocrat.GDKRuntime.Contract.PoolValue.html">PoolValue</a>&gt;</span>
+        <span class="parametername">values</span>
+        <p><p>Increment values</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_Join.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.Join%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L417" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_Join_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.Join*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_Join" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.Join"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_Join" class="expander" data-toggle="collapse">Join()</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_Join" class="collapse in">
+  <div class="markdown level1 summary"><p>Notifies the platform that a game process session has started</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = true, IsTerminating = false)]
+void Join()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_Leave.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.Leave%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L423" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_Leave_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.Leave*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_Leave" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.Leave"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_Leave" class="expander" data-toggle="collapse">Leave()</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_Leave" class="collapse in">
+  <div class="markdown level1 summary"><p>Notifies the platform that a game process session is ending</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = true)]
+void Leave()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_NudgeReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelNudgeData__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.NudgeReels(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.ReelNudgeData%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L700" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_NudgeReels_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.NudgeReels*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_NudgeReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelNudgeData__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.NudgeReels(System.Collections.Generic.IList{Aristocrat.GDKRuntime.Contract.ReelNudgeData})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_NudgeReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelNudgeData__" class="expander" data-toggle="collapse">NudgeReels(IList&lt;ReelNudgeData&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_NudgeReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelNudgeData__" class="collapse in">
+  <div class="markdown level1 summary"><p>Nudge reels</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool NudgeReels(IList&lt;ReelNudgeData&gt; request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.GDKRuntime.Contract.ReelNudgeData.html">ReelNudgeData</a>&gt;</span>
+        <span class="parametername">request</span>
+        <p><p>Instructions for reels to nudge</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_OnButtonStatesChanged_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_SystemButtonState__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.OnButtonStatesChanged(System.Collections.Generic.IDictionary%7BSystem.UInt32%2CAristocrat.GDKRuntime.Contract.SystemButtonState%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L534" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_OnButtonStatesChanged_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnButtonStatesChanged*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_OnButtonStatesChanged_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_SystemButtonState__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnButtonStatesChanged(System.Collections.Generic.IDictionary{System.UInt32,Aristocrat.GDKRuntime.Contract.SystemButtonState})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnButtonStatesChanged_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_SystemButtonState__" class="expander" data-toggle="collapse">OnButtonStatesChanged(IDictionary&lt;UInt32, SystemButtonState&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnButtonStatesChanged_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_SystemButtonState__" class="collapse in">
+  <div class="markdown level1 summary"><p>Button state has changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void OnButtonStatesChanged(IDictionary&lt;uint, SystemButtonState&gt; newStates)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>, <a class="xref" href="Aristocrat.GDKRuntime.Contract.SystemButtonState.html">SystemButtonState</a>&gt;</span>
+        <span class="parametername">newStates</span>
+        <p><p>Collection of buttons and states</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_OnGameFatalError_Aristocrat_GDKRuntime_Contract_ErrorCode_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.OnGameFatalError(Aristocrat.GDKRuntime.Contract.ErrorCode%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L661" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_OnGameFatalError_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnGameFatalError*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_OnGameFatalError_Aristocrat_GDKRuntime_Contract_ErrorCode_System_String_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnGameFatalError(Aristocrat.GDKRuntime.Contract.ErrorCode,System.String)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnGameFatalError_Aristocrat_GDKRuntime_Contract_ErrorCode_System_String_" class="expander" data-toggle="collapse">OnGameFatalError(ErrorCode, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnGameFatalError_Aristocrat_GDKRuntime_Contract_ErrorCode_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Game fatal error occurred</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void OnGameFatalError(ErrorCode errorCode, string errorMessage)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.ErrorCode.html">ErrorCode</a></span>
+        <span class="parametername">errorCode</span>
+        <p><p>Error code</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">errorMessage</span>
+        <p><p>Error message</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_OnRecoveryPoint_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.OnRecoveryPoint(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L527" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRecoveryPoint_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRecoveryPoint*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRecoveryPoint_System_Byte___" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRecoveryPoint(System.Byte[])"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRecoveryPoint_System_Byte___" class="expander" data-toggle="collapse">OnRecoveryPoint(Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRecoveryPoint_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Define recovery point</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void OnRecoveryPoint(byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p><p>Recovery data</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeEvent_Aristocrat_GDKRuntime_Contract_RuntimeEvent_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeEvent(Aristocrat.GDKRuntime.Contract.RuntimeEvent)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L504" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeEvent_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeEvent*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeEvent_Aristocrat_GDKRuntime_Contract_RuntimeEvent_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeEvent(Aristocrat.GDKRuntime.Contract.RuntimeEvent)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeEvent_Aristocrat_GDKRuntime_Contract_RuntimeEvent_" class="expander" data-toggle="collapse">OnRuntimeEvent(RuntimeEvent)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeEvent_Aristocrat_GDKRuntime_Contract_RuntimeEvent_" class="collapse in">
+  <div class="markdown level1 summary"><p>Runtime event occurs</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = true, IsTerminating = false)]
+void OnRuntimeEvent(RuntimeEvent event)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.RuntimeEvent.html">RuntimeEvent</a></span>
+        <span class="parametername">event</span>
+        <p><p>Which event</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeFlagChange_Aristocrat_GDKRuntime_Contract_RuntimeFlag_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeFlagChange(Aristocrat.GDKRuntime.Contract.RuntimeFlag%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L439" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeFlagChange_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeFlagChange*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeFlagChange_Aristocrat_GDKRuntime_Contract_RuntimeFlag_System_Boolean_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeFlagChange(Aristocrat.GDKRuntime.Contract.RuntimeFlag,System.Boolean)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeFlagChange_Aristocrat_GDKRuntime_Contract_RuntimeFlag_System_Boolean_" class="expander" data-toggle="collapse">OnRuntimeFlagChange(RuntimeFlag, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeFlagChange_Aristocrat_GDKRuntime_Contract_RuntimeFlag_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Notifies the platform of flag changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = true, IsTerminating = false)]
+void OnRuntimeFlagChange(RuntimeFlag flag, bool newState)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.RuntimeFlag.html">RuntimeFlag</a></span>
+        <span class="parametername">flag</span>
+        <p><p>Which flag</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">newState</span>
+        <p><p>New state</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeRequest_Aristocrat_GDKRuntime_Contract_RuntimeRequestType_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeRequest(Aristocrat.GDKRuntime.Contract.RuntimeRequestType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L669" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeRequest_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeRequest*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeRequest_Aristocrat_GDKRuntime_Contract_RuntimeRequestType_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeRequest(Aristocrat.GDKRuntime.Contract.RuntimeRequestType)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeRequest_Aristocrat_GDKRuntime_Contract_RuntimeRequestType_" class="expander" data-toggle="collapse">OnRuntimeRequest(RuntimeRequestType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeRequest_Aristocrat_GDKRuntime_Contract_RuntimeRequestType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Runtime request occurred</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool OnRuntimeRequest(RuntimeRequestType request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.RuntimeRequestType.html">RuntimeRequestType</a></span>
+        <span class="parametername">request</span>
+        <p><p>Runtime request</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeStateChange_Aristocrat_GDKRuntime_Contract_RuntimeState_Aristocrat_GDKRuntime_Contract_RuntimeState_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeStateChange(Aristocrat.GDKRuntime.Contract.RuntimeState%2CAristocrat.GDKRuntime.Contract.RuntimeState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L431" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeStateChange_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeStateChange*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeStateChange_Aristocrat_GDKRuntime_Contract_RuntimeState_Aristocrat_GDKRuntime_Contract_RuntimeState_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.OnRuntimeStateChange(Aristocrat.GDKRuntime.Contract.RuntimeState,Aristocrat.GDKRuntime.Contract.RuntimeState)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeStateChange_Aristocrat_GDKRuntime_Contract_RuntimeState_Aristocrat_GDKRuntime_Contract_RuntimeState_" class="expander" data-toggle="collapse">OnRuntimeStateChange(RuntimeState, RuntimeState)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_OnRuntimeStateChange_Aristocrat_GDKRuntime_Contract_RuntimeState_Aristocrat_GDKRuntime_Contract_RuntimeState_" class="collapse in">
+  <div class="markdown level1 summary"><p>Notifies the platform of state changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = true, IsTerminating = false)]
+void OnRuntimeStateChange(RuntimeState from, RuntimeState to)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.RuntimeState.html">RuntimeState</a></span>
+        <span class="parametername">from</span>
+        <p><p>Source state</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.RuntimeState.html">RuntimeState</a></span>
+        <span class="parametername">to</span>
+        <p><p>Target state</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_RegisterPresentation_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_PresentationOverrideTypes__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.RegisterPresentation(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.PresentationOverrideTypes%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L730" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_RegisterPresentation_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.RegisterPresentation*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_RegisterPresentation_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_PresentationOverrideTypes__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.RegisterPresentation(System.Collections.Generic.IList{Aristocrat.GDKRuntime.Contract.PresentationOverrideTypes})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_RegisterPresentation_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_PresentationOverrideTypes__" class="expander" data-toggle="collapse">RegisterPresentation(IList&lt;PresentationOverrideTypes&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_RegisterPresentation_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_PresentationOverrideTypes__" class="collapse in">
+  <div class="markdown level1 summary"><p>Register presentations for the game to override</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool RegisterPresentation(IList&lt;PresentationOverrideTypes&gt; presentationTypes)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.GDKRuntime.Contract.PresentationOverrideTypes.html">PresentationOverrideTypes</a>&gt;</span>
+        <span class="parametername">presentationTypes</span>
+        <p><p>List of presentations to be game controlled</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_SelectDenomination_System_UInt32_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.SelectDenomination(System.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L684" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_SelectDenomination_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SelectDenomination*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_SelectDenomination_System_UInt32_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SelectDenomination(System.UInt32)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SelectDenomination_System_UInt32_" class="expander" data-toggle="collapse">SelectDenomination(UInt32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SelectDenomination_System_UInt32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Select a denomination</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void SelectDenomination(uint denomination)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
+        <span class="parametername">denomination</span>
+        <p><p>New denomination</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_SetBonusKey_System_String_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.SetBonusKey(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L636" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_SetBonusKey_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetBonusKey*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_SetBonusKey_System_String_System_String_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetBonusKey(System.String,System.String)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetBonusKey_System_String_System_String_" class="expander" data-toggle="collapse">SetBonusKey(String, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetBonusKey_System_String_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the bonus key to be used to award the jackpot</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void SetBonusKey(string poolName, string key)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">poolName</span>
+        <p><p>Name of jackpot pool.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">key</span>
+        <p><p>Bonus key.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_SetJackpotLevelWagers_System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.SetJackpotLevelWagers(System.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L628" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_SetJackpotLevelWagers_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetJackpotLevelWagers*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_SetJackpotLevelWagers_System_Collections_Generic_IList_System_UInt64__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetJackpotLevelWagers(System.Collections.Generic.IList{System.UInt64})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetJackpotLevelWagers_System_Collections_Generic_IList_System_UInt64__" class="expander" data-toggle="collapse">SetJackpotLevelWagers(IList&lt;UInt64&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetJackpotLevelWagers_System_Collections_Generic_IList_System_UInt64__" class="collapse in">
+  <div class="markdown level1 summary"><p>Set wagers per jackpot levels</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void SetJackpotLevelWagers(IList&lt;ulong&gt; wagers)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</span>
+        <span class="parametername">wagers</span>
+        <p><p>Wagers for each jackpot level (some may be 0)</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_SetLocalStorage_System_Collections_Generic_IDictionary_Aristocrat_GDKRuntime_Contract_StorageLocation_System_Collections_Generic_IDictionary_System_String_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.SetLocalStorage(System.Collections.Generic.IDictionary%7BAristocrat.GDKRuntime.Contract.StorageLocation%2CSystem.Collections.Generic.IDictionary%7BSystem.String%2CSystem.String%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L645" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_SetLocalStorage_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetLocalStorage*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_SetLocalStorage_System_Collections_Generic_IDictionary_Aristocrat_GDKRuntime_Contract_StorageLocation_System_Collections_Generic_IDictionary_System_String_System_String___" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetLocalStorage(System.Collections.Generic.IDictionary{Aristocrat.GDKRuntime.Contract.StorageLocation,System.Collections.Generic.IDictionary{System.String,System.String}})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetLocalStorage_System_Collections_Generic_IDictionary_Aristocrat_GDKRuntime_Contract_StorageLocation_System_Collections_Generic_IDictionary_System_String_System_String___" class="expander" data-toggle="collapse">SetLocalStorage(IDictionary&lt;StorageLocation, IDictionary&lt;String, String&gt;&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetLocalStorage_System_Collections_Generic_IDictionary_Aristocrat_GDKRuntime_Contract_StorageLocation_System_Collections_Generic_IDictionary_System_String_System_String___" class="collapse in">
+  <div class="markdown level1 summary"><p>Write local storage</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void SetLocalStorage(IDictionary&lt;StorageLocation, IDictionary&lt;string, string&gt;&gt; stores)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="Aristocrat.GDKRuntime.Contract.StorageLocation.html">StorageLocation</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;</span>
+        <span class="parametername">stores</span>
+        <p><p>local storage objects.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_SetMeters_System_Collections_Generic_IDictionary_System_String_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.SetMeters(System.Collections.Generic.IDictionary%7BSystem.String%2CSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L569" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_SetMeters_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetMeters*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_SetMeters_System_Collections_Generic_IDictionary_System_String_System_UInt64__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SetMeters(System.Collections.Generic.IDictionary{System.String,System.UInt64})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetMeters_System_Collections_Generic_IDictionary_System_String_System_UInt64__" class="expander" data-toggle="collapse">SetMeters(IDictionary&lt;String, UInt64&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SetMeters_System_Collections_Generic_IDictionary_System_String_System_UInt64__" class="collapse in">
+  <div class="markdown level1 summary"><p>Set the given game meters, meters will be created if does not exist</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void SetMeters(IDictionary&lt;string, ulong&gt; values)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</span>
+        <span class="parametername">values</span>
+        <p><p>the meter values to be set (key value pair of meters)</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_Shuffle_System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.Shuffle(System.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L677" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_Shuffle_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.Shuffle*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_Shuffle_System_Collections_Generic_IList_System_UInt64__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.Shuffle(System.Collections.Generic.IList{System.UInt64})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_Shuffle_System_Collections_Generic_IList_System_UInt64__" class="expander" data-toggle="collapse">Shuffle(IList&lt;UInt64&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_Shuffle_System_Collections_Generic_IList_System_UInt64__" class="collapse in">
+  <div class="markdown level1 summary"><p>Shuffle a set of values</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IList&lt;ulong&gt; Shuffle(IList&lt;ulong&gt; values)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</span>
+        <span class="parametername">values</span>
+        <p><p>Input values</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;
+        <p><p>Output value (shuffled)</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_SpinReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpinData__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.SpinReels(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.ReelSpinData%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L692" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_SpinReels_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SpinReels*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_SpinReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpinData__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.SpinReels(System.Collections.Generic.IList{Aristocrat.GDKRuntime.Contract.ReelSpinData})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SpinReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpinData__" class="expander" data-toggle="collapse">SpinReels(IList&lt;ReelSpinData&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_SpinReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpinData__" class="collapse in">
+  <div class="markdown level1 summary"><p>Spin reels</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool SpinReels(IList&lt;ReelSpinData&gt; request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.GDKRuntime.Contract.ReelSpinData.html">ReelSpinData</a>&gt;</span>
+        <span class="parametername">request</span>
+        <p><p>Instructions for reels to spin</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_TriggerJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt32__System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.TriggerJackpot(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String%2CSystem.Collections.Generic.IList%7BSystem.UInt32%7D%2CSystem.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L610" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_TriggerJackpot_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.TriggerJackpot*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_TriggerJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt32__System_Collections_Generic_IList_System_UInt64__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.TriggerJackpot(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode,System.String,System.Collections.Generic.IList{System.UInt32},System.Collections.Generic.IList{System.UInt64})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_TriggerJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt32__System_Collections_Generic_IList_System_UInt64__" class="expander" data-toggle="collapse">TriggerJackpot(GameRoundPlayMode, String, IList&lt;UInt32&gt;, IList&lt;UInt64&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_TriggerJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt32__System_Collections_Generic_IList_System_UInt64__" class="collapse in">
+  <div class="markdown level1 summary"><p>Flags one or multiple levels as triggered</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+IDictionary&lt;uint, ulong&gt; TriggerJackpot(GameRoundPlayMode mode, string poolName, IList&lt;uint&gt; levels, IList&lt;ulong&gt; transactionIds)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.GameRoundPlayMode.html">GameRoundPlayMode</a></span>
+        <span class="parametername">mode</span>
+        <p><p>Play mode</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">poolName</span>
+        <p><p>Name of jackpot pool.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>&gt;</span>
+        <span class="parametername">levels</span>
+        <p><p>Pool levels</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;</span>
+        <span class="parametername">transactionIds</span>
+        <p><p>Optional transaction id&apos;s (will begin process of receiving OnJackpotWinAvailable)</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a>&gt;
+        <p><p>The transactionIds for each level</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_UpdateBetOptions_Aristocrat_GDKRuntime_Contract_BetOptionData_.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.UpdateBetOptions(Aristocrat.GDKRuntime.Contract.BetOptionData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L497" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_UpdateBetOptions_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.UpdateBetOptions*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_UpdateBetOptions_Aristocrat_GDKRuntime_Contract_BetOptionData_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.UpdateBetOptions(Aristocrat.GDKRuntime.Contract.BetOptionData)"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_UpdateBetOptions_Aristocrat_GDKRuntime_Contract_BetOptionData_" class="expander" data-toggle="collapse">UpdateBetOptions(BetOptionData)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_UpdateBetOptions_Aristocrat_GDKRuntime_Contract_BetOptionData_" class="collapse in">
+  <div class="markdown level1 summary"><p>Update bet options</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+void UpdateBetOptions(BetOptionData betOptions)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.GDKRuntime.Contract.BetOptionData.html">BetOptionData</a></span>
+        <span class="parametername">betOptions</span>
+        <p><p>Bet options</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession_UpdateReelsSpeed_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpeedData__.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession.UpdateReelsSpeed(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.ReelSpeedData%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L722" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_GDKRuntime_Contract_IGameSession_UpdateReelsSpeed_" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.UpdateReelsSpeed*"></a>
+  
+  <h4 id="Aristocrat_GDKRuntime_Contract_IGameSession_UpdateReelsSpeed_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpeedData__" data-uid="Aristocrat.GDKRuntime.Contract.IGameSession.UpdateReelsSpeed(System.Collections.Generic.IList{Aristocrat.GDKRuntime.Contract.ReelSpeedData})"><a href="#collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_UpdateReelsSpeed_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpeedData__" class="expander" data-toggle="collapse">UpdateReelsSpeed(IList&lt;ReelSpeedData&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_GDKRuntime_Contract_IGameSession_UpdateReelsSpeed_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpeedData__" class="collapse in">
+  <div class="markdown level1 summary"><p>Update speeds of reels</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[OperationContract(IsOneWay = false, IsInitiating = false, IsTerminating = false)]
+bool UpdateReelsSpeed(IList&lt;ReelSpeedData&gt; request)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.GDKRuntime.Contract.ReelSpeedData.html">ReelSpeedData</a>&gt;</span>
+        <span class="parametername">request</span>
+        <p><p>Information for setting reel speeds</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_GDKRuntime_Contract_IGameSession.md&amp;value=---%0Auid%3A%20Aristocrat.GDKRuntime.Contract.IGameSession%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.GdkRuntime.Contract/IGameRuntime.cs/#L409" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

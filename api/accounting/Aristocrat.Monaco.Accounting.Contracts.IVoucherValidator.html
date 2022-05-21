@@ -1,0 +1,668 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IVoucherValidator
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IVoucherValidator
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator">
+  <h1 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator">Interface IVoucherValidator
+  </h1>
+  <div class="markdown level0 summary"><p>An interface that handles validating a voucher received by a note acceptor
+or one that needs to be printed for the customer.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a>
+    </div>
+    <div>
+      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.html">Aristocrat.Monaco.Accounting.Contracts</a></h6>
+  <h6><strong>Assembly</strong>: Monaco.Accounting.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IVoucherValidator : IService</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This interface provides two validation methods, one for validating a voucher in and one for
+validating a voucher out.</p>
+</div>
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanCombineCashableAmounts.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanCombineCashableAmounts%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanCombineCashableAmounts_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanCombineCashableAmounts*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanCombineCashableAmounts" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanCombineCashableAmounts"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanCombineCashableAmounts" class="expander" data-toggle="collapse">CanCombineCashableAmounts</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanCombineCashableAmounts" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets whether or not cashable amounts should be combined into one cashout voucher</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CanCombineCashableAmounts { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVouchersIn.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanValidateVouchersIn%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVouchersIn_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanValidateVouchersIn*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVouchersIn" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanValidateVouchersIn"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVouchersIn" class="expander" data-toggle="collapse">CanValidateVouchersIn</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVouchersIn" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets flag for can validate vouchers in.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CanValidateVouchersIn { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_HostOnline.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.HostOnline%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_HostOnline_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.HostOnline*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_HostOnline" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.HostOnline"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_HostOnline" class="expander" data-toggle="collapse">HostOnline</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_HostOnline" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether a validating host is online or not</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool HostOnline { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_ReprintFailedVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.ReprintFailedVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_ReprintFailedVoucher_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.ReprintFailedVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_ReprintFailedVoucher" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.ReprintFailedVoucher"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_ReprintFailedVoucher" class="expander" data-toggle="collapse">ReprintFailedVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_ReprintFailedVoucher" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether a reprint voucher is required.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ReprintFailedVoucher { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanValidateVoucherOut(System.Int64%2CAristocrat.Monaco.Accounting.Contracts.AccountType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVoucherOut_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanValidateVoucherOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CanValidateVoucherOut(System.Int64,Aristocrat.Monaco.Accounting.Contracts.AccountType)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="expander" data-toggle="collapse">CanValidateVoucherOut(Int64, AccountType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks whether or not the requested voucher validation can be validated</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CanValidateVoucherOut(long amount, AccountType type)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p><p>The amount to check if we can validate</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">type</span>
+        <p><p>The account type to check if we can validate</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Whether or not you are able to validate vouchers out for this transfer</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CommitVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CommitVoucher_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CommitVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.CommitVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="expander" data-toggle="collapse">CommitVoucher(VoucherInTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="collapse in">
+  <div class="markdown level1 summary"><p>Indicates whether a voucher was accepted or not.  This method should NOT
+be called, if the VoucherInResponse was a denial, indicated by a null
+transaction argument.  This method should ALWAYS be called, if the
+VoucherInResponse contained a non-null transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void CommitVoucher(VoucherInTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction.html">VoucherInTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p><p>Voucher in transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.IssueVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherAmount%2CAristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Guid%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_IssueVoucher_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.IssueVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.IssueVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherAmount,Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Guid,Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="expander" data-toggle="collapse">IssueVoucher(VoucherAmount, AccountType, Guid, TransferOutReason)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to validate a voucher-out request</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;VoucherOutTransaction&gt; IssueVoucher(VoucherAmount amount, AccountType type, Guid transactionId, TransferOutReason reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.VoucherAmount.html">VoucherAmount</a></span>
+        <span class="parametername">amount</span>
+        <p><p>The amount of credits to validate.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">type</span>
+        <p><p>The type of credits to validate.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The identifier to determine if this transaction is
+new or a in-progress.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p><p>Indicates the reason for the transfer</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction.html">VoucherOutTransaction</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.RedeemVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_RedeemVoucher_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.RedeemVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.RedeemVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="expander" data-toggle="collapse">RedeemVoucher(VoucherInTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="collapse in">
+  <div class="markdown level1 summary"><p>Method to validate a voucher-in request.  The asynchronous response
+is a callback to the provided VoucherInResponse delegate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;VoucherAmount&gt; RedeemVoucher(VoucherInTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction.html">VoucherInTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p><p>The associated voucher in transaction</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.VoucherAmount.html">VoucherAmount</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.StackedVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_StackedVoucher_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.StackedVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" data-uid="Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.StackedVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="expander" data-toggle="collapse">StackedVoucher(VoucherInTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="collapse in">
+  <div class="markdown level1 summary"><p>Singal the host that the voucher has been stacked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task StackedVoucher(VoucherInTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction.html">VoucherInTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p><p>The associated voucher in transaction</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Vouchers/IVoucherValidator.cs/#L16" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

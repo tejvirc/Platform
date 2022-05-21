@@ -1,0 +1,1316 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GeneralSettingsPageViewModel
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GeneralSettingsPageViewModel
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel">
+  <h1 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel">Class GeneralSettingsPageViewModel
+  </h1>
+  <div class="markdown level0 summary"><p>Contains logic for GeneralSettingsPageViewModel.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html">OperatorMenuPageViewModelBase</a></div>
+    <div class="level2"><span class="xref">GeneralSettingsPageViewModel</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Logger">OperatorMenuPageViewModelBase.Logger</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_DefaultPrintButtonEnabled">OperatorMenuPageViewModelBase.DefaultPrintButtonEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Access">OperatorMenuPageViewModelBase.Access</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintSelectedButtonCommand">OperatorMenuPageViewModelBase.PrintSelectedButtonCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintCurrentPageButtonCommand">OperatorMenuPageViewModelBase.PrintCurrentPageButtonCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintLast15ButtonCommand">OperatorMenuPageViewModelBase.PrintLast15ButtonCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_LoadedCommand">OperatorMenuPageViewModelBase.LoadedCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UnloadedCommand">OperatorMenuPageViewModelBase.UnloadedCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_EventViewerScrolledCommand">OperatorMenuPageViewModelBase.EventViewerScrolledCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_ShowInfoPopupCommand">OperatorMenuPageViewModelBase.ShowInfoPopupCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InputEnabledByRuleOverride">OperatorMenuPageViewModelBase.InputEnabledByRuleOverride</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InputEnabled">OperatorMenuPageViewModelBase.InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InputStatusText">OperatorMenuPageViewModelBase.InputStatusText</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FieldAccessStatusText">OperatorMenuPageViewModelBase.FieldAccessStatusText</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintButtonStatusText">OperatorMenuPageViewModelBase.PrintButtonStatusText</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestModeEnabled">OperatorMenuPageViewModelBase.TestModeEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestModeRestriction">OperatorMenuPageViewModelBase.TestModeRestriction</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FieldAccessEnabled">OperatorMenuPageViewModelBase.FieldAccessEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FieldAccessRestriction">OperatorMenuPageViewModelBase.FieldAccessRestriction</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintButtonAccessEnabled">OperatorMenuPageViewModelBase.PrintButtonAccessEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestModeEnabledSupplementary">OperatorMenuPageViewModelBase.TestModeEnabledSupplementary</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GameIdle">OperatorMenuPageViewModelBase.GameIdle</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_NoGamesPlayed">OperatorMenuPageViewModelBase.NoGamesPlayed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrinterButtonsEnabled">OperatorMenuPageViewModelBase.PrinterButtonsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintCurrentPageButtonVisible">OperatorMenuPageViewModelBase.PrintCurrentPageButtonVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintSelectedButtonVisible">OperatorMenuPageViewModelBase.PrintSelectedButtonVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintLast15ButtonVisible">OperatorMenuPageViewModelBase.PrintLast15ButtonVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FirstVisibleElement">OperatorMenuPageViewModelBase.FirstVisibleElement</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_RecordsToBePrinted">OperatorMenuPageViewModelBase.RecordsToBePrinted</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestWarningText">OperatorMenuPageViewModelBase.TestWarningText</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsLoadingData">OperatorMenuPageViewModelBase.IsLoadingData</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsLoaded">OperatorMenuPageViewModelBase.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_DataEmpty">OperatorMenuPageViewModelBase.DataEmpty</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_MainPrintButtonEnabled">OperatorMenuPageViewModelBase.MainPrintButtonEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PageSupportsMainPrintButton">OperatorMenuPageViewModelBase.PageSupportsMainPrintButton</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_CanCalibrateTouchScreens">OperatorMenuPageViewModelBase.CanCalibrateTouchScreens</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PopupOpen">OperatorMenuPageViewModelBase.PopupOpen</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_EventBus">OperatorMenuPageViewModelBase.EventBus</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PropertiesManager">OperatorMenuPageViewModelBase.PropertiesManager</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Configuration">OperatorMenuPageViewModelBase.Configuration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Printer">OperatorMenuPageViewModelBase.Printer</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsContainerPage">OperatorMenuPageViewModelBase.IsContainerPage</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsModalDialog">OperatorMenuPageViewModelBase.IsModalDialog</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_AccessRestriction">OperatorMenuPageViewModelBase.AccessRestriction</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_ClearValidationOnUnload">OperatorMenuPageViewModelBase.ClearValidationOnUnload</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Dispose">OperatorMenuPageViewModelBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InitializeData">OperatorMenuPageViewModelBase.InitializeData()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UpdateWarningMessage">OperatorMenuPageViewModelBase.UpdateWarningMessage()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UpdatePrinterButtons">OperatorMenuPageViewModelBase.UpdatePrinterButtons()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnUnloaded">OperatorMenuPageViewModelBase.OnUnloaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_DisposeInternal">OperatorMenuPageViewModelBase.DisposeInternal()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnInputStatusChanged">OperatorMenuPageViewModelBase.OnInputStatusChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnInputEnabledChanged">OperatorMenuPageViewModelBase.OnInputEnabledChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnTestModeEnabledChanged">OperatorMenuPageViewModelBase.OnTestModeEnabledChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnFieldAccessEnabledChanged">OperatorMenuPageViewModelBase.OnFieldAccessEnabledChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnFieldAccessRestrictionChange">OperatorMenuPageViewModelBase.OnFieldAccessRestrictionChange()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UpdateStatusText">OperatorMenuPageViewModelBase.UpdateStatusText()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InitializeDataAsync">OperatorMenuPageViewModelBase.InitializeDataAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetItemsToPrint__1_System_Collections_Generic_ICollection___0__Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_">OperatorMenuPageViewModelBase.GetItemsToPrint&lt;T&gt;(ICollection&lt;T&gt;, OperatorMenuPrintData)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Print_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_System_Action_System_Boolean_">OperatorMenuPageViewModelBase.Print(OperatorMenuPrintData, Action, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_ShowPopup_System_String_System_Int32_">OperatorMenuPageViewModelBase.ShowPopup(String, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_RegisterAccessRule_System_String_System_String_System_String_System_Action_System_Boolean_Aristocrat_Monaco_Application_Contracts_OperatorMenu_OperatorMenuAccessRestriction__">OperatorMenuPageViewModelBase.RegisterAccessRule(String, String, String, Action&lt;Boolean, OperatorMenuAccessRestriction&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_SetInputStatus_System_Boolean_Aristocrat_Monaco_Application_Contracts_OperatorMenu_OperatorMenuAccessRestriction_">OperatorMenuPageViewModelBase.SetInputStatus(Boolean, OperatorMenuAccessRestriction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_AllFieldsReadonly">OperatorMenuPageViewModelBase.AllFieldsReadonly()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_SetPrintAccessStatus_System_Boolean_Aristocrat_Monaco_Application_Contracts_OperatorMenu_OperatorMenuAccessRestriction_">OperatorMenuPageViewModelBase.SetPrintAccessStatus(Boolean, OperatorMenuAccessRestriction)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnPrintButtonStatusChanged_Aristocrat_Monaco_Application_Contracts_PrintButtonStatusEvent_">OperatorMenuPageViewModelBase.OnPrintButtonStatusChanged(PrintButtonStatusEvent)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnDialogClosed_Aristocrat_Monaco_UI_Common_Events_DialogClosedEvent_">OperatorMenuPageViewModelBase.OnDialogClosed(DialogClosedEvent)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TicketToList_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_">OperatorMenuPageViewModelBase.TicketToList(Ticket)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_SplitTicket_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_">OperatorMenuPageViewModelBase.SplitTicket(Ticket)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetConfigSetting__1_System_Type_System_String___0_">OperatorMenuPageViewModelBase.GetConfigSetting&lt;T&gt;(Type, String, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetConfigSetting__1_System_String___0_">OperatorMenuPageViewModelBase.GetConfigSetting&lt;T&gt;(String, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetGlobalConfigSetting__1_System_String___0_">OperatorMenuPageViewModelBase.GetGlobalConfigSetting&lt;T&gt;(String, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_CloseTouchScreenKeyboard">OperatorMenuPageViewModelBase.CloseTouchScreenKeyboard()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsInputEnabled">OperatorMenuPageViewModelBase.IsInputEnabled</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Application.UI.ViewModels.html">Aristocrat.Monaco.Application.UI.ViewModels</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Application.UI.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public sealed class GeneralSettingsPageViewModel : OperatorMenuPageViewModelBase, IOperatorMenuPageViewModel, IDisposable, INotifyPropertyChanged, IOperatorMenuConfigObject, ILiveSettingParent</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel__ctor_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel__ctor" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.#ctor"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel__ctor" class="expander" data-toggle="collapse">GeneralSettingsPageViewModel()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.html">GeneralSettingsPageViewModel</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GeneralSettingsPageViewModel()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine1.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.AddressLine1%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L161" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine1_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.AddressLine1*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine1" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.AddressLine1"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine1" class="expander" data-toggle="collapse">AddressLine1</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine1" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string AddressLine1 { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine2.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.AddressLine2%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L162" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine2_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.AddressLine2*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine2" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.AddressLine2"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine2" class="expander" data-toggle="collapse">AddressLine2</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_AddressLine2" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string AddressLine2 { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_HardBootTime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.HardBootTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_HardBootTime_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.HardBootTime*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_HardBootTime" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.HardBootTime"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_HardBootTime" class="expander" data-toggle="collapse">HardBootTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_HardBootTime" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the hard boot time value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string HardBootTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_IPAddress.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.IPAddress%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_IPAddress_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.IPAddress*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_IPAddress" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.IPAddress"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_IPAddress" class="expander" data-toggle="collapse">IPAddress</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_IPAddress" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the local IP addresses.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string IPAddress { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Jurisdiction.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.Jurisdiction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L169" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Jurisdiction_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.Jurisdiction*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Jurisdiction" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.Jurisdiction"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Jurisdiction" class="expander" data-toggle="collapse">Jurisdiction</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Jurisdiction" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the jurisdiction</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Jurisdiction { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_LicenseNumber.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.LicenseNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L159" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_LicenseNumber_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.LicenseNumber*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_LicenseNumber" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.LicenseNumber"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_LicenseNumber" class="expander" data-toggle="collapse">LicenseNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_LicenseNumber" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LicenseNumber { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_MacAddress.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.MacAddress%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_MacAddress_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.MacAddress*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_MacAddress" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.MacAddress"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_MacAddress" class="expander" data-toggle="collapse">MacAddress</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_MacAddress" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the MAC address</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string MacAddress { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OsImageVersion.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.OsImageVersion%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L179" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OsImageVersion_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.OsImageVersion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OsImageVersion" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.OsImageVersion"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OsImageVersion" class="expander" data-toggle="collapse">OsImageVersion</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OsImageVersion" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the Windows OS Image Version</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string OsImageVersion { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_PropertyName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.PropertyName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_PropertyName_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.PropertyName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_PropertyName" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.PropertyName"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_PropertyName" class="expander" data-toggle="collapse">PropertyName</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_PropertyName" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PropertyName { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_RetailerInfoVisibility.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.RetailerInfoVisibility%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L191" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_RetailerInfoVisibility_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.RetailerInfoVisibility*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_RetailerInfoVisibility" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.RetailerInfoVisibility"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_RetailerInfoVisibility" class="expander" data-toggle="collapse">RetailerInfoVisibility</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_RetailerInfoVisibility" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Visibility RetailerInfoVisibility { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.visibility">Visibility</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SerialNumber.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.SerialNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L164" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SerialNumber_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.SerialNumber*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SerialNumber" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.SerialNumber"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SerialNumber" class="expander" data-toggle="collapse">SerialNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SerialNumber" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SerialNumber { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SoftBootTime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.SoftBootTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L145" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SoftBootTime_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.SoftBootTime*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SoftBootTime" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.SoftBootTime"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SoftBootTime" class="expander" data-toggle="collapse">SoftBootTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_SoftBootTime" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the Soft boot time value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SoftBootTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TerminalNumber.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TerminalNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L163" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TerminalNumber_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TerminalNumber*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TerminalNumber" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TerminalNumber"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TerminalNumber" class="expander" data-toggle="collapse">TerminalNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TerminalNumber" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TerminalNumber { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZone.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TimeZone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZone_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TimeZone*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZone" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TimeZone"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZone" class="expander" data-toggle="collapse">TimeZone</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZone" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the time Zone string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TimeZone { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZoneOffset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TimeZoneOffset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZoneOffset_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TimeZoneOffset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZoneOffset" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.TimeZoneOffset"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZoneOffset" class="expander" data-toggle="collapse">TimeZoneOffset</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_TimeZoneOffset" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the time Zone string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TimeZoneOffset { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Version.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.Version%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L184" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Version_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.Version*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Version" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.Version"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Version" class="expander" data-toggle="collapse">Version</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_Version" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the platform version value string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Version { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_VisibilityChangedCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.VisibilityChangedCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L189" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_VisibilityChangedCommand_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.VisibilityChangedCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_VisibilityChangedCommand" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.VisibilityChangedCommand"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_VisibilityChangedCommand" class="expander" data-toggle="collapse">VisibilityChangedCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_VisibilityChangedCommand" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the command that fires when page unloaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommand VisibilityChangedCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.input.icommand">ICommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_WindowsVersion.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.WindowsVersion%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L174" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_WindowsVersion_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.WindowsVersion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_WindowsVersion" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.WindowsVersion"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_WindowsVersion" class="expander" data-toggle="collapse">WindowsVersion</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_WindowsVersion" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the Windows Version</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string WindowsVersion { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.GenerateTicketsForPrint(Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L263" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_GenerateTicketsForPrint_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.GenerateTicketsForPrint*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.GenerateTicketsForPrint(Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintData)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_" class="expander" data-toggle="collapse">GenerateTicketsForPrint(OperatorMenuPrintData)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IEnumerable&lt;Ticket&gt; GenerateTicketsForPrint(OperatorMenuPrintData dataType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintData.html">OperatorMenuPrintData</a></span>
+        <span class="parametername">dataType</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket.html">Ticket</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_">OperatorMenuPageViewModelBase.GenerateTicketsForPrint(OperatorMenuPrintData)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OnLoaded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.OnLoaded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L193" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OnLoaded_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.OnLoaded*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OnLoaded" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel.OnLoaded"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OnLoaded" class="expander" data-toggle="collapse">OnLoaded()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel_OnLoaded" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnLoaded()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnLoaded">OperatorMenuPageViewModelBase.OnLoaded()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_GeneralSettingsPageViewModel.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.GeneralSettingsPageViewModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/GeneralSettingsPageViewModel.cs/#L24" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

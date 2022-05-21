@@ -1,0 +1,1174 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class EpicTTLProtocol
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class EpicTTLProtocol
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol">
+  <h1 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol">Class EpicTTLProtocol
+  </h1>
+  <div class="markdown level0 summary"><p>Manage outgoing messages per the TTL protocol.  Poll for status when no other
+commands are pending.  Process responses.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html">SerialDeviceProtocol</a></div>
+    <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html">SerialPrinter</a></div>
+    <div class="level3"><span class="xref">EpicTTLProtocol</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_PrFonts">SerialPrinter.PrFonts</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_GetDeviceScaledFont_System_Int32_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Serial_Printer_FontScaleFactor__">SerialPrinter.GetDeviceScaledFont(Int32, IEnumerable&lt;FontScaleFactor&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_PrinterSpecificTemplateMappings">SerialPrinter.PrinterSpecificTemplateMappings</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_RegionCache">SerialPrinter.RegionCache</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_TemplateCache">SerialPrinter.TemplateCache</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_UsePrinterDefinedTemplates">SerialPrinter.UsePrinterDefinedTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_PrinterStatus">SerialPrinter.PrinterStatus</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_TicketPrintStatus">SerialPrinter.TicketPrintStatus</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_HasDisablingFault">SerialPrinter.HasDisablingFault</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_ProcessMessage_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_System_Threading_CancellationToken_">SerialPrinter.ProcessMessage(GdsSerializableMessage, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_DefineTemplate_dpttype_">SerialPrinter.DefineTemplate(dpttype)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_AlignLine_System_Int32_System_Int32_System_Collections_Generic_IReadOnlyList_System_String__System_Collections_Generic_IReadOnlyList_System_String__System_Collections_Generic_IReadOnlyList_System_String__">SerialPrinter.AlignLine(Int32, Int32, IReadOnlyList&lt;String&gt;, IReadOnlyList&lt;String&gt;, IReadOnlyList&lt;String&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_AdjustTextLength_System_String_System_Int32_">SerialPrinter.AdjustTextLength(String, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_UpdatePrinterSpecificTemplateMappingsForFirmware">SerialPrinter.UpdatePrinterSpecificTemplateMappingsForFirmware()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_UnknownCrc">SerialDeviceProtocol.UnknownCrc</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Name">SerialDeviceProtocol.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Protocol">SerialDeviceProtocol.Protocol</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_DeviceType">SerialDeviceProtocol.DeviceType</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Manufacturer">SerialDeviceProtocol.Manufacturer</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Model">SerialDeviceProtocol.Model</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Firmware">SerialDeviceProtocol.Firmware</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_FirmwareVersion">SerialDeviceProtocol.FirmwareVersion</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_FirmwareRevision">SerialDeviceProtocol.FirmwareRevision</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_FirmwareCrc">SerialDeviceProtocol.FirmwareCrc</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_BootVersion">SerialDeviceProtocol.BootVersion</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_VariantName">SerialDeviceProtocol.VariantName</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_VariantVersion">SerialDeviceProtocol.VariantVersion</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_IsDfuCapable">SerialDeviceProtocol.IsDfuCapable</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_SerialNumber">SerialDeviceProtocol.SerialNumber</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_IsOpen">SerialDeviceProtocol.IsOpen</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_VendorId">SerialDeviceProtocol.VendorId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_ProductId">SerialDeviceProtocol.ProductId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_ProductIdDfu">SerialDeviceProtocol.ProductIdDfu</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_IsEnabled">SerialDeviceProtocol.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_GatData">SerialDeviceProtocol.GatData</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_IsConfigured">SerialDeviceProtocol.IsConfigured</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_UseSyncMode">SerialDeviceProtocol.UseSyncMode</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_MinimumResponseTime">SerialDeviceProtocol.MinimumResponseTime</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_MaxFailedPollCount">SerialDeviceProtocol.MaxFailedPollCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Device">SerialDeviceProtocol.Device</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_PollIntervalMs">SerialDeviceProtocol.PollIntervalMs</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_MaxBufferLength">SerialDeviceProtocol.MaxBufferLength</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_CommunicationTimeoutMs">SerialDeviceProtocol.CommunicationTimeoutMs</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_SendMessage_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_System_Threading_CancellationToken_">SerialDeviceProtocol.SendMessage(GdsSerializableMessage, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_MessageReceived">SerialDeviceProtocol.MessageReceived</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_DeviceAttached">SerialDeviceProtocol.DeviceAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_DeviceDetached">SerialDeviceProtocol.DeviceDetached</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_MessageBuilt">SerialDeviceProtocol.MessageBuilt</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Configure_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_">SerialDeviceProtocol.Configure(IComConfiguration)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Close">SerialDeviceProtocol.Close()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_ResetConnection">SerialDeviceProtocol.ResetConnection()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Dispose">SerialDeviceProtocol.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_EnablePolling_System_Boolean_">SerialDeviceProtocol.EnablePolling(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_DisablePolling_System_Int32_">SerialDeviceProtocol.DisablePolling(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_UpdatePollingRate_System_Int32_">SerialDeviceProtocol.UpdatePollingRate(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Dispose_System_Boolean_">SerialDeviceProtocol.Dispose(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_OnDeviceAttached">SerialDeviceProtocol.OnDeviceAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_OnDeviceDetached">SerialDeviceProtocol.OnDeviceDetached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_OnMessageReceived_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_">SerialDeviceProtocol.OnMessageReceived(GdsSerializableMessage)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_SendCommand_System_Byte___Aristocrat_Monaco_Hardware_Serial_Protocols_IMessageTemplate_">SerialDeviceProtocol.SendCommand(Byte[], IMessageTemplate)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_WaitSendComplete">SerialDeviceProtocol.WaitSendComplete()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_SendCommandAndGetResponse_System_Byte___System_Int32_Aristocrat_Monaco_Hardware_Serial_Protocols_IMessageTemplate_Aristocrat_Monaco_Hardware_Serial_Protocols_IMessageTemplate_">SerialDeviceProtocol.SendCommandAndGetResponse(Byte[], Int32, IMessageTemplate, IMessageTemplate)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_IsDeviceEnabled">SerialDeviceProtocol.IsDeviceEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_IsAttached">SerialDeviceProtocol.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_PollTimerCallback_System_Object_">SerialDeviceProtocol.PollTimerCallback(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_AdjustReceiveTimeout_System_Int32_">SerialDeviceProtocol.AdjustReceiveTimeout(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_AdjustWriteTimeout_System_Int32_">SerialDeviceProtocol.AdjustWriteTimeout(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_ConvertIntToEndianBytes_System_Int32_System_Int32_System_Boolean_">SerialDeviceProtocol.ConvertIntToEndianBytes(Int32, Int32, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_WriteIntToEndianBytes_System_Int32_System_Int32_System_Boolean_System_Byte___System_Int32_">SerialDeviceProtocol.WriteIntToEndianBytes(Int32, Int32, Boolean, Byte[], Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_ConvertEndianBytesToInt_System_Byte___System_Int32_System_Boolean_System_Int32_">SerialDeviceProtocol.ConvertEndianBytesToInt(Byte[], Int32, Boolean, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_CompareByteArrays_System_Byte___System_Byte___System_Int32_">SerialDeviceProtocol.CompareByteArrays(Byte[], Byte[], Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_ResetMessageIn_System_Boolean_">SerialDeviceProtocol.ResetMessageIn(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.html">Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Serial.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class EpicTTLProtocol : SerialPrinter, IGdsCommunicator, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol__ctor_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol__ctor" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol__ctor" class="expander" data-toggle="collapse">EpicTTLProtocol()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Construct</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EpicTTLProtocol()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_AbortPrint.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.AbortPrint%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L327" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_AbortPrint_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.AbortPrint*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_AbortPrint" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.AbortPrint"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_AbortPrint" class="expander" data-toggle="collapse">AbortPrint()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_AbortPrint" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool AbortPrint()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_CalculateCrc.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.CalculateCrc%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_CalculateCrc_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.CalculateCrc*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_CalculateCrc" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.CalculateCrc"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_CalculateCrc" class="expander" data-toggle="collapse">CalculateCrc()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_CalculateCrc" class="collapse in">
+  <div class="markdown level1 summary"><p>Calculate CRC.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void CalculateCrc()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_CalculateCrc">SerialDeviceProtocol.CalculateCrc()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_DefineRegion_dprtype_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.DefineRegion(dprtype)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L188" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_DefineRegion_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.DefineRegion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_DefineRegion_dprtype_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.DefineRegion(dprtype)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_DefineRegion_dprtype_" class="expander" data-toggle="collapse">DefineRegion(dprtype)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_DefineRegion_dprtype_" class="collapse in">
+  <div class="markdown level1 summary"><p>Tell printer a region definition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task&lt;bool&gt; DefineRegion(dprtype region)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">dprtype</span></span>
+        <span class="parametername">region</span>
+        <p><p>Region definition</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_DefineRegion_dprtype_">SerialPrinter.DefineRegion(dprtype)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Enable_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.Enable(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L168" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Enable_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Enable_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.Enable(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Enable_System_Boolean_" class="expander" data-toggle="collapse">Enable(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Enable_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Enable or disable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Enable(bool enable)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">enable</span>
+        <p><p>True to enable.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Enable_System_Boolean_">SerialDeviceProtocol.Enable(Boolean)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_FormFeed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.FormFeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L181" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_FormFeed_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.FormFeed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_FormFeed" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.FormFeed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_FormFeed" class="expander" data-toggle="collapse">FormFeed()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_FormFeed" class="collapse in">
+  <div class="markdown level1 summary"><p>Tell printer to form feed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task&lt;bool&gt; FormFeed()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_FormFeed">SerialPrinter.FormFeed()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_GetDeviceInformation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.GetDeviceInformation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L147" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_GetDeviceInformation_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.GetDeviceInformation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_GetDeviceInformation" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.GetDeviceInformation"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_GetDeviceInformation" class="expander" data-toggle="collapse">GetDeviceInformation()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_GetDeviceInformation" class="collapse in">
+  <div class="markdown level1 summary"><p>Get device identification information.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool GetDeviceInformation()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Whether or not the device information was successfully read from the device</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_GetDeviceInformation">SerialDeviceProtocol.GetDeviceInformation()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_NotSupportedCharacterReplacement_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.NotSupportedCharacterReplacement(System.String%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L301" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_NotSupportedCharacterReplacement_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.NotSupportedCharacterReplacement*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_NotSupportedCharacterReplacement_System_String__" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.NotSupportedCharacterReplacement(System.String@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_NotSupportedCharacterReplacement_System_String__" class="expander" data-toggle="collapse">NotSupportedCharacterReplacement(ref String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_NotSupportedCharacterReplacement_System_String__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void NotSupportedCharacterReplacement(ref string line)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">line</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_NotSupportedCharacterReplacement_System_String__">SerialPrinter.NotSupportedCharacterReplacement(ref String)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Open.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.Open%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Open_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.Open*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Open" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.Open"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Open" class="expander" data-toggle="collapse">Open()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_Open" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Open()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_Open">SerialDeviceProtocol.Open()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_PrintTicket_Aristocrat_Monaco_Hardware_Serial_Printer_PrintCommand_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.PrintTicket(Aristocrat.Monaco.Hardware.Serial.Printer.PrintCommand%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_PrintTicket_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.PrintTicket*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_PrintTicket_Aristocrat_Monaco_Hardware_Serial_Printer_PrintCommand_System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.PrintTicket(Aristocrat.Monaco.Hardware.Serial.Printer.PrintCommand,System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_PrintTicket_Aristocrat_Monaco_Hardware_Serial_Printer_PrintCommand_System_Threading_CancellationToken_" class="expander" data-toggle="collapse">PrintTicket(PrintCommand, CancellationToken)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_PrintTicket_Aristocrat_Monaco_Hardware_Serial_Printer_PrintCommand_System_Threading_CancellationToken_" class="collapse in">
+  <div class="markdown level1 summary"><p>Tell printer to print a ticket.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task&lt;bool&gt; PrintTicket(PrintCommand ticket, CancellationToken token)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.PrintCommand.html">PrintCommand</a></span>
+        <span class="parametername">ticket</span>
+        <p><p>Ticket description</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="parametername">token</span>
+        <p><p>The cancellation token</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>Success</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_PrintTicket_Aristocrat_Monaco_Hardware_Serial_Printer_PrintCommand_System_Threading_CancellationToken_">SerialPrinter.PrintTicket(PrintCommand, CancellationToken)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderRegionDefinition_dprtype_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RenderRegionDefinition(dprtype)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L551" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderRegionDefinition_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RenderRegionDefinition*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderRegionDefinition_dprtype_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RenderRegionDefinition(dprtype)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderRegionDefinition_dprtype_" class="expander" data-toggle="collapse">RenderRegionDefinition(dprtype)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderRegionDefinition_dprtype_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool RenderRegionDefinition(dprtype region)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">dprtype</span></span>
+        <span class="parametername">region</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_RenderRegionDefinition_dprtype_">SerialPrinter.RenderRegionDefinition(dprtype)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderTemplateDefinition_dpttype_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RenderTemplateDefinition(dpttype)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L702" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderTemplateDefinition_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RenderTemplateDefinition*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderTemplateDefinition_dpttype_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RenderTemplateDefinition(dpttype)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderTemplateDefinition_dpttype_" class="expander" data-toggle="collapse">RenderTemplateDefinition(dpttype)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RenderTemplateDefinition_dpttype_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool RenderTemplateDefinition(dpttype template)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">dpttype</span></span>
+        <span class="parametername">template</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_RenderTemplateDefinition_dpttype_">SerialPrinter.RenderTemplateDefinition(dpttype)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RequestStatus.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RequestStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L208" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RequestStatus_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RequestStatus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RequestStatus" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.RequestStatus"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RequestStatus" class="expander" data-toggle="collapse">RequestStatus()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_RequestStatus" class="collapse in">
+  <div class="markdown level1 summary"><p>Ask device for status and process response</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool RequestStatus()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if a valid response was processed</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_RequestStatus">SerialDeviceProtocol.RequestStatus()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_ResetToDefault.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.ResetToDefault%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L315" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_ResetToDefault_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.ResetToDefault*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_ResetToDefault" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.ResetToDefault"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_ResetToDefault" class="expander" data-toggle="collapse">ResetToDefault()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_ResetToDefault" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ResetToDefault()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SelfTest.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.SelfTest%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L133" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SelfTest" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.SelfTest"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SelfTest" class="expander" data-toggle="collapse">SelfTest()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SelfTest" class="collapse in">
+  <div class="markdown level1 summary"><p>Perform self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SelfTest()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html#Aristocrat_Monaco_Hardware_Serial_Protocols_SerialDeviceProtocol_SelfTest">SerialDeviceProtocol.SelfTest()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SpecialCaseCharacterReplacement_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.SpecialCaseCharacterReplacement(System.String%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L285" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SpecialCaseCharacterReplacement_" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.SpecialCaseCharacterReplacement*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SpecialCaseCharacterReplacement_System_String__" data-uid="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol.SpecialCaseCharacterReplacement(System.String@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SpecialCaseCharacterReplacement_System_String__" class="expander" data-toggle="collapse">SpecialCaseCharacterReplacement(ref String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol_SpecialCaseCharacterReplacement_System_String__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SpecialCaseCharacterReplacement(ref string line)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">line</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Serial.Printer.SerialPrinter.html#Aristocrat_Monaco_Hardware_Serial_Printer_SerialPrinter_SpecialCaseCharacterReplacement_System_String__">SerialPrinter.SpecialCaseCharacterReplacement(ref String)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Serial_Printer_EpicTTL_EpicTTLProtocol.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Serial/Printer/EpicTTL/EpicTTLProtocol.cs/#L20" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

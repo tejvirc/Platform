@@ -1,0 +1,2291 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class IdReaderAdapter
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class IdReaderAdapter
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter">
+  <h1 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter">Class IdReaderAdapter
+  </h1>
+  <div class="markdown level0 summary"><p>An ID reader adapter.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html">DeviceAdapter</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html">IIdReaderImplementation</a>&gt;</div>
+    <div class="level2"><span class="xref">IdReaderAdapter</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync">DeviceAdapter&lt;IIdReaderImplementation&gt;.Sync</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed">DeviceAdapter&lt;IIdReaderImplementation&gt;.Disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors">DeviceAdapter&lt;IIdReaderImplementation&gt;.AnyErrors</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings">DeviceAdapter&lt;IIdReaderImplementation&gt;.AnyWarnings</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory">DeviceAdapter&lt;IIdReaderImplementation&gt;.AddinFactory</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration">DeviceAdapter&lt;IIdReaderImplementation&gt;.InternalConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration">DeviceAdapter&lt;IIdReaderImplementation&gt;.LastComConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled">DeviceAdapter&lt;IIdReaderImplementation&gt;.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized">DeviceAdapter&lt;IIdReaderImplementation&gt;.Initialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError">DeviceAdapter&lt;IIdReaderImplementation&gt;.LastError</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled">DeviceAdapter&lt;IIdReaderImplementation&gt;.ReasonDisabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol">DeviceAdapter&lt;IIdReaderImplementation&gt;.ServiceProtocol</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration">DeviceAdapter&lt;IIdReaderImplementation&gt;.DeviceConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId">DeviceAdapter&lt;IIdReaderImplementation&gt;.ProductId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId">DeviceAdapter&lt;IIdReaderImplementation&gt;.VendorId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc">DeviceAdapter&lt;IIdReaderImplementation&gt;.Crc</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError">DeviceAdapter&lt;IIdReaderImplementation&gt;.DisabledByError</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize">DeviceAdapter&lt;IIdReaderImplementation&gt;.Initialize()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_">DeviceAdapter&lt;IIdReaderImplementation&gt;.Disable(DisabledReasons)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_">DeviceAdapter&lt;IIdReaderImplementation&gt;.Enable(EnabledReasons)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_">DeviceAdapter&lt;IIdReaderImplementation&gt;.Inspect(IComConfiguration, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_System_Int32_">DeviceAdapter&lt;IIdReaderImplementation&gt;.CalculateCrc(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose">DeviceAdapter&lt;IIdReaderImplementation&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_System_Boolean_">DeviceAdapter&lt;IIdReaderImplementation&gt;.CanProceed(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_System_Func_System_Threading_Tasks_Task_System_Boolean___">DeviceAdapter&lt;IIdReaderImplementation&gt;.ExecuteDisabled(Func&lt;Task&lt;Boolean&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent__1___0_">DeviceAdapter&lt;IIdReaderImplementation&gt;.PostEvent&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter">DeviceAdapter&lt;IIdReaderImplementation&gt;.RegisterDfuAdapter()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter">DeviceAdapter&lt;IIdReaderImplementation&gt;.UnregisterDfuAdapter()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_String_">DeviceAdapter&lt;IIdReaderImplementation&gt;.AddError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_Object_">DeviceAdapter&lt;IIdReaderImplementation&gt;.AddError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_String_">DeviceAdapter&lt;IIdReaderImplementation&gt;.AddWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_Object_">DeviceAdapter&lt;IIdReaderImplementation&gt;.AddWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_String_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ClearError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_Object_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ClearError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_String_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ClearWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_Object_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ClearWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_System_String___">DeviceAdapter&lt;IIdReaderImplementation&gt;.ClearErrors(String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_System_String___">DeviceAdapter&lt;IIdReaderImplementation&gt;.ClearWarnings(String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_String_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ContainsError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_Object_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ContainsError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_String_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ContainsWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_Object_">DeviceAdapter&lt;IIdReaderImplementation&gt;.ContainsWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration">DeviceAdapter&lt;IIdReaderImplementation&gt;.SetInternalConfiguration()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent">DeviceAdapter&lt;IIdReaderImplementation&gt;.RegisterComponent()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_System_Boolean_">DeviceAdapter&lt;IIdReaderImplementation&gt;.UnregisterComponent(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.IdReader.html">Aristocrat.Monaco.Hardware.IdReader</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class IdReaderAdapter : DeviceAdapter&lt;IIdReaderImplementation&gt;, IDisposable, IIdReader, IDeviceAdapter, IDeviceService, IService, IFirmwareCrcBridge, IStorageAccessor&lt;IdReaderOptions&gt;</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter__ctor_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter__ctor" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter__ctor" class="expander" data-toggle="collapse">IdReaderAdapter()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdReaderAdapter()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultRemovalDelay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DefaultRemovalDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultRemovalDelay" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DefaultRemovalDelay"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultRemovalDelay" class="expander" data-toggle="collapse">DefaultRemovalDelay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultRemovalDelay" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultRemovalDelay = 5000</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultWaitTimeout.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DefaultWaitTimeout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultWaitTimeout" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DefaultWaitTimeout"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultWaitTimeout" class="expander" data-toggle="collapse">DefaultWaitTimeout</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DefaultWaitTimeout" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultWaitTimeout = 300000</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_CardData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.CardData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L252" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_CardData_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.CardData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_CardData" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.CardData"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_CardData" class="expander" data-toggle="collapse">CardData</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_CardData" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current card data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CardData { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The current card data.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_CardData">IIdReader.CardData</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Connected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Connected_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Connected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Connected" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Connected"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Connected" class="expander" data-toggle="collapse">Connected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Connected" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the device is connected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Connected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Connected</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_Connected">IDeviceAdapter.Connected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Description.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Description%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Description_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Description*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Description" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Description"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Description" class="expander" data-toggle="collapse">Description</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Description" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string Description { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device Description.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Description</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DeviceType.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DeviceType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DeviceType_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DeviceType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DeviceType" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DeviceType"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DeviceType" class="expander" data-toggle="collapse">DeviceType</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DeviceType" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DeviceType DeviceType { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceType.html">DeviceType</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.DeviceType</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_DeviceType">IDeviceAdapter.DeviceType</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Faults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Faults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L281" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Faults_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Faults*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Faults" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Faults"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Faults" class="expander" data-toggle="collapse">Faults</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Faults" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current faults.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdReaderFaultTypes Faults { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderFaultTypes.html">IdReaderFaultTypes</a>
+        <p><p>The current faults.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_Faults">IIdReader.Faults</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Identity.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Identity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L229" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Identity_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Identity*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Identity" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Identity"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Identity" class="expander" data-toggle="collapse">Identity</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Identity" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current identity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Identity Identity { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.Identity.html">Identity</a>
+        <p><p>The current identity.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_Identity">IIdReader.Identity</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderId_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderId" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderId"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderId" class="expander" data-toggle="collapse">IdReaderId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the identifier of the identifier reader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IdReaderId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The identifier of the identifier reader.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_IdReaderId">IIdReader.IdReaderId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderTrack.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderTrack%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L144" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderTrack_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderTrack*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderTrack" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderTrack"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderTrack" class="expander" data-toggle="collapse">IdReaderTrack</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderTrack" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the active ID reader track.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdReaderTracks IdReaderTrack { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTracks.html">IdReaderTracks</a>
+        <p><p>The active ID reader track.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_IdReaderTrack">IIdReader.IdReaderTrack</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderType.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderType_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderType" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IdReaderType"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderType" class="expander" data-toggle="collapse">IdReaderType</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IdReaderType" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the ID reader type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdReaderTypes IdReaderType { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_IdReaderType">IIdReader.IdReaderType</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Implementation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Implementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Implementation_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Implementation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Implementation" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Implementation"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Implementation" class="expander" data-toggle="collapse">Implementation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Implementation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device implementation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IIdReaderImplementation Implementation { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html">IIdReaderImplementation</a>
+        <p><p>The device implementation.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Implementation</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsEgmControlled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IsEgmControlled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsEgmControlled_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IsEgmControlled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsEgmControlled" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IsEgmControlled"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsEgmControlled" class="expander" data-toggle="collapse">IsEgmControlled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsEgmControlled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the egm controlled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEgmControlled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if egm controlled, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_IsEgmControlled">IIdReader.IsEgmControlled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsImplementationEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IsImplementationEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsImplementationEnabled_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IsImplementationEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsImplementationEnabled" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.IsImplementationEnabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsImplementationEnabled" class="expander" data-toggle="collapse">IsImplementationEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_IsImplementationEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the id reader device enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsImplementationEnabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Returns id reader device enabled.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_IsImplementationEnabled">IIdReader.IsImplementationEnabled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_LogicalState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.LogicalState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L267" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_LogicalState_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.LogicalState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_LogicalState" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.LogicalState"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_LogicalState" class="expander" data-toggle="collapse">LogicalState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_LogicalState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the ID reader logical state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdReaderLogicalState LogicalState { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderLogicalState.html">IdReaderLogicalState</a>
+        <p><p>ID reader logical state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_LogicalState">IIdReader.LogicalState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L270" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Name_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Name" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Name"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Name" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Name</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Path.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Path%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Path_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Path*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Path" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Path"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Path" class="expander" data-toggle="collapse">Path</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Path" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string Path { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device path.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Path</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Patterns.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Patterns%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L258" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Patterns_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Patterns*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Patterns" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Patterns"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Patterns" class="expander" data-toggle="collapse">Patterns</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Patterns" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a collection of available patterns.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;OfflineValidationPattern&gt; Patterns { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.OfflineValidationPattern.html">OfflineValidationPattern</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_Patterns">IIdReader.Patterns</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RemovalDelay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.RemovalDelay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L186" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RemovalDelay_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.RemovalDelay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RemovalDelay" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.RemovalDelay"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RemovalDelay" class="expander" data-toggle="collapse">RemovalDelay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RemovalDelay" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the removal delay timeout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int RemovalDelay { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The removal delay timeout.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_RemovalDelay">IIdReader.RemovalDelay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RequiredForPlay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.RequiredForPlay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RequiredForPlay_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.RequiredForPlay*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RequiredForPlay" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.RequiredForPlay"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RequiredForPlay" class="expander" data-toggle="collapse">RequiredForPlay</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_RequiredForPlay" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device MUST be functioning and enabled before the EGM can be played.
+(true = enabled, false = disabled)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RequiredForPlay { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_RequiredForPlay">IIdReader.RequiredForPlay</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L275" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ServiceTypes_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ServiceTypes" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.ServiceTypes</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SupportsOfflineValidation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SupportsOfflineValidation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L214" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SupportsOfflineValidation_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SupportsOfflineValidation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SupportsOfflineValidation" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SupportsOfflineValidation"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SupportsOfflineValidation" class="expander" data-toggle="collapse">SupportsOfflineValidation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SupportsOfflineValidation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the ID reader supports offline validation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SupportsOfflineValidation { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the ID reader supports offline validation, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_SupportsOfflineValidation">IIdReader.SupportsOfflineValidation</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TimeOfLastIdentityHandled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TimeOfLastIdentityHandled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L278" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TimeOfLastIdentityHandled_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TimeOfLastIdentityHandled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TimeOfLastIdentityHandled" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TimeOfLastIdentityHandled"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TimeOfLastIdentityHandled" class="expander" data-toggle="collapse">TimeOfLastIdentityHandled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TimeOfLastIdentityHandled" class="collapse in">
+  <div class="markdown level1 summary"><p>Whenever the last card was handled.
+Default is whenever the EGM last instantiated the ID Reader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime TimeOfLastIdentityHandled { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_TimeOfLastIdentityHandled">IIdReader.TimeOfLastIdentityHandled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TrackData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TrackData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L255" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TrackData_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TrackData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TrackData" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TrackData"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TrackData" class="expander" data-toggle="collapse">TrackData</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TrackData" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets that track data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TrackData TrackData { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.CardReader.TrackData.html">TrackData</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_TrackData">IIdReader.TrackData</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationMethod.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ValidationMethod%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationMethod_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ValidationMethod*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationMethod" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ValidationMethod"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationMethod" class="expander" data-toggle="collapse">ValidationMethod</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationMethod" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the validation method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdValidationMethods ValidationMethod { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdValidationMethods.html">IdValidationMethods</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_ValidationMethod">IIdReader.ValidationMethod</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationTimeout.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ValidationTimeout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L200" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationTimeout_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ValidationTimeout*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationTimeout" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.ValidationTimeout"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationTimeout" class="expander" data-toggle="collapse">ValidationTimeout</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_ValidationTimeout" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the validation timeout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ValidationTimeout { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The validation timeout.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_ValidationTimeout">IIdReader.ValidationTimeout</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_WaitTimeout.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.WaitTimeout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_WaitTimeout_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.WaitTimeout*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_WaitTimeout" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.WaitTimeout"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_WaitTimeout" class="expander" data-toggle="collapse">WaitTimeout</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_WaitTimeout" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the wait timeout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int WaitTimeout { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The wait timeout.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReader_WaitTimeout">IIdReader.WaitTimeout</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DisabledDetected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DisabledDetected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L436" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DisabledDetected_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DisabledDetected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DisabledDetected" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.DisabledDetected"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DisabledDetected" class="expander" data-toggle="collapse">DisabledDetected()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_DisabledDetected" class="collapse in">
+  <div class="markdown level1 summary"><p>Disabled detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void DisabledDetected()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.DisabledDetected()</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L442" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Disabling_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Disabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Disabling(DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is disabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Disabling(DisabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L395" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Dispose_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the
+Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter and optionally releases the managed
+resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Dispose(System.Boolean)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons%2CAristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L451" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Enabling_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Enabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons,Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Enabling(EnabledReasons, DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is enabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons.html">EnabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">remedied</span>
+        <p><p>The remedied.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons, Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Initializing.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Initializing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L467" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Initializing_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Initializing*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Initializing" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Initializing"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Initializing" class="expander" data-toggle="collapse">Initializing()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Initializing" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is initializing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Initializing()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Initializing()</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L501" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Inspecting_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Inspecting*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="expander" data-toggle="collapse">Inspecting(IComConfiguration, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is inspecting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Inspecting(IComConfiguration config, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration.html">IComConfiguration</a></span>
+        <span class="parametername">config</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>The timeout.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration, System.Int32)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L284" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to start a self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override async Task&lt;bool&gt; SelfTest(bool clear)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">clear</span>
+        <p><p>An flag indicating if memory should be cleared before the self-test is performed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>A Task (allows for asynchronous) with a GatData report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.SelfTest(System.Boolean)</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_SelfTest_System_Boolean_">IDeviceAdapter.SelfTest(Boolean)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SelfTest_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST initiate a self-test sequence when instructed by the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetIdValidation_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetIdValidation(Aristocrat.Monaco.Hardware.Contracts.IdReader.Identity)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L349" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetIdValidation_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetIdValidation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetIdValidation_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetIdValidation(Aristocrat.Monaco.Hardware.Contracts.IdReader.Identity)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetIdValidation_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_" class="expander" data-toggle="collapse">SetIdValidation(Identity)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetIdValidation_Aristocrat_Monaco_Hardware_Contracts_IdReader_Identity_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetIdValidation(Identity identity)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.Identity.html">Identity</a></span>
+        <span class="parametername">identity</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationComplete.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetValidationComplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L379" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationComplete_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetValidationComplete*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationComplete" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetValidationComplete"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationComplete" class="expander" data-toggle="collapse">SetValidationComplete()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationComplete" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetValidationComplete()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationFailed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetValidationFailed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L389" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationFailed_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetValidationFailed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationFailed" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SetValidationFailed"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationFailed" class="expander" data-toggle="collapse">SetValidationFailed()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SetValidationFailed" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetValidationFailed()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L507" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SubscribeToEvents_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SubscribeToEvents*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">SubscribeToEvents(IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Subscribe to events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SubscribeToEvents(IEventBus eventBus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>The event bus.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation&gt;.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TryAddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.Int32%2CAristocrat.Monaco.Hardware.IdReader.IdReaderOptions%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L302" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryAddBlock_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TryAddBlock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TryAddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor,System.Int32,Aristocrat.Monaco.Hardware.IdReader.IdReaderOptions@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__" class="expander" data-toggle="collapse">TryAddBlock(IPersistentStorageAccessor, Int32, out IdReaderOptions)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to initialize block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAddBlock(IPersistentStorageAccessor accessor, int blockIndex, out IdReaderOptions block)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">accessor</span>
+        <p><p>The accessor.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">blockIndex</span>
+        <p><p>Zero-based index of the block.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.IdReader.IdReaderOptions.html">IdReaderOptions</a></span>
+        <span class="parametername">block</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor-1.html#Aristocrat_Monaco_Hardware_Contracts_IStorageAccessor_1_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32__0__">IStorageAccessor&lt;TBlock&gt;.TryAddBlock(IPersistentStorageAccessor, Int32, out TBlock)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TryGetBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.Int32%2CAristocrat.Monaco.Hardware.IdReader.IdReaderOptions%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L333" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryGetBlock_" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TryGetBlock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__" data-uid="Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter.TryGetBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor,System.Int32,Aristocrat.Monaco.Hardware.IdReader.IdReaderOptions@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__" class="expander" data-toggle="collapse">TryGetBlock(IPersistentStorageAccessor, Int32, out IdReaderOptions)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_IdReader_IdReaderOptions__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to read block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetBlock(IPersistentStorageAccessor accessor, int blockIndex, out IdReaderOptions block)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">accessor</span>
+        <p><p>The accessor.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">blockIndex</span>
+        <p><p>Zero-based index of the block.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.IdReader.IdReaderOptions.html">IdReaderOptions</a></span>
+        <span class="parametername">block</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor-1.html#Aristocrat_Monaco_Hardware_Contracts_IStorageAccessor_1_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32__0__">IStorageAccessor&lt;TBlock&gt;.TryGetBlock(IPersistentStorageAccessor, Int32, out TBlock)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapterBase{Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation}</span></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReader.html">IIdReader</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_IdReader_IdReaderAdapter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.IdReader.IdReaderAdapter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/IdReader/IdReaderAdapter.cs/#L25" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1019 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class EgmStateManager
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class EgmStateManager
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.EgmStateManager">
+  <h1 id="Aristocrat_Monaco_G2S_EgmStateManager" data-uid="Aristocrat.Monaco.G2S.EgmStateManager">Class EgmStateManager
+  </h1>
+  <div class="markdown level0 summary"><p>An implementation of <a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html">IEgmStateManager</a></p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">EgmStateManager</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.html">Aristocrat.Monaco.G2S</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_EgmStateManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class EgmStateManager : IEgmStateManager, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.%23ctor(Aristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.Kernel.ISystemDisableManager%2CAristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager__ctor_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.#ctor(Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.Kernel.ISystemDisableManager,Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">EgmStateManager(IG2SEgm, ISystemDisableManager, IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Kernel_ISystemDisableManager_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.G2S.EgmStateManager.html">EgmStateManager</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EgmStateManager(IG2SEgm egm, ISystemDisableManager disableManager, IEventBus eventBus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a></span>
+        <span class="parametername">egm</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.ISystemDisableManager.html">ISystemDisableManager</a></span>
+        <span class="parametername">disableManager</span>
+        <p><p>An <a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.ISystemDisableManager.html">ISystemDisableManager</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>An <a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a> instance.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_HasLock.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.HasLock%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_HasLock_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.HasLock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_HasLock" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.HasLock"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_HasLock" class="expander" data-toggle="collapse">HasLock</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_HasLock" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the egm is disabled due to a tracked <a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasLock { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_HasLock">IEgmStateManager.HasLock</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Disable(Aristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState%2CSystem.Boolean%2CSystem.Func%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable(Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState,System.Boolean,System.Func{System.String})"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__" class="expander" data-toggle="collapse">Disable(IDevice, EgmState, Boolean, Func&lt;String&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the condition and disables the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Disable(IDevice device, EgmState state, bool immediate, Func&lt;string&gt; message)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">immediate</span>
+        <p><p>True to apply the condition immediately, otherwise the condition will be applied based on
+priority when the gameplay state is idle.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">message</span>
+        <p><p>The message to be displayed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>The generated key used to lock the Egm.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__">IEgmStateManager.Disable(IDevice, EgmState, Boolean, Func&lt;String&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Disable(Aristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState%2CSystem.Boolean%2CSystem.Func%7BSystem.String%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable(Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState,System.Boolean,System.Func{System.String},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_" class="expander" data-toggle="collapse">Disable(IDevice, EgmState, Boolean, Func&lt;String&gt;, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the condition and disables the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Disable(IDevice device, EgmState state, bool immediate, Func&lt;string&gt; message, bool affectsIdleState)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">immediate</span>
+        <p><p>True to apply the condition immediately, otherwise the condition will be applied based on
+priority when the gameplay state is idle.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">message</span>
+        <p><p>The message to be displayed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">affectsIdleState</span>
+        <p><p>true (the default) if this disable state affects the cabinet idle state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>The generated key used to lock the Egm.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Disable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_">IEgmStateManager.Disable(IDevice, EgmState, Boolean, Func&lt;String&gt;, Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Disable(System.Guid%2CAristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState%2CSystem.Boolean%2CSystem.Func%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable(System.Guid,Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState,System.Boolean,System.Func{System.String})"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__" class="expander" data-toggle="collapse">Disable(Guid, IDevice, EgmState, Boolean, Func&lt;String&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the condition and disables the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Disable(Guid disableKey, IDevice device, EgmState state, bool immediate, Func&lt;string&gt; message)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">disableKey</span>
+        <p><p>The key used to disable the Egm.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">immediate</span>
+        <p><p>True to apply the condition immediately, otherwise the condition will be applied based on
+priority when the gameplay state is idle.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">message</span>
+        <p><p>The message to be displayed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__">IEgmStateManager.Disable(Guid, IDevice, EgmState, Boolean, Func&lt;String&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Disable(System.Guid%2CAristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState%2CSystem.Boolean%2CSystem.Func%7BSystem.String%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Disable(System.Guid,Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState,System.Boolean,System.Func{System.String},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_" class="expander" data-toggle="collapse">Disable(Guid, IDevice, EgmState, Boolean, Func&lt;String&gt;, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the condition and disables the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Disable(Guid disableKey, IDevice device, EgmState state, bool immediate, Func&lt;string&gt; message, bool affectsIdleState)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">disableKey</span>
+        <p><p>The key used to disable the Egm.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">immediate</span>
+        <p><p>True to apply the condition immediately, otherwise the condition will be applied based on
+priority when the gameplay state is idle.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">message</span>
+        <p><p>The message to be displayed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">affectsIdleState</span>
+        <p><p>true (the default) if this disable state affects the cabinet idle state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Disable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Boolean_System_Func_System_String__System_Boolean_">IEgmStateManager.Disable(Guid, IDevice, EgmState, Boolean, Func&lt;String&gt;, Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Dispose_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Dispose" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Dispose"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L262" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Dispose_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases allocated resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>true to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Enable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Enable(Aristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L216" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Enable_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Enable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Enable(Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Enable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_" class="expander" data-toggle="collapse">Enable(IDevice, EgmState)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Enable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_" class="collapse in">
+  <div class="markdown level1 summary"><p>Removes the condition and attempts to re-enable the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Enable(IDevice device, EgmState state)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a>
+        <p><p>The generated key used to lock the Egm.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Enable_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_">IEgmStateManager.Enable(IDevice, EgmState)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Enable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Enable(System.Guid%2CAristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L229" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Enable_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Enable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Enable(System.Guid,Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Enable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_" class="expander" data-toggle="collapse">Enable(Guid, IDevice, EgmState)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Enable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_" class="collapse in">
+  <div class="markdown level1 summary"><p>Removes the condition and attempts to re-enable the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Enable(Guid disableKey, IDevice device, EgmState state)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">disableKey</span>
+        <p><p>The key used to disable the Egm.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Enable_System_Guid_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_">IEgmStateManager.Enable(Guid, IDevice, EgmState)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Lock(Aristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState%2CSystem.Func%7BSystem.String%7D%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L149" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Lock_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Lock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Lock(Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState,System.Func{System.String},System.TimeSpan)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_" class="expander" data-toggle="collapse">Lock(IDevice, EgmState, Func&lt;String&gt;, TimeSpan)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the condition and locks the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Lock(IDevice device, EgmState state, Func&lt;string&gt; message, TimeSpan duration)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">message</span>
+        <p><p>The message to be displayed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></span>
+        <span class="parametername">duration</span>
+        <p><p>The duration of the lock.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_">IEgmStateManager.Lock(IDevice, EgmState, Func&lt;String&gt;, TimeSpan)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_System_Action_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager.Lock(Aristocrat.G2S.Client.Devices.IDevice%2CAristocrat.G2S.Client.EgmState%2CSystem.Func%7BSystem.String%7D%2CSystem.TimeSpan%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_EgmStateManager_Lock_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Lock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_System_Action_" data-uid="Aristocrat.Monaco.G2S.EgmStateManager.Lock(Aristocrat.G2S.Client.Devices.IDevice,Aristocrat.G2S.Client.EgmState,System.Func{System.String},System.TimeSpan,System.Action)"><a href="#collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_System_Action_" class="expander" data-toggle="collapse">Lock(IDevice, EgmState, Func&lt;String&gt;, TimeSpan, Action)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_EgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_System_Action_" class="collapse in">
+  <div class="markdown level1 summary"><p>Applies the condition and locks the Egm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Lock(IDevice device, EgmState state, Func&lt;string&gt; message, TimeSpan duration, Action onUnlock)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a></span>
+        <span class="parametername">device</span>
+        <p><p>An <a class="xref" href="Aristocrat.G2S.Client.Devices.IDevice.html">IDevice</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.EgmState.html">EgmState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state to be applied.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">message</span>
+        <p><p>The message to be displayed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></span>
+        <span class="parametername">duration</span>
+        <p><p>The duration of the lock.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action">Action</a></span>
+        <span class="parametername">onUnlock</span>
+        <p><p>Callback invoked when the lock is removed after the duration lapses.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.IEgmStateManager.html#Aristocrat_Monaco_G2S_IEgmStateManager_Lock_Aristocrat_G2S_Client_Devices_IDevice_Aristocrat_G2S_Client_EgmState_System_Func_System_String__System_TimeSpan_System_Action_">IEgmStateManager.Lock(IDevice, EgmState, Func&lt;String&gt;, TimeSpan, Action)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_EgmStateManager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.EgmStateManager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/EgmStateManager.cs/#L17" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

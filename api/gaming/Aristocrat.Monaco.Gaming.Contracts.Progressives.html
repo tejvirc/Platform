@@ -1,0 +1,489 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.Contracts.Progressives">
+  <h1 id="Aristocrat_Monaco_Gaming_Contracts_Progressives" data-uid="Aristocrat.Monaco.Gaming.Contracts.Progressives">Namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+    <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.AssignableProgressiveId.html">AssignableProgressiveId</a></p>
+          <p><p>The AssignedProgressiveId defines a type and unique string identifier used to
+associate a <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a> with the assigned progressive
+key. The key should be unique and can be used to lookup the associated selectable
+progressive in the corresponding provider that owns the progressive level.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ClaimResult.html">ClaimResult</a></p>
+          <p><p>The result of a progressive claim</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotInfo.html">JackpotInfo</a></p>
+          <p><p>Represents jackpot data typically associated with a game round</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction.html">JackpotTransaction</a></p>
+          <p><p>JackpotTransaction encapsulates and persists the data for a single Jackpot transaction.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.PendingProgressivePayout.html">PendingProgressivePayout</a></p>
+          <p><p>A pending progressive payout is used when committing a progressive win
+and defines the data required to complete the payout.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.PercentExtensions.html">PercentExtensions</a></p>
+          <p><p>A set of extensions for percentages</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveAwardedEvent.html">ProgressiveAwardedEvent</a></p>
+          <p><p>Base event structure for when a progressive level is awarded. Any implementor of this
+event should post this event only when the award has been confirmed. The IProgressiveGameProvider
+will handle this event and attempt to complete the associated transaction.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveBaseEvent.html">ProgressiveBaseEvent</a></p>
+          <p><p>Defines a base type for all progressive events</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveCommitAckEvent.html">ProgressiveCommitAckEvent</a></p>
+          <p><p>The <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveCommitAckEvent.html">ProgressiveCommitAckEvent</a> is posted when the host acknowledges the jackpot transaction</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveCommitEvent.html">ProgressiveCommitEvent</a></p>
+          <p><p>The <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveCommitEvent.html">ProgressiveCommitEvent</a> when the jackpot transaction is committed</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveGameDisabledEvent.html">ProgressiveGameDisabledEvent</a></p>
+          <p><p>An event for an active progressive game becomes disabled for any reason</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveGameEnabledEvent.html">ProgressiveGameEnabledEvent</a></p>
+          <p><p>An event for an active progressive game becomes enabled</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveHitEvent.html">ProgressiveHitEvent</a></p>
+          <p><p>A <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveHitEvent.html">ProgressiveHitEvent</a> is posted when a progressive hit has occured</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></p>
+          <p><p>The fundamental data structure for a progressive level defined by a game. <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProgressiveLevelProvider.html">IProgressiveLevelProvider</a>
+will manage all progressive levels for all games.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelAssignment.html">ProgressiveLevelAssignment</a></p>
+          <p><p>Simple mapping of AssignableProgressiveIds to ProgressiveLevels</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelUpdate.html">ProgressiveLevelUpdate</a></p>
+          <p><p>Describes data for a progressive level update.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveMeters.html">ProgressiveMeters</a></p>
+          <p><p>Progressive Meters</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveMinimumThresholdClearedEvent.html">ProgressiveMinimumThresholdClearedEvent</a></p>
+          <p><p>An event for any progressive levels that has cleared the minimum threshold error for the game</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveMinimumThresholdErrorEvent.html">ProgressiveMinimumThresholdErrorEvent</a></p>
+          <p><p>An event for any progressive levels that do not meet the minimum threshold for the game</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveRtp.html">ProgressiveRtp</a></p>
+          <p><p>Definition of a Progressive rtp</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressivesActivatedEvent.html">ProgressivesActivatedEvent</a></p>
+          <p><p>A <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressivesActivatedEvent.html">ProgressivesActivatedEvent</a> is posted when a progressives levels have been activated</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveTriggerResult.html">ProgressiveTriggerResult</a></p>
+          <p><p>When a progressive level is triggered, the result of the trigger will be returned.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.RtpRange.html">RtpRange</a></p>
+          <p><p>Definition of Rtp Range</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SapAwardedEvent.html">SapAwardedEvent</a></p>
+          <p><p>Posted when a standalone progressive level has been awarded</p>
+</p>
+        </td>
+      </tr>
+    </table>
+    <h3 id="interfaces">Interfaces
+  </h3>
+    <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IAssignableLevel.html">IAssignableLevel</a></p>
+          <p><p>Provides an interface for assignable progressive levels</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ICalculatorStrategy.html">ICalculatorStrategy</a></p>
+          <p><p>The ICalculatorStrategy interface provides methods for processing jackpots</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProgressiveCalculatorFactory.html">IProgressiveCalculatorFactory</a></p>
+          <p><p>Factory for progressive calculators</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProgressiveErrorProvider.html">IProgressiveErrorProvider</a></p>
+          <p><p>Provides an interface for reporting, clearing, and viewing progressive errors </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProgressiveLevelProvider.html">IProgressiveLevelProvider</a></p>
+          <p><p>The main API for handling progressive levels in the Monaco platform. It provides an interface to the underlying
+progressive level systems.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProtocolLinkedProgressiveAdapter.html">IProtocolLinkedProgressiveAdapter</a></p>
+          <p><p>Provides an adapter interface for the protocol layer to communicate with progressives
+in order to prevent API calls from protocols not configured to handle progressives.
+Filters out all API calls made to ILinkedProgressiveProvider and IProgressiveConfigurationProvider.</p>
+<p>Most API calls require the protocolName to be included which be used for filtering.
+Any protocol can view progressive data which is why view calls don&apos;t have a progressiveName parameter.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProtocolProgressiveEventHandler.html">IProtocolProgressiveEventHandler</a></p>
+          <p><p>An interface that need to be implemented by the protocol for handling Progressive events.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProtocolProgressiveEventsRegistry.html">IProtocolProgressiveEventsRegistry</a></p>
+          <p><p>An interface that protocols should use to subscribe, unsubscribe and publish progressive events.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IViewableJackpotTransaction.html">IViewableJackpotTransaction</a></p>
+          <p><p>Provides a read-only view into a jackpot transaction</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IViewableProgressiveLevel.html">IViewableProgressiveLevel</a></p>
+          <p><p>Provides a read-only view of a <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></p>
+</p>
+        </td>
+      </tr>
+    </table>
+    <h3 id="enums">Enums
+  </h3>
+    <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.AssignableProgressiveType.html">AssignableProgressiveType</a></p>
+          <p><p>Defines a set of assignable progressive types that can be used
+to associate progressive levels managed by the game with progressive
+levels defined by hosts and operators.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.FlavorType.html">FlavorType</a></p>
+          <p><p>Flavor attribute is used to support progressive features which are specific to a particular controller, protocol or
+market.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.LevelCreationType.html">LevelCreationType</a></p>
+          <p><p>Specifies the different ways to create the level</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.PayMethod.html">PayMethod</a></p>
+          <p><p>Describes the payment method for progressives</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveErrors.html">ProgressiveErrors</a></p>
+          <p><p>Various error states of a progressive level</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelState.html">ProgressiveLevelState</a></p>
+          <p><p>Each progressive level has its own state that can be tracked independently.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelType.html">ProgressiveLevelType</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveState.html">ProgressiveState</a></p>
+          <p><p>Describes the current state of the progressive</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.RtpVerifiedState.html">RtpVerifiedState</a></p>
+          <p><p>The RTP verified state.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SapFundingType.html">SapFundingType</a></p>
+          <p><p>The SapFundingType is defined by the game. The platform should not care about what the Sap funding type is
+because the game tells the platform how much is contributed to a level.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.TriggerType.html">TriggerType</a></p>
+          <p><p>Trigger types specify who controls the triggering a claim of a progressive level</p>
+</p>
+        </td>
+      </tr>
+    </table>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

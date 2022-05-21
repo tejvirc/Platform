@@ -1,0 +1,2145 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GameHistoryLog
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GameHistoryLog
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog">
+  <h1 id="Aristocrat_Monaco_Gaming_GameHistoryLog" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog">Class GameHistoryLog
+  </h1>
+  <div class="markdown level0 summary"><p>A game history log.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">GameHistoryLog</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.html">Aristocrat.Monaco.Gaming</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_GameHistoryLog_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class GameHistoryLog : IGameHistoryLog, ILogSequence</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog__ctor_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.%23ctor(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L20" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog__ctor_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog__ctor_System_Int32_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.#ctor(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog__ctor_System_Int32_" class="expander" data-toggle="collapse">GameHistoryLog(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog__ctor_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the Aristocrat.Monaco.Gaming.GameHistoryLog class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameHistoryLog(int index)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">index</span>
+        <p><p>Zero-based index of the memory block.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_AmountOut.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.AmountOut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L104" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_AmountOut_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.AmountOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_AmountOut" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.AmountOut"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_AmountOut" class="expander" data-toggle="collapse">AmountOut</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_AmountOut" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long AmountOut { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_AmountOut">IGameHistoryLog.AmountOut</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_CashOutInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.CashOutInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_CashOutInfo_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.CashOutInfo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_CashOutInfo" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.CashOutInfo"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_CashOutInfo" class="expander" data-toggle="collapse">CashOutInfo</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_CashOutInfo" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;CashOutInfo&gt; CashOutInfo { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.CashOutInfo.html">CashOutInfo</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_CashOutInfo">IGameHistoryLog.CashOutInfo</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_DenomConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.DenomConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_DenomConfiguration_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.DenomConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_DenomConfiguration" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.DenomConfiguration"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_DenomConfiguration" class="expander" data-toggle="collapse">DenomConfiguration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_DenomConfiguration" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameConfiguration DenomConfiguration { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.GameConfiguration.html">GameConfiguration</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_DenomConfiguration">IGameHistoryLog.DenomConfiguration</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_DenomId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.DenomId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_DenomId_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.DenomId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_DenomId" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.DenomId"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_DenomId" class="expander" data-toggle="collapse">DenomId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_DenomId" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long DenomId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_DenomId">IGameHistoryLog.DenomId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_EndCredits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.EndCredits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_EndCredits_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.EndCredits*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_EndCredits" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.EndCredits"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_EndCredits" class="expander" data-toggle="collapse">EndCredits</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_EndCredits" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long EndCredits { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_EndCredits">IGameHistoryLog.EndCredits</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_EndDateTime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.EndDateTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_EndDateTime_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.EndDateTime*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_EndDateTime" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.EndDateTime"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_EndDateTime" class="expander" data-toggle="collapse">EndDateTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_EndDateTime" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime EndDateTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_EndDateTime">IGameHistoryLog.EndDateTime</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_EndTransactionId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.EndTransactionId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_EndTransactionId_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.EndTransactionId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_EndTransactionId" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.EndTransactionId"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_EndTransactionId" class="expander" data-toggle="collapse">EndTransactionId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_EndTransactionId" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long EndTransactionId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_EndTransactionId">IGameHistoryLog.EndTransactionId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_ErrorCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.ErrorCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_ErrorCode_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.ErrorCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_ErrorCode" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.ErrorCode"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_ErrorCode" class="expander" data-toggle="collapse">ErrorCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_ErrorCode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the error code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameErrorCode ErrorCode { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.GameErrorCode.html">GameErrorCode</a>
+        <p><p>The error code.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_Events.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.Events%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_Events_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Events*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_Events" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Events"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Events" class="expander" data-toggle="collapse">Events</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Events" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;GameEventLogEntry&gt; Events { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Models.GameEventLogEntry.html">GameEventLogEntry</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_Events">IGameHistoryLog.Events</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.FinalWager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWager_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FinalWager*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWager" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FinalWager"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWager" class="expander" data-toggle="collapse">FinalWager</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWager" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long FinalWager { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_FinalWager">IGameHistoryLog.FinalWager</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWin.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.FinalWin%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWin_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FinalWin*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWin" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FinalWin"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWin" class="expander" data-toggle="collapse">FinalWin</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FinalWin" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long FinalWin { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_FinalWin">IGameHistoryLog.FinalWin</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGameIndex.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.FreeGameIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGameIndex_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FreeGameIndex*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGameIndex" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FreeGameIndex"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGameIndex" class="expander" data-toggle="collapse">FreeGameIndex</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGameIndex" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the zero-based index of the free game.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FreeGameIndex { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The free game index.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGames.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.FreeGames%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L122" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGames_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FreeGames*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGames" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.FreeGames"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGames" class="expander" data-toggle="collapse">FreeGames</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_FreeGames" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;FreeGame&gt; FreeGames { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.FreeGame.html">FreeGame</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_FreeGames">IGameHistoryLog.FreeGames</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_GameConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.GameConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L143" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameConfiguration_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameConfiguration" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameConfiguration"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameConfiguration" class="expander" data-toggle="collapse">GameConfiguration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameConfiguration" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GameConfiguration { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_GameConfiguration">IGameHistoryLog.GameConfiguration</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_GameId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.GameId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameId_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameId" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameId"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameId" class="expander" data-toggle="collapse">GameId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameId" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GameId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_GameId">IGameHistoryLog.GameId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_GameRoundDescriptions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.GameRoundDescriptions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L110" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameRoundDescriptions_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameRoundDescriptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameRoundDescriptions" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameRoundDescriptions"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameRoundDescriptions" class="expander" data-toggle="collapse">GameRoundDescriptions</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameRoundDescriptions" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GameRoundDescriptions { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_GameRoundDescriptions">IGameHistoryLog.GameRoundDescriptions</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_GameWinBonus.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.GameWinBonus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameWinBonus_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameWinBonus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_GameWinBonus" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.GameWinBonus"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameWinBonus" class="expander" data-toggle="collapse">GameWinBonus</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_GameWinBonus" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long GameWinBonus { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_GameWinBonus">IGameHistoryLog.GameWinBonus</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.InitialWager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWager_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.InitialWager*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWager" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.InitialWager"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWager" class="expander" data-toggle="collapse">InitialWager</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWager" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long InitialWager { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_InitialWager">IGameHistoryLog.InitialWager</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWin.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.InitialWin%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWin_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.InitialWin*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWin" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.InitialWin"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWin" class="expander" data-toggle="collapse">InitialWin</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_InitialWin" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long InitialWin { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_InitialWin">IGameHistoryLog.InitialWin</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_Jackpots.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.Jackpots%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_Jackpots_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Jackpots*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_Jackpots" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Jackpots"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Jackpots" class="expander" data-toggle="collapse">Jackpots</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Jackpots" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;JackpotInfo&gt; Jackpots { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotInfo.html">JackpotInfo</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_Jackpots">IGameHistoryLog.Jackpots</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_JackpotSnapshot.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.JackpotSnapshot%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L112" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_JackpotSnapshot_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.JackpotSnapshot*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_JackpotSnapshot" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.JackpotSnapshot"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_JackpotSnapshot" class="expander" data-toggle="collapse">JackpotSnapshot</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_JackpotSnapshot" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Jackpot&gt; JackpotSnapshot { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Models.Jackpot.html">Jackpot</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_JackpotSnapshot">IGameHistoryLog.JackpotSnapshot</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_LastCommitIndex.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.LastCommitIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_LastCommitIndex_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LastCommitIndex*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_LastCommitIndex" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LastCommitIndex"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LastCommitIndex" class="expander" data-toggle="collapse">LastCommitIndex</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LastCommitIndex" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LastCommitIndex { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_LastCommitIndex">IGameHistoryLog.LastCommitIndex</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_LastUpdate.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.LastUpdate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_LastUpdate_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LastUpdate*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_LastUpdate" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LastUpdate"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LastUpdate" class="expander" data-toggle="collapse">LastUpdate</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LastUpdate" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime LastUpdate { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_LastUpdate">IGameHistoryLog.LastUpdate</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_LocaleCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.LocaleCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L141" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_LocaleCode_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LocaleCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_LocaleCode" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LocaleCode"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LocaleCode" class="expander" data-toggle="collapse">LocaleCode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LocaleCode" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LocaleCode { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_LocaleCode">IGameHistoryLog.LocaleCode</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_LogSequence.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.LogSequence%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_LogSequence_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LogSequence*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_LogSequence" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.LogSequence"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LogSequence" class="expander" data-toggle="collapse">LogSequence</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_LogSequence" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long LogSequence { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.ILogSequence.html#Aristocrat_Monaco_Application_Contracts_ILogSequence_LogSequence">ILogSequence.LogSequence</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_MeterSnapshots.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.MeterSnapshots%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L120" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_MeterSnapshots_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.MeterSnapshots*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_MeterSnapshots" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.MeterSnapshots"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_MeterSnapshots" class="expander" data-toggle="collapse">MeterSnapshots</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_MeterSnapshots" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;GameRoundMeterSnapshot&gt; MeterSnapshots { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.GameRoundMeterSnapshot.html">GameRoundMeterSnapshot</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_MeterSnapshots">IGameHistoryLog.MeterSnapshots</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_Outcomes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.Outcomes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L132" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_Outcomes_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Outcomes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_Outcomes" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Outcomes"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Outcomes" class="expander" data-toggle="collapse">Outcomes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Outcomes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Outcome&gt; Outcomes { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Central.Outcome.html">Outcome</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_Outcomes">IGameHistoryLog.Outcomes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_PlayState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.PlayState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_PlayState_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.PlayState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_PlayState" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.PlayState"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_PlayState" class="expander" data-toggle="collapse">PlayState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_PlayState" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlayState PlayState { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.PlayState.html">PlayState</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_PlayState">IGameHistoryLog.PlayState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_PromoWager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.PromoWager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_PromoWager_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.PromoWager*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_PromoWager" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.PromoWager"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_PromoWager" class="expander" data-toggle="collapse">PromoWager</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_PromoWager" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long PromoWager { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_PromoWager">IGameHistoryLog.PromoWager</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_RecoveryBlob.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.RecoveryBlob%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_RecoveryBlob_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.RecoveryBlob*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_RecoveryBlob" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.RecoveryBlob"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_RecoveryBlob" class="expander" data-toggle="collapse">RecoveryBlob</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_RecoveryBlob" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the recovery BLOB.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte[] RecoveryBlob { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]
+        <p><p>The recovery BLOB.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_RecoveryBlob">IGameHistoryLog.RecoveryBlob</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_Result.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.Result%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_Result_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Result*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_Result" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Result"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Result" class="expander" data-toggle="collapse">Result</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Result" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameResult Result { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.GameResult.html">GameResult</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_Result">IGameHistoryLog.Result</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryPlayed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryPlayed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryPlayed_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryPlayed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryPlayed" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryPlayed"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryPlayed" class="expander" data-toggle="collapse">SecondaryPlayed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryPlayed" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long SecondaryPlayed { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_SecondaryPlayed">IGameHistoryLog.SecondaryPlayed</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryWager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWager_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryWager*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWager" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryWager"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWager" class="expander" data-toggle="collapse">SecondaryWager</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWager" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long SecondaryWager { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_SecondaryWager">IGameHistoryLog.SecondaryWager</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWin.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryWin%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWin_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryWin*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWin" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.SecondaryWin"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWin" class="expander" data-toggle="collapse">SecondaryWin</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_SecondaryWin" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long SecondaryWin { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_SecondaryWin">IGameHistoryLog.SecondaryWin</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_StartCredits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.StartCredits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_StartCredits_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.StartCredits*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_StartCredits" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.StartCredits"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_StartCredits" class="expander" data-toggle="collapse">StartCredits</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_StartCredits" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long StartCredits { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_StartCredits">IGameHistoryLog.StartCredits</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_StartDateTime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.StartDateTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_StartDateTime_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.StartDateTime*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_StartDateTime" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.StartDateTime"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_StartDateTime" class="expander" data-toggle="collapse">StartDateTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_StartDateTime" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime StartDateTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_StartDateTime">IGameHistoryLog.StartDateTime</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_StorageIndex.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.StorageIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L134" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_StorageIndex_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.StorageIndex*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_StorageIndex" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.StorageIndex"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_StorageIndex" class="expander" data-toggle="collapse">StorageIndex</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_StorageIndex" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int StorageIndex { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_StorageIndex">IGameHistoryLog.StorageIndex</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_TotalWon.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.TotalWon%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_TotalWon_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.TotalWon*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_TotalWon" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.TotalWon"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_TotalWon" class="expander" data-toggle="collapse">TotalWon</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_TotalWon" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long TotalWon { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_TotalWon">IGameHistoryLog.TotalWon</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_TransactionId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.TransactionId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_TransactionId_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.TransactionId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_TransactionId" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.TransactionId"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_TransactionId" class="expander" data-toggle="collapse">TransactionId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_TransactionId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the globally unique transaction identifier</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long TransactionId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_TransactionId">IGameHistoryLog.TransactionId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_Transactions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.Transactions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_Transactions_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Transactions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_Transactions" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.Transactions"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Transactions" class="expander" data-toggle="collapse">Transactions</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_Transactions" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;TransactionInfo&gt; Transactions { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.TransactionInfo.html">TransactionInfo</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_Transactions">IGameHistoryLog.Transactions</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_UncommittedWin.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.UncommittedWin%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_UncommittedWin_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.UncommittedWin*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_UncommittedWin" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.UncommittedWin"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_UncommittedWin" class="expander" data-toggle="collapse">UncommittedWin</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_UncommittedWin" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long UncommittedWin { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_UncommittedWin">IGameHistoryLog.UncommittedWin</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog_ShallowCopy.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog.ShallowCopy%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L136" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_GameHistoryLog_ShallowCopy_" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.ShallowCopy*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_GameHistoryLog_ShallowCopy" data-uid="Aristocrat.Monaco.Gaming.GameHistoryLog.ShallowCopy"><a href="#collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_ShallowCopy" class="expander" data-toggle="collapse">ShallowCopy()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_GameHistoryLog_ShallowCopy" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IGameHistoryLog ShallowCopy()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html">IGameHistoryLog</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html#Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_ShallowCopy">IGameHistoryLog.ShallowCopy()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html">IGameHistoryLog</a></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_GameHistoryLog.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.GameHistoryLog%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/GameHistoryLog.cs/#L14" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

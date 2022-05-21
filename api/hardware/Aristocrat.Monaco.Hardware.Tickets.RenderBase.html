@@ -1,0 +1,1960 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RenderBase
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RenderBase
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase">
+  <h1 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase">Class RenderBase
+  </h1>
+  <div class="markdown level0 summary"><p>Definition of the RenderBase class.
+It has the implementation for the common features (Organizing the text based on the printing mode.)
+in the rendering mechanism of the tickets across the printers.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">RenderBase</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Tickets.html">Aristocrat.Monaco.Hardware.Tickets</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete]
+public abstract class RenderBase : IRender</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase__ctor_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase__ctor" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase__ctor" class="expander" data-toggle="collapse">RenderBase()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Hardware.Tickets.RenderBase.html">RenderBase</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected RenderBase()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_BarcodeHeight.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.BarcodeHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_BarcodeHeight" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.BarcodeHeight"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_BarcodeHeight" class="expander" data-toggle="collapse">BarcodeHeight</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_BarcodeHeight" class="collapse in">
+  <div class="markdown level1 summary"><p>Barcode height identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int BarcodeHeight = 100</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_Commands.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.Commands%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L125" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_Commands_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.Commands*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_Commands" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.Commands"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_Commands" class="expander" data-toggle="collapse">Commands</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_Commands" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets commands used for the member functions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;char&gt; Commands { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_DotsUsedInPortrait.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.DotsUsedInPortrait%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L149" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_DotsUsedInPortrait_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.DotsUsedInPortrait*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_DotsUsedInPortrait" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.DotsUsedInPortrait"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_DotsUsedInPortrait" class="expander" data-toggle="collapse">DotsUsedInPortrait</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_DotsUsedInPortrait" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets The number of dots consumed in portrait mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DotsUsedInPortrait { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharHighMode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastCharHighMode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L140" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharHighMode_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastCharHighMode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharHighMode" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastCharHighMode"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharHighMode" class="expander" data-toggle="collapse">LastCharHighMode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharHighMode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets The last character height.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CharSizeMode LastCharHighMode { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.CharSizeMode.html">CharSizeMode</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharWideMode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastCharWideMode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L137" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharWideMode_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastCharWideMode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharWideMode" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastCharWideMode"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharWideMode" class="expander" data-toggle="collapse">LastCharWideMode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastCharWideMode" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets The last character width.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CharSizeMode LastCharWideMode { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.CharSizeMode.html">CharSizeMode</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastFontId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastFontId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L143" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastFontId_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastFontId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastFontId" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastFontId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastFontId" class="expander" data-toggle="collapse">LastFontId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastFontId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets The last font id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LastFontId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastOrientation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastOrientation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L146" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastOrientation_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastOrientation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastOrientation" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LastOrientation"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastOrientation" class="expander" data-toggle="collapse">LastOrientation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LastOrientation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets The last print orientation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PrintOrientation LastOrientation { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintOrientation.html">PrintOrientation</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_LineSpace.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.LineSpace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LineSpace_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LineSpace*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_LineSpace" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.LineSpace"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LineSpace" class="expander" data-toggle="collapse">LineSpace</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_LineSpace" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets Dots between two lines.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LineSpace { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_RawData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.RawData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RawData_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RawData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RawData" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RawData"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RawData" class="expander" data-toggle="collapse">RawData</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RawData" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets RawData.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string RawData { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.IRender.html#Aristocrat_Monaco_Hardware_Contracts_TicketContent_IRender_RawData">IRender.RawData</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_SupportedFonts.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.SupportedFonts%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L134" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_SupportedFonts_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.SupportedFonts*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_SupportedFonts" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.SupportedFonts"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_SupportedFonts" class="expander" data-toggle="collapse">SupportedFonts</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_SupportedFonts" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets Number of fonts supported.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SupportedFonts { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_TemplateId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.TemplateId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TemplateId_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TemplateId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TemplateId" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TemplateId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TemplateId" class="expander" data-toggle="collapse">TemplateId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TemplateId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the ID of print template.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int TemplateId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_TicketType.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.TicketType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L131" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TicketType_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TicketType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TicketType" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TicketType"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TicketType" class="expander" data-toggle="collapse">TicketType</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TicketType" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets The ticket type being rendered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TicketType { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_AddFormFeed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.AddFormFeed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L476" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_AddFormFeed_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.AddFormFeed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_AddFormFeed" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.AddFormFeed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_AddFormFeed" class="expander" data-toggle="collapse">AddFormFeed()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_AddFormFeed" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds command(s) to change page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void AddFormFeed()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_AlignTextInRegion_System_Int32_System_Boolean_System_Boolean_System_String_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintAlignment_System_Int32_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.AlignTextInRegion(System.Int32%2CSystem.Boolean%2CSystem.Boolean%2CSystem.String%2CAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintAlignment%2CSystem.Int32%2CAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L412" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_AlignTextInRegion_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.AlignTextInRegion*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_AlignTextInRegion_System_Int32_System_Boolean_System_Boolean_System_String_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintAlignment_System_Int32_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.AlignTextInRegion(System.Int32,System.Boolean,System.Boolean,System.String,Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintAlignment,System.Int32,Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_AlignTextInRegion_System_Int32_System_Boolean_System_Boolean_System_String_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintAlignment_System_Int32_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" class="expander" data-toggle="collapse">AlignTextInRegion(Int32, Boolean, Boolean, String, PrintAlignment, Int32, PrintableRegion, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_AlignTextInRegion_System_Int32_System_Boolean_System_Boolean_System_String_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintAlignment_System_Int32_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Align a line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract string AlignTextInRegion(int fontIndex, bool portrait, bool doublewide, string text, PrintAlignment align, int totalDots, PrintableRegion region, int charactersUsed)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">fontIndex</span>
+        <p><p>The font index.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">portrait</span>
+        <p><p>Indicate if in portrait mode.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">doublewide</span>
+        <p><p>The doublewide.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">text</span>
+        <p><p>The text to be aligned.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintAlignment.html">PrintAlignment</a></span>
+        <span class="parametername">align</span>
+        <p><p>The alignment type.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">totalDots</span>
+        <p><p>The total dots available in region.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">region</span>
+        <p><p>The region.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">charactersUsed</span>
+        <p><p>The number of characters already used on the line.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The aligned characters.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_BeginTicket.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.BeginTicket%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L377" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_BeginTicket_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.BeginTicket*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_BeginTicket" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.BeginTicket"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_BeginTicket" class="expander" data-toggle="collapse">BeginTicket()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_BeginTicket" class="collapse in">
+  <div class="markdown level1 summary"><p>Do initialization before producing the command sequence.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void BeginTicket()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_CalculateCharsInDots_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.CalculateCharsInDots(System.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L389" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_CalculateCharsInDots_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.CalculateCharsInDots*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_CalculateCharsInDots_System_Int32_System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.CalculateCharsInDots(System.Int32,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_CalculateCharsInDots_System_Int32_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">CalculateCharsInDots(Int32, Int32, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_CalculateCharsInDots_System_Int32_System_Int32_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Given dots, calculate how many characters are within the dots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract int CalculateCharsInDots(int dots, int fontIndex, bool doublewide)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">dots</span>
+        <p><p>The dots for calculation.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">fontIndex</span>
+        <p><p>The font index.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">doublewide</span>
+        <p><p>The doublewide.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of characters.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetDotsInMargin_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetDotsInMargin(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L400" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetDotsInMargin_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetDotsInMargin*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetDotsInMargin_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetDotsInMargin(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetDotsInMargin_System_Boolean_" class="expander" data-toggle="collapse">GetDotsInMargin(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetDotsInMargin_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get dots occupied by margin in each mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract double GetDotsInMargin(bool portrait)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">portrait</span>
+        <p><p>Indicate if in portrait mode.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p><p>The number of dots.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetFont(System.Int32%40%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L433" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetFont_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetFont*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetFont(System.Int32@,System.Boolean,System.Boolean,System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_" class="expander" data-toggle="collapse">GetFont(ref Int32, Boolean, Boolean, Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get font by calculating from available space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void GetFont(ref int fontIndex, bool portrait, bool doublewide, int stringLength, int totalDots)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">fontIndex</span>
+        <p><p>The font Index.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">portrait</span>
+        <p><p>Indicate if in portrait mode.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">doublewide</span>
+        <p><p>Indicate if double wide.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">stringLength</span>
+        <p><p>The string length to be printed.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">totalDots</span>
+        <p><p>The total dots available.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetSmallestFontInfo_System_Int32__System_Int32__System_Int32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetSmallestFontInfo(System.Int32%40%2CSystem.Int32%40%2CSystem.Int32%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L457" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetSmallestFontInfo_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetSmallestFontInfo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetSmallestFontInfo_System_Int32__System_Int32__System_Int32__" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetSmallestFontInfo(System.Int32@,System.Int32@,System.Int32@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetSmallestFontInfo_System_Int32__System_Int32__System_Int32__" class="expander" data-toggle="collapse">GetSmallestFontInfo(ref Int32, ref Int32, ref Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetSmallestFontInfo_System_Int32__System_Int32__System_Int32__" class="collapse in">
+  <div class="markdown level1 summary"><p>Get the smallest font information for printer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void GetSmallestFontInfo(ref int index, ref int width, ref int height)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">index</span>
+        <p><p>The font index.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">width</span>
+        <p><p>The font width.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">height</span>
+        <p><p>The font height.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetTotalDots_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetTotalDots(System.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L395" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetTotalDots_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetTotalDots*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetTotalDots_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.GetTotalDots(System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetTotalDots_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">GetTotalDots(Boolean, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_GetTotalDots_System_Boolean_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get total dots in each mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract double GetTotalDots(bool portrait, bool margin)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">portrait</span>
+        <p><p>Indicate if in portrait mode.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">margin</span>
+        <p><p>Indicate if margin is used.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.double">Double</a>
+        <p><p>The number of dots.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_IsFontIndexValid_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.IsFontIndexValid(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L382" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_IsFontIndexValid_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.IsFontIndexValid*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_IsFontIndexValid_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.IsFontIndexValid(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_IsFontIndexValid_System_Int32_" class="expander" data-toggle="collapse">IsFontIndexValid(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_IsFontIndexValid_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Check if the font index defined in the XML is valid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool IsFontIndexValid(int fontIndex)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">fontIndex</span>
+        <p><p>The font index.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it is valid.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_Render_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.Render(System.Collections.Generic.IList%7BAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L201" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_Render_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.Render*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_Render_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.Render(System.Collections.Generic.IList{Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_Render_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" class="expander" data-toggle="collapse">Render(IList&lt;PrintableRegion&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_Render_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" class="collapse in">
+  <div class="markdown level1 summary"><p>Render one page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Render(IList&lt;PrintableRegion&gt; page)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>&gt;</span>
+        <span class="parametername">page</span>
+        <p><p>The page to render.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if successful.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.IRender.html#Aristocrat_Monaco_Hardware_Contracts_TicketContent_IRender_Render_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__">IRender.Render(IList&lt;PrintableRegion&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderBarcode_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderBarcode(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L468" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderBarcode_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderBarcode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderBarcode_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderBarcode(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderBarcode_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" class="expander" data-toggle="collapse">RenderBarcode(PrintableRegion, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderBarcode_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Render a barcode region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool RenderBarcode(PrintableRegion region, int barcodeIndex)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">region</span>
+        <p><p>The region.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">barcodeIndex</span>
+        <p><p>The barcode index.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if successful.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderGraphic_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderGraphic(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L473" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderGraphic_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderGraphic*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderGraphic_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderGraphic(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderGraphic_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="expander" data-toggle="collapse">RenderGraphic(PrintableRegion)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderGraphic_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_" class="collapse in">
+  <div class="markdown level1 summary"><p>Render a graphic region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool RenderGraphic(PrintableRegion region)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">region</span>
+        <p><p>The region.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if successful.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderPages_System_Collections_Generic_IList_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderPages(System.Collections.Generic.IList%7BSystem.Collections.Generic.IList%7BAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L173" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderPages_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderPages*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderPages_System_Collections_Generic_IList_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion___" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderPages(System.Collections.Generic.IList{System.Collections.Generic.IList{Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion}})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderPages_System_Collections_Generic_IList_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion___" class="expander" data-toggle="collapse">RenderPages(IList&lt;IList&lt;PrintableRegion&gt;&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderPages_System_Collections_Generic_IList_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion___" class="collapse in">
+  <div class="markdown level1 summary"><p>Render multiple pages.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RenderPages(IList&lt;IList&lt;PrintableRegion&gt;&gt; pages)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>&gt;&gt;</span>
+        <span class="parametername">pages</span>
+        <p><p>A list of pages.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if successful.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.IRender.html#Aristocrat_Monaco_Hardware_Contracts_TicketContent_IRender_RenderPages_System_Collections_Generic_IList_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion___">IRender.RenderPages(IList&lt;IList&lt;PrintableRegion&gt;&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderText_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderText(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L462" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderText_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderText*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderText_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.RenderText(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderText_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" class="expander" data-toggle="collapse">RenderText(PrintableRegion, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_RenderText_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Render a text region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void RenderText(PrintableRegion region, int fontIndex)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a></span>
+        <span class="parametername">region</span>
+        <p><p>The region.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">fontIndex</span>
+        <p><p>The font index.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_Reorganize_System_Collections_Generic_List_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.Reorganize(System.Collections.Generic.List%7BAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L296" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_Reorganize_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.Reorganize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_Reorganize_System_Collections_Generic_List_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.Reorganize(System.Collections.Generic.List{Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_Reorganize_System_Collections_Generic_List_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" class="expander" data-toggle="collapse">Reorganize(List&lt;PrintableRegion&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_Reorganize_System_Collections_Generic_List_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" class="collapse in">
+  <div class="markdown level1 summary"><p>Reorganize the regions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;PrintableRegion&gt; Reorganize(List&lt;PrintableRegion&gt; regions)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>&gt;</span>
+        <span class="parametername">regions</span>
+        <p><p>The regions to be reorganized.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>&gt;
+        <p><p>Result of reorganization.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_ResetPrinter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.ResetPrinter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L479" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_ResetPrinter_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.ResetPrinter*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_ResetPrinter" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.ResetPrinter"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_ResetPrinter" class="expander" data-toggle="collapse">ResetPrinter()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_ResetPrinter" class="collapse in">
+  <div class="markdown level1 summary"><p>The command issued to printer that resets state-related variables.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ResetPrinter()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_SelectFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.SelectFont(System.Int32%40%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L446" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_SelectFont_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.SelectFont*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_SelectFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.SelectFont(System.Int32@,System.Boolean,System.Boolean,System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_SelectFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_" class="expander" data-toggle="collapse">SelectFont(ref Int32, Boolean, Boolean, Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_SelectFont_System_Int32__System_Boolean_System_Boolean_System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Select a font for the current region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void SelectFont(ref int fontIndex, bool portrait, bool doublewide, int stringLength, int totalDots)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">fontIndex</span>
+        <p><p>The font index.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">portrait</span>
+        <p><p>Indicate if in portrait mode.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">doublewide</span>
+        <p><p>Indicate if double wide.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">stringLength</span>
+        <p><p>The string length.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">totalDots</span>
+        <p><p>The total dots available.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_SetTicketProperties_System_Collections_Generic_Dictionary_System_String_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.SetTicketProperties(System.Collections.Generic.Dictionary%7BSystem.String%2CSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L288" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_SetTicketProperties_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.SetTicketProperties*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_SetTicketProperties_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.SetTicketProperties(System.Collections.Generic.Dictionary{System.String,System.String})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_SetTicketProperties_System_Collections_Generic_Dictionary_System_String_System_String__" class="expander" data-toggle="collapse">SetTicketProperties(Dictionary&lt;String, String&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_SetTicketProperties_System_Collections_Generic_Dictionary_System_String_System_String__" class="collapse in">
+  <div class="markdown level1 summary"><p>Assign the printing property for the current rendering session.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetTicketProperties(Dictionary&lt;string, string&gt; properties)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">properties</span>
+        <p><p>The properties.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.IRender.html#Aristocrat_Monaco_Hardware_Contracts_TicketContent_IRender_SetTicketProperties_System_Collections_Generic_Dictionary_System_String_System_String__">IRender.SetTicketProperties(Dictionary&lt;String, String&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslatePosition_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintOrientation_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.TranslatePosition(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintOrientation%2CSystem.Collections.Generic.IList%7BAristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L425" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslatePosition_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TranslatePosition*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslatePosition_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintOrientation_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TranslatePosition(Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintOrientation,System.Collections.Generic.IList{Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion})"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslatePosition_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintOrientation_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" class="expander" data-toggle="collapse">TranslatePosition(PrintOrientation, IList&lt;PrintableRegion&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslatePosition_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintOrientation_System_Collections_Generic_IList_Aristocrat_Monaco_Hardware_Contracts_TicketContent_PrintableRegion__" class="collapse in">
+  <div class="markdown level1 summary"><p>Translate position in PDL to the position used in printer firmware.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void TranslatePosition(PrintOrientation mode, IList&lt;PrintableRegion&gt; regions)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintOrientation.html">PrintOrientation</a></span>
+        <span class="parametername">mode</span>
+        <p><p>The print orientation mode.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.PrintableRegion.html">PrintableRegion</a>&gt;</span>
+        <span class="parametername">regions</span>
+        <p><p>The regions.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslateType_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase.TranslateType(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L252" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslateType_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TranslateType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslateType_System_String_" data-uid="Aristocrat.Monaco.Hardware.Tickets.RenderBase.TranslateType(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslateType_System_String_" class="expander" data-toggle="collapse">TranslateType(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Tickets_RenderBase_TranslateType_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get the region&apos;s type and value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegionType TranslateType(string type)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">type</span>
+        <p><p>The source string containing type and value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.RegionType.html">RegionType</a>
+        <p><p>RegionType value</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.TicketContent.IRender.html#Aristocrat_Monaco_Hardware_Contracts_TicketContent_IRender_TranslateType_System_String_">IRender.TranslateType(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Tickets_RenderBase.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Tickets.RenderBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/Tickets/RenderBase.cs/#L17" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,2578 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HidDevice
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HidDevice
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice">
+  <h1 id="Vgt_Client12_Hardware_HidLibrary_HidDevice" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice">Class HidDevice
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">HidDevice</span></div>
+  </div>
+  
+      <div class="level2"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidFastReadDevice.html">HidFastReadDevice</a></div>
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.html">Vgt.Client12.Hardware.HidLibrary</a></h6>
+  <h6><strong>Assembly</strong>: HidLibrary.dll</h6>
+  
+  <h5 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HidDevice : IHidDevice, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Attributes.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Attributes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Attributes_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Attributes*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Attributes" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Attributes"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Attributes" class="expander" data-toggle="collapse">Attributes</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Attributes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidDeviceAttributes Attributes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidDeviceAttributes.html">HidDeviceAttributes</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Attributes">IHidDevice.Attributes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Capabilities.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Capabilities%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Capabilities_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Capabilities*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Capabilities" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Capabilities"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Capabilities" class="expander" data-toggle="collapse">Capabilities</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Capabilities" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidDeviceCapabilities Capabilities { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidDeviceCapabilities.html">HidDeviceCapabilities</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Capabilities">IHidDevice.Capabilities</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Description.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Description%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Description_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Description*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Description" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Description"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Description" class="expander" data-toggle="collapse">Description</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Description" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Description { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Description">IHidDevice.Description</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_DevicePath.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.DevicePath%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_DevicePath_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.DevicePath*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_DevicePath" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.DevicePath"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_DevicePath" class="expander" data-toggle="collapse">DevicePath</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_DevicePath" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DevicePath { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_DevicePath">IHidDevice.DevicePath</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Handle.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Handle%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Handle_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Handle*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Handle" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Handle"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Handle" class="expander" data-toggle="collapse">Handle</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Handle" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IntPtr Handle { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.intptr">IntPtr</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Handle">IHidDevice.Handle</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_IsConnected.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.IsConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_IsConnected_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.IsConnected*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_IsConnected" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.IsConnected"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_IsConnected" class="expander" data-toggle="collapse">IsConnected</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_IsConnected" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_IsConnected">IHidDevice.IsConnected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_IsOpen.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.IsOpen%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_IsOpen_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.IsOpen*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_IsOpen" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.IsOpen"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_IsOpen" class="expander" data-toggle="collapse">IsOpen</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_IsOpen" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOpen { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_IsOpen">IHidDevice.IsOpen</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_MonitorDeviceEvents.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.MonitorDeviceEvents%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_MonitorDeviceEvents_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.MonitorDeviceEvents*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_MonitorDeviceEvents" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.MonitorDeviceEvents"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_MonitorDeviceEvents" class="expander" data-toggle="collapse">MonitorDeviceEvents</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_MonitorDeviceEvents" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool MonitorDeviceEvents { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_MonitorDeviceEvents">IHidDevice.MonitorDeviceEvents</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_CloseDevice.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.CloseDevice%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_CloseDevice_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.CloseDevice*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_CloseDevice" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.CloseDevice"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_CloseDevice" class="expander" data-toggle="collapse">CloseDevice()</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_CloseDevice" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CloseDevice()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_CloseDevice">IHidDevice.CloseDevice()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_CreateReport.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.CreateReport%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L410" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_CreateReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.CreateReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_CreateReport" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.CreateReport"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_CreateReport" class="expander" data-toggle="collapse">CreateReport()</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_CreateReport" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidReport CreateReport()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_CreateReport">IHidDevice.CreateReport()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L451" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Dispose*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Dispose"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L520" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Dispose*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose_System_Boolean_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Dispose(System.Boolean)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_EndRead_System_IAsyncResult_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.EndRead(System.IAsyncResult)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L500" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_EndRead_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.EndRead*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_EndRead_System_IAsyncResult_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.EndRead(System.IAsyncResult)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_EndRead_System_IAsyncResult_" class="expander" data-toggle="collapse">EndRead(IAsyncResult)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_EndRead_System_IAsyncResult_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static void EndRead(IAsyncResult ar)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iasyncresult">IAsyncResult</a></span>
+        <span class="parametername">ar</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_EndReadReport_System_IAsyncResult_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.EndReadReport(System.IAsyncResult)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L510" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_EndReadReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.EndReadReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_EndReadReport_System_IAsyncResult_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.EndReadReport(System.IAsyncResult)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_EndReadReport_System_IAsyncResult_" class="expander" data-toggle="collapse">EndReadReport(IAsyncResult)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_EndReadReport_System_IAsyncResult_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static void EndReadReport(IAsyncResult ar)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iasyncresult">IAsyncResult</a></span>
+        <span class="parametername">ar</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.OpenDevice%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.OpenDevice*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.OpenDevice"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice" class="expander" data-toggle="collapse">OpenDevice()</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OpenDevice()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_OpenDevice">IHidDevice.OpenDevice()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_ShareMode_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.OpenDevice(Vgt.Client12.Hardware.HidLibrary.DeviceMode%2CVgt.Client12.Hardware.HidLibrary.DeviceMode%2CVgt.Client12.Hardware.HidLibrary.ShareMode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.OpenDevice*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_ShareMode_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.OpenDevice(Vgt.Client12.Hardware.HidLibrary.DeviceMode,Vgt.Client12.Hardware.HidLibrary.DeviceMode,Vgt.Client12.Hardware.HidLibrary.ShareMode)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_ShareMode_" class="expander" data-toggle="collapse">OpenDevice(DeviceMode, DeviceMode, ShareMode)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_OpenDevice_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_ShareMode_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OpenDevice(DeviceMode readMode, DeviceMode writeMode, ShareMode shareMode)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.DeviceMode.html">DeviceMode</a></span>
+        <span class="parametername">readMode</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.DeviceMode.html">DeviceMode</a></span>
+        <span class="parametername">writeMode</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.ShareMode.html">ShareMode</a></span>
+        <span class="parametername">shareMode</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_OpenDevice_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_DeviceMode_Vgt_Client12_Hardware_HidLibrary_ShareMode_">IHidDevice.OpenDevice(DeviceMode, DeviceMode, ShareMode)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Read.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Read%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read" class="expander" data-toggle="collapse">Read()</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidDeviceData Read()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidDeviceData.html">HidDeviceData</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Read">IHidDevice.Read()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Read(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read(System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_System_Int32_" class="expander" data-toggle="collapse">Read(Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidDeviceData Read(int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidDeviceData.html">HidDeviceData</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Read_System_Int32_">IHidDevice.Read(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Read(Vgt.Client12.Hardware.HidLibrary.ReadCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L145" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read(Vgt.Client12.Hardware.HidLibrary.ReadCallback)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_" class="expander" data-toggle="collapse">Read(ReadCallback)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Read(ReadCallback callback)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.ReadCallback.html">ReadCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_">IHidDevice.Read(ReadCallback)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Read(Vgt.Client12.Hardware.HidLibrary.ReadCallback%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L150" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Read(Vgt.Client12.Hardware.HidLibrary.ReadCallback,System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_System_Int32_" class="expander" data-toggle="collapse">Read(ReadCallback, Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Read(ReadCallback callback, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.ReadCallback.html">ReadCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Read_Vgt_Client12_Hardware_HidLibrary_ReadCallback_System_Int32_">IHidDevice.Read(ReadCallback, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadAsync_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadAsync(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L157" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadAsync_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadAsync*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadAsync_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadAsync(System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadAsync_System_Int32_" class="expander" data-toggle="collapse">ReadAsync(Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadAsync_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;HidDeviceData&gt; ReadAsync(int timeout = 0)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidDeviceData.html">HidDeviceData</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadAsync_System_Int32_">IHidDevice.ReadAsync(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadData_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadData(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L716" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadData_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadData*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadData_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadData(System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadData_System_Int32_" class="expander" data-toggle="collapse">ReadData(Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadData_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected HidDeviceData ReadData(int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidDeviceData.html">HidDeviceData</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadFeatureData_System_Byte____System_Byte_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadFeatureData(System.Byte%5B%5D%40%2CSystem.Byte)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadFeatureData_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadFeatureData*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadFeatureData_System_Byte____System_Byte_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadFeatureData(System.Byte[]@,System.Byte)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadFeatureData_System_Byte____System_Byte_" class="expander" data-toggle="collapse">ReadFeatureData(out Byte[], Byte)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadFeatureData_System_Byte____System_Byte_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReadFeatureData(out byte[] data, byte reportId = 0)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></span>
+        <span class="parametername">reportId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadFeatureData_System_Byte____System_Byte_">IHidDevice.ReadFeatureData(out Byte[], Byte)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadManufacturer_System_Byte____.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadManufacturer(System.Byte%5B%5D%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L268" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadManufacturer_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadManufacturer*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadManufacturer_System_Byte____" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadManufacturer(System.Byte[]@)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadManufacturer_System_Byte____" class="expander" data-toggle="collapse">ReadManufacturer(out Byte[])</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadManufacturer_System_Byte____" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReadManufacturer(out byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadManufacturer_System_Byte____">IHidDevice.ReadManufacturer(out Byte[])</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadProduct_System_Byte____.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadProduct(System.Byte%5B%5D%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L241" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadProduct_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadProduct*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadProduct_System_Byte____" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadProduct(System.Byte[]@)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadProduct_System_Byte____" class="expander" data-toggle="collapse">ReadProduct(out Byte[])</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadProduct_System_Byte____" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReadProduct(out byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadProduct_System_Byte____">IHidDevice.ReadProduct(out Byte[])</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L167" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport" class="expander" data-toggle="collapse">ReadReport()</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidReport ReadReport()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadReport">IHidDevice.ReadReport()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport(System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_System_Int32_" class="expander" data-toggle="collapse">ReadReport(Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidReport ReadReport(int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadReport_System_Int32_">IHidDevice.ReadReport(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport(Vgt.Client12.Hardware.HidLibrary.ReadReportCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L177" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport(Vgt.Client12.Hardware.HidLibrary.ReadReportCallback)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_" class="expander" data-toggle="collapse">ReadReport(ReadReportCallback)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadReport(ReadReportCallback callback)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.ReadReportCallback.html">ReadReportCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_">IHidDevice.ReadReport(ReadReportCallback)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport(Vgt.Client12.Hardware.HidLibrary.ReadReportCallback%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L182" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReport(Vgt.Client12.Hardware.HidLibrary.ReadReportCallback,System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_System_Int32_" class="expander" data-toggle="collapse">ReadReport(ReadReportCallback, Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReadReport(ReadReportCallback callback, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.ReadReportCallback.html">ReadReportCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadReport_Vgt_Client12_Hardware_HidLibrary_ReadReportCallback_System_Int32_">IHidDevice.ReadReport(ReadReportCallback, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportAsync_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReportAsync(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L189" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportAsync_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReportAsync*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportAsync_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReportAsync(System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportAsync_System_Int32_" class="expander" data-toggle="collapse">ReadReportAsync(Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportAsync_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;HidReport&gt; ReadReportAsync(int timeout = 0)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadReportAsync_System_Int32_">IHidDevice.ReadReportAsync(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportSync_System_Byte_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReportSync(System.Byte)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L469" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportSync_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReportSync*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportSync_System_Byte_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadReportSync(System.Byte)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportSync_System_Byte_" class="expander" data-toggle="collapse">ReadReportSync(Byte)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadReportSync_System_Byte_" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads an input report from the Control channel.  This method provides access to report data for devices that
+do not use the interrupt channel to communicate for specific usages.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HidReport ReadReportSync(byte reportId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></span>
+        <span class="parametername">reportId</span>
+        <p><p>The report ID to read from the device</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a>
+        <p><p>The HID report that is read.  The report will contain the success status of the read request</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadSerialNumber_System_Byte____.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadSerialNumber(System.Byte%5B%5D%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L295" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadSerialNumber_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadSerialNumber*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadSerialNumber_System_Byte____" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ReadSerialNumber(System.Byte[]@)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadSerialNumber_System_Byte____" class="expander" data-toggle="collapse">ReadSerialNumber(out Byte[])</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ReadSerialNumber_System_Byte____" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReadSerialNumber(out byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_ReadSerialNumber_System_Byte____">IHidDevice.ReadSerialNumber(out Byte[])</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_ToString.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L457" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ToString_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ToString*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_ToString" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.ToString"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ToString" class="expander" data-toggle="collapse">ToString()</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_ToString" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L322" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte[])"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___" class="expander" data-toggle="collapse">Write(Byte[])</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Write(byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Write_System_Byte___">IHidDevice.Write(Byte[])</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte%5B%5D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L327" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte[],System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___System_Int32_" class="expander" data-toggle="collapse">Write(Byte[], Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Write(byte[] data, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Write_System_Byte___System_Int32_">IHidDevice.Write(Byte[], Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte%5B%5D%2CVgt.Client12.Hardware.HidLibrary.WriteCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L354" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte[],Vgt.Client12.Hardware.HidLibrary.WriteCallback)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_" class="expander" data-toggle="collapse">Write(Byte[], WriteCallback)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Write(byte[] data, WriteCallback callback)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.WriteCallback.html">WriteCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_">IHidDevice.Write(Byte[], WriteCallback)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte%5B%5D%2CVgt.Client12.Hardware.HidLibrary.WriteCallback%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L359" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Write(System.Byte[],Vgt.Client12.Hardware.HidLibrary.WriteCallback,System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_" class="expander" data-toggle="collapse">Write(Byte[], WriteCallback, Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Write(byte[] data, WriteCallback callback, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.WriteCallback.html">WriteCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Write_System_Byte___Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_">IHidDevice.Write(Byte[], WriteCallback, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteAsync_System_Byte___System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteAsync(System.Byte%5B%5D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L366" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteAsync_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteAsync*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteAsync_System_Byte___System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteAsync(System.Byte[],System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteAsync_System_Byte___System_Int32_" class="expander" data-toggle="collapse">WriteAsync(Byte[], Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteAsync_System_Byte___System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; WriteAsync(byte[] data, int timeout = 0)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_WriteAsync_System_Byte___System_Int32_">IHidDevice.WriteAsync(Byte[], Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteFeatureData_System_Byte___.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteFeatureData(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L415" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteFeatureData_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteFeatureData*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteFeatureData_System_Byte___" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteFeatureData(System.Byte[])"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteFeatureData_System_Byte___" class="expander" data-toggle="collapse">WriteFeatureData(Byte[])</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteFeatureData_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WriteFeatureData(byte[] data)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">data</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_WriteFeatureData_System_Byte___">IHidDevice.WriteFeatureData(Byte[])</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L377" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_" class="expander" data-toggle="collapse">WriteReport(HidReport)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WriteReport(HidReport report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a></span>
+        <span class="parametername">report</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_">IHidDevice.WriteReport(HidReport)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L382" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport,System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_" class="expander" data-toggle="collapse">WriteReport(HidReport, Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WriteReport(HidReport report, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a></span>
+        <span class="parametername">report</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_">IHidDevice.WriteReport(HidReport, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport%2CVgt.Client12.Hardware.HidLibrary.WriteCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L387" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport,Vgt.Client12.Hardware.HidLibrary.WriteCallback)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_" class="expander" data-toggle="collapse">WriteReport(HidReport, WriteCallback)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteReport(HidReport report, WriteCallback callback)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a></span>
+        <span class="parametername">report</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.WriteCallback.html">WriteCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_">IHidDevice.WriteReport(HidReport, WriteCallback)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport%2CVgt.Client12.Hardware.HidLibrary.WriteCallback%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L392" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReport(Vgt.Client12.Hardware.HidLibrary.HidReport,Vgt.Client12.Hardware.HidLibrary.WriteCallback,System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_" class="expander" data-toggle="collapse">WriteReport(HidReport, WriteCallback, Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteReport(HidReport report, WriteCallback callback, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a></span>
+        <span class="parametername">report</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.WriteCallback.html">WriteCallback</a></span>
+        <span class="parametername">callback</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_WriteReport_Vgt_Client12_Hardware_HidLibrary_HidReport_Vgt_Client12_Hardware_HidLibrary_WriteCallback_System_Int32_">IHidDevice.WriteReport(HidReport, WriteCallback, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportAsync_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReportAsync(Vgt.Client12.Hardware.HidLibrary.HidReport%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L399" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportAsync_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReportAsync*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportAsync_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReportAsync(Vgt.Client12.Hardware.HidLibrary.HidReport,System.Int32)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportAsync_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_" class="expander" data-toggle="collapse">WriteReportAsync(HidReport, Int32)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportAsync_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; WriteReportAsync(HidReport report, int timeout = 0)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a></span>
+        <span class="parametername">report</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_WriteReportAsync_Vgt_Client12_Hardware_HidLibrary_HidReport_System_Int32_">IHidDevice.WriteReportAsync(HidReport, Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportSync_Vgt_Client12_Hardware_HidLibrary_HidReport_.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReportSync(Vgt.Client12.Hardware.HidLibrary.HidReport)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L486" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportSync_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReportSync*"></a>
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportSync_Vgt_Client12_Hardware_HidLibrary_HidReport_" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.WriteReportSync(Vgt.Client12.Hardware.HidLibrary.HidReport)"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportSync_Vgt_Client12_Hardware_HidLibrary_HidReport_" class="expander" data-toggle="collapse">WriteReportSync(HidReport)</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_WriteReportSync_Vgt_Client12_Hardware_HidLibrary_HidReport_" class="collapse in">
+  <div class="markdown level1 summary"><p>Handle data transfers on the control channel.  This method places data on the control channel for devices
+that do not support the interrupt transfers</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WriteReportSync(HidReport report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.HidReport.html">HidReport</a></span>
+        <span class="parametername">report</span>
+        <p><p>The outbound HID report</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>The result of the transfer request: true if successful otherwise false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Inserted.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Inserted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Inserted" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Inserted"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Inserted" class="expander" data-toggle="collapse">Inserted</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Inserted" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event InsertedEventHandler Inserted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.InsertedEventHandler.html">InsertedEventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Inserted">IHidDevice.Inserted</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice_Removed.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice.Removed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Vgt_Client12_Hardware_HidLibrary_HidDevice_Removed" data-uid="Vgt.Client12.Hardware.HidLibrary.HidDevice.Removed"><a href="#collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Removed" class="expander" data-toggle="collapse">Removed</a></h4>
+  
+  <div id="collapsible-Vgt_Client12_Hardware_HidLibrary_HidDevice_Removed" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event RemovedEventHandler Removed</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Vgt.Client12.Hardware.HidLibrary.RemovedEventHandler.html">RemovedEventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Vgt.Client12.Hardware.HidLibrary.IHidDevice.html#Vgt_Client12_Hardware_HidLibrary_IHidDevice_Removed">IHidDevice.Removed</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Vgt_Client12_Hardware_HidLibrary_HidDevice.md&amp;value=---%0Auid%3A%20Vgt.Client12.Hardware.HidLibrary.HidDevice%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/HidLibrary/HidDevice.cs/#L8" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

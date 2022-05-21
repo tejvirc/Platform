@@ -1,0 +1,820 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SqlPersistentStorageTransaction
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SqlPersistentStorageTransaction
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction">
+  <h1 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction">Class SqlPersistentStorageTransaction
+  </h1>
+  <div class="markdown level0 summary"><p>Definition of the SqlPersistentStorageTransaction class</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">SqlPersistentStorageTransaction</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.StorageSystem.html">Aristocrat.Monaco.Hardware.StorageSystem</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SqlPersistentStorageTransaction : IPersistentStorageTransaction, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.%23ctor(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_String_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.#ctor(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor,System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_String_" class="expander" data-toggle="collapse">SqlPersistentStorageTransaction(IPersistentStorageAccessor, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.html">SqlPersistentStorageTransaction</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SqlPersistentStorageTransaction(IPersistentStorageAccessor block, string connectionString)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">block</span>
+        <p><p>Accessor to use for transaction.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">connectionString</span>
+        <p><p>Block&apos;s connection string.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.%23ctor(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_System_String_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.#ctor(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_System_String_" class="expander" data-toggle="collapse">SqlPersistentStorageTransaction(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction__ctor_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.html">SqlPersistentStorageTransaction</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SqlPersistentStorageTransaction(string connectionString)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">connectionString</span>
+        <p><p>Block&apos;s connection string.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_Int32_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.Int32%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_Int32_System_String_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.Int32,System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_Int32_System_String_" class="expander" data-toggle="collapse">Item[Int32, String]</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_Int32_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Return a field from the object saved in the persistent storage
+array for this block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object this[int arrayIndex, string blockFieldName] { get; set; }</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">arrayIndex</span>
+        <p><p>Array Index</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">blockFieldName</span>
+        <p><p>Block Field Name</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p><p>A field</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_Item_System_Int32_System_String_">IPersistentStorageTransaction.Item[Int32, String]</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_" class="expander" data-toggle="collapse">Item[String]</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the field at the first element of the array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object this[string blockFieldName] { get; set; }</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">blockFieldName</span>
+        <p><p>Block Field Name</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p><p>An object</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_Item_System_String_">IPersistentStorageTransaction.Item[String]</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_Int32_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.String%2CSystem.Int32%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_Int32_System_String_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.String,System.Int32,System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_Int32_System_String_" class="expander" data-toggle="collapse">Item[String, Int32, String]</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_Int32_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Return a field from the object saved in the persistent storage
+array for the named block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object this[string blockName, int arrayIndex, string blockFieldName] { get; set; }</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">blockName</span>
+        <p><p>Block Name</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">arrayIndex</span>
+        <p><p>Array Index</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">blockFieldName</span>
+        <p><p>Block Field Name</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p><p>A field</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_Item_System_String_System_Int32_System_String_">IPersistentStorageTransaction.Item[String, Int32, String]</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_String_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Item(System.String,System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_String_" class="expander" data-toggle="collapse">Item[String, String]</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Item_System_String_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the field at the first element of the array in the named block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object this[string blockName, string blockFieldName] { get; set; }</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">blockName</span>
+        <p><p>Block Name</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">blockFieldName</span>
+        <p><p>Block Field Name</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p><p>An object</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_Item_System_String_System_String_">IPersistentStorageTransaction.Item[String, String]</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_AddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.AddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L131" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_AddBlock_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.AddBlock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_AddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.AddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_AddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_" class="expander" data-toggle="collapse">AddBlock(IPersistentStorageAccessor)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_AddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_" class="collapse in">
+  <div class="markdown level1 summary"><p>Adds another block to the transaction that can be committed at the same time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddBlock(IPersistentStorageAccessor block)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">block</span>
+        <p><p>The new block</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_AddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_">IPersistentStorageTransaction.AddBlock(IPersistentStorageAccessor)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Commit.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Commit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L144" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Commit_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Commit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Commit" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Commit"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Commit" class="expander" data-toggle="collapse">Commit()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Commit" class="collapse in">
+  <div class="markdown level1 summary"><p>Commit all field updates since transaction creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Commit()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_Commit">IPersistentStorageTransaction.Commit()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L227" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Dispose"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L240" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases allocated resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>true to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Rollback.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Rollback%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L200" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Rollback_" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Rollback*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Rollback" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.Rollback"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Rollback" class="expander" data-toggle="collapse">Rollback()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_Rollback" class="collapse in">
+  <div class="markdown level1 summary"><p>Roll back all field updates since transaction creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Rollback()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_Rollback">IPersistentStorageTransaction.Rollback()</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_OnCompleted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.OnCompleted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_OnCompleted" data-uid="Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction.OnCompleted"><a href="#collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_OnCompleted" class="expander" data-toggle="collapse">OnCompleted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction_OnCompleted" class="collapse in">
+  <div class="markdown level1 summary"><p>Registers an event handler fired when the transaction is completed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;TransactionEventArgs&gt; OnCompleted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.TransactionEventArgs.html">TransactionEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageTransaction.html#Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageTransaction_OnCompleted">IPersistentStorageTransaction.OnCompleted</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_StorageSystem_SqlPersistentStorageTransaction.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.StorageSystem.SqlPersistentStorageTransaction%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/StorageSystem/SqlPersistentStorageTransaction.cs/#L18" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

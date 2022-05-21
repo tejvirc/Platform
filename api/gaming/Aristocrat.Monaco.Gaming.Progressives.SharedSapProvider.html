@@ -1,0 +1,922 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SharedSapProvider
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SharedSapProvider
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider">
+  <h1 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider">Class SharedSapProvider
+  </h1>
+  <div class="markdown level0 summary"><p>Provides an interface to add, remove, view, and update shared sap levels</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">SharedSapProvider</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.html">Aristocrat.Monaco.Gaming.Progressives</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class SharedSapProvider : ISharedSapProvider, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistenceProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Gaming_Contracts_Progressives_IProgressiveCalculatorFactory_Aristocrat_Monaco_Gaming_Contracts_Meters_IProgressiveMeterManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.%23ctor(Aristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Hardware.Contracts.Persistence.IPersistenceProvider%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Gaming.Contracts.Progressives.IProgressiveCalculatorFactory%2CAristocrat.Monaco.Gaming.Contracts.Meters.IProgressiveMeterManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider__ctor_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistenceProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Gaming_Contracts_Progressives_IProgressiveCalculatorFactory_Aristocrat_Monaco_Gaming_Contracts_Meters_IProgressiveMeterManager_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.#ctor(Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistenceProvider,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Gaming.Contracts.Progressives.IProgressiveCalculatorFactory,Aristocrat.Monaco.Gaming.Contracts.Meters.IProgressiveMeterManager)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistenceProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Gaming_Contracts_Progressives_IProgressiveCalculatorFactory_Aristocrat_Monaco_Gaming_Contracts_Meters_IProgressiveMeterManager_" class="expander" data-toggle="collapse">SharedSapProvider(IEventBus, IPersistenceProvider, IPropertiesManager, IProgressiveCalculatorFactory, IProgressiveMeterManager)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider__ctor_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistenceProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Gaming_Contracts_Progressives_IProgressiveCalculatorFactory_Aristocrat_Monaco_Gaming_Contracts_Meters_IProgressiveMeterManager_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SharedSapProvider(IEventBus eventBus, IPersistenceProvider persistenceProvider, IPropertiesManager propertiesManager, IProgressiveCalculatorFactory calculatorFactory, IProgressiveMeterManager meters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistenceProvider.html">IPersistenceProvider</a></span>
+        <span class="parametername">persistenceProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">propertiesManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IProgressiveCalculatorFactory.html">IProgressiveCalculatorFactory</a></span>
+        <span class="parametername">calculatorFactory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Meters.IProgressiveMeterManager.html">IProgressiveMeterManager</a></span>
+        <span class="parametername">meters</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Name_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Name" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Name"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ServiceTypes_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ServiceTypes" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_AddSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.AddSharedSapLevel(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_AddSharedSapLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.AddSharedSapLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_AddSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.AddSharedSapLevel(System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_AddSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="expander" data-toggle="collapse">AddSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_AddSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IViewableSharedSapLevel&gt; AddSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt; sharedSapLevels)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;</span>
+        <span class="parametername">sharedSapLevels</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_AddSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__">ISharedSapProvider.AddSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Dispose_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Dispose" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Dispose"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Increment(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L215" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Increment_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Increment*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Increment(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel,System.Int64,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_" class="expander" data-toggle="collapse">Increment(ProgressiveLevel, Int64, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Increment(ProgressiveLevel level, long wager, long ante)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
+        <span class="parametername">level</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">wager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">ante</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_">ISharedSapProvider.Increment(ProgressiveLevel, Int64, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Initialize_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Initialize" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Initialize"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ProcessHit_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_IViewableJackpotTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ProcessHit(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel%2CAristocrat.Monaco.Gaming.Contracts.Progressives.IViewableJackpotTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L252" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ProcessHit_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ProcessHit*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ProcessHit_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_IViewableJackpotTransaction_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ProcessHit(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel,Aristocrat.Monaco.Gaming.Contracts.Progressives.IViewableJackpotTransaction)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ProcessHit_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_IViewableJackpotTransaction_" class="expander" data-toggle="collapse">ProcessHit(ProgressiveLevel, IViewableJackpotTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ProcessHit_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_IViewableJackpotTransaction_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
+        <span class="parametername">level</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.IViewableJackpotTransaction.html">IViewableJackpotTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_ProcessHit_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_IViewableJackpotTransaction_">ISharedSapProvider.ProcessHit(ProgressiveLevel, IViewableJackpotTransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_RemoveSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.RemoveSharedSapLevel(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_RemoveSharedSapLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.RemoveSharedSapLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_RemoveSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.RemoveSharedSapLevel(System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_RemoveSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="expander" data-toggle="collapse">RemoveSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_RemoveSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IViewableSharedSapLevel&gt; RemoveSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt; sharedSapLevels)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;</span>
+        <span class="parametername">sharedSapLevels</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_RemoveSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__">ISharedSapProvider.RemoveSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Reset(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L274" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Reset_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Reset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Reset(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" class="expander" data-toggle="collapse">Reset(ProgressiveLevel)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Reset(ProgressiveLevel level)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
+        <span class="parametername">level</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_">ISharedSapProvider.Reset(ProgressiveLevel)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Save.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Save%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L159" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Save_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Save*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Save" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.Save"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Save" class="expander" data-toggle="collapse">Save()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_Save" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IViewableSharedSapLevel&gt; Save()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_Save">ISharedSapProvider.Save()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_UpdateSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.UpdateSharedSapLevel(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_UpdateSharedSapLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.UpdateSharedSapLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_UpdateSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.UpdateSharedSapLevel(System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_UpdateSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="expander" data-toggle="collapse">UpdateSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_UpdateSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IViewableSharedSapLevel&gt; UpdateSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt; levelUpdates)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;</span>
+        <span class="parametername">levelUpdates</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_UpdateSharedSapLevel_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__">ISharedSapProvider.UpdateSharedSapLevel(IEnumerable&lt;IViewableSharedSapLevel&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevel_System_String_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ViewSharedSapLevel(System.String%2CAristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L153" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ViewSharedSapLevel*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevel_System_String_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ViewSharedSapLevel(System.String,Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel@)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevel_System_String_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="expander" data-toggle="collapse">ViewSharedSapLevel(String, out IViewableSharedSapLevel)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevel_System_String_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ViewSharedSapLevel(string assignmentKey, out IViewableSharedSapLevel level)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">assignmentKey</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a></span>
+        <span class="parametername">level</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_ViewSharedSapLevel_System_String_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_IViewableSharedSapLevel__">ISharedSapProvider.ViewSharedSapLevel(String, out IViewableSharedSapLevel)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ViewSharedSapLevels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L284" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevels_" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ViewSharedSapLevels*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevels" data-uid="Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider.ViewSharedSapLevels"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevels" class="expander" data-toggle="collapse">ViewSharedSapLevels()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider_ViewSharedSapLevels" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IViewableSharedSapLevel&gt; ViewSharedSapLevels()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.IViewableSharedSapLevel.html">IViewableSharedSapLevel</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.SharedSap.ISharedSapProvider.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_ViewSharedSapLevels">ISharedSapProvider.ViewSharedSapLevels()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.SharedSapProviderExtensions.html#Aristocrat_Monaco_Gaming_Progressives_SharedSapProviderExtensions_AutoGenerateAssociatedLevels_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_PackageManifest_Models_ProgressiveDetail__">SharedSapProviderExtensions.AutoGenerateAssociatedLevels(ISharedSapProvider, IGameDetail, IEnumerable&lt;ProgressiveDetail&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.SharedSapProviderExtensions.html#Aristocrat_Monaco_Gaming_Progressives_SharedSapProviderExtensions_AutoGenerateLevels_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_Aristocrat_Monaco_Gaming_Contracts_Models_GameType_Aristocrat_Monaco_PackageManifest_Models_BetOption_System_Int64_Aristocrat_Monaco_PackageManifest_Models_ProgressiveDetail_">SharedSapProviderExtensions.AutoGenerateLevels(ISharedSapProvider, GameType, BetOption, Int64, ProgressiveDetail)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.SharedSapProviderExtensions.html#Aristocrat_Monaco_Gaming_Progressives_SharedSapProviderExtensions_AutoGenerateLevels_Aristocrat_Monaco_Gaming_Contracts_Progressives_SharedSap_ISharedSapProvider_Aristocrat_Monaco_Gaming_Contracts_Models_GameType_System_Int64_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Progressives_IViewableProgressiveLevel__">SharedSapProviderExtensions.AutoGenerateLevels(ISharedSapProvider, GameType, Int64, IEnumerable&lt;IViewableProgressiveLevel&gt;)</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_SharedSapProvider.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.SharedSapProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/SharedSapProvider.cs/#L18" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

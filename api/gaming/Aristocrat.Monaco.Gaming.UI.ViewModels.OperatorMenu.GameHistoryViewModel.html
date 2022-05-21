@@ -1,0 +1,1831 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GameHistoryViewModel
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GameHistoryViewModel
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel">
+  <h1 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel">Class GameHistoryViewModel
+  </h1>
+  <div class="markdown level0 summary"><p>Defines the GameHistoryViewModel class</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html">OperatorMenuPageViewModelBase</a></div>
+    <div class="level2"><a class="xref" href="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.OperatorMenuDiagnosticPageViewModelBase.html">OperatorMenuDiagnosticPageViewModelBase</a></div>
+    <div class="level3"><span class="xref">GameHistoryViewModel</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.OperatorMenuDiagnosticPageViewModelBase.html#Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_OperatorMenuDiagnosticPageViewModelBase_PreventOperatorMenuExit">OperatorMenuDiagnosticPageViewModelBase.PreventOperatorMenuExit()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.OperatorMenuDiagnosticPageViewModelBase.html#Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_OperatorMenuDiagnosticPageViewModelBase_OnUnloaded">OperatorMenuDiagnosticPageViewModelBase.OnUnloaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Logger">OperatorMenuPageViewModelBase.Logger</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_DefaultPrintButtonEnabled">OperatorMenuPageViewModelBase.DefaultPrintButtonEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Access">OperatorMenuPageViewModelBase.Access</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintSelectedButtonCommand">OperatorMenuPageViewModelBase.PrintSelectedButtonCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintCurrentPageButtonCommand">OperatorMenuPageViewModelBase.PrintCurrentPageButtonCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintLast15ButtonCommand">OperatorMenuPageViewModelBase.PrintLast15ButtonCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_LoadedCommand">OperatorMenuPageViewModelBase.LoadedCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UnloadedCommand">OperatorMenuPageViewModelBase.UnloadedCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_EventViewerScrolledCommand">OperatorMenuPageViewModelBase.EventViewerScrolledCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_ShowInfoPopupCommand">OperatorMenuPageViewModelBase.ShowInfoPopupCommand</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InputEnabledByRuleOverride">OperatorMenuPageViewModelBase.InputEnabledByRuleOverride</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InputEnabled">OperatorMenuPageViewModelBase.InputEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InputStatusText">OperatorMenuPageViewModelBase.InputStatusText</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FieldAccessStatusText">OperatorMenuPageViewModelBase.FieldAccessStatusText</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintButtonStatusText">OperatorMenuPageViewModelBase.PrintButtonStatusText</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestModeEnabled">OperatorMenuPageViewModelBase.TestModeEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestModeRestriction">OperatorMenuPageViewModelBase.TestModeRestriction</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FieldAccessEnabled">OperatorMenuPageViewModelBase.FieldAccessEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FieldAccessRestriction">OperatorMenuPageViewModelBase.FieldAccessRestriction</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintButtonAccessEnabled">OperatorMenuPageViewModelBase.PrintButtonAccessEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestModeEnabledSupplementary">OperatorMenuPageViewModelBase.TestModeEnabledSupplementary</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GameIdle">OperatorMenuPageViewModelBase.GameIdle</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_NoGamesPlayed">OperatorMenuPageViewModelBase.NoGamesPlayed</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrinterButtonsEnabled">OperatorMenuPageViewModelBase.PrinterButtonsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintCurrentPageButtonVisible">OperatorMenuPageViewModelBase.PrintCurrentPageButtonVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintSelectedButtonVisible">OperatorMenuPageViewModelBase.PrintSelectedButtonVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PrintLast15ButtonVisible">OperatorMenuPageViewModelBase.PrintLast15ButtonVisible</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_FirstVisibleElement">OperatorMenuPageViewModelBase.FirstVisibleElement</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_RecordsToBePrinted">OperatorMenuPageViewModelBase.RecordsToBePrinted</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TestWarningText">OperatorMenuPageViewModelBase.TestWarningText</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsLoadingData">OperatorMenuPageViewModelBase.IsLoadingData</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsLoaded">OperatorMenuPageViewModelBase.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_DataEmpty">OperatorMenuPageViewModelBase.DataEmpty</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PageSupportsMainPrintButton">OperatorMenuPageViewModelBase.PageSupportsMainPrintButton</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_CanCalibrateTouchScreens">OperatorMenuPageViewModelBase.CanCalibrateTouchScreens</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PopupOpen">OperatorMenuPageViewModelBase.PopupOpen</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_EventBus">OperatorMenuPageViewModelBase.EventBus</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_PropertiesManager">OperatorMenuPageViewModelBase.PropertiesManager</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Configuration">OperatorMenuPageViewModelBase.Configuration</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Printer">OperatorMenuPageViewModelBase.Printer</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsContainerPage">OperatorMenuPageViewModelBase.IsContainerPage</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsModalDialog">OperatorMenuPageViewModelBase.IsModalDialog</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_AccessRestriction">OperatorMenuPageViewModelBase.AccessRestriction</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_ClearValidationOnUnload">OperatorMenuPageViewModelBase.ClearValidationOnUnload</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Dispose">OperatorMenuPageViewModelBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UpdateWarningMessage">OperatorMenuPageViewModelBase.UpdateWarningMessage()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_DisposeInternal">OperatorMenuPageViewModelBase.DisposeInternal()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnInputStatusChanged">OperatorMenuPageViewModelBase.OnInputStatusChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnInputEnabledChanged">OperatorMenuPageViewModelBase.OnInputEnabledChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnTestModeEnabledChanged">OperatorMenuPageViewModelBase.OnTestModeEnabledChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnFieldAccessEnabledChanged">OperatorMenuPageViewModelBase.OnFieldAccessEnabledChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnFieldAccessRestrictionChange">OperatorMenuPageViewModelBase.OnFieldAccessRestrictionChange()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InitializeDataAsync">OperatorMenuPageViewModelBase.InitializeDataAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetItemsToPrint__1_System_Collections_Generic_ICollection___0__Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_">OperatorMenuPageViewModelBase.GetItemsToPrint&lt;T&gt;(ICollection&lt;T&gt;, OperatorMenuPrintData)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_Print_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_System_Action_System_Boolean_">OperatorMenuPageViewModelBase.Print(OperatorMenuPrintData, Action, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_ShowPopup_System_String_System_Int32_">OperatorMenuPageViewModelBase.ShowPopup(String, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_RegisterAccessRule_System_String_System_String_System_String_System_Action_System_Boolean_Aristocrat_Monaco_Application_Contracts_OperatorMenu_OperatorMenuAccessRestriction__">OperatorMenuPageViewModelBase.RegisterAccessRule(String, String, String, Action&lt;Boolean, OperatorMenuAccessRestriction&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_SetInputStatus_System_Boolean_Aristocrat_Monaco_Application_Contracts_OperatorMenu_OperatorMenuAccessRestriction_">OperatorMenuPageViewModelBase.SetInputStatus(Boolean, OperatorMenuAccessRestriction)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_AllFieldsReadonly">OperatorMenuPageViewModelBase.AllFieldsReadonly()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_SetPrintAccessStatus_System_Boolean_Aristocrat_Monaco_Application_Contracts_OperatorMenu_OperatorMenuAccessRestriction_">OperatorMenuPageViewModelBase.SetPrintAccessStatus(Boolean, OperatorMenuAccessRestriction)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnPrintButtonStatusChanged_Aristocrat_Monaco_Application_Contracts_PrintButtonStatusEvent_">OperatorMenuPageViewModelBase.OnPrintButtonStatusChanged(PrintButtonStatusEvent)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_OnDialogClosed_Aristocrat_Monaco_UI_Common_Events_DialogClosedEvent_">OperatorMenuPageViewModelBase.OnDialogClosed(DialogClosedEvent)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_TicketToList_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_">OperatorMenuPageViewModelBase.TicketToList(Ticket)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_SplitTicket_Aristocrat_Monaco_Hardware_Contracts_Ticket_Ticket_">OperatorMenuPageViewModelBase.SplitTicket(Ticket)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetConfigSetting__1_System_Type_System_String___0_">OperatorMenuPageViewModelBase.GetConfigSetting&lt;T&gt;(Type, String, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetConfigSetting__1_System_String___0_">OperatorMenuPageViewModelBase.GetConfigSetting&lt;T&gt;(String, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GetGlobalConfigSetting__1_System_String___0_">OperatorMenuPageViewModelBase.GetGlobalConfigSetting&lt;T&gt;(String, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_CloseTouchScreenKeyboard">OperatorMenuPageViewModelBase.CloseTouchScreenKeyboard()</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsInputEnabled">OperatorMenuPageViewModelBase.IsInputEnabled</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.html">Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.UI.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public class GameHistoryViewModel : OperatorMenuDiagnosticPageViewModelBase, IOperatorMenuPageViewModel, IDisposable, INotifyPropertyChanged, IOperatorMenuConfigObject, ILiveSettingParent</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel__ctor_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel__ctor" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.#ctor"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel__ctor" class="expander" data-toggle="collapse">GameHistoryViewModel()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.html">GameHistoryViewModel</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameHistoryViewModel()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintCurrentPageButton.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintCurrentPageButton%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L270" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintCurrentPageButton_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintCurrentPageButton*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintCurrentPageButton" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintCurrentPageButton"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintCurrentPageButton" class="expander" data-toggle="collapse">EnablePrintCurrentPageButton</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintCurrentPageButton" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnablePrintCurrentPageButton { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintLast15Button.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintLast15Button%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L266" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintLast15Button_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintLast15Button*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintLast15Button" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintLast15Button"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintLast15Button" class="expander" data-toggle="collapse">EnablePrintLast15Button</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintLast15Button" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnablePrintLast15Button { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintSelectedButton.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintSelectedButton%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L262" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintSelectedButton_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintSelectedButton*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintSelectedButton" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.EnablePrintSelectedButton"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintSelectedButton" class="expander" data-toggle="collapse">EnablePrintSelectedButton</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_EnablePrintSelectedButton" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool EnablePrintSelectedButton { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameHistory.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameHistory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L145" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameHistory_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameHistory*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameHistory" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameHistory"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameHistory" class="expander" data-toggle="collapse">GameHistory</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameHistory" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;GameRoundHistoryItem&gt; GameHistory { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Models.GameRoundHistoryItem.html">GameRoundHistoryItem</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameProgressiveWinButtonEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameProgressiveWinButtonEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L274" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameProgressiveWinButtonEnabled_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameProgressiveWinButtonEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameProgressiveWinButtonEnabled" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameProgressiveWinButtonEnabled"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameProgressiveWinButtonEnabled" class="expander" data-toggle="collapse">GameProgressiveWinButtonEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameProgressiveWinButtonEnabled" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GameProgressiveWinButtonEnabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsGameRoundComplete.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsGameRoundComplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L256" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsGameRoundComplete_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsGameRoundComplete*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsGameRoundComplete" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsGameRoundComplete"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsGameRoundComplete" class="expander" data-toggle="collapse">IsGameRoundComplete</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsGameRoundComplete" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsGameRoundComplete { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsHistoryItemSelected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsHistoryItemSelected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L283" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsHistoryItemSelected_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsHistoryItemSelected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsHistoryItemSelected" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsHistoryItemSelected"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsHistoryItemSelected" class="expander" data-toggle="collapse">IsHistoryItemSelected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsHistoryItemSelected" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsHistoryItemSelected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsReplaying.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsReplaying%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L238" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsReplaying_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsReplaying*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsReplaying" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.IsReplaying"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsReplaying" class="expander" data-toggle="collapse">IsReplaying</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_IsReplaying" class="collapse in">
+  <div class="markdown level1 summary"><p>Is a game currently being replayed?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReplaying { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_MainPrintButtonEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.MainPrintButtonEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L285" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_MainPrintButtonEnabled_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.MainPrintButtonEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_MainPrintButtonEnabled" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.MainPrintButtonEnabled"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_MainPrintButtonEnabled" class="expander" data-toggle="collapse">MainPrintButtonEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_MainPrintButtonEnabled" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool MainPrintButtonEnabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_MainPrintButtonEnabled">OperatorMenuPageViewModelBase.MainPrintButtonEnabled</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_PendingCurrencyIn.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.PendingCurrencyIn%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_PendingCurrencyIn_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.PendingCurrencyIn*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_PendingCurrencyIn" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.PendingCurrencyIn"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_PendingCurrencyIn" class="expander" data-toggle="collapse">PendingCurrencyIn</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_PendingCurrencyIn" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public decimal PendingCurrencyIn { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayButtonEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayButtonEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L248" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayButtonEnabled_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayButtonEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayButtonEnabled" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayButtonEnabled"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayButtonEnabled" class="expander" data-toggle="collapse">ReplayButtonEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayButtonEnabled" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReplayButtonEnabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L131" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayCommand_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayCommand" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayCommand"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayCommand" class="expander" data-toggle="collapse">ReplayCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayCommand" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommand ReplayCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.input.icommand">ICommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseActive.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayPauseActive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L180" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseActive_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayPauseActive*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseActive" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayPauseActive"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseActive" class="expander" data-toggle="collapse">ReplayPauseActive</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseActive" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReplayPauseActive { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayPauseEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L170" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseEnabled_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayPauseEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseEnabled" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ReplayPauseEnabled"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseEnabled" class="expander" data-toggle="collapse">ReplayPauseEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ReplayPauseEnabled" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReplayPauseEnabled { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ResetScrollToTop.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ResetScrollToTop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ResetScrollToTop_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ResetScrollToTop*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ResetScrollToTop" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ResetScrollToTop"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ResetScrollToTop" class="expander" data-toggle="collapse">ResetScrollToTop</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ResetScrollToTop" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ResetScrollToTop { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameItem.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.SelectedGameItem%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L197" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameItem_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.SelectedGameItem*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameItem" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.SelectedGameItem"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameItem" class="expander" data-toggle="collapse">SelectedGameItem</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameItem" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameRoundHistoryItem SelectedGameItem { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Models.GameRoundHistoryItem.html">GameRoundHistoryItem</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameRoundTextList.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.SelectedGameRoundTextList%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L191" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameRoundTextList_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.SelectedGameRoundTextList*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameRoundTextList" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.SelectedGameRoundTextList"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameRoundTextList" class="expander" data-toggle="collapse">SelectedGameRoundTextList</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_SelectedGameRoundTextList" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;string&gt; SelectedGameRoundTextList { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsButton.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameDetailsButton%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L279" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsButton_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameDetailsButton*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsButton" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameDetailsButton"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsButton" class="expander" data-toggle="collapse">ShowGameDetailsButton</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsButton" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShowGameDetailsButton { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameDetailsCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L141" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsCommand_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameDetailsCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsCommand" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameDetailsCommand"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsCommand" class="expander" data-toggle="collapse">ShowGameDetailsCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameDetailsCommand" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommand ShowGameDetailsCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.input.icommand">ICommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsButton.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameEventLogsButton%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L281" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsButton_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameEventLogsButton*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsButton" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameEventLogsButton"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsButton" class="expander" data-toggle="collapse">ShowGameEventLogsButton</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsButton" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShowGameEventLogsButton { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameEventLogsCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L139" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsCommand_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameEventLogsCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsCommand" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameEventLogsCommand"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsCommand" class="expander" data-toggle="collapse">ShowGameEventLogsCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameEventLogsCommand" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommand ShowGameEventLogsCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.input.icommand">ICommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameInfoButtons.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameInfoButtons%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L277" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameInfoButtons_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameInfoButtons*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameInfoButtons" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameInfoButtons"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameInfoButtons" class="expander" data-toggle="collapse">ShowGameInfoButtons</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameInfoButtons" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShowGameInfoButtons { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameMetersCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameMetersCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L133" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameMetersCommand_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameMetersCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameMetersCommand" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameMetersCommand"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameMetersCommand" class="expander" data-toggle="collapse">ShowGameMetersCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameMetersCommand" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommand ShowGameMetersCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.input.icommand">ICommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameProgressiveWinCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameProgressiveWinCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L137" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameProgressiveWinCommand_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameProgressiveWinCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameProgressiveWinCommand" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameProgressiveWinCommand"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameProgressiveWinCommand" class="expander" data-toggle="collapse">ShowGameProgressiveWinCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameProgressiveWinCommand" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommand ShowGameProgressiveWinCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.input.icommand">ICommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameRoundInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameRoundInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L260" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameRoundInfo_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameRoundInfo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameRoundInfo" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameRoundInfo"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameRoundInfo" class="expander" data-toggle="collapse">ShowGameRoundInfo</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameRoundInfo" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShowGameRoundInfo { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameTransactionsCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameTransactionsCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameTransactionsCommand_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameTransactionsCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameTransactionsCommand" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowGameTransactionsCommand"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameTransactionsCommand" class="expander" data-toggle="collapse">ShowGameTransactionsCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowGameTransactionsCommand" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICommand ShowGameTransactionsCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.input.icommand">ICommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowSequenceNumber.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowSequenceNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L143" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowSequenceNumber_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowSequenceNumber*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowSequenceNumber" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.ShowSequenceNumber"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowSequenceNumber" class="expander" data-toggle="collapse">ShowSequenceNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_ShowSequenceNumber" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShowSequenceNumber { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameDiagnosticsComplete.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameDiagnosticsComplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L1025" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameDiagnosticsComplete_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameDiagnosticsComplete*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameDiagnosticsComplete" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GameDiagnosticsComplete"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameDiagnosticsComplete" class="expander" data-toggle="collapse">GameDiagnosticsComplete()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GameDiagnosticsComplete" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void GameDiagnosticsComplete()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.OperatorMenuDiagnosticPageViewModelBase.html#Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_OperatorMenuDiagnosticPageViewModelBase_GameDiagnosticsComplete">OperatorMenuDiagnosticPageViewModelBase.GameDiagnosticsComplete()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GenerateTicketsForPrint(Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L882" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GenerateTicketsForPrint_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GenerateTicketsForPrint*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.GenerateTicketsForPrint(Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintData)"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_" class="expander" data-toggle="collapse">GenerateTicketsForPrint(OperatorMenuPrintData)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IEnumerable&lt;Ticket&gt; GenerateTicketsForPrint(OperatorMenuPrintData dataType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintData.html">OperatorMenuPrintData</a></span>
+        <span class="parametername">dataType</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Ticket.Ticket.html">Ticket</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_GenerateTicketsForPrint_Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPrintData_">OperatorMenuPageViewModelBase.GenerateTicketsForPrint(OperatorMenuPrintData)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_InitializeData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.InitializeData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L288" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_InitializeData_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.InitializeData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_InitializeData" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.InitializeData"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_InitializeData" class="expander" data-toggle="collapse">InitializeData()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_InitializeData" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void InitializeData()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_InitializeData">OperatorMenuPageViewModelBase.InitializeData()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_OnLoaded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.OnLoaded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L293" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_OnLoaded_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.OnLoaded*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_OnLoaded" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.OnLoaded"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_OnLoaded" class="expander" data-toggle="collapse">OnLoaded()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_OnLoaded" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnLoaded()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.OperatorMenuDiagnosticPageViewModelBase.html#Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_OperatorMenuDiagnosticPageViewModelBase_OnLoaded">OperatorMenuDiagnosticPageViewModelBase.OnLoaded()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdatePrinterButtons.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.UpdatePrinterButtons%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L310" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdatePrinterButtons_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.UpdatePrinterButtons*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdatePrinterButtons" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.UpdatePrinterButtons"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdatePrinterButtons" class="expander" data-toggle="collapse">UpdatePrinterButtons()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdatePrinterButtons" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void UpdatePrinterButtons()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UpdatePrinterButtons">OperatorMenuPageViewModelBase.UpdatePrinterButtons()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdateStatusText.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.UpdateStatusText%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L318" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdateStatusText_" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.UpdateStatusText*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdateStatusText" data-uid="Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel.UpdateStatusText"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdateStatusText" class="expander" data-toggle="collapse">UpdateStatusText()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel_UpdateStatusText" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void UpdateStatusText()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_UpdateStatusText">OperatorMenuPageViewModelBase.UpdateStatusText()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_ViewModels_OperatorMenu_GameHistoryViewModel.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.GameHistoryViewModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/ViewModels/OperatorMenu/GameHistoryViewModel.cs/#L41" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1148 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Platform System Architecture </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Platform System Architecture ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="platform-system-architecture">Platform System Architecture</h1>
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#monaco-system-context">Monaco System Context</a></li>
+<li><a href="#monaco-primary-components">Monaco Primary Components</a><ul>
+<li><a href="#gaming-layer">Gaming Layer</a><ul>
+<li><a href="#gaming-bootstrap">Gaming Bootstrap</a></li>
+<li><a href="#game-meter-manager">Game Meter Manager</a></li>
+<li><a href="#paytable-manager">Paytable Manager</a></li>
+<li><a href="#jackpot-handler">Jackpot Handler</a></li>
+<li><a href="#game-loader">Game Loader</a></li>
+<li><a href="#implementation-notes">Implementation Notes</a></li>
+<li><a href="#design-details-and-code-examples">Design Details and Code Examples</a></li>
+</ul>
+</li>
+<li><a href="#accounting-layer">Accounting Layer</a><ul>
+<li><a href="#accounting-bootstrap">Accounting Bootstrap</a></li>
+<li><a href="#transaction-coordinator">Transaction Coordinator</a></li>
+<li><a href="#bank-component">Bank Component</a></li>
+<li><a href="#account-register">Account Register</a></li>
+<li><a href="#accounting-layer-extensions">Accounting Layer Extensions</a><ul>
+<li><a href="#transfer-types">Transfer Types</a></li>
+<li><a href="#transfer-handler">Transfer Handler</a></li>
+</ul>
+</li>
+<li><a href="#implementation-notes-1">Implementation Notes</a></li>
+<li><a href="#design-details-and-code-examples-1">Design Details and Code Examples</a></li>
+</ul>
+</li>
+<li><a href="#application-layer">Application Layer</a><ul>
+<li><a href="#application-bootstrap">Application Bootstrap</a></li>
+<li><a href="#fault-monitoring">Fault Monitoring</a></li>
+<li><a href="#metering">Metering</a></li>
+<li><a href="#system-time">System Time</a></li>
+<li><a href="#random-number-generator">Random Number Generator</a></li>
+<li><a href="#configuration-wizard-ui">Configuration Wizard UI</a></li>
+<li><a href="#operator-menu-ui">Operator Menu UI</a></li>
+<li><a href="#application-layer-extensions">Application Layer Extensions</a><ul>
+<li><a href="#device-fault-monitors">Device Fault Monitors</a></li>
+<li><a href="#network-logger">Network Logger</a></li>
+<li><a href="#tilt-logger">Tilt Logger</a></li>
+</ul>
+</li>
+<li><a href="#implementation-notes-2">Implementation Notes</a></li>
+<li><a href="#design-details-and-code-examples-2">Design Details and Code Examples</a></li>
+</ul>
+</li>
+<li><a href="#hardware-layer">Hardware Layer</a><ul>
+<li><a href="#hardware-bootstrap">Hardware Bootstrap</a></li>
+<li><a href="#critical-memory">Critical Memory</a></li>
+<li><a href="#hardware-discovery">Hardware Discovery</a></li>
+<li><a href="#hardware-layer-extensions">Hardware Layer Extensions</a><ul>
+<li><a href="#logical-device-services">Logical Device Services</a></li>
+</ul>
+</li>
+<li><a href="#design-details-and-code-examples-3">Design Details and Code Examples</a></li>
+</ul>
+</li>
+<li><a href="#kernel-layer">Kernel Layer</a><ul>
+<li><a href="#bootstrap">Bootstrap</a></li>
+<li><a href="#logging">Logging</a></li>
+<li><a href="#add-in-manager">Add-in Manager</a></li>
+<li><a href="#service-library">Service Library</a></li>
+<li><a href="#event-bus">Event Bus</a></li>
+<li><a href="#properties-manager">Properties Manager</a></li>
+<li><a href="#system-disable-manager">System Disable Manager</a></li>
+<li><a href="#pathmapper">PathMapper</a></li>
+<li><a href="#messagedisplay">MessageDisplay</a></li>
+<li><a href="#threading-and-monitoring">Threading and Monitoring</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#monaco-platform-addin-extensions">Monaco Platform Addin Extensions</a><ul>
+<li><a href="#adding-a-new-jurisdiction-to-monaco">Adding a New Jurisdiction to Monaco</a></li>
+</ul>
+</li>
+<li><a href="#protocol-support">Protocol Support</a><ul>
+<li><a href="#design-details-and-code-examples-4">Design Details and Code Examples</a></li>
+</ul>
+</li>
+<li><a href="#random-number-generator-1">Random Number Generator</a></li>
+<li><a href="#customized-windows-operating-system">Customized Windows Operating System</a><ul>
+<li><a href="#specific-configuration-changes-for-the-monaco-windows-image">Specific Configuration Changes for the Monaco Windows Image</a></li>
+<li><a href="#long-term-support-channel-ltsc">Long-Term Support Channel (LTSC)</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h1 id="overview">Overview</h1>
+<p>The Monaco platform is Aristocrat&#39;s next generation of digital EGM systems for enhancing the video gaming experience. The Monaco architecture, already deployed in multiple jurisdictions, provides true multi-game support and greater flexibility to develop new features required to lead the market and attract game players.</p>
+<p>Built using a modular Service Oriented Architecture (SOA) design running on a customized MS Windows 10 IoT Enterprise OS build, Monaco enables greater flexibility for adding new game titles, hardware, and other add-ons. The Monaco platform was first launched into Aristocrat’s Video-Lottery Terminal market (VLT) in early 2018. As of summer 2021, Monaco retail deployed in the following markets:</p>
+<ul>
+<li>Atlantic Lottery Commission (<a href="https://www.alc.ca/content/alc/en.html">ALC</a>) - Canada</li>
+<li>Alberta Gaming and Lottery Commission (<a href="https://aglc.ca/">AGLC</a>) - Canada</li>
+<li>Manitoba Liquor and Lotteries (<a href="https://www.mbll.ca/">MBLL</a>) - Canada</li>
+<li>Oregon State Lottery (<a href="https://www.oregonlottery.org/">OSL</a>) - USA</li>
+<li>Illinois Gaming Board, Video Gaming Terminals (<a href="https://www.igb.illinois.gov/">IGB</a>) - USA</li>
+<li>Winners World:<ul>
+<li>Americas/GLI -Nevada CIII</li>
+<li>EMEA Regulated and Unregulated</li>
+<li>APAC Unregulated</li>
+</ul>
+</li>
+</ul>
+<p>Markets under development/certification process include:</p>
+<ul>
+<li>New York Lottery</li>
+<li>Kentucky HHR</li>
+<li>Winners World Enhancements </li>
+</ul>
+<h1 id="monaco-system-context">Monaco System Context</h1>
+<p>The Monaco platform comprises three containers (modules):</p>
+<ul>
+<li>Monaco Gaming Platform</li>
+<li>Runtime: <a href="https://confy.aristocrat.com/display/GTech/Overview+-+Monaco+Platform%2C+Runtime%2C+and+Game+Binaries">Overview - Monaco Platform, Runtime, and Game Binaries</a></li>
+<li>One or more games</li>
+</ul>
+<p>The <strong>Monaco Gaming Platform</strong> is a C# application responsible for enabling game play. This includes securely bootstrapping the Runtime, persisting all relevant data, managing peripherals, providing a user interface for players and technicians, and implementing protocols to enable communications with one or more gaming management systems.</p>
+<p>The <strong>Runtime</strong> is a C++ application, which is launched by the Monaco Gaming Platform. Monaco and the Runtime exchange information over Inter-process communication (IPC) where Monaco is the server for the IPC. </p>
+<p><strong>Games</strong> are developed by separate studios but are an integral part of the Monaco platform. The games provide the graphical representation and math model for each game.</p>
+<p>This diagram provides context around the Monaco System. It shows the people who use it and the other software gaming management systems that the Monaco platform has a relationship with. These software systems include third-party hosts such as IGT, Scientific Games, Everi, and Ainsworth.</p>
+<p><img src="../../images/architecture/platform/image1.png" alt=""></p>
+<p>The Monaco platform currently supports the following host communication protocols, which will be covered in more detail in later sections:</p>
+<ul>
+<li>G2S</li>
+<li>SAS</li>
+<li>Everi</li>
+<li>Ainsworth</li>
+</ul>
+<h1 id="monaco-primary-components">Monaco Primary Components</h1>
+<p>The Monaco platform contains five (5) core components: <strong>Kernel</strong>, <strong>Hardware</strong>, <strong>Application</strong>, <strong>Accounting</strong>, and <strong>Gaming</strong>. It&#39;s important to note that while the diagram does not illustrate all usage/dependencies (for readability purposes) the higher-level components such as the Gaming component may &quot;Use&quot; all other components in the platform such as the Application and Kernel components. It&#39;s also important to note the direction of the &quot;Uses&quot; arrows. While higher-level components may use a lower-level component, a lower-level component must not use a higher-level component, which is a major architectural tenet of the Monaco architecture.</p>
+<p><img src="../../images/architecture/platform/image5.png" alt=""></p>
+<p><strong>Note:</strong> The diagram below is G2S-centric and does not include the latest jurisdictions, peripherals, or displays:</p>
+<p><img src="../../images/architecture/platform/image2.png" alt=""></p>
+<h2 id="gaming-layer">Gaming Layer</h2>
+<p>The Gaming layer is the top layer of the Monaco platform and provides the services and functionality for hosting games that are common to all games and not specific to any type of game. Core components in the Gaming layer include the Gaming Bootstrap, Game Meter Manager, Paytable Manager, Jackpot Handling and Game Loader. </p>
+<h3 id="gaming-bootstrap">Gaming Bootstrap</h3>
+<p>The Gaming Bootstrap component is the boot extender add-in for the Accounting Bootstrap. It is responsible for controlled initialization of the Gaming layer components, and registering layer services with the Service Library. The Gaming Bootstrap component then executes the Game Loader described below.</p>
+<h3 id="game-meter-manager">Game Meter Manager</h3>
+<p>The Application layer contains a Meter Manager component service that provides basic functionality for providing, accessing, and modifying meters. The Game Meter Manager component is a service that provides a set of meters for a predetermined number of games. A game is identified by its title Id and paytable Id. For each game, several meters are tracked, including amount wagered, amount won, games played, and games won. The Game Meter Manager component allows a game to add meters for itself and increment those meters. Other system components can retrieve the Game Meter Manager component from the Service Library and request the set of meters for a given game.</p>
+<h3 id="paytable-manager">Paytable Manager</h3>
+<p>The Paytable Manager component is a service that is responsible for retrieving, storing, and providing paytables used by games. The Paytable Manager component defines an extension point at which paytable data sources plug in. The paytable data source implementation is responsible for providing the paytable to the Paytable Manager component, and may get the data from a local drive, or retrieve it from an external host system (IGT Intelligen, Everi, and Ainsworth), for example. Games and other system components can retrieve the Paytable Manager component from the Service library.</p>
+<h3 id="jackpot-handler">Jackpot Handler</h3>
+<p>The Jackpot Handling component provides services for processing an awarded jackpot based on configuration. Various handling strategies exist and are comprised of a combination of basic elements, including how to present the jackpot, and whether to add the award to the patron balance or to do a hand pay transfer. In the latter case, the strategy may determine whether or not to print a receipt. The Jackpot Handling component provides service implementations for each strategy, where only the service for the currently configured strategy will be available via the Service Library. In addition, the Jackpot Handling component provides a service for carrying out a jackpot hand pay transfer. This component allows games to only deal with determining if a jackpot was obtained and then use a common platform service to process the jackpot based on configuration. While the jackpot concept and logical component are core to the Gaming layer, individual strategy service components and the jackpot hand pay transfer service are all extensions, because none of them are individually required. Only a subset of the services provided by the Jackpot Handling component will be in use at any given time.</p>
+<h3 id="game-loader">Game Loader</h3>
+<p>Once the core Gaming layer components are loaded and initialized, the Gaming Bootstrap component creates and executes the Game Loader component, which retrieves the currently selected game property indirectly from the Game Library via the Shared Data component service. The Game Loader component then executes the game and waits for it to exit. Upon game exit, the Game Loader component inspects the game’s exit-reason. If the reason is for entry into setup mode, the Game Loader component launches the Operator Menu UI, via the service provided by that component. Upon exit from the operator menu, the Game Loader re-launches the game. When the game exits with an exit-reason of &quot;shutdown&quot;, the Game Loader terminates, commencing a systematic shutdown of each layer from top to bottom (tear down).</p>
+<h3 id="implementation-notes">Implementation Notes</h3>
+<ul>
+<li>GamingRunnable is the entry point</li>
+<li>Uses SimpleInjector rather than addins</li>
+<li>Very high refactor opportunity</li>
+<li>Class 2: NYL potential outcomes provided, host system picks a card at random to send back to ATI. Host is deterministic.</li>
+<li>Class 3: uses RNG rather than a deterministic host, uses SAS for accounting</li>
+<li>Provides the following addin paths:<ul>
+<li>Ticket creators</li>
+<li>Import/export machine configuration</li>
+<li>Note acceptors</li>
+<li>Game meter providers, both composite and atomic</li>
+</ul>
+</li>
+<li>Contracts:<ul>
+<li>Central contains outcomes for deterministic events, class 2 only</li>
+<li>IProcessManager : GameProcessManager, passes command line params to the game process</li>
+<li>progressives live here</li>
+<li>Session, manages the game session by ending it, supports player tracking</li>
+<li>Bonus provider and handler</li>
+<li>Data objects, and the events associated with them</li>
+</ul>
+</li>
+<li>Game process starts up, loads the runtime and GDK</li>
+<li>RuntimeFlags: controls whether or not gameplay can occur</li>
+<li>Commands:<ul>
+<li>RuntimeProxy: wrapper aound calls to the runtime</li>
+<li>GamePlayState is the state machine for the game<ul>
+<li>enabled, inGameRound, Idle</li>
+<li>CurrentPlayState</li>
+<li>EscrowWager: the amount you want to bet on the game round</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Processes are as follows:<ul>
+<li>Platf</li>
+<li>Runtime + game DLL</li>
+<li>Host (Everi, G2S, SAS, etc.)</li>
+<li>Platform and Runtime talk via gRPC (formerly WCF).</li>
+</ul>
+</li>
+<li>Now uses gRPC, previously used WCF.</li>
+<li>This is really Monaco: the game loads, the lobby renders, etc.</li>
+<li>Biggest technical debt is the lobby: does too much, owns everything, poor model-view separation.</li>
+<li>Monaco.Gaming.VideoLottery:<ul>
+<li>VideoLotteryRunnable:</li>
+<li>loads the UI and the WPF lobby.</li>
+<li>controls ResponsibleGaming, etc.</li>
+</ul>
+</li>
+<li>Aristocrat.Monaco.Gaming.addin.xml:<ul>
+<li>During bootup, events are fired constantly. Gaming layer registers a StartupEventListener.</li>
+<li>ImportMachineSettingsPropertyProvider allows an e-Key (USB stick) to export machine settings from an EGM and import into a different clean EGM.</li>
+<li>See &lt;NoteAcceptorDisable/Enable&gt; to see when the bill note acceptor is disabled (e.g. while in Audit Menu, during Handpay, when a door is opened, etc.).</li>
+<li>GameCompositeMeters are defined as expressions from other meters.</li>
+</ul>
+</li>
+<li>Software updates:<ul>
+<li>G2S supports remote software updates from the host and can upgrade the OS, platform, runtimes and games.</li>
+<li>SAS does not support remote software updates.</li>
+</ul>
+</li>
+<li>Edge lighting:<ul>
+<li>Game owns the edge lighting so it can coordinate it with the game.</li>
+<li>When game is shut down, Platform controls edge lighting.</li>
+<li>Game writes to a MemoryMappedFile exposed by the platform; platform updates the edge lighting hardware from the MMF.</li>
+</ul>
+</li>
+<li>GamingRunnable:<ul>
+<li>loads the game container and loads services (via Bootstrapper).</li>
+<li>mounts the ISOs.</li>
+</ul>
+</li>
+<li>Monaco.Gaming.Contracts:<ul>
+<li>Central: interfaces related to central determination (Class 2).</li>
+<li>Process:<ul>
+<li>IProcessManager: handles game startup, passing command line args, subscribing to game shutdown, etc.</li>
+</ul>
+</li>
+<li>SPC (Special Progressive)</li>
+</ul>
+</li>
+<li>Monaco.Gaming:<ul>
+<li>GameProcessArgs: loads the game DLL, paytables (variations), etc.</li>
+<li>IRuntime: contract for the Platform to communicate with the Runtime host, e.g. buttons, messages, state updates, etc.<ul>
+<li>RpcClient: communicates with the Runtime via gRPC.</li>
+</ul>
+</li>
+<li>gameService.proto</li>
+<li>RpcService (GameServiceBase) handles messages from the runtime, e.g. GetRandomNumber() generates and returns a random number requested by the game.</li>
+</ul>
+</li>
+<li>Game rounds:<ul>
+<li>IGamePlayState</li>
+<li>A game round is a base game (initial win) plus any number of bonus/free games triggered by a feature win.</li>
+<li>Per-jurisdiction config to track each bonus/free game separately or with the initial game round.</li>
+</ul>
+</li>
+<li>Game idle is not a recovery state</li>
+<li>Recovery Blob, associated GamePlayState, facilitates recovery</li>
+<li>OutcomeFailedEvent, Class 2 only, triggers PrimaryGameRequestFailed which cleans out the current game, game escrow amount is put back into the bank</li>
+<li>EndGameDelay, ensures that spamming the button doesn&#39;t actually trigger that many times</li>
+<li>Commands:<ul>
+<li>Inherits from ICommand</li>
+<li>Command handlers inherit from ICommandHandler&lt;&gt;</li>
+<li>BeginGameRoundAsync, pretty self explanatory, begins the game round</li>
+<li>SecondaryGameEnded, called when a secondary game has ended</li>
+<li>GamePlayDisabled and GamePlayEnabled, enables/disables the game</li>
+<li>PrimaryGameEscrowFailed, fails to completely request a game round</li>
+</ul>
+</li>
+<li>GameDelay: an amount of time immediately after the game round where action isn&#39;t permitted</li>
+<li>StateMachine<ul>
+<li>Configures the game states</li>
+<li>Inherits from Iservice, through IGamePlayState</li>
+<li>GamePlayState defines the order of the GameStates, what triggers will invoke them</li>
+<li>Triggers are fired the GRPC service</li>
+<li>CreateStateMachine() sets up the entire state machine for playing games.</li>
+<li>Game is in progress anytime game state is not PlayState.Idle.</li>
+<li>Handles state transitions and gRPC requests/responses to update game&#39;s parallel state machine.</li>
+</ul>
+</li>
+<li>.proto files are the contract definition for GRPC</li>
+<li>Games can have multiple denom&#39;s, configured by the customer</li>
+<li>ConfigureClientCommandHandler:<ul>
+<li>On Handle, sets the configuration, sends it to the GDK via gRPC</li>
+<li>When game process loads, it sends a ConfigureClient command which Handle() handles here.</li>
+<li>Handle() for our response, which gives the game everything it needs to know to configure itself.</li>
+</ul>
+</li>
+<li>GetInGameMetersCommandHandler:<ul>
+<li>Handle(): {gameId, denomId} uniquely identify a game paytable.</li>
+</ul>
+</li>
+<li>GameErrorCode has enums for game math errors</li>
+<li>PrimaryEventHandler: base game.</li>
+<li>PlayerBank: tracks player&#39;s credits.</li>
+<li>GameRoundEventCommandHandler</li>
+<li>ICommandHandler, e.g. ClaimJackpotCommandHandler : ICommand&lt;ClaimJackpot&gt; shows an example of normal versus replay handling of a progressive jackpot win.</li>
+<li>GetLocalStorage<ul>
+<li>Updates player session data</li>
+</ul>
+</li>
+<li>GetRandomNumberCommandHandler<ul>
+<li>non-CDS:<ul>
+<li>Pass in a range of values, RNG will return a number from that</li>
+<li>This number is matched against a paytable</li>
+</ul>
+</li>
+<li>CDS:<ul>
+<li>This whole process is offloaded to the CDS</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>EndGameRoundCommand<ul>
+<li>Triggered when the round is complete. When triggered, the game round is considered closed.</li>
+</ul>
+</li>
+<li>PayGameResultsCommandHandler<ul>
+<li>handles the payout, either handpay or voucher</li>
+</ul>
+</li>
+<li>GameIdle:<ul>
+<li>Ends the game history, ends recovery</li>
+<li>Issues check balance command</li>
+<li>Set allow sub game round runtime condition</li>
+</ul>
+</li>
+<li>PrimaryGameEscrow:<ul>
+<li>Saves the initial wager</li>
+<li>Game tells the platform that it will request a game round</li>
+</ul>
+</li>
+<li>PrimaryGameStarted:<ul>
+<li>Where the primary game is actually started, calls Wager command</li>
+</ul>
+</li>
+<li>RequestCashout:<ul>
+<li>When the player hits the cashout button</li>
+<li>Fires CashOutButtonPressedEvent, which calls bank cashout</li>
+</ul>
+</li>
+<li>LobbyViewModel.cs<ul>
+<li>Huge file that manages the UI state and events</li>
+</ul>
+</li>
+<li>RuntimeCondition (enum):<ul>
+<li>Contains many states (InLockUp, AllowGameRound, etc)</li>
+<li>AutoCompleteGameRound: simulates the bash button to force a game, in order to complete before the end of gaming hours</li>
+<li>ServiceRequested: correlates button on the VBD, summons an attendant</li>
+<li>Set by GamePlayEnabled, GamePlayDisabled</li>
+</ul>
+</li>
+<li>RuntimeState (enum):<ul>
+<li>States of the runtime (loading, recovery, pause)</li>
+<li>Running and Normal mean exactly the same thing</li>
+<li>Reconfigure: set when things like denoms are changed</li>
+</ul>
+</li>
+<li>GameRoundEventState (enum)<ul>
+<li>States within the game round</li>
+</ul>
+</li>
+<li>ProgresiveController<ul>
+<li>Uses ProgressiveGameProvider\</li>
+<li>Controls progressives, sends results back to game and interacts with runtime
+Commands:</li>
+</ul>
+</li>
+<li>ProgressiveGameProvider<ul>
+<li>updates game history with whatever jackpots were won</li>
+</ul>
+</li>
+<li>SecondaryGameChoice:<ul>
+<li>stores choices made for a secondary game</li>
+</ul>
+</li>
+<li>SecondaryGameEnded:<ul>
+<li>Ends secondary game in the game history</li>
+<li>sets meters</li>
+</ul>
+</li>
+<li>SelectDenomination<ul>
+<li>changes denom between rounds, if game supports it</li>
+</ul>
+</li>
+<li>Shuffle<ul>
+<li>shuffles an array of values, randomly</li>
+</ul>
+</li>
+</ul>
+<h3 id="design-details-and-code-examples">Design Details and Code Examples</h3>
+<p>The links below redirect to the Monaco design team&#39;s pages. <strong>Note that some of this information is incomplete, and code examples may be out of date:</strong></p>
+<ul>
+<li><a href="https://confy.aristocrat.com/display/MON/Attendant-Paid+Jackpot">Attendant-Paid Jackpot</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Barkeeper+Button">Barkeeper Button</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Bonus+Pots">Bonus Pots</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Cashable+lockups">Cashable lockups</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Central+Determination">Central Determination</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Configuration+Restrictions">Configuration Restrictions</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Dynamic+Game+Configuration">Dynamic Game Configuration</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/External+Bonusing">External Bonusing</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Lobby+Assets+Package">Lobby Assets Package</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Multi-play">Multi-play</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Progressives">Progressives</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Service+Button">Service Button</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Single+Game+vs.+Lobby">Single Game vs. Lobby</a></li>
+<li><a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=39217175">Theoretical RTP for NV/GLI</a></li>
+</ul>
+<h2 id="accounting-layer">Accounting Layer</h2>
+<p>The Accounting layer is responsible for handling all credit transfers on to and off of the EGM. Credit transfers onto the EGM can occur from multiple sources including inserting cash and vouchers into a note acceptor device, funds transferred electronically from a wagering account, and as the result of game play. Transfers off of the EGM can occur as the result of a player cash-out, an attendant hand-pay, and transferred electronically to a wagering account. Halting the platform at the Accounting layer, one could easily develop most point-of-sale and ATM applications.</p>
+<p>The primary components of the Accounting layer are the Bank, Transaction Coordinator, and Account Register. These components provide the capabilities needed for all types of transfers.  Extensions to the Accounting layer provide the capabilities to perform specific types of transfers, like issuing and redeeming vouchers.</p>
+<h3 id="accounting-bootstrap">Accounting Bootstrap</h3>
+<p>The Accounting Bootstrap component is the boot extender add-in for the Application Bootstrap. It is responsible for controlled initialization of the Accounting layer components, and registering layer services with the Service Library. The Accounting Bootstrap component then executes an expected boot extender add-in.</p>
+<h3 id="transaction-coordinator">Transaction Coordinator</h3>
+<p>The Transaction Coordinator component is a service that provides a transaction context within which a transaction handler will perform the actions associated with a financial transaction. The primary purpose of the Transaction Coordinator is to enforce serialization of transfers of funds.</p>
+<p>Transaction handlers request a transaction Id from the Transaction Coordinator. If there is currently no transaction in progress, the Transaction Coordinator generates a new transaction Id for the handler. If there is already a transaction in progress, the transaction Id request will be denied. The handler may then elect to enter a FIFO request queue. When the current transaction is completed, the next handler in the request queue will be allowed to begin its transaction. All transaction handlers have a unique Id.</p>
+<p>The Transaction Coordinator is not responsible for maintaining the integrity of a transaction. It only persists the transaction Id and handler Id for the current transaction. The Ids for queued transaction requests are not persisted. Therefore it is the responsibility of the requesting transaction handler to request a transaction Id upon re-initialization in the case of a system restart.</p>
+<h3 id="bank-component">Bank Component</h3>
+<p>The Bank component provides a set of accounts for cashable, non-cashable, promotional and non-transferable promotional credits. The Bank provides interfaces to deposit, withdraw, and query the EGM account balances. Bank account balances are persisted to non-volatile memory in the case of a system restart. The Bank component is registered as a Property Provider for the maximum credit limit property.</p>
+<p>The Bank component requires calls to modify account balances to contain the Id of the current transaction. The Bank will verify with the Transaction Coordinator that the Id matches the current, open transaction Id. If the Ids match, the bank operation is allowed to proceed. If the two Ids do not match, the Bank component denies the operation.</p>
+<h3 id="account-register">Account Register</h3>
+<p>The Account Register component is a service that provides the capability to record transfers for later recall, as would a paper checkbook register. The Account Register provides an extension point at which a transfer type can add-in. The Account Register component creates a persisted register for each add-in transfer type. The Account Register also maintains a transfer odometer value that increments each time any transfer takes place.</p>
+<h3 id="accounting-layer-extensions">Accounting Layer Extensions</h3>
+<h4 id="transfer-types">Transfer Types</h4>
+<p>The Monaco platform supports many types of fund transfers, some subset of which will be used in a given runtime configuration. Transfer types are add-ins that plug in to the extension point offered by the Account Register component described above. Transfer types include the following: Currency-In, Voucher-In, Voucher-Out, and Canceled-Credits.</p>
+<h4 id="transfer-handler">Transfer Handler</h4>
+<p>For each transfer type, there is a handler that is responsible for working with the Transaction Coordinator, Bank, and device components to carry out transfers of that type. Like devices and transfer types, the presence of these handlers is configurable.</p>
+<p>The <strong>Currency-In Handler</strong> component is responsible for handling the deposit of cash credits into the player’s balance on the EGM, as the result of inserting currency into a note acceptor device.</p>
+<p>The <strong>Voucher-In Handler</strong> component is responsible for handling the deposit of credits into the player’s balance on the EGM, as the result of inserting a voucher into a note acceptor device.</p>
+<p>The <strong>Voucher-Out Handler</strong> component is responsible for handling the withdrawal of credits from the player’s balance on the EGM, in order to issue a voucher for the same amount.</p>
+<p>The <strong>Canceled Credits Handler</strong> component is responsible for handling the withdrawal of credits from the player’s balance on the EGM, in order to issue a voucher for the same amount.</p>
+<p>The <strong>Transfer-Out Handler</strong> component is responsible for removing all or a specified amount of credits from the player’s balance on the EGM via the most preferred mechanism. Possibilities include electronic transfer, voucher, and canceled credits.  The transfer requestor neither specifies, nor cares which mechanism is used. If the most preferred mechanism fails, the Transfer-Out Handler tries the next most preferred mechanism.</p>
+<h3 id="implementation-notes-1">Implementation Notes</h3>
+<ul>
+<li>Monaco.Accounting.addin.xml</li>
+<li>Various ways to transfer in/out:<ul>
+<li>bills, vouchers, WAT.</li>
+<li>WAT (Wireless transfer), e.g. player inserts player card; EGM and host determines player card has credits and transfers credits to the EGM; then back to card when the player cashes out.</li>
+<li>HandpayPropertyProvider.xml determines how transactions are paid (vouchered handpays, attendent handpay (typically IRS limits), etc.); and how they&#39;re metered.</li>
+<li>keyed credits</li>
+</ul>
+</li>
+<li>All accounting meters are located under the accounting namespace</li>
+<li>Ticket creators are defined here, which is tech debt</li>
+<li>Uses .xml to define printable regions</li>
+<li>Uses different providers, based on transaction type</li>
+<li>Some jurisdictions allow vouchers to be printed during game play leading to different implementations according to jurisdiction</li>
+<li>Vouchers are not &#39;printed&#39; until the validation id is printed</li>
+<li>Printable regions can be defined as a field of interest (validation id)</li>
+<li>Ticket: any document ejected from the machine, including:<ul>
+<li>receipt: has an amount</li>
+<li>voucher: something you can cash or redeem</li>
+<li>text: informational document</li>
+<li>A ticket is any document ejected from a printer.</li>
+<li>A receipt is any ticket with a monetary amount.</li>
+<li>A voucher is a receipt that you can redeem for cash.</li>
+<li>A handpay is a receipt that can be redeemed after providing your info (for IRS purposes).</li>
+<li>How tickets are created:<ul>
+<li>printable_regions.xml: define regions on the ticket to which content can be printed.</li>
+<li>Mostly for USB devices that support GDS protocol with Definable Printable Regions (DPR)</li>
+<li>Serial devices tend to have onboard templates and are less flexible.</li>
+<li>printable_templates.xml: defines the content for each ticket region (headers, etc.).</li>
+<li>VouchableTicketCreator:<ul>
+<li>sets all properties (key-value pairs) on the ticket to be fed to the printable templates.</li>
+<li>Tech debt: adding a new field is cumbersome: requires adding it here, plus in the templates and regions.</li>
+</ul>
+</li>
+<li>PrinterAdapter.Print()<ul>
+<li>Once ticket is printed, must save the transaction, update sequence number and remove credits from the bank all atomically.</li>
+<li>Only the ticket id is needed for the user to redeem the ticket (attendant can look up ticket in their host database)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Transfer Out:<ul>
+<li>All transaction types allowed by jurisdiction are registered with the ITransferOutHandler.<ul>
+<li>See Jurisdiction.addin.xml&#39;s TransactionHistoryProviders, TransferOutProviders</li>
+</ul>
+</li>
+<li>Only one transaction can occur on the EGM at a time (indicated by TransferOutHandler.InProgress).</li>
+<li>VoucherOutProvider:<ul>
+<li>Calls host to validate voucher/handpay/etc., updates database, prints ticket.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Credit types: CashAmount, PromoAmount, NonCashAmount. The latter two are synonymous but metered separately.</li>
+<li>Non-cashable credits can be printed to a ticket and transferred to a different EGM, but not redeemed for cash.</li>
+<li>Every provider runs a recovery procedure on startup in case shutdown occurs during a transaction.</li>
+<li>Transactions can be queued (depending on jurisdiction). For example, OSL allows printing vouchers during game round, e.g. if the user hits the OSL $1200 limit during a gameplay (e.g. free game) rounds.</li>
+<li>Vouchers: normally (outside of NYL), if anything fails, all meter increments, etc. are rolled back and transaction is aborted.<ul>
+<li>Upon reboot, no stored transaction that needs to be recovered; credits still in the bank. The player can then attempt voucher again.</li>
+</ul>
+</li>
+<li>If VoucherOutProvider fails or undefined, TransferOutProvider tries the next provider, e.g. HandpayProvider.</li>
+<li>HandpayProvider.HandleKeyOff() handles all KeyOffTypes.</li>
+<li>Generic recovery path for a handpay:<ul>
+<li>TransferOutProvider -&gt; HandpayProvider.CanRecover(): is there an active transaction that needs to be completed.</li>
+</ul>
+</li>
+</ul>
+<h3 id="design-details-and-code-examples-1">Design Details and Code Examples</h3>
+<p>The links below redirect to the Monaco design team&#39;s pages. <strong>Note that some of this information is incomplete, and code examples may be out of date:</strong></p>
+<ul>
+<li><a href="https://confy.aristocrat.com/display/MON/Credit+Type+Usage+Order">Credit Type Usage Order</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Currency+Support">Currency Support</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Jurisdictional+RTP+Check">Jurisdictional RTP Check</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Prevent+Unauthorised+credit+transfer+from+one+EGM+to+another+-+NewJersey">Prevent Unauthorised credit transfer from one EGM to another - NewJersey</a></li>
+</ul>
+<h2 id="application-layer">Application Layer</h2>
+<p>The Application layer provides capabilities for performing common tasks such as monitoring and handling device faults and other system faults, and providing a graphical user interface (GUI) framework for initial system configuration, and later operator use for diagnostics and configuration changes. In addition, the Application layer provides services that are common to a broad range of application types. These services include metering, random number generation, the ability to manipulate the system time, and a generic framework for routing end-user messages to the current graphics context.</p>
+<p>Almost any application could be developed on top of the Application layer. The Kernel layer provides means of component communication. The Hardware layer provides interaction with physical devices. The Application layer provides common application capabilities.</p>
+<h3 id="application-bootstrap">Application Bootstrap</h3>
+<p>The Application Bootstrap component is the boot extender add-in for the Hardware Bootstrap. It is responsible for controlled initialization of the Application layer components, and registering layer services with the Service Library. The Application Bootstrap has the added responsibility of checking if initial configuration has been completed, and if not, executing the configuration wizard prior to continuing the boot process. The Application Bootstrap component then executes an expected boot extender add-in.</p>
+<h3 id="fault-monitoring">Fault Monitoring</h3>
+<p>The Fault Monitoring component is comprised of  many individual monitor components, each one responsible for monitoring a single device or fault source. Each monitor must subscribe to the notification event(s) posted by the fault source. Upon receiving a fault notification, the monitor must handle it appropriately. Possible actions include putting the system into a tilt state, turning on the tower light or bell, recording the fault in a log, and/or displaying a message to the patron or operator. Example faults include software errors, a printer running out of paper, a door opening, and critical memory corruption.</p>
+<h3 id="metering">Metering</h3>
+<p>The Metering component provides a function much like the Shared Data component in the Kernel layer. The Metering component provides access to meters, a special kind of globally shared data that often needs to be manipulated as a whole, and as individual values. Like the Shared Data component, the Metering component acts as a broker between providers and consumers. By implementing the Blackboard style, the Metering component transfers the responsibility for knowledge of all available meters from a single component to many components. Components that register as the provider of one or more meters are responsible for persisting the values of the meters they provide.</p>
+<p>The Metering component defines two types of meters: atomic and composite. An atomic meter’s value may be both read and incremented. A composite meter’s value is calculated as an expression of one or more other meters. Therefore, a composite meter’s value may be read, but not incremented. The Metering component offers an extension point for composite meter add-ins, allowing them to be defined in configuration files, in addition to within meter-providing components.</p>
+<h3 id="system-time">System Time</h3>
+<p>The System Time component is a service that allows other system components to set the current operating system clock. It also allows system components to set the application time zone. While the operating system will always run in UTC (Universal Time Coordinated), the application may want to display dates and times to end users in the local time zone. The System Time component shares the application time zone as data via the Shared Data service. The System Time component provides a method to convert a given UTC date/time value to the current application time zone.</p>
+<h3 id="random-number-generator">Random Number Generator</h3>
+<p>The Random Number Generator (RNG) component is a service that allows system components to request a random number. The RNG component is responsible for implementing an algorithm for generating random numbers, generating the initial entropy to seed the algorithm, and regularly exercising the algorithm to ensure that the current position within its sequence cannot be determined.</p>
+<h3 id="configuration-wizard-ui">Configuration Wizard UI</h3>
+<p>The Configuration Wizard UI component provides a pluggable framework for building a GUI that walks a user through first time system setup. The component offers an outer frame with navigation controls, as well as an extension point at which wizards can add-in. Any wizard can be comprised of one or more pages.</p>
+<h3 id="operator-menu-ui">Operator Menu UI</h3>
+<p>The Operator Menu UI component provides a pluggable framework for building a GUI to allow operators to view and modify configuration and historical information. The component offers an initial screen on which sub-menus can plug-in through an extension point. Each menu can be comprised of one or more pages. The component includes a service to allow system components to launch the GUI and enter setup mode.</p>
+<h3 id="application-layer-extensions">Application Layer Extensions</h3>
+<h4 id="device-fault-monitors">Device Fault Monitors</h4>
+<p>While the Fault Monitoring concept and some of the individual monitors described in section are core Application layer components, many fault monitors are tasked with monitoring optional devices. These device components are optional extensions in the Hardware layer. Their corresponding fault monitors are optional extensions in the Application layer.</p>
+<h4 id="network-logger">Network Logger</h4>
+<p>The Network Logger is an Application layer extension. The Network Logger provides a mechanism for logging data to a specific logger as provided by the Kernel layer.</p>
+<h4 id="tilt-logger">Tilt Logger</h4>
+<p>The Tilt Logger component is a service that allows other system components to disable and re-enable the system in response to detected error conditions. The Tilt Logger maintains the system state and notifies system components by posting state change events to the Event Dispatcher.</p>
+<p>The table below lists Monaco events (as built for the <strong>AGLC 2.2</strong> market, other markets may differ slightly, for example NYL, which requires a card reader peripheral):</p>
+<table>
+  <colgroup>
+    <col style="width: 50%">
+    <col style="width: 49%">
+  </colgroup>
+  <thead>
+    <tr class="header">
+      <th colspan="2"><strong>Tilt Event – EGM Lockup</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="odd">
+      <td>Handpay.HandpayStartedEvent</td>
+      <td>KeySwitch.EnabledEvent</td>
+    </tr>
+    <tr class="even">
+      <td>TransferOutFailedEvent</td>
+      <td>KeySwitch.OffEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>OperatorMenuEnteredEvent</td>
+      <td>KeySwitch.OnEvent</td>
+    </tr>
+    <tr class="even">
+      <td>OperatorMenuExitedEvent</td>
+      <td>KeySwitch.KeyHeldEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>DiskSpaceEvent</td>
+      <td>NoteAcceptor.DisabledEvent</td>
+    </tr>
+    <tr class="even">
+      <td>DiskSpaceClearEvent</td>
+      <td>NoteAcceptor.EnabledEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>NoteAcceptorDocumentCheckClearedEvent</td>
+      <td>NoteAcceptor.ResetEvent</td>
+    </tr>
+    <tr class="even">
+      <td>NoteAcceptorDocumentCheckOccurredEvent</td>
+      <td>Printer.DisabledEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>SystemDisabledByOperatorEvent</td>
+      <td>Printer.EnabledEvent</td>
+    </tr>
+    <tr class="even">
+      <td>SystemEnabledByOperatorEvent</td>
+      <td>Printer.HardwareWarningEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>GameConfigurationMismatchEvent</td>
+      <td>Printer.HardwareWarningClearEvent</td>
+    </tr>
+    <tr class="even">
+      <td>GameResetTiltEvent</td>
+      <td>Printer.InspectionFailedEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>GameResetTiltClearEvent</td>
+      <td>PlatformBootedEvent</td>
+    </tr>
+    <tr class="even">
+      <td>Door.DisabledEvent</td>
+      <td>SystemDisabledEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>Door.EnabledEvent</td>
+      <td>SystemEnabledEvent</td>
+    </tr>
+    <tr class="even">
+      <td>Door.OpenEvent</td>
+      <td>G2S.Common.Events.HostUnreachableEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>Door.ClosedEvent</td>
+      <td>TouchDisplayConnectedEvent</td>
+    </tr>
+    <tr class="even">
+      <td>IO.DisabledEvent</td>
+      <td>TouchDisplayDisconnectedEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>IO.EnabledEvent</td>
+      <td>Jackpot.ProgressiveFaultEvent</td>
+    </tr>
+    <tr class="even">
+      <td>KeySwitch.DisabledEvent</td>
+      <td>Jackpot.ProgressiveFaultClearEvent</td>
+    </tr>
+    <tr class="odd">
+      <td colspan="2"><strong>Error Event – EGM Lockup</strong></td>
+    </tr>
+    <tr class="even">
+      <td>LegitimacyLockUpEvent</td>
+      <td>NoteAcceptor.HardwareFaultClearEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>Button.DisabledEvent</td>
+      <td>NoteAcceptor.InspectionFailedEvent</td>
+    </tr>
+    <tr class="even">
+      <td>HardMeter.StoppedRespondingEvent</td>
+      <td>PersistentStorageIntegrityCheckFailedEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>IO.ErrorEvent</td>
+      <td>Printer.DisconnectedEvent</td>
+    </tr>
+    <tr class="even">
+      <td>IO.InspectionFailedEvent</td>
+      <td>Printer.ConnectedEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>NVRam.DisabledEvent</td>
+      <td>G2S.Common.Events.TransportDownEvent</td>
+    </tr>
+    <tr class="even">
+      <td>NVRam.EnabledEvent</td>
+      <td>Printer.HardwareFaultEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>NVRam.ErrorEvent</td>
+      <td>Printer.HardwareFaultClearEvent</td>
+    </tr>
+    <tr class="even">
+      <td>NVRam.InitFailedEvent</td>
+      <td>Printer.ResolverErrorEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>NVRam.InspectionFailedEvent</td>
+      <td>Audio.DisabledEvent</td>
+    </tr>
+    <tr class="even">
+      <td>NVRam.LowRamBatteryEvent</td>
+      <td>Printer.TransferStatusEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>NVRam.LowRamBatteryIntermediateEvent</td>
+      <td>Printer.LoadingRegionsAndTemplatesEvent</td>
+    </tr>
+    <tr class="even">
+      <td>NVRam.LowRamBatteryIntermediateClearedEvent</td>
+      <td>GameFatalErrorEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>NoteAcceptor.DisconnectedEvent</td>
+      <td>DisplayConnectedEvent</td>
+    </tr>
+    <tr class="even">
+      <td>NoteAcceptor.ConnectedEvent</td>
+      <td>DisplayDisconnectedEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>NoteAcceptor.HardwareFaultEvent</td>
+      <td></td>
+    </tr>
+    <tr class="even">
+      <td colspan="2"><strong>Information Event – Logging Only</strong></td>
+    </tr>
+    <tr class="odd">
+      <td>VoucherIssuedEvent</td>
+      <td>G2S.Common.Events.TransportUpEvent</td>
+    </tr>
+    <tr class="even">
+      <td>VoucherReprintRequestEvent</td>
+      <td>GameEnabledEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>CashOutButtonPressedEvent</td>
+      <td>GameDisabledEvent</td>
+    </tr>
+    <tr class="even">
+      <td>HardMeter.StartedRespondingEvent</td>
+      <td>GameDenomChangedEvent</td>
+    </tr>
+    <tr class="odd">
+      <td>Audio.EnabledEvent</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 id="implementation-notes-2">Implementation Notes</h3>
+<ul>
+<li>Loaders load a view and associated viewmodel, e.g. EdgeLightingLoader.</li>
+<li>ApplicationRunnable is the entry point:<ul>
+<li>Maps the mono paths and starts the specififed runnables.</li>
+<li>loads the jurisdiction&#39;s Jurisdiction.addin.xml, which controls the custom config pages, etc.</li>
+<li>Think of Monaco as an ATM that plays video games (thanks, Cory)</li>
+<li>Monaco.Application.addin.xml: Mono add-on definition: dependencies (e.g. bootstrap), services, ticket creators, etc.</li>
+<li>See <a href="https://www.mono-project.com/archived/introduction_to_monoaddins/#the-extension-model">https://www.mono-project.com/archived/introduction_to_monoaddins/#the-extension-model</a> for an intro to Mono Add-ins.</li>
+</ul>
+</li>
+<li>IdProviders: several kinds</li>
+<li>CabinetMeters<ul>
+<li>tracks door openings, events that happen to the cabinet</li>
+</ul>
+</li>
+<li>TiltLogger<ul>
+<li>logs events</li>
+<li>limits are defined in xml</li>
+</ul>
+</li>
+<li>Operating hours service</li>
+<li>Authentication<ul>
+<li>supports multiple hashing algorithms</li>
+<li>OS hashing is supported</li>
+<li>secure boot chain</li>
+<li>hash checks occur after cabinet doors shut, when retail systems are started, etc</li>
+<li>The BIOS, OS and all components are verified against tampering.</li>
+<li>AuthenticationService registers and hashes components.</li>
+<li>LiveAuthenticationManager uses AuthenticationService.</li>
+<li>Eventually everything calls AuthenticationService.CalculateHash which hashes the component.</li>
+<li>This is why a retail boot takes 8-10 minutes.</li>
+<li>A hardware device is also involved during the secure boot process. Jim Helm and Thomas Rizos will know more.</li>
+</ul>
+</li>
+<li>Localization<ul>
+<li>PlayerCultureProvider.</li>
+<li>The platform (audit menu, etc.) can be configured to use one language (vouchers, etc.).</li>
+<li>The player can select a different language for the game, cash-out vouchers, etc.</li>
+</ul>
+</li>
+<li><p>Metering:</p>
+<ul>
+<li>MeterManager registers MeterProviders, like a PropertyManager specifically for meters.</li>
+<li>IMeter: AtomicMeter, CompositeMeter, DummyMeter, etc.</li>
+<li>CompositeMeter is a function of other meters, e.g. a total of all currency notes and vouchers.</li>
+<li>MeterManager manages MeterProviders, which each manage a set of Meters.</li>
+<li>MeterManager looks up meters (and their providers) by their fully qualified name.</li>
+<li>not a Mono add-in (no XML); hard-coded.</li>
+<li>Cabinet meters are mostly related to power on/off, doors, etc.</li>
+<li>e.g. CabinetMeterProvider manages the cabinet meters.</li>
+<li>Composite meters can be nested.</li>
+</ul>
+</li>
+<li><p>Monitors</p>
+<ul>
+<li>Aristocrat.Monaco.Application.Monitors:<ul>
+<li>Monitors track changes in state for lower-level devices and applies business logic.</li>
+<li>This separates business logic from devices&#39; raw events.</li>
+<li>e.g. NoteAcceptorMonitor handles bus malfunction, and report events to the platform, so e.g. it can lockup.</li>
+<li>TiltLogger and jurisdictions&#39; TiltLogger.config.xml control the rollover limits for various event types logged to the database (nvram.sqlite), e.g. &lt;EventType Type=&quot;Error&quot; Max=&quot;100&quot;&gt;.</li>
+<li>BatteryMonitor</li>
+<li>AuditTicketMonitor</li>
+<li>DiskSpaceMonitor</li>
+<li>HardMeterMonitor communicates with a hard (physical) meter and is audited against the Platform&#39;s (Audit Menu&#39;s) meters.</li>
+<li>Monitors are a good example of a minimalist IService implementation.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="design-details-and-code-examples-2">Design Details and Code Examples</h3>
+<p>The links below redirect to the Monaco design team&#39;s pages. <strong>Note that some of this information is incomplete, and code examples may be out of date:</strong></p>
+<ul>
+<li><a href="https://confy.aristocrat.com/display/MON/Displayable+Message+Updates">Displayable Message Updates</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Lockup+messages+for+translation">Lockup messages for translation</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Multi-Language+Support">Multi-Language Support</a></li>
+<li><a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=34271212">Player User Interface (PUI)</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Software+Validation">Software Validation</a></li>
+</ul>
+<h2 id="hardware-layer">Hardware Layer</h2>
+<p>The Hardware layer provides services for interacting with devices connected to the EGM. The primary core components of the Hardware layer are the Hardware Bootstrap, Critical Memory, and Hardware Discovery components. The Hardware Bootstrap component controls the initialization of the Hardware layer. Critical Memory is used to read and write critical system data to persistent storage devices (see also the <a href="https://confy.aristocrat.com/pages/createpage.action?spaceKey=MON&amp;title=Accessing+Persistent+Storage+Database&amp;linkCreation=true&amp;fromPageId=30646323">Accessing Persistent Storage Database</a> section). The Hardware Discoverer component initializes logical device services for each type of device connected to the EGM. These devices are optional, thus the logical device services are extensions to the Hardware layer.</p>
+<h3 id="hardware-bootstrap">Hardware Bootstrap</h3>
+<p>The Hardware Bootstrap component is the boot extender add-in for the Kernel Bootstrap. It is responsible for controlled initialization of the Hardware layer components, and registering layer services with the Service Library. The Hardware Bootstrap component then executes an expected boot extender add-in.</p>
+<p>The Boot Extender is one of the primary core component of the Hardware layer. The Hardware Bootstrap component controls the initialization of the Hardware layer. The Boot Extender is responsible for loading components and extensions in the Hardware layer, extends from the Bootstrap of the Kernel layer, and acts as an entry point in the Hardware layer. The major functions of the Boot Extender include:</p>
+<ul>
+<li>Loads the Hardware Discoverer and makes it run in the background in a separate thread, which is implemented as an add-in Architectural model.</li>
+<li>It waits till persisted storage (NVRAM) is discovered.</li>
+<li>Searches the provided path for Service add-ins, instantiates those add-ins and passes them to the Service Manager to run and maintain.</li>
+<li>Checks if the security dongle is attached to this terminal. It is mandatory to have Security Dongle in place, else the boot extender will simply exit the process by stopping the runnables and unloading the services.</li>
+<li>Then it searches runnable add-ins, instantiates those add-ins and runs them in background. The add-in descriptions are represented using an XML manifest (HardwareBootstrap.Addin.xml).</li>
+<li>Subscribes to Persistent Storage Clear StartedEvent, which signals that the hardware layer should shut down all its higher layers, perform a persistent storage clear, and restart.</li>
+</ul>
+<h3 id="critical-memory">Critical Memory</h3>
+<p>The Critical Memory component manages and provides access to the, non-volatile random access memory (NVRAM), electrically erasable programmable read only memory (EEPROM), and other persistent storage devices. It is responsible for ensuring the integrity of the data stored in Critical Memory by detecting and reporting memory errors. The Critical Memory component is also responsible for implementing the data management scheme that allows system components to store and later retrieve their data.</p>
+<h3 id="hardware-discovery">Hardware Discovery</h3>
+<p>Hardware Discovery is responsible for maintaining configuration information for attached devices, including device type, manufacturer, model number, firmware revision, port and more. Hardware Discovery initializes logical device services for each attached device type, and registers those services with the Service Library. While the Hardware Discoverer is a core Hardware layer component, the attached devices and their services are optional extensions.</p>
+<h3 id="hardware-layer-extensions">Hardware Layer Extensions</h3>
+<h4 id="logical-device-services">Logical Device Services</h4>
+<p>The VLT platform supports several different types of devices that attach through several different types of connections, including serial, USB, and digital I/O. Typical VLT platform devices include the following:</p>
+<table>
+<thead>
+<tr>
+<th>EEPROM</th>
+<th>Buttons</th>
+<th>Audible Bells</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NVRAM (SSD, CFast)</td>
+<td>Reels</td>
+<td>Card Readers</td>
+</tr>
+<tr>
+<td>Key Switches</td>
+<td>Printers</td>
+<td>Hardware Meters</td>
+</tr>
+<tr>
+<td>Lights</td>
+<td>Note Acceptors</td>
+<td>High-quality Audio</td>
+</tr>
+</tbody>
+</table>
+<p>There exists a logical device interface for each type of peripheral device and a service implementation for each interface. The services are available via the Service Library.</p>
+<p>There may be a separate device controller component for each unique model of a given device type. The controller knows how to work with that specific device model’s driver and/or protocol. However, there will be only one logical device service for a device type.  The logical device service works with the loaded device controller and provides additional context logic expected by the other system components. For example, if the voucher printer is disabled, and another component tries to print, the logical printer service knows to deny the print request.</p>
+<h3 id="design-details-and-code-examples-3">Design Details and Code Examples</h3>
+<p>The links below redirect to the Monaco design team&#39;s pages describing the various hardware supported. <strong>Note that some of this information is incomplete, and code examples may be out of date:</strong></p>
+<ul>
+<li><a href="https://confy.aristocrat.com/display/MON/Cabinet+Identification">Cabinet Identification</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Edgelighting">Edgelighting</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Peripheral+Devices">Peripheral Devices</a></li>
+<li><a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=68509041">Power Loss Note &amp; Voucher Validation</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Storage">Storage</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Tower+Lights">Tower Lights</a></li>
+</ul>
+<h2 id="kernel-layer">Kernel Layer</h2>
+<p>The Kernel layer provides the architectural framework, the building blocks for the Monaco platform. It provides the all of the core system components that make up the inter-component communications framework. The Kernel layer is also responsible for the systematic startup and shutdown of the EGM.</p>
+<p>The primary components included in the Kernel layer are the Service Library, Event Dispatcher, Shared Data, and Add-in Manager components. These components form the architecture framework for the Monaco platform. The framework aids development of the system in a manner that is consistent with the Monaco platform architectural style and helps to ensure the integrity of the architecture when future capabilities and requirements are integrated into the platform. Domain and gaming components use these three means of interaction to provide access to hardware devices, metering, accounting, an operator interface, and other jurisdiction-specific software features.</p>
+<h3 id="bootstrap">Bootstrap</h3>
+<p>The Bootstrap component is the entry point of the platform. It is responsible for initializing the core components and extensions in the Kernel layer, and registering Kernel services with the Service Library. The Bootstrap component then executes an expected boot extender add-in. The Bootstrap component is also responsible for performing a controlled shutdown of the system.</p>
+<h3 id="logging">Logging</h3>
+<p>The Logging component provides a means for recording information, warnings, and errors. It also provides the ability for components to choose one or more output targets and defines logging levels to allow components to categorize and filter log output.</p>
+<h3 id="add-in-manager">Add-in Manager</h3>
+<p>The Add-in Manager component enables add-in architectural support and provides a standard framework for add-in definition and discovery. System components use the Add-in Manager to identify and gain access to components that are implemented as add-ins to the system. The AddinHelper class provides a service for other components to use that allows them to retrieve add-ins as filtered by the currently selected configuration property. If no selection has been made, then the results returned are unfiltered directly from the AddinManager.</p>
+<h3 id="service-library">Service Library</h3>
+<p>The Service Library component manages and provides access to component services by implementing the like-named component of the service oriented architectural style. This provides a standard mechanism for one component to use the services/functions of another component. Components that provide public interfaces will also implement the service interface and be registered with the service manager. The service consumer is dependent only on the public interfaces and decoupled from the service provider implementation.</p>
+<p><strong>Note:</strong> The Service Library will be deprecated during a future release.</p>
+<h3 id="event-bus">Event Bus</h3>
+<p>The kernel event interface allows components to subscribe to and retrieve events based on event type. All subscribers must cancel their event subscriptions when they are no longer needed. Subscribers can call Unsubscribe() for each subscribed event type, or call UnsubscribeAll(). Subscribers should expect that their event queue will be destroyed once all subscriptions are canceled, even if the queue not empty. The Monaco platform uses a simple subscribe/publish event handling mechanism that simplifies inter-process communication and minimizes the amount of thread activity.</p>
+<h3 id="properties-manager">Properties Manager</h3>
+<p>The Properties Manager component provides access to globally accessible information, such as system and component properties, system state, and configuration data. The Properties Manager component is a service that provides a central location for accessing information without being dependent the owner of the information. Data publishers register data with the Properties Manager component. Data users request data from the Data Manager, which retrieves it from the owning data publisher. Data publishers control the mutability of the data they expose.</p>
+<h3 id="system-disable-manager">System Disable Manager</h3>
+<p>The System Disable Manager component is a service that allows other system components to disable and re-enable the system in response to detected error conditions. The System Disable Manager maintains the system state and notifies system components by posting state change events to the Event Dispatcher.</p>
+<h3 id="pathmapper">PathMapper</h3>
+<p>The PathMapper component is a service that allows other system components to look up the absolute file system path by providing a relative, virtual path. It provides a mechanism for mapping a Monaco platform relative path to a file system absolute path.</p>
+<h3 id="messagedisplay">MessageDisplay</h3>
+<p>The MessageDisplay component is a service that registers and manages and message display handlers, routes commands to display, and removes messages from the display handler .The service decouples the source of the message from the displayer of the message.</p>
+<h3 id="threading-and-monitoring">Threading and Monitoring</h3>
+<p>The threading component is base runnable and acts as a message pump during run and on stop, providing a way to create a thread and keep it consistent. To do so, you must keep the thread active. The thread monitor is not currently used in the Monaco platform.</p>
+<h1 id="monaco-platform-addin-extensions">Monaco Platform Addin Extensions</h1>
+<p>The Monaco platform utilizes Mono.Addins to support extension points and plugin extensions.  Extension points are associated with a virtual path the application can query extension points at runtime to discover and load deployed extensions.  Both extension points and extensions are defined within “addins” which are defined in XML files.</p>
+<p>Further addin details can be found at:</p>
+<ul>
+<li><a href="https://confy.aristocrat.com/display/MON/Monaco+Addin+Configuration">Monaco Addin Configuration</a></li>
+</ul>
+<h2 id="adding-a-new-jurisdiction-to-monaco">Adding a New Jurisdiction to Monaco</h2>
+<ul>
+<li><a href="https://confy.aristocrat.com/display/MON/How+To+Add+A+Jurisdiction+To+Monaco">How To Add A Jurisdiction To Monaco</a></li>
+</ul>
+<h1 id="protocol-support">Protocol Support</h1>
+<h3 id="design-details-and-code-examples-4">Design Details and Code Examples</h3>
+<p>The links below redirect to the Monaco design team&#39;s pages describing the various protocols, state diagrams, and code examples. <strong>Note that some of this information is incomplete, and code examples may be out of date:</strong></p>
+<ul>
+<li><a href="https://confy.aristocrat.com/display/MON/G2S+Protocol+Support">G2S Protocol Support</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/SAS">SAS</a></li>
+<li><a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=57846287">DACOM/ASP5000</a></li>
+<li><a href="https://confy.aristocrat.com/display/MON/Everi">Everi</a></li>
+<li>Ainsworth</li>
+</ul>
+<h1 id="random-number-generator-1">Random Number Generator</h1>
+<p>The link below redirects to the Monaco design team&#39;s pages describing the RNG:</p>
+<ul>
+<li><a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=7918342">Monaco Random Number Generator (RNG)</a></li>
+</ul>
+<h1 id="customized-windows-operating-system">Customized Windows Operating System</h1>
+<p>The Monaco platform runs on top of a customized build of the <a href="https://confy.aristocrat.com/pages/viewpage.action?pageId=57837023">Windows 10 IoT Enterprise 2019 LTSC (Windows Build 1809)</a> base image. The current customized build is <a href="https://confy.aristocrat.com/display/MON/OS+Image+Version+2.1.0.4">OS Image Version 2.1.0.4 - Monaco</a>. For each OS Image there are two .wim files, one for use in development images and one for use in release (retail) images. Below is the high-level changes and structure of a Monaco OS image:</p>
+<ul>
+<li>Create primary media partitions (<a href="https://confy.aristocrat.com/display/MON/Monaco+Platform+Media+Layout">Monaco Platform Media Layout</a>)<ul>
+<li>Secure Boot Loader, Master Boot Record (MBR), and Reserved Space<ul>
+<li>Contains the partition table, the Monaco Secure boot loader (GRUB), and various signatures</li>
+</ul>
+</li>
+<li>Windows Boot Partition<ul>
+<li>Contains the Windows boot loader. This is specific to the Windows OS installed on to the Windows OS Partition.</li>
+</ul>
+</li>
+<li>Windows OS Partition<ul>
+<li>Contains the Windows operating system configured for use with the Monaco platform, also contains three specific Aristocrat folders:<ul>
+<li><strong>C:\Aristocrat-VLT-Shell</strong> - This tool is part of the secure boot chain. It will execute various tools to ensure proper Windows configuration as well as the Monaco forensic tool that will validate and execute USB Thumb Drive commands. After those items are finished it will then execute the Platform Launcher.</li>
+<li><strong>C:\Aristocrat-VLT-Platform-Launcher</strong> - This tool is part of the secure boot chain. It will validate all the files and folders on the data partition, including the Monaco Platform .ISO, before launching Monaco platform.</li>
+<li><strong>C:\Aristocrat-VLT-Tools</strong> - This folder contains secure tools that are used to configure Windows or execute USB Thumb Drive commands. It also contains various public keys used by these tools as well as by the Monaco platform.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Monaco Data/Package Partition<ul>
+<li>Contains the Monaco Platform, Runtime Host, and Game files. The Logs, Databases, etc. files are always located on this partition. All files on this partition are validated by the Platform Launcher upon each boot. There are two Aristocrat folders:<ul>
+<li><strong>D:\Aristocrat-VLT</strong> - The Monaco platform in its entirety. This includes the Platform, Runtime Host(s), and Games (Except when using certain dual media configurations), along with the Log files, Databases, etc.</li>
+<li><strong>D:\WindowsEventLogs</strong> - Contains three Windows event logs that can be used for diagnosing problems with the Windows operating system.</li>
+<li><strong>DEVELOPMENT BUILDS ONLY:</strong> Contains the above folders as well as a few others that are only used during the development process.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- -->
+<ul>
+<li><ul>
+<li>Monaco Security Partition <strong>(RETAIL ONLY)</strong><ul>
+<li>Contains at least one full copy of the Windows boot partition and the Windows OS partition. For images that support upgrading the Windows operating system this will contain multiple copies of both partitions.</li>
+</ul>
+</li>
+<li>Un-allocated Drive Space <strong>(RETAIL ONLY)</strong><ul>
+<li>Contains the signatures used by the Monaco secure boot loader to validate both the Windows boot partition and the Windows OS partition.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Create secondary media partition<ul>
+<li>Monaco Data or Package Partition used in Monaco platform dual-media configurations. Contains one folder:<ul>
+<li><strong>E:\Aristocrat-VLT</strong> - Contains either the Packages or Critical Data depending upon which dual-media configuration is used.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Shrink the overall image size to optimize memory footprint and system performance.</li>
+<li>Remove unnecessary Windows utilities.</li>
+</ul>
+<h2 id="specific-configuration-changes-for-the-monaco-windows-image">Specific Configuration Changes for the Monaco Windows Image</h2>
+<p>During the deployment set up, the following tasks occur:</p>
+<p><strong>Generic configurations (Both Development and Release configurations):</strong></p>
+<ol>
+<li>Configure Windows Local Group Policy</li>
+<li>Configure Windows event logs</li>
+<li>Configure Windows power and hibernate settings</li>
+<li>Configure Windows Firewall</li>
+<li>Disable Windows Defender</li>
+<li>Configuring Windows Storage Sense</li>
+<li>Disable the UAC</li>
+<li>Disable IPv6 on Network Adapters</li>
+<li>Configure auto logon for user mk7</li>
+<li>Set the computer name to Aristocrat-Monaco</li>
+<li>Install Windows Product Key</li>
+<li>Disable Windows automatic updates</li>
+<li>Disable Windows recovery (This is now done in the &#39;Build-Monaco-Drive.ps1&#39; Script</li>
+<li>Enable proper ciphers to support SSL with IGT Host</li>
+<li>Suppress all Microsoft and Windows branding</li>
+<li>Disable Windows reporting and telemetry (As much as possible)</li>
+<li>Disable Windows dialogs and pop-ups (As much as possible)</li>
+<li>Disable the Windows page file on all drives</li>
+<li>Configure Windows crash dump settings for important applications</li>
+<li>Configure Windows time and time zone settings</li>
+<li>Configure Windows visuals for best performance</li>
+<li>Configure Windows touch related settings</li>
+<li>Configure Windows Explorer settings</li>
+<li>Disable NTFS Last Access Timestamps</li>
+<li>Disable System Restore on all drives</li>
+<li>Disable Cortana</li>
+<li>Disable OneDrive</li>
+<li>Disable Windows Scheduled Tasks</li>
+<li>Disable Windows Services that aren&#39;t needed by the Monaco platform</li>
+<li>Configure Windows Optional Features</li>
+</ol>
+<p><strong>Release-specific configurations:</strong></p>
+<ol>
+<li>Activate the Monaco Shell</li>
+<li>Disable access to the Windows Task Manager</li>
+<li>Install Aristocrat Monaco mouse pointer scheme and activate it</li>
+</ol>
+<p><strong>Development-specific configurations:</strong></p>
+<ol>
+<li>Setup SMB Shares for each partition</li>
+<li>Enable Remote Desktop</li>
+</ol>
+<h2 id="long-term-support-channel-ltsc">Long-Term Support Channel (LTSC)</h2>
+<p>Per Microsoft, Windows 10 IoT Enterprise LTSC version is on a 10-year support plan ending 1/9/29, which includes security updates and cumulative Windows updates. However, the next (2021/2022) release will drop to a 5-year support plan.</p>
+<p><img src="../../images/architecture/platform/image3.png" alt=""></p>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Documentation/docs/architecture/platform.md/#L1" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

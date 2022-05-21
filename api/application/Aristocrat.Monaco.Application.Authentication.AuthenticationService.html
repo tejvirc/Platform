@@ -1,0 +1,1167 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AuthenticationService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AuthenticationService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService">
+  <h1 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService">Class AuthenticationService
+  </h1>
+  <div class="markdown level0 summary"><p>Implementation of <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html">IAuthenticationService</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">AuthenticationService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Application.Authentication.html">Aristocrat.Monaco.Application.Authentication</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Application.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public class AuthenticationService : IAuthenticationService, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Common_Storage_IFileSystemProvider_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.%23ctor(Aristocrat.Monaco.Kernel.Contracts.Components.IComponentRegistry%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Common.Storage.IFileSystemProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService__ctor_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Common_Storage_IFileSystemProvider_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.#ctor(Aristocrat.Monaco.Kernel.Contracts.Components.IComponentRegistry,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Common.Storage.IFileSystemProvider)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Common_Storage_IFileSystemProvider_" class="expander" data-toggle="collapse">AuthenticationService(IComponentRegistry, IEventBus, IFileSystemProvider)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService__ctor_Aristocrat_Monaco_Kernel_Contracts_Components_IComponentRegistry_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Common_Storage_IFileSystemProvider_" class="collapse in">
+  <div class="markdown level1 summary"><p>Constructor for <a class="xref" href="Aristocrat.Monaco.Application.Authentication.AuthenticationService.html">AuthenticationService</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AuthenticationService(IComponentRegistry componentRegistry, IEventBus eventBus, IFileSystemProvider fileSystemProvider)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.IComponentRegistry.html">IComponentRegistry</a></span>
+        <span class="parametername">componentRegistry</span>
+        <p><p>Reference to <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.IComponentRegistry.html">IComponentRegistry</a> implementation</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>Reference to <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a> implementation</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.Common.Storage.IFileSystemProvider.html">IFileSystemProvider</a></span>
+        <span class="parametername">fileSystemProvider</span>
+        <p><p>Reference to <a class="xref" href="../common/Aristocrat.Monaco.Common.Storage.IFileSystemProvider.html">IFileSystemProvider</a></p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Name_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Name" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Name"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_ServiceTypes_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_ServiceTypes" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_SupportedAlgorithms.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.SupportedAlgorithms%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_SupportedAlgorithms_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.SupportedAlgorithms*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_SupportedAlgorithms" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.SupportedAlgorithms"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_SupportedAlgorithms" class="expander" data-toggle="collapse">SupportedAlgorithms</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_SupportedAlgorithms" class="collapse in">
+  <div class="markdown level1 summary"><p>Get a list of supported hash algorithms.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;AlgorithmType&gt; SupportedAlgorithms { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType.html">AlgorithmType</a>&gt;
+        <p><p>List of hash algorithms</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_SupportedAlgorithms">IAuthenticationService.SupportedAlgorithms</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateHash_Aristocrat_Monaco_Kernel_Contracts_Components_Component_Aristocrat_Monaco_Application_Contracts_Authentication_ComponentVerification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateHash(Aristocrat.Monaco.Kernel.Contracts.Components.Component%2CAristocrat.Monaco.Application.Contracts.Authentication.ComponentVerification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L104" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateHash_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateHash*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateHash_Aristocrat_Monaco_Kernel_Contracts_Components_Component_Aristocrat_Monaco_Application_Contracts_Authentication_ComponentVerification_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateHash(Aristocrat.Monaco.Kernel.Contracts.Components.Component,Aristocrat.Monaco.Application.Contracts.Authentication.ComponentVerification)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateHash_Aristocrat_Monaco_Kernel_Contracts_Components_Component_Aristocrat_Monaco_Application_Contracts_Authentication_ComponentVerification_" class="expander" data-toggle="collapse">CalculateHash(Component, ComponentVerification)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateHash_Aristocrat_Monaco_Kernel_Contracts_Components_Component_Aristocrat_Monaco_Application_Contracts_Authentication_ComponentVerification_" class="collapse in">
+  <div class="markdown level1 summary"><p>Calculates the hash.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CalculateHash(Component component, ComponentVerification verification)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.Component.html">Component</a></span>
+        <span class="parametername">component</span>
+        <p><p>The component.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.ComponentVerification.html">ComponentVerification</a></span>
+        <span class="parametername">verification</span>
+        <p><p>The component verification.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_CalculateHash_Aristocrat_Monaco_Kernel_Contracts_Components_Component_Aristocrat_Monaco_Application_Contracts_Authentication_ComponentVerification_">IAuthenticationService.CalculateHash(Component, ComponentVerification)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomCrc32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateRomCrc32(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L383" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomCrc32_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateRomCrc32*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomCrc32_System_Int32_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateRomCrc32(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomCrc32_System_Int32_" class="expander" data-toggle="collapse">CalculateRomCrc32(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomCrc32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Calculates Rom Hash for the EGM.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CalculateRomCrc32(int seed)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">seed</span>
+        <p><p>Seed value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Crc32 value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_CalculateRomCrc32_System_Int32_">IAuthenticationService.CalculateRomCrc32(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomHash_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateRomHash(Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L393" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomHash_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateRomHash*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomHash_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.CalculateRomHash(Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomHash_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_" class="expander" data-toggle="collapse">CalculateRomHash(AlgorithmType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_CalculateRomHash_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Calculates Hash for the EGM.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CalculateRomHash(AlgorithmType algorithmType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType.html">AlgorithmType</a></span>
+        <span class="parametername">algorithmType</span>
+        <p><p><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType.html">AlgorithmType</a>.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>EGM hash value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_CalculateRomHash_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_">IAuthenticationService.CalculateRomHash(AlgorithmType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_ComputeHash_System_IO_Stream_System_String_System_Byte___System_Byte___System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.ComputeHash(System.IO.Stream%2CSystem.String%2CSystem.Byte%5B%5D%2CSystem.Byte%5B%5D%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L249" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_ComputeHash_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.ComputeHash*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_ComputeHash_System_IO_Stream_System_String_System_Byte___System_Byte___System_Int64_System_Int64_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.ComputeHash(System.IO.Stream,System.String,System.Byte[],System.Byte[],System.Int64,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_ComputeHash_System_IO_Stream_System_String_System_Byte___System_Byte___System_Int64_System_Int64_" class="expander" data-toggle="collapse">ComputeHash(Stream, String, Byte[], Byte[], Int64, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_ComputeHash_System_IO_Stream_System_String_System_Byte___System_Byte___System_Int64_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Calculates the hash for a given file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte[] ComputeHash(Stream stream, string algorithm, byte[] salt = null, byte[] key = null, long startOffset = 0L, long endOffset = -1L)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.stream">Stream</a></span>
+        <span class="parametername">stream</span>
+        <p><p>The stream.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">algorithm</span>
+        <p><p>The hash algorithm.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">salt</span>
+        <p><p>The salt (default: none).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">key</span>
+        <p><p>The key to be used for HMAC based algorithms (default: none).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">startOffset</span>
+        <p><p>The start offset (default: 0).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">endOffset</span>
+        <p><p>The end offset (default: EndOfStream.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]
+        <p><p>Calculated hash.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_ComputeHash_System_IO_Stream_System_String_System_Byte___System_Byte___System_Int64_System_Int64_">IAuthenticationService.ComputeHash(Stream, String, Byte[], Byte[], Int64, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L418" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Dispose"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L594" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetComponentHashesAsync(Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType%2CSystem.Threading.CancellationToken%2CSystem.Byte%5B%5D%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Kernel.Contracts.Components.ComponentType%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L346" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetComponentHashesAsync*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType__" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetComponentHashesAsync(Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType,System.Threading.CancellationToken,System.Byte[],System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Kernel.Contracts.Components.ComponentType})"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType__" class="expander" data-toggle="collapse">GetComponentHashesAsync(AlgorithmType, CancellationToken, Byte[], IEnumerable&lt;ComponentType&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType__" class="collapse in">
+  <div class="markdown level1 summary"><p>Create a task to hash all components in parallel.
+Each will publish <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.ComponentHashCompleteEvent.html">ComponentHashCompleteEvent</a> when done.
+The task will publish <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.AllComponentsHashCompleteEvent.html">AllComponentsHashCompleteEvent</a> when done.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task GetComponentHashesAsync(AlgorithmType algorithmType, CancellationToken cancellationToken, byte[] seedOrSalt, IEnumerable&lt;ComponentType&gt; componentTypes)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType.html">AlgorithmType</a></span>
+        <span class="parametername">algorithmType</span>
+        <p><p>The hash algorithm</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="parametername">cancellationToken</span>
+        <p><p>A task cancellation token</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">seedOrSalt</span>
+        <p><p>The seed/salt parameter for certain algorithms, if necessary</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.ComponentType.html">ComponentType</a>&gt;</span>
+        <span class="parametername">componentTypes</span>
+        <p><p>The component types to compute the hash for</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p><p>Success of operation</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Kernel_Contracts_Components_ComponentType__">IAuthenticationService.GetComponentHashesAsync(AlgorithmType, CancellationToken, Byte[], IEnumerable&lt;ComponentType&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_String_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetComponentHashesAsync(Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType%2CSystem.Threading.CancellationToken%2CSystem.Byte%5B%5D%2CSystem.String%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L361" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetComponentHashesAsync*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_String_System_Int64_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetComponentHashesAsync(Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType,System.Threading.CancellationToken,System.Byte[],System.String,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_String_System_Int64_" class="expander" data-toggle="collapse">GetComponentHashesAsync(AlgorithmType, CancellationToken, Byte[], String, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_String_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Create a task to hash all components in parallel.
+Each will publish <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.ComponentHashCompleteEvent.html">ComponentHashCompleteEvent</a> when done.
+The task will publish <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.AllComponentsHashCompleteEvent.html">AllComponentsHashCompleteEvent</a> when done.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task GetComponentHashesAsync(AlgorithmType algorithmType, CancellationToken cancellationToken, byte[] seedOrSalt = null, string singleComponent = null, long offset = 0L)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.AlgorithmType.html">AlgorithmType</a></span>
+        <span class="parametername">algorithmType</span>
+        <p><p>The hash algorithm</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="parametername">cancellationToken</span>
+        <p><p>A task cancellation token</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">seedOrSalt</span>
+        <p><p>The seed/salt parameter for certain algorithms, if necessary</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">singleComponent</span>
+        <p><p>The name of one component, if hashing just one</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">offset</span>
+        <p><p>Where to start the data processing, relative to start of object (if single component)</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p><p>Success of operation</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_GetComponentHashesAsync_Aristocrat_Monaco_Application_Contracts_Authentication_AlgorithmType_System_Threading_CancellationToken_System_Byte___System_String_System_Int64_">IAuthenticationService.GetComponentHashesAsync(AlgorithmType, CancellationToken, Byte[], String, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerification_Aristocrat_Monaco_Kernel_Contracts_Components_Component_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetVerification(Aristocrat.Monaco.Kernel.Contracts.Components.Component)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerification_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetVerification*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerification_Aristocrat_Monaco_Kernel_Contracts_Components_Component_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetVerification(Aristocrat.Monaco.Kernel.Contracts.Components.Component)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerification_Aristocrat_Monaco_Kernel_Contracts_Components_Component_" class="expander" data-toggle="collapse">GetVerification(Component)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerification_Aristocrat_Monaco_Kernel_Contracts_Components_Component_" class="collapse in">
+  <div class="markdown level1 summary"><p>Get one component&apos;s verification</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ComponentVerification GetVerification(Component key)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.Components.Component.html">Component</a></span>
+        <span class="parametername">key</span>
+        <p><p>Which component</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.ComponentVerification.html">ComponentVerification</a>
+        <p><p>The component&apos;s verification</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_GetVerification_Aristocrat_Monaco_Kernel_Contracts_Components_Component_">IAuthenticationService.GetVerification(Component)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerifications.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetVerifications%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerifications_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetVerifications*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerifications" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.GetVerifications"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerifications" class="expander" data-toggle="collapse">GetVerifications()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_GetVerifications" class="collapse in">
+  <div class="markdown level1 summary"><p>Get a list of component verifications.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;ComponentVerification&gt; GetVerifications()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.ComponentVerification.html">ComponentVerification</a>&gt;
+        <p><p>List of component verifications</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_GetVerifications">IAuthenticationService.GetVerifications()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Initialize_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_Initialize" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.Initialize"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService_VerifyHash_System_Byte___System_IO_Stream_System_String_System_Byte___System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService.VerifyHash(System.Byte%5B%5D%2CSystem.IO.Stream%2CSystem.String%2CSystem.Byte%5B%5D%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L322" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_VerifyHash_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.VerifyHash*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_Authentication_AuthenticationService_VerifyHash_System_Byte___System_IO_Stream_System_String_System_Byte___System_Int64_System_Int64_" data-uid="Aristocrat.Monaco.Application.Authentication.AuthenticationService.VerifyHash(System.Byte[],System.IO.Stream,System.String,System.Byte[],System.Int64,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_VerifyHash_System_Byte___System_IO_Stream_System_String_System_Byte___System_Int64_System_Int64_" class="expander" data-toggle="collapse">VerifyHash(Byte[], Stream, String, Byte[], Int64, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_Authentication_AuthenticationService_VerifyHash_System_Byte___System_IO_Stream_System_String_System_Byte___System_Int64_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Verifies the provided hash against the provided file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool VerifyHash(byte[] hash, Stream stream, string algorithm, byte[] key = null, long offset = 0L, long endOffset = -1L)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">hash</span>
+        <p><p>The hash.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.stream">Stream</a></span>
+        <span class="parametername">stream</span>
+        <p><p>The stream.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">algorithm</span>
+        <p><p>The hash algorithm.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">key</span>
+        <p><p>The key to be used for HMAC based algorithms (default: none).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">offset</span>
+        <p><p>The offset within the file (default: 0).</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">endOffset</span>
+        <p><p>The end offset (default: EndOfStream).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.Authentication.IAuthenticationService.html#Aristocrat_Monaco_Application_Contracts_Authentication_IAuthenticationService_VerifyHash_System_Byte___System_IO_Stream_System_String_System_Byte___System_Int64_System_Int64_">IAuthenticationService.VerifyHash(Byte[], Stream, String, Byte[], Int64, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Authentication_AuthenticationService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Authentication.AuthenticationService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application/Authentication/AuthenticationService.cs/#L31" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

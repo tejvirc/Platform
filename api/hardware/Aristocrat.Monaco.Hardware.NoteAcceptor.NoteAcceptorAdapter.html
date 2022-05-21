@@ -1,0 +1,2364 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class NoteAcceptorAdapter
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class NoteAcceptorAdapter
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter">
+  <h1 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter">Class NoteAcceptorAdapter
+  </h1>
+  <div class="markdown level0 summary"><p>A note acceptor adapter.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html">DeviceAdapter</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation.html">INoteAcceptorImplementation</a>&gt;</div>
+    <div class="level2"><span class="xref">NoteAcceptorAdapter</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Sync">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Sync</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disposed">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyErrors">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.AnyErrors</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AnyWarnings">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.AnyWarnings</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddinFactory">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.AddinFactory</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_InternalConfiguration">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.InternalConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastComConfiguration">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.LastComConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enabled">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialized">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Initialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_LastError">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.LastError</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ReasonDisabled">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ReasonDisabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ServiceProtocol">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ServiceProtocol</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DeviceConfiguration">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.DeviceConfiguration</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ProductId">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ProductId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_VendorId">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.VendorId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Crc">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Crc</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_DisabledByError">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.DisabledByError</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Initialize">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Initialize()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Disable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Disable(DisabledReasons)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Enable_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Enable(EnabledReasons)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Inspect_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Inspect(IComConfiguration, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CalculateCrc_System_Int32_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.CalculateCrc(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_Dispose">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_CanProceed_System_Boolean_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.CanProceed(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ExecuteDisabled_System_Func_System_Threading_Tasks_Task_System_Boolean___">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ExecuteDisabled(Func&lt;Task&lt;Boolean&gt;&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_PostEvent__1___0_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.PostEvent&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterDfuAdapter">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.RegisterDfuAdapter()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterDfuAdapter">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.UnregisterDfuAdapter()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_String_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.AddError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddError_System_Object_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.AddError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_String_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.AddWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_AddWarning_System_Object_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.AddWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_String_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ClearError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearError_System_Object_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ClearError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_String_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ClearWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarning_System_Object_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ClearWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearErrors_System_String___">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ClearErrors(String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ClearWarnings_System_String___">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ClearWarnings(String[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_String_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ContainsError(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsError_System_Object_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ContainsError(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_String_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ContainsWarning(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_ContainsWarning_System_Object_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.ContainsWarning(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_SetInternalConfiguration">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.SetInternalConfiguration()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_RegisterComponent">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.RegisterComponent()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DeviceAdapter_1_UnregisterComponent_System_Boolean_">DeviceAdapter&lt;INoteAcceptorImplementation&gt;.UnregisterComponent(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.NoteAcceptor.html">Aristocrat.Monaco.Hardware.NoteAcceptor</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class NoteAcceptorAdapter : DeviceAdapter&lt;INoteAcceptorImplementation&gt;, IDisposable, INoteAcceptor, IDeviceAdapter, IDeviceService, IService, IFirmwareCrcBridge, IStorageAccessor&lt;NoteAcceptorOptions&gt;</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter__ctor_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter__ctor" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter__ctor" class="expander" data-toggle="collapse">NoteAcceptorAdapter()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NoteAcceptorAdapter()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ActivationTime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.ActivationTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L164" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ActivationTime_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.ActivationTime*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ActivationTime" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.ActivationTime"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ActivationTime" class="expander" data-toggle="collapse">ActivationTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ActivationTime" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the host enabled ActivationTime.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime ActivationTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.datetime">DateTime</a>
+        <p><p>ActivationTime.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_ActivationTime">INoteAcceptor.ActivationTime</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_CanValidate.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.CanValidate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L122" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_CanValidate_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.CanValidate*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_CanValidate" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.CanValidate"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_CanValidate" class="expander" data-toggle="collapse">CanValidate</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_CanValidate" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the note acceptor is in a state to validate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanValidate { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if we can validate, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_CanValidate">INoteAcceptor.CanValidate</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Configuration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Configuration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Configuration_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Configuration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Configuration" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Configuration"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Configuration" class="expander" data-toggle="collapse">Configuration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Configuration" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the current note acceptor configuration - model, vendor, protocol, firmware
+combined into a string</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Configuration { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Connected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L236" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Connected_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Connected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Connected" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Connected"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Connected" class="expander" data-toggle="collapse">Connected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Connected" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the device is connected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Connected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Connected</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_Connected">IDeviceAdapter.Connected</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Denominations.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Denominations%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Denominations_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Denominations*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Denominations" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Denominations"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Denominations" class="expander" data-toggle="collapse">Denominations</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Denominations" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets enabled denominations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;int&gt; Denominations { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <p><p>Denominations enabled.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_Denominations">INoteAcceptor.Denominations</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Description.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Description%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Description_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Description*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Description" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Description"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Description" class="expander" data-toggle="collapse">Description</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Description" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device description.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string Description { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device Description.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Description</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DeviceType.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DeviceType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DeviceType_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DeviceType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DeviceType" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DeviceType"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DeviceType" class="expander" data-toggle="collapse">DeviceType</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DeviceType" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DeviceType DeviceType { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceType.html">DeviceType</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.DeviceType</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_DeviceType">IDeviceAdapter.DeviceType</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Faults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Faults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Faults_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Faults*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Faults" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Faults"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Faults" class="expander" data-toggle="collapse">Faults</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Faults" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the current faults.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NoteAcceptorFaultTypes Faults { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.NoteAcceptorFaultTypes.html">NoteAcceptorFaultTypes</a>
+        <p><p>The current faults.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_Faults">INoteAcceptor.Faults</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Implementation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Implementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Implementation_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Implementation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Implementation" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Implementation"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Implementation" class="expander" data-toggle="collapse">Implementation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Implementation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the device implementation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override INoteAcceptorImplementation Implementation { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation.html">INoteAcceptorImplementation</a>
+        <p><p>The device implementation.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Implementation</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsEscrowed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsEscrowed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsEscrowed_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsEscrowed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsEscrowed" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsEscrowed"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsEscrowed" class="expander" data-toggle="collapse">IsEscrowed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsEscrowed" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the note acceptor is in a state to accept.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsEscrowed { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if we can accept, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_IsEscrowed">INoteAcceptor.IsEscrowed</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsReady.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsReady%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L125" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsReady_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsReady*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsReady" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsReady"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsReady" class="expander" data-toggle="collapse">IsReady</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsReady" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the note acceptor ready.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReady { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if we is ready, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_IsReady">INoteAcceptor.IsReady</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LastDocumentResult.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.LastDocumentResult%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L185" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LastDocumentResult_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.LastDocumentResult*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LastDocumentResult" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.LastDocumentResult"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LastDocumentResult" class="expander" data-toggle="collapse">LastDocumentResult</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LastDocumentResult" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the last escrowed document result.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DocumentResult LastDocumentResult { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentResult.html">DocumentResult</a>
+        <p><p>Document result.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_LastDocumentResult">INoteAcceptor.LastDocumentResult</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LogicalState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.LogicalState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L241" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LogicalState_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.LogicalState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LogicalState" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.LogicalState"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LogicalState" class="expander" data-toggle="collapse">LogicalState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_LogicalState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the logical note acceptor state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NoteAcceptorLogicalState LogicalState { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.NoteAcceptorLogicalState.html">NoteAcceptorLogicalState</a>
+        <p><p>NoteAcceptor state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_LogicalState">INoteAcceptor.LogicalState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L247" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Name_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Name" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Name"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Name" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The name.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Name</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.NoteAcceptorId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorId_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.NoteAcceptorId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorId" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.NoteAcceptorId"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorId" class="expander" data-toggle="collapse">NoteAcceptorId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the id of the note acceptor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int NoteAcceptorId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_NoteAcceptorId">INoteAcceptor.NoteAcceptorId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorImplementation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.NoteAcceptorImplementation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L259" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorImplementation_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.NoteAcceptorImplementation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorImplementation" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.NoteAcceptorImplementation"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorImplementation" class="expander" data-toggle="collapse">NoteAcceptorImplementation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_NoteAcceptorImplementation" class="collapse in">
+  <div class="markdown level1 summary"><p>Get NoteAcceptor implementation for automation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public INoteAcceptorImplementation NoteAcceptorImplementation { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation.html">INoteAcceptorImplementation</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Path.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Path%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Path_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Path*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Path" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Path"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Path" class="expander" data-toggle="collapse">Path</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Path" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the device path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string Path { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Device path.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Path</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L253" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ServiceTypes_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ServiceTypes" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.ServiceTypes</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_StackerState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.StackerState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L206" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_StackerState_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.StackerState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_StackerState" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.StackerState"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_StackerState" class="expander" data-toggle="collapse">StackerState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_StackerState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the note acceptor stacker state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NoteAcceptorStackerState StackerState { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.NoteAcceptorStackerState.html">NoteAcceptorStackerState</a>
+        <p><p>Note acceptor logical state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_StackerState">INoteAcceptor.StackerState</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_WasStackingOnLastPowerUp.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.WasStackingOnLastPowerUp%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L131" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_WasStackingOnLastPowerUp_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.WasStackingOnLastPowerUp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_WasStackingOnLastPowerUp" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.WasStackingOnLastPowerUp"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_WasStackingOnLastPowerUp" class="expander" data-toggle="collapse">WasStackingOnLastPowerUp</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_WasStackingOnLastPowerUp" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether or not the note acceptor was stacking when is was last powered up.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WasStackingOnLastPowerUp { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it was in the stacking state, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_WasStackingOnLastPowerUp">INoteAcceptor.WasStackingOnLastPowerUp</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptNote.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.AcceptNote%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L406" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptNote_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.AcceptNote*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptNote" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.AcceptNote"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptNote" class="expander" data-toggle="collapse">AcceptNote()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptNote" class="collapse in">
+  <div class="markdown level1 summary"><p>Accept note.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; AcceptNote()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_AcceptNote">INoteAcceptor.AcceptNote()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptTicket.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.AcceptTicket%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L417" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptTicket_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.AcceptTicket*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptTicket" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.AcceptTicket"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptTicket" class="expander" data-toggle="collapse">AcceptTicket()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_AcceptTicket" class="collapse in">
+  <div class="markdown level1 summary"><p>Accept ticket.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; AcceptTicket()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_AcceptTicket">INoteAcceptor.AcceptTicket()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DenomIsValid_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DenomIsValid(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L262" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DenomIsValid_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DenomIsValid*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DenomIsValid_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DenomIsValid(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DenomIsValid_System_Int32_" class="expander" data-toggle="collapse">DenomIsValid(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DenomIsValid_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DenomIsValid(int value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">value</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_DenomIsValid_System_Int32_">INoteAcceptor.DenomIsValid(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DisabledDetected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DisabledDetected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L520" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DisabledDetected_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DisabledDetected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DisabledDetected" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.DisabledDetected"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DisabledDetected" class="expander" data-toggle="collapse">DisabledDetected()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_DisabledDetected" class="collapse in">
+  <div class="markdown level1 summary"><p>Disabled detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void DisabledDetected()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.DisabledDetected()</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L526" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Disabling_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Disabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Disabling(DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Disabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is disabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Disabling(DisabledReasons reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Disabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L467" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Dispose_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the
+Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter and optionally releases the managed
+resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Dispose(System.Boolean)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons%2CAristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L535" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Enabling_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Enabling*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons,Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="expander" data-toggle="collapse">Enabling(EnabledReasons, DisabledReasons)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Enabling_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_EnabledReasons_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_DisabledReasons_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is enabling the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons.html">EnabledReasons</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons.html">DisabledReasons</a></span>
+        <span class="parametername">remedied</span>
+        <p><p>The remedied.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Enabling(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.EnabledReasons, Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DisabledReasons)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_GetSupportedNotes_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.GetSupportedNotes(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L268" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_GetSupportedNotes_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.GetSupportedNotes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_GetSupportedNotes_System_String_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.GetSupportedNotes(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_GetSupportedNotes_System_String_" class="expander" data-toggle="collapse">GetSupportedNotes(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_GetSupportedNotes_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the supported note denominations that are supported by the device firmware</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Collection&lt;int&gt; GetSupportedNotes(string isoCode = null)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">isoCode</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.objectmodel.collection-1">Collection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <p><p>Supported notes.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_GetSupportedNotes_System_String_">INoteAcceptor.GetSupportedNotes(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Initializing.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Initializing%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L565" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Initializing_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Initializing*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Initializing" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Initializing"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Initializing" class="expander" data-toggle="collapse">Initializing()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Initializing" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is initializing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Initializing()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Initializing()</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspect_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Inspect(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L427" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspect_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Inspect*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspect_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Inspect(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspect_System_Int32_" class="expander" data-toggle="collapse">Inspect(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspect_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Inspect(int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_Inspect_System_Int32_">INoteAcceptor.Inspect(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L608" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspecting_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Inspecting*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="expander" data-toggle="collapse">Inspecting(IComConfiguration, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Inspecting_Aristocrat_Monaco_Hardware_Contracts_Communicator_IComConfiguration_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when the device adapter is inspecting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Inspecting(IComConfiguration comConfiguration, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration.html">IComConfiguration</a></span>
+        <span class="parametername">comConfiguration</span>
+        <p><p>The com configuration.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>The timeout.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.Inspecting(Aristocrat.Monaco.Hardware.Contracts.Communicator.IComConfiguration, System.Int32)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsNoteDisabled_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsNoteDisabled(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L386" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsNoteDisabled_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsNoteDisabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsNoteDisabled_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.IsNoteDisabled(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsNoteDisabled_System_Int32_" class="expander" data-toggle="collapse">IsNoteDisabled(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_IsNoteDisabled_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets whether the note for the given denomination is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsNoteDisabled(int denom)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">denom</span>
+        <p><p>The denomination.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>Whether the note for the given denomination is disabled.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_IsNoteDisabled_System_Int32_">INoteAcceptor.IsNoteDisabled(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Return.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Return%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L433" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Return_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Return*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Return" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Return"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Return" class="expander" data-toggle="collapse">Return()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_Return" class="collapse in">
+  <div class="markdown level1 summary"><p>Returns the current document.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; Return()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_Return">INoteAcceptor.Return()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L399" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to start a self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override async Task&lt;bool&gt; SelfTest(bool clear)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">clear</span>
+        <p><p>An flag indicating if memory should be cleared before the self-test is performed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>A Task (allows for asynchronous) with a GatData report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.SelfTest(System.Boolean)</span></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceAdapter.html#Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceAdapter_SelfTest_System_Boolean_">IDeviceAdapter.SelfTest(Boolean)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SelfTest_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST initiate a self-test sequence when instructed by the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetIsoCode_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SetIsoCode(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L307" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetIsoCode_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SetIsoCode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetIsoCode_System_String_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SetIsoCode(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetIsoCode_System_String_" class="expander" data-toggle="collapse">SetIsoCode(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetIsoCode_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets ISO code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetIsoCode(string isoCode)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">isoCode</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_SetIsoCode_System_String_">INoteAcceptor.SetIsoCode(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetNoteDefinitions_System_Collections_ObjectModel_Collection_Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_NoteDefinitions__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SetNoteDefinitions(System.Collections.ObjectModel.Collection%7BAristocrat.Monaco.Hardware.Contracts.NoteAcceptor.NoteDefinitions%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L355" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetNoteDefinitions_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SetNoteDefinitions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetNoteDefinitions_System_Collections_ObjectModel_Collection_Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_NoteDefinitions__" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SetNoteDefinitions(System.Collections.ObjectModel.Collection{Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.NoteDefinitions})"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetNoteDefinitions_System_Collections_ObjectModel_Collection_Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_NoteDefinitions__" class="expander" data-toggle="collapse">SetNoteDefinitions(Collection&lt;NoteDefinitions&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SetNoteDefinitions_System_Collections_ObjectModel_Collection_Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_NoteDefinitions__" class="collapse in">
+  <div class="markdown level1 summary"><p>Set the note definitions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetNoteDefinitions(Collection&lt;NoteDefinitions&gt; notesDefinitions)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.objectmodel.collection-1">Collection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.NoteDefinitions.html">NoteDefinitions</a>&gt;</span>
+        <span class="parametername">notesDefinitions</span>
+        <p><p>Note definitions.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_SetNoteDefinitions_System_Collections_ObjectModel_Collection_Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_NoteDefinitions__">INoteAcceptor.SetNoteDefinitions(Collection&lt;NoteDefinitions&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L614" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SubscribeToEvents_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SubscribeToEvents*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="expander" data-toggle="collapse">SubscribeToEvents(IEventBus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_SubscribeToEvents_Aristocrat_Monaco_Kernel_IEventBus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Subscribe to events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SubscribeToEvents(IEventBus eventBus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>The event bus.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter&lt;Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation&gt;.SubscribeToEvents(Aristocrat.Monaco.Kernel.IEventBus)</span></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.TryAddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.Int32%2CAristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L440" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryAddBlock_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.TryAddBlock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.TryAddBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor,System.Int32,Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__" class="expander" data-toggle="collapse">TryAddBlock(IPersistentStorageAccessor, Int32, out NoteAcceptorOptions)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to initialize block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAddBlock(IPersistentStorageAccessor accessor, int blockIndex, out NoteAcceptorOptions block)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">accessor</span>
+        <p><p>The accessor.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">blockIndex</span>
+        <p><p>Zero-based index of the block.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions.html">NoteAcceptorOptions</a></span>
+        <span class="parametername">block</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor-1.html#Aristocrat_Monaco_Hardware_Contracts_IStorageAccessor_1_TryAddBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32__0__">IStorageAccessor&lt;TBlock&gt;.TryAddBlock(IPersistentStorageAccessor, Int32, out TBlock)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.TryGetBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.Int32%2CAristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L454" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryGetBlock_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.TryGetBlock*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.TryGetBlock(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor,System.Int32,Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions@)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__" class="expander" data-toggle="collapse">TryGetBlock(IPersistentStorageAccessor, Int32, out NoteAcceptorOptions)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorOptions__" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to read block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetBlock(IPersistentStorageAccessor accessor, int blockIndex, out NoteAcceptorOptions block)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor.html">IPersistentStorageAccessor</a></span>
+        <span class="parametername">accessor</span>
+        <p><p>The accessor.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">blockIndex</span>
+        <p><p>Zero-based index of the block.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions.html">NoteAcceptorOptions</a></span>
+        <span class="parametername">block</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor-1.html#Aristocrat_Monaco_Hardware_Contracts_IStorageAccessor_1_TryGetBlock_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32__0__">IStorageAccessor&lt;TBlock&gt;.TryGetBlock(IPersistentStorageAccessor, Int32, out TBlock)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_UpdateDenom_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.UpdateDenom(System.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L318" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_UpdateDenom_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.UpdateDenom*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_UpdateDenom_System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.UpdateDenom(System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_UpdateDenom_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">UpdateDenom(Int32, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter_UpdateDenom_System_Int32_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Update Denom.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateDenom(int denom, bool enabled = true)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">denom</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">enabled</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html#Aristocrat_Monaco_Hardware_Contracts_NoteAcceptor_INoteAcceptor_UpdateDenom_System_Int32_System_Boolean_">INoteAcceptor.UpdateDenom(Int32, Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html">DeviceAdapter</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation.html">INoteAcceptorImplementation</a>&gt;</div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptor.html">INoteAcceptor</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IStorageAccessor-1.html">IStorageAccessor</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorOptions.html">NoteAcceptorOptions</a>&gt;</div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_NoteAcceptor_NoteAcceptorAdapter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/NoteAcceptor/NoteAcceptorAdapter.cs/#L26" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

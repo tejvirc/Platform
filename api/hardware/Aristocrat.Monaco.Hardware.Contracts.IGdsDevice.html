@@ -1,0 +1,1128 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IGdsDevice
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IGdsDevice
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice">
+  <h1 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice">Interface IGdsDevice
+  </h1>
+  <div class="markdown level0 summary"><p>Interface for Gaming Device Standards (GDS) device.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_VendorId">IDfuDevice.VendorId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_ProductId">IDfuDevice.ProductId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_IsDfuCapable">IDfuDevice.IsDfuCapable</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_IsDfuInProgress">IDfuDevice.IsDfuInProgress</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_DownloadProgressed">IDfuDevice.DownloadProgressed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_">IDfuDevice.Initialize(IGdsCommunicator)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Detach">IDfuDevice.Detach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Reconnect">IDfuDevice.Reconnect()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Download_System_IO_Stream_">IDfuDevice.Download(Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Upload_System_IO_Stream_">IDfuDevice.Upload(Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Abort">IDfuDevice.Abort()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.html">Aristocrat.Monaco.Hardware.Contracts</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IGdsDevice : IDfuDevice, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Crc.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Crc%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Crc_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Crc*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Crc" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Crc"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Crc" class="expander" data-toggle="collapse">Crc</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Crc" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a the last calculated CRC.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Crc { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The calculated CRC.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsConnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsConnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L14" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsConnected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsConnected*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsConnected" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsConnected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsConnected" class="expander" data-toggle="collapse">IsConnected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsConnected" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device is connected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsConnected { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the device is connected, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsEnabled_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsEnabled" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsEnabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsEnabled" class="expander" data-toggle="collapse">IsEnabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsEnabled { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True or false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsInitialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsInitialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L20" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsInitialized_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsInitialized*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsInitialized" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.IsInitialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsInitialized" class="expander" data-toggle="collapse">IsInitialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_IsInitialized" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the device is initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsInitialized { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True or false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Protocol.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Protocol%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Protocol_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Protocol*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Protocol" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Protocol"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Protocol" class="expander" data-toggle="collapse">Protocol</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Protocol" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the protocol.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string Protocol { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The protocol.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_CalculateCrc_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.CalculateCrc(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L117" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_CalculateCrc_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.CalculateCrc*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_CalculateCrc_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.CalculateCrc(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_CalculateCrc_System_Int32_" class="expander" data-toggle="collapse">CalculateCrc(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_CalculateCrc_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to initiate a 32-bit checksum calculation of the devices ROM memory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;int&gt; CalculateCrc(int seed)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">seed</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
+        <p><p>A Task (allows for asynchronous) with a calculated CRC.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Close.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Close_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Close*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Close" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Close"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Close" class="expander" data-toggle="collapse">Close()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Close" class="collapse in">
+  <div class="markdown level1 summary"><p>Closes the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Close()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>False if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Disable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disable_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disable" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Disable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disable" class="expander" data-toggle="collapse">Disable()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disable" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to host disable the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; Disable()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disable_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST deactivate any inputs and/or disable any outputs.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Enable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enable_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enable" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Enable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enable" class="expander" data-toggle="collapse">Enable()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enable" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to host enable the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; Enable()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enable_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST activate any inputs and/or enable any outputs. If the device has a fault then it MUST stay
+disabled and report the fault to the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Open.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Open%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Open_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Open*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Open" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Open"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Open" class="expander" data-toggle="collapse">Open()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Open" class="collapse in">
+  <div class="markdown level1 summary"><p>Opens the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Open()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>False if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to start a self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; SelfTest(bool nvm)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">nvm</span>
+        <p><p>An flag indicating if Non-volatile Memory (NVM MUST be cleared before the self-test is performed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST initiate a self-test sequence when instructed by the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_UpdateConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.UpdateConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="expander" data-toggle="collapse">UpdateConfiguration(IDeviceConfiguration)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the device configurations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void UpdateConfiguration(IDeviceConfiguration internalConfiguration)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration.html">IDeviceConfiguration</a></span>
+        <span class="parametername">internalConfiguration</span>
+        <p><p>Internal configuration to update.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Connected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Connected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Connected" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Connected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Connected" class="expander" data-toggle="collapse">Connected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Connected" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is connected to the USB port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; Connected</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Disabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disabled" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Disabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disabled" class="expander" data-toggle="collapse">Disabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; Disabled</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disconnected.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Disconnected%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disconnected" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Disconnected"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disconnected" class="expander" data-toggle="collapse">Disconnected</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disconnected" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is disconnected to the USB port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; Disconnected</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Enabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enabled" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Enabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enabled" class="expander" data-toggle="collapse">Enabled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; Enabled</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_InitializationFailed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.InitializationFailed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_InitializationFailed" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.InitializationFailed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_InitializationFailed" class="expander" data-toggle="collapse">InitializationFailed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_InitializationFailed" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is initialization fails.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; InitializationFailed</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Initialized.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Initialized%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Initialized" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.Initialized"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Initialized" class="expander" data-toggle="collapse">Initialized</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Initialized" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when device is initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; Initialized</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetFailed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.ResetFailed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetFailed" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.ResetFailed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetFailed" class="expander" data-toggle="collapse">ResetFailed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetFailed" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when failed to reset a device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; ResetFailed</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetSucceeded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.ResetSucceeded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetSucceeded" data-uid="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.ResetSucceeded"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetSucceeded" class="expander" data-toggle="collapse">ResetSucceeded</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_ResetSucceeded" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when successfully reset a device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;EventArgs&gt; ResetSucceeded</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_IGdsDevice.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.IGdsDevice%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/IGdsDevice.cs/#L8" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

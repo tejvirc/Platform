@@ -1,0 +1,966 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class VoucherDataService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class VoucherDataService
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService">
+  <h1 id="Aristocrat_Monaco_G2S_Services_VoucherDataService" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService">Class VoucherDataService
+  </h1>
+  <div class="markdown level0 summary"><p>An <a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html">IVoucherDataService</a> implementation</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">VoucherDataService</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.Services.html">Aristocrat.Monaco.G2S.Services</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class VoucherDataService : IVoucherDataService, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Data_Voucher_IVoucherDataRepository_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IVoucherDevice_voucherStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IVoucherDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.%23ctor(Aristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.G2S.Data.Voucher.IVoucherDataRepository%2CAristocrat.Monaco.Common.Storage.IMonacoContextFactory%2CAristocrat.Monaco.G2S.IEventLift%2CAristocrat.Monaco.Accounting.Contracts.ITransactionHistory%2CAristocrat.Monaco.G2S.Services.ITransactionReferenceProvider%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.G2S.Handlers.ICommandBuilder%7BAristocrat.G2S.Client.Devices.IVoucherDevice%2CvoucherStatus%7D%2CAristocrat.Monaco.G2S.Meters.IMeterAggregator%7BAristocrat.G2S.Client.Devices.IVoucherDevice%7D%2CAristocrat.Monaco.G2S.Meters.IMeterAggregator%7BAristocrat.G2S.Client.Devices.ICabinetDevice%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService__ctor_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Data_Voucher_IVoucherDataRepository_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IVoucherDevice_voucherStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IVoucherDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.#ctor(Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.G2S.Data.Voucher.IVoucherDataRepository,Aristocrat.Monaco.Common.Storage.IMonacoContextFactory,Aristocrat.Monaco.G2S.IEventLift,Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory,Aristocrat.Monaco.G2S.Services.ITransactionReferenceProvider,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.G2S.Handlers.ICommandBuilder{Aristocrat.G2S.Client.Devices.IVoucherDevice,voucherStatus},Aristocrat.Monaco.G2S.Meters.IMeterAggregator{Aristocrat.G2S.Client.Devices.IVoucherDevice},Aristocrat.Monaco.G2S.Meters.IMeterAggregator{Aristocrat.G2S.Client.Devices.ICabinetDevice})"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Data_Voucher_IVoucherDataRepository_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IVoucherDevice_voucherStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IVoucherDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__" class="expander" data-toggle="collapse">VoucherDataService(IG2SEgm, IVoucherDataRepository, IMonacoContextFactory, IEventLift, ITransactionHistory, ITransactionReferenceProvider, IEventBus, ICommandBuilder&lt;IVoucherDevice, voucherStatus&gt;, IMeterAggregator&lt;IVoucherDevice&gt;, IMeterAggregator&lt;ICabinetDevice&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Data_Voucher_IVoucherDataRepository_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_IEventLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_G2S_Services_ITransactionReferenceProvider_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_G2S_Handlers_ICommandBuilder_Aristocrat_G2S_Client_Devices_IVoucherDevice_voucherStatus__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_IVoucherDevice__Aristocrat_Monaco_G2S_Meters_IMeterAggregator_Aristocrat_G2S_Client_Devices_ICabinetDevice__" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.G2S.Services.VoucherDataService.html">VoucherDataService</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VoucherDataService(IG2SEgm egm, IVoucherDataRepository voucherData, IMonacoContextFactory contextFactory, IEventLift eventLift, ITransactionHistory transactionHistory, ITransactionReferenceProvider references, IEventBus eventBus, ICommandBuilder&lt;IVoucherDevice, voucherStatus&gt; statusCommandBuilder, IMeterAggregator&lt;IVoucherDevice&gt; voucherMeters, IMeterAggregator&lt;ICabinetDevice&gt; cabinetMeters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a></span>
+        <span class="parametername">egm</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Voucher.IVoucherDataRepository.html">IVoucherDataRepository</a></span>
+        <span class="parametername">voucherData</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../common/Aristocrat.Monaco.Common.Storage.IMonacoContextFactory.html">IMonacoContextFactory</a></span>
+        <span class="parametername">contextFactory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.IEventLift.html">IEventLift</a></span>
+        <span class="parametername">eventLift</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory.html">ITransactionHistory</a></span>
+        <span class="parametername">transactionHistory</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.ITransactionReferenceProvider.html">ITransactionReferenceProvider</a></span>
+        <span class="parametername">references</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Handlers.ICommandBuilder-2.html">ICommandBuilder</a>&lt;<a class="xref" href="Aristocrat.G2S.Client.Devices.IVoucherDevice.html">IVoucherDevice</a>, <span class="xref">voucherStatus</span>&gt;</span>
+        <span class="parametername">statusCommandBuilder</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMeterAggregator-1.html">IMeterAggregator</a>&lt;<a class="xref" href="Aristocrat.G2S.Client.Devices.IVoucherDevice.html">IVoucherDevice</a>&gt;</span>
+        <span class="parametername">voucherMeters</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMeterAggregator-1.html">IMeterAggregator</a>&lt;<a class="xref" href="Aristocrat.G2S.Client.Devices.ICabinetDevice.html">ICabinetDevice</a>&gt;</span>
+        <span class="parametername">cabinetMeters</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_HostOnline.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.HostOnline%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_HostOnline_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.HostOnline*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_HostOnline" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.HostOnline"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_HostOnline" class="expander" data-toggle="collapse">HostOnline</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_HostOnline" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the host online flag.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HostOnline { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_HostOnline">IVoucherDataService.HostOnline</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Name_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Name" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Name"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L110" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_ServiceTypes_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_ServiceTypes" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_CommunicationsStateChanged_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.CommunicationsStateChanged(System.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L137" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_CommunicationsStateChanged_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.CommunicationsStateChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_CommunicationsStateChanged_System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.CommunicationsStateChanged(System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_CommunicationsStateChanged_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">CommunicationsStateChanged(Int32, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_CommunicationsStateChanged_System_Int32_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Checks Host transport state for the voucher device owner.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CommunicationsStateChanged(int hostId, bool online)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hostId</span>
+        <p><p>Host If</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">online</span>
+        <p><p>Online flag.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_CommunicationsStateChanged_System_Int32_System_Boolean_">IVoucherDataService.CommunicationsStateChanged(Int32, Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Dispose"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L334" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases allocated resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>true to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_GetVoucherData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.GetVoucherData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_GetVoucherData_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.GetVoucherData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_GetVoucherData" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.GetVoucherData"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_GetVoucherData" class="expander" data-toggle="collapse">GetVoucherData()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_GetVoucherData" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets voucher data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VoucherData GetVoucherData()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.VoucherData.html">VoucherData</a>
+        <p><p>Voucher data.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_GetVoucherData">IVoucherDataService.GetVoucherData()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L113" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Initialize_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Initialize" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Initialize"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_ReadVoucherData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.ReadVoucherData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L284" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_ReadVoucherData_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.ReadVoucherData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_ReadVoucherData" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.ReadVoucherData"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_ReadVoucherData" class="expander" data-toggle="collapse">ReadVoucherData()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_ReadVoucherData" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads last voucher data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VoucherData ReadVoucherData()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.VoucherData.html">VoucherData</a>
+        <p><p>Voucher data.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_ReadVoucherData">IVoucherDataService.ReadVoucherData()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_SendCommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.SendCommitVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L238" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_SendCommitVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.SendCommitVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_SendCommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.SendCommitVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_SendCommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="expander" data-toggle="collapse">SendCommitVoucher(VoucherInTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_SendCommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="collapse in">
+  <div class="markdown level1 summary"><p>Send commit voucher command to host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SendCommitVoucher(VoucherInTransaction voucherInTransaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction.html">VoucherInTransaction</a></span>
+        <span class="parametername">voucherInTransaction</span>
+        <p><p>Voucher transaction.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_SendCommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_">IVoucherDataService.SendCommitVoucher(VoucherInTransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_SendRedeemVoucher_System_Int64_System_String_System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.SendRedeemVoucher(System.Int64%2CSystem.String%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L192" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_SendRedeemVoucher_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.SendRedeemVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_SendRedeemVoucher_System_Int64_System_String_System_Int64_System_Int64_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.SendRedeemVoucher(System.Int64,System.String,System.Int64,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_SendRedeemVoucher_System_Int64_System_String_System_Int64_System_Int64_" class="expander" data-toggle="collapse">SendRedeemVoucher(Int64, String, Int64, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_SendRedeemVoucher_System_Int64_System_String_System_Int64_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Send redeem voucher request to host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (authorizeVoucher, voucherLog) SendRedeemVoucher(long transactionId, string validationId, long logSequence, long amount)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>Transaction Id.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">validationId</span>
+        <p><p>Validation Id.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">logSequence</span>
+        <p><p>Log sequence.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p><p>Amount.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetuple-2">(T1, T2)</a>&lt;<span class="xref">authorizeVoucher</span>, <span class="xref">voucherLog</span>&gt;
+        <p><p>Authorized voucher and the voucher log</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_SendRedeemVoucher_System_Int64_System_String_System_Int64_System_Int64_">IVoucherDataService.SendRedeemVoucher(Int64, String, Int64, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_Start.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L122" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Start_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Start*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_Start" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.Start"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Start" class="expander" data-toggle="collapse">Start()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_Start" class="collapse in">
+  <div class="markdown level1 summary"><p>Starts the service</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Start()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_Start">IVoucherDataService.Start()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherIdAvailable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.VoucherIdAvailable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L183" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherIdAvailable_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.VoucherIdAvailable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherIdAvailable" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.VoucherIdAvailable"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherIdAvailable" class="expander" data-toggle="collapse">VoucherIdAvailable()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherIdAvailable" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets number of available voucher Ids.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int VoucherIdAvailable()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Number of available voucher Ids.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_VoucherIdAvailable">IVoucherDataService.VoucherIdAvailable()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherStateChanged.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService.VoucherStateChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L293" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherStateChanged_" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.VoucherStateChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherStateChanged" data-uid="Aristocrat.Monaco.G2S.Services.VoucherDataService.VoucherStateChanged"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherStateChanged" class="expander" data-toggle="collapse">VoucherStateChanged()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_VoucherDataService_VoucherStateChanged" class="collapse in">
+  <div class="markdown level1 summary"><p>Reset the Voucher Data service for the host state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void VoucherStateChanged()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Services.IVoucherDataService.html#Aristocrat_Monaco_G2S_Services_IVoucherDataService_VoucherStateChanged">IVoucherDataService.VoucherStateChanged()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_VoucherDataService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.VoucherDataService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/VoucherDataService.cs/#L31" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

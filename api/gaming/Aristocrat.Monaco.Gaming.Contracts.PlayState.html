@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Enum PlayState
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Enum PlayState
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.Contracts.PlayState">
+  <h1 id="Aristocrat_Monaco_Gaming_Contracts_PlayState" data-uid="Aristocrat.Monaco.Gaming.Contracts.PlayState">Enum PlayState
+  </h1>
+  <div class="markdown level0 summary"><p>The state of the game play activity.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.html">Aristocrat.Monaco.Gaming.Contracts</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum PlayState</code></pre>
+  </div>
+  
+  
+  
+  
+  
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_FatalError"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_FatalError" class="expander" data-toggle="collapse">FatalError</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_FatalError" class="collapse in">
+        <p><p>In FatalError state, the game has triggered a fatal error.  This state is entered due to a failed liability or legitimacy check.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_GameEnded"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_GameEnded" class="expander" data-toggle="collapse">GameEnded</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_GameEnded" class="collapse in">
+        <p><p>The GameEnded state indicates the results for the game cycle has been determined any winnings have been paid, thus
+ending the game-cycle. While in the gameEnded state, no player input will be accepted. This state provides a
+‘delay’ before returning input to the player. Bonus awards MAY be paid while in the gameEnded state.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_Idle"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_Idle" class="expander" data-toggle="collapse">Idle</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_Idle" class="collapse in">
+        <p><p>In Idle state, the game is not in play (not in a game-cycle), player input is enabled, player may leave the game
+and browse the various games available on the EGM. Bonus awards MAY be paid while in the gameIdle state. The player
+may adjust some game parameters such as lines bet or keno marks, without initiating a game-cycle.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_Initiated"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_Initiated" class="expander" data-toggle="collapse">Initiated</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_Initiated" class="collapse in">
+        <p><p>In Initiated state, game play has been initiated, but there is insufficient data to initiate recovery.  If the game
+process exits in this state nothing will be recorded in the game history.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_PayGameResults"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PayGameResults" class="expander" data-toggle="collapse">PayGameResults</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PayGameResults" class="collapse in">
+        <p><p>The PayGameResults state indicates the final win for the game cycle has been determined and payment is in progress.
+The game will remain in the payGameResults states until all payments have completed. This state also indicates that
+the primary game and any secondary games associated with this game cycle have concluded.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_PresentationIdle"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PresentationIdle" class="expander" data-toggle="collapse">PresentationIdle</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PresentationIdle" class="collapse in">
+        <p><p>The PresentationIdle state indicates the results for the game cycle has been determined any winnings have been paid, thus
+ending the game-cycle. Player input is accepted and will finalize the game if play is initiated.  This state provides a
+‘delay’ before closing the game round. All money operations are permitted while in the PresentationIdle.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameEnded"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameEnded" class="expander" data-toggle="collapse">PrimaryGameEnded</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameEnded" class="collapse in">
+        <p><p>The results for the primary game-cycle have been determined and any winnings have been paid.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameEscrow"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameEscrow" class="expander" data-toggle="collapse">PrimaryGameEscrow</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameEscrow" class="collapse in">
+        <p><p>The PrimaryGameEscrow state only applies when a central determinant game is being played. It indicates that the
+player has started a primary game-cycle with a wager; however the wager is in escrow and has NOT been committed
+yet. This state will remain until either the central determination logic has provided a valid primary game outcome,
+or when the central determination logic has failed to obtain a valid primary game outcome.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameStarted"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameStarted" class="expander" data-toggle="collapse">PrimaryGameStarted</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_PrimaryGameStarted" class="collapse in">
+        <p><p>The PrimaryGameStarted state indicates that a primary game-cycle has been started by the player and the initial
+wager has been committed to the accounting meters. This state also indicates that the ‘primary-game-cycle’ can not
+be aborted. Some game types may permit additional wagers (blackjack double-down, insurance, split, etc.) while in
+the primary game cycle, therefore additional wager changes may be committed to the accounting meters while in this
+state.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_ProgressivePending"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_ProgressivePending" class="expander" data-toggle="collapse">ProgressivePending</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_ProgressivePending" class="collapse in">
+        <p><p>The ProgressivePending state only applies when a game hits one or more progressive wins. Game play suspend when
+waiting for the progressive logic to provide a winning value.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameChoice"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameChoice" class="expander" data-toggle="collapse">SecondaryGameChoice</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameChoice" class="collapse in">
+        <p><p>The SecondaryGameChoice state allows the player to select whether the primary game winnings or winnings from
+previous secondary game cycles within the same overall game cycle may be risked in a secondary game, such as
+double-or-nothing.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameEnded"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameEnded" class="expander" data-toggle="collapse">SecondaryGameEnded</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameEnded" class="collapse in">
+        <p><p>The results for the secondary game-cycle have been determined and any final winnings have been recorded.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameEscrow"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameEscrow" class="expander" data-toggle="collapse">SecondaryGameEscrow</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameEscrow" class="collapse in">
+        <p><p>The SecondaryGameEscrow state only applies when a central determinant game is being played. It indicates that the
+player has requested to start a secondary game cycle with a wager; however the initial wager is in escrow and has
+NOT been committed at this state. This state will remain until either the central determination logic has provided
+a valid secondary game outcome, or when the central determination logic has failed to provide a valid secondary
+game outcome.</p>
+</p>
+      </div>
+      <h4 id="Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameStarted"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameStarted" class="expander" data-toggle="collapse">SecondaryGameStarted</a></h4>
+  
+      <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_PlayState_SecondaryGameStarted" class="collapse in">
+        <p><p>The SecondaryGameStarted state indicates that a secondary game cycle has been initiated by the player and the
+secondary wager has been committed to the accounting meters. This state also the secondary game cycle and cannot be
+aborted.</p>
+</p>
+      </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_PlayState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.PlayState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/PlayState.cs/#L6" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,969 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MetersSubscriptionManager
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MetersSubscriptionManager
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager">
+  <h1 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager">Class MetersSubscriptionManager
+  </h1>
+  <div class="markdown level0 summary"><p>Meters subscription manager implementation used to control meter subscription and reporting.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">MetersSubscriptionManager</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.Meters.html">Aristocrat.Monaco.G2S.Meters</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class MetersSubscriptionManager : IMetersSubscriptionManager, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_Meters_IMeterSubscriptionRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Gaming_Contracts_IGameProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.%23ctor(Aristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.Common.Storage.IMonacoContextFactory%2CAristocrat.Monaco.G2S.Data.Meters.IMeterSubscriptionRepository%2CAristocrat.Monaco.Common.Scheduler.ITaskScheduler%2CAristocrat.Monaco.Application.Contracts.IMeterManager%2CAristocrat.Monaco.Gaming.Contracts.IGameProvider%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Hardware.Contracts.IDeviceRegistryService)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager__ctor_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_Meters_IMeterSubscriptionRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Gaming_Contracts_IGameProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.#ctor(Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.Common.Storage.IMonacoContextFactory,Aristocrat.Monaco.G2S.Data.Meters.IMeterSubscriptionRepository,Aristocrat.Monaco.Common.Scheduler.ITaskScheduler,Aristocrat.Monaco.Application.Contracts.IMeterManager,Aristocrat.Monaco.Gaming.Contracts.IGameProvider,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Hardware.Contracts.IDeviceRegistryService)"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_Meters_IMeterSubscriptionRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Gaming_Contracts_IGameProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_" class="expander" data-toggle="collapse">MetersSubscriptionManager(IG2SEgm, IMonacoContextFactory, IMeterSubscriptionRepository, ITaskScheduler, IMeterManager, IGameProvider, IPropertiesManager, IDeviceRegistryService)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_Common_Storage_IMonacoContextFactory_Aristocrat_Monaco_G2S_Data_Meters_IMeterSubscriptionRepository_Aristocrat_Monaco_Common_Scheduler_ITaskScheduler_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Gaming_Contracts_IGameProvider_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Hardware_Contracts_IDeviceRegistryService_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.html">MetersSubscriptionManager</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MetersSubscriptionManager(IG2SEgm egm, IMonacoContextFactory contextFactory, IMeterSubscriptionRepository meterSubscriptionRepository, ITaskScheduler taskScheduler, IMeterManager meterManager, IGameProvider gameProvider, IPropertiesManager properties, IDeviceRegistryService deviceRegistry)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IG2SEgm.html">IG2SEgm</a></span>
+        <span class="parametername">egm</span>
+        <p><p>Egm.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../common/Aristocrat.Monaco.Common.Storage.IMonacoContextFactory.html">IMonacoContextFactory</a></span>
+        <span class="parametername">contextFactory</span>
+        <p><p>An <a class="xref" href="../../common/Aristocrat.Monaco.Common.Storage.IMonacoContextFactory.html">IMonacoContextFactory</a> instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Meters.IMeterSubscriptionRepository.html">IMeterSubscriptionRepository</a></span>
+        <span class="parametername">meterSubscriptionRepository</span>
+        <p><p>Meter subscription repository.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../common/Aristocrat.Monaco.Common.Scheduler.ITaskScheduler.html">ITaskScheduler</a></span>
+        <span class="parametername">taskScheduler</span>
+        <p><p>Task scheduler.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../application/Aristocrat.Monaco.Application.Contracts.IMeterManager.html">IMeterManager</a></span>
+        <span class="parametername">meterManager</span>
+        <p><p>Meter manager</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../gaming/Aristocrat.Monaco.Gaming.Contracts.IGameProvider.html">IGameProvider</a></span>
+        <span class="parametername">gameProvider</span>
+        <p><p>Game provider.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p><p>Property provider.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IDeviceRegistryService.html">IDeviceRegistryService</a></span>
+        <span class="parametername">deviceRegistry</span>
+        <p><p>An <a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IDeviceRegistryService.html">IDeviceRegistryService</a> instance.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_CurrencyMeters.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.CurrencyMeters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L168" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_CurrencyMeters_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.CurrencyMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_CurrencyMeters" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.CurrencyMeters"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_CurrencyMeters" class="expander" data-toggle="collapse">CurrencyMeters</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_CurrencyMeters" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets Currency Meter map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, List&lt;string&gt;&gt; CurrencyMeters { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_CurrencyMeters">IMetersSubscriptionManager.CurrencyMeters</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_DeviceMeters.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.DeviceMeters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L174" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_DeviceMeters_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.DeviceMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_DeviceMeters" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.DeviceMeters"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_DeviceMeters" class="expander" data-toggle="collapse">DeviceMeters</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_DeviceMeters" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets Device Meter map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, List&lt;string&gt;&gt; DeviceMeters { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_DeviceMeters">IMetersSubscriptionManager.DeviceMeters</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GameMeters.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GameMeters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L171" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GameMeters_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GameMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GameMeters" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GameMeters"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GameMeters" class="expander" data-toggle="collapse">GameMeters</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GameMeters" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets Game Meter map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, List&lt;string&gt;&gt; GameMeters { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_GameMeters">IMetersSubscriptionManager.GameMeters</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_WageMeters.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.WageMeters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L165" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_WageMeters_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.WageMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_WageMeters" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.WageMeters"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_WageMeters" class="expander" data-toggle="collapse">WageMeters</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_WageMeters" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets Wage Meter map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, List&lt;string&gt;&gt; WageMeters { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_WageMeters">IMetersSubscriptionManager.WageMeters</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_ClearSubscriptions_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.ClearSubscriptions(System.Int32%2CAristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L284" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_ClearSubscriptions_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.ClearSubscriptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_ClearSubscriptions_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.ClearSubscriptions(System.Int32,Aristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType)"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_ClearSubscriptions_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_" class="expander" data-toggle="collapse">ClearSubscriptions(Int32, MetersSubscriptionType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_ClearSubscriptions_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears all subscriptions for a host for type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MeterSubscription ClearSubscriptions(int hostId, MetersSubscriptionType type)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hostId</span>
+        <p><p>Host Id.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType.html">MetersSubscriptionType</a></span>
+        <span class="parametername">type</span>
+        <p><p>Subscription type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.MeterSubscription.html">MeterSubscription</a>
+        <p><p>Meter subscription</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_ClearSubscriptions_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_">IMetersSubscriptionManager.ClearSubscriptions(Int32, MetersSubscriptionType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Dispose"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L301" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeters_getMeterInfo_meterInfo_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GetMeters(getMeterInfo%2CmeterInfo)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L231" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeters_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GetMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeters_getMeterInfo_meterInfo_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GetMeters(getMeterInfo,meterInfo)"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeters_getMeterInfo_meterInfo_" class="expander" data-toggle="collapse">GetMeters(getMeterInfo, meterInfo)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeters_getMeterInfo_meterInfo_" class="collapse in">
+  <div class="markdown level1 summary"><p>Handles meter query for G2S GetMeterInfo</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetMeters(getMeterInfo queryInfo, meterInfo result)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">getMeterInfo</span></span>
+        <span class="parametername">queryInfo</span>
+        <p><p>GetMeterInfo</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">meterInfo</span></span>
+        <span class="parametername">result</span>
+        <p><p>MeterInfo result</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Error code</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_GetMeters_getMeterInfo_meterInfo_">IMetersSubscriptionManager.GetMeters(getMeterInfo, meterInfo)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeterSub_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GetMeterSub(System.Int32%2CAristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L260" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeterSub_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GetMeterSub*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeterSub_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.GetMeterSub(System.Int32,Aristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType)"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeterSub_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_" class="expander" data-toggle="collapse">GetMeterSub(Int32, MetersSubscriptionType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_GetMeterSub_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets all subscriptions for a host by type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;MeterSubscription&gt; GetMeterSub(int hostId, MetersSubscriptionType type)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hostId</span>
+        <p><p>Host Id.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType.html">MetersSubscriptionType</a></span>
+        <span class="parametername">type</span>
+        <p><p>Subscription type.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.MeterSubscription.html">MeterSubscription</a>&gt;
+        <p><p>Meter subscription</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_GetMeterSub_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_">IMetersSubscriptionManager.GetMeterSub(Int32, MetersSubscriptionType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_HandleMeterReport_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.HandleMeterReport(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_HandleMeterReport_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.HandleMeterReport*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_HandleMeterReport_System_Int64_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.HandleMeterReport(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_HandleMeterReport_System_Int64_" class="expander" data-toggle="collapse">HandleMeterReport(Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_HandleMeterReport_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void HandleMeterReport(long subId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">subId</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_HandleMeterReport_System_Int64_">IMetersSubscriptionManager.HandleMeterReport(Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SendEndOfDayMeters_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.SendEndOfDayMeters(System.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L205" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SendEndOfDayMeters_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.SendEndOfDayMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SendEndOfDayMeters_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.SendEndOfDayMeters(System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SendEndOfDayMeters_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">SendEndOfDayMeters(Boolean, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SendEndOfDayMeters_System_Boolean_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends End of Day meters info.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SendEndOfDayMeters(bool onDoorOpen = false, bool onNoteDrop = false)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">onDoorOpen</span>
+        <p><p>On door open flag.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">onNoteDrop</span>
+        <p><p>On note drop flag.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_SendEndOfDayMeters_System_Boolean_System_Boolean_">IMetersSubscriptionManager.SendEndOfDayMeters(Boolean, Boolean)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SetMetersSubscription_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_System_Collections_Generic_IList_Aristocrat_Monaco_G2S_Data_Model_MeterSubscription__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.SetMetersSubscription(System.Int32%2CAristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType%2CSystem.Collections.Generic.IList%7BAristocrat.Monaco.G2S.Data.Model.MeterSubscription%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L269" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SetMetersSubscription_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.SetMetersSubscription*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SetMetersSubscription_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_System_Collections_Generic_IList_Aristocrat_Monaco_G2S_Data_Model_MeterSubscription__" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.SetMetersSubscription(System.Int32,Aristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType,System.Collections.Generic.IList{Aristocrat.Monaco.G2S.Data.Model.MeterSubscription})"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SetMetersSubscription_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_System_Collections_Generic_IList_Aristocrat_Monaco_G2S_Data_Model_MeterSubscription__" class="expander" data-toggle="collapse">SetMetersSubscription(Int32, MetersSubscriptionType, IList&lt;MeterSubscription&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_SetMetersSubscription_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_System_Collections_Generic_IList_Aristocrat_Monaco_G2S_Data_Model_MeterSubscription__" class="collapse in">
+  <div class="markdown level1 summary"><p>Add subscriptions for a host by type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetMetersSubscription(int hostId, MetersSubscriptionType type, IList&lt;MeterSubscription&gt; subsList)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">hostId</span>
+        <p><p>Host Id.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.MetersSubscriptionType.html">MetersSubscriptionType</a></span>
+        <span class="parametername">type</span>
+        <p><p>Subscription type.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.MeterSubscription.html">MeterSubscription</a>&gt;</span>
+        <span class="parametername">subsList</span>
+        <p><p>Meter subscriptions.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_SetMetersSubscription_System_Int32_Aristocrat_Monaco_G2S_Data_Model_MetersSubscriptionType_System_Collections_Generic_IList_Aristocrat_Monaco_G2S_Data_Model_MeterSubscription__">IMetersSubscriptionManager.SetMetersSubscription(Int32, MetersSubscriptionType, IList&lt;MeterSubscription&gt;)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Start.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L254" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Start_" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Start*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Start" data-uid="Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager.Start"><a href="#collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Start" class="expander" data-toggle="collapse">Start()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager_Start" class="collapse in">
+  <div class="markdown level1 summary"><p>Schedules meter reporting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Start()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager.html#Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Start">IMetersSubscriptionManager.Start()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Meters_MetersSubscriptionManager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Meters.MetersSubscriptionManager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Meters/MetersSubscriptionManager.cs/#L27" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

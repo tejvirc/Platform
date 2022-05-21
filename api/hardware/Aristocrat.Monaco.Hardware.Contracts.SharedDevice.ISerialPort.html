@@ -1,0 +1,2269 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ISerialPort
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ISerialPort
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort">
+  <h1 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort">Interface ISerialPort
+  </h1>
+  <div class="markdown level0 summary"><p>Definition of the ISerialPort interface.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.html">Aristocrat.Monaco.Hardware.Contracts.SharedDevice</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISerialPort</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaseStream.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BaseStream%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L16" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaseStream_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BaseStream*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaseStream" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BaseStream"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaseStream" class="expander" data-toggle="collapse">BaseStream</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaseStream" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets base stream.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Stream BaseStream { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.stream">Stream</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaudRate.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BaudRate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaudRate_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BaudRate*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaudRate" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BaudRate"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaudRate" class="expander" data-toggle="collapse">BaudRate</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BaudRate" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets baud rate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int BaudRate { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BreakState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BreakState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BreakState_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BreakState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BreakState" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BreakState"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BreakState" class="expander" data-toggle="collapse">BreakState</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BreakState" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether port is in break state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool BreakState { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToRead.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BytesToRead%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToRead_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BytesToRead*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToRead" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BytesToRead"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToRead" class="expander" data-toggle="collapse">BytesToRead</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToRead" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets bytes to read.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int BytesToRead { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToWrite.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BytesToWrite%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToWrite_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BytesToWrite*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToWrite" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.BytesToWrite"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToWrite" class="expander" data-toggle="collapse">BytesToWrite</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_BytesToWrite" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets bytes to write.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int BytesToWrite { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CDHolding.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.CDHolding%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CDHolding_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.CDHolding*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CDHolding" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.CDHolding"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CDHolding" class="expander" data-toggle="collapse">CDHolding</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CDHolding" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether port is in CD holding state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CDHolding { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CtsHolding.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.CtsHolding%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CtsHolding_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.CtsHolding*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CtsHolding" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.CtsHolding"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CtsHolding" class="expander" data-toggle="collapse">CtsHolding</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_CtsHolding" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether port is in CTS holding state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool CtsHolding { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataBits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DataBits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataBits_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DataBits*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataBits" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DataBits"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataBits" class="expander" data-toggle="collapse">DataBits</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataBits" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets data bits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int DataBits { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardNull.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardNull%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardNull_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardNull*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardNull" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardNull"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardNull" class="expander" data-toggle="collapse">DiscardNull</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardNull" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether to dicard null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DiscardNull { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DsrHolding.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DsrHolding%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DsrHolding_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DsrHolding*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DsrHolding" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DsrHolding"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DsrHolding" class="expander" data-toggle="collapse">DsrHolding</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DsrHolding" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether port is in Dsr holding state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DsrHolding { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DtrEnable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DtrEnable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DtrEnable_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DtrEnable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DtrEnable" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DtrEnable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DtrEnable" class="expander" data-toggle="collapse">DtrEnable</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DtrEnable" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether Dtr is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool DtrEnable { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Encoding.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Encoding%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Encoding_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Encoding*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Encoding" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Encoding"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Encoding" class="expander" data-toggle="collapse">Encoding</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Encoding" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets encoding.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Encoding Encoding { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.text.encoding">Encoding</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Handshake.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Handshake%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Handshake_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Handshake*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Handshake" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Handshake"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Handshake" class="expander" data-toggle="collapse">Handshake</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Handshake" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets handshake.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Handshake Handshake { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.ports.handshake">Handshake</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_IsOpen.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.IsOpen%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_IsOpen_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.IsOpen*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_IsOpen" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.IsOpen"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_IsOpen" class="expander" data-toggle="collapse">IsOpen</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_IsOpen" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether port is open.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsOpen { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_NewLine.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.NewLine%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_NewLine_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.NewLine*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_NewLine" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.NewLine"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_NewLine" class="expander" data-toggle="collapse">NewLine</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_NewLine" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the value used to interpret the end of a call
+to the ReadLine and WriteLine methods.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string NewLine { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Parity.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Parity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Parity_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Parity*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Parity" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Parity"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Parity" class="expander" data-toggle="collapse">Parity</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Parity" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets parity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Parity Parity { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.ports.parity">Parity</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ParityReplace.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ParityReplace%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ParityReplace_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ParityReplace*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ParityReplace" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ParityReplace"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ParityReplace" class="expander" data-toggle="collapse">ParityReplace</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ParityReplace" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the byte that replaces invalid bytes in a data stream
+when a parity error occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">byte ParityReplace { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PortName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.PortName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PortName_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.PortName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PortName" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.PortName"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PortName" class="expander" data-toggle="collapse">PortName</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PortName" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets port name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string PortName { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadBufferSize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadBufferSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadBufferSize_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadBufferSize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadBufferSize" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadBufferSize"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadBufferSize" class="expander" data-toggle="collapse">ReadBufferSize</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadBufferSize" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets read buffer size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ReadBufferSize { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTimeout.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadTimeout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTimeout_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadTimeout*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTimeout" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadTimeout"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTimeout" class="expander" data-toggle="collapse">ReadTimeout</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTimeout" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of milliseconds before a time-out occurs
+when a read operation does not complete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ReadTimeout { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReceivedBytesThreshold.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReceivedBytesThreshold%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L120" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReceivedBytesThreshold_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReceivedBytesThreshold*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReceivedBytesThreshold" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReceivedBytesThreshold"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReceivedBytesThreshold" class="expander" data-toggle="collapse">ReceivedBytesThreshold</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReceivedBytesThreshold" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of bytes in the internal input buffer
+before a DataReceived event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ReceivedBytesThreshold { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_RtsEnable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.RtsEnable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L125" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_RtsEnable_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.RtsEnable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_RtsEnable" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.RtsEnable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_RtsEnable" class="expander" data-toggle="collapse">RtsEnable</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_RtsEnable" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether Rts is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool RtsEnable { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_StopBits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.StopBits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_StopBits_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.StopBits*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_StopBits" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.StopBits"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_StopBits" class="expander" data-toggle="collapse">StopBits</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_StopBits" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets number of stop bits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StopBits StopBits { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.ports.stopbits">StopBits</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteBufferSize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteBufferSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteBufferSize_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteBufferSize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteBufferSize" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteBufferSize"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteBufferSize" class="expander" data-toggle="collapse">WriteBufferSize</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteBufferSize" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the size of the serial port output buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int WriteBufferSize { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteTimeout.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteTimeout%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L141" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteTimeout_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteTimeout*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteTimeout" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteTimeout"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteTimeout" class="expander" data-toggle="collapse">WriteTimeout</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteTimeout" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of milliseconds before a time-out occurs
+when a write operation does not complete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int WriteTimeout { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Close.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L171" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Close_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Close*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Close" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Close"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Close" class="expander" data-toggle="collapse">Close()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Close" class="collapse in">
+  <div class="markdown level1 summary"><p>Closes the serial port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Close()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardInBuffer.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardInBuffer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardInBuffer_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardInBuffer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardInBuffer" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardInBuffer"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardInBuffer" class="expander" data-toggle="collapse">DiscardInBuffer()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardInBuffer" class="collapse in">
+  <div class="markdown level1 summary"><p>Discards contents of the in buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DiscardInBuffer()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardOutBuffer.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardOutBuffer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L181" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardOutBuffer_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardOutBuffer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardOutBuffer" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DiscardOutBuffer"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardOutBuffer" class="expander" data-toggle="collapse">DiscardOutBuffer()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DiscardOutBuffer" class="collapse in">
+  <div class="markdown level1 summary"><p>Discards contents of the out buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void DiscardOutBuffer()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L266" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Dispose" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Dispose"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Dispose" class="collapse in">
+  <div class="markdown level1 summary"><p>Dispose of the object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Open.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Open%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L166" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Open_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Open*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Open" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Open"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Open" class="expander" data-toggle="collapse">Open()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Open" class="collapse in">
+  <div class="markdown level1 summary"><p>Opens the serial port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Open()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Byte___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Read(System.Byte%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L191" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Read*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Byte___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Read(System.Byte[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Byte___System_Int32_System_Int32_" class="expander" data-toggle="collapse">Read(Byte[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Byte___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads a number of bytes from the SerialPort input buffer and writes
+those bytes into a byte array at the specified offset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Read(byte[] buffer, int offset, int count)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">buffer</span>
+        <p><p>The byte array to write the input to.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>The offset in the buffer array to begin writing.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">count</span>
+        <p><p>The number of bytes to read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Number of bytes read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Char___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Read(System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L207" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Read*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Char___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Read(System.Char[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Char___System_Int32_System_Int32_" class="expander" data-toggle="collapse">Read(Char[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Read_System_Char___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads a number of characters from the SerialPort input buffer and writes
+those characters into a char array at the specified offset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Read(char[] buffer, int offset, int count)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a>[]</span>
+        <span class="parametername">buffer</span>
+        <p><p>The char array to write the input to.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>The offset in the buffer array to begin writing.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">count</span>
+        <p><p>The number of chars to read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Number of bytes read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadByte.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadByte%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L213" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadByte_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadByte*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadByte" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadByte"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadByte" class="expander" data-toggle="collapse">ReadByte()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadByte" class="collapse in">
+  <div class="markdown level1 summary"><p>Synchronously reads one byte from the SerialPort input buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ReadByte()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Number of bytes read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadChar.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadChar%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L197" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadChar_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadChar*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadChar" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadChar"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadChar" class="expander" data-toggle="collapse">ReadChar()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadChar" class="collapse in">
+  <div class="markdown level1 summary"><p>Synchronously reads one character from the SerialPort input buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int ReadChar()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>Number of bytes read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadExisting.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadExisting%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L220" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadExisting_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadExisting*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadExisting" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadExisting"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadExisting" class="expander" data-toggle="collapse">ReadExisting()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadExisting" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads all immediately available bytes, based on the encoding,
+in both the stream and the input buffer of the SerialPort object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ReadExisting()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>String read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadLine.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadLine%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L226" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadLine_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadLine*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadLine" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadLine"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadLine" class="expander" data-toggle="collapse">ReadLine()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadLine" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads up to the NewLine value in the input buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ReadLine()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>String read.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTo_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadTo(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L233" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTo_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadTo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTo_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ReadTo(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTo_System_String_" class="expander" data-toggle="collapse">ReadTo(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ReadTo_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads a string up to the specified value in the input buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ReadTo(string value)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">value</span>
+        <p><p>A value that indicates where the read operation stops.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The contents of the input buffer up to the specified value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L272" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ToString_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ToString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ToString" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ToString"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ToString" class="expander" data-toggle="collapse">ToString()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ToString" class="collapse in">
+  <div class="markdown level1 summary"><p>Convert to String.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">string ToString()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>String representation of this object.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Byte___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write(System.Byte%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L255" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Byte___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write(System.Byte[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Byte___System_Int32_System_Int32_" class="expander" data-toggle="collapse">Write(Byte[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Byte___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Writes a specified number of bytes to the serial port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Write(byte[] buffer, int offset, int count)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">buffer</span>
+        <p><p>The byte array to write from.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>The offset in the buffer parameter at which to begin copying bytes to the port. </p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">count</span>
+        <p><p>The number of bytes to write. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Char___System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write(System.Char%5B%5D%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L247" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Char___System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write(System.Char[],System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Char___System_Int32_System_Int32_" class="expander" data-toggle="collapse">Write(Char[], Int32, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_Char___System_Int32_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Writes a specified number of chars to the serial port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Write(char[] buffer, int offset, int count)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a>[]</span>
+        <span class="parametername">buffer</span>
+        <p><p>The char array to write from.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">offset</span>
+        <p><p>The offset in the buffer parameter at which to begin copying chars to the port. </p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">count</span>
+        <p><p>The number of chars to write. </p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L239" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Write(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_String_" class="expander" data-toggle="collapse">Write(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Write_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Writes the specified string to the serial port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Write(string text)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">text</span>
+        <p><p>The string to write.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteLine_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteLine(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L261" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteLine_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteLine*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteLine_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.WriteLine(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteLine_System_String_" class="expander" data-toggle="collapse">WriteLine(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_WriteLine_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Writes the specified string and the NewLine value to the output buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void WriteLine(string text)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">text</span>
+        <p><p>The string to write to the output buffer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataReceived.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DataReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L156" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataReceived" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.DataReceived"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataReceived" class="expander" data-toggle="collapse">DataReceived</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_DataReceived" class="collapse in">
+  <div class="markdown level1 summary"><p>Event data received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event SerialDataReceivedEventHandler DataReceived</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.ports.serialdatareceivedeventhandler">SerialDataReceivedEventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Disposed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Disposed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L161" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Disposed" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.Disposed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Disposed" class="expander" data-toggle="collapse">Disposed</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_Disposed" class="collapse in">
+  <div class="markdown level1 summary"><p>Event disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler Disposed</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ErrorReceived.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ErrorReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L146" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ErrorReceived" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.ErrorReceived"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ErrorReceived" class="expander" data-toggle="collapse">ErrorReceived</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_ErrorReceived" class="collapse in">
+  <div class="markdown level1 summary"><p>Event error received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event SerialErrorReceivedEventHandler ErrorReceived</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.ports.serialerrorreceivedeventhandler">SerialErrorReceivedEventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PinChanged.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.PinChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L151" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PinChanged" data-uid="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort.PinChanged"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PinChanged" class="expander" data-toggle="collapse">PinChanged</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort_PinChanged" class="collapse in">
+  <div class="markdown level1 summary"><p>Event serial pin changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event SerialPinChangedEventHandler PinChanged</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.io.ports.serialpinchangedeventhandler">SerialPinChangedEventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_SharedDevice_ISerialPort.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.SharedDevice.ISerialPort%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/SharedDevice/ISerialPort.cs/#L11" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

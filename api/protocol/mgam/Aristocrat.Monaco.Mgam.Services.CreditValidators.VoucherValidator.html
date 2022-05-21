@@ -1,0 +1,987 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class VoucherValidator
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class VoucherValidator
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator">
+  <h1 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator">Class VoucherValidator
+  </h1>
+  <div class="markdown level0 summary"><p>Used to validate voucher requested by the EGM with the host.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">VoucherValidator</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.html">Aristocrat.Monaco.Mgam.Services.CreditValidators</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Mgam.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class VoucherValidator : IVoucherValidator, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Mgam_Services_Attributes_IAttributeManager_Aristocrat_Monaco_Mgam_Services_CreditValidators_ICashOut_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_Aristocrat_Mgam_Client_IEgm_Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Mgam_Services_Lockup_ILockup_Aristocrat_Monaco_Mgam_Services_Notification_INotificationLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_Aristocrat_Monaco_Application_Contracts_IIdProvider_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.%23ctor(Aristocrat.Mgam.Client.Logging.ILogger%7BAristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator%7D%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Mgam.Services.Attributes.IAttributeManager%2CAristocrat.Monaco.Mgam.Services.CreditValidators.ICashOut%2CAristocrat.Monaco.Mgam.Commands.ICommandHandlerFactory%2CAristocrat.Mgam.Client.IEgm%2CAristocrat.Monaco.Protocol.Common.Storage.Entity.IUnitOfWorkFactory%2CAristocrat.Monaco.Mgam.Services.Lockup.ILockup%2CAristocrat.Monaco.Mgam.Services.Notification.INotificationLift%2CAristocrat.Monaco.Accounting.Contracts.ITransactionHistory%2CAristocrat.Monaco.Gaming.Contracts.IGameHistory%2CAristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler%2CAristocrat.Monaco.Application.Contracts.IIdProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__ctor_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Mgam_Services_Attributes_IAttributeManager_Aristocrat_Monaco_Mgam_Services_CreditValidators_ICashOut_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_Aristocrat_Mgam_Client_IEgm_Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Mgam_Services_Lockup_ILockup_Aristocrat_Monaco_Mgam_Services_Notification_INotificationLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_Aristocrat_Monaco_Application_Contracts_IIdProvider_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.#ctor(Aristocrat.Mgam.Client.Logging.ILogger{Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator},Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Mgam.Services.Attributes.IAttributeManager,Aristocrat.Monaco.Mgam.Services.CreditValidators.ICashOut,Aristocrat.Monaco.Mgam.Commands.ICommandHandlerFactory,Aristocrat.Mgam.Client.IEgm,Aristocrat.Monaco.Protocol.Common.Storage.Entity.IUnitOfWorkFactory,Aristocrat.Monaco.Mgam.Services.Lockup.ILockup,Aristocrat.Monaco.Mgam.Services.Notification.INotificationLift,Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory,Aristocrat.Monaco.Gaming.Contracts.IGameHistory,Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler,Aristocrat.Monaco.Application.Contracts.IIdProvider)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Mgam_Services_Attributes_IAttributeManager_Aristocrat_Monaco_Mgam_Services_CreditValidators_ICashOut_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_Aristocrat_Mgam_Client_IEgm_Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Mgam_Services_Lockup_ILockup_Aristocrat_Monaco_Mgam_Services_Notification_INotificationLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_Aristocrat_Monaco_Application_Contracts_IIdProvider_" class="expander" data-toggle="collapse">VoucherValidator(ILogger&lt;VoucherValidator&gt;, IEventBus, IPropertiesManager, IAttributeManager, ICashOut, ICommandHandlerFactory, IEgm, IUnitOfWorkFactory, ILockup, INotificationLift, ITransactionHistory, IGameHistory, ITransactionRetryHandler, IIdProvider)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__ctor_Aristocrat_Mgam_Client_Logging_ILogger_Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator__Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Mgam_Services_Attributes_IAttributeManager_Aristocrat_Monaco_Mgam_Services_CreditValidators_ICashOut_Aristocrat_Monaco_Mgam_Commands_ICommandHandlerFactory_Aristocrat_Mgam_Client_IEgm_Aristocrat_Monaco_Protocol_Common_Storage_Entity_IUnitOfWorkFactory_Aristocrat_Monaco_Mgam_Services_Lockup_ILockup_Aristocrat_Monaco_Mgam_Services_Notification_INotificationLift_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Mgam_Services_CreditValidators_ITransactionRetryHandler_Aristocrat_Monaco_Application_Contracts_IIdProvider_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.html">VoucherValidator</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VoucherValidator(ILogger&lt;VoucherValidator&gt; logger, IEventBus eventBus, IPropertiesManager properties, IAttributeManager attributes, ICashOut cashOutHandler, ICommandHandlerFactory commandFactory, IEgm egm, IUnitOfWorkFactory unitOfWorkFactory, ILockup lockoutHandler, INotificationLift notificationLift, ITransactionHistory transactionHistory, IGameHistory gameHistory, ITransactionRetryHandler retryHandler, IIdProvider idProvider)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Mgam.Client.Logging.ILogger-1.html">ILogger</a>&lt;<a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.html">VoucherValidator</a>&gt;</span>
+        <span class="parametername">logger</span>
+        <p><p>Logger.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p><p>Event bus.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p><p>Properties manager.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Mgam.Services.Attributes.IAttributeManager.html">IAttributeManager</a></span>
+        <span class="parametername">attributes</span>
+        <p><p>Attributes manager.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ICashOut.html">ICashOut</a></span>
+        <span class="parametername">cashOutHandler</span>
+        <p><p>Player cashOutHandler.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Mgam.Commands.ICommandHandlerFactory.html">ICommandHandlerFactory</a></span>
+        <span class="parametername">commandFactory</span>
+        <p><p>Command factory.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Mgam.Client.IEgm.html">IEgm</a></span>
+        <span class="parametername">egm</span>
+        <p><p>EGM client.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.Monaco.Protocol.Common.Storage.Entity.IUnitOfWorkFactory</span></span>
+        <span class="parametername">unitOfWorkFactory</span>
+        <p><p>Unit of work factory.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Mgam.Services.Lockup.ILockup.html">ILockup</a></span>
+        <span class="parametername">lockoutHandler</span>
+        <p><p><a class="xref" href="Aristocrat.Monaco.Mgam.Services.Lockup.ILockup.html">ILockup</a>.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Mgam.Services.Notification.INotificationLift.html">INotificationLift</a></span>
+        <span class="parametername">notificationLift</span>
+        <p><p><a class="xref" href="Aristocrat.Monaco.Mgam.Services.Notification.INotificationLift.html">INotificationLift</a>.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory.html">ITransactionHistory</a></span>
+        <span class="parametername">transactionHistory</span>
+        <p><p><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory.html">ITransactionHistory</a>.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../gaming/Aristocrat.Monaco.Gaming.Contracts.IGameHistory.html">IGameHistory</a></span>
+        <span class="parametername">gameHistory</span>
+        <p><p><a class="xref" href="../../gaming/Aristocrat.Monaco.Gaming.Contracts.IGameHistory.html">IGameHistory</a>.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler.html">ITransactionRetryHandler</a></span>
+        <span class="parametername">retryHandler</span>
+        <p><a class="xref" href="Aristocrat.Monaco.Mgam.Services.CreditValidators.ITransactionRetryHandler.html">ITransactionRetryHandler</a></p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../application/Aristocrat.Monaco.Application.Contracts.IIdProvider.html">IIdProvider</a></span>
+        <span class="parametername">idProvider</span>
+        <p><a class="xref" href="../../application/Aristocrat.Monaco.Application.Contracts.IIdProvider.html">IIdProvider</a></p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanCombineCashableAmounts.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanCombineCashableAmounts%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanCombineCashableAmounts_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanCombineCashableAmounts*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanCombineCashableAmounts" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanCombineCashableAmounts"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanCombineCashableAmounts" class="expander" data-toggle="collapse">CanCombineCashableAmounts</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanCombineCashableAmounts" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanCombineCashableAmounts { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanCombineCashableAmounts">IVoucherValidator.CanCombineCashableAmounts</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVouchersIn.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanValidateVouchersIn%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVouchersIn_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanValidateVouchersIn*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVouchersIn" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanValidateVouchersIn"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVouchersIn" class="expander" data-toggle="collapse">CanValidateVouchersIn</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVouchersIn" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanValidateVouchersIn { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVouchersIn">IVoucherValidator.CanValidateVouchersIn</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_HostOnline.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.HostOnline%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L146" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_HostOnline_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.HostOnline*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_HostOnline" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.HostOnline"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_HostOnline" class="expander" data-toggle="collapse">HostOnline</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_HostOnline" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HostOnline { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_HostOnline">IVoucherValidator.HostOnline</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L127" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Name_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Name" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Name"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ReprintFailedVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.ReprintFailedVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L149" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ReprintFailedVoucher_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.ReprintFailedVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ReprintFailedVoucher" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.ReprintFailedVoucher"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ReprintFailedVoucher" class="expander" data-toggle="collapse">ReprintFailedVoucher</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ReprintFailedVoucher" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ReprintFailedVoucher { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_ReprintFailedVoucher">IVoucherValidator.ReprintFailedVoucher</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ServiceTypes_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ServiceTypes" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanValidateVoucherOut(System.Int64%2CAristocrat.Monaco.Accounting.Contracts.AccountType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVoucherOut_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanValidateVoucherOut*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CanValidateVoucherOut(System.Int64,Aristocrat.Monaco.Accounting.Contracts.AccountType)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="expander" data-toggle="collapse">CanValidateVoucherOut(Int64, AccountType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanValidateVoucherOut(long amount, AccountType type)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">amount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">type</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CanValidateVoucherOut_System_Int64_Aristocrat_Monaco_Accounting_Contracts_AccountType_">IVoucherValidator.CanValidateVoucherOut(Int64, AccountType)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CommitVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L370" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CommitVoucher_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CommitVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.CommitVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="expander" data-toggle="collapse">CommitVoucher(VoucherInTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CommitVoucher(VoucherInTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction.html">VoucherInTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_CommitVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_">IVoucherValidator.CommitVoucher(VoucherInTransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L120" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Dispose_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Dispose" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Dispose"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Dispose" class="collapse in">
+  <div class="markdown level1 summary"><p>Dispose.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L133" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Initialize_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Initialize" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.Initialize"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.IssueVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherAmount%2CAristocrat.Monaco.Accounting.Contracts.AccountType%2CSystem.Guid%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L282" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_IssueVoucher_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.IssueVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.IssueVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherAmount,Aristocrat.Monaco.Accounting.Contracts.AccountType,System.Guid,Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="expander" data-toggle="collapse">IssueVoucher(VoucherAmount, AccountType, Guid, TransferOutReason)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;VoucherOutTransaction&gt; IssueVoucher(VoucherAmount amount, AccountType type, Guid transactionId, TransferOutReason reason)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.VoucherAmount.html">VoucherAmount</a></span>
+        <span class="parametername">amount</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">type</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction.html">VoucherOutTransaction</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_IssueVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherAmount_Aristocrat_Monaco_Accounting_Contracts_AccountType_System_Guid_Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_">IVoucherValidator.IssueVoucher(VoucherAmount, AccountType, Guid, TransferOutReason)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.RedeemVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L164" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_RedeemVoucher_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.RedeemVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.RedeemVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="expander" data-toggle="collapse">RedeemVoucher(VoucherInTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;VoucherAmount&gt; RedeemVoucher(VoucherInTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction.html">VoucherInTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.VoucherAmount.html">VoucherAmount</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_RedeemVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_">IVoucherValidator.RedeemVoucher(VoucherInTransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.StackedVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L254" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_StackedVoucher_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.StackedVoucher*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" data-uid="Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator.StackedVoucher(Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction)"><a href="#collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="expander" data-toggle="collapse">StackedVoucher(VoucherInTransaction)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task StackedVoucher(VoucherInTransaction transaction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction.html">VoucherInTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.IVoucherValidator.html#Aristocrat_Monaco_Accounting_Contracts_IVoucherValidator_StackedVoucher_Aristocrat_Monaco_Accounting_Contracts_VoucherInTransaction_">IVoucherValidator.StackedVoucher(VoucherInTransaction)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Mgam_Services_CreditValidators_VoucherValidator.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Mgam.Services.CreditValidators.VoucherValidator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/MGAM/Aristocrat.Monaco.Mgam/Services/CreditValidators/VoucherValidator.cs/#L36" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

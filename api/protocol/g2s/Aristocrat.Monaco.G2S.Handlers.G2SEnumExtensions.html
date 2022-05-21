@@ -1,0 +1,936 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class G2SEnumExtensions
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class G2SEnumExtensions
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions">
+  <h1 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions">Class G2SEnumExtensions
+  </h1>
+  <div class="markdown level0 summary"><p>Extensions to convert G2S string enums to code enums in both directions.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">G2SEnumExtensions</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.G2S.Handlers.html">Aristocrat.Monaco.G2S.Handlers</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.G2S.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class G2SEnumExtensions</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ApplyConditionFromG2SString_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ApplyConditionFromG2SString(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ApplyConditionFromG2SString_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ApplyConditionFromG2SString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ApplyConditionFromG2SString_System_String_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ApplyConditionFromG2SString(System.String)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ApplyConditionFromG2SString_System_String_" class="expander" data-toggle="collapse">ApplyConditionFromG2SString(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ApplyConditionFromG2SString_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts G2S value to the ApplyCondition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ApplyCondition ApplyConditionFromG2SString(this string condition)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">condition</span>
+        <p><p>The condition.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ApplyCondition.html">ApplyCondition</a>
+        <p><p>String value of G2S protocol.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassFromG2SString_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DeviceClassFromG2SString(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L245" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassFromG2SString_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DeviceClassFromG2SString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassFromG2SString_System_String_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DeviceClassFromG2SString(System.String)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassFromG2SString_System_String_" class="expander" data-toggle="collapse">DeviceClassFromG2SString(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassFromG2SString_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts G2S value to the DeviceClass</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DeviceClass DeviceClassFromG2SString(this string deviceClass)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">deviceClass</span>
+        <p><p>The device class.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.DeviceClass.html">DeviceClass</a>
+        <p><p>DeviceClass enum value from deviceClass string.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassToG2SString_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DeviceClassToG2SString(Aristocrat.Monaco.G2S.Data.Model.DeviceClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L159" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassToG2SString_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DeviceClassToG2SString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassToG2SString_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DeviceClassToG2SString(Aristocrat.Monaco.G2S.Data.Model.DeviceClass)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassToG2SString_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_" class="expander" data-toggle="collapse">DeviceClassToG2SString(DeviceClass)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DeviceClassToG2SString_Aristocrat_Monaco_G2S_Data_Model_DeviceClass_" class="collapse in">
+  <div class="markdown level1 summary"><p>Devices the class to g2 s string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string DeviceClassToG2SString(this DeviceClass deviceClass)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.DeviceClass.html">DeviceClass</a></span>
+        <span class="parametername">deviceClass</span>
+        <p><p>The device class.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>G2S device class</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a>
+        <p><p>Not valid value for G2S deviceClass</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DisableConditionFromG2SString_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DisableConditionFromG2SString(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DisableConditionFromG2SString_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DisableConditionFromG2SString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DisableConditionFromG2SString_System_String_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.DisableConditionFromG2SString(System.String)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DisableConditionFromG2SString_System_String_" class="expander" data-toggle="collapse">DisableConditionFromG2SString(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_DisableConditionFromG2SString_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts G2S value to the DisableCondition.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static DisableCondition DisableConditionFromG2SString(this string condition)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">condition</span>
+        <p><p>The condition.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.DisableCondition.html">DisableCondition</a>
+        <p><p>String value of G2S protocol.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_G2SScriptStatesFromScriptStates_Aristocrat_Monaco_G2S_Common_PackageManager_Storage_ScriptState_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.G2SScriptStatesFromScriptStates(Aristocrat.Monaco.G2S.Common.PackageManager.Storage.ScriptState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_G2SScriptStatesFromScriptStates_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.G2SScriptStatesFromScriptStates*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_G2SScriptStatesFromScriptStates_Aristocrat_Monaco_G2S_Common_PackageManager_Storage_ScriptState_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.G2SScriptStatesFromScriptStates(Aristocrat.Monaco.G2S.Common.PackageManager.Storage.ScriptState)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_G2SScriptStatesFromScriptStates_Aristocrat_Monaco_G2S_Common_PackageManager_Storage_ScriptState_" class="expander" data-toggle="collapse">G2SScriptStatesFromScriptStates(ScriptState)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_G2SScriptStatesFromScriptStates_Aristocrat_Monaco_G2S_Common_PackageManager_Storage_ScriptState_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts ScriptState to G2S value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string G2SScriptStatesFromScriptStates(this ScriptState state)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Common.PackageManager.Storage.ScriptState.html">ScriptState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>Enum script state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_TimeoutActionFromG2SString_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.TimeoutActionFromG2SString(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L140" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_TimeoutActionFromG2SString_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.TimeoutActionFromG2SString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_TimeoutActionFromG2SString_System_String_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.TimeoutActionFromG2SString(System.String)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_TimeoutActionFromG2SString_System_String_" class="expander" data-toggle="collapse">TimeoutActionFromG2SString(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_TimeoutActionFromG2SString_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts G2S value to the TimeoutActionType.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TimeoutActionType TimeoutActionFromG2SString(this string timeoutAction)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">timeoutAction</span>
+        <p><p>The timeout action.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.TimeoutActionType.html">TimeoutActionType</a>
+        <p><p>String value of G2S protocol.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToAccountType_t_creditTypes_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToAccountType(t_creditTypes)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L367" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToAccountType_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToAccountType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToAccountType_t_creditTypes_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToAccountType(t_creditTypes)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToAccountType_t_creditTypes_" class="expander" data-toggle="collapse">ToAccountType(t_creditTypes)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToAccountType_t_creditTypes_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts the G2S <see cref="!:t_creditTypes"></see> to an <a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AccountType ToAccountType(this t_creditTypes this)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">t_creditTypes</span></span>
+        <span class="parametername">this</span>
+        <p><p>The credit type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a>
+        <p><p>The account type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToCreditType_Aristocrat_Monaco_Accounting_Contracts_AccountType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToCreditType(Aristocrat.Monaco.Accounting.Contracts.AccountType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L387" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToCreditType_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToCreditType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToCreditType_Aristocrat_Monaco_Accounting_Contracts_AccountType_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToCreditType(Aristocrat.Monaco.Accounting.Contracts.AccountType)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToCreditType_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="expander" data-toggle="collapse">ToCreditType(AccountType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToCreditType_Aristocrat_Monaco_Accounting_Contracts_AccountType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts an <a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a> to a G2S <see cref="!:t_creditTypes"></see></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static t_creditTypes ToCreditType(this AccountType this)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../accounting/Aristocrat.Monaco.Accounting.Contracts.AccountType.html">AccountType</a></span>
+        <span class="parametername">this</span>
+        <p><p>The account type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">t_creditTypes</span>
+        <p><p>The credit type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_ApplyCondition_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToG2SString(Aristocrat.Monaco.G2S.Data.Model.ApplyCondition)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L22" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToG2SString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_ApplyCondition_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToG2SString(Aristocrat.Monaco.G2S.Data.Model.ApplyCondition)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_ApplyCondition_" class="expander" data-toggle="collapse">ToG2SString(ApplyCondition)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_ApplyCondition_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts ApplyCondition to the G2S value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToG2SString(this ApplyCondition condition)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.ApplyCondition.html">ApplyCondition</a></span>
+        <span class="parametername">condition</span>
+        <p><p>The condition.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>String value of G2S protocol.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_DisableCondition_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToG2SString(Aristocrat.Monaco.G2S.Data.Model.DisableCondition)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToG2SString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_DisableCondition_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToG2SString(Aristocrat.Monaco.G2S.Data.Model.DisableCondition)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_DisableCondition_" class="expander" data-toggle="collapse">ToG2SString(DisableCondition)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToG2SString_Aristocrat_Monaco_G2S_Data_Model_DisableCondition_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts DisableCondition to the G2S value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToG2SString(this DisableCondition condition)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Data.Model.DisableCondition.html">DisableCondition</a></span>
+        <span class="parametername">condition</span>
+        <p><p>The condition.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>String value of G2S protocol.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToIdReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToIdReaderType(Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L333" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToIdReaderType_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToIdReaderType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToIdReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToIdReaderType(Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToIdReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_" class="expander" data-toggle="collapse">ToIdReaderType(IdReaderTypes)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToIdReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts the IdReaderTypes to the G2S equivalent</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToIdReaderType(this IdReaderTypes this)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a></span>
+        <span class="parametername">this</span>
+        <p><p>An IdReaderTypes enum</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>the G2S equivalent</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToReaderType(Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L407" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToReaderType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToReaderType(Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_" class="expander" data-toggle="collapse">ToReaderType(IdReaderTypes)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderTypes_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts an <a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a> to the G2S type</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string ToReaderType(this IdReaderTypes this)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a></span>
+        <span class="parametername">this</span>
+        <p><p>The Id Reader Type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p><p>The G2S type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToReaderType(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L441" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToReaderType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_System_String_" data-uid="Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions.ToReaderType(System.String)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_System_String_" class="expander" data-toggle="collapse">ToReaderType(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions_ToReaderType_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts the G2S type to an <a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IdReaderTypes ToReaderType(this string this)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">this</span>
+        <p><p>The G2S Id Reader Type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="../../hardware/Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a>
+        <p><p>The Id Reader Type</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_G2SEnumExtensions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.G2SEnumExtensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/G2SEnumExtensions.cs/#L15" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1081 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Namespace Aristocrat.Mgam.Client.Messaging
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Namespace Aristocrat.Mgam.Client.Messaging
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Mgam.Client.Messaging">
+  <h1 id="Aristocrat_Mgam_Client_Messaging" data-uid="Aristocrat.Mgam.Client.Messaging">Namespace Aristocrat.Mgam.Client.Messaging
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+    <h3 id="classes">Classes
+  </h3>
+    <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.AttributesChanged.html">AttributesChanged</a></p>
+          <p><p>This message will be received by the VLT when the site controller detects that an attribute
+registered with the current InstanceID has changed. The names and values of all changed
+attributes are listed. The VLT may validate the contents of the changed attributes against names
+and values that are expected, and if any are not valid, the VLT may send a
+LOCKED_SOFTWARE_ERROR notification to the site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.AttributesChangedResponse.html">AttributesChangedResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.AttributesChanged.html">AttributesChanged</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BeginSession.html">BeginSession</a></p>
+          <p><p>This message is sent by the VLT to the site controller to begin a session with both cash  and coupon balances being zero. </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BeginSessionResponse.html">BeginSessionResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.BeginSession.html">BeginSession</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BeginSessionWithCard.html">BeginSessionWithCard</a></p>
+          <p><p>This message is sent by the VLT to the site controller to begin a player session with a customer card.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BeginSessionWithCash.html">BeginSessionWithCash</a></p>
+          <p><p>This message is sent by the VLT to the site controller to begin a session with cash.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BeginSessionWithSessionId.html">BeginSessionWithSessionId</a></p>
+          <p><p>This message is sent by the VLT to the site controller to begin a session with a known SessionID.
+This should be used in off-nominal cases where the VLT has disconnected and needs to resume play with an
+existing session.  If VoucherPrintedOffLine is true, the Site Controller will perform an implicit EndSession
+(VLT does not have to issue an EndSession message), and thus require the VLT to then issue a BeginSessionWithCash/Voucher
+if a new session is desired. </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BeginSessionWithVoucher.html">BeginSessionWithVoucher</a></p>
+          <p><p>This message is sent by the VLT to the site controller to begin a player session using a voucher. </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BillAcceptorMeterReport.html">BillAcceptorMeterReport</a></p>
+          <p><p>This message is sent by the VLT to the site controller when the cash can is
+pulled from the VLT.  This is onlu used during Drop Mode.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.BillAcceptorMeterReportResponse.html">BillAcceptorMeterReportResponse</a></p>
+          <p><p>This message is sent in response to <a class="xref" href="Aristocrat.Mgam.Client.Messaging.BillAcceptorMeterReport.html">BillAcceptorMeterReport</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Checksum.html">Checksum</a></p>
+          <p><p>This message is sent by the VLT to the site controller to send the Checksum.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ChecksumResponse.html">ChecksumResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Checksum.html">Checksum</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ClearLock.html">ClearLock</a></p>
+          <p><p>Clears any software locks on the VLT. Similar
+to a REBOOT command with the “Clear Locks”
+parameter, but without the rebooting.If the
+cause for the lock is still present (for example,
+paper still out) then this command may be
+ignored for those locks.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ClearLockResponse.html">ClearLockResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.ClearLock.html">ClearLock</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ClearMeters.html">ClearMeters</a></p>
+          <p><p>VLT must SetAttribute (to 0) on all meter attributes.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ClearMetersResponse.html">ClearMetersResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.ClearMeters.html">ClearMeters</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Command.html">Command</a></p>
+          <p><p>Base class for command message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.CommandResponse.html">CommandResponse</a></p>
+          <p><p>Command response message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ComputeChecksum.html">ComputeChecksum</a></p>
+          <p><p>Instructs VLT to compute the checksum of the
+software that is currently running.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ComputeChecksumResponse.html">ComputeChecksumResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.ComputeChecksum.html">ComputeChecksum</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.CreditCash.html">CreditCash</a></p>
+          <p><p>This message is sent by the VLT to the site controller to credit an open session with cash.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.CreditResponse.html">CreditResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.CreditCash.html">CreditCash</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.CreditVoucher.html">CreditVoucher</a></p>
+          <p><p>This message is sent by the VLT to credit an existing open session with a voucher. </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.CustomCommand.html">CustomCommand</a></p>
+          <p><p>Custom command message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.CustomCommandResponse.html">CustomCommandResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.CustomCommand.html">CustomCommand</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.EmployeeLogin.html">EmployeeLogin</a></p>
+          <p><p>This message must be sent after an Employee card (see GetCardType) is inserted to get
+information about the employee.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.EmployeeLoginResponse.html">EmployeeLoginResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.EmployeeLogin.html">EmployeeLogin</a>. It returns the name and ID of the
+employee.Additionally returned is a list of all Actions registered by the VLT that this employee
+has been granted permission to perform.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.EndSession.html">EndSession</a></p>
+          <p><p>This message is sent by the VLT to request the termination of an open session.  If the Session balances are zero, then SRC_DoNotPrintVoucher will be returned. </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.EndSessionResponse.html">EndSessionResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.EndSession.html">EndSession</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.EscrowCash.html">EscrowCash</a></p>
+          <p><p>This message is sent by the VLT when the bill acceptor has taken a bill into escrow, before it is stacked.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.EscrowCashResponse.html">EscrowCashResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.EscrowCash.html">EscrowCash</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Exit.html">Exit</a></p>
+          <p><p>Exit the application running on the VLT. For
+embedded applications, the VLT should
+shutdown the system.All players and sessions
+should be logged off before issuing an exit
+command.This should be done by issuing a
+LOCK and LOGOFF_PLAYER command.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ExitResponse.html">ExitResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Exit.html">Exit</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetAttributes.html">GetAttributes</a></p>
+          <p><p>This message will cause the site controller to send all attributes (along with their current values),
+to the requesting client.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetAttributesResponse.html">GetAttributesResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetAttributes.html">GetAttributes</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetCardType.html">GetCardType</a></p>
+          <p><p>This message is sent by the VLT to the site controller to determine what type of card is specified
+(i.e. Employee Card, Player Card, etc.) by any of up to three Card String Tracks.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetCardTypeResponse.html">GetCardTypeResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetCardType.html">GetCardType</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetGameAssignments.html">GetGameAssignments</a></p>
+          <p><p>The VLT may optionally send this message to retrieve a list of all of the XLDF files assigned to
+it. This can be done in response to an Employee action, for example, for informational purposes.
+This message is optional, and is not needed for NYL VLT operations.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetGameAssignmentsResponse.html">GetGameAssignmentsResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.GetGameAssignments.html">GetGameAssignments</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.HandlesAttribute.html">HandlesAttribute</a></p>
+          <p><p>Decorates a message handler method.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.KeepAlive.html">KeepAlive</a></p>
+          <p><p>The KeepAlive message is sent by the VLT as a heartbeat to maintain connected status with the
+site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.KeepAliveResponse.html">KeepAliveResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.KeepAlive.html">KeepAlive</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Lock.html">Lock</a></p>
+          <p><p>Force the VLT into a lock state.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.LockResponse.html">LockResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Lock.html">Lock</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.LogoffPlayer.html">LogoffPlayer</a></p>
+          <p><p>Prints Voucher and Logs player off VLT.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.LogoffPlayerResponse.html">LogoffPlayerResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.LogoffPlayer.html">LogoffPlayer</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.MalformedMessage.html">MalformedMessage</a></p>
+          <p><p>Indicates to the VLT that a message could not
+be parsed or processed successfully.If any
+information about the exact error could be
+discerned, it will be returned in the parameter.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.MalformedMessageResponse.html">MalformedMessageResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.MalformedMessage.html">MalformedMessage</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.MessageHandler-1.html">MessageHandler&lt;TMessage&gt;</a></p>
+          <p><p>Base implementation for handling messages and commands from the site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.MessageResult-1.html">MessageResult&lt;TResponse&gt;</a></p>
+          <p><p>Message result.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Notification.html">Notification</a></p>
+          <p><p>Used to notify the VLT service of specific VLT events.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.NotificationResponse.html">NotificationResponse</a></p>
+          <p><p>Notification response.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Play.html">Play</a></p>
+          <p><p>Allow players to log in and play.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayerTrackingLogin.html">PlayerTrackingLogin</a></p>
+          <p><p>This message is sent to associate all play requests with a particular player tracking card. VLTs
+use this message to communicate to the site controller when a player tracking card is inserted.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayerTrackingLoginResponse.html">PlayerTrackingLoginResponse</a></p>
+          <p><p>This message is sent in response to <a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayerTrackingLogin.html">PlayerTrackingLogin</a>.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayerTrackingLogoff.html">PlayerTrackingLogoff</a></p>
+          <p><p>This message is sent to disassociate a player tracking card with VLT activity. This message
+should be sent by the VLT when a player tracking card is removed.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayerTrackingLogoffResponse.html">PlayerTrackingLogoffResponse</a></p>
+          <p><p>This message is sent in response to <a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayerTrackingLogoff.html">PlayerTrackingLogoff</a>.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayExistingSession.html">PlayExistingSession</a></p>
+          <p><p>Allows VLT to continue an existing session, for
+example after loss of connection to one VLT
+Service and reconnection to another one.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayExistingSessionResponse.html">PlayExistingSessionResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayExistingSession.html">PlayExistingSession</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.PlayResponse.html">PlayResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Play.html">Play</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ProgressiveWinner.html">ProgressiveWinner</a></p>
+          <p><p>Notify VLT of Progressive Winner, provide
+display text.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ProgressiveWinnerResponse.html">ProgressiveWinnerResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.ProgressiveWinner.html">ProgressiveWinner</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ReadyToPlay.html">ReadyToPlay</a></p>
+          <p><p>This message is sent to the site controller after the VLT determines that all configuration and
+initialization is finished, and the VLT is ready for play.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ReadyToPlayResponse.html">ReadyToPlayResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.ReadyToPlay.html">ReadyToPlay</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Reboot.html">Reboot</a></p>
+          <p><p>Instructs the VLT to perform a reboot sequence.
+The VLT is required to UnregisterInstance first.</p>
+<p>The REBOOT command parameter may
+contain the phrase “Clear Lock” in which case,
+the VLT must clear any LOCK state.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RebootResponse.html">RebootResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Reboot.html">Reboot</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterAction.html">RegisterAction</a></p>
+          <p><p>The RegisterAction message is used to register an action with the site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterActionResponse.html">RegisterActionResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterAction.html">RegisterAction</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterAttribute.html">RegisterAttribute</a></p>
+          <p><p>The RegisterAttribute message is used to register an attribute with the site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterAttributeResponse.html">RegisterAttributeResponse</a></p>
+          <p><p>This message is sent in response to <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterAttribute.html">RegisterAttribute</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterCommand.html">RegisterCommand</a></p>
+          <p><p>This message is used by the VLT to register commands with the VLT service.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterCommandResponse.html">RegisterCommandResponse</a></p>
+          <p><p>This message is sent in response to the <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterCommand.html">RegisterCommand</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterDenomination.html">RegisterDenomination</a></p>
+          <p><p>This message is sent by the VLT to notify the site controller about a denomination associated
+with a particular game.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterDenominationResponse.html">RegisterDenominationResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterDenomination.html">RegisterDenomination</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterGame.html">RegisterGame</a></p>
+          <p><p>This message is sent by the VLT during game initialization to notify the site controller of the
+different lottery ticket pools that the game is capable of drawing from.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterGameResponse.html">RegisterGameResponse</a></p>
+          <p><p>This message is sent in response to <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterGame.html">RegisterGame</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterInstance.html">RegisterInstance</a></p>
+          <p><p>VLTs can use this broadcast message to locate services on the site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterInstanceResponse.html">RegisterInstanceResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterInstance.html">RegisterInstance</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterNotification.html">RegisterNotification</a></p>
+          <p><p>This message is used by the VLT to register notifications with VLT service.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterNotificationResponse.html">RegisterNotificationResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterNotification.html">RegisterNotification</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterProgressive.html">RegisterProgressive</a></p>
+          <p><p>This message is optional and is only for games that will contribute to a progressive pool. This
+message will notify the site controller and cause progressive attributes to be updated.The VLT
+must have registered applicable progressive attributes.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterProgressiveResponse.html">RegisterProgressiveResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RegisterProgressive.html">RegisterProgressive</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Request.html">Request</a></p>
+          <p><p>Base class for a message request.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestGuid.html">RequestGuid</a></p>
+          <p><p>VLTs can use this broadcast message to obtain valid GUIDs. These GUIDs can then be assigned
+by the VLT to Installations, Devices, etc.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestGuidResponse.html">RequestGuidResponse</a></p>
+          <p><p>This message is received as a response to the RequestGUID message on the specified UDP port,
+and contains the generated GUID.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestPlay.html">RequestPlay</a></p>
+          <p><p>This message is sent from the VLT to the site controller to purchase a New York Lottery Video Lottery Ticket.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestPlayResponse.html">RequestPlayResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestPlay.html">RequestPlay</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestPlayVoucherResponse.html">RequestPlayVoucherResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestPlay.html">RequestPlay</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestService.html">RequestService</a></p>
+          <p><p>VLTs can use this broadcast message to locate services on the site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestServiceResponse.html">RequestServiceResponse</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestXadf.html">RequestXadf</a></p>
+          <p><p>On boot-up, the device will first query the Directory Service(s) to discover what software it should be running.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.RequestXadfResponse.html">RequestXadfResponse</a></p>
+          <p><p>This message is received as a response to the RequestGUID message on the specified UDP port,
+and contains the generated GUID.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Response.html">Response</a></p>
+          <p><p>Base class for a message response.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ServerResponseException.html">ServerResponseException</a></p>
+          <p><p>Wraps a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.ServerResponseCode.html">ServerResponseCode</a> in an exception.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.SetAttribute.html">SetAttribute</a></p>
+          <p><p>When the VLT needs to change an attribute, it uses this message to inform the site controller of
+the new value.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.SetAttributeResponse.html">SetAttributeResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.SetAttribute.html">SetAttribute</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Shutdown.html">Shutdown</a></p>
+          <p><p>Perform shutdown of applications and operating
+system running on the VLT.All players and
+sessions should be logged off before issuing a
+shutdown command.This should be done by
+issuing a LOCK and LOGOFF_PLAYER command.</p>
+<p>If the VLT is not able to power off from software,
+then it must enter a state that requires manual
+intervention to be restarted and/or reconnected.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ShutdownResponse.html">ShutdownResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Shutdown.html">Shutdown</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Sign.html">Sign</a></p>
+          <p><p>Update Message Display on VLT, for example
+for a progressive display.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.SignResponse.html">SignResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Sign.html">Sign</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.Unplay.html">Unplay</a></p>
+          <p><p>Requires the VLT to return to the “Waiting for
+Play Command” state, as if it had just received
+a ReadyToPlayResponse message.  Any open
+sessions on the VLT should be closed with a
+EndSession message sequence.
+Currently, the System will only issue this
+command after site closing, or in the case the
+system runs out of outcomes.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.UnplayResponse.html">UnplayResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.Unplay.html">Unplay</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.UnregisterInstance.html">UnregisterInstance</a></p>
+          <p><p>This message is sent by the VLT to the site controller to unregister the current instance. </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.UnregisterInstanceResponse.html">UnregisterInstanceResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.UnregisterInstance.html">UnregisterInstance</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.UpdateMeters.html">UpdateMeters</a></p>
+          <p><p>VLT must SetAttribute on all meter attributes.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.UpdateMetersResponse.html">UpdateMetersResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.UpdateMeters.html">UpdateMeters</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ValidateVoucher.html">ValidateVoucher</a></p>
+          <p><p>This message is sent by the VLT to determine whether or not a voucher bar code represents a
+valid voucher.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ValidateVoucherResponse.html">ValidateVoucherResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.ValidateVoucher.html">ValidateVoucher</a> message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.VoucherPrinted.html">VoucherPrinted</a></p>
+          <p><p>This message is sent to the VLT Service upon successful printing of a voucher. </p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.VoucherPrintedResponse.html">VoucherPrintedResponse</a></p>
+          <p><p>This message is sent in response to a <a class="xref" href="Aristocrat.Mgam.Client.Messaging.VoucherPrinted.html">VoucherPrinted</a> message.</p>
+</p>
+        </td>
+      </tr>
+    </table>
+    <h3 id="structs">Structs
+  </h3>
+    <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.GameAssignment.html">GameAssignment</a></p>
+          <p><p>The XLDF information assigned to a game.</p>
+</p>
+        </td>
+      </tr>
+    </table>
+    <h3 id="interfaces">Interfaces
+  </h3>
+    <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IInstanceId.html">IInstanceId</a></p>
+          <p><p>Defines the InstanceId property.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ILocalTransactionId.html">ILocalTransactionId</a></p>
+          <p><p>Defines the LocalTransactionId property.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IMessage.html">IMessage</a></p>
+          <p><p>Wraps messages from site controllers.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IMessageHandler-1.html">IMessageHandler&lt;TMessage&gt;</a></p>
+          <p><p>Handles site controller service messages and commands.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.INotification.html">INotification</a></p>
+          <p><p>Notification message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IRequest.html">IRequest</a></p>
+          <p><p>Request message.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IResponse.html">IResponse</a></p>
+          <p><p>Wraps a message or command response.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.IServerResponseCode.html">IServerResponseCode</a></p>
+          <p><p>Wraps responses to site controller.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ISessionId.html">ISessionId</a></p>
+          <p><p>Defines the SessionId property.</p>
+</p>
+        </td>
+      </tr>
+    </table>
+    <h3 id="enums">Enums
+  </h3>
+    <table>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.MessageStatus.html">MessageStatus</a></p>
+          <p><p>Defines codes for communication exceptions.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Mgam.Client.Messaging.ServerResponseCode.html">ServerResponseCode</a></p>
+          <p><p>Response status codes.</p>
+</p>
+        </td>
+      </tr>
+    </table>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

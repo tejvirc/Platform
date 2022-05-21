@@ -1,0 +1,3642 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CardReaderGds
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CardReaderGds
+   ">
+    <meta name="generator" content="docfx 2.58.9.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds">
+  <h1 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds">Class CardReaderGds
+  </h1>
+  <div class="markdown level0 summary"><p>A GDS card reader.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html">DfuDeviceBase</a></div>
+    <div class="level2"><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html">GdsDeviceBase</a></div>
+    <div class="level3"><span class="xref">CardReaderGds</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DefaultResponseTimeout">GdsDeviceBase.DefaultResponseTimeout</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ExtendedResponseTimeout">GdsDeviceBase.ExtendedResponseTimeout</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_MaxRetry">GdsDeviceBase.MaxRetry</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase__communicator">GdsDeviceBase._communicator</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Communicator">GdsDeviceBase.Communicator</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_IsConnected">GdsDeviceBase.IsConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_IsInitialized">GdsDeviceBase.IsInitialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_IsEnabled">GdsDeviceBase.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_GatReport">GdsDeviceBase.GatReport</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Crc">GdsDeviceBase.Crc</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Protocol">GdsDeviceBase.Protocol</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ExternalPower">GdsDeviceBase.ExternalPower</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RequiresReset">GdsDeviceBase.RequiresReset</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Manufacturer">GdsDeviceBase.Manufacturer</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Model">GdsDeviceBase.Model</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SerialNumber">GdsDeviceBase.SerialNumber</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RetryInterval">GdsDeviceBase.RetryInterval</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Initialized">GdsDeviceBase.Initialized</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_InitializationFailed">GdsDeviceBase.InitializationFailed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Enabled">GdsDeviceBase.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Disabled">GdsDeviceBase.Disabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Connected">GdsDeviceBase.Connected</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Disconnected">GdsDeviceBase.Disconnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ResetSucceeded">GdsDeviceBase.ResetSucceeded</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ResetFailed">GdsDeviceBase.ResetFailed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Open">GdsDeviceBase.Open()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Ack_System_Byte_System_Boolean_">GdsDeviceBase.Ack(Byte, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_CalculateCrc_System_Int32_">GdsDeviceBase.CalculateCrc(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SendCommand_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_System_Threading_CancellationToken_">GdsDeviceBase.SendCommand(GdsSerializableMessage, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SendCommand__1_Aristocrat_Monaco_Hardware_Contracts_Gds_GdsSerializableMessage_System_Threading_CancellationToken_">GdsDeviceBase.SendCommand&lt;T&gt;(GdsSerializableMessage, CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RegisterCallback__1_System_Action___0__">GdsDeviceBase.RegisterCallback&lt;T&gt;(Action&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_WaitForDataReport__1_System_Int32_">GdsDeviceBase.WaitForDataReport&lt;T&gt;(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_WaitForReport__1_System_Int32_">GdsDeviceBase.WaitForReport&lt;T&gt;(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_WaitForReport__1_System_Threading_CancellationToken_">GdsDeviceBase.WaitForReport&lt;T&gt;(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_PublishReport__1___0_System_Int32_">GdsDeviceBase.PublishReport&lt;T&gt;(T, Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceAttached_System_Object_System_EventArgs_">GdsDeviceBase.DeviceAttached(Object, EventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_TryOpen_System_Int32_">GdsDeviceBase.TryOpen(Int32)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceDetached_System_Object_System_EventArgs_">GdsDeviceBase.DeviceDetached(Object, EventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnFailedReset">GdsDeviceBase.OnFailedReset()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnSuccessReset">GdsDeviceBase.OnSuccessReset()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnConnected">GdsDeviceBase.OnConnected()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnDisconnected">GdsDeviceBase.OnDisconnected()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnInitializationFailed">GdsDeviceBase.OnInitializationFailed()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnInitialized">GdsDeviceBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_PowerStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_PowerStatus_">GdsDeviceBase.PowerStatusReported(PowerStatus)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_GatDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_GatData_">GdsDeviceBase.GatDataReported(GatData)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_CrcDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CrcData_">GdsDeviceBase.CrcDataReported(CrcData)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceStateReported_Aristocrat_Monaco_Hardware_Contracts_Gds_DeviceState_">GdsDeviceBase.DeviceStateReported(DeviceState)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_DeviceType">GdsDeviceBase.DeviceType</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_ClearStaleReports__1">GdsDeviceBase.ClearStaleReports&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_InDfuMode">DfuDeviceBase.InDfuMode</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_VendorId">DfuDeviceBase.VendorId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_ProductId">DfuDeviceBase.ProductId</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_IsDfuCapable">DfuDeviceBase.IsDfuCapable</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_IsDfuInProgress">DfuDeviceBase.IsDfuInProgress</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_DownloadProgressed">DfuDeviceBase.DownloadProgressed</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Detach">DfuDeviceBase.Detach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Reconnect">DfuDeviceBase.Reconnect()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Download_System_IO_Stream_">DfuDeviceBase.Download(Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Upload_System_IO_Stream_">DfuDeviceBase.Upload(Stream)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Abort">DfuDeviceBase.Abort()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_Dispose">DfuDeviceBase.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.DfuDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_DfuDeviceBase_OnDownloadProgressed_Aristocrat_Monaco_Hardware_Contracts_Communicator_ProgressEventArgs_">DfuDeviceBase.OnDownloadProgressed(ProgressEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.CardReader.html">Aristocrat.Monaco.Hardware.Gds.CardReader</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Hardware.Gds.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CardReaderGds : GdsDeviceBase, IIdReaderImplementation, IGdsDevice, IDfuDevice, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds__ctor_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds__ctor" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.#ctor"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds__ctor" class="expander" data-toggle="collapse">CardReaderGds()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes a new instance of the Aristocrat.Monaco.Hardware.CardReader.CardReaderGds class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CardReaderGds()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_DefaultFlashDuration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.DefaultFlashDuration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_DefaultFlashDuration" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.DefaultFlashDuration"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_DefaultFlashDuration" class="expander" data-toggle="collapse">DefaultFlashDuration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_DefaultFlashDuration" class="collapse in">
+  <div class="markdown level1 summary"><p>The default flash duration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultFlashDuration = 500</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_AvailableTracks.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.AvailableTracks%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_AvailableTracks_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.AvailableTracks*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_AvailableTracks" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.AvailableTracks"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_AvailableTracks" class="expander" data-toggle="collapse">AvailableTracks</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_AvailableTracks" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the available tracks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdReaderTracks AvailableTracks { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTracks.html">IdReaderTracks</a>
+        <p><p>The available tracks.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardInsertedCount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardInsertedCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L168" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardInsertedCount_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardInsertedCount*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardInsertedCount" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardInsertedCount"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardInsertedCount" class="expander" data-toggle="collapse">CardInsertedCount</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardInsertedCount" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of card inserted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CardInsertedCount { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of card inserted.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Faults.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Faults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L156" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Faults_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Faults*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Faults" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Faults"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Faults" class="expander" data-toggle="collapse">Faults</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Faults" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the faults.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IdReaderFaultTypes Faults { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderFaultTypes.html">IdReaderFaultTypes</a>
+        <p><p>The faults.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_Faults">IIdReaderImplementation.Faults</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccErrorCount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IccErrorCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L188" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccErrorCount_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IccErrorCount*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccErrorCount" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IccErrorCount"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccErrorCount" class="expander" data-toggle="collapse">IccErrorCount</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccErrorCount" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of ICC errors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IccErrorCount { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of ICC errors.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccInsertedCount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IccInsertedCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L184" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccInsertedCount_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IccInsertedCount*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccInsertedCount" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IccInsertedCount"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccInsertedCount" class="expander" data-toggle="collapse">IccInsertedCount</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IccInsertedCount" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of times an ICC card has been inserted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IccInsertedCount { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of times an ICC card has been inserted.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderId_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderId" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderId" class="expander" data-toggle="collapse">IdReaderId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the identifier of the identification reader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int IdReaderId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_IdReaderId">IIdReaderImplementation.IdReaderId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderTrack.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderTrack%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderTrack_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderTrack*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderTrack" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderTrack"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderTrack" class="expander" data-toggle="collapse">IdReaderTrack</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderTrack" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the active ID reader track.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IdReaderTracks IdReaderTrack { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTracks.html">IdReaderTracks</a>
+        <p><p>The active ID reader track.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_IdReaderTrack">IIdReaderImplementation.IdReaderTrack</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderType.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L85" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderType_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderType" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdReaderType"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderType" class="expander" data-toggle="collapse">IdReaderType</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdReaderType" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the ID reader type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IdReaderTypes IdReaderType { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_IdReaderType">IIdReaderImplementation.IdReaderType</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Inserted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Inserted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Inserted_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Inserted*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Inserted" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Inserted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Inserted" class="expander" data-toggle="collapse">Inserted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Inserted" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether a card is inserted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Inserted { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if inserted, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_Inserted">IIdReaderImplementation.Inserted</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsEgmControlled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsEgmControlled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsEgmControlled_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsEgmControlled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsEgmControlled" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsEgmControlled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsEgmControlled" class="expander" data-toggle="collapse">IsEgmControlled</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsEgmControlled" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the egm controlled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsEgmControlled { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if egm controlled, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_IsEgmControlled">IIdReaderImplementation.IsEgmControlled</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsExtendedLightSupported.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsExtendedLightSupported%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L164" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsExtendedLightSupported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsExtendedLightSupported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsExtendedLightSupported" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsExtendedLightSupported"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsExtendedLightSupported" class="expander" data-toggle="collapse">IsExtendedLightSupported</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsExtendedLightSupported" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the extended light control is supported.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsExtendedLightSupported { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the latch extended light control is supported, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsLatchSupported.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsLatchSupported%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsLatchSupported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsLatchSupported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsLatchSupported" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IsLatchSupported"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsLatchSupported" class="expander" data-toggle="collapse">IsLatchSupported</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IsLatchSupported" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the latch mechanism is supported.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsLatchSupported { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the latch mechanism is supported, false if not.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTracks.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedTracks%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTracks_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedTracks*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTracks" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedTracks"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTracks" class="expander" data-toggle="collapse">SupportedTracks</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTracks" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the supported tracks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IdReaderTracks SupportedTracks { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTracks.html">IdReaderTracks</a>
+        <p><p>The supported tracks.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_SupportedTracks">IIdReaderImplementation.SupportedTracks</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTypes_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTypes" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedTypes"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTypes" class="expander" data-toggle="collapse">SupportedTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedTypes" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets supported reader types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IdReaderTypes SupportedTypes { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderTypes.html">IdReaderTypes</a>
+        <p><p>The supported reader types.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_SupportedTypes">IIdReaderImplementation.SupportedTypes</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedValidation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedValidation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedValidation_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedValidation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedValidation" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SupportedValidation"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedValidation" class="expander" data-toggle="collapse">SupportedValidation</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SupportedValidation" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the supported validation methods.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IdValidationMethods SupportedValidation { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdValidationMethods.html">IdValidationMethods</a>
+        <p><p>The supported validation methods.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_SupportedValidation">IIdReaderImplementation.SupportedValidation</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track1ErrorCount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track1ErrorCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track1ErrorCount_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track1ErrorCount*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track1ErrorCount" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track1ErrorCount"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track1ErrorCount" class="expander" data-toggle="collapse">Track1ErrorCount</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track1ErrorCount" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of track 1 errors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Track1ErrorCount { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of track 1 errors.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track2ErrorCount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track2ErrorCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track2ErrorCount_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track2ErrorCount*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track2ErrorCount" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track2ErrorCount"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track2ErrorCount" class="expander" data-toggle="collapse">Track2ErrorCount</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track2ErrorCount" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of track 2 errors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Track2ErrorCount { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of track 2 errors.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track3ErrorCount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track3ErrorCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L180" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track3ErrorCount_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track3ErrorCount*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track3ErrorCount" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Track3ErrorCount"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track3ErrorCount" class="expander" data-toggle="collapse">Track3ErrorCount</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Track3ErrorCount" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the number of track 3 errors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Track3ErrorCount { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p><p>The number of track 3 errors.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_TrackData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.TrackData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_TrackData_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.TrackData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_TrackData" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.TrackData"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_TrackData" class="expander" data-toggle="collapse">TrackData</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_TrackData" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the track data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual TrackData TrackData { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.CardReader.TrackData.html">TrackData</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_TrackData">IIdReaderImplementation.TrackData</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationMethod.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationMethod%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationMethod_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationMethod*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationMethod" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationMethod"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationMethod" class="expander" data-toggle="collapse">ValidationMethod</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationMethod" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets the validation method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IdValidationMethods ValidationMethod { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdValidationMethods.html">IdValidationMethods</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_ValidationMethod">IIdReaderImplementation.ValidationMethod</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_BehaviorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardReaderBehavior_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.BehaviorReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardReaderBehavior)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L883" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_BehaviorReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.BehaviorReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_BehaviorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardReaderBehavior_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.BehaviorReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardReaderBehavior)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_BehaviorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardReaderBehavior_" class="expander" data-toggle="collapse">BehaviorReported(CardReaderBehavior)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_BehaviorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardReaderBehavior_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a behavior report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void BehaviorReported(CardReaderBehavior report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardReaderBehavior.html">CardReaderBehavior</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardData_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardDataReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L931" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardDataReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardDataReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardData_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardDataReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardData)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardData_" class="expander" data-toggle="collapse">CardDataReported(CardData)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardDataReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardData_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a card data report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CardDataReported(CardData report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardData.html">CardData</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L945" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardStatusReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardStatusReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CardStatusReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardStatus_" class="expander" data-toggle="collapse">CardStatusReported(CardStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CardStatusReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a card status report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CardStatusReported(CardStatus report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardStatus.html">CardStatus</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ClearBuffer.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ClearBuffer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L573" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ClearBuffer_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ClearBuffer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ClearBuffer" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ClearBuffer"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ClearBuffer" class="expander" data-toggle="collapse">ClearBuffer()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ClearBuffer" class="collapse in">
+  <div class="markdown level1 summary"><p>Clears the buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ClearBuffer()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Close.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L209" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Close_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Close*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Close" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Close"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Close" class="expander" data-toggle="collapse">Close()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Close" class="collapse in">
+  <div class="markdown level1 summary"><p>Closes the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Close()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>False if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Close">GdsDeviceBase.Close()</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.html#Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Close">IGdsDevice.Close()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ConfigurationReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardConfiguration_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ConfigurationReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardConfiguration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L899" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ConfigurationReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ConfigurationReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ConfigurationReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ConfigurationReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardConfiguration)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ConfigurationReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardConfiguration_" class="expander" data-toggle="collapse">ConfigurationReported(CardConfiguration)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ConfigurationReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CardConfiguration_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a card configuration report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ConfigurationReported(CardConfiguration report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CardConfiguration.html">CardConfiguration</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CountReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CountStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CountReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CountStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L987" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CountReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CountReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CountReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CountStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.CountReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CountStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CountReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CountStatus_" class="expander" data-toggle="collapse">CountReported(CountStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_CountReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_CountStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a count status report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CountReported(CountStatus report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.CountStatus.html">CountStatus</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Disable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Disable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L356" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Disable_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Disable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Disable" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Disable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Disable" class="expander" data-toggle="collapse">Disable()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Disable" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to host disable the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;bool&gt; Disable()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Disable">GdsDeviceBase.Disable()</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.html#Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Disable">IGdsDevice.Disable()</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Disable_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST deactivate any inputs and/or disable any outputs.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L598" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Dispose_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the unmanaged resources used by the Aristocrat.Monaco.Hardware.DfuDeviceBase and optionally
+releases the managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p><p>True to release both managed and unmanaged resources; false to release only unmanaged
+resources.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Dispose_System_Boolean_">GdsDeviceBase.Dispose(Boolean)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Eject.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Eject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L234" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Eject_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Eject*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Eject" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Eject"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Eject" class="expander" data-toggle="collapse">Eject()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Eject" class="collapse in">
+  <div class="markdown level1 summary"><p>Ejects the current identification.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Eject()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_Eject">IIdReaderImplementation.Eject()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Enable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Enable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L342" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Enable_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Enable*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Enable" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Enable"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Enable" class="expander" data-toggle="collapse">Enable()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Enable" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to host enable the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;bool&gt; Enable()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Enable">GdsDeviceBase.Enable()</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.html#Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_Enable">IGdsDevice.Enable()</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Enable_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST activate any inputs and/or enable any outputs. If the device has a fault then it MUST stay
+disabled and report the fault to the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ErrorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_ErrorData_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ErrorReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.ErrorData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L1003" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ErrorReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ErrorReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ErrorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_ErrorData_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ErrorReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.ErrorData)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ErrorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_ErrorData_" class="expander" data-toggle="collapse">ErrorReported(ErrorData)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ErrorReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_ErrorData_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a error data report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ErrorReported(ErrorData report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.ErrorData.html">ErrorData</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_FailureStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.FailureReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.FailureStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L1010" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FailureReported_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.FailureReported*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_FailureStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.FailureReported(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.FailureStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_FailureStatus_" class="expander" data-toggle="collapse">FailureReported(FailureStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FailureReported_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_FailureStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Called when a failure status report is received.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void FailureReported(FailureStatus report)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.FailureStatus.html">FailureStatus</a></span>
+        <span class="parametername">report</span>
+        <p><p>The report.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetAtr.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetAtr%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L469" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetAtr_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetAtr*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetAtr" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetAtr"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetAtr" class="expander" data-toggle="collapse">GetAtr()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetAtr" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets answer to reset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;string&gt; GetAtr()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p><p>An asynchronous result that yields the ATR response.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L409" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetConfiguration" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetConfiguration"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetConfiguration" class="expander" data-toggle="collapse">GetConfiguration()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetConfiguration" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the configuration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; GetConfiguration()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields the configuration.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetCountStatus.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetCountStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L585" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetCountStatus_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetCountStatus*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetCountStatus" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.GetCountStatus"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetCountStatus" class="expander" data-toggle="collapse">GetCountStatus()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_GetCountStatus" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets count status.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;bool&gt; GetCountStatus()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields the count status.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Initialize(Aristocrat.Monaco.Hardware.Contracts.Communicator.IGdsCommunicator)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L216" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Initialize_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Initialize(Aristocrat.Monaco.Hardware.Contracts.Communicator.IGdsCommunicator)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_" class="expander" data-toggle="collapse">Initialize(IGdsCommunicator)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_" class="collapse in">
+  <div class="markdown level1 summary"><p>Initializes this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override async Task&lt;bool&gt; Initialize(IGdsCommunicator communicator)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IGdsCommunicator.html">IGdsCommunicator</a></span>
+        <span class="parametername">communicator</span>
+        <p><p>The communicator.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_">GdsDeviceBase.Initialize(IGdsCommunicator)</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IDfuDevice.html#Aristocrat_Monaco_Hardware_Contracts_IDfuDevice_Initialize_Aristocrat_Monaco_Hardware_Contracts_Communicator_IGdsCommunicator_">IDfuDevice.Initialize(IGdsCommunicator)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LatchMode_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LatchMode(System.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L557" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LatchMode_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LatchMode*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LatchMode_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LatchMode(System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LatchMode_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">LatchMode(Boolean, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LatchMode_System_Boolean_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>The host sends this command to instruct the card reader to place latch in Lock or Release position upon card
+being fully inserted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void LatchMode(bool lock, bool release)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">lock</span>
+        <p><p>True to lock, false to unlock.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">release</span>
+        <p><p>True to release.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Boolean_System_Boolean_System_Boolean_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LightControl(System.Boolean%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L496" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LightControl*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Boolean_System_Boolean_System_Boolean_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LightControl(System.Boolean,System.Boolean,System.Boolean,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Boolean_System_Boolean_System_Boolean_System_Int32_" class="expander" data-toggle="collapse">LightControl(Boolean, Boolean, Boolean, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Boolean_System_Boolean_System_Boolean_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>This command is used to control the LEDs of the lighted bezel of a reader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void LightControl(bool red, bool green, bool yellow, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">red</span>
+        <p><p>True if red LED should be turned on; otherwise false.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">green</span>
+        <p><p>True to green LED should be turned on; otherwise false.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">yellow</span>
+        <p><p>True to yellow LED should be turned on; otherwise false.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>The timeout in milliseconds.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Byte_System_Byte_System_Byte_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LightControl(System.Byte%2CSystem.Byte%2CSystem.Byte%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L527" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LightControl*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Byte_System_Byte_System_Byte_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.LightControl(System.Byte,System.Byte,System.Byte,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Byte_System_Byte_System_Byte_System_Int32_" class="expander" data-toggle="collapse">LightControl(Byte, Byte, Byte, Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_LightControl_System_Byte_System_Byte_System_Byte_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>This command is used to control the LEDs of the lighted bezel of a reader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void LightControl(byte red, byte green, byte blue, int timeout)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></span>
+        <span class="parametername">red</span>
+        <p><p>The red LED intensity.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></span>
+        <span class="parametername">green</span>
+        <p><p>The green LED intensity.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a></span>
+        <span class="parametername">blue</span>
+        <p><p>The blue LED intensity.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">timeout</span>
+        <p><p>The timeout in milliseconds.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnDisabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnDisabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L813" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnDisabled_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnDisabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnDisabled" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnDisabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnDisabled" class="expander" data-toggle="collapse">OnDisabled()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnDisabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Disabled">Disabled</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDisabled()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnDisabled">GdsDeviceBase.OnDisabled()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L820" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnEnabled_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnEnabled*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnEnabled" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnEnabled"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnEnabled" class="expander" data-toggle="collapse">OnEnabled()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnEnabled" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Enabled">Enabled</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnEnabled()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_OnEnabled">GdsDeviceBase.OnEnabled()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L828" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultCleared_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnFaultCleared*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnFaultCleared(Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_" class="expander" data-toggle="collapse">OnFaultCleared(FaultEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultCleared_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.html#Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultCleared">FaultCleared</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnFaultCleared(FaultEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs.html">FaultEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>Event information to send to registered event handlers.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L836" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultOccurred_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnFaultOccurred*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnFaultOccurred(Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_" class="expander" data-toggle="collapse">OnFaultOccurred(FaultEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnFaultOccurred_Aristocrat_Monaco_Hardware_Contracts_IdReader_FaultEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.html#Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultOccurred">FaultOccurred</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnFaultOccurred(FaultEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs.html">FaultEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>Event information to send to registered event handlers.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L852" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdCleared_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdCleared*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdCleared" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdCleared" class="expander" data-toggle="collapse">OnIdCleared()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.html#Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdCleared">IdCleared</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnIdCleared()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdPresented.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdPresented%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L843" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdPresented_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdPresented*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdPresented" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdPresented"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdPresented" class="expander" data-toggle="collapse">OnIdPresented()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdPresented" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.html#Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdPresented">IdPresented</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnIdPresented()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdValidationRequested_Aristocrat_Monaco_Hardware_Contracts_IdReader_ValidationEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdValidationRequested(Aristocrat.Monaco.Hardware.Contracts.IdReader.ValidationEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L863" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdValidationRequested_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdValidationRequested*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdValidationRequested_Aristocrat_Monaco_Hardware_Contracts_IdReader_ValidationEventArgs_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnIdValidationRequested(Aristocrat.Monaco.Hardware.Contracts.IdReader.ValidationEventArgs)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdValidationRequested_Aristocrat_Monaco_Hardware_Contracts_IdReader_ValidationEventArgs_" class="expander" data-toggle="collapse">OnIdValidationRequested(ValidationEventArgs)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnIdValidationRequested_Aristocrat_Monaco_Hardware_Contracts_IdReader_ValidationEventArgs_" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.html#Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdValidationRequested">IdValidationRequested</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnIdValidationRequested(ValidationEventArgs e)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.ValidationEventArgs.html">ValidationEventArgs</a></span>
+        <span class="parametername">e</span>
+        <p><p>Event information to send to registered event handlers.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnReadError.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnReadError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L870" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnReadError_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnReadError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnReadError" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.OnReadError"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnReadError" class="expander" data-toggle="collapse">OnReadError()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_OnReadError" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises the <a class="xref" href="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.html#Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadError">ReadError</a> event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnReadError()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCard.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadCard%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L686" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCard_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadCard*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCard" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadCard"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCard" class="expander" data-toggle="collapse">ReadCard()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCard" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads the card.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual TrackData ReadCard()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.CardReader.TrackData.html">TrackData</a>
+        <p><p>The ID number on the card.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.notsupportedexception">NotSupportedException</a>
+        <p><p>Thrown when the requested operation is not supported.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCardData_System_Boolean_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadCardData(System.Boolean%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L427" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCardData_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadCardData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCardData_System_Boolean_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadCardData(System.Boolean,System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCardData_System_Boolean_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">ReadCardData(Boolean, Boolean, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadCardData_System_Boolean_System_Boolean_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Reads card data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual async Task&lt;string&gt; ReadCardData(bool track1, bool track2, bool track3)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">track1</span>
+        <p><p>True to track 1.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">track2</span>
+        <p><p>True to track 2.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">track3</span>
+        <p><p>True to track 3.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p><p>An asynchronous result that yields the card data.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReleaseLatch.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReleaseLatch%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L481" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReleaseLatch_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReleaseLatch*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReleaseLatch" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReleaseLatch"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReleaseLatch" class="expander" data-toggle="collapse">ReleaseLatch()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReleaseLatch" class="collapse in">
+  <div class="markdown level1 summary"><p>Releases the latch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void ReleaseLatch()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_RequestGatReport_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.RequestGatReport(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L370" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_RequestGatReport_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.RequestGatReport*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_RequestGatReport_System_Int32_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.RequestGatReport(System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_RequestGatReport_System_Int32_" class="expander" data-toggle="collapse">RequestGatReport(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_RequestGatReport_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Read GAT report</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task&lt;string&gt; RequestGatReport(int milliseconds = 10000)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">milliseconds</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p><p>Task to read it</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_RequestGatReport_System_Int32_">GdsDeviceBase.RequestGatReport(Int32)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Reset.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Reset%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L612" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Reset_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Reset*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Reset" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.Reset"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Reset" class="expander" data-toggle="collapse">Reset()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_Reset" class="collapse in">
+  <div class="markdown level1 summary"><p>Resets this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override async Task&lt;bool&gt; Reset()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_Reset">GdsDeviceBase.Reset()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SelfTest_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SelfTest(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L381" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SelfTest_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SelfTest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SelfTest_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SelfTest(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SelfTest_System_Boolean_" class="expander" data-toggle="collapse">SelfTest(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SelfTest_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sends a command to the device to start a self test.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override async Task&lt;bool&gt; SelfTest(bool nvm)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">nvm</span>
+        <p><p>An flag indicating if Non-volatile Memory (NVM MUST be cleared before the self-test is performed.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_SelfTest_System_Boolean_">GdsDeviceBase.SelfTest(Boolean)</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.html#Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_SelfTest_System_Boolean_">IGdsDevice.SelfTest(Boolean)</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SelfTest_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The device MUST initiate a self-test sequence when instructed by the host.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetBezelState_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_BezelState_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetBezelState(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.BezelState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L294" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetBezelState_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetBezelState*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetBezelState_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_BezelState_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetBezelState(Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.BezelState)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetBezelState_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_BezelState_" class="expander" data-toggle="collapse">SetBezelState(BezelState)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetBezelState_Aristocrat_Monaco_Hardware_Contracts_Gds_CardReader_BezelState_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets bezel state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async void SetBezelState(BezelState state)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Gds.CardReader.BezelState.html">BezelState</a></span>
+        <span class="parametername">state</span>
+        <p><p>The state.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderFaultTypes_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetFault(Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderFaultTypes%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L754" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetFault_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetFault*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderFaultTypes_System_Boolean_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetFault(Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderFaultTypes,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderFaultTypes_System_Boolean_" class="expander" data-toggle="collapse">SetFault(IdReaderFaultTypes, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetFault_Aristocrat_Monaco_Hardware_Contracts_IdReader_IdReaderFaultTypes_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the fault flags for this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void SetFault(IdReaderFaultTypes fault, bool clear)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IdReaderFaultTypes.html">IdReaderFaultTypes</a></span>
+        <span class="parametername">fault</span>
+        <p><p>The fault.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">clear</span>
+        <p><p>True to clear; otherwise fault will be set.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetIdNumber_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetIdNumber(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L265" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetIdNumber_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetIdNumber*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetIdNumber_System_String_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.SetIdNumber(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetIdNumber_System_String_" class="expander" data-toggle="collapse">SetIdNumber(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_SetIdNumber_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets identifier number.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;bool&gt; SetIdNumber(string idNumber)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">idNumber</span>
+        <p><p>The ID number.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>An asynchronous result that yields true if it succeeds, false if it fails.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_SetIdNumber_System_String_">IIdReaderImplementation.SetIdNumber(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L285" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_UpdateConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.UpdateConfiguration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.UpdateConfiguration(Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="expander" data-toggle="collapse">UpdateConfiguration(IDeviceConfiguration)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates the device configurations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void UpdateConfiguration(IDeviceConfiguration internalConfiguration)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.IDeviceConfiguration.html">IDeviceConfiguration</a></span>
+        <span class="parametername">internalConfiguration</span>
+        <p><p>Internal configuration to update.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html#Aristocrat_Monaco_Hardware_Gds_GdsDeviceBase_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_">GdsDeviceBase.UpdateConfiguration(IDeviceConfiguration)</a></div>
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IGdsDevice.html#Aristocrat_Monaco_Hardware_Contracts_IGdsDevice_UpdateConfiguration_Aristocrat_Monaco_Hardware_Contracts_SharedDevice_IDeviceConfiguration_">IGdsDevice.UpdateConfiguration(IDeviceConfiguration)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationComplete.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationComplete%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L246" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationComplete_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationComplete*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationComplete" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationComplete"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationComplete" class="expander" data-toggle="collapse">ValidationComplete()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationComplete" class="collapse in">
+  <div class="markdown level1 summary"><p>ID Card has been validated</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ValidationComplete()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_ValidationComplete">IIdReaderImplementation.ValidationComplete()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationFailed.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationFailed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L256" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationFailed_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationFailed*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationFailed" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ValidationFailed"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationFailed" class="expander" data-toggle="collapse">ValidationFailed()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ValidationFailed" class="collapse in">
+  <div class="markdown level1 summary"><p>ID Card validation has failed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ValidationFailed()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_ValidationFailed">IIdReaderImplementation.ValidationFailed()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_WaitForCardData_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.WaitForCardData(System.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L786" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_WaitForCardData_" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.WaitForCardData*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_WaitForCardData_System_Byte___" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.WaitForCardData(System.Byte[])"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_WaitForCardData_System_Byte___" class="expander" data-toggle="collapse">WaitForCardData(Byte[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_WaitForCardData_System_Byte___" class="collapse in">
+  <div class="markdown level1 summary"><p>Wait for card data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected async Task&lt;string&gt; WaitForCardData(params byte[] validTypes)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">validTypes</span>
+        <p><p>A variable-length parameters list containing valid types.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p><p>An asynchronous result that yields a string.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="events">Events
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.FaultCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L191" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultCleared" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.FaultCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultCleared" class="expander" data-toggle="collapse">FaultCleared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when fault is cleared.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;FaultEventArgs&gt; FaultCleared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs.html">FaultEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_FaultCleared">IIdReaderImplementation.FaultCleared</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.FaultOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L194" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultOccurred" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.FaultOccurred"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultOccurred" class="expander" data-toggle="collapse">FaultOccurred</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_FaultOccurred" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when fault is detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;FaultEventArgs&gt; FaultOccurred</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.FaultEventArgs.html">FaultEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_FaultOccurred">IIdReaderImplementation.FaultOccurred</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L200" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdCleared" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdCleared" class="expander" data-toggle="collapse">IdCleared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when ID is cleared.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; IdCleared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_IdCleared">IIdReaderImplementation.IdCleared</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdPresented.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdPresented%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L197" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdPresented" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdPresented"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdPresented" class="expander" data-toggle="collapse">IdPresented</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdPresented" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when ID is presented.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; IdPresented</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_IdPresented">IIdReaderImplementation.IdPresented</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdValidationRequested.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdValidationRequested%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L203" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdValidationRequested" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.IdValidationRequested"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdValidationRequested" class="expander" data-toggle="collapse">IdValidationRequested</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdValidationRequested" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when ID validation is requested.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ValidationEventArgs&gt; IdValidationRequested</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.ValidationEventArgs.html">ValidationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_IdValidationRequested">IIdReaderImplementation.IdValidationRequested</a></div>
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_IdValidationRequested_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Only fired if host validation is required.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadError.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadError%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L206" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadError" data-uid="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds.ReadError"><a href="#collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadError" class="expander" data-toggle="collapse">ReadError</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds_ReadError" class="collapse in">
+  <div class="markdown level1 summary"><p>Event fired when a read error occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;EventArgs&gt; ReadError</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.eventargs">EventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.IdReader.IIdReaderImplementation.html#Aristocrat_Monaco_Hardware_Contracts_IdReader_IIdReaderImplementation_ReadError">IIdReaderImplementation.ReadError</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">Aristocrat.Monaco.Hardware.GdsDeviceBase</span></div>
+  </div>
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Gds_CardReader_CardReaderGds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Gds/CardReader/CardReaderGds.cs/#L17" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>
