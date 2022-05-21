@@ -100,9 +100,3 @@ jobs:
         name: ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}
         path: artifacts/
         if-no-files-found: error
-
-  sync:
-    if: github.event_name != 'pull_request'
-    runs-on: [self-hosted, Linux, monaco, migration]
-    steps:
-    - run: syncgit2svn.sh

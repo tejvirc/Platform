@@ -67,4 +67,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
       shell: powershell
       run: >
-        ./build.cmd Analyze --configuration Debug --sonar-server "${{ secrets.SONAR_HOST_URL }}" --sonar-login "${{ secrets.SONAR_TOKEN }}" --sonar-project-key "Aristocrat-Monaco-Platform_monaco"
+        ./build.cmd Analyze --configuration Debug --sonar-server "${{ secrets.SONAR_HOST_URL }}" --sonar-login "${{ secrets.SONAR_TOKEN }}" --sonar-project-key "monaco"
