@@ -51,5 +51,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        user_name: 'svc-p-platformbuild'
+        user_email: 'svc-p-platformbuild@aristocrat.com'
         publish_dir: ./bin/Site
         keep_files: true
