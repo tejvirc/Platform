@@ -7,6 +7,16 @@ on:
     branches:
     - main
     - release/*
+    paths:
+    - 'Accounting/**'
+    - 'Application/**'
+    - 'Gaming/**'
+    - 'Hardware/**'
+    - 'Jurisdiction/**'
+    - 'Kernel/**'
+    - 'Protocol/**'
+    - 'Shared/**'
+    - 'Test/**'
 
   pull_request:
     branches:
@@ -18,6 +28,7 @@ jobs:
     runs-on: windows-2019
     env:
       BUILD_COUNTER: ${{ github.run_number }}
+      ENLISTMENT_ROOT: ${{ github.workspace }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -30,73 +41,93 @@ jobs:
       with:
         dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+    - name: Remove TeamCity NuGet Source
+      run: >
+        dotnet nuget remove source TeamCity --configfile ./NuGet.config
     - name: Setup msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1.0.5
+      with:
+        nuget-version: '5.x'
+    - name: Cache NuGet Packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.nuget/packages
+        key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
     - name: Setup VSTest Path
       uses: darenm/setup-vstest@v1
+    - name: Setup dotCover
+      run: |
+        nuget install JetBrains.dotCover.CommandLineTools -Version 2021.1.2 -OutputDirectory .\packages
+        echo "${{ github.workspace }}\packages\JetBrains.dotCover.CommandLineTools.2021.1.2\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
     - name: Setup Monaco Tools
       uses: Aristocrat-Monaco-Platform/actions/setup-monaco@v1
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
-    - name: Remove TeamCity NuGet Source
-      run: >
-        dotnet nuget remove source TeamCity --configfile ./NuGet.config
-    - name: Cache .nuke/temp, ~/.nuget/packages
-      uses: actions/cache@v2
+    - name: Setup GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
       with:
-        path: |
-          .nuke/temp
-          ~/.nuget/packages
-        key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-    - name: Build and Test
-      id: buildAndtest
-      shell: pwsh
+        versionSpec: '5.x'
+    - name: Determine Version
+      id:   gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+        additionalArguments: '/updateassemblyinfo'
+    - name: Restore
       run: |
-        ./build.cmd Coverage --configuration Debug || $True
+        nuget restore .\Monaco.sln
+    - name: Build - Debug
+      run: |
+        msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
+    - name: Test
+      continue-on-error: true
+      run: >
+        dotCover cover
+        --LogFile="dotCover.log"
+        --TargetExecutable="$((Get-command vstest.console.exe).Path)"
+        --TargetWorkingDir="$((Get-Location).Path)"
+        --Output="CodeCoverage\coverage.dotcover.xml"
+        --ReportType=DetailedXML
+        --ExcludeFileMasks=Test/**/*.cs
+        -- "**\bin\Debug\*.Tests.dll"
+        --platform:x64
+        --logger:trx
+        --resultsDirectory:TestResults
     - name: Test Report
       uses: dorny/test-reporter@v1
-      if: steps.buildAndtest.outcome == 'success'
       with:
         name: Unit Tests
         path: "**/*.trx"
         reporter: dotnet-trx
         fail-on-error: true
-    - name: Add Coverage PR Comment
-      continue-on-error: true
-      uses: danhunsaker/clover-reporter-action@v0.2.17-clover
-      if: github.event_name == 'pull_request'
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        clover-file: ./bin/CoverageReport/Clover.xml
     - name: Build - Release
-      shell: powershell
       run: |
-        ./build.cmd --target Clean+Compile --configuration Release --deterministic
-    - run: New-Item -ItemType Directory -Name artifacts -Force
+        msbuild -p:"Configuration=Release" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
     - name: Create Package - Release
       if: github.event_name != 'pull_request'
       run: >
-        monaco image new -d ./bin/Release/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}
+        monaco image new -d ./bin/Release/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}
     - name: Create Manifest - Release
       if: github.event_name != 'pull_request'
       run: >
-        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.buildAndTest.outputs.assemblySemVer }} -j WinnersWorld
+        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemVer }} -j WinnersWorld
     - name: Build - Retail
-      shell: powershell
       run: |
-        ./build.cmd --target Clean+Compile --configuration Retail --deterministic
-    - run: New-Item -ItemType Directory -Name RETAIL_Platform_Files -Path artifacts -Force
+        msbuild -p:"Configuration=Retail" -p:"Platform=Any CPU" -p:"Deterministic=true" -p:"PathMap=${{ env.ENLISTMENT_ROOT }}=C:\" -t:Rebuild .\Monaco.sln
     - name: Create Package - Retail
       if: github.event_name != 'pull_request'
       run: >
-        monaco image new -d ./bin/Retail/Platform/bin -p ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}
+        monaco image new -d ./bin/Retail/Platform/bin -p ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}
     - name: Create Manifest - Release
       if: github.event_name != 'pull_request'
       run: >
-        monaco manifest new image -f ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.buildAndTest.outputs.assemblySemVer }} -j WinnersWorld
+        monaco manifest new image -f ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemVer }} -j WinnersWorld
     - uses: actions/upload-artifact@v2
       if: github.event_name != 'pull_request'
       with:
-        name: ATI_Platform_${{ steps.buildAndTest.outputs.assemblySemVer }}
+        name: ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}
         path: artifacts/
         if-no-files-found: error

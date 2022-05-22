@@ -33,20 +33,47 @@ jobs:
       with:
         dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-    - name: Setup msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
     - name: Remove TeamCity NuGet Source
       run: >
         dotnet nuget remove source TeamCity --configfile ./NuGet.config
-    - name: Cache .nuke/temp, ~/.nuget/packages
+    - name: Setup msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1.0.5
+      with:
+        nuget-version: '5.x'
+    - name: Cache NuGet Packages
       uses: actions/cache@v2
       with:
         path: |
-          .nuke/temp
           ~/.nuget/packages
         key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-    - name: Build
-      run: ./build.cmd BuildDocs
+    - name: Setup GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - name: Determine Version
+      id:   gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+        additionalArguments: '/updateassemblyinfo'
+    - name: Setup DocFX
+      uses: crazy-max/ghaction-chocolatey@v1
+      with:
+        args: install docfx
+    - name: Install Plugins
+      working-directory: Documentation
+      run: |
+        nuget install DocFx.Plugins.PlantUml -OutputDirectory plugins -ExcludeVersion -DependencyVersion Ignore -Verbosity detailed
+        nuget install DocFx.Plugins.Monaco -OutputDirectory plugins -ExcludeVersion -DependencyVersion Ignore -Verbosity detailed
+    - name: Restore
+      run: |
+        nuget restore .\Monaco.sln
+    - name: Build docs
+      working-directory: Documentation
+      continue-on-error: false
+      run: docfx docfx.json
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:

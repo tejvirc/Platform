@@ -3,11 +3,6 @@ name: Sync
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-    - main
-    - release/*
-
 jobs:
   sync:
     runs-on: [self-hosted, Linux, monaco, migration]

@@ -38,13 +38,37 @@ jobs:
       with:
         dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-    - name: Setup msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
-    - name: Setup VSTest Path
-      uses: darenm/setup-vstest@v1
     - name: Remove TeamCity NuGet Source
       run: >
         dotnet nuget remove source TeamCity --configfile ./NuGet.config
+    - name: Setup msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1.0.5
+      with:
+        nuget-version: '5.x'
+    - name: Cache NuGet Packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.nuget/packages
+        key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
+    - name: Setup VSTest Path
+      uses: darenm/setup-vstest@v1
+    - name: Setup dotCover
+      run: |
+        nuget install JetBrains.dotCover.CommandLineTools -Version 2021.1.2 -OutputDirectory .\packages
+        echo "${{ github.workspace }}\packages\JetBrains.dotCover.CommandLineTools.2021.1.2\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    - name: Setup GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - name: Determine Version
+      id:   gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+        additionalArguments: '/updateassemblyinfo'
     - name: Set up JDK 11
       uses: actions/setup-java@v1
       with:
@@ -55,16 +79,48 @@ jobs:
         path: ~\sonar\cache
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
-    - name: Cache .nuke/temp, ~/.nuget/packages
-      uses: actions/cache@v2
+    - name: Cache SonarQube scanner
+      id: cache-sonar-scanner
+      uses: actions/cache@v1
       with:
-        path: |
-          .nuke/temp
-          ~/.nuget/packages
-        key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-    - name: Build and analyze
+        path: .\.sonar\scanner
+        key: ${{ runner.os }}-sonar-scanner
+        restore-keys: ${{ runner.os }}-sonar-scanner
+    - name: Install SonarQube scanner
+      if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+      shell: powershell
+      run: |
+        New-Item -Path .\.sonar\scanner -ItemType Directory -Force
+        dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+    - name: Begin scan
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
       shell: powershell
+      run: |
+        .\.sonar\scanner\dotnet-sonarscanner begin /k:"monaco" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.cs.dotcover.reportsPaths="**/coverage.*.xml"
+    - name: Restore
+      run: |
+        nuget restore .\Monaco.sln
+    - name: Build - Debug
+      run: |
+        msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
+    - name: Test
+      continue-on-error: true
       run: >
-        ./build.cmd Analyze --configuration Debug --sonar-server "${{ secrets.SONAR_HOST_URL }}" --sonar-login "${{ secrets.SONAR_TOKEN }}" --sonar-project-key "monaco"
+        dotCover cover
+        --LogFile="dotCover.log"
+        --TargetExecutable="$((Get-command vstest.console.exe).Path)"
+        --TargetWorkingDir="$((Get-Location).Path)"
+        --Output="CodeCoverage\coverage.dotcover.xml"
+        --ReportType=DetailedXML
+        --ExcludeFileMasks=Test/**/*.cs
+        -- "**\bin\Debug\*.Tests.dll"
+        --platform:x64
+        --logger:trx
+        --resultsDirectory:TestResults
+    - name: End Scan
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      shell: powershell
+      run: |
+        .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
