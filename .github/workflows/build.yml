@@ -109,25 +109,25 @@ jobs:
     - name: Create Package - Release
       if: github.event_name != 'pull_request'
       run: >
-        monaco image new -d ./bin/Release/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}
+        monaco image new -d ./bin/Release/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
     - name: Create Manifest - Release
       if: github.event_name != 'pull_request'
       run: >
-        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemVer }} -j WinnersWorld
+        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemFileVer }} -j WinnersWorld
     - name: Build - Retail
       run: |
         msbuild -p:"Configuration=Retail" -p:"Platform=Any CPU" -p:"Deterministic=true" -p:"PathMap=${{ env.ENLISTMENT_ROOT }}=C:\" -t:Rebuild .\Monaco.sln
     - name: Create Package - Retail
       if: github.event_name != 'pull_request'
       run: >
-        monaco image new -d ./bin/Retail/Platform/bin -p ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}
-    - name: Create Manifest - Release
+        monaco image new -d ./bin/Retail/Platform/bin -p ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
+    - name: Create Manifest - Retail
       if: github.event_name != 'pull_request'
       run: >
-        monaco manifest new image -f ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemVer }} -j WinnersWorld
+        monaco manifest new image -f ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemFileVer }} -j WinnersWorld
     - uses: actions/upload-artifact@v2
       if: github.event_name != 'pull_request'
       with:
-        name: ATI_Platform_${{ steps.gitversion.outputs.assemblySemVer }}
+        name: ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
         path: artifacts/
         if-no-files-found: error
