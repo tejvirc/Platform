@@ -1,1 +1,0 @@
-test key for signing is located in <rootfolder>\data
