@@ -79,6 +79,7 @@ jobs:
         if-no-files-found: error
 
   publish-pages:
+    needs: build-docs
     runs-on: ubuntu-latest
 
     steps:
@@ -97,6 +98,7 @@ jobs:
         keep_files: true
 
   publish-web:
+    needs: build-docs
     runs-on: [self-hosted, Windows, monaco]
 
     steps:
