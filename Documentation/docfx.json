@@ -230,7 +230,7 @@
         "exclude": ["obj/**"]
       }
     ],
-    "dest": "../bin/Site",
+    "dest": "_site",
     "globalMetadataFiles": [],
     "globalMetedata": {
       "_appName": "Monaco",

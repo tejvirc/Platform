@@ -6,7 +6,6 @@ on:
   push:
     branches:
     - main
-    - release/*
     paths:
     - 'Accounting/**'
     - 'Application/**'
@@ -72,11 +71,43 @@ jobs:
         nuget restore .\Monaco.sln
     - name: Build docs
       working-directory: Documentation
-      continue-on-error: false
       run: docfx docfx.json
+    - uses: actions/upload-artifact@v2
+      with:
+        name: site
+        path: ./Documentation/_site/
+        if-no-files-found: error
+
+  publish-pages:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: actions/download-artifact@v2
+      with:
+        name: site
+        path: _site
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         personal_token: ${{ secrets.REPO_TOKEN }}
-        publish_dir: ./bin/Site
+        publish_dir: ./_site
         keep_files: true
+
+  publish-web:
+    runs-on: [self-hosted, Windows, monaco]
+
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: site
+        path: _site
+    - name: Upload
+      shell: cmd
+      run: |
+        FOR /F "tokens=* USEBACKQ" %%F IN (`rclone obscure ${{ secrects.DOCS_FTP_PASS }}`) DO (
+          SET FTP_PASS=%%F
+        )
+        rclone sync _site :ftp:docs --ftp-host=${{ secrects.DOCS_FTP_URL }} --ftp-user=${{ secrects.DOCS_FTP_USER }} --ftp-pass=%FTP_PASS% --no-update-modtime

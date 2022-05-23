@@ -15,7 +15,7 @@
 <script>
     mermaid.initialize({
         startOnLoad: false,
-        theme: 'dark'
+        theme: 'default'
     });
 
     window.onload = function () {
