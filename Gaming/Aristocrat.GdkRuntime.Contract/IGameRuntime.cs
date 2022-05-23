@@ -870,7 +870,10 @@ namespace Aristocrat.GDKRuntime
             InPlayerMenu = 22,
 
             /// <summary>In player info display</summary>
-            InPlayerInfoDisplayMenu = 23
+            InPlayerInfoDisplayMenu = 23,
+
+            /// <summary>in a lockup that allows animating overlays</summary>
+            InOverlayLockup = 24
         }
 
         /// <summary>
