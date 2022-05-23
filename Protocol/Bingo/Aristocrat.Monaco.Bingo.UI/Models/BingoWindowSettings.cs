@@ -58,25 +58,30 @@
         ///     Gets or sets The minimum time in milliseconds to have the card undaubed before showing any daubs
         /// </summary>
         public int MinimumPreDaubedTimeMs { get; set; }
-        
+
         /// <summary>
         ///     Gets or sets the waiting for game message
         /// </summary>
         public string WaitingForGameMessage { get; set; }
-        
+
         /// <summary>
         ///     Gets or sets the waiting for game timeout message
         /// </summary>
         public string WaitingForGameTimeoutMessage { get; set; }
-        
+
         /// <summary>
         ///     Gets or sets the number of seconds to wait before showing the waiting for game message
         /// </summary>
         public double WaitingForGameDelaySeconds { get; set; }
-        
+
         /// <summary>
         ///     Gets or sets the number of seconds to display the waiting for game timeout message
         /// </summary>
         public double WaitingForGameTimeoutDisplaySeconds { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the daub time for the bingo patterns
+        /// </summary>
+        public BingoDaubTime PatternDaubTime { get; set; }
     }
 }

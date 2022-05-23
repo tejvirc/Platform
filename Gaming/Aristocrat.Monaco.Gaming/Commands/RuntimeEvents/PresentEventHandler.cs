@@ -72,6 +72,9 @@
                 case GameRoundEventAction.Pending:
                     HandlePending(gameRoundEvent);
                     break;
+                case GameRoundEventAction.Begin:
+                    HandleBegin(gameRoundEvent);
+                    break;
             }
         }
 
@@ -86,27 +89,21 @@
             // This signifies the end of the base game, if we haven't recorded it yet we need to update the meters, bank, etc.
             if (MeterFreeGames && !denomination.SecondaryAllowed && _gameHistory.CurrentLog.LastCommitIndex == -1)
             {
+                using var scope = _persistentStorage.ScopedTransaction();
+                _bank.AddWin(result);
+                _meters.IncrementGamesPlayed(
+                    game.Id,
+                    denomination.Value,
+                    wagerCategory,
+                    _gameHistory.CurrentLog.UncommittedWin > 0 ? GameResult.Won : GameResult.Lost,
+                    _players.HasActiveSession);
 
-                using (var scope = _persistentStorage.ScopedTransaction())
-                {
-                    _bank.AddWin(result);
+                _meters.GetMeter(game.Id, denomination.Value, GamingMeters.EgmPaidGameWonAmount)
+                    .Increment(result * GamingConstants.Millicents);
 
-                    _meters.IncrementGamesPlayed(
-                        game.Id,
-                        denomination.Value,
-                        wagerCategory,
-                        _gameHistory.CurrentLog.UncommittedWin > 0 ? GameResult.Won : GameResult.Lost,
-                        _players.HasActiveSession);
-
-                    _meters.GetMeter(game.Id, denomination.Value, GamingMeters.EgmPaidGameWonAmount)
-                        .Increment(result * GamingConstants.Millicents);
-
-                    _gameHistory.CommitWin();
-
-                    CheckOutcome(result);
-
-                    scope.Complete();
-                }
+                _gameHistory.CommitWin();
+                CheckOutcome(result);
+                scope.Complete();
 
                 return;
             }
@@ -185,6 +182,18 @@
             var (game, denomination) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GameWinPresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
+        }
+
+        private void HandleBegin(GameRoundEvent gameRoundEvent)
+        {
+            if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
+            {
+                return;
+            }
+
+            var (game, denomination) = _properties.GetActiveGame();
+            var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
+            _bus.Publish(new GamePresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
         }
     }
 }

@@ -47,7 +47,6 @@
         </ResourceDictionary>
     </mah:MetroTabItem.Resources>
 
-
     <GroupBox FontSize="8" Header="Bingo Info Appearance">
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
             <Grid HorizontalAlignment="Stretch" Margin="0 0 20 0">
@@ -60,6 +59,7 @@
                     <!-- Window Selection -->
                     <RowDefinition Height="Auto"/>
                     <!-- Bingo Card -->
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -152,146 +152,151 @@
                        Style="{StaticResource ItemLabel}" />
                 <CheckBox Grid.Row="6" Grid.Column="1"
                           IsChecked="{Binding Allow0PaddingBingoCard}"/>
+                
+                <Label Grid.Row="7" Grid.Column="0"
+                       Content="PATTERN DAUB TIME"
+                       Style="{StaticResource ItemLabel}" />
+                <ComboBox Grid.Row="7" Grid.Column="1" ItemsSource="{Binding AvailableDaubTimes}"
+                          SelectedItem="{Binding PatternDaubTime}"/>
 
                 <!-- Ball Call -->
-                <Label Grid.Row="7" Grid.Column="0"
+                <Label Grid.Row="8" Grid.Column="0"
                        Content="BALL CALL"
                        Style="{StaticResource SectionLabel}"/>
-                <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
-                <Label Grid.Row="8" Grid.Column="0"
+                <Border Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <Label Grid.Row="9" Grid.Column="0"
                        Content="TEXT"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="8" Grid.Column="1"
+                <TextBox Grid.Row="9" Grid.Column="1"
                          Text="{Binding BallCallTitle}"
                          Style="{StaticResource MessageTextBox}"
                          HorizontalAlignment="Left"
                          Width="60"/>
-                <Label Grid.Row="9" Grid.Column="0"
+                <Label Grid.Row="10" Grid.Column="0"
                        Content="APPLY ZERO PADDING"
                        Style="{StaticResource ItemLabel}" />
-                <CheckBox Grid.Row="9" Grid.Column="1"
+                <CheckBox Grid.Row="10" Grid.Column="1"
                           IsChecked="{Binding Allow0PaddingBallCall}"/>
 
                 <!-- Disclaimer Text -->
-                <Label Grid.Row="10" Grid.Column="0"
+                <Label Grid.Row="11" Grid.Column="0"
                        Content="DISCLAIMERS"
                        Style="{StaticResource SectionLabel}" />
-                <Border Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <Border Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
 
-                <Label Grid.Row="11" Grid.Column="0"
+                <Label Grid.Row="12" Grid.Column="0"
                        Content="DISCLAIMER 1"
                        Style="{StaticResource ItemLabel}"/>
-                <TextBox Grid.Row="11" Grid.Column="1"
+                <TextBox Grid.Row="12" Grid.Column="1"
                          Text="{Binding Disclaimer1Text}"
                          Style="{StaticResource MessageTextBox}" />
 
-                <Label Grid.Row="12" Grid.Column="0"
+                <Label Grid.Row="13" Grid.Column="0"
                        Content="DISCLAIMER 2"
                        Style="{StaticResource ItemLabel}"/>
-                <TextBox Grid.Row="12" Grid.Column="1"
+                <TextBox Grid.Row="13" Grid.Column="1"
                          Text="{Binding Disclaimer2Text}"
                          Style="{StaticResource MessageTextBox}"/>
 
-                <Label Grid.Row="13" Grid.Column="0"
+                <Label Grid.Row="14" Grid.Column="0"
                        Content="DISCLAIMER 3"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="13" Grid.Column="1"
+                <TextBox Grid.Row="14" Grid.Column="1"
                          Text="{Binding Disclaimer3Text}"
                          Style="{StaticResource MessageTextBox}" />
 
                 <!-- Styling -->
-                <Label Grid.Row="14" Grid.Column="0"
+                <Label Grid.Row="15" Grid.Column="0"
                        Content="STYLING"
                        Style="{StaticResource SectionLabel}" />
-                <Border Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <Border Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
 
-                <Label Grid.Row="15" Grid.Column="0"
+                <Label Grid.Row="16" Grid.Column="0"
                        Content="CSS FILE"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="15" Grid.Column="1"
+                <TextBox Grid.Row="16" Grid.Column="1"
                         Text="{Binding CssPath}"
                         Style="{StaticResource MessageTextBox}"/>
 
-                <Label Grid.Row="16" Grid.Column="0"
+                <Label Grid.Row="17" Grid.Column="0"
                        Content="DEFAULT SCENE"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="16" Grid.Column="1"
+                <TextBox Grid.Row="17" Grid.Column="1"
                          Text="{Binding InitialScene}"
                          Style="{StaticResource MessageTextBox}" />
 
-                <Label Grid.Row="17" Grid.Column="0"
+                <Label Grid.Row="18" Grid.Column="0"
                        Content="CURRENT SCENE"
                        Style="{StaticResource ItemLabel}"
                        VerticalAlignment="Center"/>
-                <TextBox Grid.Row="17" Grid.Column="1"
+                <TextBox Grid.Row="18" Grid.Column="1"
                          Text="{Binding Scene}"
                          Style="{StaticResource MessageTextBox}" />
-                <Button Grid.Row="17" Grid.Column="2"
+                <Button Grid.Row="18" Grid.Column="2"
                         Content="Change Scene"
                         Command="{Binding ChangeSceneCommand}"
                         Margin="16,4,4,4"/>
 
                 <!-- Attract -->
-                <Label Grid.Row="18" Grid.Column="0"
+                <Label Grid.Row="19" Grid.Column="0"
                        Content="ATTRACT"
                        Style="{StaticResource SectionLabel}" />
-                <Border Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <Border Grid.Row="19" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
 
-                <Label Grid.Row="19" Grid.Column="0"
+                <Label Grid.Row="20" Grid.Column="0"
                        Content="ATTRACT SCENE"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="19" Grid.Column="1"
+                <TextBox Grid.Row="20" Grid.Column="1"
                          Text="{Binding AttractOverlayScene}"
                          Style="{StaticResource MessageTextBox}" />
 
-                <Label Grid.Row="20" Grid.Column="0"
+                <Label Grid.Row="21" Grid.Column="0"
                        Content="PATTERN CYCLE TIME (MS)"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="20" Grid.Column="1"
+                <TextBox Grid.Row="21" Grid.Column="1"
                          Text="{Binding AttractPatternCycleTimeMs}"
                          Style="{StaticResource NumberTextBox}"
                          HorizontalAlignment="Left"/>
 
                 <!-- WAITING FOR GAME -->
-                <Label Grid.Row="21" Grid.Column="0"
+                <Label Grid.Row="22" Grid.Column="0"
                        Content="WAITING FOR GAME"
                        Style="{StaticResource SectionLabel}" />
-                <Border Grid.Row="21" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <Border Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
 
-                <Label Grid.Row="22" Grid.Column="0"
+                <Label Grid.Row="23" Grid.Column="0"
                        Content="WAIT MESSAGE DELAY (S)"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="22" Grid.Column="1"
+                <TextBox Grid.Row="23" Grid.Column="1"
                          Text="{Binding WaitingForGameDelaySeconds}"
                          Style="{StaticResource NumberTextBox}"
                          HorizontalAlignment="Left"/>
 
-                <Label Grid.Row="23" Grid.Column="0"
+                <Label Grid.Row="24" Grid.Column="0"
                        Content="WAITING MESSAGE"
                        Style="{StaticResource ItemLabel}"/>
-                <TextBox Grid.Row="23" Grid.Column="1"
+                <TextBox Grid.Row="24" Grid.Column="1"
                          Text="{Binding WaitingForGameMessage}"
                          Style="{StaticResource MessageTextBox}" />
 
-                <Label Grid.Row="24" Grid.Column="0"
+                <Label Grid.Row="25" Grid.Column="0"
                        Content="TIMEOUT MESSAGE DURATION (S)"
                        Style="{StaticResource ItemLabel}" />
-                <TextBox Grid.Row="24" Grid.Column="1"
+                <TextBox Grid.Row="25" Grid.Column="1"
                          Text="{Binding WaitingForGameTimeoutDisplaySeconds}"
                          Style="{StaticResource NumberTextBox}"
                          HorizontalAlignment="Left"/>
 
-                <Label Grid.Row="25" Grid.Column="0"
+                <Label Grid.Row="26" Grid.Column="0"
                        Content="TIMEOUT MESSAGE"
                        Style="{StaticResource ItemLabel}"/>
-                <TextBox Grid.Row="25" Grid.Column="1"
+                <TextBox Grid.Row="26" Grid.Column="1"
                          Text="{Binding WaitingForGameTimeoutMessage}"
                          Style="{StaticResource MessageTextBox}" />
-                
 
                 <!-- Settings Buttons -->
-                <Border Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
-                <StackPanel Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <StackPanel Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Reset to Defaults"
                             Command="{Binding DefaultsCommand}"
                             Margin="16,4,4,4"/>

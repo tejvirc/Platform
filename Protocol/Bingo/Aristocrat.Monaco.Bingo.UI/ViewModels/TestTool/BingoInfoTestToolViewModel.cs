@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.ViewModels.TestTool
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Windows.Input;
     using Common;
     using Gaming.Contracts.Events;
@@ -28,7 +30,7 @@
                 () => WindowName = BingoConfigProvider.CurrentWindow);
 
             DaubColors = new List<string>(Colors) { BingoConstants.RainbowColor };
-            
+
             ChangeSceneCommand = new ActionCommand<object>(_ => ChangeScene());
         }
 
@@ -45,7 +47,7 @@
                 SetDefaults();
             }
         }
-        
+
         public ICommand ChangeSceneCommand { get; set; }
 
         public string Disclaimer1Text
@@ -119,7 +121,7 @@
                 Update();
             }
         }
-        
+
         public string CssPath
         {
             get => _currentBingoSettings.CssPath;
@@ -252,7 +254,21 @@
         }
 
         public string Scene { get; set; }
-        
+
+        public IReadOnlyCollection<BingoDaubTime> AvailableDaubTimes { get; } =
+            Enum.GetValues(typeof(BingoDaubTime)).Cast<BingoDaubTime>().ToList().AsReadOnly();
+
+        public BingoDaubTime PatternDaubTime
+        {
+            get => _currentBingoSettings.PatternDaubTime;
+            set
+            {
+                _currentBingoSettings.PatternDaubTime = value;
+                RaisePropertyChanged(nameof(AttractPatternCycleTimeMs));
+                Update();
+            }
+        }
+
 
         protected override void SetDefaults()
         {

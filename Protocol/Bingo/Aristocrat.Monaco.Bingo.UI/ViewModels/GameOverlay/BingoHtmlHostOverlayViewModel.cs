@@ -75,7 +75,18 @@
             _eventBus.Subscribe<SceneChangedEvent>(this, Handle);
             _eventBus.Subscribe<GamePlayInitiatedEvent>(this, Handle);
             _eventBus.Subscribe<BingoGamePatternEvent>(this, Handle);
-            _eventBus.Subscribe<GamePresentationEndedEvent>(this, Handle);
+            _eventBus.Subscribe<GamePresentationEndedEvent>(
+                this,
+                Handle,
+                _ => _currentBingoSettings is null or { PatternDaubTime: BingoDaubTime.PresentationEnd });
+            _eventBus.Subscribe<GamePresentationStartedEvent>(
+                this,
+                Handle,
+                _ => _currentBingoSettings is { PatternDaubTime: BingoDaubTime.PresentationStart });
+            _eventBus.Subscribe<GameWinPresentationStartedEvent>(
+                this,
+                Handle,
+                _ => _currentBingoSettings is { PatternDaubTime: BingoDaubTime.WinPresentationStart });
             _eventBus.Subscribe<Class2MultipleOutcomeSpinsChangedEvent>(this, Handle);
             _eventBus.Subscribe<AttractModeEntered>(this, Handle);
             _eventBus.Subscribe<AttractModeExited>(this, Handle);
@@ -274,7 +285,7 @@
             }
         }
 
-        private void Handle(GamePresentationEndedEvent e)
+        private void Handle(BaseGameEvent e)
         {
             Logger.Debug($"GamePresentationEndedEvent with {e.Log.Outcomes.Count()} outcomes.");
 
@@ -325,7 +336,7 @@
             Logger.Debug($"multiple spins is {e.Triggered}");
             _multipleSpins = e.Triggered;
         }
-       
+
         private void Handle(WaitingForPlayersEvent e)
         {
             var waitSettings = new WaitForGameSettings

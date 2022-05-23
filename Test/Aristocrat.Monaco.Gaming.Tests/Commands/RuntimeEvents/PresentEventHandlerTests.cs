@@ -130,7 +130,7 @@
 
             _target.HandleEvent(
                 new GameRoundEvent(
-                    GameRoundEventState.Idle,
+                    GameRoundEventState.Present,
                     GameRoundEventAction.Invoked,
                     playMode,
                     new List<string>(),
@@ -146,6 +146,61 @@
                 x => x.UpdateFlag(RuntimeCondition.AllowSubGameRound, true),
                 expectAllowSubGameRounds ? Times.Once() : Times.Never());
             _gamePlayState.Verify(x => x.End(finalWin), expectGameEnd ? Times.Once() : Times.Never());
+        }
+
+        [DataTestMethod]
+        [DataRow(PlayMode.Normal, true)]
+        [DataRow(PlayMode.Demo, true)]
+        [DataRow(PlayMode.Recovery, false)]
+        [DataRow(PlayMode.Replay, false)]
+        public void HandleBeginSpinTest(PlayMode playMode, bool presentationStartedRaised)
+        {
+            const int activeId = 1;
+            const long denomValue = 1000;
+            const string testWagerCategoryId = "TestingId";
+            var gameDetail = new Mock<IGameDetail>();
+            var denom = new Mock<IDenomination>();
+            var wagerCategory = new Mock<IWagerCategory>();
+            wagerCategory.Setup(x => x.Id).Returns(testWagerCategoryId);
+            denom.Setup(x => x.Id).Returns(activeId);
+            denom.Setup(x => x.Value).Returns(denomValue);
+            denom.Setup(x => x.Active).Returns(true);
+            gameDetail.Setup(x => x.Id).Returns(activeId);
+            gameDetail.Setup(x => x.Denominations).Returns(new List<IDenomination> { denom.Object });
+            var gameHistoryLog = new Mock<IGameHistoryLog>(MockBehavior.Default);
+            _gameHistory.Setup(x => x.CurrentLog).Returns(gameHistoryLog.Object);
+            _propertiesManager.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, It.IsAny<bool>()))
+                .Returns(true);
+            _propertiesManager.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, It.IsAny<long>()))
+                .Returns(denomValue);
+            _propertiesManager.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>()))
+                .Returns(activeId);
+            _propertiesManager
+                .Setup(x => x.GetProperty(GamingConstants.SelectedWagerCategory, It.IsAny<IWagerCategory>()))
+                .Returns(wagerCategory.Object);
+            _propertiesManager.Setup(x => x.GetProperty(GamingConstants.Games, It.IsAny<object>()))
+                .Returns(new List<IGameDetail> { gameDetail.Object });
+
+            _target.HandleEvent(
+                new GameRoundEvent(
+                    GameRoundEventState.Present,
+                    GameRoundEventAction.Begin,
+                    playMode,
+                    new List<string>(),
+                    0,
+                    0,
+                    0,
+                    new byte[] { }));
+            _bus.Verify(
+                x => x.Publish(
+                    It.Is<GamePresentationStartedEvent>(
+                        evt => MatchingEvent(evt, activeId, denomValue, testWagerCategoryId))),
+                presentationStartedRaised ? Times.Once() : Times.Never());
+        }
+
+        private static bool MatchingEvent(BaseGameEvent evt, int gameId, long denom, string wagerCategoryId)
+        {
+            return evt.GameId == gameId && evt.Denomination == denom && evt.WagerCategory == wagerCategoryId;
         }
 
         private PresentEventHandler CreateEventHandler(
