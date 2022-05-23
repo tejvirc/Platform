@@ -107,7 +107,7 @@ jobs:
     - name: Upload
       shell: cmd
       run: |
-        FOR /F "tokens=* USEBACKQ" %%F IN (`rclone obscure ${{ secrects.DOCS_FTP_PASS }}`) DO (
+        FOR /F "tokens=* USEBACKQ" %%F IN (`rclone obscure ${{ secrets.DOCS_FTP_PASS }}`) DO (
           SET FTP_PASS=%%F
         )
-        rclone sync _site :ftp:docs --ftp-host=${{ secrects.DOCS_FTP_URL }} --ftp-user=${{ secrects.DOCS_FTP_USER }} --ftp-pass=%FTP_PASS% --no-update-modtime
+        rclone sync _site :ftp:docs --ftp-host=${{ secrets.DOCS_FTP_URL }} --ftp-user=${{ secrets.DOCS_FTP_USER }} --ftp-pass=%FTP_PASS% --no-update-modtime
