@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "+fF8DDDBsGXTnGx6xlPr/Y6FvzMzh0rOIxqKTc7fyPQ="
+          "hash": "ClkO4LiC44afHIx86hNnAKLSHb/9GKsq9LTb2BXYwUw="
         }
       },
       "is_incremental": false,
@@ -6300,7 +6300,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.Localization.CultureProvider.html",
-          "hash": "SF1k6wEbyOOk5Hr7P3hvzZ04S4oMxkSJqT4j9yg7d7E="
+          "hash": "tzGbwdLW9dDk+hSA2VCg+aMykjW3GgpAH71XkaJXh8Q="
         }
       },
       "is_incremental": false,
@@ -6384,7 +6384,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.Localization.ILocalizationPropertyProvider.html",
-          "hash": "hTF2k+PQBx8aUgN0E6bq+FvqTfDpS5I6AFn7Yzx5V1s="
+          "hash": "ZD/zZ/cNXZIYz6OmFZ7wWk4p/4O4w4Y+aRe2Zqs+biU="
         }
       },
       "is_incremental": false,
@@ -6396,7 +6396,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.Localization.ILocalizer.html",
-          "hash": "0ZXX/mUogIuLvEqBBK0Wia1WV6B2ozrW5tTJ4TcazoU="
+          "hash": "6ebf6vVlqChCIe4lTRzqLvq05wbAJaqFDWEmuTWM908="
         }
       },
       "is_incremental": false,
@@ -7308,7 +7308,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.NetworkInterfaceInfo.html",
-          "hash": "pL4J3DIkxyv9E1kc9bUvaCRoZl/9odBXNMsTpr1pIaU="
+          "hash": "3kN+9OdX88Slagqs/49NmS6kTp7jxnu9Pg3Mk+v9QuE="
         }
       },
       "is_incremental": false,
@@ -7944,7 +7944,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ProtocolCapabilityAttribute.html",
-          "hash": "YKPzuAJUg6+NBHK0P3N0VmozKffoJ7aL/x0YCuQl6vE="
+          "hash": "CboDVSaRBRG9H2zOJdcP2QYYSw/XhwU5Wc/kbrJvFWI="
         }
       },
       "is_incremental": false,
@@ -9060,7 +9060,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Localization.LocalizationPropertiesProvider.html",
-          "hash": "ZmT09OgUFYOYdCLoNlDGhI0MTyU2Qr75xbyago6utBg="
+          "hash": "nvMC+ks6rtzHa0lzYHnmAxEL84kvLyKOC7MDDi/+q08="
         }
       },
       "is_incremental": false,
@@ -9672,7 +9672,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.CounterTypeAttribute.html",
-          "hash": "Q/rgb2q43GGjDjWaL23aQvaAcy7PTOv4D1kpJTK15HM="
+          "hash": "7NC4HYTS80VnQHFTnKkyF2EoS9uzRtvziIGXyv/ssRw="
         }
       },
       "is_incremental": false,
@@ -9696,7 +9696,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.InstanceAttribute.html",
-          "hash": "NvbZYQii634fJ7FM7xiy7ywEkxKUPsubWMMYGC/SVDA="
+          "hash": "EDF+h4OwaN/suHYMJH/HeYpSCMRMekvoPCurRXlxHaA="
         }
       },
       "is_incremental": false,
@@ -9708,7 +9708,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.MaxRangeAttribute.html",
-          "hash": "vSwvaQn3QOhXzrQqcFtCyqc4U3akQSPB1043WZ4C6Cc="
+          "hash": "4dYTgY7Of32vfWiL6z5be1CFYWEPzlVG5Gb9E+AJbyg="
         }
       },
       "is_incremental": false,
@@ -9744,7 +9744,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.UnitAttribute.html",
-          "hash": "xFo+Au5R9nYTa2DNu3GDUWw02Z32cfacIE6t4t6pfqI="
+          "hash": "GaZo1eKkWSKzOkhIpECHxeXAa0SNP3iIletmJLSCXJM="
         }
       },
       "is_incremental": false,
@@ -12132,7 +12132,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPrintHandler.html",
-          "hash": "eDyDu9vLeGqkv5tJd5JgUleaAQrE0oKCmocE7+kTlyI="
+          "hash": "bWwb7a64n1CpfrjJaKNwWpdb3eBR8oSXUxlFoPxT/zk="
         }
       },
       "is_incremental": false,
@@ -12180,7 +12180,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.OperatorMenu.PrinterStatusPrinting.html",
-          "hash": "B47eg2mGt/y1FSpl/rL9uE+757DDQFF1r5ex2D9GwdQ="
+          "hash": "prYIqQcgeQyVjVkfQm2lqE+Bd4ixkwip1ojr4KxjLiA="
         }
       },
       "is_incremental": false,
@@ -14335,9 +14335,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14422,6 +14419,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -15039,7 +15039,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/asp/Aristocrat.Monaco.Asp.Client.Contracts.DatasourceRegistryAttribute.html",
-          "hash": "+7NZUi6gOeT/8H2awPOZzPHOP4LIvIxcuz3GI+wArFA="
+          "hash": "Bfad5zgMzmSf2ToDBQEIMPVOPcbYF49z/NpAF/ixc2A="
         }
       },
       "is_incremental": false,
@@ -16335,7 +16335,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/asp/Aristocrat.Monaco.Asp.Extensions.EnumerableExtensions.html",
-          "hash": "Mn/lS8ome27X86ynbkwfqe/LTJTrkWyeptPEu/ATn0M="
+          "hash": "gy6nS7XjqfWUtSWOguoDcr+1U1cxst9gzcFySUyM5lg="
         }
       },
       "is_incremental": false,
@@ -20651,6 +20651,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Models.BingoDaubTime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Models.BingoDaubTime.html",
+          "hash": "HhEHQC9DVPoUqeO6GhwmX3ae7cbJcuPZcWV7E21SxUU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Models.BingoDisplayConfiguration.yml",
       "output": {
         ".html": {
@@ -20727,7 +20739,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Models.BingoWindowSettings.html",
-          "hash": "gLbde6XwjISfsJxKzcR3HRri69DF7a2OCj+BS2CuBTc="
+          "hash": "tLYaSyqFahpa+IgWKDK7N0hU7pXpJ3hnd0a2mHqQLgM="
         }
       },
       "is_incremental": false,
@@ -20739,7 +20751,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Models.html",
-          "hash": "zeJ1VuNQKQhMOdx9ArtZj+3zt7uu9XafOtqoi0mQMQU="
+          "hash": "S+BGWTx686/CQcBpPrR6neResIrqRRHWooA/6GMjRJU="
         }
       },
       "is_incremental": false,
@@ -20799,7 +20811,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay.BingoHtmlHostOverlayViewModel.html",
-          "hash": "a9SlIt922Oher/G62n5k9CqwU+aHhtwq/EuayKiUa4A="
+          "hash": "mkhEJ4ydMNdTYfOrkFjpOC0INP3uRkOWP3MMdEiSsOw="
         }
       },
       "is_incremental": false,
@@ -20883,7 +20895,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.TestTool.BingoInfoTestToolViewModel.html",
-          "hash": "bxl/HOtIBrnqr3HKVAQgt5rGItkAGBLJtW8qUcZF3jI="
+          "hash": "PeLftTY9vlAx43zR8gTp3XhEfsbKZTbY6JTPH5wepmE="
         }
       },
       "is_incremental": false,
@@ -21927,7 +21939,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Common.Container.InjectAttribute.html",
-          "hash": "JhWel6PvjEn9wMRzx6cqe8Q9C/7NbnbHG+jKN5iqNKg="
+          "hash": "G1mWzfzyKQkpMDeFU2TRLL4DPuRrf6y40QED8uc1asA="
         }
       },
       "is_incremental": false,
@@ -22203,7 +22215,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Common.PerformanceCounters.CounterDescriptionAttribute.html",
-          "hash": "pTfj7Btt05/IO7PGA5F773Wjey1PBVQAbM0JHrSDoRQ="
+          "hash": "WZ0B9ZIfNAGUtq1mKvlysJfNCDVWvEGtsTWDu/LzY2w="
         }
       },
       "is_incremental": false,
@@ -22383,7 +22395,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Common.Storage.DatabaseExtensions.html",
-          "hash": "dNB51C2lqErMgByunnfImDdMA6i14sQn/jT8S8D1YlU="
+          "hash": "ON8UVCvK5FAyOexPDa+5kTfbnE7Y8FOTvR2PwNuAgiw="
         }
       },
       "is_incremental": false,
@@ -22515,7 +22527,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Common.TaskExtensions.html",
-          "hash": "9UykyN4nUA/AHsD+FpF1FhsZNjDcMN78IyoBUnDXvPw="
+          "hash": "Dc7aIG9wwtp+cQMNFGlEThuaEZPAtJXpLK/bVgK6T4c="
         }
       },
       "is_incremental": false,
@@ -22719,7 +22731,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.DataTypeAttribute.html",
-          "hash": "aXSjAcLD2R0bUehDLWbHAH+aOQnwwruMKM68dbXzNJU="
+          "hash": "0WFnEQ+kt+E6yP0JTWHxeQcmlpnly4nqqnQxgH4g+kI="
         }
       },
       "is_incremental": false,
@@ -22731,7 +22743,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedCategoryAttribute.html",
-          "hash": "oiw7vDsGFvUHmPn51c6oB+BzVDNiuxwbRMfknFBMkgQ="
+          "hash": "D995U2GYDrtGjrvZZ20HaHmn6Mos5UnDnYkbF1qUqC8="
         }
       },
       "is_incremental": false,
@@ -22743,7 +22755,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedDescriptionAttribute.html",
-          "hash": "EDNcs0q44KklqoAPqOzNtQO2i1KPlcimH0vKu954y18="
+          "hash": "88+CVnu5fwRwSS35lmTixZJ2L8BNguaIBUV8h5S6n7o="
         }
       },
       "is_incremental": false,
@@ -22755,7 +22767,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedDisplayNameAttribute.html",
-          "hash": "vCkadsqdQ+wDeJydNiyKYzayEspuec3GWFfaxC0vBEE="
+          "hash": "Es/pcsDZonBHAwDUg+9jfcO3uYx37QXGMzsQcJUs60Q="
         }
       },
       "is_incremental": false,
@@ -22767,7 +22779,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RangeAttribute.html",
-          "hash": "ze0t5Ed+bGtiF8Q8+IPR8nP2/oL65HkALZp37axLHW0="
+          "hash": "g/Vs6PqFTddPMwvoBsvR5Fki0E0kw3dg3CdCOG1YmJs="
         }
       },
       "is_incremental": false,
@@ -22779,7 +22791,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RegularExpressionAttribute.html",
-          "hash": "015TLkUyqDZfXtp4dc1Wg+om2kURQFGunXA/YvnxMZM="
+          "hash": "Jee+tisTr/1OgHcBrcBUMzk+2+b2JI6gj1iTXMlKcB0="
         }
       },
       "is_incremental": false,
@@ -22791,7 +22803,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RequiredAttribute.html",
-          "hash": "eLnkm5xLlhTsOT0lqDSpMOcBlp1Ww2RlFyl9jNVogG0="
+          "hash": "YCn+a6QF0vRX0KVPj9Q61tQxhqHbNL9/by8CnWkMrco="
         }
       },
       "is_incremental": false,
@@ -22827,7 +22839,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.StringLengthAttribute.html",
-          "hash": "qdRNMpK7qeId4o2sRgRQ+vWL/Y42bTSGdR0QC3emrBI="
+          "hash": "3RPA0IBjuEZOWDgvTBYAGNiclsuiKChKv8kmDubtp70="
         }
       },
       "is_incremental": false,
@@ -23019,7 +23031,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.UI.Common.Controls.CustomItemsControl.html",
-          "hash": "n8dcRXQ5mw0CNbE++Sl21hQ9aEioA+xD5uxtzvXDV5Q="
+          "hash": "cPdUS8UbgFLDIQ5AYy+yd8Bmo6zqSF+Bde/JiUk38EM="
         }
       },
       "is_incremental": false,
@@ -23590,9 +23602,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23982,7 +23991,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.UI.Common.Models.LiveSetting-1.html",
-          "hash": "SEzmKOr+CmJ4rJGfjPZoOMfxFe1l7YaC6xW/3j2yY0g="
+          "hash": "CUifRn1QRUNblOsjtAz8sqsUexaWNs5IXD2jY+bKB3g="
         }
       },
       "is_incremental": false,
@@ -24186,7 +24195,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.UI.Common.TouchDeviceEmulator.html",
-          "hash": "xKK2ZRVYtyqwIvUr3vClhMuO568HYUhsFn4rptdNwCo="
+          "hash": "igwy8oGXv+EYzzaXuZk9VMPALDYItRDU4gQgMdn0vus="
         }
       },
       "is_incremental": false,
@@ -24690,7 +24699,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Configuration.IReceiveEndpointConfigurator.html",
-          "hash": "oSIVLj/97AVsepUWrr73ghArTb+/7COFryacHeGN95M="
+          "hash": "m3yUnyYbIXRO6SL9Jwabm+2b9b64JEkxt8DxHrW9FXU="
         }
       },
       "is_incremental": false,
@@ -24774,7 +24783,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Devices.ClientDeviceBase.html",
-          "hash": "7GoIDEtWPRcAZDo/+/vcTLK8SjQg92tG1nGKjakUB+I="
+          "hash": "cogodO5o8xi3k9mEICZfGwB8lI6oIZSEa7ZMDF3/RqE="
         }
       },
       "is_incremental": false,
@@ -24906,7 +24915,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Devices.IBonusDevice.html",
-          "hash": "pBXakvRAeONw4GfyRFx2fp8GS61ERKDkStaIMsahd04="
+          "hash": "CCKFuo6wSWA7BDLQve+wPTYELrB2gcjySpCQIvNXWNc="
         }
       },
       "is_incremental": false,
@@ -25362,7 +25371,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Devices.IVoucherDevice.html",
-          "hash": "5RGf+9x5uTRIdA990fD/RBM+m/TBrinZlR61sykVgiQ="
+          "hash": "WjgggPGF9dTHfdZ3QQVcdUStnnLookySiTDmyiKFIbE="
         }
       },
       "is_incremental": false,
@@ -25398,7 +25407,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Devices.v21.BonusDevice.html",
-          "hash": "DxhkoIfYFLw+LNANfIxQNSLU2w5c614n0VQ1QCBBL58="
+          "hash": "hDi5ueBXcb+56nRHFwBFbF4I6559I/4xZ/VZO9tJ0aw="
         }
       },
       "is_incremental": false,
@@ -25998,7 +26007,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Devices.v21.VoucherDevice.html",
-          "hash": "h9hrYJcr8ZiNHr0n05bwuILjPqIR+eaOJZV2bhJW5dE="
+          "hash": "gleMO26vvFzA/8Xdb6+EmctI9OQwTTHhRtJM8rmnMtA="
         }
       },
       "is_incremental": false,
@@ -26034,7 +26043,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.EgmFactory.html",
-          "hash": "8/8KJD0AmiKMnnLgauvAMo/0f+2JuAwo/Jwpso2zXnM="
+          "hash": "VsR3+9heYgF0p2XN+f9p6fB09zUrBt1dU1D9egA80cA="
         }
       },
       "is_incremental": false,
@@ -26346,7 +26355,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.ProhibitWhenDisabledAttribute.html",
-          "hash": "bQCozstZyubVouBwSN464eCOGp2AyKrjcuQamXe+eVA="
+          "hash": "iUGasSBsXFDEaxSC6NyQWJSsDRE7wv+wezUtKi9bar0="
         }
       },
       "is_incremental": false,
@@ -27402,7 +27411,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Emdi.Handlers.RequiresValidSessionAttribute.html",
-          "hash": "GtWBVIz+3hlDt8ynfJyIf7kfFzxlSMohz+eDy7dJSWo="
+          "hash": "nKnN/9RqABsC+XlzJXSv5p3nWzgd+Ajm2T2w7D8RRoA="
         }
       },
       "is_incremental": false,
@@ -30210,7 +30219,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers.DoVerificationArgs.html",
-          "hash": "tGc0iwsa+UM+Oc7kaP1GbgBSdIPZoieXKZgVeyBNGpI="
+          "hash": "dzJigWPIJLRR2o26HDpGX3HKtJ6gmDTxn4TokigR3zM="
         }
       },
       "is_incremental": false,
@@ -30930,7 +30939,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers.BasePackageCommandHandler.html",
-          "hash": "DrZxOHvl2KjWBOyP17TGis4tpeOPmIbwaQYGVDjl7ZM="
+          "hash": "g0yUCyCL6HziaEZZbnNvK8zEf8I6yNz9ktnOx6UwFXw="
         }
       },
       "is_incremental": false,
@@ -30942,7 +30951,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers.BaseTransferPackageArgs.html",
-          "hash": "drUxY+ZaS5l3KumRoUrt4nbKIFVb0pVDh5xYE/XwjNs="
+          "hash": "nirov9vWqRzmdC0nRU3O4u4AyH+EEBAmNXkXLm3AaMQ="
         }
       },
       "is_incremental": false,
@@ -30990,7 +30999,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers.DeletePackageArgs.html",
-          "hash": "f+c8+1pdjURpaRf7ZuBb18J9K9ZmIJZ9hL4cCiyjJKs="
+          "hash": "/yM5qe5MSVSy0KDZlapZhydqW2OLgWKNOw5XNrKrvns="
         }
       },
       "is_incremental": false,
@@ -31062,7 +31071,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers.InstallPackageArgs.html",
-          "hash": "ZWNeA/SG0c6gFyvzFllTpB9I5INXquz8nIePf9sAJNs="
+          "hash": "XQ6ipgri/HzedurFeK5fORheFQdePJRJhCk7Uy9SDyw="
         }
       },
       "is_incremental": false,
@@ -31098,7 +31107,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers.TransferPackageArgs.html",
-          "hash": "PWqommMCawi9yrC4MMYfFFH7/Fy1ELQGguwk4VS/Uwk="
+          "hash": "EpIveDGnIqknOALjq3f1sbY84j3TOb1f904W6JXveY0="
         }
       },
       "is_incremental": false,
@@ -31110,7 +31119,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers.UninstallModuleArgs.html",
-          "hash": "3djyHndPXegGVTCxu4PGREvu3meTJYHeUs6/AFjAD5E="
+          "hash": "oi/RICgedIWRPjE6YUvF3iHEZHmeshUFjwNTFqyU+sE="
         }
       },
       "is_incremental": false,
@@ -31170,7 +31179,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers.VerifyPackagesHandler.html",
-          "hash": "RvY+H8HJM01V7FT2YlF1N46TbGUOrWXjwh/eqhncb7k="
+          "hash": "Try60GTP10d+d7s0wjftdOgB+7sejFA/KqbQj32T6oQ="
         }
       },
       "is_incremental": false,
@@ -31206,7 +31215,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.IPackageManager.html",
-          "hash": "ByLGzu4cfuIY+3SFYNi02QvHPFCP6pIOS7iipBfk6SI="
+          "hash": "yezENEi3RpP8vIkV4QNwwhHZ3gvJNLKhnIpWauX+n6o="
         }
       },
       "is_incremental": false,
@@ -31218,7 +31227,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Common.PackageManager.PackageManager.html",
-          "hash": "jZjvujXBiiuKqKfsmKxQP0v1eX5nkFxmMbQ9KmjFFlQ="
+          "hash": "3JKHQn7O22pR298djNs5yj2lF59c0WCRMGqqNqbVDQY="
         }
       },
       "is_incremental": false,
@@ -39822,7 +39831,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Services.DisableConditionSaga.html",
-          "hash": "54dlI4YFJght+hu6oHpOfWsCyfFilw1zXVzr9XPyxtg="
+          "hash": "rX52DwIhpdxCmRboFoP/EDDad9JaZn4tU5UYW/Uen88="
         }
       },
       "is_incremental": false,
@@ -39894,7 +39903,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Services.IDisableConditionSaga.html",
-          "hash": "mD5umdiU3Fa9oTmTPUks2fQn+Wn+GTuYIhfbGk6BDgE="
+          "hash": "PriYzcecpRtElQB9n/VHDQIxOJ6HuZoB5I5Wowu5vEo="
         }
       },
       "is_incremental": false,
@@ -41113,6 +41122,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -44430,7 +44442,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.html",
-          "hash": "jULgbl7Jz893i75ynCIruA09wd4E5b6nRADQbKI00W0="
+          "hash": "fk6Ouyo9Ec1EENfRqfuZUgKpHoGlduBghQeU3VtoKTI="
         }
       },
       "is_incremental": false,
@@ -46255,6 +46267,18 @@
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GamePresentationEndedEvent.html",
           "hash": "PsAqEwHGol+Zza+T/4uvvUdkxnAWKfxpDXpgitP/XQE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.GamePresentationStartedEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GamePresentationStartedEvent.html",
+          "hash": "jPGWMZbjP/WGsIZ9NQK2ho8yUbJs/15rhfip0vLLpwk="
         }
       },
       "is_incremental": false,
@@ -48354,7 +48378,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Lobby.FlagLobbyStateAttribute.html",
-          "hash": "lMv07miHXLTgNnJB1z3G2ZrKFwCMlHbIqjv89IBeBJU="
+          "hash": "ZhLTsIQmHleq6HrRlFG1NikgbFO1ySSS3/uDY6VjeVE="
         }
       },
       "is_incremental": false,
@@ -48426,7 +48450,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Lobby.StackableLobbyStateAttribute.html",
-          "hash": "w822/+YSAJZr569vPfLJdhSsPYsh7DagQiDtjiu1w7g="
+          "hash": "0DU5eYdB/Isk2mEFpqmJ64BliLWbWV11mDfNTL6TIbw="
         }
       },
       "is_incremental": false,
@@ -51258,7 +51282,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.html",
-          "hash": "HKjYBWYPWFja7HDiA+IlmPOSbL20/O5y/pIBppqInQE="
+          "hash": "jYqE+gZxXqbO/BR8pd2M/NH1G+bTO6r+xOgXWuUUTp4="
         }
       },
       "is_incremental": false,
@@ -54798,7 +54822,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.GameTabInfoViewModel.html",
-          "hash": "tvwhlnPgG7F492legmBKCy/jnyg63gl7Dv564l/HVi0="
+          "hash": "hA4zVbT8pS5xd+RR/ihRtlTHKXCwGNAOlZ8DheGUk60="
         }
       },
       "is_incremental": false,
@@ -60366,7 +60390,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.EdgeLighting.ShowNameAttribute.html",
-          "hash": "dvf14um7zmm6Lf1OWXb8uco69GQKkmhTVSLU/Z10UdE="
+          "hash": "aF7l8mFOpSAJK1sWPvQo28v/XdL7e6E+36XnpcT9zmk="
         }
       },
       "is_incremental": false,
@@ -60450,7 +60474,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.ErrorGuidAttribute.html",
-          "hash": "hbr7iqH9v5VEG9IdR8jWt6e3vP0FlFgaH1fX6wfzG8w="
+          "hash": "5FxrZnDXzHEFhoYFZHaDZ+v+UOF8fm5kCfcEsQSoL7c="
         }
       },
       "is_incremental": false,
@@ -63162,7 +63186,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.EntityAttribute.html",
-          "hash": "rVfcQSl/5Boj3kS70M0vg+ZeqBhj+3jiMys3XO3p244="
+          "hash": "eDNmvXYSTT1wthuJ7CjSsNaw3aWQAFEbsedVXf1c9MU="
         }
       },
       "is_incremental": false,
@@ -63174,7 +63198,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.FieldAttribute.html",
-          "hash": "4tjwjlibhj3XYS9tFcPvrGuSbc0Y+HN49b5ZJ7Nl1H4="
+          "hash": "Vs04xm6t66Ydwo9O537v9tA2KtBgnm1Q7jo8sF+OTik="
         }
       },
       "is_incremental": false,
@@ -64458,7 +64482,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.SerialPorts.EndianAttribute.html",
-          "hash": "zWb9epv0tQgjKc5x6d73ci16I6eLVPnow38hnaFcyDM="
+          "hash": "sy/oR2wkcJcEMV4JLvv9FM6ln+1FF2Fu//rpDdv5UII="
         }
       },
       "is_incremental": false,
@@ -65478,7 +65502,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.VHD.VirtualDiskHandle.html",
-          "hash": "0bKdDXD6YfLGQkIc5J/t9bIIIsAJN/g40OQHNw/4diY="
+          "hash": "k9OdAmhYLN46+y5QQfnDkv78V569y64m2zaJCh+kw1M="
         }
       },
       "is_incremental": false,
@@ -65682,7 +65706,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.EdgeLight.Device.Packets.AcceptsAttribute.html",
-          "hash": "UI2H+LTDvINjrKCNEjJBzfpjxdkwSjQCg/zQVW9W2SQ="
+          "hash": "gqvO9SZ0X8X7bvLRpAI+/n3/nnsswr2dUN47/JxoECw="
         }
       },
       "is_incremental": false,
@@ -66210,7 +66234,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Gds.GdsDeviceBase.html",
-          "hash": "lHgscbPHFwRUSe6dNvdWA1Hjt73SxvE9Q/L5Wg1i8Ms="
+          "hash": "zVJTL1YoXJAZZkPyX0OUm7AF9rbHm8PU4GbCgAY3VRM="
         }
       },
       "is_incremental": false,
@@ -69930,7 +69954,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Usb.KisoContext.html",
-          "hash": "5DbWsQa29Vo2/2rJOSx6fcUI41rdJtC1OzwjYcjV/28="
+          "hash": "MKLwG7pSW9nqqvhttkMosTGoe33mF/O4aeOFypmZoRY="
         }
       },
       "is_incremental": false,
@@ -69954,7 +69978,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Usb.KlibHandle.html",
-          "hash": "Uwv7ER/p9qlSYsvjY267MB4YpATlSrcj6RKoJkpYBos="
+          "hash": "1ZnXdVt4vhnYJVbnfkMsG6ryjhEEeBe/sPnRrcHfnpc="
         }
       },
       "is_incremental": false,
@@ -70410,7 +70434,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/DiskTool.BitInfoAttribute.html",
-          "hash": "6lJKd9uA7h5WEVhWmFIXX1b8MFusuJVj73XSP0m/CAI="
+          "hash": "lurz1llKiStG6aMcujXDTALFfQ9ueYiRZOVSMkOADyU="
         }
       },
       "is_incremental": false,
@@ -71502,7 +71526,7 @@
       "output": {
         ".html": {
           "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.EventBus.html",
-          "hash": "znwGnbgFuf03uzYUREvmON7HbhWGvacf/M5yp8Q9384="
+          "hash": "ZSmoRzt6FEVwNbUjQa/3mIa7SnBkQIw+RAXp4qp0T9g="
         }
       },
       "is_incremental": false,
@@ -71610,7 +71634,7 @@
       "output": {
         ".html": {
           "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.IEventBus.html",
-          "hash": "bWEIM8eSKwDna0iwd1f3v30YumDEBL8fVkRO0XGFAZA="
+          "hash": "vxh8HAxIWQPCGsqBCjXLJS1X6al14ay63M0SGLlEpv0="
         }
       },
       "is_incremental": false,
@@ -72306,7 +72330,7 @@
       "output": {
         ".html": {
           "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.SubscribeExtensions.html",
-          "hash": "5mJd2pdOKjcz2ZLyikgEuVoZraF+JGBayNIHlD5o9Rs="
+          "hash": "5XfLB3hyocfpA+gr4Un06hPIKqUFOH2bv5XYRFF0xoY="
         }
       },
       "is_incremental": false,
@@ -72702,7 +72726,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Mgam.Client.ContainerExtensions.html",
-          "hash": "oeKYIMCJtAYPrw3cstl9rkaG3faIhmKyHaZnpCMijwM="
+          "hash": "X6zi7phkv5UVy2xh7Dy/IGhjtoH6hWLs378cob/Ecm4="
         }
       },
       "is_incremental": false,
@@ -73410,7 +73434,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Mgam.Client.Messaging.HandlesAttribute.html",
-          "hash": "qDTUiw/NOMoPeys75hyjjxY95uMBJqSyJafE/9NEWzE="
+          "hash": "DpZTv+7tV/4RsM+La1e9LlLdeado8OLeHgfX6SXRkoM="
         }
       },
       "is_incremental": false,
@@ -73626,7 +73650,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Mgam.Client.Messaging.MessageHandler-1.html",
-          "hash": "ygBD9J59wgJCiyIvJAHdKoRuB/5fBDUlZfDqJU2PiZw="
+          "hash": "wpcovj8fFqSUUh+wdUwBsk43Uwd/QTQCV4/bCopuPkY="
         }
       },
       "is_incremental": false,
@@ -75558,7 +75582,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Mgam.Client.NetExtensions.html",
-          "hash": "n1nkWyiOb9Vds2L27OXYPZJ1gQPRaWOxmNHsyukLmGg="
+          "hash": "L4HssROPS4Yio2cM3ObwR+NTDbihCOM6MNecGOXfWK4="
         }
       },
       "is_incremental": false,
@@ -75726,7 +75750,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Mgam.Client.Options.ProtocolOptions.html",
-          "hash": "68h41D+HtvzN7KZ/rv7R0vZihsgCZdFF+zw7gOjFz80="
+          "hash": "+49ToBeYNEJ0d/OiY1qDKiwZQxqqholnZaNtVaPOJ98="
         }
       },
       "is_incremental": false,
@@ -75738,7 +75762,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Mgam.Client.Options.ProtocolOptionsBuilder.html",
-          "hash": "y7i1uxV9vNiHl4HemYaT5P1iDjTbHxXAvcVGk2v9C1o="
+          "hash": "HMIaI9UXXwDj/htvayWrgTBiJR/9EYMLfJjl2f5LhV4="
         }
       },
       "is_incremental": false,
@@ -82002,7 +82026,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Monaco.Mgam.Controllers.ConsumesAttribute.html",
-          "hash": "Giq4gAhHFjgwYu8Uu1I0YhRcm2Yp88Iw33N1Ye4Q5/Y="
+          "hash": "VMc7B6l2ZcqgOVnO37Lpl3Ia9U5G7wFkgtpIZZkO0WM="
         }
       },
       "is_incremental": false,
@@ -82686,7 +82710,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Monaco.Mgam.Services.Event.StartupEventListener.html",
-          "hash": "nv+4BL6iQOPWy9/i6tyX35VmZXc1CaZVaLsj7Prq70c="
+          "hash": "8T0OpvtERamjAsWaHMeUyYIAsuDTFxiY6N9o31nP5Es="
         }
       },
       "is_incremental": false,
@@ -83373,7 +83397,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6914,
+          "total_file_count": 6916,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
