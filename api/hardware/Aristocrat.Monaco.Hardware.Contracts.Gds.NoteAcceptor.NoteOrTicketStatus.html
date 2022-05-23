@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class NoteOrTicketStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -196,7 +196,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Accepted { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(8)]
+[FieldBitLength(1UL)]
+public bool Accepted { get; set; }</code></pre>
   </div>
   
   
@@ -241,7 +243,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Cheat { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(1UL)]
+public bool Cheat { get; set; }</code></pre>
   </div>
   
   
@@ -286,7 +290,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Jam { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(1UL)]
+public bool Jam { get; set; }</code></pre>
   </div>
   
   
@@ -331,7 +337,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool PathClear { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(1UL)]
+public bool PathClear { get; set; }</code></pre>
   </div>
   
   
@@ -376,7 +384,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Rejected { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(6)]
+[FieldBitLength(1UL)]
+public bool Rejected { get; set; }</code></pre>
   </div>
   
   
@@ -421,7 +431,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Removed { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldBitLength(1UL)]
+public bool Removed { get; set; }</code></pre>
   </div>
   
   
@@ -466,7 +478,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -511,7 +525,9 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Returned { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(7)]
+[FieldBitLength(1UL)]
+public bool Returned { get; set; }</code></pre>
   </div>
   
   
@@ -556,7 +572,8 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TransactionId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public byte TransactionId { get; set; }</code></pre>
   </div>
   
   
@@ -832,7 +849,7 @@ public class NoteOrTicketStatus : GdsSerializableMessage, IEquatable&lt;NoteOrTi
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

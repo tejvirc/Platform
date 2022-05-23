@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class GdsNudgeReelData
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -229,7 +229,8 @@ public class GdsNudgeReelData : IEquatable&lt;GdsNudgeReelData&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Delay { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+public int Delay { get; set; }</code></pre>
   </div>
   
   
@@ -273,7 +274,8 @@ public class GdsNudgeReelData : IEquatable&lt;GdsNudgeReelData&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SpinDirection Direction { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+public SpinDirection Direction { get; set; }</code></pre>
   </div>
   
   
@@ -317,7 +319,8 @@ public class GdsNudgeReelData : IEquatable&lt;GdsNudgeReelData&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ReelId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public int ReelId { get; set; }</code></pre>
   </div>
   
   
@@ -361,7 +364,8 @@ public class GdsNudgeReelData : IEquatable&lt;GdsNudgeReelData&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Rpm { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+public int Rpm { get; set; }</code></pre>
   </div>
   
   
@@ -405,7 +409,8 @@ public class GdsNudgeReelData : IEquatable&lt;GdsNudgeReelData&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Step { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+public int Step { get; set; }</code></pre>
   </div>
   
   
@@ -633,7 +638,7 @@ public class GdsNudgeReelData : IEquatable&lt;GdsNudgeReelData&gt;</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

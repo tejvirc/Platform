@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SetOffsets
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -199,7 +199,9 @@ public class SetOffsets : GdsSerializableMessage, IEquatable&lt;SetOffsets&gt;, 
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int[] ReelOffsets { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldCount(6UL)]
+public int[] ReelOffsets { get; set; }</code></pre>
   </div>
   
   
@@ -243,7 +245,8 @@ public class SetOffsets : GdsSerializableMessage, IEquatable&lt;SetOffsets&gt;, 
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TransactionId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public byte TransactionId { get; set; }</code></pre>
   </div>
   
   
@@ -473,7 +476,7 @@ public class SetOffsets : GdsSerializableMessage, IEquatable&lt;SetOffsets&gt;, 
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class FailureStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -202,7 +202,9 @@ public class FailureStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool DiagnosticCode { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldBitLength(1UL)]
+public bool DiagnosticCode { get; set; }</code></pre>
   </div>
   
   
@@ -247,7 +249,8 @@ public class FailureStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte ErrorCode { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+public byte ErrorCode { get; set; }</code></pre>
   </div>
   
   
@@ -292,7 +295,9 @@ public class FailureStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FirmwareError { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool FirmwareError { get; set; }</code></pre>
   </div>
   
   
@@ -337,7 +342,9 @@ public class FailureStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IccPowerFail { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(1UL)]
+public bool IccPowerFail { get; set; }</code></pre>
   </div>
   
   
@@ -382,7 +389,9 @@ public class FailureStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(5UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -501,7 +510,7 @@ public class FailureStatus : GdsSerializableMessage</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

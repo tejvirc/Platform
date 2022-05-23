@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class LightControl
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -202,7 +202,9 @@ public class LightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Green { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(1UL)]
+public bool Green { get; set; }</code></pre>
   </div>
   
   
@@ -247,7 +249,9 @@ public class LightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Red { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(1UL)]
+public bool Red { get; set; }</code></pre>
   </div>
   
   
@@ -292,7 +296,8 @@ public class LightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TimerInterval { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+public byte TimerInterval { get; set; }</code></pre>
   </div>
   
   
@@ -341,7 +346,9 @@ Multiplier of 100ms. LEDs selected alternate between ON and OFF states every(LED
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Yellow { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool Yellow { get; set; }</code></pre>
   </div>
   
   
@@ -460,7 +467,7 @@ Multiplier of 100ms. LEDs selected alternate between ON and OFF states every(LED
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

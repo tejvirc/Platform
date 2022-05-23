@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class GetGatLog
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../../favicon.ico">
     <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
@@ -199,7 +199,7 @@ Constructs a new instance using an egm and the GAT service.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_ClassCommand_gat_getGatLog__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Handle(ClassCommand%7Bgat%2CgetGatLog%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Handle(Aristocrat.G2S.ClassCommand%7BAristocrat.G2S.Protocol.v21.gat%2CAristocrat.G2S.Protocol.v21.getGatLog%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Gat/GetGatLog.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
@@ -207,10 +207,11 @@ Constructs a new instance using an egm and the GAT service.</p>
   
   <a id="Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_" data-uid="Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Handle*"></a>
   
-  <h4 id="Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_ClassCommand_gat_getGatLog__" data-uid="Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Handle(ClassCommand{gat,getGatLog})"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_ClassCommand_gat_getGatLog__" class="expander" data-toggle="collapse">Handle(ClassCommand&lt;gat, getGatLog&gt;)</a></h4>
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__" data-uid="Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Handle(Aristocrat.G2S.ClassCommand{Aristocrat.G2S.Protocol.v21.gat,Aristocrat.G2S.Protocol.v21.getGatLog})"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__" class="expander" data-toggle="collapse">Handle(ClassCommand&lt;gat, getGatLog&gt;)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_ClassCommand_gat_getGatLog__" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Handle_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__" class="collapse in">
+  <div class="markdown level1 summary"><p>The handler is invoked when command is received from a host</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -222,7 +223,7 @@ Constructs a new instance using an egm and the GAT service.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">ClassCommand</span>&lt;<span class="xref">gat</span>, <span class="xref">getGatLog</span>&gt;</span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.ClassCommand</span>&lt;<span class="xref">Aristocrat.G2S.Protocol.v21.gat</span>, <span class="xref">Aristocrat.G2S.Protocol.v21.getGatLog</span>&gt;</span>
         <span class="parametername">command</span>
         <p>
       </td>
@@ -234,7 +235,8 @@ Constructs a new instance using an egm and the GAT service.</p>
     <tr>
       <td>
         <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>
-        <p>
+        <p><p>The Handler should return true if a response needs to generated, otherwise false.</p>
+</p>
       </td>
     </tr>
   </table>
@@ -244,6 +246,8 @@ Constructs a new instance using an egm and the GAT service.</p>
   
   
   
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ICommandHandler-2.html#Aristocrat_G2S_Client_Devices_ICommandHandler_2_Handle_Aristocrat_G2S_ClassCommand__0__1__">ICommandHandler&lt;TClass, TCommand&gt;.Handle(ClassCommand&lt;TClass, TCommand&gt;)</a></div>
   
   
   
@@ -252,7 +256,7 @@ Constructs a new instance using an egm and the GAT service.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_ClassCommand_gat_getGatLog__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Verify(ClassCommand%7Bgat%2CgetGatLog%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Verify(Aristocrat.G2S.ClassCommand%7BAristocrat.G2S.Protocol.v21.gat%2CAristocrat.G2S.Protocol.v21.getGatLog%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Gat/GetGatLog.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
@@ -260,10 +264,12 @@ Constructs a new instance using an egm and the GAT service.</p>
   
   <a id="Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_" data-uid="Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Verify*"></a>
   
-  <h4 id="Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_ClassCommand_gat_getGatLog__" data-uid="Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Verify(ClassCommand{gat,getGatLog})"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_ClassCommand_gat_getGatLog__" class="expander" data-toggle="collapse">Verify(ClassCommand&lt;gat, getGatLog&gt;)</a></h4>
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__" data-uid="Aristocrat.Monaco.G2S.Handlers.Gat.GetGatLog.Verify(Aristocrat.G2S.ClassCommand{Aristocrat.G2S.Protocol.v21.gat,Aristocrat.G2S.Protocol.v21.getGatLog})"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__" class="expander" data-toggle="collapse">Verify(ClassCommand&lt;gat, getGatLog&gt;)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_ClassCommand_gat_getGatLog__" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_Gat_GetGatLog_Verify_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_gat_Aristocrat_G2S_Protocol_v21_getGatLog__" class="collapse in">
+  <div class="markdown level1 summary"><p>Invoked before the call to Handle to verify the command should be executed. The Verify method should throw an
+exception indicating the error to be returned</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -275,7 +281,7 @@ Constructs a new instance using an egm and the GAT service.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">ClassCommand</span>&lt;<span class="xref">gat</span>, <span class="xref">getGatLog</span>&gt;</span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.ClassCommand</span>&lt;<span class="xref">Aristocrat.G2S.Protocol.v21.gat</span>, <span class="xref">Aristocrat.G2S.Protocol.v21.getGatLog</span>&gt;</span>
         <span class="parametername">command</span>
         <p>
       </td>
@@ -286,8 +292,9 @@ Constructs a new instance using an egm and the GAT service.</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<span class="xref">Error</span>&gt;
-        <p>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<span class="xref">Aristocrat.G2S.Error</span>&gt;
+        <p><p>Returns an Error if the verification failed, or null if successful.</p>
+</p>
       </td>
     </tr>
   </table>
@@ -297,6 +304,8 @@ Constructs a new instance using an egm and the GAT service.</p>
   
   
   
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ICommandHandler-2.html#Aristocrat_G2S_Client_Devices_ICommandHandler_2_Verify_Aristocrat_G2S_ClassCommand__0__1__">ICommandHandler&lt;TClass, TCommand&gt;.Verify(ClassCommand&lt;TClass, TCommand&gt;)</a></div>
   
   
   
@@ -349,7 +358,7 @@ Constructs a new instance using an egm and the GAT service.</p>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

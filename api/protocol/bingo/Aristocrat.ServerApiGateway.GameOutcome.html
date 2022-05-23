@@ -1,0 +1,2477 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GameOutcome
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GameOutcome
+   ">
+    <meta name="generator" content="docfx 2.59.2.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+    
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.ServerApiGateway.GameOutcome">
+  <h1 id="Aristocrat_ServerApiGateway_GameOutcome" data-uid="Aristocrat.ServerApiGateway.GameOutcome">Class GameOutcome
+  </h1>
+  <div class="markdown level0 summary"><p>Client reports final game outcome with full game history data
+Game history to come from database only, no client machine query</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">GameOutcome</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.ServerApiGateway.html">Aristocrat.ServerApiGateway</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Bingo.Client.dll</h6>
+  
+  <h5 id="Aristocrat_ServerApiGateway_GameOutcome_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class GameOutcome : IMessage&lt;GameOutcome&gt;, IEquatable&lt;GameOutcome&gt;, IDeepCloneable&lt;GameOutcome&gt;, IBufferMessage, IMessage</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3752" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome__ctor_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.#ctor*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome__ctor" data-uid="Aristocrat.ServerApiGateway.GameOutcome.#ctor"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome__ctor" class="expander" data-toggle="collapse">GameOutcome()</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameOutcome()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome__ctor_Aristocrat_ServerApiGateway_GameOutcome_.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.%23ctor(Aristocrat.ServerApiGateway.GameOutcome)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3759" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome__ctor_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.#ctor*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome__ctor_Aristocrat_ServerApiGateway_GameOutcome_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.#ctor(Aristocrat.ServerApiGateway.GameOutcome)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome__ctor_Aristocrat_ServerApiGateway_GameOutcome_" class="expander" data-toggle="collapse">GameOutcome(GameOutcome)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome__ctor_Aristocrat_ServerApiGateway_GameOutcome_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameOutcome(GameOutcome other)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.ServerApiGateway.GameOutcome.html">GameOutcome</a></span>
+        <span class="parametername">other</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_BetAmountFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.BetAmountFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3937" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_BetAmountFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.BetAmountFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_BetAmountFieldNumber" class="expander" data-toggle="collapse">BetAmountFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_BetAmountFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;betAmount&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int BetAmountFieldNumber = 14</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_DenominationIdFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.DenominationIdFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3846" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_DenominationIdFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.DenominationIdFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_DenominationIdFieldNumber" class="expander" data-toggle="collapse">DenominationIdFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_DenominationIdFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;denominationId&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DenominationIdFieldNumber = 6</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_FacadeKeyFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.FacadeKeyFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3824" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_FacadeKeyFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.FacadeKeyFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_FacadeKeyFieldNumber" class="expander" data-toggle="collapse">FacadeKeyFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_FacadeKeyFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;facadeKey&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int FacadeKeyFieldNumber = 4</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_FinalCreditFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.FinalCreditFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3904" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_FinalCreditFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.FinalCreditFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_FinalCreditFieldNumber" class="expander" data-toggle="collapse">FinalCreditFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_FinalCreditFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;finalCredit&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int FinalCreditFieldNumber = 11</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMetaFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.GameOutcomeMetaFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3868" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMetaFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameOutcomeMetaFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMetaFieldNumber" class="expander" data-toggle="collapse">GameOutcomeMetaFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMetaFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;gameOutcomeMeta&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int GameOutcomeMetaFieldNumber = 8</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_GameSerialFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.GameSerialFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3857" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_GameSerialFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameSerialFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameSerialFieldNumber" class="expander" data-toggle="collapse">GameSerialFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameSerialFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;gameSerial&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int GameSerialFieldNumber = 7</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_GameTitleIdFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.GameTitleIdFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3835" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_GameTitleIdFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameTitleIdFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameTitleIdFieldNumber" class="expander" data-toggle="collapse">GameTitleIdFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameTitleIdFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;gameTitleId&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int GameTitleIdFieldNumber = 5</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_InitialCreditFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.InitialCreditFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3915" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_InitialCreditFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.InitialCreditFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_InitialCreditFieldNumber" class="expander" data-toggle="collapse">InitialCreditFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_InitialCreditFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;initialCredit&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int InitialCreditFieldNumber = 12</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_JoinTimeFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.JoinTimeFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3959" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_JoinTimeFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.JoinTimeFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_JoinTimeFieldNumber" class="expander" data-toggle="collapse">JoinTimeFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_JoinTimeFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;joinTime&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int JoinTimeFieldNumber = 16</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_MachineSerialFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.MachineSerialFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3788" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_MachineSerialFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.MachineSerialFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_MachineSerialFieldNumber" class="expander" data-toggle="collapse">MachineSerialFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_MachineSerialFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;machineSerial&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MachineSerialFieldNumber = 1</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_PaidAmountFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.PaidAmountFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3926" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_PaidAmountFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.PaidAmountFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_PaidAmountFieldNumber" class="expander" data-toggle="collapse">PaidAmountFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_PaidAmountFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;paidAmount&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int PaidAmountFieldNumber = 13</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_PresentationNumberFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.PresentationNumberFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3970" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_PresentationNumberFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.PresentationNumberFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_PresentationNumberFieldNumber" class="expander" data-toggle="collapse">PresentationNumberFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_PresentationNumberFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;presentationNumber&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int PresentationNumberFieldNumber = 17</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevelsFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.ProgressiveLevelsFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3813" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevelsFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ProgressiveLevelsFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevelsFieldNumber" class="expander" data-toggle="collapse">ProgressiveLevelsFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevelsFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;progressiveLevels&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int ProgressiveLevelsFieldNumber = 3</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_StartTimeFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.StartTimeFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3948" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_StartTimeFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.StartTimeFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_StartTimeFieldNumber" class="expander" data-toggle="collapse">StartTimeFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_StartTimeFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;startTime&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int StartTimeFieldNumber = 15</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_StatusFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.StatusFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3890" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_StatusFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.StatusFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_StatusFieldNumber" class="expander" data-toggle="collapse">StatusFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_StatusFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;status&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int StatusFieldNumber = 10</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_StatusMessageFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.StatusMessageFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3879" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_StatusMessageFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.StatusMessageFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_StatusMessageFieldNumber" class="expander" data-toggle="collapse">StatusMessageFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_StatusMessageFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;statusMessage&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int StatusMessageFieldNumber = 9</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_ThemeIdFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.ThemeIdFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3981" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_ThemeIdFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ThemeIdFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_ThemeIdFieldNumber" class="expander" data-toggle="collapse">ThemeIdFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_ThemeIdFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;themeId&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int ThemeIdFieldNumber = 18</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmountFieldNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.TotalWinAmountFieldNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3799" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmountFieldNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.TotalWinAmountFieldNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmountFieldNumber" class="expander" data-toggle="collapse">TotalWinAmountFieldNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmountFieldNumber" class="collapse in">
+  <div class="markdown level1 summary"><p>Field number for the &quot;totalWinAmount&quot; field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TotalWinAmountFieldNumber = 2</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_BetAmount.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.BetAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3939" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_BetAmount_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.BetAmount*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_BetAmount" data-uid="Aristocrat.ServerApiGateway.GameOutcome.BetAmount"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_BetAmount" class="expander" data-toggle="collapse">BetAmount</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_BetAmount" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long BetAmount { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_DenominationId.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.DenominationId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3848" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_DenominationId_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.DenominationId*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_DenominationId" data-uid="Aristocrat.ServerApiGateway.GameOutcome.DenominationId"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_DenominationId" class="expander" data-toggle="collapse">DenominationId</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_DenominationId" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DenominationId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Descriptor.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Descriptor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3742" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Descriptor_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Descriptor*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Descriptor" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Descriptor"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Descriptor" class="expander" data-toggle="collapse">Descriptor</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Descriptor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MessageDescriptor Descriptor { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Google.Protobuf.Reflection.MessageDescriptor</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_FacadeKey.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.FacadeKey%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3826" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_FacadeKey_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.FacadeKey*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_FacadeKey" data-uid="Aristocrat.ServerApiGateway.GameOutcome.FacadeKey"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_FacadeKey" class="expander" data-toggle="collapse">FacadeKey</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_FacadeKey" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FacadeKey { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_FinalCredit.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.FinalCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3906" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_FinalCredit_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.FinalCredit*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_FinalCredit" data-uid="Aristocrat.ServerApiGateway.GameOutcome.FinalCredit"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_FinalCredit" class="expander" data-toggle="collapse">FinalCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_FinalCredit" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long FinalCredit { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMeta.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.GameOutcomeMeta%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3870" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMeta_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameOutcomeMeta*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMeta" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameOutcomeMeta"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMeta" class="expander" data-toggle="collapse">GameOutcomeMeta</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameOutcomeMeta" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Any GameOutcomeMeta { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Google.Protobuf.WellKnownTypes.Any</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_GameSerial.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.GameSerial%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3859" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_GameSerial_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameSerial*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_GameSerial" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameSerial"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameSerial" class="expander" data-toggle="collapse">GameSerial</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameSerial" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long GameSerial { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_GameTitleId.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.GameTitleId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3837" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_GameTitleId_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameTitleId*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_GameTitleId" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GameTitleId"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameTitleId" class="expander" data-toggle="collapse">GameTitleId</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_GameTitleId" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint GameTitleId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_InitialCredit.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.InitialCredit%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3917" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_InitialCredit_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.InitialCredit*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_InitialCredit" data-uid="Aristocrat.ServerApiGateway.GameOutcome.InitialCredit"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_InitialCredit" class="expander" data-toggle="collapse">InitialCredit</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_InitialCredit" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long InitialCredit { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_JoinTime.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.JoinTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3961" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_JoinTime_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.JoinTime*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_JoinTime" data-uid="Aristocrat.ServerApiGateway.GameOutcome.JoinTime"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_JoinTime" class="expander" data-toggle="collapse">JoinTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_JoinTime" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Timestamp JoinTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Google.Protobuf.WellKnownTypes.Timestamp</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_MachineSerial.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.MachineSerial%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3790" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_MachineSerial_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.MachineSerial*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_MachineSerial" data-uid="Aristocrat.ServerApiGateway.GameOutcome.MachineSerial"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_MachineSerial" class="expander" data-toggle="collapse">MachineSerial</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_MachineSerial" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string MachineSerial { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_PaidAmount.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.PaidAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3928" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_PaidAmount_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.PaidAmount*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_PaidAmount" data-uid="Aristocrat.ServerApiGateway.GameOutcome.PaidAmount"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_PaidAmount" class="expander" data-toggle="collapse">PaidAmount</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_PaidAmount" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long PaidAmount { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Parser.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Parser%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3739" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Parser_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Parser*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Parser" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Parser"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Parser" class="expander" data-toggle="collapse">Parser</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Parser" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static MessageParser&lt;GameOutcome&gt; Parser { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Google.Protobuf.MessageParser</span>&lt;<a class="xref" href="Aristocrat.ServerApiGateway.GameOutcome.html">GameOutcome</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_PresentationNumber.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.PresentationNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3972" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_PresentationNumber_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.PresentationNumber*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_PresentationNumber" data-uid="Aristocrat.ServerApiGateway.GameOutcome.PresentationNumber"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_PresentationNumber" class="expander" data-toggle="collapse">PresentationNumber</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_PresentationNumber" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long PresentationNumber { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevels.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.ProgressiveLevels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3815" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevels_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ProgressiveLevels*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevels" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ProgressiveLevels"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevels" class="expander" data-toggle="collapse">ProgressiveLevels</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_ProgressiveLevels" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ProgressiveLevels { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_StartTime.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.StartTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3950" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_StartTime_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.StartTime*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_StartTime" data-uid="Aristocrat.ServerApiGateway.GameOutcome.StartTime"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_StartTime" class="expander" data-toggle="collapse">StartTime</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_StartTime" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Timestamp StartTime { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Google.Protobuf.WellKnownTypes.Timestamp</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Status.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Status%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3895" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Status_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Status*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Status" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Status"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Status" class="expander" data-toggle="collapse">Status</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Status" class="collapse in">
+  <div class="markdown level1 summary"><p>1 indicates success, 0 indicates failure - indicate no game history on 0</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Status { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_StatusMessage.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.StatusMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3881" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_StatusMessage_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.StatusMessage*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_StatusMessage" data-uid="Aristocrat.ServerApiGateway.GameOutcome.StatusMessage"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_StatusMessage" class="expander" data-toggle="collapse">StatusMessage</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_StatusMessage" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StatusMessage { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_ThemeId.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.ThemeId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3983" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_ThemeId_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ThemeId*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_ThemeId" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ThemeId"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_ThemeId" class="expander" data-toggle="collapse">ThemeId</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_ThemeId" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint ThemeId { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmount.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.TotalWinAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3804" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmount_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.TotalWinAmount*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmount" data-uid="Aristocrat.ServerApiGateway.GameOutcome.TotalWinAmount"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmount" class="expander" data-toggle="collapse">TotalWinAmount</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_TotalWinAmount" class="collapse in">
+  <div class="markdown level1 summary"><p>paid amount</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long TotalWinAmount { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_CalculateSize.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.CalculateSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4221" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_CalculateSize_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.CalculateSize*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_CalculateSize" data-uid="Aristocrat.ServerApiGateway.GameOutcome.CalculateSize"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_CalculateSize" class="expander" data-toggle="collapse">CalculateSize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_CalculateSize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CalculateSize()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IMessage.CalculateSize()</span></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Clone.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3782" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Clone_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Clone*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Clone" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Clone"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Clone" class="expander" data-toggle="collapse">Clone()</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Clone" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameOutcome Clone()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.ServerApiGateway.GameOutcome.html">GameOutcome</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IDeepCloneable&lt;T&gt;.Clone()</span></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Equals_Aristocrat_ServerApiGateway_GameOutcome_.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Equals(Aristocrat.ServerApiGateway.GameOutcome)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3996" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Equals_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Equals*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Equals_Aristocrat_ServerApiGateway_GameOutcome_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Equals(Aristocrat.ServerApiGateway.GameOutcome)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Equals_Aristocrat_ServerApiGateway_GameOutcome_" class="expander" data-toggle="collapse">Equals(GameOutcome)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Equals_Aristocrat_ServerApiGateway_GameOutcome_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(GameOutcome other)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.ServerApiGateway.GameOutcome.html">GameOutcome</a></span>
+        <span class="parametername">other</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.iequatable-1.equals#system-iequatable-1-equals(-0)">IEquatable&lt;T&gt;.Equals(T)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Equals_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3991" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Equals_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Equals*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Equals_System_Object_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Equals(System.Object)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Equals_System_Object_" class="expander" data-toggle="collapse">Equals(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Equals_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object other)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">other</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_GetHashCode.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4025" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_GetHashCode_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GetHashCode*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_GetHashCode" data-uid="Aristocrat.ServerApiGateway.GameOutcome.GetHashCode"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_GetHashCode" class="expander" data-toggle="collapse">GetHashCode()</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_GetHashCode" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Aristocrat_ServerApiGateway_GameOutcome_.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.MergeFrom(Aristocrat.ServerApiGateway.GameOutcome)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4284" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.MergeFrom*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Aristocrat_ServerApiGateway_GameOutcome_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.MergeFrom(Aristocrat.ServerApiGateway.GameOutcome)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Aristocrat_ServerApiGateway_GameOutcome_" class="expander" data-toggle="collapse">MergeFrom(GameOutcome)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Aristocrat_ServerApiGateway_GameOutcome_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MergeFrom(GameOutcome other)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.ServerApiGateway.GameOutcome.html">GameOutcome</a></span>
+        <span class="parametername">other</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IMessage&lt;T&gt;.MergeFrom(T)</span></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Google_Protobuf_CodedInputStream_.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.MergeFrom(Google.Protobuf.CodedInputStream)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4355" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.MergeFrom*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Google_Protobuf_CodedInputStream_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.MergeFrom(Google.Protobuf.CodedInputStream)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Google_Protobuf_CodedInputStream_" class="expander" data-toggle="collapse">MergeFrom(CodedInputStream)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_MergeFrom_Google_Protobuf_CodedInputStream_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MergeFrom(CodedInputStream input)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Google.Protobuf.CodedInputStream</span></span>
+        <span class="parametername">input</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IMessage.MergeFrom(Google.Protobuf.CodedInputStream)</span></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4052" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_ToString_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ToString*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_ToString" data-uid="Aristocrat.ServerApiGateway.GameOutcome.ToString"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_ToString" class="expander" data-toggle="collapse">ToString()</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_ToString" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a></div>
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_WriteTo_Google_Protobuf_CodedOutputStream_.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.WriteTo(Google.Protobuf.CodedOutputStream)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4057" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_WriteTo_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.WriteTo*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_WriteTo_Google_Protobuf_CodedOutputStream_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.WriteTo(Google.Protobuf.CodedOutputStream)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_WriteTo_Google_Protobuf_CodedOutputStream_" class="expander" data-toggle="collapse">WriteTo(CodedOutputStream)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_WriteTo_Google_Protobuf_CodedOutputStream_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WriteTo(CodedOutputStream output)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Google.Protobuf.CodedOutputStream</span></span>
+        <span class="parametername">output</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IMessage.WriteTo(Google.Protobuf.CodedOutputStream)</span></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalMergeFrom_Google_Protobuf_ParseContext__.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Google%23Protobuf%23IBufferMessage%23InternalMergeFrom(Google.Protobuf.ParseContext%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4453" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalMergeFrom_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Google#Protobuf#IBufferMessage#InternalMergeFrom*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalMergeFrom_Google_Protobuf_ParseContext__" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Google#Protobuf#IBufferMessage#InternalMergeFrom(Google.Protobuf.ParseContext@)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalMergeFrom_Google_Protobuf_ParseContext__" class="expander" data-toggle="collapse">IBufferMessage.InternalMergeFrom(ref ParseContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalMergeFrom_Google_Protobuf_ParseContext__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void IBufferMessage.InternalMergeFrom(ref ParseContext input)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Google.Protobuf.ParseContext</span></span>
+        <span class="parametername">input</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IBufferMessage.InternalMergeFrom(Google.Protobuf.ParseContext)</span></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalWriteTo_Google_Protobuf_WriteContext__.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Google%23Protobuf%23IBufferMessage%23InternalWriteTo(Google.Protobuf.WriteContext%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L4141" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalWriteTo_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Google#Protobuf#IBufferMessage#InternalWriteTo*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalWriteTo_Google_Protobuf_WriteContext__" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Google#Protobuf#IBufferMessage#InternalWriteTo(Google.Protobuf.WriteContext@)"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalWriteTo_Google_Protobuf_WriteContext__" class="expander" data-toggle="collapse">IBufferMessage.InternalWriteTo(ref WriteContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IBufferMessage_InternalWriteTo_Google_Protobuf_WriteContext__" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void IBufferMessage.InternalWriteTo(ref WriteContext output)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Google.Protobuf.WriteContext</span></span>
+        <span class="parametername">output</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IBufferMessage.InternalWriteTo(Google.Protobuf.WriteContext)</span></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IMessage_Descriptor.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome.Google%23Protobuf%23IMessage%23Descriptor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3747" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IMessage_Descriptor_" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Google#Protobuf#IMessage#Descriptor*"></a>
+  
+  <h4 id="Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IMessage_Descriptor" data-uid="Aristocrat.ServerApiGateway.GameOutcome.Google#Protobuf#IMessage#Descriptor"><a href="#collapsible-Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IMessage_Descriptor" class="expander" data-toggle="collapse">IMessage.Descriptor</a></h4>
+  
+  <div id="collapsible-Aristocrat_ServerApiGateway_GameOutcome_Google_Protobuf_IMessage_Descriptor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">MessageDescriptor IMessage.Descriptor { get; }</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Google.Protobuf.Reflection.MessageDescriptor</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><span class="xref">Google.Protobuf.IMessage.Descriptor</span></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_ServerApiGateway_GameOutcome.md&amp;value=---%0Auid%3A%20Aristocrat.ServerApiGateway.GameOutcome%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/obj/Release/Messages/proto/AristocratServerApiGateway.cs/#L3732" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

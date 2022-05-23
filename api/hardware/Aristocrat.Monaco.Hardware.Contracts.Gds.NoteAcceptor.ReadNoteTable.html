@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ReadNoteTable
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -203,7 +203,10 @@ public class ReadNoteTable : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Currency { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldLength(3UL)]
+[FieldEncoding(&quot;ASCII&quot;)]
+public string Currency { get; set; }</code></pre>
   </div>
   
   
@@ -248,7 +251,9 @@ public class ReadNoteTable : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int NoteId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldLength(1UL)]
+public int NoteId { get; set; }</code></pre>
   </div>
   
   
@@ -293,7 +298,9 @@ public class ReadNoteTable : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Scalar { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(7UL)]
+public byte Scalar { get; set; }</code></pre>
   </div>
   
   
@@ -338,7 +345,9 @@ public class ReadNoteTable : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Sign { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool Sign { get; set; }</code></pre>
   </div>
   
   
@@ -383,7 +392,10 @@ public class ReadNoteTable : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ushort Value { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldLength(2UL)]
+[FieldEndianness(Endianness.Little)]
+public ushort Value { get; set; }</code></pre>
   </div>
   
   
@@ -428,7 +440,8 @@ public class ReadNoteTable : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Version { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+public byte Version { get; set; }</code></pre>
   </div>
   
   
@@ -547,7 +560,7 @@ public class ReadNoteTable : GdsSerializableMessage</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

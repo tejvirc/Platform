@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class WagerCategory
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -206,7 +206,8 @@ as wager categories.</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public WagerCategory(string id, decimal theoPaybackPercent, int minWagerCredits, int maxWagerCredits, long maxWinAmount)</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonConstructor]
+public WagerCategory(string id, decimal theoPaybackPercent, int minWagerCredits, int maxWagerCredits, long maxWinAmount)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -548,7 +549,7 @@ as wager categories.</p>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

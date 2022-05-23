@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class HarkeySerializableMessage
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -275,7 +275,9 @@ public class HarkeySerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public HarkeyCommandId CommandId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(8UL)]
+public HarkeyCommandId CommandId { get; set; }</code></pre>
   </div>
   
   
@@ -318,7 +320,8 @@ public class HarkeySerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte MaxLength { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[Ignore]
+public byte MaxLength { get; set; }</code></pre>
   </div>
   
   
@@ -361,7 +364,8 @@ public class HarkeySerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageMaskType MessageType { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[Ignore]
+public MessageMaskType MessageType { get; set; }</code></pre>
   </div>
   
   
@@ -404,7 +408,9 @@ public class HarkeySerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Protocol { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldBitLength(8UL)]
+public byte Protocol { get; set; }</code></pre>
   </div>
   
   
@@ -447,7 +453,9 @@ public class HarkeySerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte SequenceId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(8UL)]
+public byte SequenceId { get; set; }</code></pre>
   </div>
   
   
@@ -490,7 +498,8 @@ public class HarkeySerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool UseCommandInsteadOfProtocol { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[Ignore]
+public bool UseCommandInsteadOfProtocol { get; set; }</code></pre>
   </div>
   
   
@@ -738,7 +747,7 @@ public class HarkeySerializableMessage</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

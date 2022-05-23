@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class GdsReelSpeedData
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -229,7 +229,8 @@ public class GdsReelSpeedData : IEquatable&lt;GdsReelSpeedData&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ReelId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public int ReelId { get; set; }</code></pre>
   </div>
   
   
@@ -273,7 +274,8 @@ public class GdsReelSpeedData : IEquatable&lt;GdsReelSpeedData&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Speed { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+public int Speed { get; set; }</code></pre>
   </div>
   
   
@@ -501,7 +503,7 @@ public class GdsReelSpeedData : IEquatable&lt;GdsReelSpeedData&gt;</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

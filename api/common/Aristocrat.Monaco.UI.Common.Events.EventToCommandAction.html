@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class EventToCommandAction
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -81,7 +81,7 @@
             <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.UI.Common.Events.EventToCommandAction">
   <h1 id="Aristocrat_Monaco_UI_Common_Events_EventToCommandAction" data-uid="Aristocrat.Monaco.UI.Common.Events.EventToCommandAction">Class EventToCommandAction
   </h1>
-  <div class="markdown level0 summary"><p>This custom implementation of the <see cref="!:InvokeCommandAction"></see> automatically executes the command with the
+  <div class="markdown level0 summary"><p>This custom implementation of the <span class="xref">System.Windows.Interactivity.InvokeCommandAction</span> automatically executes the command with the
 event args as the parameter rather than requiring to set the CommandParameter manually</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -89,17 +89,47 @@ event args as the parameter rather than requiring to set the CommandParameter ma
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">EventToCommandAction</span></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.threading.dispatcherobject">DispatcherObject</a></div>
+    <div class="level2"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.dependencyobject">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.freezable">Freezable</a></div>
+    <div class="level4"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.media.animation.animatable">Animatable</a></div>
+    <div class="level5"><span class="xref">System.Windows.Interactivity.TriggerAction</span></div>
+    <div class="level6"><span class="xref">System.Windows.Interactivity.TriggerAction</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.windows.dependencyobject">DependencyObject</a>&gt;</div>
+    <div class="level7"><span class="xref">EventToCommandAction</span></div>
   </div>
   
   
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
   
   <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.UI.Common.Events.html">Aristocrat.Monaco.UI.Common.Events</a></h6>
   <h6><strong>Assembly</strong>: Aristocrat.Monaco.UI.Common.dll</h6>
   
   <h5 id="Aristocrat_Monaco_UI_Common_Events_EventToCommandAction_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class EventToCommandAction : TriggerAction&lt;DependencyObject&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class EventToCommandAction : TriggerAction&lt;DependencyObject&gt;, IAnimatable, IAttachedObject</code></pre>
   </div>
   
   
@@ -238,6 +268,8 @@ event args as the parameter rather than requiring to set the CommandParameter ma
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">System.Windows.Interactivity.TriggerAction.Invoke(System.Object)</span></div>
   
   
   
@@ -254,6 +286,12 @@ event args as the parameter rather than requiring to set the CommandParameter ma
   </div>
   <div>
       <a class="xref" href="Aristocrat.Monaco.Common.ObjectExtensions.html#Aristocrat_Monaco_Common_ObjectExtensions_AreEqualOrNull_System_Object_System_Object_">ObjectExtensions.AreEqualOrNull(Object, Object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.DependencyObjectExtensions.html#Aristocrat_Monaco_UI_Common_DependencyObjectExtensions_FindParent__1_System_Windows_DependencyObject_">DependencyObjectExtensions.FindParent&lt;T&gt;(DependencyObject)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.DependencyObjectExtensions.html#Aristocrat_Monaco_UI_Common_DependencyObjectExtensions_FindChild__1_System_Windows_DependencyObject_">DependencyObjectExtensions.FindChild&lt;T&gt;(DependencyObject)</a>
   </div>
   <div>
       <a class="xref" href="Aristocrat.Monaco.UI.Common.Extensions.EnumExtensions.html#Aristocrat_Monaco_UI_Common_Extensions_EnumExtensions_GetDescription_System_Object_System_Type_">EnumExtensions.GetDescription(Object, Type)</a>
@@ -304,7 +342,7 @@ event args as the parameter rather than requiring to set the CommandParameter ma
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

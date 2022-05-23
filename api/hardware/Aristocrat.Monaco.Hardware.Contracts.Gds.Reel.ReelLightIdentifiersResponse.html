@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ReelLightIdentifiersResponse
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -202,7 +202,9 @@ public class ReelLightIdentifiersResponse : GdsSerializableMessage, ITransaction
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int EndId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(8UL)]
+public int EndId { get; set; }</code></pre>
   </div>
   
   
@@ -247,7 +249,9 @@ public class ReelLightIdentifiersResponse : GdsSerializableMessage, ITransaction
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int StartId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(8UL)]
+public int StartId { get; set; }</code></pre>
   </div>
   
   
@@ -291,7 +295,8 @@ public class ReelLightIdentifiersResponse : GdsSerializableMessage, ITransaction
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TransactionId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public byte TransactionId { get; set; }</code></pre>
   </div>
   
   
@@ -411,7 +416,7 @@ public class ReelLightIdentifiersResponse : GdsSerializableMessage, ITransaction
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

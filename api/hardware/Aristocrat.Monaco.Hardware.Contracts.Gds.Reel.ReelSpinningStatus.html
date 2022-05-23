@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ReelSpinningStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -202,7 +202,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Accelerating { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldBitLength(1UL)]
+public bool Accelerating { get; set; }</code></pre>
   </div>
   
   
@@ -246,7 +248,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Decelerating { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(6)]
+[FieldBitLength(1UL)]
+public bool Decelerating { get; set; }</code></pre>
   </div>
   
   
@@ -290,7 +294,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FailedHome { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(8)]
+[FieldBitLength(1UL)]
+public bool FailedHome { get; set; }</code></pre>
   </div>
   
   
@@ -334,7 +340,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IdleAtStop { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(7)]
+[FieldBitLength(1UL)]
+public bool IdleAtStop { get; set; }</code></pre>
   </div>
   
   
@@ -378,7 +386,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ReelId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(8UL)]
+public int ReelId { get; set; }</code></pre>
   </div>
   
   
@@ -422,7 +432,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(2UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -467,7 +479,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool SlowSpinning { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool SlowSpinning { get; set; }</code></pre>
   </div>
   
   
@@ -511,7 +525,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Spinning { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(1UL)]
+public bool Spinning { get; set; }</code></pre>
   </div>
   
   
@@ -555,7 +571,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Step { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(10)]
+[FieldBitLength(8UL)]
+public int Step { get; set; }</code></pre>
   </div>
   
   
@@ -599,7 +617,9 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Stop { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(9)]
+[FieldBitLength(8UL)]
+public int Stop { get; set; }</code></pre>
   </div>
   
   
@@ -643,7 +663,8 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TransactionId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public byte TransactionId { get; set; }</code></pre>
   </div>
   
   
@@ -763,7 +784,7 @@ public class ReelSpinningStatus : GdsSerializableMessage, ITransactionSource</co
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

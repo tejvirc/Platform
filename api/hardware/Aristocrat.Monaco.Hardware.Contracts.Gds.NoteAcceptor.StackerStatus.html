@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class StackerStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -196,7 +196,9 @@ public class StackerStatus : GdsSerializableMessage, IEquatable&lt;StackerStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Disconnect { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldBitLength(1UL)]
+public bool Disconnect { get; set; }</code></pre>
   </div>
   
   
@@ -241,7 +243,9 @@ public class StackerStatus : GdsSerializableMessage, IEquatable&lt;StackerStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Fault { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(1UL)]
+public bool Fault { get; set; }</code></pre>
   </div>
   
   
@@ -286,7 +290,9 @@ public class StackerStatus : GdsSerializableMessage, IEquatable&lt;StackerStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Full { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(1UL)]
+public bool Full { get; set; }</code></pre>
   </div>
   
   
@@ -331,7 +337,9 @@ public class StackerStatus : GdsSerializableMessage, IEquatable&lt;StackerStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Jam { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool Jam { get; set; }</code></pre>
   </div>
   
   
@@ -376,7 +384,9 @@ public class StackerStatus : GdsSerializableMessage, IEquatable&lt;StackerStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(4UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -421,7 +431,8 @@ public class StackerStatus : GdsSerializableMessage, IEquatable&lt;StackerStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TransactionId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public byte TransactionId { get; set; }</code></pre>
   </div>
   
   
@@ -697,7 +708,7 @@ public class StackerStatus : GdsSerializableMessage, IEquatable&lt;StackerStatus
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

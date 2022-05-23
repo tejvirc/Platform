@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class FileTransfer
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -202,7 +202,10 @@ public class FileTransfer : GdsSerializableMessage, IDataReport</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Data { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldLength(&quot;Length&quot;)]
+[FieldEncoding(&quot;UTF-8&quot;)]
+public string Data { get; set; }</code></pre>
   </div>
   
   
@@ -249,7 +252,9 @@ public class FileTransfer : GdsSerializableMessage, IDataReport</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Index { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldLength(2UL)]
+public int Index { get; set; }</code></pre>
   </div>
   
   
@@ -296,7 +301,9 @@ public class FileTransfer : GdsSerializableMessage, IDataReport</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Length { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldLength(1UL)]
+public int Length { get; set; }</code></pre>
   </div>
   
   
@@ -417,7 +424,7 @@ public class FileTransfer : GdsSerializableMessage, IDataReport</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

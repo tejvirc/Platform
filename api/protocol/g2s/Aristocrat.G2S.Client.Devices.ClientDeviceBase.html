@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ClientDeviceBase
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../../favicon.ico">
     <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
@@ -585,7 +585,8 @@
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Enabled { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public bool Enabled { get; set; }</code></pre>
   </div>
   
   
@@ -725,7 +726,8 @@ storage, otherwise false</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool HostEnabled { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonProperty(Order = 2147483647)]
+public bool HostEnabled { get; set; }</code></pre>
   </div>
   
   
@@ -771,7 +773,8 @@ storage, otherwise false</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool HostLocked { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public bool HostLocked { get; set; }</code></pre>
   </div>
   
   
@@ -910,7 +913,8 @@ device or by another mechanism.</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Locked { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public bool Locked { get; set; }</code></pre>
   </div>
   
   
@@ -1002,7 +1006,8 @@ device or by another mechanism.</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ICommandQueue Queue { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public ICommandQueue Queue { get; }</code></pre>
   </div>
   
   
@@ -1694,7 +1699,7 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(IClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(Aristocrat.G2S.IClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L281" title="View Source"><i class="fa fa-code"></i></a>
@@ -1702,9 +1707,9 @@ resources.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(IClass)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_" class="expander" data-toggle="collapse">SendNotification(IClass)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(Aristocrat.G2S.IClass)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_" class="expander" data-toggle="collapse">SendNotification(IClass)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1718,7 +1723,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -1740,7 +1745,7 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(IClass%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(Aristocrat.G2S.IClass%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L294" title="View Source"><i class="fa fa-code"></i></a>
@@ -1748,9 +1753,9 @@ resources.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(IClass,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_System_TimeSpan_" class="expander" data-toggle="collapse">SendNotification(IClass, TimeSpan)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendNotification(Aristocrat.G2S.IClass,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_System_TimeSpan_" class="expander" data-toggle="collapse">SendNotification(IClass, TimeSpan)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_IClass_System_TimeSpan_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendNotification_Aristocrat_G2S_IClass_System_TimeSpan_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1764,7 +1769,7 @@ resources.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -1795,7 +1800,7 @@ live will be set for.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L305" title="View Source"><i class="fa fa-code"></i></a>
@@ -1803,9 +1808,9 @@ live will be set for.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_" class="expander" data-toggle="collapse">SendRequest(IClass)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_" class="expander" data-toggle="collapse">SendRequest(IClass)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1819,7 +1824,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -1831,7 +1836,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="xref">Session</span>
+        <span class="xref">Aristocrat.G2S.Session</span>
         <p><p>The session created for the request.</p>
 </p>
       </td>
@@ -1844,7 +1849,7 @@ live will be set for.</p>
   
   
   
-  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass__remarks">Remarks</h5>
+  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
 </div>
   
@@ -1854,7 +1859,7 @@ live will be set for.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass%2CSessionCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass%2CAristocrat.G2S.SessionCallback)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L363" title="View Source"><i class="fa fa-code"></i></a>
@@ -1862,9 +1867,9 @@ live will be set for.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass,SessionCallback)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass,Aristocrat.G2S.SessionCallback)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1878,7 +1883,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -1886,9 +1891,9 @@ live will be set for.</p>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">SessionCallback</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.SessionCallback</span></span>
         <span class="parametername">callback</span>
-        <p><p>The <see cref="!:SessionCallback"></see> delegate.</p>
+        <p><p>The <span class="xref">Aristocrat.G2S.SessionCallback</span> delegate.</p>
 </p>
       </td>
     </tr>
@@ -1898,7 +1903,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="xref">Session</span>
+        <span class="xref">Aristocrat.G2S.Session</span>
         <p><p>The session created for the request.</p>
 </p>
       </td>
@@ -1911,7 +1916,7 @@ live will be set for.</p>
   
   
   
-  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback__remarks">Remarks</h5>
+  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
 </div>
   
@@ -1921,7 +1926,7 @@ live will be set for.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass%2CSessionCallback%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass%2CAristocrat.G2S.SessionCallback%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L376" title="View Source"><i class="fa fa-code"></i></a>
@@ -1929,9 +1934,9 @@ live will be set for.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass,SessionCallback,System.Int32)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback, Int32)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass,Aristocrat.G2S.SessionCallback,System.Int32)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback, Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -1945,7 +1950,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -1953,9 +1958,9 @@ live will be set for.</p>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">SessionCallback</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.SessionCallback</span></span>
         <span class="parametername">callback</span>
-        <p><p>The <see cref="!:SessionCallback"></see> delegate.</p>
+        <p><p>The <span class="xref">Aristocrat.G2S.SessionCallback</span> delegate.</p>
 </p>
       </td>
     </tr>
@@ -1973,7 +1978,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="xref">Session</span>
+        <span class="xref">Aristocrat.G2S.Session</span>
         <p><p>The session created for the request.</p>
 </p>
       </td>
@@ -1986,7 +1991,7 @@ live will be set for.</p>
   
   
   
-  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32__remarks">Remarks</h5>
+  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>The session time to live defaults to <see cref="P:.DefaultSessionTimeout"></see>.</p>
 </div>
   
@@ -1996,7 +2001,7 @@ live will be set for.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass%2CSessionCallback%2CSystem.Int32%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass%2CAristocrat.G2S.SessionCallback%2CSystem.Int32%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L392" title="View Source"><i class="fa fa-code"></i></a>
@@ -2004,9 +2009,9 @@ live will be set for.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass,SessionCallback,System.Int32,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback, Int32, TimeSpan)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass,Aristocrat.G2S.SessionCallback,System.Int32,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_System_TimeSpan_" class="expander" data-toggle="collapse">SendRequest(IClass, SessionCallback, Int32, TimeSpan)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_SessionCallback_System_Int32_System_TimeSpan_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_Aristocrat_G2S_SessionCallback_System_Int32_System_TimeSpan_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -2020,7 +2025,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -2028,7 +2033,7 @@ live will be set for.</p>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">SessionCallback</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.SessionCallback</span></span>
         <span class="parametername">callback</span>
         <p><p>The <span class="xref">SessionCallback</span> delegate.</p>
 </p>
@@ -2057,7 +2062,7 @@ milliseconds.</p>
   <table>
     <tr>
       <td>
-        <span class="xref">Session</span>
+        <span class="xref">Aristocrat.G2S.Session</span>
         <p><p>The session created for the request.</p>
 </p>
       </td>
@@ -2077,7 +2082,7 @@ milliseconds.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L335" title="View Source"><i class="fa fa-code"></i></a>
@@ -2085,9 +2090,9 @@ milliseconds.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Boolean_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Boolean_" class="expander" data-toggle="collapse">SendRequest(IClass, Boolean)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Boolean_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Boolean_" class="expander" data-toggle="collapse">SendRequest(IClass, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host bypassing any queue related checks.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -2101,7 +2106,7 @@ milliseconds.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -2122,7 +2127,7 @@ milliseconds.</p>
   <table>
     <tr>
       <td>
-        <span class="xref">Session</span>
+        <span class="xref">Aristocrat.G2S.Session</span>
         <p><p>The session created for the request.</p>
 </p>
       </td>
@@ -2135,7 +2140,7 @@ milliseconds.</p>
   
   
   
-  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Boolean__remarks">Remarks</h5>
+  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Boolean__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
 </div>
   
@@ -2145,7 +2150,7 @@ milliseconds.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L351" title="View Source"><i class="fa fa-code"></i></a>
@@ -2153,9 +2158,9 @@ milliseconds.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Int32_System_Boolean_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">SendRequest(IClass, Int32, Boolean)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Int32_System_Boolean_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">SendRequest(IClass, Int32, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Int32_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Int32_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host bypassing any queue related checks.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -2169,7 +2174,7 @@ milliseconds.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -2198,7 +2203,7 @@ milliseconds.</p>
   <table>
     <tr>
       <td>
-        <span class="xref">Session</span>
+        <span class="xref">Aristocrat.G2S.Session</span>
         <p><p>The session created for the request.</p>
 </p>
       </td>
@@ -2211,7 +2216,7 @@ milliseconds.</p>
   
   
   
-  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_Int32_System_Boolean__remarks">Remarks</h5>
+  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_Int32_System_Boolean__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
 </div>
   
@@ -2221,7 +2226,7 @@ milliseconds.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L320" title="View Source"><i class="fa fa-code"></i></a>
@@ -2229,9 +2234,9 @@ milliseconds.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(IClass,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_TimeSpan_" class="expander" data-toggle="collapse">SendRequest(IClass, TimeSpan)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendRequest(Aristocrat.G2S.IClass,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_TimeSpan_" class="expander" data-toggle="collapse">SendRequest(IClass, TimeSpan)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_TimeSpan_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_TimeSpan_" class="collapse in">
   <div class="markdown level1 summary"><p>Sends a request to a host.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -2245,7 +2250,7 @@ milliseconds.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">IClass</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.IClass</span></span>
         <span class="parametername">request</span>
         <p><p>The request to send to the host.</p>
 </p>
@@ -2266,7 +2271,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="xref">Session</span>
+        <span class="xref">Aristocrat.G2S.Session</span>
         <p><p>The session created for the request.</p>
 </p>
       </td>
@@ -2279,7 +2284,7 @@ live will be set for.</p>
   
   
   
-  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_IClass_System_TimeSpan__remarks">Remarks</h5>
+  <h5 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendRequest_Aristocrat_G2S_IClass_System_TimeSpan__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>The session time to live defaults to <span class="xref">DefaultSessionTimeout</span>.</p>
 </div>
   
@@ -2289,7 +2294,7 @@ live will be set for.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_ClassCommand_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendResponse(ClassCommand)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_Aristocrat_G2S_ClassCommand_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendResponse(Aristocrat.G2S.ClassCommand)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ClientDeviceBase.cs/#L405" title="View Source"><i class="fa fa-code"></i></a>
@@ -2297,9 +2302,9 @@ live will be set for.</p>
   
   <a id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendResponse*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_ClassCommand_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendResponse(ClassCommand)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_ClassCommand_" class="expander" data-toggle="collapse">SendResponse(ClassCommand)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_Aristocrat_G2S_ClassCommand_" data-uid="Aristocrat.G2S.Client.Devices.ClientDeviceBase.SendResponse(Aristocrat.G2S.ClassCommand)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_Aristocrat_G2S_ClassCommand_" class="expander" data-toggle="collapse">SendResponse(ClassCommand)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_ClassCommand_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_ClientDeviceBase_SendResponse_Aristocrat_G2S_ClassCommand_" class="collapse in">
   <div class="markdown level1 summary"><p>Queue any responses to the <em>request</em> command.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -2313,7 +2318,7 @@ live will be set for.</p>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">ClassCommand</span></span>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.ClassCommand</span></span>
         <span class="parametername">request</span>
         <p><p>The <span class="xref">Aristocrat.G2S.ClassCommand</span> request to respond to.</p>
 </p>
@@ -2542,7 +2547,7 @@ live will be set for.</p>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

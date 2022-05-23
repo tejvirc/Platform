@@ -1,0 +1,2076 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GameService.GameServiceBase
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GameService.GameServiceBase
+   ">
+    <meta name="generator" content="docfx 2.59.2.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase">
+  <h1 id="Aristocrat_Monaco_V1_GameService_GameServiceBase" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase">Class GameService.GameServiceBase
+  </h1>
+  <div class="markdown level0 summary"><p>Base class for server-side implementations of GameService</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">GameService.GameServiceBase</span></div>
+  </div>
+  
+      <div class="level2"><a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.Server.RpcService.html">RpcService</a></div>
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.V1.html">Aristocrat.Monaco.V1</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindServiceMethod(typeof(GameService), &quot;BindService&quot;)]
+public abstract class GameServiceBase</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRound_Aristocrat_Monaco_V1_BeginGameRoundRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRound(Aristocrat.Monaco.V1.BeginGameRoundRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L370" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRound_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRound*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRound_Aristocrat_Monaco_V1_BeginGameRoundRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRound(Aristocrat.Monaco.V1.BeginGameRoundRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRound_Aristocrat_Monaco_V1_BeginGameRoundRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">BeginGameRound(BeginGameRoundRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRound_Aristocrat_Monaco_V1_BeginGameRoundRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"><p>Game play</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;BeginGameRoundResponse&gt; BeginGameRound(BeginGameRoundRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.BeginGameRoundRequest.html">BeginGameRoundRequest</a></span>
+        <span class="parametername">request</span>
+        <p><p>The request received from the client.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p><p>The context of the server-side call handler being invoked.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.BeginGameRoundResponse.html">BeginGameRoundResponse</a>&gt;
+        <p><p>The response to send back to the client (wrapped by a task).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundAsync_Aristocrat_Monaco_V1_BeginGameRoundAsyncRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRoundAsync(Aristocrat.Monaco.V1.BeginGameRoundAsyncRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L375" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundAsync_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRoundAsync*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundAsync_Aristocrat_Monaco_V1_BeginGameRoundAsyncRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRoundAsync(Aristocrat.Monaco.V1.BeginGameRoundAsyncRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundAsync_Aristocrat_Monaco_V1_BeginGameRoundAsyncRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">BeginGameRoundAsync(BeginGameRoundAsyncRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundAsync_Aristocrat_Monaco_V1_BeginGameRoundAsyncRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; BeginGameRoundAsync(BeginGameRoundAsyncRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.BeginGameRoundAsyncRequest.html">BeginGameRoundAsyncRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundResult_Aristocrat_Monaco_V1_BeginGameRoundResultNotification_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRoundResult(Aristocrat.Monaco.V1.BeginGameRoundResultNotification%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L380" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundResult_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRoundResult*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundResult_Aristocrat_Monaco_V1_BeginGameRoundResultNotification_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.BeginGameRoundResult(Aristocrat.Monaco.V1.BeginGameRoundResultNotification,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundResult_Aristocrat_Monaco_V1_BeginGameRoundResultNotification_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">BeginGameRoundResult(BeginGameRoundResultNotification, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_BeginGameRoundResult_Aristocrat_Monaco_V1_BeginGameRoundResultNotification_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; BeginGameRoundResult(BeginGameRoundResultNotification request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.BeginGameRoundResultNotification.html">BeginGameRoundResultNotification</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonDeckImageChanged_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.ButtonDeckImageChanged(Aristocrat.Monaco.V1.Empty%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L354" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonDeckImageChanged_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ButtonDeckImageChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonDeckImageChanged_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ButtonDeckImageChanged(Aristocrat.Monaco.V1.Empty,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonDeckImageChanged_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">ButtonDeckImageChanged(Empty, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonDeckImageChanged_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; ButtonDeckImageChanged(Empty request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonStatesChanged_Aristocrat_Monaco_V1_ButtonStatesChangedNotfication_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.ButtonStatesChanged(Aristocrat.Monaco.V1.ButtonStatesChangedNotfication%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L359" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonStatesChanged_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ButtonStatesChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonStatesChanged_Aristocrat_Monaco_V1_ButtonStatesChangedNotfication_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ButtonStatesChanged(Aristocrat.Monaco.V1.ButtonStatesChangedNotfication,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonStatesChanged_Aristocrat_Monaco_V1_ButtonStatesChangedNotfication_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">ButtonStatesChanged(ButtonStatesChangedNotfication, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ButtonStatesChanged_Aristocrat_Monaco_V1_ButtonStatesChangedNotfication_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; ButtonStatesChanged(ButtonStatesChangedNotfication request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.ButtonStatesChangedNotfication.html">ButtonStatesChangedNotfication</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_ClaimJackpot_Aristocrat_Monaco_V1_ClaimJackpotRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.ClaimJackpot(Aristocrat.Monaco.V1.ClaimJackpotRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L471" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ClaimJackpot_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ClaimJackpot*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ClaimJackpot_Aristocrat_Monaco_V1_ClaimJackpotRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ClaimJackpot(Aristocrat.Monaco.V1.ClaimJackpotRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ClaimJackpot_Aristocrat_Monaco_V1_ClaimJackpotRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">ClaimJackpot(ClaimJackpotRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ClaimJackpot_Aristocrat_Monaco_V1_ClaimJackpotRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;LevelInfoResponse&gt; ClaimJackpot(ClaimJackpotRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.ClaimJackpotRequest.html">ClaimJackpotRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.LevelInfoResponse.html">LevelInfoResponse</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_ConnectJackpotPool_Aristocrat_Monaco_V1_ConnectJackpotPoolRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.ConnectJackpotPool(Aristocrat.Monaco.V1.ConnectJackpotPoolRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L451" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ConnectJackpotPool_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ConnectJackpotPool*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_ConnectJackpotPool_Aristocrat_Monaco_V1_ConnectJackpotPoolRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.ConnectJackpotPool(Aristocrat.Monaco.V1.ConnectJackpotPoolRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ConnectJackpotPool_Aristocrat_Monaco_V1_ConnectJackpotPoolRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">ConnectJackpotPool(ConnectJackpotPoolRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_ConnectJackpotPool_Aristocrat_Monaco_V1_ConnectJackpotPoolRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"><p>Progressives</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;ConnectJackpotPoolResponse&gt; ConnectJackpotPool(ConnectJackpotPoolRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.ConnectJackpotPoolRequest.html">ConnectJackpotPoolRequest</a></span>
+        <span class="parametername">request</span>
+        <p><p>The request received from the client.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p><p>The context of the server-side call handler being invoked.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.ConnectJackpotPoolResponse.html">ConnectJackpotPoolResponse</a>&gt;
+        <p><p>The response to send back to the client (wrapped by a task).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_EndGameRound_Aristocrat_Monaco_V1_EndGameRoundRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.EndGameRound(Aristocrat.Monaco.V1.EndGameRoundRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L435" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_EndGameRound_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.EndGameRound*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_EndGameRound_Aristocrat_Monaco_V1_EndGameRoundRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.EndGameRound(Aristocrat.Monaco.V1.EndGameRoundRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_EndGameRound_Aristocrat_Monaco_V1_EndGameRoundRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">EndGameRound(EndGameRoundRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_EndGameRound_Aristocrat_Monaco_V1_EndGameRoundRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; EndGameRound(EndGameRoundRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.EndGameRoundRequest.html">EndGameRoundRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_FatalError_Aristocrat_Monaco_V1_FatalErrorNotification_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.FatalError(Aristocrat.Monaco.V1.FatalErrorNotification%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L329" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_FatalError_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.FatalError*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_FatalError_Aristocrat_Monaco_V1_FatalErrorNotification_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.FatalError(Aristocrat.Monaco.V1.FatalErrorNotification,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_FatalError_Aristocrat_Monaco_V1_FatalErrorNotification_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">FatalError(FatalErrorNotification, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_FatalError_Aristocrat_Monaco_V1_FatalErrorNotification_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; FatalError(FatalErrorNotification request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.FatalErrorNotification.html">FatalErrorNotification</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_GameRoundEvent_Aristocrat_Monaco_V1_GameRoundEventRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.GameRoundEvent(Aristocrat.Monaco.V1.GameRoundEventRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L385" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GameRoundEvent_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GameRoundEvent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GameRoundEvent_Aristocrat_Monaco_V1_GameRoundEventRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GameRoundEvent(Aristocrat.Monaco.V1.GameRoundEventRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GameRoundEvent_Aristocrat_Monaco_V1_GameRoundEventRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">GameRoundEvent(GameRoundEventRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GameRoundEvent_Aristocrat_Monaco_V1_GameRoundEventRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; GameRoundEvent(GameRoundEventRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.GameRoundEventRequest.html">GameRoundEventRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_GetJackpotValues_Aristocrat_Monaco_V1_GetJackpotValuesRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.GetJackpotValues(Aristocrat.Monaco.V1.GetJackpotValuesRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L456" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetJackpotValues_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetJackpotValues*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetJackpotValues_Aristocrat_Monaco_V1_GetJackpotValuesRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetJackpotValues(Aristocrat.Monaco.V1.GetJackpotValuesRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetJackpotValues_Aristocrat_Monaco_V1_GetJackpotValuesRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">GetJackpotValues(GetJackpotValuesRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetJackpotValues_Aristocrat_Monaco_V1_GetJackpotValuesRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;LevelInfoResponse&gt; GetJackpotValues(GetJackpotValuesRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.GetJackpotValuesRequest.html">GetJackpotValuesRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.LevelInfoResponse.html">LevelInfoResponse</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_GetLocalStorage_Aristocrat_Monaco_V1_GetLocalStorageRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.GetLocalStorage(Aristocrat.Monaco.V1.GetLocalStorageRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L395" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetLocalStorage_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetLocalStorage*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetLocalStorage_Aristocrat_Monaco_V1_GetLocalStorageRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetLocalStorage(Aristocrat.Monaco.V1.GetLocalStorageRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetLocalStorage_Aristocrat_Monaco_V1_GetLocalStorageRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">GetLocalStorage(GetLocalStorageRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetLocalStorage_Aristocrat_Monaco_V1_GetLocalStorageRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;GetLocalStorageResponse&gt; GetLocalStorage(GetLocalStorageRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.GetLocalStorageRequest.html">GetLocalStorageRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.GetLocalStorageResponse.html">GetLocalStorageResponse</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_GetMeters_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.GetMeters(Aristocrat.Monaco.V1.Empty%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L405" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetMeters_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetMeters_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetMeters(Aristocrat.Monaco.V1.Empty,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetMeters_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">GetMeters(Empty, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetMeters_Aristocrat_Monaco_V1_Empty_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;GetMetersResponse&gt; GetMeters(Empty request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.GetMetersResponse.html">GetMetersResponse</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber32_Aristocrat_Monaco_V1_GetRandomNumber32Request_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.GetRandomNumber32(Aristocrat.Monaco.V1.GetRandomNumber32Request%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L415" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber32_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetRandomNumber32*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber32_Aristocrat_Monaco_V1_GetRandomNumber32Request_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetRandomNumber32(Aristocrat.Monaco.V1.GetRandomNumber32Request,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber32_Aristocrat_Monaco_V1_GetRandomNumber32Request_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">GetRandomNumber32(GetRandomNumber32Request, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber32_Aristocrat_Monaco_V1_GetRandomNumber32Request_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;GetRandomNumber32Response&gt; GetRandomNumber32(GetRandomNumber32Request request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.GetRandomNumber32Request.html">GetRandomNumber32Request</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.GetRandomNumber32Response.html">GetRandomNumber32Response</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber64_Aristocrat_Monaco_V1_GetRandomNumber64Request_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.GetRandomNumber64(Aristocrat.Monaco.V1.GetRandomNumber64Request%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L420" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber64_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetRandomNumber64*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber64_Aristocrat_Monaco_V1_GetRandomNumber64Request_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.GetRandomNumber64(Aristocrat.Monaco.V1.GetRandomNumber64Request,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber64_Aristocrat_Monaco_V1_GetRandomNumber64Request_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">GetRandomNumber64(GetRandomNumber64Request, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_GetRandomNumber64_Aristocrat_Monaco_V1_GetRandomNumber64Request_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;GetRandomNumber64Response&gt; GetRandomNumber64(GetRandomNumber64Request request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.GetRandomNumber64Request.html">GetRandomNumber64Request</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.GetRandomNumber64Response.html">GetRandomNumber64Response</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_Join_Aristocrat_Monaco_V1_JoinRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.Join(Aristocrat.Monaco.V1.JoinRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L319" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_Join_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.Join*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_Join_Aristocrat_Monaco_V1_JoinRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.Join(Aristocrat.Monaco.V1.JoinRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_Join_Aristocrat_Monaco_V1_JoinRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">Join(JoinRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_Join_Aristocrat_Monaco_V1_JoinRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"><p>Communications and notifications</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; Join(JoinRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.JoinRequest.html">JoinRequest</a></span>
+        <span class="parametername">request</span>
+        <p><p>The request received from the client.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p><p>The context of the server-side call handler being invoked.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p><p>The response to send back to the client (wrapped by a task).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_Leave_Aristocrat_Monaco_V1_LeaveRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.Leave(Aristocrat.Monaco.V1.LeaveRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L324" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_Leave_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.Leave*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_Leave_Aristocrat_Monaco_V1_LeaveRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.Leave(Aristocrat.Monaco.V1.LeaveRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_Leave_Aristocrat_Monaco_V1_LeaveRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">Leave(LeaveRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_Leave_Aristocrat_Monaco_V1_LeaveRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; Leave(LeaveRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.LeaveRequest.html">LeaveRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_RecoveryPoint_Aristocrat_Monaco_V1_RecoveryPointNotification_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.RecoveryPoint(Aristocrat.Monaco.V1.RecoveryPointNotification%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L390" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RecoveryPoint_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RecoveryPoint*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RecoveryPoint_Aristocrat_Monaco_V1_RecoveryPointNotification_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RecoveryPoint(Aristocrat.Monaco.V1.RecoveryPointNotification,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RecoveryPoint_Aristocrat_Monaco_V1_RecoveryPointNotification_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">RecoveryPoint(RecoveryPointNotification, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RecoveryPoint_Aristocrat_Monaco_V1_RecoveryPointNotification_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; RecoveryPoint(RecoveryPointNotification request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.RecoveryPointNotification.html">RecoveryPointNotification</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeEvent_Aristocrat_Monaco_V1_RuntimeEventNotification_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeEvent(Aristocrat.Monaco.V1.RuntimeEventNotification%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L334" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeEvent_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeEvent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeEvent_Aristocrat_Monaco_V1_RuntimeEventNotification_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeEvent(Aristocrat.Monaco.V1.RuntimeEventNotification,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeEvent_Aristocrat_Monaco_V1_RuntimeEventNotification_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">RuntimeEvent(RuntimeEventNotification, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeEvent_Aristocrat_Monaco_V1_RuntimeEventNotification_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; RuntimeEvent(RuntimeEventNotification request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.RuntimeEventNotification.html">RuntimeEventNotification</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeFlagChange_Aristocrat_Monaco_V1_RuntimeFlagNotification_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeFlagChange(Aristocrat.Monaco.V1.RuntimeFlagNotification%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L339" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeFlagChange_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeFlagChange*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeFlagChange_Aristocrat_Monaco_V1_RuntimeFlagNotification_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeFlagChange(Aristocrat.Monaco.V1.RuntimeFlagNotification,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeFlagChange_Aristocrat_Monaco_V1_RuntimeFlagNotification_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">RuntimeFlagChange(RuntimeFlagNotification, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeFlagChange_Aristocrat_Monaco_V1_RuntimeFlagNotification_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; RuntimeFlagChange(RuntimeFlagNotification request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.RuntimeFlagNotification.html">RuntimeFlagNotification</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeRequest_Aristocrat_Monaco_V1_RuntimeRequestNotification_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeRequest(Aristocrat.Monaco.V1.RuntimeRequestNotification%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L344" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeRequest_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeRequest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeRequest_Aristocrat_Monaco_V1_RuntimeRequestNotification_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeRequest(Aristocrat.Monaco.V1.RuntimeRequestNotification,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeRequest_Aristocrat_Monaco_V1_RuntimeRequestNotification_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">RuntimeRequest(RuntimeRequestNotification, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeRequest_Aristocrat_Monaco_V1_RuntimeRequestNotification_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;RuntimeRequestResponse&gt; RuntimeRequest(RuntimeRequestNotification request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.RuntimeRequestNotification.html">RuntimeRequestNotification</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.RuntimeRequestResponse.html">RuntimeRequestResponse</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeStateChange_Aristocrat_Monaco_V1_RuntimeStateNotication_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeStateChange(Aristocrat.Monaco.V1.RuntimeStateNotication%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L349" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeStateChange_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeStateChange*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeStateChange_Aristocrat_Monaco_V1_RuntimeStateNotication_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.RuntimeStateChange(Aristocrat.Monaco.V1.RuntimeStateNotication,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeStateChange_Aristocrat_Monaco_V1_RuntimeStateNotication_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">RuntimeStateChange(RuntimeStateNotication, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_RuntimeStateChange_Aristocrat_Monaco_V1_RuntimeStateNotication_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; RuntimeStateChange(RuntimeStateNotication request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.RuntimeStateNotication.html">RuntimeStateNotication</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_SelectDenomination_Aristocrat_Monaco_V1_SelectDenominationRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.SelectDenomination(Aristocrat.Monaco.V1.SelectDenominationRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L487" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_SelectDenomination_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.SelectDenomination*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_SelectDenomination_Aristocrat_Monaco_V1_SelectDenominationRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.SelectDenomination(Aristocrat.Monaco.V1.SelectDenominationRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_SelectDenomination_Aristocrat_Monaco_V1_SelectDenominationRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">SelectDenomination(SelectDenominationRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_SelectDenomination_Aristocrat_Monaco_V1_SelectDenominationRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"><p>Game Selection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; SelectDenomination(SelectDenominationRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.SelectDenominationRequest.html">SelectDenominationRequest</a></span>
+        <span class="parametername">request</span>
+        <p><p>The request received from the client.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p><p>The context of the server-side call handler being invoked.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p><p>The response to send back to the client (wrapped by a task).</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_SetJackpotLevelWagers_Aristocrat_Monaco_V1_LevelWagerRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.SetJackpotLevelWagers(Aristocrat.Monaco.V1.LevelWagerRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L476" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_SetJackpotLevelWagers_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.SetJackpotLevelWagers*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_SetJackpotLevelWagers_Aristocrat_Monaco_V1_LevelWagerRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.SetJackpotLevelWagers(Aristocrat.Monaco.V1.LevelWagerRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_SetJackpotLevelWagers_Aristocrat_Monaco_V1_LevelWagerRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">SetJackpotLevelWagers(LevelWagerRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_SetJackpotLevelWagers_Aristocrat_Monaco_V1_LevelWagerRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; SetJackpotLevelWagers(LevelWagerRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.LevelWagerRequest.html">LevelWagerRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_Shuffle_Aristocrat_Monaco_V1_ShuffleRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.Shuffle(Aristocrat.Monaco.V1.ShuffleRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L425" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_Shuffle_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.Shuffle*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_Shuffle_Aristocrat_Monaco_V1_ShuffleRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.Shuffle(Aristocrat.Monaco.V1.ShuffleRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_Shuffle_Aristocrat_Monaco_V1_ShuffleRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">Shuffle(ShuffleRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_Shuffle_Aristocrat_Monaco_V1_ShuffleRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;ShuffleResponse&gt; Shuffle(ShuffleRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.ShuffleRequest.html">ShuffleRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.ShuffleResponse.html">ShuffleResponse</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_TriggerJackpot_Aristocrat_Monaco_V1_TriggerJackpotRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.TriggerJackpot(Aristocrat.Monaco.V1.TriggerJackpotRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L466" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_TriggerJackpot_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.TriggerJackpot*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_TriggerJackpot_Aristocrat_Monaco_V1_TriggerJackpotRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.TriggerJackpot(Aristocrat.Monaco.V1.TriggerJackpotRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_TriggerJackpot_Aristocrat_Monaco_V1_TriggerJackpotRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">TriggerJackpot(TriggerJackpotRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_TriggerJackpot_Aristocrat_Monaco_V1_TriggerJackpotRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;TriggerJackpotResponse&gt; TriggerJackpot(TriggerJackpotRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.TriggerJackpotRequest.html">TriggerJackpotRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.TriggerJackpotResponse.html">TriggerJackpotResponse</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBetOptions_Aristocrat_Monaco_V1_UpdateBetOptionsRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateBetOptions(Aristocrat.Monaco.V1.UpdateBetOptionsRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L440" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBetOptions_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateBetOptions*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBetOptions_Aristocrat_Monaco_V1_UpdateBetOptionsRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateBetOptions(Aristocrat.Monaco.V1.UpdateBetOptionsRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBetOptions_Aristocrat_Monaco_V1_UpdateBetOptionsRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">UpdateBetOptions(UpdateBetOptionsRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBetOptions_Aristocrat_Monaco_V1_UpdateBetOptionsRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; UpdateBetOptions(UpdateBetOptionsRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.UpdateBetOptionsRequest.html">UpdateBetOptionsRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBonusKey_Aristocrat_Monaco_V1_UpdateBonusKeyRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateBonusKey(Aristocrat.Monaco.V1.UpdateBonusKeyRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L430" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBonusKey_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateBonusKey*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBonusKey_Aristocrat_Monaco_V1_UpdateBonusKeyRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateBonusKey(Aristocrat.Monaco.V1.UpdateBonusKeyRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBonusKey_Aristocrat_Monaco_V1_UpdateBonusKeyRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">UpdateBonusKey(UpdateBonusKeyRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateBonusKey_Aristocrat_Monaco_V1_UpdateBonusKeyRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; UpdateBonusKey(UpdateBonusKeyRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.UpdateBonusKeyRequest.html">UpdateBonusKeyRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateJackpotValues_Aristocrat_Monaco_V1_UpdateJackpotValuesRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateJackpotValues(Aristocrat.Monaco.V1.UpdateJackpotValuesRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L461" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateJackpotValues_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateJackpotValues*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateJackpotValues_Aristocrat_Monaco_V1_UpdateJackpotValuesRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateJackpotValues(Aristocrat.Monaco.V1.UpdateJackpotValuesRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateJackpotValues_Aristocrat_Monaco_V1_UpdateJackpotValuesRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">UpdateJackpotValues(UpdateJackpotValuesRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateJackpotValues_Aristocrat_Monaco_V1_UpdateJackpotValuesRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; UpdateJackpotValues(UpdateJackpotValuesRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.UpdateJackpotValuesRequest.html">UpdateJackpotValuesRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateLocalStorage_Aristocrat_Monaco_V1_UpdateLocalStorageRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateLocalStorage(Aristocrat.Monaco.V1.UpdateLocalStorageRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L400" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateLocalStorage_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateLocalStorage*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateLocalStorage_Aristocrat_Monaco_V1_UpdateLocalStorageRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateLocalStorage(Aristocrat.Monaco.V1.UpdateLocalStorageRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateLocalStorage_Aristocrat_Monaco_V1_UpdateLocalStorageRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">UpdateLocalStorage(UpdateLocalStorageRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateLocalStorage_Aristocrat_Monaco_V1_UpdateLocalStorageRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; UpdateLocalStorage(UpdateLocalStorageRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.UpdateLocalStorageRequest.html">UpdateLocalStorageRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateMeters_Aristocrat_Monaco_V1_UpdateMetersRequest_Grpc_Core_ServerCallContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateMeters(Aristocrat.Monaco.V1.UpdateMetersRequest%2CGrpc.Core.ServerCallContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L410" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateMeters_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateMeters_Aristocrat_Monaco_V1_UpdateMetersRequest_Grpc_Core_ServerCallContext_" data-uid="Aristocrat.Monaco.V1.GameService.GameServiceBase.UpdateMeters(Aristocrat.Monaco.V1.UpdateMetersRequest,Grpc.Core.ServerCallContext)"><a href="#collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateMeters_Aristocrat_Monaco_V1_UpdateMetersRequest_Grpc_Core_ServerCallContext_" class="expander" data-toggle="collapse">UpdateMeters(UpdateMetersRequest, ServerCallContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_V1_GameService_GameServiceBase_UpdateMeters_Aristocrat_Monaco_V1_UpdateMetersRequest_Grpc_Core_ServerCallContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual Task&lt;Empty&gt; UpdateMeters(UpdateMetersRequest request, ServerCallContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.V1.UpdateMetersRequest.html">UpdateMetersRequest</a></span>
+        <span class="parametername">request</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Grpc.Core.ServerCallContext</span></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.V1.Empty.html">Empty</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_V1_GameService_GameServiceBase.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.V1.GameService.GameServiceBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/obj/Release/GameServiceGrpc.cs/#L310" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class CardStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -202,7 +202,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CardPresent { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(1UL)]
+public bool CardPresent { get; set; }</code></pre>
   </div>
   
   
@@ -247,7 +249,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Icc { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(9)]
+[FieldBitLength(1UL)]
+public bool Icc { get; set; }</code></pre>
   </div>
   
   
@@ -292,7 +296,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Inserted { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(1UL)]
+public bool Inserted { get; set; }</code></pre>
   </div>
   
   
@@ -337,7 +343,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool PartiallyInserted { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(1UL)]
+public bool PartiallyInserted { get; set; }</code></pre>
   </div>
   
   
@@ -382,7 +390,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Removed { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool Removed { get; set; }</code></pre>
   </div>
   
   
@@ -427,7 +437,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldBitLength(4UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -472,7 +484,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved2 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldBitLength(4UL)]
+public byte Reserved2 { get; set; }</code></pre>
   </div>
   
   
@@ -517,7 +531,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Track1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(8)]
+[FieldBitLength(1UL)]
+public bool Track1 { get; set; }</code></pre>
   </div>
   
   
@@ -562,7 +578,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Track2 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(7)]
+[FieldBitLength(1UL)]
+public bool Track2 { get; set; }</code></pre>
   </div>
   
   
@@ -607,7 +625,9 @@ public class CardStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Track3 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(6)]
+[FieldBitLength(1UL)]
+public bool Track3 { get; set; }</code></pre>
   </div>
   
   
@@ -726,7 +746,7 @@ public class CardStatus : GdsSerializableMessage</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

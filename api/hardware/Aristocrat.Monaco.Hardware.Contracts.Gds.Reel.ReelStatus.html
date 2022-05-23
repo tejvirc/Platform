@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ReelStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -196,7 +196,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Connected { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(1UL)]
+public bool Connected { get; set; }</code></pre>
   </div>
   
   
@@ -240,7 +242,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FailedHome { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(7)]
+[FieldBitLength(1UL)]
+public bool FailedHome { get; set; }</code></pre>
   </div>
   
   
@@ -284,7 +288,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool LowVoltage { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(6)]
+[FieldBitLength(1UL)]
+public bool LowVoltage { get; set; }</code></pre>
   </div>
   
   
@@ -328,7 +334,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ReelId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(8UL)]
+public int ReelId { get; set; }</code></pre>
   </div>
   
   
@@ -372,7 +380,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ReelStall { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(1UL)]
+public bool ReelStall { get; set; }</code></pre>
   </div>
   
   
@@ -416,7 +426,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ReelTampered { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool ReelTampered { get; set; }</code></pre>
   </div>
   
   
@@ -460,7 +472,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool RequestError { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldBitLength(1UL)]
+public bool RequestError { get; set; }</code></pre>
   </div>
   
   
@@ -504,7 +518,9 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldBitLength(2UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -778,7 +794,7 @@ public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

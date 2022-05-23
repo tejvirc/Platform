@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ResidualValue
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -413,7 +413,8 @@ public class ResidualValue : IEquatable&lt;ResidualValue&gt;</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected BigInteger InternalValue { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+protected BigInteger InternalValue { get; set; }</code></pre>
   </div>
   
   
@@ -1820,7 +1821,7 @@ public class ResidualValue : IEquatable&lt;ResidualValue&gt;</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

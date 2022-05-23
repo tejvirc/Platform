@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class BingoContext
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../../favicon.ico">
     <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
@@ -87,17 +87,43 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">BingoContext</span></div>
+    <div class="level1"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.entity.dbcontext">DbContext</a></div>
+    <div class="level2"><span class="xref">BingoContext</span></div>
   </div>
   
   
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
   
   <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Bingo.Common.Storage.Model.html">Aristocrat.Monaco.Bingo.Common.Storage.Model</a></h6>
   <h6><strong>Assembly</strong>: Aristocrat.Monaco.Bingo.Common.dll</h6>
   
   <h5 id="Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BingoContext : DbContext</code></pre>
+    <pre><code class="lang-csharp hljs">[DbConfigurationType(typeof(SQLiteConfiguration))]
+public class BingoContext : DbContext, IDisposable, IObjectContextAdapter</code></pre>
   </div>
   
   
@@ -183,7 +209,7 @@
   <table>
     <tr>
       <td>
-        <span class="xref">DbSet</span>&lt;<a class="xref" href="Aristocrat.Monaco.Bingo.Common.Storage.Model.Certificate.html">Certificate</a>&gt;
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.entity.dbset-1">DbSet</a>&lt;<a class="xref" href="Aristocrat.Monaco.Bingo.Common.Storage.Model.Certificate.html">Certificate</a>&gt;
         <p>
       </td>
     </tr>
@@ -201,7 +227,7 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_DbModelBuilder_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Storage.Model.BingoContext.OnModelCreating(DbModelBuilder)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_System_Data_Entity_DbModelBuilder_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Storage.Model.BingoContext.OnModelCreating(System.Data.Entity.DbModelBuilder)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Storage/Model/BingoContext.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
@@ -209,9 +235,9 @@
   
   <a id="Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_" data-uid="Aristocrat.Monaco.Bingo.Common.Storage.Model.BingoContext.OnModelCreating*"></a>
   
-  <h4 id="Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_DbModelBuilder_" data-uid="Aristocrat.Monaco.Bingo.Common.Storage.Model.BingoContext.OnModelCreating(DbModelBuilder)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_DbModelBuilder_" class="expander" data-toggle="collapse">OnModelCreating(DbModelBuilder)</a></h4>
+  <h4 id="Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_System_Data_Entity_DbModelBuilder_" data-uid="Aristocrat.Monaco.Bingo.Common.Storage.Model.BingoContext.OnModelCreating(System.Data.Entity.DbModelBuilder)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_System_Data_Entity_DbModelBuilder_" class="expander" data-toggle="collapse">OnModelCreating(DbModelBuilder)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_DbModelBuilder_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_Storage_Model_BingoContext_OnModelCreating_System_Data_Entity_DbModelBuilder_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -224,7 +250,7 @@
   <table>
     <tr>
       <td>
-        <span class="pull-right"><span class="xref">DbModelBuilder</span></span>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.entity.dbmodelbuilder">DbModelBuilder</a></span>
         <span class="parametername">modelBuilder</span>
         <p>
       </td>
@@ -236,6 +262,8 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.data.entity.dbcontext.onmodelcreating#system-data-entity-dbcontext-onmodelcreating(system-data-entity-dbmodelbuilder)">DbContext.OnModelCreating(DbModelBuilder)</a></div>
   
   
   
@@ -289,7 +317,7 @@
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class Outcome
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -151,7 +151,8 @@
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Outcome(long id, long gameSetId, long subsetId, OutcomeReference reference, OutcomeType type, long value, int winLevelIndex, string lookupData)</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonConstructor]
+public Outcome(long id, long gameSetId, long subsetId, OutcomeReference reference, OutcomeType type, long value, int winLevelIndex, string lookupData)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -635,7 +636,7 @@ display to be presented to the player as a result of the outcome.</p>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

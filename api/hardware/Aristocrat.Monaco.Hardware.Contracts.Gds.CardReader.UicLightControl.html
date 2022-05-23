@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class UicLightControl
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -203,7 +203,9 @@ public class UicLightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ushort Blue { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldEndianness(Endianness.Little)]
+public ushort Blue { get; set; }</code></pre>
   </div>
   
   
@@ -248,7 +250,9 @@ public class UicLightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ushort Blue2 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldEndianness(Endianness.Little)]
+public ushort Blue2 { get; set; }</code></pre>
   </div>
   
   
@@ -293,7 +297,9 @@ public class UicLightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ushort Green { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldEndianness(Endianness.Little)]
+public ushort Green { get; set; }</code></pre>
   </div>
   
   
@@ -338,7 +344,9 @@ public class UicLightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ushort Green2 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldEndianness(Endianness.Little)]
+public ushort Green2 { get; set; }</code></pre>
   </div>
   
   
@@ -383,7 +391,9 @@ public class UicLightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ushort Red { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldEndianness(Endianness.Little)]
+public ushort Red { get; set; }</code></pre>
   </div>
   
   
@@ -428,7 +438,9 @@ public class UicLightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ushort Red2 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldEndianness(Endianness.Little)]
+public ushort Red2 { get; set; }</code></pre>
   </div>
   
   
@@ -473,7 +485,8 @@ public class UicLightControl : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TimerInterval { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(6)]
+public byte TimerInterval { get; set; }</code></pre>
   </div>
   
   
@@ -596,7 +609,7 @@ Multiplier of 100ms. LEDs selected alternate between ON and OFF states every(LED
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

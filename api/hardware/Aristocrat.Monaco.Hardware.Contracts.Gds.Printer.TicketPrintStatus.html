@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class TicketPrintStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -196,7 +196,9 @@ public class TicketPrintStatus : GdsSerializableMessage, IEquatable&lt;TicketPri
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FieldOfInterest1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(7)]
+[FieldBitLength(1UL)]
+public bool FieldOfInterest1 { get; set; }</code></pre>
   </div>
   
   
@@ -241,7 +243,9 @@ public class TicketPrintStatus : GdsSerializableMessage, IEquatable&lt;TicketPri
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FieldOfInterest2 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(6)]
+[FieldBitLength(1UL)]
+public bool FieldOfInterest2 { get; set; }</code></pre>
   </div>
   
   
@@ -286,7 +290,9 @@ public class TicketPrintStatus : GdsSerializableMessage, IEquatable&lt;TicketPri
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FieldOfInterest3 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldBitLength(1UL)]
+public bool FieldOfInterest3 { get; set; }</code></pre>
   </div>
   
   
@@ -331,7 +337,9 @@ public class TicketPrintStatus : GdsSerializableMessage, IEquatable&lt;TicketPri
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool PrintComplete { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(1UL)]
+public bool PrintComplete { get; set; }</code></pre>
   </div>
   
   
@@ -376,7 +384,9 @@ public class TicketPrintStatus : GdsSerializableMessage, IEquatable&lt;TicketPri
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool PrintIncomplete { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool PrintIncomplete { get; set; }</code></pre>
   </div>
   
   
@@ -421,7 +431,9 @@ public class TicketPrintStatus : GdsSerializableMessage, IEquatable&lt;TicketPri
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool PrintInProgress { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(8)]
+[FieldBitLength(1UL)]
+public bool PrintInProgress { get; set; }</code></pre>
   </div>
   
   
@@ -466,7 +478,9 @@ public class TicketPrintStatus : GdsSerializableMessage, IEquatable&lt;TicketPri
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(1UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -512,7 +526,9 @@ retractable.</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TicketRetractable { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(1UL)]
+public bool TicketRetractable { get; set; }</code></pre>
   </div>
   
   
@@ -557,7 +573,8 @@ retractable.</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte TransactionId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+public byte TransactionId { get; set; }</code></pre>
   </div>
   
   
@@ -833,7 +850,7 @@ retractable.</p>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

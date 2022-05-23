@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class CountStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -202,7 +202,9 @@ public class CountStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int CardInsertedCount { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldLength(3UL)]
+public int CardInsertedCount { get; set; }</code></pre>
   </div>
   
   
@@ -247,7 +249,9 @@ public class CountStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int IccErrorCount { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldLength(3UL)]
+public int IccErrorCount { get; set; }</code></pre>
   </div>
   
   
@@ -292,7 +296,9 @@ public class CountStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int IccInsertedCount { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldLength(3UL)]
+public int IccInsertedCount { get; set; }</code></pre>
   </div>
   
   
@@ -337,7 +343,9 @@ public class CountStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Track1ErrorCount { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldLength(3UL)]
+public int Track1ErrorCount { get; set; }</code></pre>
   </div>
   
   
@@ -382,7 +390,9 @@ public class CountStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Track2ErrorCount { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldLength(3UL)]
+public int Track2ErrorCount { get; set; }</code></pre>
   </div>
   
   
@@ -427,7 +437,9 @@ public class CountStatus : GdsSerializableMessage</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Track3ErrorCount { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldLength(3UL)]
+public int Track3ErrorCount { get; set; }</code></pre>
   </div>
   
   
@@ -546,7 +558,7 @@ public class CountStatus : GdsSerializableMessage</code></pre>
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class AbortAndSlowSpinResponse
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -211,7 +211,9 @@ public class AbortAndSlowSpinResponse : HarkeySerializableMessage, ISimpleAckRes
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ResponseCode { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldBitLength(8UL)]
+public int ResponseCode { get; set; }</code></pre>
   </div>
   
   
@@ -331,7 +333,7 @@ public class AbortAndSlowSpinResponse : HarkeySerializableMessage, ISimpleAckRes
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {

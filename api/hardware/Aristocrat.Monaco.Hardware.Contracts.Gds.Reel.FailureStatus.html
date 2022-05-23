@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class FailureStatus
    ">
-    <meta name="generator" content="docfx 2.58.9.0">
+    <meta name="generator" content="docfx 2.59.2.0">
     
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
@@ -196,7 +196,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool CommunicationError { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(8)]
+[FieldBitLength(1UL)]
+public bool CommunicationError { get; set; }</code></pre>
   </div>
   
   
@@ -241,7 +243,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ComponentError { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(2)]
+[FieldBitLength(1UL)]
+public bool ComponentError { get; set; }</code></pre>
   </div>
   
   
@@ -286,7 +290,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool DiagnosticCode { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(5)]
+[FieldBitLength(1UL)]
+public bool DiagnosticCode { get; set; }</code></pre>
   </div>
   
   
@@ -331,7 +337,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte ErrorCode { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(11)]
+[FieldBitLength(5UL)]
+public byte ErrorCode { get; set; }</code></pre>
   </div>
   
   
@@ -376,7 +384,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FirmwareError { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(4)]
+[FieldBitLength(1UL)]
+public bool FirmwareError { get; set; }</code></pre>
   </div>
   
   
@@ -421,7 +431,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool HardwareError { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(9)]
+[FieldBitLength(1UL)]
+public bool HardwareError { get; set; }</code></pre>
   </div>
   
   
@@ -466,7 +478,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool LowVoltageDetected { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(7)]
+[FieldBitLength(1UL)]
+public bool LowVoltageDetected { get; set; }</code></pre>
   </div>
   
   
@@ -511,7 +525,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool MechanicalError { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(3)]
+[FieldBitLength(1UL)]
+public bool MechanicalError { get; set; }</code></pre>
   </div>
   
   
@@ -555,7 +571,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ReelId { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(0)]
+[FieldBitLength(8UL)]
+public int ReelId { get; set; }</code></pre>
   </div>
   
   
@@ -599,7 +617,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public byte Reserved1 { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(1)]
+[FieldBitLength(2UL)]
+public byte Reserved1 { get; set; }</code></pre>
   </div>
   
   
@@ -644,7 +664,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool StallDetected { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(10)]
+[FieldBitLength(1UL)]
+public bool StallDetected { get; set; }</code></pre>
   </div>
   
   
@@ -689,7 +711,9 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TamperDetected { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[FieldOrder(6)]
+[FieldBitLength(1UL)]
+public bool TamperDetected { get; set; }</code></pre>
   </div>
   
   
@@ -963,7 +987,7 @@ public class FailureStatus : GdsSerializableMessage, IEquatable&lt;FailureStatus
     <script>
         mermaid.initialize({
             startOnLoad: false,
-            theme: 'dark'
+            theme: 'default'
         });
     
         window.onload = function () {
