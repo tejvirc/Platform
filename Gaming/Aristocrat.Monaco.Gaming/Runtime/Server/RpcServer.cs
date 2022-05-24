@@ -3,31 +3,36 @@
     using System;
     using System.Reflection;
     using Contracts;
-    using Grpc.Core;
+    using Kernel;
     using log4net;
-    using V1;
+    using Snapp;
 
     public class RpcServer : IServerEndpoint, IDisposable
     {
-        private const string Host = "localhost";
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(30);
-
+        private readonly IEventBus _eventBus;
         private readonly RpcService _gameService;
         private readonly RpcReelService _reelService;
         private readonly RpcPresentationService _presentationService;
-        private readonly object _lock = new object();
+        private readonly object _lock = new ();
 
-        private Server _rpcServer;
-
+        private ITransport _transport;
+        private Server _server;
         private bool _disposed;
 
-        public RpcServer(RpcService gameService, RpcReelService reelService, RpcPresentationService presentationService)
+        public RpcServer(IEventBus eventBus, RpcService gameService, RpcReelService reelService, RpcPresentationService presentationService)
         {
+            Snapp.Logger.LogCallbackFunction = SnappLog;
+
+            Logger.Debug("Create RpcServer");
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             _reelService = reelService ?? throw new ArgumentNullException(nameof(reelService));
             _presentationService = presentationService ?? throw new ArgumentNullException(nameof(presentationService));
+
+            //_eventBus.Subscribe<GameExitedNormalEvent>(this, _ => Shutdown());
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => Shutdown());
         }
 
         public void Dispose()
@@ -38,20 +43,24 @@
 
         public void Start()
         {
+            Logger.Debug("Start RpcServer");
             lock (_lock)
             {
-                if (_rpcServer != null)
+                if (_server != null)
                 {
                     return;
                 }
 
-                _rpcServer = new Server
-                {
-                    Services = { GameService.BindService(_gameService), ReelService.BindService(_reelService), PresentationService.BindService(_presentationService) },
-                    Ports = { new ServerPort(Host, GamingConstants.IpcPort, ServerCredentials.Insecure) }
-                };
+                // Create service callback instances
+                var callbacks = new ServiceCallbacks();
+                callbacks.AddCallback(_gameService);
+                callbacks.AddCallback(_reelService);
+                callbacks.AddCallback(_presentationService);
 
-                _rpcServer.Start();
+                // Create and start server with transport (named pipe)
+                _transport = new NamedPipeTransport("MonacoPlatformSnapp");
+                _server = new Server(_transport, callbacks);
+                _server.Start();
             }
         }
 
@@ -59,23 +68,37 @@
         {
             lock (_lock)
             {
-                if (_rpcServer == null)
+                if (_server == null)
                 {
                     return;
                 }
 
                 try
                 {
-                    _rpcServer.ShutdownAsync().Wait(ShutdownTimeout);
+                    _transport?.Disconnect();
                 }
                 catch (Exception ex)
                 {
-                    Logger.Warn("Error while ending comms with", ex);
+                    Logger.Warn("Error while disconnecting transport; probably it wasn't connected (yet)", ex);
                 }
                 finally
                 {
-                    _rpcServer = null;
+                    try
+                    {
+                        _transport?.Dispose();
+                        _server?.Stop();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Warn("Error while ending comms with", ex);
+                    }
+                    finally
+                    {
+                        _transport = null;
+                        _server = null;
+                    }
                 }
+
             }
         }
 
@@ -91,7 +114,34 @@
                 Shutdown();
             }
 
+            _eventBus.UnsubscribeAll(this);
+
             _disposed = true;
+        }
+
+        private static void SnappLog(Logger.Level level, string message)
+        {
+            var logMessage = $"SNAPP {level} {message}";
+            switch (level)
+            {
+                case Snapp.Logger.Level.Debug:
+                    Logger.Debug(logMessage);
+                    break;
+                case Snapp.Logger.Level.Info:
+                    Logger.Info(logMessage);
+                    break;
+                case Snapp.Logger.Level.Warn:
+                    Logger.Warn(logMessage);
+                    break;
+                case Snapp.Logger.Level.Error:
+                    Logger.Error(logMessage);
+                    break;
+                case Snapp.Logger.Level.Fatal:
+                    Logger.Error(logMessage);
+                    Logger.Error($"Since SNAPP declared fatal error, shut down the runtime.");
+                    ServiceManager.GetInstance().GetService<IGameService>().TerminateAny(true);
+                    break;
+            }
         }
     }
 }

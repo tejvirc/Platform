@@ -133,6 +133,7 @@
         /// <inheritdoc />
         public void EndProcess(int processId, bool notifyExited = true)
         {
+            Logger.Info($"EndProcess({processId}, {notifyExited})");
             _expectProcessExit = true;
 
             var processToKill = GetProcessFromId(processId);
@@ -165,6 +166,7 @@
         /// <inheritdoc />
         public void ProcessExiting()
         {
+            Logger.Info("ProcessExiting()");
             _expectProcessExit = true;
         }
 
@@ -183,10 +185,11 @@
             // Clear the RpcClient instance held, as once the Game/Runtime process is killed, it will become stale
             _serviceProvider.Clear();
 
+            Logger.Info($"ProcessExited, try remove {process?.Id ?? -1}");
             if (!_processes.TryRemove(process?.Id ?? -1, out var notify) && !_expectProcessExit)
             {
                 Logger.Error(
-                    $"Unexpected game process exit ({process?.Id}) : {process?.StartInfo.FileName} {process?.StartInfo.Arguments}",
+                    $"Unexpected game process exit (expected?{_expectProcessExit}) ({process?.Id ?? -1}) : {process?.StartInfo.FileName} {process?.StartInfo.Arguments}",
                     new GameExitedException("The game process ended unexpectedly."));
 
                 _eventBus.Publish(new GameProcessExitedEvent(process?.Id ?? -1, true));

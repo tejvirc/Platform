@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
+    using Aristocrat.GdkRuntime.V1;
     using Hardware.Contracts.Reel;
-    using V1;
 
     /// <summary>
     ///     A set of hardware reel extensions

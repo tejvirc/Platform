@@ -7,21 +7,20 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
+    using Aristocrat.GdkRuntime.V1;
     using Client;
     using Commands;
     using Contracts;
     using Contracts.Central;
     using Contracts.Process;
-    using Grpc.Core;
     using Kernel;
     using log4net;
-    using V1;
-    using LocalStorage = V1.LocalStorage;
+    using LocalStorage = Aristocrat.GdkRuntime.V1.LocalStorage;
 
-    public class RpcService : GameService.GameServiceBase
+    public class RpcService : IGameServiceCallback
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly Task<Empty> EmptyResult = Task.FromResult(new Empty());
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly Empty EmptyResult = new ();
 
         private readonly IEventBus _bus;
         private readonly ICommandHandlerFactory _handlerFactory;
@@ -58,11 +57,11 @@
             _shuffle = _handlerFactory.Create<Shuffle>();
         }
 
-        public override Task<Empty> Join(JoinRequest request, ServerCallContext context)
+        public override Empty Join(JoinRequest request)
         {
             Logger.Debug("Client joined the Runtime Service");
 
-            var rpcClient = new RpcClient(_bus, _processManager, request.RuntimePort);
+            var rpcClient = new RpcClient(_bus, _processManager);
             _serviceProvider.AddOrUpdate(rpcClient);
             _reelServiceProvider.AddOrUpdate(rpcClient);
             _presentationServiceProvider.AddOrUpdate(rpcClient);
@@ -72,7 +71,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> Leave(LeaveRequest request, ServerCallContext context)
+        public override Empty Leave(LeaveRequest request)
         {
             Logger.Debug("Client left the Runtime Service");
 
@@ -85,7 +84,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> FatalError(FatalErrorNotification request, ServerCallContext context)
+        public override Empty FatalError(FatalErrorNotification request)
         {
             Logger.Debug($"OnGameFatalError with message: {request.ErrorCode} {request.Message}");
 
@@ -95,7 +94,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> RuntimeEvent(RuntimeEventNotification request, ServerCallContext context)
+        public override Empty RuntimeEvent(RuntimeEventNotification request)
         {
             switch (request.RuntimeEvent)
             {
@@ -185,7 +184,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> RuntimeFlagChange(RuntimeFlagNotification request, ServerCallContext context)
+        public override Empty RuntimeFlagChange(RuntimeFlagNotification request)
         {
             Logger.Debug($"OnRuntimeFlagChange {request.Flag} {request.State}");
 
@@ -195,9 +194,7 @@
             return EmptyResult;
         }
 
-        public override Task<RuntimeRequestResponse> RuntimeRequest(
-            RuntimeRequestNotification request,
-            ServerCallContext context)
+        public override RuntimeRequestResponse RuntimeRequest(RuntimeRequestNotification request)
         {
             Logger.Debug($"Handle RuntimeRequest: {request.Request}");
 
@@ -207,24 +204,24 @@
 
             Logger.Debug($"OnRuntimeRequest with request: {request} Result: {command.Result}");
 
-            return Task.FromResult(new RuntimeRequestResponse { Result = command.Result });
+            return new RuntimeRequestResponse { Result = command.Result };
         }
 
-        public override Task<Empty> RuntimeStateChange(RuntimeStateNotication request, ServerCallContext context)
+        public override Empty RuntimeStateChange(RuntimeStateNotication request)
         {
             Logger.Debug($"OnRuntimeStateChange {request.From} {request.To}");
 
             return EmptyResult;
         }
 
-        public override Task<Empty> ButtonDeckImageChanged(Empty request, ServerCallContext context)
+        public override Empty ButtonDeckImageChanged(Empty request)
         {
             Task.Run(() => _handlerFactory.Create<UpdateButtonDeckImage>().Handle(new UpdateButtonDeckImage()));
 
             return EmptyResult;
         }
 
-        public override Task<Empty> ButtonStatesChanged(ButtonStatesChangedNotfication request, ServerCallContext context)
+        public override Empty ButtonStatesChanged(ButtonStatesChangedNotfication request)
         {
             Logger.Debug($"OnButtonStatesChanged - count: {request.ButtonStates.Count} ");
 
@@ -239,15 +236,13 @@
             return EmptyResult;
         }
 
-        public override Task<BeginGameRoundResponse> BeginGameRound(
-            BeginGameRoundRequest request,
-            ServerCallContext context)
+        public override BeginGameRoundResponse BeginGameRound(BeginGameRoundRequest request)
         {
             Logger.Debug($"BeginGameRound({request})");
 
             if (_gameDiagnostics.IsActive)
             {
-                return Task.FromResult(new BeginGameRoundResponse { Result = true });
+                return new BeginGameRoundResponse { Result = true };
             }
 
             var command = new BeginGameRound((long)request.Denomination);
@@ -256,10 +251,10 @@
 
             Logger.Debug($"BeginGameRound responding with ({command.Success})");
 
-            return Task.FromResult(new BeginGameRoundResponse { Result = command.Success });
+            return new BeginGameRoundResponse { Result = command.Success };
         }
 
-        public override Task<Empty> BeginGameRoundAsync(BeginGameRoundAsyncRequest request, ServerCallContext context)
+        public override Empty BeginGameRoundAsync(BeginGameRoundAsyncRequest request)
         {
             Logger.Debug($"BeginGameRoundAsync({request})");
 
@@ -287,16 +282,16 @@
                 _handlerFactory.Create<BeginGameRoundAsync>().Handle(command);
             }
 
-            return Task.FromResult(new Empty());
+            return EmptyResult;
         }
 
-        public override Task<Empty> BeginGameRoundResult(BeginGameRoundResultNotification request, ServerCallContext context)
+        public override Empty BeginGameRoundResult(BeginGameRoundResultNotification request)
         {
             Logger.Debug($"BeginGameRoundResult({request})");
 
             if (request.Results == null)
             {
-                return Task.FromResult(new Empty());
+                return EmptyResult;
             }
 
             foreach (var result in request.Results)
@@ -311,10 +306,10 @@
                 }
             }
 
-            return Task.FromResult(new Empty());
+            return EmptyResult;
         }
 
-        public override Task<Empty> GameRoundEvent(GameRoundEventRequest request, ServerCallContext context)
+        public override Empty GameRoundEvent(GameRoundEventRequest request)
         {
             Logger.Debug(
                 $"GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}");
@@ -359,7 +354,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> RecoveryPoint(RecoveryPointNotification request, ServerCallContext context)
+        public override Empty RecoveryPoint(RecoveryPointNotification request)
         {
             Logger.Debug("Received Recovery Point");
 
@@ -369,9 +364,8 @@
             return EmptyResult;
         }
 
-        public override Task<GetLocalStorageResponse> GetLocalStorage(
-            GetLocalStorageRequest request,
-            ServerCallContext context)
+        public override GetLocalStorageResponse GetLocalStorage(
+            GetLocalStorageRequest request)
         {
             Logger.Debug("GetLocalStorage called");
 
@@ -391,10 +385,10 @@
                 response.StorageData.Add(data);
             }
 
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<Empty> UpdateLocalStorage(UpdateLocalStorageRequest request, ServerCallContext context)
+        public override Empty UpdateLocalStorage(UpdateLocalStorageRequest request)
         {
             Logger.Debug("SetLocalStorage called");
 
@@ -411,12 +405,14 @@
             return EmptyResult;
         }
 
-        public override Task<GetMetersResponse> GetMeters(Empty request, ServerCallContext context)
+        public override GetMetersResponse GetMeters(Empty request)
         {
             // Replay gets all of it's data from the blob
+            var response = new GetMetersResponse();
+
             if (_gameDiagnostics.IsActive)
             {
-                return Task.FromResult(new GetMetersResponse());
+                return response;
             }
 
             var command = new GetInGameMeters();
@@ -427,14 +423,12 @@
             Logger.Debug(
                 $"GetMeters meters: {string.Join(",", command.MeterValues.Keys)} with values: {string.Join(",", command.MeterValues.Values)}");
 
-            var response = new GetMetersResponse();
-
             response.Meters.Add(command.MeterValues);
 
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<Empty> UpdateMeters(UpdateMetersRequest request, ServerCallContext context)
+        public override Empty UpdateMeters(UpdateMetersRequest request)
         {
             if (_gameDiagnostics.IsActive)
             {
@@ -452,27 +446,27 @@
             return EmptyResult;
         }
 
-        public override Task<GetRandomNumber32Response> GetRandomNumber32(GetRandomNumber32Request request, ServerCallContext context)
+        public override GetRandomNumber32Response GetRandomNumber32(GetRandomNumber32Request request)
         {
             Logger.Debug($"GetRandomNumberU64({request.Range})");
 
             var command = new GetRandomNumber(request.Range);
             _getRandomNumber.Handle(command);
 
-            return Task.FromResult(new GetRandomNumber32Response { Value = (uint)command.Value });
+            return new GetRandomNumber32Response { Value = (uint)command.Value };
         }
 
-        public override Task<GetRandomNumber64Response> GetRandomNumber64(GetRandomNumber64Request request, ServerCallContext context)
+        public override GetRandomNumber64Response GetRandomNumber64(GetRandomNumber64Request request)
         {
             Logger.Debug($"GetRandomNumberU64({request.Range})");
 
             var command = new GetRandomNumber(request.Range);
             _getRandomNumber.Handle(command);
 
-            return Task.FromResult(new GetRandomNumber64Response { Value = command.Value });
+            return new GetRandomNumber64Response { Value = command.Value };
         }
 
-        public override Task<ShuffleResponse> Shuffle(ShuffleRequest request, ServerCallContext context)
+        public override ShuffleResponse Shuffle(ShuffleRequest request)
         {
             var command = new Shuffle(new List<ulong>(request.Value));
 
@@ -482,10 +476,10 @@
 
             response.Value.Add(command.Values);
 
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<Empty> UpdateBonusKey(UpdateBonusKeyRequest request, ServerCallContext context)
+        public override Empty UpdateBonusKey(UpdateBonusKeyRequest request)
         {
             Logger.Debug($"SetBonusKey poolName: {request.PoolName} key: {request.Key}");
 
@@ -497,7 +491,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> EndGameRound(EndGameRoundRequest request, ServerCallContext context)
+        public override Empty EndGameRound(EndGameRoundRequest request)
         {
             Logger.Debug($"EndGameRound: {request.BetAmount} {request.WinAmount}");
 
@@ -511,7 +505,7 @@
             return EmptyResult;
         }
 
-        public override Task<ConnectJackpotPoolResponse> ConnectJackpotPool(ConnectJackpotPoolRequest request, ServerCallContext context)
+        public override ConnectJackpotPoolResponse ConnectJackpotPool(ConnectJackpotPoolRequest request)
         {
             Logger.Debug($"ConnectJackpotPool {request.PoolName}");
 
@@ -520,10 +514,10 @@
             _handlerFactory.Create<ConnectJackpotPool>()
                 .Handle(command);
 
-            return Task.FromResult(new ConnectJackpotPoolResponse { Connected = command.Connected });
+            return new ConnectJackpotPoolResponse { Connected = command.Connected };
         }
 
-        public override Task<LevelInfoResponse> GetJackpotValues(GetJackpotValuesRequest request, ServerCallContext context)
+        public override LevelInfoResponse GetJackpotValues(GetJackpotValuesRequest request)
         {
             var command = new GetJackpotValues(request.PoolName, request.PlayMode == GameRoundPlayMode.ModeRecovery || request.PlayMode == GameRoundPlayMode.ModeReplay);
 
@@ -536,10 +530,10 @@
                 command.JackpotValues.Select(
                     r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value.MillicentsToCents() }));
 
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<Empty> UpdateJackpotValues(UpdateJackpotValuesRequest request, ServerCallContext context)
+        public override Empty UpdateJackpotValues(UpdateJackpotValuesRequest request)
         {
             Logger.Debug(
                 $"IncrementJackpotValues - mode: {request.PlayMode} name: {request.PoolName} values: {request.PoolValues.Count}");
@@ -559,7 +553,7 @@
             return EmptyResult;
         }
 
-        public override Task<TriggerJackpotResponse> TriggerJackpot(TriggerJackpotRequest request, ServerCallContext context)
+        public override TriggerJackpotResponse TriggerJackpot(TriggerJackpotRequest request)
         {
             Logger.Debug(
                 $"TriggerJackpot mode: {request.Mode} poolName: {request.PoolName} levels: {string.Join(",", request.Levels)} transactionIds:{string.Join(",", request.TransactionIds)}");
@@ -582,10 +576,10 @@
 
             response.Trigger.Add(results);
 
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<LevelInfoResponse> ClaimJackpot(ClaimJackpotRequest request, ServerCallContext context)
+        public override LevelInfoResponse ClaimJackpot(ClaimJackpotRequest request)
         {
             Logger.Debug($"ClaimJackpot mode: {request.PlayMode} poolName:{request.PoolName} transactionIds:{string.Join(",", request.TransactionIds)}");
 
@@ -605,10 +599,10 @@
             Logger.Debug(
                 $"ClaimJackpot Response poolName:{request.PoolName} transactionIds:{string.Join(",", request.TransactionIds)} amounts:{string.Join(",", claim.Results)}");
 
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<Empty> SetJackpotLevelWagers(LevelWagerRequest request, ServerCallContext context)
+        public override Empty SetJackpotLevelWagers(LevelWagerRequest request)
         {
             Logger.Debug($"SetJackpotWager wagers:{string.Join(",", request.Wagers)}");
 
@@ -621,7 +615,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> SelectDenomination(SelectDenominationRequest request, ServerCallContext context)
+        public override Empty SelectDenomination(SelectDenominationRequest request)
         {
             Logger.Debug($"Select Denomination with denom: {request.Denomination}");
 
@@ -632,7 +626,7 @@
             return EmptyResult;
         }
 
-        public override Task<Empty> UpdateBetOptions(UpdateBetOptionsRequest request, ServerCallContext context)
+        public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)
         {
             Logger.Debug($"Update Bet Line option with wager : {request.Wager}");
 

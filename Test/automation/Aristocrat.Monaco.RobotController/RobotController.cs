@@ -127,6 +127,8 @@
         private bool ExpectingRecovery => ControllerState == RobotControllerState.ForceGameExit ||
                                           ControllerState == RobotControllerState.WaitForRecoveryStart ||
                                           ControllerState == RobotControllerState.OutOfOperatingHours ||
+                                          ControllerState == RobotControllerState.WaitLobbyLoad ||
+                                          ControllerState == RobotControllerState.Running ||
                                           _expectingRecovery;
 
         private RobotControllerState ControllerState
@@ -723,7 +725,14 @@
                         return;
                     }
 
-                    // Exempt voucher lockups from disabling robot mode because this will happen every hour
+                    if (evt.DisableReasons.Contains("Host Disconnected"))
+                    {
+                        LogInfo("Not disabling for host disconnect");
+
+                        return;
+                    }
+
+                    //exempt voucher lockups from disabling robot mode because this will happen every hour
                     if (!ExpectingLockup && _config.Active.DisableOnLockup)
                     {
                         LogInfo($"Disabling for system disable {evt.DisableId}, reason: {evt.DisableReasons}");
@@ -731,7 +740,7 @@
                     }
                 });
 
-            _eventBus.Subscribe<OperatingHoursEnabledEvent>( this, _ => 
+            _eventBus.Subscribe<OperatingHoursEnabledEvent>(this, _ => 
             {
                 if (Enabled && ControllerState == RobotControllerState.OutOfOperatingHours)
                 {
@@ -739,9 +748,7 @@
                 }
             });
 
-            _eventBus.Subscribe<RecoveryStartedEvent>(
-                this,
-                _ =>
+            _eventBus.Subscribe<RecoveryStartedEvent>(this, _ =>
                 {
                     PlatformState = RobotPlatformState.InRecovery;
 

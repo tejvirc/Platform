@@ -171,17 +171,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="Runtime\Proto\gameService.proto" ProtoRoot="Runtime\Proto\" GrpcServices="Server" />
-    <Protobuf Include="Runtime\Proto\reelMessages.proto" ProtoRoot="Runtime\Proto\" GrpcServices="None" />
-    <Protobuf Include="Runtime\Proto\runtimeReelService.proto" ProtoRoot="Runtime\Proto\" GrpcServices="Client" />
-    <Protobuf Include="Runtime\Proto\reelService.proto" ProtoRoot="Runtime\Proto\" GrpcServices="Server" />
-    <Protobuf Include="Runtime\Proto\runtimeService.proto" ProtoRoot="Runtime\Proto\" GrpcServices="Client" />
-    <Protobuf Include="Runtime\Proto\messages.proto" ProtoRoot="Runtime\Proto\" GrpcServices="None" />
-    <Protobuf Include="Runtime\Proto\presentationService.proto" ProtoRoot="Runtime\Proto" GrpcServices="Server" />
-    <Protobuf Include="Runtime\Proto\runtimePresentationService.proto" ProtoRoot="Runtime\Proto" GrpcServices="Client" />
-    <Protobuf Include="Runtime\Proto\presentationType.proto" ProtoRoot="Runtime\Proto" GrpcServices="None" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj" />
     <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
@@ -198,12 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Google.Protobuf" Version="3.15.8" />
-    <PackageReference Include="Grpc" Version="2.37.1" />
-    <PackageReference Include="Grpc.Tools" Version="2.37.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.49" />
+    <PackageReference Include="Aristocrat.Snapp" Version="0.1.49" />
+    <PackageReference Include="Google.Protobuf" Version="3.19.4" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

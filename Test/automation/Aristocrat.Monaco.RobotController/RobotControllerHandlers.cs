@@ -114,6 +114,7 @@
         {
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
             TransitionState(RobotControllerState.WaitForRecoveryStart);
+            _waitDuration = 0;
         }
 
         private void HandlerRequestGameExit()
@@ -497,7 +498,8 @@
 
                             if (transaction != null)
                             {
-                                if (transaction.Exception.Equals((int)CurrencyInExceptionCode.CreditInLimitExceeded) ||
+                                if (transaction.Exception.Equals((int)CurrencyInExceptionCode.CreditLimitExceeded) ||
+                                    transaction.Exception.Equals((int)CurrencyInExceptionCode.CreditInLimitExceeded) ||
                                     transaction.Exception.Equals((int)CurrencyInExceptionCode.LaundryLimitExceeded))
                                 {
                                     _eventBus.Publish(new CashOutButtonPressedEvent());
@@ -558,6 +560,8 @@
 
                     _eventBus.Unsubscribe<BankBalanceChangedEvent>(this);
 
+                    LogInfo("Insert credits did not complete, cashing out and retrying insert credits.");
+                    _eventBus.Publish(new CashOutButtonPressedEvent());
                     TransitionState(RobotControllerState.InsertCredits);
                 }
             }

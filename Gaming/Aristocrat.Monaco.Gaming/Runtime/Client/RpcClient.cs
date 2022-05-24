@@ -6,56 +6,55 @@
     using System.Reflection;
     using System.Threading;
     using Application.Contracts.Extensions;
+    using Aristocrat.GdkRuntime.V1;
     using Contracts;
     using Contracts.Process;
     using Google.Protobuf.WellKnownTypes;
-    using Grpc.Core;
     using Hardware.Contracts.Reel;
     using Kernel;
     using log4net;
-    using V1;
-    using Empty = V1.Empty;
+    using Snapp;
+    using Empty = Aristocrat.GdkRuntime.V1.Empty;
     using Outcome = Contracts.Central.Outcome;
 
     public class RpcClient : IRuntime, IDisposable, IReelService, IPresentationService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(30);
-        private static readonly TimeSpan SendTimeout = TimeSpan.FromSeconds(30);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IProcessManager _processManager;
 
-        private readonly object _sync = new object();
+        private readonly object _sync = new ();
 
         private Channel _channel;
-        private RuntimeService.RuntimeServiceClient _client;
-        private RuntimeReelService.RuntimeReelServiceClient _reelClient;
-        private RuntimePresentationService.RuntimePresentationServiceClient _presentationOverrideClient;
-        private CallOptions _defaultCallOptions;
+        private RuntimeServiceStub _runtimeStub;
+        private RuntimeReelServiceStub _runtimeReelStub;
+        private RuntimePresentationServiceStub _runtimePresentationStub;
         private bool _shutdownRequested;
         private bool _disposed;
-        private CancellationTokenSource _runtimeCancellation = new CancellationTokenSource();
 
-        public RpcClient(IEventBus eventBus, IProcessManager processManager, int port)
+        public RpcClient(IEventBus eventBus, IProcessManager processManager)
         {
+            Logger.Debug("Create RpcClient");
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _processManager = processManager ?? throw new ArgumentNullException(nameof(processManager));
 
-            _channel = new Channel($"localhost:{port}", ChannelCredentials.Insecure);
+            // Create channel using transport (in this case … named pipe)
+            _channel = new Channel(new NamedPipeTransport("MonacoRuntimeSnapp"));
 
-            _client = new RuntimeService.RuntimeServiceClient(_channel);
-            _reelClient = new RuntimeReelService.RuntimeReelServiceClient(_channel);
-            _presentationOverrideClient = new RuntimePresentationService.RuntimePresentationServiceClient(_channel);
+            // Connect to Server - here, it’s assumed that the Runtime server is already running (because the
+            // Runtime calls RpcServer.Join() which creates this object, so we know that the Runtime server is up)
+            _channel.Connect();
 
-            _defaultCallOptions = new CallOptions().WithWaitForReady();
+            // Create stubs
+            _runtimeStub = new RuntimeServiceStub { ServiceChannel = _channel };
+            _runtimeReelStub = new RuntimeReelServiceStub { ServiceChannel = _channel };
+            _runtimePresentationStub = new RuntimePresentationServiceStub { ServiceChannel = _channel };
 
             _eventBus.Subscribe<GameProcessExitedEvent>(this, _ =>
             {
-                _runtimeCancellation?.Cancel(false);
-                _runtimeCancellation?.Dispose();
-
-                _runtimeCancellation = new CancellationTokenSource();
+                Logger.Debug("Handle GameProcessExitedEvent");
+                _channel = null;
             });
         }
 
@@ -65,14 +64,14 @@
             GC.SuppressFinalize(this);
         }
 
-        public bool Connected => _channel?.State == ChannelState.Idle || _channel?.State == ChannelState.Ready;
-        
+        public bool Connected => _channel?.IsConnected ?? false;
+
         public bool GetFlag(RuntimeCondition flag)
         {
             return Invoke(
                 client =>
                 {
-                    var reply = client.GetFlag(new GetFlagRequest { Flag = (RuntimeFlag)flag }, Options());
+                    var reply = client.GetFlag(new GetFlagRequest { Flag = (RuntimeFlag)flag });
 
                     return reply.Value;
                 });
@@ -80,7 +79,7 @@
 
         public void UpdateFlag(RuntimeCondition flag, bool state)
         {
-            Invoke(client => client.UpdateFlag(new UpdateFlagRequest { Flag = (RuntimeFlag)flag, State = state }, Options()));
+            Invoke(client => client.UpdateFlag(new UpdateFlagRequest { Flag = (RuntimeFlag)flag, State = state }));
         }
 
         public RuntimeState GetState()
@@ -88,7 +87,7 @@
             return Invoke(
                 client =>
                 {
-                    var reply = client.GetState(new Empty(), Options());
+                    var reply = client.GetState(new Empty());
 
                     return (RuntimeState)reply.State;
                 });
@@ -96,22 +95,22 @@
 
         public void UpdateState(RuntimeState state)
         {
-            Invoke(client => client.UpdateState(new UpdateStateRequest { State = (V1.RuntimeState)state }, Options()));
+            Invoke(client => client.UpdateState(new UpdateStateRequest { State = (Aristocrat.GdkRuntime.V1.RuntimeState)state }));
         }
 
         public void InvokeButton(uint id, int state)
         {
-            Invoke(client => client.InvokeButton(new InvokeButtonRequest { ButtonId = id, State = state }, Options()));
+            Invoke(client => client.InvokeButton(new InvokeButtonRequest { ButtonId = id, State = state }));
         }
 
         public void UpdateBalance(long credits)
         {
-            Invoke(client => client.UpdateBalance(new UpdateBalanceNotification { Value = (ulong)credits }, Options()));
+            Invoke(client => client.UpdateBalance(new UpdateBalanceNotification { Value = (ulong)credits }));
         }
 
         public void JackpotNotification()
         {
-            Invoke(client => client.OnJackpotUpdated(new Empty(), Options()));
+            Invoke(client => client.OnJackpotUpdated(new Empty()));
         }
 
         public void JackpotWinNotification(string poolName, IDictionary<int, long> winLevels)
@@ -122,7 +121,7 @@
                 winLevels.Select(
                     r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value}));
 
-            Invoke(client => client.JackpotWinAvailable(request, Options()));
+            Invoke(client => client.JackpotWinAvailable(request));
         }
 
         public void BeginGameRoundResponse(BeginGameRoundResult result, IEnumerable<Outcome> outcomes, CancellationTokenSource cancellationTokenSource = null)
@@ -134,20 +133,20 @@
 
             notification.Outcomes.Add(
                 outcomes.Select(
-                    o => new V1.Outcome
+                    o => new Aristocrat.GdkRuntime.V1.Outcome
                     {
-                        Type = (V1.Outcome.Types.OutcomeType)o.Type,
+                        Type = (Aristocrat.GdkRuntime.V1.Outcome.Types.OutcomeType)o.Type,
                         WinAmount = (ulong)o.Value.MillicentsToCents(),
                         LookupData = o.LookupData,
                         WinLevelIndex = o.WinLevelIndex
                     }));
 
-            Invoke(client => client.BeginGameRoundResult(notification, Options(cancellationTokenSource)));
+            Invoke(client => client.BeginGameRoundResult(notification));
         }
 
         public void UpdateVolume(float level)
         {
-            Invoke(client => client.UpdateVolume(new VolumeUpdateNotification { Volume = level }, Options()));
+            Invoke(client => client.UpdateVolume(new VolumeUpdateNotification { Volume = level }));
         }
 
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)
@@ -157,24 +156,23 @@
                     new UpdateButtonStateRequest
                     {
                         ButtonId = buttonId, ButtonMask = (int)mask, ButtonState = (int)state
-                    },
-                    Options()));
+                    }));
         }
 
         public void UpdateLocalTimeTranslationBias(TimeSpan duration)
         {
             Invoke(
                 client => client.UpdateLocalTimeTranslationBias(
-                    new UpdateLocalTimeTranslationBiasRequest { Minutes = (int)duration.TotalMinutes }, Options()));
+                    new UpdateLocalTimeTranslationBiasRequest { Minutes = (int)duration.TotalMinutes }));
         }
 
         public void UpdateParameters(IDictionary<string, string> parameters, ConfigurationTarget target)
         {
-            var request = new UpdateParametersRequest { Target = (V1.ConfigurationTarget)target };
+            var request = new UpdateParametersRequest { Target = (Aristocrat.GdkRuntime.V1.ConfigurationTarget)target };
 
             request.Parameters.Add(parameters);
 
-            Invoke(client => client.UpdateParameters(request, Options()));
+            Invoke(client => client.UpdateParameters(request));
         }
 
         public void UpdatePlatformMessages(IEnumerable<string> messages)
@@ -185,19 +183,19 @@
             {
                 request.Messages.Add(messagesList);
             }
-            Invoke(client => client.UpdatePlatformMessage(request, Options()));
+            Invoke(client => client.UpdatePlatformMessage(request));
         }
 
         public void UpdateTimeRemaining(string message)
         {
-            Invoke(client => client.UpdateTimeRemaining(new UpdateTimeRemainingRequest { TimeRemaining = message }, Options()));
+            Invoke(client => client.UpdateTimeRemaining(new UpdateTimeRemainingRequest { TimeRemaining = message }));
         }
 
         public void Shutdown()
         {
             lock (_sync)
             {
-                Invoke(client => client.Shutdown(new Empty(), Options()));
+                Invoke(client => client.Shutdown(new Empty()));
 
                 _shutdownRequested = true;
             }
@@ -210,13 +208,13 @@
                 States = { updateData.ToDictionary(x => x.Key, x => HardwareReelExtensions.GetReelState(x.Value)) }
             };
 
-            Invoke(x => x.UpdateReelState(stateRequest, Options()));
+            Invoke(x => x.UpdateReelState(stateRequest));
         }
 
         public void PresentOverriddenPresentation(IList<PresentationOverrideData> presentations)
         {
             var overriddenPresentationMessage = new OverriddenPresentationMessage();
-            
+
             foreach (var presentation in presentations)
             {
                 var presentationMessage = new TextPresentationMessage
@@ -227,8 +225,8 @@
 
                 overriddenPresentationMessage.OverridingMessages.Add(Any.Pack(presentationMessage));
             }
-            
-            Invoke(x => x.PresentOverriddenPresentation(overriddenPresentationMessage, Options()));
+
+            Invoke(x => x .PresentOverriddenPresentation(overriddenPresentationMessage));
         }
 
         protected virtual void Dispose(bool disposing)
@@ -240,45 +238,27 @@
 
             if (disposing)
             {
-                _channel.ShutdownAsync().Wait(ShutdownTimeout);
-
-                // ReSharper disable once UseNullPropagation
-                if (_runtimeCancellation != null)
-                {
-                    _runtimeCancellation.Cancel(false);
-                    _runtimeCancellation.Dispose();
-                    _runtimeCancellation = null;
-                }
-
                 _eventBus.UnsubscribeAll(this);
             }
 
             _channel = null;
-            _client = null;
-            _reelClient = null;
-            _presentationOverrideClient = null;
+            _runtimeStub = null;
+            _runtimeReelStub = null;
+            _runtimePresentationStub = null;
 
             _disposed = true;
         }
 
-        private CallOptions Options(CancellationTokenSource cancellationTokenSource = null)
-        {
-            return cancellationTokenSource == null
-                ? _defaultCallOptions.WithDeadline(DateTime.UtcNow.Add(SendTimeout))
-                    .WithCancellationToken(_runtimeCancellation.Token)
-                : _defaultCallOptions.WithDeadline(DateTime.UtcNow.Add(SendTimeout))
-                    .WithCancellationToken(cancellationTokenSource.Token);
-        }
-
         private static bool IsRuntimePresumedDead(Exception ex)
         {
-            return ex is RpcException rpcException &&
-                   rpcException.StatusCode != StatusCode.Cancelled && // Game process exited
-                   rpcException.StatusCode != StatusCode.InvalidArgument && // Value not supported by this client
-                   rpcException.StatusCode != StatusCode.OK;
+            if (ex is StatusCodeException snappException)
+            {
+                return snappException.Status.StatusCode != StatusCode.Ok;
+            }
+            return false;
         }
 
-        private void Invoke<T>(Func<RuntimePresentationService.RuntimePresentationServiceClient, T> callback)
+        private void Invoke<T>(Func<RuntimePresentationServiceStub, T> callback)
         {
             var localLogger = Logger;
 
@@ -298,7 +278,7 @@
 
             try
             {
-                callback(_presentationOverrideClient);
+                callback(_runtimePresentationStub);
             }
             catch (Exception ex) when (IsRuntimePresumedDead(ex))
             {
@@ -316,7 +296,7 @@
             }
         }
 
-        private void Invoke<T>(Func<RuntimeReelService.RuntimeReelServiceClient, T> callback)
+        private void Invoke<T>(Func<RuntimeReelServiceStub, T> callback)
         {
             var localLogger = Logger;
 
@@ -336,7 +316,7 @@
 
             try
             {
-                callback(_reelClient);
+                callback(_runtimeReelStub);
             }
             catch (Exception ex) when (IsRuntimePresumedDead(ex))
             {
@@ -354,7 +334,7 @@
             }
         }
 
-        private T Invoke<T>(Func<RuntimeService.RuntimeServiceClient, T> callback)
+        private T Invoke<T>(Func<RuntimeServiceStub, T> callback)
         {
             var localLogger = Logger;
 
@@ -374,7 +354,7 @@
 
             try
             {
-                return callback(_client);
+                return callback(_runtimeStub);
             }
             catch (Exception ex) when (IsRuntimePresumedDead(ex))
             {
