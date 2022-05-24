@@ -3,26 +3,26 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Metering;
-    using Aristocrat.Monaco.Bingo.Commands;
-    using Aristocrat.Monaco.Bingo.Services.Reporting;
-    using Aristocrat.Monaco.Gaming.Contracts;
+    using Common;
+    using Gaming.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Services.Reporting;
 
     [TestClass]
     public class StatusResponseHandlerTests
     {
-        private readonly Mock<ICommandService> _statusResponseService = new Mock<ICommandService>(MockBehavior.Default);
-        private readonly Mock<IMeterManager> _meterManager = new Mock<IMeterManager>(MockBehavior.Strict);
-        private readonly Mock<IMeter> _meterCashOut = new Mock<IMeter>(MockBehavior.Loose);
-        private readonly Mock<IMeter> _meterCashIn = new Mock<IMeter>(MockBehavior.Loose);
-        private readonly Mock<IMeter> _meterCashWon = new Mock<IMeter>(MockBehavior.Loose);
-        private readonly Mock<IMeter> _meterCashPlayed = new Mock<IMeter>(MockBehavior.Loose);
-        private readonly Mock<IEgmStatusService> _statusService = new Mock<IEgmStatusService>(MockBehavior.Default);
-        public StatusResponseHandler _target;
+        private readonly Mock<ICommandService> _statusResponseService = new(MockBehavior.Default);
+        private readonly Mock<IMeterManager> _meterManager = new(MockBehavior.Strict);
+        private readonly Mock<IMeter> _meterCashOut = new(MockBehavior.Loose);
+        private readonly Mock<IMeter> _meterCashIn = new(MockBehavior.Loose);
+        private readonly Mock<IMeter> _meterCashWon = new(MockBehavior.Loose);
+        private readonly Mock<IMeter> _meterCashPlayed = new(MockBehavior.Loose);
+        private readonly Mock<IEgmStatusService> _statusService = new(MockBehavior.Default);
+        private StatusResponseHandler _target;
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -49,14 +49,48 @@
         [TestMethod]
         public async Task StatusHandleTest()
         {
+            const long cashOutAmount = 100_00;
+            const long cashInAmount = 120_00;
+            const long cashWonAmount = 150_00;
+            const long cashPlayedAmount = 123_00;
+            const EgmStatusFlag egmStatusFlag = EgmStatusFlag.OnLine | EgmStatusFlag.DisabledByProgCntrl;
+
+            _meterCashOut.Setup(x => x.Session).Returns(cashOutAmount.CentsToMillicents());
+            _meterCashIn.Setup(x => x.Session).Returns(cashInAmount.CentsToMillicents());
+            _meterCashWon.Setup(x => x.Session).Returns(cashWonAmount.CentsToMillicents());
+            _meterCashPlayed.Setup(x => x.Session).Returns(cashPlayedAmount.CentsToMillicents());
+            _statusService.Setup(x => x.GetCurrentEgmStatus()).Returns(egmStatusFlag);
+
             var message = new StatusResponseMessage("123");
-            CancellationToken token = CancellationToken.None;
+            _statusResponseService
+                .Setup(m => m.ReportStatus(It.IsAny<StatusResponseMessage>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(1)).Verifiable();
+            await _target.Handle(message, CancellationToken.None);
+            _statusResponseService.Verify(
+                s => s.ReportStatus(
+                    It.Is<StatusResponseMessage>(
+                        m => ValidMessage(
+                            m,
+                            egmStatusFlag,
+                            cashInAmount,
+                            cashOutAmount,
+                            cashPlayedAmount,
+                            cashWonAmount)),
+                    It.IsAny<CancellationToken>()),
+                Times.Once());
+        }
 
-            _statusResponseService.Setup(m => m.ReportStatus(message, token)).Returns(Task.FromResult(1)).Verifiable();
-
-            await _target.Handle(message);
-
-            _statusResponseService.Verify(m => m.ReportStatus(message, token), Times.Once());
+        private static bool ValidMessage(
+            StatusResponseMessage message,
+            EgmStatusFlag egmStatusFlag,
+            long cashInAmount,
+            long cashOutAmount,
+            long cashPlayedAmount,
+            long cashWonAmount)
+        {
+            return message.EgmStatusFlags == (int)egmStatusFlag && message.CashInMeterValue == cashInAmount &&
+                   message.CashOutMeterValue == cashOutAmount && message.CashPlayedMeterValue == cashPlayedAmount &&
+                   message.CashWonMeterValue == cashWonAmount;
         }
 
         private StatusResponseHandler CreateTarget(bool nullResponse = false, bool nullMeter = false, bool nullStatus = false)

@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Metering;
     using Aristocrat.Bingo.Client.Messages;
     using Gaming.Contracts;
@@ -34,10 +35,10 @@
                 var cashWonMeter = _meterManager.GetMeter(GamingMeters.TotalPaidAmt);
                 var cashPlayedMeter = _meterManager.GetMeter(GamingMeters.WageredAmount);
 
-                message.CashPlayedMeterValue = cashPlayedMeter.GetValue(MeterTimeframe.Session);
-                message.CashWonMeterValue = cashWonMeter.GetValue(MeterTimeframe.Session);
-                message.CashInMeterValue = cashInMeter.GetValue(MeterTimeframe.Session);
-                message.CashOutMeterValue = cashOutMeter.GetValue(MeterTimeframe.Session);
+                message.CashPlayedMeterValue = cashPlayedMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
+                message.CashWonMeterValue = cashWonMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
+                message.CashInMeterValue = cashInMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
+                message.CashOutMeterValue = cashOutMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
                 message.EgmStatusFlags = (int)_egmStatusService.GetCurrentEgmStatus();
 
                 await _statusResponseService.ReportStatus(message, token);
