@@ -14335,9 +14335,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -17751,7 +17748,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Commands.StatusResponseHandler.html",
-          "hash": "JgkEdK62Id582rZhmVXfxyqNvrr0WovjEw394jvdOpY="
+          "hash": "0dDvd6E4YpFZLZNDxG7e9iX/3cHWcFSQWJcom7V04jw="
         }
       },
       "is_incremental": false,
@@ -41125,6 +41122,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
