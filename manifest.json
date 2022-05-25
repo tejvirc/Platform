@@ -14335,9 +14335,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -41125,6 +41122,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -61122,7 +61122,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.FailureStatus.html",
-          "hash": "DVa4eAXUEbD7kymgEhou/VG3mIdsutxD2j49DYx8/zY="
+          "hash": "kzrwy3tKA560CjPdAYmDHmhVP2JMCc4Gi5jJhEzzbbc="
         }
       },
       "is_incremental": false,
@@ -61242,7 +61242,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelSpinningStatus.html",
-          "hash": "tOxBZICek8YAPaSZj1gDbzr+dOOGNxivVPjmJkChvss="
+          "hash": "ea/qdFvIpjF+YJ4iiGA1hQHSSPXT+k6OuPcA6m1SpfA="
         }
       },
       "is_incremental": false,
