@@ -204,7 +204,7 @@
                 _overlayServer.UpdateData(new BingoLiveData { ClearBallCall = true });
             }
 
-            var diff = _currentBingoSettings?.MinimumPreDaubedTimeMs ?? 0 - _stopwatch.ElapsedMilliseconds;
+            var diff = (_currentBingoSettings?.MinimumPreDaubedTimeMs ?? 0) - _stopwatch.ElapsedMilliseconds;
             if (diff > 0)
             {
                 Logger.Debug($"Adding artificial daub delay to the bingo card and ball call: {diff}ms");
