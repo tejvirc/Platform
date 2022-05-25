@@ -653,7 +653,7 @@
                         x.FailedHome = true;
                         return x;
                     });
-                OnMessageReceived(new ReelSpinningStatus { ReelId = reel, FailedHome = true });
+                OnMessageReceived(new FailureStatus { ReelId = reel, FailedHome = true, ErrorCode = (byte)response.ResponseCode });
             }
             else
             {

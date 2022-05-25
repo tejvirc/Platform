@@ -202,12 +202,11 @@
                     }
                 }
 
+                HomeEnabled = true;
+                SpinEnabled = true;
+                NudgeEnabled = true;
                 _updateScreenCallback();
             });
-
-            HomeEnabled = true;
-            SpinEnabled = true;
-            NudgeEnabled = true;
         }
 
         private ReelInfoItem GetActiveReel(int reel) => ReelInfo.First(o => o.Id == reel);
@@ -297,12 +296,12 @@
 
             await Task.WhenAll(tasks);
 
-            _updateScreenCallback();
-
             HomeEnabled = true;
             SpinEnabled = true;
             NudgeEnabled = true;
             _checkHasFault = true;
+
+            _updateScreenCallback();
 
             _eventBus.Publish(
                 new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.MechanicalReels));
