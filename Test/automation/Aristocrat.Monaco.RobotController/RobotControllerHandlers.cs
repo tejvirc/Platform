@@ -149,8 +149,6 @@
 
         private void HandlerRunning()
         {
-            _idleDuration += _config.Active.IntervalResolution;
-
             IdleCheck();
 
             if (!Enabled)

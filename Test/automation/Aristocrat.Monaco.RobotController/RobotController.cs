@@ -166,7 +166,7 @@
 
             set
             {
-                LogInfo("Transition Platform State: " + value);
+                LogInfo($"Transition Platform from [{_platformState}] to [{value}]");
                 _platformState = value;
             }
         }
@@ -189,11 +189,11 @@
         {
             if (ValidateStateTransition(newState))
             {
-                LogInfo($"Transition: {_controllerState.ToString()} -> {newState.ToString()}");
-                _controllerState = newState;
+                LogInfo($"Transition: {ControllerState} -> {newState.ToString()}");
+                ControllerState = newState;
                 return;
             }
-            LogInfo($"ValidateStateTransition Failed for Transition: {_controllerState.ToString()} -> {newState.ToString()}");
+            LogInfo($"ValidateStateTransition Failed for Transition: {ControllerState} -> {newState.ToString()}");
         }
 
         private bool ValidateStateTransition(RobotControllerState newState)
@@ -204,34 +204,26 @@
             return result;
         }
 
+        private bool ValidateRecoveryTransition(){
+            return ExpectingRecovery || (_gameService != null && _gameService.Running);
+        }
+
         private bool ValidateTransitionToWaitForRecoveryStart(RobotControllerState newState)
         {
-            if (ExpectingRecovery)
+            if (newState == RobotControllerState.WaitForRecoveryStart)
             {
-                return true;
+                return ValidateRecoveryTransition();
             }
-            if (_gameService is null)
-            {
-                LogInfo($"Robot is Stopped due to GameService is not available");
-                Enabled = false;
-                return false;
-            }
-            return newState == RobotControllerState.WaitForRecoveryStart ? _gameService.Running : true;
+            return true;
         }
 
         private bool ValidateTransitionToDriveRecoveryState(RobotControllerState newState)
         {
-            if (ExpectingRecovery)
+            if (newState == RobotControllerState.DriveRecovery)
             {
-                return true;
+                return ValidateRecoveryTransition();
             }
-            if (_gameService is null)
-            {
-                LogInfo($"Robot is Stopped due to GameService is not available");
-                Enabled = false;
-                return false;
-            }
-            return newState == RobotControllerState.DriveRecovery ? _gameService.Running : true;
+            return true;
         }
 
         /// <inheritdoc />
@@ -316,9 +308,10 @@
                         PlatformState != RobotPlatformState.InAudit &&
                         !_expectingAuditMenu)
                     {
+                        IncrementCounters();
+
                         LogInfo("Idle time: " + _idleDuration);
 
-                        IncrementCounter();
 
                         if (TimeTo(_counter, _config.Active.IntervalRgSet))
                         {
@@ -461,16 +454,18 @@
             LogInfo("Run Stopped");
         }
 
-        private void IncrementCounter()
+        private void IncrementCounters()
         {
             try
             {
                 _counter += _config.Active.IntervalResolution;
+                _idleDuration += _config.Active.IntervalResolution;
             }
             catch (OverflowException ex)
             {
-                LogError(ex.ToString());
+                LogInfo(ex.ToString());
                 _counter = 0;
+                _idleDuration = 0;
             }
         }
 
@@ -743,12 +738,13 @@
                 this,
                 _ =>
                 {
-                    PlatformState = RobotPlatformState.InRecovery;
-
-                    if (Enabled)
+                    if (ValidateRecoveryTransition())
                     {
+                        PlatformState = RobotPlatformState.InRecovery;
                         TransitionState(RobotControllerState.DriveRecovery);
+                        return;
                     }
+                    LogInfo($"RecoveryStartedEvent didn't pass the ValidateRecoveryTransitrion");
                 });
 
             _eventBus.Subscribe<CashOutStartedEvent>(this, _ =>
