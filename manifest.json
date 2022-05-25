@@ -14422,9 +14422,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23605,6 +23602,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -67662,7 +67662,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.Protocols.SerialDeviceProtocol.html",
-          "hash": "GLVHDdd0zhnJ1fBSCPSOlZ8zKbyCqjvOXUuNpIEaLzY="
+          "hash": "S62LOB36okoiV/cjf35wRS75bjROHPY25V6KpkgxtME="
         }
       },
       "is_incremental": false,
