@@ -1373,6 +1373,12 @@
 
         private void HandleEvent(PlayerMenuButtonPressedEvent evt)
         {
+            if (MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut)
+            {
+                return;
+            }
+
+            MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut = !evt.Show;
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
