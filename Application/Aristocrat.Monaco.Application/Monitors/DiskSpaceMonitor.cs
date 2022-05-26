@@ -131,7 +131,7 @@
             {
                 _disabled = true;
 
-                _disableManager.Disable(LockupId, SystemDisablePriority.Immediate,
+                _disableManager.Disable(LockupId, SystemDisablePriority.Normal,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DiskSpaceBelowThresholdMessage));
 
                 PlayErrorSound();
