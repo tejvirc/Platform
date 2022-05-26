@@ -50,7 +50,10 @@
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaLobbyConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+	  <ExtensionPointConfiguration extensionPath="/Audio/VolumeSettingConfiguration">
+		<NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaVolumeSettingConfig" />
+	  </ExtensionPointConfiguration>
+  	  <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.NevadaJurisdiction" filterid="NevadaAccountingConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
