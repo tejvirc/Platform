@@ -12,6 +12,7 @@
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Display;
+    using Hardware.Contracts.KeySwitch;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.Touch;
     using Kernel;
@@ -23,6 +24,8 @@
         private const string LcdButtonDeckDescription = "USBD480";
         private const string BlockName = "Aristocrat.Monaco.Application.Monitors.DisplayMonitor";
         private const int ExpectedButtonDeckDisplayCount = 2;
+        private const int JackpotKeyLogicalId = 130;
+
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private static readonly Dictionary<DisplayRole, string> TouchScreenMeters = new Dictionary<DisplayRole, string>
@@ -57,6 +60,7 @@
         private readonly object _lock = new object();
         private readonly IPersistentStorageAccessor _persistentBlock;
         private readonly IPersistentStorageManager _persistentStorage;
+        private readonly IPropertiesManager _properties;
         private readonly List<DeviceStatusHandler> _deviceStatusHandlers = new List<DeviceStatusHandler>();
         private readonly bool _lcdButtonDeckExpected;
         private bool _lcdButtonDeckConnected = true;
@@ -72,7 +76,8 @@
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
-                ServiceManager.GetInstance().GetService<IButtonDeckDisplay>())
+                ServiceManager.GetInstance().GetService<IButtonDeckDisplay>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
@@ -82,15 +87,23 @@
             IMeterManager meterManager,
             IPersistentStorageManager persistentStorage,
             ICabinetDetectionService cabinetDetectionService,
-            IButtonDeckDisplay buttonDeckDisplay)
+            IButtonDeckDisplay buttonDeckDisplay,
+            IPropertiesManager properties)
         {
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
-            _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
-            _cabinetDetectionService = cabinetDetectionService ??
-                                       throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _buttonDeckDisplay = buttonDeckDisplay ?? throw new ArgumentNullException(nameof(buttonDeckDisplay));
-            _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
+            _disableManager = disableManager
+                ?? throw new ArgumentNullException(nameof(disableManager));
+            _meterManager = meterManager
+                ?? throw new ArgumentNullException(nameof(meterManager));
+            _cabinetDetectionService = cabinetDetectionService
+                ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+            _buttonDeckDisplay = buttonDeckDisplay
+                ?? throw new ArgumentNullException(nameof(buttonDeckDisplay));
+            _persistentStorage = persistentStorage
+                ?? throw new ArgumentNullException(nameof(persistentStorage));
+            _properties = properties
+                ?? throw new ArgumentNullException(nameof(properties));
 
             AddDeviceHandlers<IDisplayDevice>(
                 VideoDisplayMeters,
@@ -128,6 +141,9 @@
                     this,
                     _ => CheckDevicesCount(),
                     FilterDeviceEvent);
+
+                _eventBus.Subscribe<OnEvent>(this, HandleEvent, evt => evt.LogicalId == JackpotKeyLogicalId);
+
                 CheckDevicesCount();
             }
         }
@@ -435,6 +451,25 @@
 
             _lcdButtonDeckConnected = newStatus;
             OnButtonDeckStatusChanged(newStatus);
+        }
+
+        private void HandleEvent(OnEvent evt)
+        {
+            // This flag will allow the technician to clear the "Display Disconnected" lockup
+            if (!_properties.GetValue(ApplicationConstants.TopperDisplayDisconnectNoReconfigure, false))
+            {
+                return;
+            }
+
+            // Check if topper is expected to be on this cabinet, and if it's currently disconnected,
+            // but all other displays are accounted for, then we are OK to clear the lockup.
+            if (_cabinetDetectionService.IsDisplayExpectedAndDisconnected(DisplayRole.Topper) &&
+                _cabinetDetectionService.IsDisplayConnectedOrNotExpected(DisplayRole.Top) &&
+                _cabinetDetectionService.IsDisplayConnectedOrNotExpected(DisplayRole.Main) &&
+                _cabinetDetectionService.IsDisplayConnectedOrNotExpected(DisplayRole.VBD))
+            {
+                _disableManager.Enable(ApplicationConstants.DisplayDisconnectedLockupKey);
+            }
         }
 
         private class DeviceStatusHandler

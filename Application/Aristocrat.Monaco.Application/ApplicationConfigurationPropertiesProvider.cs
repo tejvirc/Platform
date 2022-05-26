@@ -765,6 +765,13 @@
                         ApplicationConstants.LowMemoryThreshold,
                         false)
                 },
+                {
+                    ApplicationConstants.TopperDisplayDisconnectNoReconfigure,
+                    Tuple.Create(
+                        (object)configuration.DisplayDisconnectNoReconfigure?.Topper ?? false,
+                        ApplicationConstants.TopperDisplayDisconnectNoReconfigure,
+                        false)
+                }
             };
 
             if (configuration.MediaDisplay != null)

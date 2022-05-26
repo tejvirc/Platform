@@ -140,6 +140,8 @@ namespace Aristocrat.Monaco.Application.Contracts {
         
         private ApplicationConfigurationLiveAuthenticationManager liveAuthenticationManagerField;
         
+        private ApplicationConfigurationDisplayDisconnectNoReconfigure displayDisconnectNoReconfigureField;
+        
         public ApplicationConfiguration() {
             this.barcodeTypeField = BarcodeTypeOptions.Interleave2of5;
             this.validationLengthField = ValidationLengthOptions.System;
@@ -717,6 +719,16 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.liveAuthenticationManagerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public ApplicationConfigurationDisplayDisconnectNoReconfigure DisplayDisconnectNoReconfigure {
+            get {
+                return this.displayDisconnectNoReconfigureField;
+            }
+            set {
+                this.displayDisconnectNoReconfigureField = value;
             }
         }
     }
@@ -3740,6 +3752,33 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.runSignatureVerificationAfterRebootField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationDisplayDisconnectNoReconfigure {
+        
+        private bool topperField;
+        
+        public ApplicationConfigurationDisplayDisconnectNoReconfigure() {
+            this.topperField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Topper {
+            get {
+                return this.topperField;
+            }
+            set {
+                this.topperField = value;
             }
         }
     }

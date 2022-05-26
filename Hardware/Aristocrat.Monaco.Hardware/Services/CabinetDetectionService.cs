@@ -129,6 +129,22 @@
 
         public int NumberOfDisplaysConnected => ExpectedDisplayDevices.Count(d => d.Status == DeviceStatus.Connected);
 
+        public bool IsDisplayExpected(DisplayRole role) => GetDisplayDeviceByItsRole(role) != null;
+
+        public bool IsDisplayConnected(DisplayRole role) => GetDisplayDeviceByItsRole(role)?.Status == DeviceStatus.Connected;
+
+        public bool IsDisplayConnectedOrNotExpected(DisplayRole role)
+        {
+            var display = GetDisplayDeviceByItsRole(role);
+            return (display == null || display.Status == DeviceStatus.Connected);
+        }
+
+        public bool IsDisplayExpectedAndDisconnected(DisplayRole role)
+        {
+            var display = GetDisplayDeviceByItsRole(role);
+            return (display != null && display.Status != DeviceStatus.Connected);
+        }
+
         public CabinetType Type
         {
             get
