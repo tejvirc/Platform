@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "wuR42F4yI44NemGf7ndmK3TZawEed7CcqTnZ4ZMLHDs="
+          "hash": "r9KvO29DOS4FhlXJRJ5Ht4uoEz3NYtkwH/57hkbfkKc="
         }
       },
       "is_incremental": false,
@@ -3600,7 +3600,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider.html",
-          "hash": "TmwZQpK/qQZ65oldBjhZQMUheItM6qMhWbDSDEZgrkM="
+          "hash": "LcV+NmsneODQbuY/QANOMMI3ymBD0VRW7rqDpKUEmJg="
         }
       },
       "is_incremental": false,
@@ -3804,7 +3804,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfiguration.html",
-          "hash": "JtuE4bYOV6Y+5ImHyzZPpAPjj4Mir79mjto5jlC88t4="
+          "hash": "xc/2+eLVhNVYBUh8eZGHtjp+fMopoUnIRHMugGG9+VM="
         }
       },
       "is_incremental": false,
@@ -3816,7 +3816,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationAuditTicket.html",
-          "hash": "P36KOzuBG/K6Upz3eKle8rj1vFRQDvEHVTgwVyaEeSo="
+          "hash": "t21/mjHg2YV49aeCOYRWgjSAJuTylRIHU2uzJ5WoBbk="
         }
       },
       "is_incremental": false,
@@ -3828,7 +3828,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationAutoClearPeriodMetersBehavior.html",
-          "hash": "J+zGsBFokaQwZW9uSBMyxZlGfzaX8k8w+25pvntc+2E="
+          "hash": "FyNbtrko83EcIckqhsCpRaeHGmbG9l9cJ857Gs9AUDI="
         }
       },
       "is_incremental": false,
@@ -3840,7 +3840,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationBellConfiguration.html",
-          "hash": "sW3wyWybhJj83+OBU+cSOpk+Rn16/peBGFyUhzzNQeo="
+          "hash": "csFqyrcoMEwVt5XQu6ihWwNz9Y+JmZJ3KJbyswy01Sw="
         }
       },
       "is_incremental": false,
@@ -3852,7 +3852,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationBillsAccepted.html",
-          "hash": "WL3P3Zd8v8bb7l3XCAubxwpaqUOAOvcR/yPjQIZU5OM="
+          "hash": "ArU5VC5Xi/NhRIWDfixjKfIKfiFqBzxLYkDoIkEKJ8o="
         }
       },
       "is_incremental": false,
@@ -3864,7 +3864,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilities.html",
-          "hash": "o2Kmbrn3E2bji2P9tfu6FHAsF0U2eg7U++YShANqLkM="
+          "hash": "oYSmqRBNZHqCLJaxB/pUZVz3edBN+4JwlJcPJd2/R0w="
         }
       },
       "is_incremental": false,
@@ -3876,7 +3876,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilitiesAllowsBrightnessChange.html",
-          "hash": "jFHj+Y07x4OhxLJmOm+Ex1hESsc4qBn4RZUQoRQYLfI="
+          "hash": "gVbIb5aYlGqhUMTKNzxj/Yg7z0hnKA8zq6KO8/Ti6Yg="
         }
       },
       "is_incremental": false,
@@ -3888,7 +3888,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilitiesAllowsEdgeLightingConfiguration.html",
-          "hash": "jtwRhGyAAUte+Tlan7n48xrcd+bkrgLzC+burlu5acE="
+          "hash": "wiu0goQOnbG2Tu/W63ostFpJuyzqPaDjwaz7zq0Wfbc="
         }
       },
       "is_incremental": false,
@@ -3900,7 +3900,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCashout.html",
-          "hash": "j8JER1RW6w51I5t5MVVI/lA8FQLnXJnHTWdsRaVHdwQ="
+          "hash": "hfWNETPnA4pD2E9mUYtsDdoB75fW93NLPo0xuS24Ioo="
         }
       },
       "is_incremental": false,
@@ -3912,7 +3912,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationClock.html",
-          "hash": "zaYtI9whVbAVBL+aVCR7WAmRDDKgvWRE0h14c8Jt+FE="
+          "hash": "/zDB07ZTvqzMHyOI7mQ2XZ6vO7NYupdYx/bLdqKu9xc="
         }
       },
       "is_incremental": false,
@@ -3924,7 +3924,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCoinInSound.html",
-          "hash": "gxY6WKbcwSX0xR9mb06lDjhPvtZ0et37gfPoWKo5abU="
+          "hash": "NDtx7m2VOEXBZbLoU7oV/9n4L6AFzWzgZDdlOMjIj5Q="
         }
       },
       "is_incremental": false,
@@ -3936,7 +3936,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCoinOutSound.html",
-          "hash": "+fKUXK0N9P5Q0KPz+PYty6AVGFb4YlMkbh6CcBIPqr0="
+          "hash": "gx5aHUKNlDCKJFzT8zmIUHW7saLavZlNNyLi7kX0BiY="
         }
       },
       "is_incremental": false,
@@ -3948,7 +3948,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCollectSound.html",
-          "hash": "qg3JVJhHKU+ZEO/GzNINlsGKSMLa8ZchWbaEsewS3xU="
+          "hash": "cknfCOiNKVr3qEUgsMHYUJp9YeZG0yZEnLLIs4/8FTc="
         }
       },
       "is_incremental": false,
@@ -3960,7 +3960,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCriticalMemoryIntegrityCheck.html",
-          "hash": "dyml0mbymRHKAdk+qOBgi5WFXa1QANbTSeORCD2dUoA="
+          "hash": "oZWWxt3Gp/hbCB7fxOoXX8PO8YaPsU6JFuyqJnJU2WE="
         }
       },
       "is_incremental": false,
@@ -3972,7 +3972,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCurrency.html",
-          "hash": "Ww0jL4B1C4IcyqFmkYfqwEM5ydtrPCzv1HZ868ymoXQ="
+          "hash": "JftEoG/xTLMzvCe6XA47k38RLVMPbWZnqKoHaNqxS9w="
         }
       },
       "is_incremental": false,
@@ -3984,7 +3984,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDemonstration.html",
-          "hash": "pQVcRL2mCTiTsOElnHFw5UCsy0MeGC1gLWbLjTD4Dp8="
+          "hash": "wUlKCoEedjvFtYSJnE31GY9h9x4H+n+1/WjlIFCaKAI="
         }
       },
       "is_incremental": false,
@@ -3996,7 +3996,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDetailedAuditTickets.html",
-          "hash": "Zo4Fmzlc7GFh3STpYdaY9DYUMcKieEM84nurtugpOA4="
+          "hash": "10ESAoxO+KS9v3XBSc/1tdl5ufuDpFhzxK+kvKVKuGQ="
         }
       },
       "is_incremental": false,
@@ -4008,7 +4008,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDingSound.html",
-          "hash": "Wrb4GGUk9Y09ltS4ZSTpjRFy2ahLTQlv82B5STOsQOo="
+          "hash": "2W7Qz0WeBrTUVQ3LMU9P2TmE+kpViAI2SP3/M/rOvzg="
         }
       },
       "is_incremental": false,
@@ -4020,7 +4020,19 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDiskSpaceMonitorErrorSound.html",
-          "hash": "f9Aa9lxHhN4eFcdWChL60g+RJg8wY0kReFGHDSYiaxs="
+          "hash": "ISMKl7QfPRnZt44JIj8w0RTzsm0iVHECSDjkA53D030="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDisplayDisconnectNoReconfigure.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDisplayDisconnectNoReconfigure.html",
+          "hash": "gWMRGV7D4Ndz3QBu9dO/s2Dls/kOMW/ux+gt6K4rDxI="
         }
       },
       "is_incremental": false,
@@ -4032,7 +4044,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationEdgeLightConfiguration.html",
-          "hash": "nRkwk5cZy34orzSJgzvoHZx2FV3PrvXxV1wzTP9UtGU="
+          "hash": "LlPHmQmqy7FB+Qx+dpvv0qgjN2mYRBNDjfNY8qlNXw4="
         }
       },
       "is_incremental": false,
@@ -4044,7 +4056,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationExcessiveDocumentReject.html",
-          "hash": "G/zuNdBrTZWwHqZ3IDWmjw2b7aDrmyyhEWucgMEabhM="
+          "hash": "92T4QtR/Z+g1n3Mk4tKqY2o3CCzoNBNAWgYqQTIWy3c="
         }
       },
       "is_incremental": false,
@@ -4056,7 +4068,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFeatureBellSound.html",
-          "hash": "bEjeDHXf/mpkv8nioHv8yvHpkGTEcxx+Lw8HMF808BI="
+          "hash": "yPcf0hiXi4ulaBWRatv7AqYzuRHlORqiYaIa0ePYzfc="
         }
       },
       "is_incremental": false,
@@ -4068,7 +4080,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFirmwareCrcErrorSound.html",
-          "hash": "84Q4DWiHMFt2fy4H1STzk/ED4gOgPhwPYPOYEpovADk="
+          "hash": "GL2dCa9hfvHBqV2qBvpBEwPh7/pVXV3mmb/xFbmTOhk="
         }
       },
       "is_incremental": false,
@@ -4080,7 +4092,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFirmwareCrcMonitor.html",
-          "hash": "oFwcVrL+GmUIqtoxNiERxHmNgsTIjAPnFe7eWkguc1c="
+          "hash": "CYBGlXOXFq0wbHI+pMNcMC+PMKjwhQ5jlwi3z9KhDWo="
         }
       },
       "is_incremental": false,
@@ -4092,7 +4104,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGatSerial.html",
-          "hash": "k1PnSCGexCwSrRqRsgpglTxSVeRba3O+V04AsjXgsz4="
+          "hash": "O2kWM6ZBXBk0nkqCNiUBE4VHqDfzximtG6xL8s5S/qc="
         }
       },
       "is_incremental": false,
@@ -4104,7 +4116,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessages.html",
-          "hash": "8SzejWSJ/D77rl1OWpUcpNZpJxBXgM5yuCjKFjhbHuI="
+          "hash": "oaYvyVdhuslnKdLpcs1p+pnBT+pRKIKBquUsMrD4UME="
         }
       },
       "is_incremental": false,
@@ -4116,7 +4128,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessagesDisabledByOperator.html",
-          "hash": "BDcS9BUHOppbI6NG1YfqIZClFPybWw3EJfssXw/GE3E="
+          "hash": "l5HaeJ8pRSfSEKWmTLBfcooDj/3BTaHMSXzfA/wDWi4="
         }
       },
       "is_incremental": false,
@@ -4128,7 +4140,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHandpayReceiptPrinting.html",
-          "hash": "TEsP2vsKlRt18tQ8p/n9L5NrBINHmZHysHapCmab0L8="
+          "hash": "OL8EB4HsZGUurDirYTdSACFR0VLE4+gSLIemrfBm7Fs="
         }
       },
       "is_incremental": false,
@@ -4140,7 +4152,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHardMeterMonitor.html",
-          "hash": "HgVElDA5qhhYui1HfUWjmfqKqAe35RuxN/Vys8Wft18="
+          "hash": "YO5l7pD0gZBc2CvlqyDg6pX0gtfDnuj0gob79S2MeQk="
         }
       },
       "is_incremental": false,
@@ -4152,7 +4164,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHostOfflineSound.html",
-          "hash": "fRPjZFIdqKTiEz2zhBJdeinCZI7wQJ+XOwl73qwQYmU="
+          "hash": "Wi8yV1DBQaJmSncB35IneIZs9mhJ5q+UmVynJ9Aq0E8="
         }
       },
       "is_incremental": false,
@@ -4164,7 +4176,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLiveAuthenticationFailedSound.html",
-          "hash": "dlzzc0zyKjbiFFv84BDnQsD+ieL2LgNrmGQ0YQQsq7I="
+          "hash": "oatmjd9CE6RQzJ/naC3SJYLjhkyK/Pu2lP/Pszarbd8="
         }
       },
       "is_incremental": false,
@@ -4176,7 +4188,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLiveAuthenticationManager.html",
-          "hash": "CcW0JmVDvSPaedytXz6NnN2AEP1u4woycjecI+eNksk="
+          "hash": "UP1zsiBz9Ogubdf+Wjv2hcu0wwa8Ko3UEoz1z6ybBDo="
         }
       },
       "is_incremental": false,
@@ -4188,7 +4200,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMediaDisplay.html",
-          "hash": "CLodV0a8Qy+EdGz1ySeF55QxRQ14a/ioq8jtd97KMJ8="
+          "hash": "tGuk6s0IL8uAt7u8yVGDNtvoyPGd7PRAnjmPwKvUTJ4="
         }
       },
       "is_incremental": false,
@@ -4200,7 +4212,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMemoryMonitor.html",
-          "hash": "sH2dZpGJckOrBFie1sKtoxxISVukYXTyYqt7tAXuiTM="
+          "hash": "btWoC9gCkoEkjGcJOTwGFKE2nFaq12xJRqYL6RN/Dvw="
         }
       },
       "is_incremental": false,
@@ -4212,7 +4224,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMeterRollover.html",
-          "hash": "+5f7OUHww2gQlerviclsdxkX4uGVvLt9MW1lHu96E/A="
+          "hash": "M/+9STClE1I7A36YhCeYmQx9jnUTUlYygQ4SElhqYII="
         }
       },
       "is_incremental": false,
@@ -4224,7 +4236,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMultiGame.html",
-          "hash": "IUpymoUFYo5GTaPHfcrBYxPsUxavY8TF24pPLxVRtcM="
+          "hash": "H2rt64sfCznRno4ZWVQ4+AstqJc4w/vEWJAwAQ5Rueg="
         }
       },
       "is_incremental": false,
@@ -4236,7 +4248,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessages.html",
-          "hash": "17D5sFmCcgyliUeM8+t9hMKAunTILAX4AODe+hzVxtg="
+          "hash": "GCvuNQOSV0qmGTYtSw6Hbi7lL1iVOIUuwtGsRfpnenc="
         }
       },
       "is_incremental": false,
@@ -4248,7 +4260,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillJam.html",
-          "hash": "SeEy9QaXmcdW5ZFS5QeaoHMZYvueK1fhnJttt8bbDlg="
+          "hash": "6GgA7YkDfO/gv6gzG3xxZ4qAS0XSLPl8mQI5/yO63VY="
         }
       },
       "is_incremental": false,
@@ -4260,7 +4272,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerError.html",
-          "hash": "H8TqRkJ5n3x6Ntlt1jcPnxri2buxEPcnQZz79+xSNTY="
+          "hash": "hy1UuC3lrgfr+VswLMzZBcI13Vv2g9YfpDd20+kRtwc="
         }
       },
       "is_incremental": false,
@@ -4272,7 +4284,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerFull.html",
-          "hash": "PPPW4ViSpL1SCak/q4/M+Wmzfat5hPbv8GUOh66dfdw="
+          "hash": "ujQ9u1NWyfC0qV4oLaJeqDptpjGf8ixir7EhCR2TcGc="
         }
       },
       "is_incremental": false,
@@ -4284,7 +4296,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerJam.html",
-          "hash": "uVny5Hl986+yAhqW7uVCpcFPlJYpWiyF3BCbzo/3qj4="
+          "hash": "h8nEa4PxiKu/LE/7A5j5xSLF3zkj1rHxUvnkIdDuRt0="
         }
       },
       "is_incremental": false,
@@ -4296,7 +4308,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillUnexpectedError.html",
-          "hash": "AzurGRaF3I2QST92bze4cdBft+P5ElrqxB2GKxQL5i8="
+          "hash": "6gHnVQiMR4QLgtO95PnLQ4eXDLeIWzvvVaKz8nkjSGw="
         }
       },
       "is_incremental": false,
@@ -4308,7 +4320,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillValidatorFault.html",
-          "hash": "2jEJJ+vhryFUAmhm0TwuPO4ZzkNXEttxu2L/7GW1Shs="
+          "hash": "L/GxMH6wwddD4OwOMlxdIAyQEkFuShZ6xeeHWIsO+Kk="
         }
       },
       "is_incremental": false,
@@ -4320,7 +4332,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesCashBoxRemoved.html",
-          "hash": "kJgDDPrxe2wFPOxBn40fAmcvIlxriwWn6bqqEXQpx/U="
+          "hash": "p3TyE1m24vX2C65EgxMi+/8jqYvhxbUmu8CwxIIyuG8="
         }
       },
       "is_incremental": false,
@@ -4332,7 +4344,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesGeneralFailure.html",
-          "hash": "00N9DrUh6C2axIf8KylMQcOa2700E+SOVIBbugMHra8="
+          "hash": "7K9vcuGBsp7ZYwXwzhZ9C1/1S4H/chrnn91DAbd2/YQ="
         }
       },
       "is_incremental": false,
@@ -4344,7 +4356,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesInvalidBill.html",
-          "hash": "TNW+tXBl/0GvZmkGVrvutI7uILMM+Jx6NUSwWfVqt14="
+          "hash": "W26g6tHnJgfBTeLiyI8r+vIZAQDWxAzkLwS0r3FfcJQ="
         }
       },
       "is_incremental": false,
@@ -4356,7 +4368,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorSound.html",
-          "hash": "W2v9nG0LSHffxaxTqQAFXk64cTGL8QT8qlbOO6DCdLk="
+          "hash": "YPaWViHxqKmjkSI7Q6/Dfm+ldVSateAF4Mp2bPeHpX4="
         }
       },
       "is_incremental": false,
@@ -4368,7 +4380,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorMonitor.html",
-          "hash": "r1IOvBUpmnIP0qgX50q24DUYTUXOhchKsRil1F+T4IE="
+          "hash": "blnyiKcBQN98nGUP8LoldmWuaad8LiN2wbK6S77pnRY="
         }
       },
       "is_incremental": false,
@@ -4380,7 +4392,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationOperatorLockupReset.html",
-          "hash": "SJQdiD/Ww82XbtRdbg65TMmHn6Ef6mQVpK3KR4Fz9/E="
+          "hash": "ejtHTSf+tcJRSgZ+HSOBjzB+atmnx9NCtQUQqopy2lE="
         }
       },
       "is_incremental": false,
@@ -4392,7 +4404,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPaperInChuteSound.html",
-          "hash": "kzcoRD4H13VWugVOZwUtAIjTTbvNY7wDwk43tTFUEdg="
+          "hash": "S9Nh2lTa7LSeVyPet9Rt60r9lrxYit7LVPSiCNTDVOs="
         }
       },
       "is_incremental": false,
@@ -4404,7 +4416,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPlatformEnhancedDisplay.html",
-          "hash": "8MhFDzANnsi9j7eSS+SIKkzIrUv2AtL2BTAaqddddjg="
+          "hash": "QBXBDcNl7RxsD6jygWFoK20wMfXg9xq6W795hY7KoJk="
         }
       },
       "is_incremental": false,
@@ -4416,7 +4428,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessages.html",
-          "hash": "XLwcpeMv2SMsEwiwh7SRntx342DK+13hDioOtxD3j9w="
+          "hash": "nQH4+vsYxWEZApSeLxfR6RLVjq18zUPamp9DE7pD5VA="
         }
       },
       "is_incremental": false,
@@ -4428,7 +4440,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesDrawerOpen.html",
-          "hash": "qwPvUoaKAp8ruerQFp6K2YD4InXHV9bXHsyrPUHonUk="
+          "hash": "YpVzYlFDhzjjtxZN0zjCBCIaNQSUFeWU5FU7tI0i9Cg="
         }
       },
       "is_incremental": false,
@@ -4440,7 +4452,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesErrorWhilePrinting.html",
-          "hash": "DYvaxtkZACG6d7YSUh5JF3f9YTmzW7AP6vOQcHp/FW0="
+          "hash": "TOYELP+SVKj+kfuHlgTtq6Xx58bwryiVEwPXhG+g/v8="
         }
       },
       "is_incremental": false,
@@ -4452,7 +4464,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesFailedMinimumRequirements.html",
-          "hash": "9be9TLt5sT/47DnKvggs9hpkhQdkCyxxt3yeVc4G3tQ="
+          "hash": "igTYjSz4hc6a6DhMbSGZhWvLApO1qg7B8GsrSu493To="
         }
       },
       "is_incremental": false,
@@ -4464,7 +4476,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesMalfunctionError.html",
-          "hash": "/2zAhQhkZPtMh+HKHbBQHSepyRRHui95Ff7YphwDBTY="
+          "hash": "EM8nRt0+0pNtStyfH4TzZG3X0QCYWahHbahQRZKfLUs="
         }
       },
       "is_incremental": false,
@@ -4476,7 +4488,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesMissingSupplyIndex.html",
-          "hash": "uMZXV/IgNt0DTj1nsk297kYv1Ft6o3ys5sBxJO30yB8="
+          "hash": "ycqHSMxfvJXsr25ryQp2fOZbLycu3kRyrQNVNI89no0="
         }
       },
       "is_incremental": false,
@@ -4488,7 +4500,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperInChute.html",
-          "hash": "WlcDiyzCNx/3xZsp5Tb1CXWvxDtEGmRwz5x5nwxl4Hg="
+          "hash": "AtbVCGaTstybMzfIbGA4QFveQBZ6M+cDM2FfvGJBsyU="
         }
       },
       "is_incremental": false,
@@ -4500,7 +4512,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperJam.html",
-          "hash": "nM/j7zKrV8oUArk/hlJM7zJjrtuFrLFu37pxOz9Dvec="
+          "hash": "LpF5sYWf5jD4bnXpR5T86xqEfXkf72SnQ21DAqIZbKA="
         }
       },
       "is_incremental": false,
@@ -4512,7 +4524,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperLow.html",
-          "hash": "Xr2pc02oV7/vkYmT2upcmVdN1BIMnze1utgc1XgswYE="
+          "hash": "BoAh1Gmx4lOofcVnn7ZD0srciG0bXIv/1+FQbjo/mL8="
         }
       },
       "is_incremental": false,
@@ -4524,7 +4536,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperOut.html",
-          "hash": "YTNbO+Ctj0RICy+ahY6fbOWXOK/fMtNqzRmD4Xfy4a0="
+          "hash": "SeYzvYYQbbT1KdsSlA+VtbIcM/v18mmeulZ4yfKAShU="
         }
       },
       "is_incremental": false,
@@ -4536,7 +4548,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterDfuDownloadInProgress.html",
-          "hash": "ivc6X0W9QvY4nCsVple/y7zGRgUl+jX0h7o7Sz7ej8c="
+          "hash": "hmR6vtCmA0ZJMtmmZInxHKZEP2fJfqzRGQSRf6x3n0o="
         }
       },
       "is_incremental": false,
@@ -4548,7 +4560,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterFirmwareDownloadInterrupted.html",
-          "hash": "/EnVH1uieW5ZdsPXPDuiLwdvwIQrAOmQpSws9MBaWcc="
+          "hash": "Ne187/F9JovWIsAL0oZiTms+f2b8Ilu8tYuNbG59z08="
         }
       },
       "is_incremental": false,
@@ -4560,7 +4572,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterOffline.html",
-          "hash": "g7vCZoFkTKQK3tkP1mMfu/cjLFdMLGnbz8DlGeFtngk="
+          "hash": "xK1RzZZB9piZJ4n+1XWCFDEnNHQ04i8NOv0fjr0SYDQ="
         }
       },
       "is_incremental": false,
@@ -4572,7 +4584,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterOpen.html",
-          "hash": "/2jv8vggMKCZ+kDjDbcKPwcnwf+d5udMzO25nWk6zAU="
+          "hash": "iX0fLEGhQ6xxD9uecnvnZIviOmH+9lWxCjaQ3A8tmyM="
         }
       },
       "is_incremental": false,
@@ -4584,7 +4596,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesStoppedResponding.html",
-          "hash": "g0q2E03V/PzsvO3pK8Xb+YvXe0kFeuxca8BnkdWyGYE="
+          "hash": "8iAO3D08P0JRJmVsqpU9xTbX7+Wqoa+6Gz6kLuXrAnk="
         }
       },
       "is_incremental": false,
@@ -4596,7 +4608,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesTransferStatusError.html",
-          "hash": "MN4b/eKeBLqo6zaOG1x1hxe8dfg9jR2bMwnF6LiKIYc="
+          "hash": "ID0aqODNKt7Jb3ehFbd+RPmFXk+b/rO2Ezcrn8tPIxs="
         }
       },
       "is_incremental": false,
@@ -4608,7 +4620,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorSound.html",
-          "hash": "zGh2Z9eBh7X3JahpNiU2YepoDCGEFuQYmqxGZDYXz9w="
+          "hash": "f4kUxtDwkwTJN+RQXA+rKJxstFrfc6BjvK7QOOU/eF4="
         }
       },
       "is_incremental": false,
@@ -4620,7 +4632,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterMonitor.html",
-          "hash": "WIsH46cRgcbOaPD9KJxgsM0yKYPZE1YKuuUQy/+wdW0="
+          "hash": "6wgTHBRXwXPDng0R8N2v/thrMSnkm+Bjifj8+prJEbM="
         }
       },
       "is_incremental": false,
@@ -4632,7 +4644,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterWarningSound.html",
-          "hash": "IWwOkUdQi+0bUGncWL7IXQsnyc42LzLx4ycUHD2YXFc="
+          "hash": "QMGbHkO50LOk3IKHt/w9sKzB1B0BydIrEL8ESaIeIeE="
         }
       },
       "is_incremental": false,
@@ -4644,7 +4656,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationReadOnlyMedia.html",
-          "hash": "c/Fr3F3Flx+Ev1cmrs2U6Hf/r5jWwCokuTM9zQdx6lA="
+          "hash": "V+NOFfqX0Uxp39vlnvWKOHogg3nlOAkk6me/4IlfzMs="
         }
       },
       "is_incremental": false,
@@ -4656,7 +4668,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationReserveService.html",
-          "hash": "bKkM7kbqguqiRI54Zi3J/kGadz6yaL2OT42FKpcdJWs="
+          "hash": "5+7f5pGbLWLRGNlZ6yEvM0V4mQ00aDZ8BahI62YX0t0="
         }
       },
       "is_incremental": false,
@@ -4668,7 +4680,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSecondaryStorageMedia.html",
-          "hash": "1DX1elYPv4Rsa9q3Cj6GrNfImP8ZNWruEvztWumkndU="
+          "hash": "1ELAsVuZnu0Icbgrg1C4Ft5k6sY/5QEZ1nReGxMSdGA="
         }
       },
       "is_incremental": false,
@@ -4680,7 +4692,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoftwareInstall.html",
-          "hash": "kyhh0a+xlD9oj5ZjDKXkekPiAOMjEQaTaTelDENkxKg="
+          "hash": "2vgIdhlXRtxZ8jHV9/OAsR60WGEUWHOM/0ygn6MT9cw="
         }
       },
       "is_incremental": false,
@@ -4692,7 +4704,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoftwareVerification.html",
-          "hash": "jrVrYyvZhXcrUH1hr+R9OEFg6NL2ERzG0vxTVkmtev0="
+          "hash": "YEllXTt7dojQRC5BuIrT4tAvht8u4+wnf4S65GEimrg="
         }
       },
       "is_incremental": false,
@@ -4704,7 +4716,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfiguration.html",
-          "hash": "ng3vW4XGjFNsYkAUATFi7aPKjoVs50CNTOAOW3fwUiw="
+          "hash": "2/h1wwOxlq0DkPfwqnF9mtv/UEwHLpEsXHK84HsDfEM="
         }
       },
       "is_incremental": false,
@@ -4716,7 +4728,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfigurationAlertVolume.html",
-          "hash": "cvWZvMwafouse0tlmAPkRngQr0aYGZGtEYZTd0CKPhY="
+          "hash": "28P1nv4FN3a8SKrDZNAbpnnR2EumdLhWVb3uQP/D/lU="
         }
       },
       "is_incremental": false,
@@ -4728,7 +4740,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfigurationVolumeControl.html",
-          "hash": "fr/m3GsijXkcEEdfDGST9/BEf8Qx5RQ5I1Nw4ReAipM="
+          "hash": "eYKsOg9/Kh5A7VLnOQ1FRi+q6tEnkjN7IWrnpYMGyp8="
         }
       },
       "is_incremental": false,
@@ -4740,7 +4752,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationStackerRemoveBehavior.html",
-          "hash": "q+DaJE+gprzADd0RTDxtQijGrb325EEnjk5OSMiZFPo="
+          "hash": "JPAjEqiYnfzyC9jfgg2TXyTqHDSchzwujxudtniQXFY="
         }
       },
       "is_incremental": false,
@@ -4752,7 +4764,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationTicketMode.html",
-          "hash": "i71HMaWyfZE35iElr3CNh46uMCM7538twIdR71PIo9Y="
+          "hash": "NCEIhP+Em4shpU9cwxtDkeRjzFncDLNE5dJnJ8fYfrc="
         }
       },
       "is_incremental": false,
@@ -4764,7 +4776,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationTouchSound.html",
-          "hash": "f6r0wIIXjrNloQHCjmiatgCJ0oNp319laUqupRJq0gg="
+          "hash": "jjz06vGsJSYdkNy4I5/nB9HJlXnzZfmX/7QZSixasdU="
         }
       },
       "is_incremental": false,
@@ -4776,7 +4788,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationWaitForProgressiveInitialization.html",
-          "hash": "0k9csn1LND4aIgewTNM5E4ZxF9ubrMynTnn26YJJgCE="
+          "hash": "gvqHBl7lVk3EFyHpyJO/qAwSkRQ7UeZas8jlKk1somk="
         }
       },
       "is_incremental": false,
@@ -4788,7 +4800,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConstants.html",
-          "hash": "ee4FIPfTTI/9Je4eBSbs3OjYe+kIRqajk/IfCHxOOPE="
+          "hash": "VptkhpFYevqv/VM9ydDsKfy0Xk8qdaC8dznq1dKlH0I="
         }
       },
       "is_incremental": false,
@@ -5004,7 +5016,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.BarcodeTypeOptions.html",
-          "hash": "RD9Bg75lsQwuG2eeFDR9nxJ/T0mIV51fKrjG8OWzrQU="
+          "hash": "RFyTNxAClhnkQs+aCYlKwSQsrzzx9wqLUMMu9wDDTVU="
         }
       },
       "is_incremental": false,
@@ -5496,7 +5508,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ExcessiveDocumentRejectLockupType.html",
-          "hash": "fPC9UNlf+JU3pLW0krEoBHB3BZwiz6b4PtaaWG9NTYk="
+          "hash": "2xGiL1CECoU4LjVkX7Gt3p2XQLDH1cqHCGXH8k4Gdlo="
         }
       },
       "is_incremental": false,
@@ -6252,7 +6264,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.LayoutTypeOptions.html",
-          "hash": "i821aily0YFbx77TdE8JugKrzxd+rWlVc7mPyYb4d9k="
+          "hash": "TaE6Qou9UtbeIj8kNEl9MIsf40c48NuxUT41DvNjg5E="
         }
       },
       "is_incremental": false,
@@ -7356,7 +7368,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.NoteAcceptorMonitorDisableBehavior.html",
-          "hash": "EQQVWQ56JZuVdUxadye56noC5IOpZ/VDRGaRJEs9f5M="
+          "hash": "PDC5m1rtxQ5dELs4cK3hIUNyAhz/8gUzARGH/SBcs/w="
         }
       },
       "is_incremental": false,
@@ -8016,7 +8028,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ResetMethodKeyType.html",
-          "hash": "mvR0O8fXz/c0Mefra1gLdkDq0OG20Sp8UB8jgbbFamA="
+          "hash": "6eH9aiT1HF7NO5Ne0pOzZ5JkD+EkeLoG3GsrnON1yjU="
         }
       },
       "is_incremental": false,
@@ -8184,7 +8196,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.TicketModeAuditBehavior.html",
-          "hash": "YpUcMOFWaoDqPCqQ+KNg6Xtf/i12jWVEx+kzXUc8rts="
+          "hash": "5DUCy9m4O6Bc/VnS3bjuX79cgNTHUTFhRiF8O4LZHzE="
         }
       },
       "is_incremental": false,
@@ -8544,7 +8556,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ValidationLengthOptions.html",
-          "hash": "gYuxjAOonjb5zyAU4vw1xojycWOjd8dJXMOhzuXJQng="
+          "hash": "u9JVZmaUkWOtYF5BpA/CeS27/wAiEkiWNb7c2eIngIw="
         }
       },
       "is_incremental": false,
@@ -8556,7 +8568,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.VolumeControlLocation.html",
-          "hash": "Sqwc8bRmnRjIE1BWdVYoyNW5A1lLRFDuEFkm+exeoEo="
+          "hash": "vjG3siIgvP1NFUmFbUY437P4E7G7UBbT9kFd/IkcoCg="
         }
       },
       "is_incremental": false,
@@ -8568,7 +8580,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.html",
-          "hash": "TleGeYzdyrQp3KOflth6BV+ONWNMTuGSjVp+gKiRGps="
+          "hash": "y9sCjY/HZBflgcKGgJzgJ5TmefKTDEpBeT09SvWsbQU="
         }
       },
       "is_incremental": false,
@@ -9348,7 +9360,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Monitors.DisplayMonitor.html",
-          "hash": "HYBLr/Ikq5+9tKy22OX9YcR7pLA1XR55q8793hJRWiI="
+          "hash": "z4p1Fzb5sMvzH/oo09u5XQLQvSC1eegkuDk8m78Zl7M="
         }
       },
       "is_incremental": false,
@@ -14335,9 +14347,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14422,9 +14431,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23617,6 +23623,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41137,6 +41146,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -54906,7 +54918,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.LobbyViewModel.html",
-          "hash": "2nJHkH9bEM60Lw8/PQ55UOvQMilFcwhWTVGMaiIGNaI="
+          "hash": "yKIp0QZzJB0BbUKij7Hsyj058O6CuyYpYS7Ew5mznMM="
         }
       },
       "is_incremental": false,
@@ -59622,7 +59634,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.html",
-          "hash": "olpX5hvyySK60IbMR9FcWqtwNRN6Yh0vNREwalBqISw="
+          "hash": "R4WGdoC+vX0GCOwABz4tU4var0Hu1CyEP3YM7tJegyA="
         }
       },
       "is_incremental": false,
@@ -68442,7 +68454,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Services.CabinetDetectionService.html",
-          "hash": "cKz1JxHZTPVTyKRdobr8lf8dgBumtQhGyOJjaBuviTc="
+          "hash": "3bOMedFiPvRsFgXHYoIQpmtBk3Hu6gRL9d49Y2iC3Uo="
         }
       },
       "is_incremental": false,
@@ -83421,7 +83433,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6918,
+          "total_file_count": 6919,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
