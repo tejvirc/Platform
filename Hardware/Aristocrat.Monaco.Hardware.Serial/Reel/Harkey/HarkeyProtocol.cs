@@ -172,6 +172,8 @@
 
             HandleModel();
             SendCommand(new GetRm6Version());
+
+            // Returning true here will auto-populate the GAT data and will not have the version information
             return false;
         }
 
@@ -235,6 +237,11 @@
 
         protected override void SetLights(params ReelLampData[] lampData)
         {
+            if (!_isInitialized)
+            {
+                return;
+            }
+
             var colorChanged = false;
             var stateChanged = false;
             foreach (var data in lampData)
@@ -674,7 +681,6 @@
                     return;
                 }
 
-                OnMessageReceived(new GatData { Data = GatData });
                 OnMessageReceived(new ControllerInitializedStatus());
                 _isInitialized = true;
             }
@@ -766,6 +772,7 @@
         private void HandleVersionResponse(Rm6VersionResponse version)
         {
             FirmwareVersion = GetVersionString(version);
+            OnMessageReceived(new GatData { Data = GatData });
         }
 
         private void HandleStatus(ReelStatusResponse status)
