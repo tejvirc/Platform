@@ -30,7 +30,7 @@
         /// <summary>Gets or sets the reserved 1.</summary>
         /// <value>The reserved 1.</value>
         [FieldOrder(2)]
-        [FieldBitLength(2)]
+        [FieldBitLength(3)]
         public byte Reserved1 { get; set; }
 
         /// <summary> A reel has started slow spinning </summary>
@@ -58,11 +58,6 @@
         [FieldBitLength(1)]
         public bool IdleAtStop { get; set; }
 
-        /// <summary> A reel has failed to home </summary>
-        [FieldOrder(8)]
-        [FieldBitLength(1)]
-        public bool FailedHome { get; set; }
-
         /// <summary> The stop position of a reel if at a known stop </summary>
         [FieldOrder(9)]
         [FieldBitLength(8)]
@@ -77,7 +72,7 @@
         public override string ToString()
         {
             return Invariant(
-                $"{GetType()} [ReelId={ReelId},Reserved1={Reserved1},SlowSpinning={SlowSpinning},Spinning={Spinning},Accelerating={Accelerating},Decelerating={Decelerating},IdleAtStop={IdleAtStop},FailedHome={FailedHome},Stop={Stop},Step={Step}]");
+                $"{GetType()} [ReelId={ReelId},Reserved1={Reserved1},SlowSpinning={SlowSpinning},Spinning={Spinning},Accelerating={Accelerating},Decelerating={Decelerating},IdleAtStop={IdleAtStop},Stop={Stop},Step={Step}]");
         }
     }
 }

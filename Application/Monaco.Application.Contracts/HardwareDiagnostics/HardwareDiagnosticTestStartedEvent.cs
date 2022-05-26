@@ -25,7 +25,7 @@
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"Hardware diagnostic test for ${DeviceCategory} started";
+            return $"Hardware diagnostic test for {DeviceCategory} started";
         }
     }
 }

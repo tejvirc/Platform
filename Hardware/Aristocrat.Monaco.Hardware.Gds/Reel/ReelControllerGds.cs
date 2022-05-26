@@ -517,6 +517,13 @@
                     OnControllerFaultOccurred(new ReelControllerFaultedEventArgs(ReelControllerFaults));
                     Logger.Debug($"FailureReported - Hardware Error 0x{status.ErrorCode:X}");
                 }
+                else if (status.FailedHome)
+                {
+                    var reelsStatus = new ReelStatus { ReelId = status.ReelId, FailedHome = true };
+                    _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (i, s) => reelsStatus);
+                    OnFaultOccurred(new ReelFaultedEventArgs(ReelFaults.ReelStall, status.ReelId));
+                    Logger.Debug($"FailureReported - Failed Homing, reel={status.ReelId}");
+                }
             }
 
             PublishReport(status);

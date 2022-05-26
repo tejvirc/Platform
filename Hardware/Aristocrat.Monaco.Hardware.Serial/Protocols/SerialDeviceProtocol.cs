@@ -392,6 +392,8 @@
         /// <summary>Raises the <see cref="DeviceDetached"/> event.</summary>
         protected virtual void OnDeviceDetached()
         {
+            //Reset cached FirmwareCrc to UnknownCrc, so that the latest crc will be read on device attach again.
+            FirmwareCrc = UnknownCrc;
             DeviceDetached?.Invoke(this, EventArgs.Empty);
         }
 
