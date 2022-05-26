@@ -127,8 +127,6 @@
         private bool ExpectingRecovery => ControllerState == RobotControllerState.ForceGameExit ||
                                           ControllerState == RobotControllerState.WaitForRecoveryStart ||
                                           ControllerState == RobotControllerState.OutOfOperatingHours ||
-                                          ControllerState == RobotControllerState.WaitLobbyLoad ||
-                                          ControllerState == RobotControllerState.Running ||
                                           _expectingRecovery;
 
         private RobotControllerState ControllerState
