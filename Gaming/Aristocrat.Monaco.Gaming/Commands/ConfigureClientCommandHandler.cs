@@ -189,7 +189,7 @@
                 { "/Runtime/CDS&FudgePay", _properties.GetValue(GamingConstants.FudgePay, false).ToString().ToLower() },
                 { "/Runtime/CDS&AdditionalInfoButton", _properties.GetValue(GamingConstants.AdditionalInfoButton, false).ToString().ToLower() },
                 { "/Runtime/CDS&CycleMaxBet", _properties.GetValue(GamingConstants.CycleMaxBet, false).ToString().ToLower() },
-                { "/Runtime/CDS/AlwaysCombineOutcomesByType ", _properties.GetValue(GamingConstants.AlwaysCombineOutcomesByType , true).ToString().ToLower() },
+                { "/Runtime/CDS/AlwaysCombineOutcomesByType", _properties.GetValue(GamingConstants.AlwaysCombineOutcomesByType , true).ToString().ToLower() },
                 { "/Runtime/Bell&InitialWinAmount", _properties.GetValue(ApplicationConstants.InitialBellRing, 0L).MillicentsToCents().ToString() },
                 { "/Runtime/Bell&IntervalWinAmount", _properties.GetValue(ApplicationConstants.IntervalBellRing, 0L).MillicentsToCents().ToString()},
                 { "/Runtime/Multigame", (!singleGameAutoLaunch).ToString() },
