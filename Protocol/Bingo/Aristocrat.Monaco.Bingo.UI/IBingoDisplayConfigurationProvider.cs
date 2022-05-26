@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI
 {
+    using System.Collections.Generic;
     using System.Windows;
+    using Gaming.Contracts;
     using Models;
 
     /// <summary>
@@ -8,6 +10,11 @@
     /// </summary>
     public interface IBingoDisplayConfigurationProvider
     {
+        /// <summary>
+        ///     Gets the presentation override message formats
+        /// </summary>
+        List<SerializableKeyValuePair<PresentationOverrideTypes, string>> PresentationOverrideMessageFormats { get; }
+
         /// <summary>
         ///     Get help appearance
         /// </summary>

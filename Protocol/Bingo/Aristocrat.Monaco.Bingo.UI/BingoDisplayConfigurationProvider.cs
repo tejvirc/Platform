@@ -73,6 +73,8 @@
             ScanForGameFiles();
         }
 
+        public List<SerializableKeyValuePair<PresentationOverrideTypes, string>> PresentationOverrideMessageFormats { get; private set; }
+
         public BingoHelpAppearance GetHelpAppearance() => _helpAppearance;
 
         public BingoAttractSettings GetAttractSettings() => _attractSettings;
@@ -153,6 +155,7 @@
                 BingoInfoWindowSettings = _windowSettings.Values.ToList(),
                 HelpAppearance = _helpAppearance
             };
+
             var serializer = new XmlSerializer(config.GetType());
             var writer = new StreamWriter(path);
             serializer.Serialize(writer, config);
@@ -284,6 +287,7 @@
 
             _helpAppearance = config.HelpAppearance;
             _attractSettings = config.BingoAttractSettings ?? _attractSettings;
+            PresentationOverrideMessageFormats = config.PresentationOverrideMessageFormats;
 
             _eventBus.Publish(new BingoDisplayHelpAppearanceChangedEvent(_helpAppearance));
         }
