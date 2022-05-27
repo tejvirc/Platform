@@ -50,7 +50,10 @@
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHRLobbyConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Audio/VolumeSettingConfiguration">
+		<NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHRVolumeSettingConfig" />
+	  </ExtensionPointConfiguration>
+	  <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHRAccountingConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Application/JurisdictionConfiguration">
@@ -140,6 +143,9 @@
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\NewHampshireHHR\Lobby.config.xml" filterid="NewHampshireHHRLobbyConfig" />
+  </Extension>
+  <Extension path="/Audio/VolumeSettingConfiguration">
+	<FilePath FilePath="..\jurisdiction\NewHampshireHHR\VolumeSetting.config.xml" filterid="NewHampshireHHRVolumeSettingConfig" />
   </Extension>
   <Extension path="/Accounting/Configuration">
     <FilePath FilePath="..\jurisdiction\NewHampshireHHR\Accounting.config.xml" filterid="NewHampshireHHRAccountingConfig" />

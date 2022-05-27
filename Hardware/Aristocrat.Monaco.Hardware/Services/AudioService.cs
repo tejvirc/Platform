@@ -39,10 +39,10 @@
 
         private readonly Dictionary<VolumeScalar, float> _volumeScalars = new Dictionary<VolumeScalar, float>
         {
-            { VolumeScalar.Scale20, 0.100f },
-            { VolumeScalar.Scale40, 0.177f },
-            { VolumeScalar.Scale60, 0.316f },
-            { VolumeScalar.Scale80, 0.562f },
+            { VolumeScalar.Scale20, 0.2f },
+            { VolumeScalar.Scale40, 0.4f },
+            { VolumeScalar.Scale60, 0.6f },
+            { VolumeScalar.Scale80, 0.8f },
             { VolumeScalar.Scale100, 1.000f }
         };
 

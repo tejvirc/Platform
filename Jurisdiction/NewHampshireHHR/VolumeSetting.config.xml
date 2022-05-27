@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Hardware\Aristocrat.Monaco.Hardware.Contracts\Audio
+2.  Enter "xsd VolumeSettingConfiguration.xsd /classes".  This will generate
+    the corresponding class definition in csharp (ConfiguredDevices.cs).
+-->
+<VolumeSetting>
+	<MasterVolumeSettings>
+		<VolumeNode Key="ExtraLow" Value="1.5" />
+		<VolumeNode Key="Low" Value="3.0" />
+		<VolumeNode Key="MediumLow" Value="6" />
+		<VolumeNode Key="Medium" Value="12" />
+		<VolumeNode Key="MediumHigh" Value="24" />
+		<VolumeNode Key="High" Value="48" />
+		<VolumeNode Key="ExtraHigh" Value="96" />
+	</MasterVolumeSettings>
+	<VolumeScalarSettings>
+		<ScalarNode Key="Scalar20" Value="0.1" />
+		<ScalarNode Key="Scalar40" Value="0.177" />
+		<ScalarNode Key="Scalar60" Value="0.316" />
+		<ScalarNode Key="Scalar80" Value="0.562" />
+		<ScalarNode Key="Scalar100" Value="1" />
+	</VolumeScalarSettings>
+</VolumeSetting>
