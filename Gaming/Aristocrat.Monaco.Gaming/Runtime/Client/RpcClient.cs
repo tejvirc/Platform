@@ -6,7 +6,7 @@
     using System.Reflection;
     using System.Threading;
     using Application.Contracts.Extensions;
-    using Aristocrat.GdkRuntime.V1;
+    using GdkRuntime.V1;
     using Contracts;
     using Contracts.Process;
     using Google.Protobuf.WellKnownTypes;
@@ -14,7 +14,8 @@
     using Kernel;
     using log4net;
     using Snapp;
-    using Empty = Aristocrat.GdkRuntime.V1.Empty;
+    using V1 = GdkRuntime.V1;
+    using Empty = GdkRuntime.V1.Empty;
     using Outcome = Contracts.Central.Outcome;
 
     public class RpcClient : IRuntime, IDisposable, IReelService, IPresentationService
@@ -95,7 +96,7 @@
 
         public void UpdateState(RuntimeState state)
         {
-            Invoke(client => client.UpdateState(new UpdateStateRequest { State = (Aristocrat.GdkRuntime.V1.RuntimeState)state }));
+            Invoke(client => client.UpdateState(new UpdateStateRequest { State = (V1.RuntimeState)state }));
         }
 
         public void InvokeButton(uint id, int state)
@@ -133,9 +134,9 @@
 
             notification.Outcomes.Add(
                 outcomes.Select(
-                    o => new Aristocrat.GdkRuntime.V1.Outcome
+                    o => new V1.Outcome
                     {
-                        Type = (Aristocrat.GdkRuntime.V1.Outcome.Types.OutcomeType)o.Type,
+                        Type = (V1.Outcome.Types.OutcomeType)o.Type,
                         WinAmount = (ulong)o.Value.MillicentsToCents(),
                         LookupData = o.LookupData,
                         WinLevelIndex = o.WinLevelIndex
@@ -168,7 +169,7 @@
 
         public void UpdateParameters(IDictionary<string, string> parameters, ConfigurationTarget target)
         {
-            var request = new UpdateParametersRequest { Target = (Aristocrat.GdkRuntime.V1.ConfigurationTarget)target };
+            var request = new UpdateParametersRequest { Target = (V1.ConfigurationTarget)target };
 
             request.Parameters.Add(parameters);
 
@@ -251,11 +252,8 @@
 
         private static bool IsRuntimePresumedDead(Exception ex)
         {
-            if (ex is StatusCodeException snappException)
-            {
-                return snappException.Status.StatusCode != StatusCode.Ok;
-            }
-            return false;
+            return ex is StatusCodeException snappException &&
+                   snappException.Status.StatusCode != StatusCode.Ok;
         }
 
         private void Invoke<T>(Func<RuntimePresentationServiceStub, T> callback)

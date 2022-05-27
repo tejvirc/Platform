@@ -3,13 +3,13 @@
     using System;
     using log4net;
     using System.Reflection;
-    using Aristocrat.GdkRuntime.V1;
+    using GdkRuntime.V1;
     using Commands;
     using Contracts;
 
     public class RpcPresentationService : IPresentationServiceCallback
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly ICommandHandlerFactory _handlerFactory;
 
         public RpcPresentationService(ICommandHandlerFactory handlerFactory)

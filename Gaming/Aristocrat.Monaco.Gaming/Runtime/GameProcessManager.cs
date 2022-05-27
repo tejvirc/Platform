@@ -18,7 +18,7 @@
     /// </summary>
     public class GameProcessManager : IProcessManager
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IClientEndpointProvider<IRuntime> _serviceProvider;
@@ -26,7 +26,7 @@
         private readonly string _gamesPath;
         private readonly string _runtimeRoot;
 
-        private readonly ConcurrentDictionary<int, bool> _processes = new ConcurrentDictionary<int, bool>();
+        private readonly ConcurrentDictionary<int, bool> _processes = new ();
 
         private bool _expectProcessExit;
 
@@ -185,11 +185,11 @@
             // Clear the RpcClient instance held, as once the Game/Runtime process is killed, it will become stale
             _serviceProvider.Clear();
 
-            Logger.Info($"ProcessExited, try remove {process?.Id ?? -1}");
+            Logger.Info($"ProcessExited, try remove {process?.Id ?? -1}: expected?{_expectProcessExit}, process in list?{_processes.ContainsKey(process?.Id ?? -1)}");
             if (!_processes.TryRemove(process?.Id ?? -1, out var notify) && !_expectProcessExit)
             {
                 Logger.Error(
-                    $"Unexpected game process exit (expected?{_expectProcessExit}) ({process?.Id ?? -1}) : {process?.StartInfo.FileName} {process?.StartInfo.Arguments}",
+                    $"Unexpected game process exit ({process?.Id}) : {process?.StartInfo.FileName} {process?.StartInfo.Arguments}",
                     new GameExitedException("The game process ended unexpectedly."));
 
                 _eventBus.Publish(new GameProcessExitedEvent(process?.Id ?? -1, true));

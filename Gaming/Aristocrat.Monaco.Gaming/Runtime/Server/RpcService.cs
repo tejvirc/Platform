@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
-    using Aristocrat.GdkRuntime.V1;
+    using GdkRuntime.V1;
     using Client;
     using Commands;
     using Contracts;
@@ -15,7 +15,7 @@
     using Contracts.Process;
     using Kernel;
     using log4net;
-    using LocalStorage = Aristocrat.GdkRuntime.V1.LocalStorage;
+    using LocalStorage = GdkRuntime.V1.LocalStorage;
 
     public class RpcService : IGameServiceCallback
     {

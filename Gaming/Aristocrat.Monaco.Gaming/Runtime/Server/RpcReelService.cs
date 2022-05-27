@@ -2,7 +2,7 @@
 {
     using System;
     using System.Reflection;
-    using Aristocrat.GdkRuntime.V1;
+    using GdkRuntime.V1;
     using Commands;
     using log4net;
     using NudgeReelData = Hardware.Contracts.Reel.NudgeReelData;
