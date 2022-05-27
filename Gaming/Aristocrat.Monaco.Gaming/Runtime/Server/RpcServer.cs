@@ -7,7 +7,7 @@
     using log4net;
     using Snapp;
 
-    public class RpcServer : IServerEndpoint, IDisposable
+    public class RpcServer : IServerEndpoint, IExternalLogger, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -23,7 +23,7 @@
 
         public RpcServer(IEventBus eventBus, RpcService gameService, RpcReelService reelService, RpcPresentationService presentationService)
         {
-            Snapp.Logger.LogCallbackFunction = SnappLog;
+            Snapp.Logger.ExternalLogger = this;
 
             Logger.Debug("Create RpcServer");
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -119,7 +119,7 @@
             _disposed = true;
         }
 
-        private static void SnappLog(Logger.Level level, string message)
+        public void Log(Logger.Level level, string message)
         {
             var logMessage = $"SNAPP {level} {message}";
             switch (level)
