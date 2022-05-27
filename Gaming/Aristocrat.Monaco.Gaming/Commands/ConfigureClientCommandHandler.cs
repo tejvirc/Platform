@@ -10,6 +10,7 @@
     using Application.Contracts.Extensions;
     using Cabinet.Contracts;
     using Common;
+    using Consumers;
     using Contracts;
     using Contracts.Configuration;
     using Contracts.Lobby;
@@ -93,16 +94,13 @@
 
             var denomination = currentGame.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
 
-            var volumeLevel = (VolumeLevel)_properties.GetProperty(Kernel.Contracts.PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            var useGameTypeVolume = _properties.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
-            var gameTypeVolumeScalar = useGameTypeVolume ? _audio.GetVolumeScalar(_gameCategoryService.SelectedGameCategorySetting.VolumeScalar) : 1.0f;
-            var maxVolumeLevel = gameTypeVolumeScalar * _audio.GetVolume(volumeLevel);
-
             var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
                 ApplicationConstants.VolumeControlLocationKey,
                 ApplicationConstants.VolumeControlLocationDefault);
 
             var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
+
+            var maxVolumeLevel = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
 
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
             var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
