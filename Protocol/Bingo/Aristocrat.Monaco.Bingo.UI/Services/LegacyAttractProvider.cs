@@ -9,7 +9,6 @@
     using Gaming.Contracts;
     using Kernel;
     using Microsoft.AspNetCore.WebUtilities;
-    using Models;
     using OverlayServer;
     using OverlayServer.Attributes;
     using Protocol.Common.Storage.Entity;
@@ -42,7 +41,7 @@
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
-        public Uri GetLegacyAttractUri(BingoAttractSettings attractSettings)
+        public Uri GetLegacyAttractUri(BingoDisplayConfigurationBingoAttractSettings attractSettings)
         {
             if (!attractSettings.CyclePatterns)
             {
@@ -55,7 +54,7 @@
             }.Uri;
         }
 
-        private IDictionary<string, string> GetUrlParameters(BingoAttractSettings attractSettings)
+        private IDictionary<string, string> GetUrlParameters(BingoDisplayConfigurationBingoAttractSettings attractSettings)
         {
             var gameId = _propertiesManager.GetValue(GamingConstants.SelectedGameId, 0);
             var game = _gameProvider.GetGame(gameId);

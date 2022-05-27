@@ -18,7 +18,6 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using Models;
     using MVVM.Model;
     using OverlayServer;
     using OverlayServer.Attributes;
@@ -43,7 +42,7 @@
         private List<BingoNumber> _lastBallCall = new();
         private BingoCard _lastBingoCard;
         private List<BingoPattern> _bingoPatterns = new();
-        private BingoWindowSettings _currentBingoSettings;
+        private BingoDisplayConfigurationBingoWindowSettings _currentBingoSettings;
         private bool _multipleSpins;
 
         private bool _disposed;
@@ -522,7 +521,7 @@
             {
                 if (!string.IsNullOrEmpty(messageFormat.Value))
                 {
-                    _configuredOverrideMessageFormats.TryAdd(messageFormat.Key, messageFormat.Value);
+                    _configuredOverrideMessageFormats.TryAdd((PresentationOverrideTypes)messageFormat.Key, messageFormat.Value);
                 }
             }
         }

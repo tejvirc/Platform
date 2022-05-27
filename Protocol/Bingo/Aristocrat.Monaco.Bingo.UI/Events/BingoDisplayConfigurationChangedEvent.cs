@@ -2,7 +2,6 @@
 {
     using System.Windows;
     using Kernel;
-    using Models;
 
     /// <summary>
     ///     Bingo display configuration changed event.
@@ -16,7 +15,7 @@
         /// <param name="settings"></param>
         public BingoDisplayConfigurationChangedEvent(
             Window window,
-            BingoWindowSettings settings)
+            BingoDisplayConfigurationBingoWindowSettings settings)
         {
             Window = window;
             Settings = settings;
@@ -30,6 +29,6 @@
         /// <summary>
         ///     Get the bingo window settings.
         /// </summary>
-        public BingoWindowSettings Settings { get; }
+        public BingoDisplayConfigurationBingoWindowSettings Settings { get; }
     }
 }

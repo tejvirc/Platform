@@ -14,10 +14,10 @@
 
     public class BingoInfoTestToolViewModel : BingoTestToolViewModelBase
     {
-        private BingoWindowSettings _currentBingoSettings;
-        private BingoAttractSettings _currentBingoAttractSettings;
+        private BingoDisplayConfigurationBingoWindowSettings _currentBingoSettings;
+        private BingoDisplayConfigurationBingoAttractSettings _currentBingoAttractSettings;
         private BingoWindow _bingoWindowName;
-        private IEventBus _eventBus;
+        private readonly IEventBus _eventBus;
 
         public BingoInfoTestToolViewModel(
             IEventBus eventBus,
@@ -269,6 +269,7 @@
             }
         }
 
+        public int Version => BingoConfigProvider.GetVersion();
 
         protected override void SetDefaults()
         {
@@ -297,6 +298,7 @@
 
             _currentBingoSettings = BingoConfigProvider.GetSettings(WindowName);
             _currentBingoAttractSettings = BingoConfigProvider.GetAttractSettings();
+            RaisePropertyChanged(nameof(Version));
         }
 
         protected void ChangeScene()

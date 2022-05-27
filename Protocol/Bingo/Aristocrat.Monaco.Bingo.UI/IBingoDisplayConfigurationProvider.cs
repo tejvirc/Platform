@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Windows;
-    using Gaming.Contracts;
     using Models;
 
     /// <summary>
@@ -13,26 +12,26 @@
         /// <summary>
         ///     Gets the presentation override message formats
         /// </summary>
-        List<SerializableKeyValuePair<PresentationOverrideTypes, string>> PresentationOverrideMessageFormats { get; }
+        List<BingoDisplayConfigurationSerializableKeyValuePair> PresentationOverrideMessageFormats { get; }
 
         /// <summary>
         ///     Get help appearance
         /// </summary>
         /// <returns>Config data for help</returns>
-        BingoHelpAppearance GetHelpAppearance();
+        BingoDisplayConfigurationHelpAppearance GetHelpAppearance();
 
         /// <summary>
         ///     Gets the bingo attract settings
         /// </summary>
         /// <returns>The attract settings for this game</returns>
-        BingoAttractSettings GetAttractSettings();
+        BingoDisplayConfigurationBingoAttractSettings GetAttractSettings();
 
         /// <summary>
         ///     Get config data for one window enum
         /// </summary>
         /// <param name="window">Which window</param>
         /// <returns>Config data for one window enum</returns>
-        BingoWindowSettings GetSettings(BingoWindow window);
+        BingoDisplayConfigurationBingoWindowSettings GetSettings(BingoWindow window);
 
         /// <summary>
         ///     Get <see cref="Window"/> for one window enum
@@ -57,14 +56,14 @@
         ///     Temporarily override help config data.
         /// </summary>
         /// <param name="helpAppearance">Config data for help</param>
-        void OverrideHelpAppearance(BingoHelpAppearance helpAppearance);
+        void OverrideHelpAppearance(BingoDisplayConfigurationHelpAppearance helpAppearance);
 
         /// <summary>
         ///     Temporarily override config data for one window.
         /// </summary>
         /// <param name="window">Which window</param>
         /// <param name="settings">Config data for one window</param>
-        void OverrideSettings(BingoWindow window, BingoWindowSettings settings);
+        void OverrideSettings(BingoWindow window, BingoDisplayConfigurationBingoWindowSettings settings);
 
         /// <summary>
         ///     Restore original config data for one window.
@@ -83,5 +82,11 @@
         ///     Called when the lobby is initialized
         /// </summary>
         void LobbyInitialized();
+
+        /// <summary>
+        ///     Gets the version of the BingoDisplayConfiguration xml
+        /// </summary>
+        /// <returns>The version</returns>
+        int GetVersion();
     }
 }

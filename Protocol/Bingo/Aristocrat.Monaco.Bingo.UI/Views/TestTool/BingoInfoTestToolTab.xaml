@@ -91,6 +91,9 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
 
+                    <!-- Version -->
+                    <RowDefinition Height="Auto"/>
+
                     <!-- Buttons -->
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -294,9 +297,17 @@
                          Text="{Binding WaitingForGameTimeoutMessage}"
                          Style="{StaticResource MessageTextBox}" />
 
+                <!-- Version -->
+                <Label Grid.Row="27" Grid.Column="0"
+                       Content="VERSION"
+                       Style="{StaticResource ItemLabel}"/>
+                <Label Grid.Row="27" Grid.Column="1"
+                         Content="{Binding Version}"
+                         Style="{StaticResource ItemLabel}" />
+
                 <!-- Settings Buttons -->
-                <Border Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
-                <StackPanel Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <StackPanel Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Reset to Defaults"
                             Command="{Binding DefaultsCommand}"
                             Margin="16,4,4,4"/>
