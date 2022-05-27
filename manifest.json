@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "r9KvO29DOS4FhlXJRJ5Ht4uoEz3NYtkwH/57hkbfkKc="
+          "hash": "8zNJ/SrIHT79phzV3/kekyfBDEKi8NS+uQvfUu39YDE="
         }
       },
       "is_incremental": false,
@@ -14434,9 +14434,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23629,6 +23626,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41970,7 +41970,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.ConfigureClientCommandHandler.html",
-          "hash": "Is11FE/82CasQRcO7dccxNAPp2NzSRxsVhQn0zww8SE="
+          "hash": "aNJySkIJ0x8Rblp3PQh/fnCCJG4phf5rIxVjDu9fKJc="
         }
       },
       "is_incremental": false,
@@ -43550,6 +43550,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Consumers.AudioServiceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.AudioServiceExtensions.html",
+          "hash": "zs9UbnZ4y/JGzVANcegmhC9KeWcHhYyweK7OeAcdgAs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Consumers.BankBalanceChangedConsumer.yml",
       "output": {
         ".html": {
@@ -44058,7 +44070,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.PropertyChangedConsumer.html",
-          "hash": "+uU3AXxHHeB6N7ay5D0ARJSWKLyP8nZPl+E7SLpOFYs="
+          "hash": "/1A00qS5isEDPdQKrgeTjzAYQqTuOfGYUGGaJk6QQW0="
         }
       },
       "is_incremental": false,
@@ -44202,7 +44214,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.html",
-          "hash": "q1Ih4/cQIh0oi4jJo2Xyl8oEsFAYoVr7KfvY3rFIZUs="
+          "hash": "11kqy9A9XpZbnE1jONf8ZC4lrUrY7d1HOIePc+/U6uE="
         }
       },
       "is_incremental": false,
@@ -83433,7 +83445,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6919,
+          "total_file_count": 6920,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
