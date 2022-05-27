@@ -43,17 +43,17 @@
             { VolumeScalar.Scale40, 0.4f },
             { VolumeScalar.Scale60, 0.6f },
             { VolumeScalar.Scale80, 0.8f },
-            { VolumeScalar.Scale100, 1.000f }
+            { VolumeScalar.Scale100, 1.0f }
         };
 
         private readonly Dictionary<VolumeLevel, float> _volumePresets = new Dictionary<VolumeLevel, float>
         {
-            { VolumeLevel.ExtraLow, 1.5f },
-            { VolumeLevel.Low, 3.0f },
-            { VolumeLevel.MediumLow, 6.0f },
-            { VolumeLevel.Medium, 12.0f },
-            { VolumeLevel.MediumHigh, 24.0f },
-            { VolumeLevel.High, 48.0f },
+            { VolumeLevel.ExtraLow, 10.0f },
+            { VolumeLevel.Low, 35.0f },
+            { VolumeLevel.MediumLow, 43.0f },
+            { VolumeLevel.Medium, 54.0f },
+            { VolumeLevel.MediumHigh, 65.0f },
+            { VolumeLevel.High, 81.0f },
             { VolumeLevel.ExtraHigh, 96.0f }
         };
 
