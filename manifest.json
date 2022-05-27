@@ -8616,7 +8616,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Drm.DigitalRights.html",
-          "hash": "0Nk2DGw0OBAnQv/GsapGuXOvZzp/YLBtg+CMElaBLJw="
+          "hash": "UvZcsFq2+0KsSPW0ZIeACaLoLX4KknqytoNW5tYAyDA="
         }
       },
       "is_incremental": false,
@@ -14347,9 +14347,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -41149,6 +41146,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
