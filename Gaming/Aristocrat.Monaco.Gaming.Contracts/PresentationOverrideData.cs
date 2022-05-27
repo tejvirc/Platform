@@ -40,8 +40,8 @@
         public PresentationOverrideTypes Type { get; }
 
         /// <summary>
-        ///     Gets for sets the formatted amount for this transaction
+        ///     Gets the formatted amount for this transaction
         /// </summary>
-        public string FormattedAmount { get; set; }
+        public string FormattedAmount { get; }
     }
 }
