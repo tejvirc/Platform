@@ -26045,6 +26045,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Please clear reel related faults to allow Replay..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ReplayDisabledReelFaultText {
+			get {
+				return ResourceManager.GetString("ReplayDisabledReelFaultText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Game Win Bonus Awarded: {0}.
 		/// </summary>
 		public static string ReplayGameWinBonusAwarded {
@@ -60406,6 +60418,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Please clear reel related faults to allow Replay..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ReplayDisabledReelFaultText {
+			get {
+				return "ReplayDisabledReelFaultText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Game Win Bonus Awarded: {0}.
 		/// </summary>
 		public static string ReplayGameWinBonusAwarded {
@@ -83603,6 +83627,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		ReplayDisabledInRecoveryText1,
+		/// <summary>
+		///   Looks up a localized string similar to Please clear reel related faults to allow Replay..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ReplayDisabledReelFaultText,
 		/// <summary>
 		///   Looks up a localized string similar to Game Win Bonus Awarded: {0}.
 		/// </summary>
