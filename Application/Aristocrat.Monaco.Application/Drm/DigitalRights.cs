@@ -69,10 +69,11 @@
 
         public TimeSpan TimeRemaining => GetCounterValue(
             Counter.TimeRemaining,
-            v => v != int.MaxValue ? TimeSpan.FromSeconds(v) : Timeout.InfiniteTimeSpan,
+            v => v >= 0 && v < int.MaxValue ? TimeSpan.FromSeconds(v) : Timeout.InfiniteTimeSpan,
             Timeout.InfiniteTimeSpan);
 
-        public int LicenseCount => GetCounterValue(Counter.LicenseCount, v => v, int.MaxValue);
+        public int LicenseCount => GetCounterValue(Counter.LicenseCount,
+            v => v >= 0 ? v : int.MaxValue, int.MaxValue);
 
         public string JurisdictionId => _protectionModule?.Tokens?.FirstOrDefault()?.Data?.JurisdictionId ??
                                         _properties.GetValue(ApplicationConstants.JurisdictionId, "") ?? // backup source is command line
