@@ -114,6 +114,7 @@
         {
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
             TransitionState(RobotControllerState.WaitForRecoveryStart);
+            _waitDuration = 0;/**/
         }
 
         private void HandlerRequestGameExit()
