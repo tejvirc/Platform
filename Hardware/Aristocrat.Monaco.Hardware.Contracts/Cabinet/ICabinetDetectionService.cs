@@ -83,7 +83,7 @@
         ITouchDevice GetTouchDeviceMappedToDisplay(IDisplayDevice displayDevice);
 
         /// <summary>
-        ///     Returns DisplayDevice for a Given Role.
+        ///     Returns DisplayDevice for a given Role.
         /// </summary>
         /// <param name="role">DisplayRole for which DisplayDevice is required.</param>
         IDisplayDevice GetDisplayDeviceByItsRole(DisplayRole role);
@@ -139,5 +139,31 @@
         /// </summary>
         /// <returns>Returns topmost display on the cabinet.</returns>
         DisplayRole GetTopmostDisplay();
+
+        /// <summary>
+        ///     Is the display expected to be on the cabinet
+        /// </summary>
+        /// <param name="role">The display role</param>
+        bool IsDisplayExpected(DisplayRole role);
+
+        /// <summary>
+        ///     Is the display connected 
+        /// </summary>
+        /// <param name="role">The display role</param>
+        bool IsDisplayConnected(DisplayRole role);
+
+        /// <summary>
+        ///     Is the display either configured and present or not configured. Basically saying
+        ///     is everything fine with this display role.
+        /// </summary>
+        /// <param name="role">The display role</param>
+        bool IsDisplayConnectedOrNotExpected(DisplayRole role);
+
+        /// <summary>
+        ///     Is the display configured but not present. Basically saying is this display role
+        ///     missing when it should be available.
+        /// </summary>
+        /// <param name="role">The display role</param>
+        bool IsDisplayExpectedAndDisconnected(DisplayRole role);
     }
 }

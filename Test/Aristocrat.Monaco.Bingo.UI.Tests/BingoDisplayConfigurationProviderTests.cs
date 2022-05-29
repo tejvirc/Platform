@@ -116,7 +116,7 @@
         public void OverrideHelpAppearance()
         {
             var current = _target.GetHelpAppearance();
-            _target.OverrideHelpAppearance(new BingoHelpAppearance());
+            _target.OverrideHelpAppearance(new BingoDisplayConfigurationHelpAppearance());
 
             Assert.AreNotEqual(current, _target.GetHelpAppearance());
 
@@ -126,7 +126,7 @@
         [TestMethod]
         public void OverrideSettings_KeyNotFound()
         {
-            _target.OverrideSettings(new BingoWindow(), new BingoWindowSettings());
+            _target.OverrideSettings(new BingoWindow(), new BingoDisplayConfigurationBingoWindowSettings());
 
             _eventBus.Verify(m => m.Publish(It.IsAny<BingoDisplayHelpAppearanceChangedEvent>()), Times.Never());
         }
@@ -142,7 +142,7 @@
         [TestMethod]
         public void OverrideSettings()
         {
-            _target.OverrideSettings(BingoWindow.Main, new BingoWindowSettings());
+            _target.OverrideSettings(BingoWindow.Main, new BingoDisplayConfigurationBingoWindowSettings());
 
             _eventBus.Verify(m => m.Publish(It.IsAny<BingoDisplayHelpAppearanceChangedEvent>()), Times.Once());
         }

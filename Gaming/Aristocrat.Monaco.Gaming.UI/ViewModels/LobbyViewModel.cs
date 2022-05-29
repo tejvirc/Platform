@@ -2776,7 +2776,8 @@
 
             VbdServiceButtonDisabled = ContainsAnyState(LobbyState.MediaPlayerResizing);
 
-            ReplayRecovery.IsReplayNavigationVisible = MessageOverlayDisplay.IsReplayRecoveryDlgVisible && !_gameRecovery.IsRecovering;
+            ReplayRecovery.IsReplayNavigationVisible = MessageOverlayDisplay.IsReplayRecoveryDlgVisible &&
+                (CurrentState == LobbyState.GameLoadingForDiagnostics || CurrentState == LobbyState.GameDiagnostics);
 
             ReplayRecovery.MessageText = (_gameRecovery.IsRecovering || _lobbyStateManager.IsLoadingGameForRecovery)
                                          && CurrentState == LobbyState.GameLoading

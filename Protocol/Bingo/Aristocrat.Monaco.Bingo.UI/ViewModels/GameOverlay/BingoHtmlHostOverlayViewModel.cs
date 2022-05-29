@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -17,7 +18,6 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using Models;
     using MVVM.Model;
     using OverlayServer;
     using OverlayServer.Attributes;
@@ -38,10 +38,11 @@
         private readonly List<BallCallNumber> _ballCallNumbers = new(BingoConstants.MaxBall);
         private readonly List<BingoCardNumber> _bingoCardNumbers = new(BingoConstants.BingoCardSquares);
         private readonly Stopwatch _stopwatch = new();
+        private readonly ConcurrentDictionary<PresentationOverrideTypes, string> _configuredOverrideMessageFormats = new();
         private List<BingoNumber> _lastBallCall = new();
         private BingoCard _lastBingoCard;
         private List<BingoPattern> _bingoPatterns = new();
-        private BingoWindowSettings _currentBingoSettings;
+        private BingoDisplayConfigurationBingoWindowSettings _currentBingoSettings;
         private bool _multipleSpins;
 
         private bool _disposed;
@@ -69,7 +70,7 @@
             _overlayServer.AttractCompleted += AttractCompleted;
 
             _eventBus.Subscribe<GameConnectedEvent>(this, (_, _) => HandleGameLoaded());
-            _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => SetVisibility(false));
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameBallCallEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameNewCardEvent>(this, Handle);
             _eventBus.Subscribe<SceneChangedEvent>(this, Handle);
@@ -94,6 +95,7 @@
             _eventBus.Subscribe<NoPlayersFoundEvent>(this, _ => HandleNoPlayersFound());
             _eventBus.Subscribe<PlayersFoundEvent>(this, _ => CancelWaitingForPlayers());
             _eventBus.Subscribe<GamePlayDisabledEvent>(this, _ => CancelWaitingForPlayers());
+            _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
         }
 
         public bool Visible
@@ -166,6 +168,8 @@
 
         private async Task HandleGameLoaded()
         {
+            LoadPresentationOverrideMessageFormats();
+
             if (!_overlayServer.IsRunning)
             {
                 var windowName = _bingoConfigurationProvider.CurrentWindow;
@@ -204,7 +208,7 @@
                 _overlayServer.UpdateData(new BingoLiveData { ClearBallCall = true });
             }
 
-            var diff = _currentBingoSettings?.MinimumPreDaubedTimeMs ?? 0 - _stopwatch.ElapsedMilliseconds;
+            var diff = (_currentBingoSettings?.MinimumPreDaubedTimeMs ?? 0) - _stopwatch.ElapsedMilliseconds;
             if (diff > 0)
             {
                 Logger.Debug($"Adding artificial daub delay to the bingo card and ball call: {diff}ms");
@@ -352,6 +356,33 @@
             _overlayServer.UpdateData(new BingoLiveData { WaitForGameSettings = waitSettings });
         }
 
+        private void Handle(PresentationOverrideDataChangedEvent e)
+        {
+            var data = e.PresentationOverrideData;
+            if (data == null || data.Count == 0)
+            {
+                _overlayServer.UpdateData(new BingoLiveData { HideDynamicMessage = true });
+            }
+            else
+            {
+                var overrideType = data.First().Type;
+                if (!_configuredOverrideMessageFormats.ContainsKey(overrideType))
+                {
+                    return;
+                }
+
+                var messageFormat = _configuredOverrideMessageFormats[overrideType];
+                var message = string.Format(messageFormat, data.First().FormattedAmount ?? string.Empty);
+                _overlayServer.UpdateData(new BingoLiveData { DynamicMessage = message });
+            }
+        }
+
+        private void Handle(GameProcessExitedEvent e)
+        {
+            _configuredOverrideMessageFormats.Clear();
+            SetVisibility(false);
+        }
+
         private void HandleNoPlayersFound()
         {
             _overlayServer.UpdateData(new BingoLiveData { StartNoGameFound = true });
@@ -476,6 +507,23 @@
         {
             return _lastBallCall.Count > incomingBallCall.Count ||
                 !_lastBallCall.SequenceEqual(incomingBallCall.Take(_lastBallCall.Count));
+        }
+
+        private void LoadPresentationOverrideMessageFormats()
+        {
+            var messageFormats = _bingoConfigurationProvider.PresentationOverrideMessageFormats;
+            if (messageFormats == null)
+            {
+                return;
+            }
+
+            foreach (var messageFormat in messageFormats)
+            {
+                if (!string.IsNullOrEmpty(messageFormat.Value))
+                {
+                    _configuredOverrideMessageFormats.TryAdd((PresentationOverrideTypes)messageFormat.Key, messageFormat.Value);
+                }
+            }
         }
     }
 }

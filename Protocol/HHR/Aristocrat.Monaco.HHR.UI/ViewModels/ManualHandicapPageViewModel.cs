@@ -67,17 +67,6 @@
 
             _eventBus.Subscribe<ManualHandicapAbortedEvent>(this, Handle);
             _eventBus.Subscribe<StartQuickPickEvent>(this, Handle);
-
-            // If this is true, then the subsequent game round after the last handicap (quick or manual) was 
-            // interrupted, likely due to a power cycle. Resubscribe here to the handpay events
-            // so that if the recovering game round results in a handpay, the handpay placard will be shown.
-            if (_manualHandicapEntityHelper.IsCompleted)
-            {
-                Logger.Debug("_manualHandicapEntityHelper.IsCompleted=true");
-
-                _properties.SetProperty(GamingConstants.HandpayPresentationOverride, true);
-                _eventBus.Subscribe<HandpayCompletedEvent>(this, Handle);
-            }
         }
 
         public int TotalRaces => _racesToHandicap?.Count ?? 0;
@@ -166,9 +155,6 @@
                 ManualHandicapRemainingTime = ClientProperties.ManualHandicapTimeOut;
                 
                 Cleanup();
-
-                // If player Win in Manual Handicap which require Attendant attention then there is need to show the Placard provided by Hhr.
-                _properties.SetProperty(GamingConstants.HandpayPresentationOverride, true);
 
                 // Game Play would be allowed if got the Normal lockup in Manual Handicapping page 
                 _properties.SetProperty(GamingConstants.AdditionalInfoGameInProgress, true);

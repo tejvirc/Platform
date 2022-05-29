@@ -501,7 +501,7 @@
             }
 
             Logger.Info(
-                $"Successfully read token - Id:{token.Id} Name:{token.Name} Locks:{token.Locks} Counters: {string.Concat(",", token.Counters.Select(c => $"{c.Key} - {c.Value}"))}");
+                $"Successfully read token - Id:{token.Id} Name:{token.Name} Locks:{token.Locks} Counters: {token.Counters.Count()} [{string.Join(",", token.Counters.Select(c => $"{c.Key} - {c.Value}"))}]");
 
             return token;
         }

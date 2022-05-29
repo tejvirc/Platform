@@ -8,7 +8,6 @@
     using Events;
     using Gaming.Contracts;
     using Kernel;
-    using Models;
     using MVVM.Model;
     using Protocol.Common.Storage.Entity;
 
@@ -31,7 +30,7 @@
         private readonly IBingoDisplayConfigurationProvider _bingoConfigurationProvider;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
-        private BingoHelpAppearance _helpAppearance;
+        private BingoDisplayConfigurationHelpAppearance _helpAppearance;
         private Thickness _helpBoxMargin;
         private string _address;
         private bool _disposed;
@@ -137,7 +136,7 @@
             _dispatcher.ExecuteOnUIThread(() => SetVisibility(evt.Visible));
         }
 
-        private void UpdateAppearance(BingoHelpAppearance appearance)
+        private void UpdateAppearance(BingoDisplayConfigurationHelpAppearance appearance)
         {
             _dispatcher.ExecuteOnUIThread(
                 () =>

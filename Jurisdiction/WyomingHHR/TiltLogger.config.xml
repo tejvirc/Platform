@@ -138,6 +138,6 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.GamePlayRequestFailedEvent, Aristocrat.Monaco.Hhr" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.TransactionPendingEvent, Aristocrat.Monaco.Hhr" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.ManualHandicapWinEvent, Aristocrat.Monaco.Hhr" Level="info" Type="General" />
-	<EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
   </ArrayOfEventDescription>
 </TiltLoggerConfiguration>

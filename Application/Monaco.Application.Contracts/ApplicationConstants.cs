@@ -1414,5 +1414,10 @@
         ///     Flag indicate whether we need to run Signature verification at every reboot
         /// </summary>
         public const string RunSignatureVerificationAfterReboot = @"LiveAuthenticationManager.RunSignatureVerificationAfterReboot";
+
+        /// <summary>
+        ///     Do not require the EGM to be reconfigured if the Topper gets disconnected. Note Topper must be connected for initial configure.
+        /// </summary>
+        public const string TopperDisplayDisconnectNoReconfigure = @"Application.TopperDisplayDisconnectNoReconfigure";
     }
 }

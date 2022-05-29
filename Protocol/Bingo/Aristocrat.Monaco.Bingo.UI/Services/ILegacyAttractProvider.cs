@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.Services
 {
     using System;
-    using Models;
 
     /// <summary>
     ///     The provider for the legacy attract mode handling for bingo
@@ -13,6 +12,6 @@
         /// </summary>
         /// <param name="attractSettings">The settings to use for attract</param>
         /// <returns>The legacy attract URI or null if attract is disabled</returns>
-        Uri GetLegacyAttractUri(BingoAttractSettings attractSettings);
+        Uri GetLegacyAttractUri(BingoDisplayConfigurationBingoAttractSettings attractSettings);
     }
 }

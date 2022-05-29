@@ -23,7 +23,7 @@
         /// <summary>Gets or sets the reserved bytes for future use 1.</summary>
         /// <value>The reserved bytes for future use 1.</value>
         [FieldOrder(1)]
-        [FieldBitLength(2)]
+        [FieldBitLength(1)]
         public byte Reserved1 { get; set; }
 
         /// <summary>Gets or sets a value indicating whether the component error.</summary>
@@ -85,12 +85,16 @@
         [FieldBitLength(5)]
         public byte ErrorCode { get; set; }
 
+        /// <summary>Gets or sets a value indicating whether or not a reel requested to home resulted in an error.</summary>
+        [FieldOrder(12)]
+        [FieldBitLength(1)]
+        public bool FailedHome { get; set; }
 
         /// <inheritdoc />
         public override string ToString()
         {
             return Invariant(
-                $"{GetType()} [ReelId={ReelId}, ComponentError={ComponentError}, MechanicalError={MechanicalError}, FirmwareError={FirmwareError}, DiagnosticCode={DiagnosticCode}, TamperDetected={TamperDetected}, LowVoltageDetected={LowVoltageDetected}, CommunicationError={CommunicationError}, HardwareError={HardwareError}, StallDetected={StallDetected}, ErrorCode={ErrorCode}]");
+                $"{GetType()} [ReelId={ReelId}, ComponentError={ComponentError}, MechanicalError={MechanicalError}, FirmwareError={FirmwareError}, DiagnosticCode={DiagnosticCode}, TamperDetected={TamperDetected}, LowVoltageDetected={LowVoltageDetected}, CommunicationError={CommunicationError}, HardwareError={HardwareError}, StallDetected={StallDetected}, ErrorCode={ErrorCode}, FailedHome={FailedHome}]");
         }
 
         /// <inheritdoc />
@@ -109,6 +113,7 @@
                        CommunicationError == other.CommunicationError &&
                        HardwareError == other.HardwareError &&
                        StallDetected == other.StallDetected &&
+                       FailedHome == other.FailedHome &&
                        ErrorCode == other.ErrorCode);
         }
 
@@ -137,6 +142,7 @@
                 hashCode = (hashCode * 397) ^ HardwareError.GetHashCode();
                 hashCode = (hashCode * 397) ^ StallDetected.GetHashCode();
                 hashCode = (hashCode * 397) ^ ErrorCode.GetHashCode();
+                hashCode = (hashCode * 397) ^ FailedHome.GetHashCode();
                 return hashCode;
             }
         }
