@@ -3,6 +3,7 @@
     using System;
     using System.Windows;
     using System.Windows.Media;
+    using CefSharp;
     using Common;
     using Common.Events;
     using Events;
@@ -39,6 +40,7 @@
         private SolidColorBrush _colorBrush;
         private double _height;
         private double _width;
+        private IWebBrowser _webBrowser;
 
         public BingoHelpOverlayViewModel(
             IDispatcher dispatcher,
@@ -83,7 +85,7 @@
         public string Address
         {
             get => _address;
-            private set => SetProperty(ref _address, value);
+            set => SetProperty(ref _address, value);
         }
 
         public bool Visible
@@ -108,6 +110,12 @@
         {
             get => _width;
             set => SetProperty(ref _width, value);
+        }
+
+        public IWebBrowser WebBrowser
+        {
+            get => _webBrowser;
+            set => SetProperty(ref _webBrowser, value);
         }
 
         public void Dispose()
@@ -148,7 +156,7 @@
                         (_helpAppearance.HelpBox.Top > MinHelpBoxMarginTop ? MinHelpBoxMarginTop : _helpAppearance.HelpBox.Top) * Height,
                         (_helpAppearance.HelpBox.Right > MinHelpBoxMarginRight ? MinHelpBoxMarginRight : _helpAppearance.HelpBox.Right) * Width,
                         (_helpAppearance.HelpBox.Bottom > MinHelpBoxMarginBottom ? MinHelpBoxMarginBottom : _helpAppearance.HelpBox.Bottom) * Height);
-                    
+
                     Address = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
                 });
         }
@@ -166,6 +174,7 @@
                     if (visible)
                     {
                         Address = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+                        _webBrowser?.Reload();
                     }
 
                     Visible = visible;

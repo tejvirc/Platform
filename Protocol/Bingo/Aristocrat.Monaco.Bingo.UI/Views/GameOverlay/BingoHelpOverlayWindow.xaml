@@ -44,7 +44,8 @@
                 BorderThickness="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            <cefsharp:ChromiumWebBrowser x:Name="BingoHelp" Address="{Binding Address, Mode=OneWay}"/>
+            <cefsharp:ChromiumWebBrowser x:Name="BingoHelp" Address="{Binding Address, Mode=TwoWay}" 
+                                         WebBrowser="{Binding WebBrowser, Mode=OneWayToSource}" />
         </Border>
 
         <metro:ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding IsLoading}" Foreground="White"/>
