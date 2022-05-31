@@ -6,7 +6,7 @@
     <Product>Aristocrat.Monaco.Sas</Product>
     <Copyright>Copyright ©  2018</Copyright>
     <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>9</LangVersion>
     <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>

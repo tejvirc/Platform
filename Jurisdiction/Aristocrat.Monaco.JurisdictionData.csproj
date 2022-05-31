@@ -7,6 +7,7 @@
     <Authors>Aristocrat</Authors>
     <Configurations>Debug;Release;Retail</Configurations>
     <EnableDefaultItems>true</EnableDefaultItems>
+	<LangVersion>9</LangVersion>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <MakeDir Directories="$(JurisdictionDir)" />

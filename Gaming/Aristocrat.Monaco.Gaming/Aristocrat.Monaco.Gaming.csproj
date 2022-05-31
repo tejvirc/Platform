@@ -7,7 +7,7 @@
     <Product>Monaco</Product>
     <Copyright>Copyright © Aristocrat Technologies Inc. 2016</Copyright>
     <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>9</LangVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <Configurations>Debug;Release;Retail</Configurations>

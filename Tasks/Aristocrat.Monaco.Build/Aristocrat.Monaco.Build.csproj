@@ -4,6 +4,7 @@
     <Company>Aristocrat Technologies Inc.</Company>
     <Product>Monaco</Product>
     <Copyright>Copyright © Aristocrat Technologies Inc. 2019</Copyright>
+	<LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>

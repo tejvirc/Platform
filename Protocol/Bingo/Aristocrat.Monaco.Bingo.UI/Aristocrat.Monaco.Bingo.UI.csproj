@@ -17,7 +17,7 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3270</MSBuildWarningsAsMessages>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>9</LangVersion>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
