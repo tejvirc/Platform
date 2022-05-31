@@ -1,55 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Project DefaultTargets="BuildAssemblies" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <PropertyGroup>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <JurisdictionDir>$([System.IO.Path]::GetFullPath($(TargetDir)))jurisdiction\</JurisdictionDir>
+    <JurisdictionDir>$([System.IO.Path]::GetFullPath($(OutputPath)))</JurisdictionDir>
     <SDKToolsPath>$(SDK40ToolsPath)</SDKToolsPath>
+    <RootDir>$(MSBuildStartupDirectory)\</RootDir>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ResxFiles Include="$(JurisdictionDir)**\Resources*.resx"/>
-  </ItemGroup>
-
-  <Target Name="PrepareResources" AfterTargets="BuildAssemblies">
-    <ItemGroup>
-      <AbandonedFiles Include="$(JurisdictionDir)**\Resources.cs;$(JurisdictionDir)**\*Resources*.resources;$(JurisdictionDir)**\Resources.txt;$(JurisdictionDir)**\Aristocrat.Monaco.Localization*.dll;$(JurisdictionDir)**\Aristocrat.Monaco.Globalization*.dll;$(JurisdictionDir)**\Aristocrat.Monaco.Localization*.dll"></AbandonedFiles>
-    </ItemGroup>
-
-    <Delete Files="@(AbandonedFiles)"/>
-  </Target>
-
-  <Target Name="ScanResources" DependsOnTargets="PrepareResources">
-    <Message Text="Jurisdiction Directory: $(JurisdictionDir)"/>
+  <Target Name="ScanResources" AfterTargets="BuildAssemblies">
+    <Message Text="Jurisdiction Directory: $(JurisdictionDir)" />
     <Message Text="SDK Tools Path: $(SDKToolsPath)" />
 
-    <Message Text="Resx Files: @(ResxFiles)"/>
+    <ItemGroup>
+      <FoundResxFiles Include="$(RootDir)**\Resources*.resx" Exclude="$(RootDir)obj\**" />
+      <ImageFiles Include="$(RootDir)**\ui\images\**\*.png" Exclude="$(RootDir)obj\**" />
+    </ItemGroup>
 
-    <GetAssemblyNames Resources="@(ResxFiles)" RootDirectory="$(JurisdictionDir)">
-      <Output ItemName="ResxWithAssemblyNameFiles" TaskParameter="Resources"/>
+    <Copy SourceFiles="@(FoundResxFiles)" DestinationFiles="@(FoundResxFiles->'$(RootDir)obj\$(Configuration)\resources\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true">
+      <Output ItemName="ResxFiles" TaskParameter="CopiedFiles" />
+    </Copy>
+
+    <Copy SourceFiles="@(ImageFiles)" DestinationFiles="@(ImageFiles->'$(RootDir)obj\$(Configuration)\resources\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+
+    <Message Text="Resx Files: @(ResxFiles)" />
+
+    <GetAssemblyNames Resources="@(ResxFiles)" RootDirectory="$(RootDir)obj\$(Configuration)\resources\">
+      <Output ItemName="ResxWithAssemblyNameFiles" TaskParameter="Resources" />
     </GetAssemblyNames>
 
     <GetModifiedResources Resources="@(ResxWithAssemblyNameFiles)">
       <Output ItemName="ModifiedResxFiles" TaskParameter="ModifiedResources" />
     </GetModifiedResources>
 
-    <Message Text="Modified Resx Files: @(ModifiedResxFiles)"/>
+    <Message Text="Modified Resx Files: @(ModifiedResxFiles)" />
   </Target>
 
   <Target Name="CompileResources" DependsOnTargets="ScanResources">
     <ItemGroup>
-      <TextFiles Include="%(ModifiedResxFiles.RelativeDir)Resources.txt"
-                 Condition="'%(ModifiedResxFiles.RelativeDir)' != '' And !Exists('%(ModifiedResxFiles.RelativeDir)Resources.resx')" />
+      <TextFiles Include="%(ModifiedResxFiles.RelativeDir)Resources.txt" Condition="'%(ModifiedResxFiles.RelativeDir)' != '' And !Exists('%(ModifiedResxFiles.RelativeDir)Resources.resx')" />
     </ItemGroup>
 
-    <Message Text="Text Files: @(TextFiles)"/>
+    <Message Text="Text Files: @(TextFiles)" />
 
     <Touch Files="@(TextFiles)" AlwaysCreate="true" Condition="'@(TextFiles)' != ''" />
 
-    <GenerateResource Sources="@(TextFiles)" 
-                      SdkToolsPath="$(SDKToolsPath)"
-                      OutputResources="@(TextFiles->'%(RelativeDir)%(FileName).resx')"
-                      Condition="'%(TextFiles.RelativeDir)' != ''">
-      <Output ItemName="TextResxFiles" TaskParameter="OutputResources"/>
+    <GenerateResource Sources="@(TextFiles)" SdkToolsPath="$(SDKToolsPath)" OutputResources="@(TextFiles->'%(RelativeDir)%(FileName).resx')" Condition="'%(TextFiles.RelativeDir)' != ''">
+      <Output ItemName="TextResxFiles" TaskParameter="OutputResources" />
     </GenerateResource>
 
     <ItemGroup>
@@ -62,42 +58,44 @@
       <Output TaskParameter="AssignedFilesWithNoCulture" ItemName="AssignedFilesWithNoCulture" />
     </AssignCulture>
 
-    <GetAssemblyNames Resources="@(AssignedFilesWithNoCulture)" RootDirectory="$(JurisdictionDir)">
-      <Output ItemName="InvariantResxFiles" TaskParameter="Resources"/>
+    <GetAssemblyNames Resources="@(AssignedFilesWithNoCulture)" RootDirectory="$(RootDir)obj\$(Configuration)\resources\">
+      <Output ItemName="InvariantResxFiles" TaskParameter="Resources" />
     </GetAssemblyNames>
 
-    <GetAssemblyNames Resources="@(AssignedFilesWithCulture)" RootDirectory="$(JurisdictionDir)">
-      <Output ItemName="CultureResxFiles" TaskParameter="Resources"/>
+    <GetAssemblyNames Resources="@(AssignedFilesWithCulture)" RootDirectory="$(RootDir)obj\$(Configuration)\resources\">
+      <Output ItemName="CultureResxFiles" TaskParameter="Resources" />
     </GetAssemblyNames>
 
-    <Message Text="Invariant Resx Files: @(InvariantResxFiles)"/>
-    <Message Text="Culture Resx Files: @(CultureResxFiles)"/>
+    <Message Text="Invariant Resx Files: @(InvariantResxFiles)" />
+    <Message Text="Culture Resx Files: @(CultureResxFiles)" />
 
-    <GenerateResource Sources="%(InvariantResxFiles.FullPath)" 
-                      PublicClass="true" 
-                      UseSourcePath="true"
-                      SdkToolsPath="$(SDKToolsPath)"
-                      StronglyTypedLanguage="C#"
-                      StronglyTypedFileName="@(InvariantResxFiles->'%(RelativeDir)%(FileName).cs')"
-                      StronglyTypedClassName="%(FileName)"
-                      StronglyTypedNamespace="Aristocrat.Monaco.Localization"
-                      OutputResources="@(InvariantResxFiles->'%(RelativeDir)Aristocrat.Monaco.Localization.%(FileName).resources')">
-      <Output ItemName="InvariantResources" TaskParameter="OutputResources"/>
+    <GenerateResource
+      Sources="%(InvariantResxFiles.FullPath)"
+      PublicClass="true"
+      UseSourcePath="true"
+      SdkToolsPath="$(SDKToolsPath)"
+      StronglyTypedLanguage="C#"
+      StronglyTypedFileName="@(InvariantResxFiles->'%(RelativeDir)%(FileName).cs')"
+      StronglyTypedClassName="%(FileName)"
+      StronglyTypedNamespace="Aristocrat.Monaco.Localization"
+      OutputResources="@(InvariantResxFiles->'%(RelativeDir)Aristocrat.Monaco.Localization.%(FileName).resources')">
+      <Output ItemName="InvariantResources" TaskParameter="OutputResources" />
     </GenerateResource>
 
-    <GenerateResource Sources="%(CultureResxFiles.FullPath)" 
-                      PublicClass="true" 
-                      UseSourcePath="true"
-                      SdkToolsPath="$(SDKToolsPath)"
-                      OutputResources="@(CultureResxFiles->'%(RelativeDir)Aristocrat.Monaco.Localization.%(FileName).resources')">
-      <Output ItemName="CultureResources" TaskParameter="OutputResources"/>
+    <GenerateResource
+      Sources="%(CultureResxFiles.FullPath)"
+      PublicClass="true"
+      UseSourcePath="true"
+      SdkToolsPath="$(SDKToolsPath)"
+      OutputResources="@(CultureResxFiles->'%(RelativeDir)Aristocrat.Monaco.Localization.%(FileName).resources')">
+      <Output ItemName="CultureResources" TaskParameter="OutputResources" />
     </GenerateResource>
 
     <ItemGroup>
       <Resources Include="@(InvariantResources);@(CultureResources)" />
     </ItemGroup>
 
-    <Message Text="Resource Files: @(Resources)"/>
+    <Message Text="Resource Files: @(Resources)" />
   </Target>
 
   <Target Name="BuildAssemblies" DependsOnTargets="CompileResources">
@@ -107,33 +105,38 @@
 
     <Message Text="Source Files: @(SourceFiles)" />
 
-    <CSC Sources="@(InvariantResources->'%(RelativeDir)Resources.cs')"
-         Resources="@(InvariantResources)"
-         Platform="anycpu"
-         NoLogo="true"
-         DisabledWarnings="true"
-         TargetType="library"
-         OutputAssembly="@(InvariantResources->'%(RelativeDir)%(AssemblyName).dll')"
-         EmitDebugInformation="false"
-         Condition="'%(InvariantResources.RelativeDir)' != ''" />
+    <CSC
+      Sources="@(InvariantResources->'%(RelativeDir)Resources.cs')"
+      Resources="@(InvariantResources)"
+      Platform="anycpu"
+      NoLogo="true"
+      DisabledWarnings="true"
+      TargetType="library"
+      OutputAssembly="@(InvariantResources->'%(RelativeDir)%(AssemblyName).dll')"
+      EmitDebugInformation="false"
+      Condition="'%(InvariantResources.RelativeDir)' != ''" />
 
-    <MakeDir Directories="%(CultureResources.RelativeDir)%(Culture)"
-             Condition="'%(CultureResources.RelativeDir)' != ''" />
+    <MakeDir Directories="%(CultureResources.RelativeDir)%(Culture)" Condition="'%(CultureResources.RelativeDir)' != ''" />
 
-    <AL OutputAssembly="@(CultureResources->'%(RelativeDir)%(Culture)\%(AssemblyName).resources.dll')"
-        SdkToolsPath="$(SDKToolsPath)"
-        Version="1.0.0.0"
-        TemplateFile="@(CultureResources->'%(RelativeDir)%(AssemblyName).dll')"
-        Culture="%(Culture)"
-        EmbedResources="@(CultureResources)"
-        Condition="'%(CultureResources.RelativeDir)' != ''" />
+    <AL
+      OutputAssembly="@(CultureResources->'%(RelativeDir)%(Culture)\%(AssemblyName).resources.dll')"
+      SdkToolsPath="$(SDKToolsPath)"
+      Version="1.0.0.0"
+      TemplateFile="@(CultureResources->'%(RelativeDir)%(AssemblyName).dll')"
+      Culture="%(Culture)"
+      EmbedResources="@(CultureResources)"
+      Condition="'%(CultureResources.RelativeDir)' != ''" />
   </Target>
 
-  <Target Name="CleanUp" AfterTargets="BuildAssemblies">
-    <Delete Files="@(TextFiles)"/>
-    <Delete Files="@(ResxFiles)"/>
-    <Delete Files="@(Resources)"/>
-    <Delete Files="@(SourceFiles)"/>
+  <Target Name="CopyAssemblies" AfterTargets="BuildAssemblies">
+    <ItemGroup>
+      <AssemblyFiles Include="$(RootDir)obj\$(Configuration)\resources\**\*.dll" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(AssemblyFiles)"
+      DestinationFiles="@(AssemblyFiles->'$(JurisdictionDir)%(RecursiveDir)%(FileName)%(Extension)')"
+      SkipUnchangedFiles="true" />
   </Target>
 
   <UsingTask TaskName="GetModifiedResources" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
@@ -148,10 +151,10 @@
       <Using Namespace="System.Linq" />
       <Using Namespace="Microsoft.Build.Framework" />
       <Code Type="Fragment" Language="cs">
-        <![CDATA[
-          var modifiedResources = new List<ITaskItem>();
+      <![CDATA[
+        var modifiedResources = new List<ITaskItem>();
 
-          foreach(ITaskItem item in Resources ?? new ITaskItem[] { }) {
+        foreach(ITaskItem item in Resources ?? new ITaskItem[] { }) {
             var directory = item.GetMetadata("RelativeDir");
             var assemblyName = item.GetMetadata("AssemblyName");
             var modified = DateTime.Parse(item.GetMetadata("ModifiedTime"));
@@ -159,14 +162,14 @@
             var assemblyPath = string.Format("{0}{1}.dll", directory, assemblyName);
 
             if (!File.Exists(assemblyPath) || modified > File.GetLastWriteTime(assemblyPath)) {
-              modifiedResources.Add(new TaskItem(item.ItemSpec));
+                modifiedResources.Add(new TaskItem(item.ItemSpec));
             }
-          }
-          
-          ModifiedResources = modifiedResources.Count() > 0 ? modifiedResources.ToArray() : null;
-          
-          return true;
-        ]]>
+        }
+        
+        ModifiedResources = modifiedResources.Count() > 0 ? modifiedResources.ToArray() : null;
+        
+        return true;
+      ]]>
       </Code>
     </Task>
   </UsingTask>
@@ -181,35 +184,35 @@
       <Using Namespace="System.Text.RegularExpressions" />
       <Using Namespace="Microsoft.Build.Framework" />
       <Code Type="Fragment" Language="cs">
-        <![CDATA[
-          if (string.IsNullOrEmpty(RootDirectory) || !Directory.Exists(RootDirectory))
-          {
-              return false;
-          }
+      <![CDATA[
+        if (string.IsNullOrEmpty(RootDirectory) || !Directory.Exists(RootDirectory))
+        {
+            return false;
+        }
 
-          var rootDirectory = new DirectoryInfo(RootDirectory);
+        var rootDirectory = new DirectoryInfo(RootDirectory);
 
-          var regex = new Regex(string.Format(@"{0}([\w|\s|\-|_|\\]+)", Regex.Escape(rootDirectory.FullName)), RegexOptions.IgnoreCase);
+        var regex = new Regex(string.Format(@"{0}([\w|\s|\-|_|\\]+)", Regex.Escape(rootDirectory.FullName)), RegexOptions.IgnoreCase);
 
-          foreach (var r in Resources ?? new ITaskItem[] { })
-          {
-              var relativeDir = new DirectoryInfo(r.GetMetadata("RelativeDir"));
+        foreach (var r in Resources ?? new ITaskItem[] { })
+        {
+            var relativeDir = new DirectoryInfo(r.GetMetadata("RelativeDir"));
 
-              var m = regex.Match(relativeDir.FullName);
+            var m = regex.Match(relativeDir.FullName);
 
-              var val = m.Groups[1].Captures[0].Value;
-              var assemblyName = string.Format("Aristocrat.Monaco.{0}",
-                  val.Replace("\\resources", "")
-                      .Replace("\\", ".")
-                      .Replace("-", ".")
-                      .Replace("_", ".")
-                      .TrimEnd('.'));
+            var val = m.Groups[1].Captures[0].Value;
+            var assemblyName = string.Format("Aristocrat.Monaco.{0}",
+                val.Replace("\\resources", "")
+                    .Replace("\\", ".")
+                    .Replace("-", ".")
+                    .Replace("_", ".")
+                    .TrimEnd('.'));
 
-              r.SetMetadata("AssemblyName", assemblyName);
-          }
+            r.SetMetadata("AssemblyName", assemblyName);
+        }
 
-          return true;
-        ]]>
+        return true;
+      ]]>
       </Code>
     </Task>
   </UsingTask>
