@@ -1632,7 +1632,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.Tickets.CashSlipEventLogRecord.html",
-          "hash": "cI5AfX9y9/Pvk3JoHJjdEYAD2lcNIPeBV6BTT51pqKE="
+          "hash": "TPRj/SU7k9PwTCcwFWsUPahcFONCWXsgkqBCxrms1/8="
         }
       },
       "is_incremental": false,
@@ -14431,6 +14431,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23647,9 +23650,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -45906,7 +45906,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GameCategorySetting.html",
-          "hash": "ROd7ICFbgxKy8DlVzXmsFuvx6bEHk9w+qPv0Nsw7M6c="
+          "hash": "PLxgzcHUoPvsyicQBKFNHMiSCZk5aE959sIp4EVxYVo="
         }
       },
       "is_incremental": false,
@@ -81318,7 +81318,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Monaco.Mgam.Common.DenomRegistrationInfo.html",
-          "hash": "uSX+CsjuTcKdxxEOGPuAam3Js54Q27iw3lhhIAEzD/E="
+          "hash": "ZFgOKMMF3Aa1LchqpZpi+XNL83KTVtzEhDVzosVBvyo="
         }
       },
       "is_incremental": false,
