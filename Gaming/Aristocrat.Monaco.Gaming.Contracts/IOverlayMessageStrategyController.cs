@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Accounting.Contracts.Handpay;
@@ -7,7 +8,7 @@
     /// <summary>
     ///     Manages registered overlay presentations and strategies for the game
     /// </summary>
-    public interface IOverlayMessageStrategyController
+    public interface IOverlayMessageStrategyController : IDisposable
     {
         /// <summary>
         ///     returns whether the game has registered 

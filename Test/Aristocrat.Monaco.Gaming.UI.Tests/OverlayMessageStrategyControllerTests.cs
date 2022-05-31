@@ -15,6 +15,8 @@
         private Mock<IOverlayMessageStrategyFactory> _overlayMessageStrategyFactory;
         private Mock<IPresentationService> _presentationService;
         private Mock<ISystemDisableManager> _disableManager;
+        private Mock<IRuntime> _runtime;
+        private Mock<IEventBus> _eventBus;
 
         [TestInitialize]
         public void TestInitialization()
@@ -23,6 +25,8 @@
             _overlayMessageStrategyFactory = new Mock<IOverlayMessageStrategyFactory>(MockBehavior.Default);
             _presentationService = new Mock<IPresentationService>(MockBehavior.Default);
             _disableManager = new Mock<ISystemDisableManager>(MockBehavior.Default);
+            _runtime = new Mock<IRuntime>(MockBehavior.Default);
+            _eventBus = new Mock<IEventBus>(MockBehavior.Default);
         }
 
         [TestCleanup]
@@ -39,17 +43,17 @@
             presentationTypes[0] = PresentationOverrideTypes.PrintingCashoutTicket;
             presentationTypes[1] = PresentationOverrideTypes.PrintingCashwinTicket;
 
-            var eventBus = new Mock<IEventBus>(MockBehavior.Default);
             var mockController = new Mock<IOverlayMessageStrategyController>(MockBehavior.Default);
 
             var gameControlledOverlayStrategy = new Mock<GameControlledOverlayMessageStrategy>(mockController.Object, _presentationService.Object);
-            var enhancedOverlayStrategy = new Mock<EnhancedOverlayMessageStrategy>(_properties.Object, eventBus.Object, _disableManager.Object);
+            var enhancedOverlayStrategy = new Mock<EnhancedOverlayMessageStrategy>(_properties.Object, _eventBus.Object, _disableManager.Object);
 
             _properties.Setup(r => r.GetProperty(ApplicationConstants.PlatformEnhancedDisplayEnabled, true)).Returns(true);
+            _runtime.Setup(r => r.Connected).Returns(true);
             _overlayMessageStrategyFactory.Setup(r => r.Create(OverlayMessageStrategyOptions.GameDriven)).Returns(gameControlledOverlayStrategy.Object);
             _overlayMessageStrategyFactory.Setup(r => r.Create(OverlayMessageStrategyOptions.Enhanced)).Returns(enhancedOverlayStrategy.Object);
 
-            var controller = new OverlayMessageStrategyController(_overlayMessageStrategyFactory.Object, _properties.Object, _presentationService.Object);
+            var controller = new OverlayMessageStrategyController(_overlayMessageStrategyFactory.Object, _properties.Object, _presentationService.Object, _runtime.Object, _eventBus.Object);
 
             controller.RegisterPresentation(registered, presentationTypes);
 
@@ -73,9 +77,10 @@
             var enhancedOverlayStrategy = new Mock<EnhancedOverlayMessageStrategy>(_properties.Object, eventBus.Object, _disableManager.Object);
 
             _properties.Setup(r => r.GetProperty(ApplicationConstants.PlatformEnhancedDisplayEnabled, true)).Returns(true);
+            _runtime.Setup(r => r.Connected).Returns(true);
             _overlayMessageStrategyFactory.Setup(r => r.Create(OverlayMessageStrategyOptions.Enhanced)).Returns(enhancedOverlayStrategy.Object);
 
-            var controller = new OverlayMessageStrategyController(_overlayMessageStrategyFactory.Object, _properties.Object, _presentationService.Object);
+            var controller = new OverlayMessageStrategyController(_overlayMessageStrategyFactory.Object, _properties.Object, _presentationService.Object, _runtime.Object, _eventBus.Object);
 
             controller.RegisterPresentation(registered, presentationTypes);
 
