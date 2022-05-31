@@ -68,11 +68,11 @@
 				<xs:element name="PresentationOverrideMessageFormats" minOccurs="0" >
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="SerializableKeyValuePair" minOccurs="0" maxOccurs="unbounded" >
+							<xs:element name="PresentationOverrideMessageFormat" minOccurs="0" maxOccurs="unbounded" >
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="Key" type="PresentationOverrideTypes" minOccurs="1" />
-										<xs:element name="Value" type="xs:string" minOccurs="1" />
+										<xs:element name="OverrideType" type="PresentationOverrideTypes" minOccurs="1" />
+										<xs:element name="MessageFormat" type="xs:string" minOccurs="1" />
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>

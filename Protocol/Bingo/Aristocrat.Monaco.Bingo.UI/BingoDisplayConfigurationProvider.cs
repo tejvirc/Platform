@@ -15,12 +15,13 @@
     using Kernel;
     using Localization.Properties;
     using Models;
+    using PresentationOverrideMessageFormat = BingoDisplayConfigurationPresentationOverrideMessageFormat;
 
     public class BingoDisplayConfigurationProvider : IBingoDisplayConfigurationProvider, IService, IDisposable
     {
         private const string DisplayConfigurationFile = @"BingoDisplayConfiguration.xml";
 
-        private readonly BingoDisplayConfigurationHelpAppearance _defaultHelpAppearance = new() { HelpBox = new(){Left=0.2, Top=0.2, Right=0.2, Bottom=0.3 }};
+        private readonly BingoDisplayConfigurationHelpAppearance _defaultHelpAppearance = new() { HelpBox = new(){ Left=0.2, Top=0.2, Right=0.2, Bottom=0.3 }};
         private readonly object _sync = new();
 
         private readonly ConcurrentDictionary<string, BingoDisplayConfiguration> _displayConfigurations =
@@ -38,10 +39,10 @@
 
         private BingoDisplayConfigurationHelpAppearance _helpAppearance;
         private BingoDisplayConfigurationBingoAttractSettings _attractSettings = new();
+        private List<PresentationOverrideMessageFormat> _presentationOverrideMessageFormats = new();
         private BingoWindow _currentWindow;
         private bool _disposed;
         private int _version;
-        private List<BingoDisplayConfigurationSerializableKeyValuePair> _presentationOverrideMessageFormats;
 
         public BingoDisplayConfigurationProvider(
             IDispatcher dispatcher,
@@ -75,7 +76,7 @@
             ScanForGameFiles();
         }
 
-        public List<BingoDisplayConfigurationSerializableKeyValuePair> PresentationOverrideMessageFormats => _presentationOverrideMessageFormats;
+        public List<PresentationOverrideMessageFormat> GetPresentationOverrideMessageFormats() => _presentationOverrideMessageFormats;
 
         public BingoDisplayConfigurationHelpAppearance GetHelpAppearance() => _helpAppearance;
 
@@ -228,7 +229,7 @@
         {
             _attractSettings = new BingoDisplayConfigurationBingoAttractSettings();
             _helpAppearance = _defaultHelpAppearance;
-            _presentationOverrideMessageFormats = new List<BingoDisplayConfigurationSerializableKeyValuePair>();
+            _presentationOverrideMessageFormats = new List<PresentationOverrideMessageFormat>();
 
             var appearance = new BingoDisplayConfigurationBingoWindowSettings
             {

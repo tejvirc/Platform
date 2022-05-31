@@ -511,7 +511,7 @@
 
         private void LoadPresentationOverrideMessageFormats()
         {
-            var messageFormats = _bingoConfigurationProvider.PresentationOverrideMessageFormats;
+            var messageFormats = _bingoConfigurationProvider.GetPresentationOverrideMessageFormats();
             if (messageFormats == null)
             {
                 return;
@@ -519,9 +519,9 @@
 
             foreach (var messageFormat in messageFormats)
             {
-                if (!string.IsNullOrEmpty(messageFormat.Value))
+                if (!string.IsNullOrEmpty(messageFormat.MessageFormat))
                 {
-                    _configuredOverrideMessageFormats.TryAdd((PresentationOverrideTypes)messageFormat.Key, messageFormat.Value);
+                    _configuredOverrideMessageFormats.TryAdd((PresentationOverrideTypes)messageFormat.OverrideType, messageFormat.MessageFormat);
                 }
             }
         }

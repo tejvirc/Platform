@@ -12,7 +12,8 @@
         /// <summary>
         ///     Gets the presentation override message formats
         /// </summary>
-        List<BingoDisplayConfigurationSerializableKeyValuePair> PresentationOverrideMessageFormats { get; }
+        /// <returns>The presentation override message formats</returns>
+        List<BingoDisplayConfigurationPresentationOverrideMessageFormat> GetPresentationOverrideMessageFormats();
 
         /// <summary>
         ///     Get help appearance

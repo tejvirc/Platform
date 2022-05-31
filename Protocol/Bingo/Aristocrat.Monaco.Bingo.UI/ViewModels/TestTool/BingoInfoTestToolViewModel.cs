@@ -1,9 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.ViewModels.TestTool
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Windows.Input;
     using Common;
     using Gaming.Contracts.Events;
     using Kernel;
@@ -11,11 +7,18 @@
     using MVVM;
     using MVVM.Command;
     using Quartz.Util;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Windows.Input;
+    using PresentationOverrideMessageFormat = BingoDisplayConfigurationPresentationOverrideMessageFormat;
 
     public class BingoInfoTestToolViewModel : BingoTestToolViewModelBase
     {
         private BingoDisplayConfigurationBingoWindowSettings _currentBingoSettings;
         private BingoDisplayConfigurationBingoAttractSettings _currentBingoAttractSettings;
+        private List<PresentationOverrideMessageFormat> _presentationOverrideMessageFormats;
         private BingoWindow _bingoWindowName;
         private readonly IEventBus _eventBus;
 
@@ -32,6 +35,10 @@
             DaubColors = new List<string>(Colors) { BingoConstants.RainbowColor };
 
             ChangeSceneCommand = new ActionCommand<object>(_ => ChangeScene());
+
+            AddPresentationOverrideMessageFormatCommand = new ActionCommand<object>(_ => AddPresentationOverrideMessageFormat());
+            RemovePresentationOverrideMessageFormatCommand = new ActionCommand<object>(RemovePresentationOverrideMessageFormat);
+            ApplyPresentationOverrideMessageFormatsCommand = new ActionCommand<object>(_ => UpdateConfigPresentationOverrideMessageFormats());
         }
 
         public List<string> DaubColors { get; set; }
@@ -268,6 +275,25 @@
                 Update();
             }
         }
+        
+        public ObservableCollection<PresentationOverrideMessageFormat> PresentationOverrideMessageFormats { get; } = new();
+
+        public ICommand AddPresentationOverrideMessageFormatCommand { get; set; }
+
+        public ICommand RemovePresentationOverrideMessageFormatCommand { get; set; }
+
+        public ICommand ApplyPresentationOverrideMessageFormatsCommand { get; set; }
+
+        public List<PresentationOverrideTypes> PresentationOverrideType => new()
+        {
+            PresentationOverrideTypes.BonusJackpot,
+            PresentationOverrideTypes.CancelledCreditsHandpay,
+            PresentationOverrideTypes.JackpotHandpay,
+            PresentationOverrideTypes.PrintingCashoutTicket,
+            PresentationOverrideTypes.PrintingCashwinTicket,
+            PresentationOverrideTypes.TransferingInCredits,
+            PresentationOverrideTypes.TransferingOutCredits
+        };
 
         public int Version => BingoConfigProvider.GetVersion();
 
@@ -277,6 +303,7 @@
 
             _currentBingoSettings = BingoConfigProvider.GetSettings(WindowName);
             _currentBingoAttractSettings = BingoConfigProvider.GetAttractSettings();
+            _presentationOverrideMessageFormats = BingoConfigProvider.GetPresentationOverrideMessageFormats();
             IsInitializing = false;
         }
 
@@ -298,6 +325,7 @@
 
             _currentBingoSettings = BingoConfigProvider.GetSettings(WindowName);
             _currentBingoAttractSettings = BingoConfigProvider.GetAttractSettings();
+            _presentationOverrideMessageFormats = BingoConfigProvider.GetPresentationOverrideMessageFormats();
             RaisePropertyChanged(nameof(Version));
         }
 
@@ -305,6 +333,34 @@
         {
             if(!Scene.IsNullOrWhiteSpace())
                 _eventBus.Publish(new SceneChangedEvent(Scene));
+        }
+
+        private void UpdateConfigPresentationOverrideMessageFormats()
+        {
+            _presentationOverrideMessageFormats.Clear();
+            foreach (var messageFormat in PresentationOverrideMessageFormats)
+            {
+                if (string.IsNullOrEmpty(messageFormat.MessageFormat))
+                {
+                    return;
+                }
+
+                _presentationOverrideMessageFormats.Add(messageFormat);
+            }
+        }
+
+        private void AddPresentationOverrideMessageFormat()
+        {
+            PresentationOverrideMessageFormats.Add(new PresentationOverrideMessageFormat());
+        }
+
+        private void RemovePresentationOverrideMessageFormat(object o)
+        {
+            if (o is PresentationOverrideMessageFormat messageFormat)
+            {
+                PresentationOverrideMessageFormats.Remove(messageFormat);
+                UpdateConfigPresentationOverrideMessageFormats();
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Aristocrat.Monaco.Bingo.UI {
         
         private BingoDisplayConfigurationBingoAttractSettings bingoAttractSettingsField;
         
-        private BingoDisplayConfigurationSerializableKeyValuePair[] presentationOverrideMessageFormatsField;
+        private BingoDisplayConfigurationPresentationOverrideMessageFormat[] presentationOverrideMessageFormatsField;
         
         private int versionField;
         
@@ -70,8 +70,8 @@ namespace Aristocrat.Monaco.Bingo.UI {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("SerializableKeyValuePair", IsNullable=false)]
-        public BingoDisplayConfigurationSerializableKeyValuePair[] PresentationOverrideMessageFormats {
+        [System.Xml.Serialization.XmlArrayItemAttribute("PresentationOverrideMessageFormat", IsNullable=false)]
+        public BingoDisplayConfigurationPresentationOverrideMessageFormat[] PresentationOverrideMessageFormats {
             get {
                 return this.presentationOverrideMessageFormatsField;
             }
@@ -594,29 +594,29 @@ namespace Aristocrat.Monaco.Bingo.UI {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class BingoDisplayConfigurationSerializableKeyValuePair {
+    public partial class BingoDisplayConfigurationPresentationOverrideMessageFormat {
         
-        private PresentationOverrideTypes keyField;
+        private PresentationOverrideTypes overrideTypeField;
         
-        private string valueField;
+        private string messageFormatField;
         
         /// <remarks/>
-        public PresentationOverrideTypes Key {
+        public PresentationOverrideTypes OverrideType {
             get {
-                return this.keyField;
+                return this.overrideTypeField;
             }
             set {
-                this.keyField = value;
+                this.overrideTypeField = value;
             }
         }
         
         /// <remarks/>
-        public string Value {
+        public string MessageFormat {
             get {
-                return this.valueField;
+                return this.messageFormatField;
             }
             set {
-                this.valueField = value;
+                this.messageFormatField = value;
             }
         }
     }
