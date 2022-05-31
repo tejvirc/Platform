@@ -14434,6 +14434,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23650,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -48126,7 +48126,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.IOverlayMessageStrategyController.html",
-          "hash": "XkvYjluCVvOnRrWSQGXjoXxLfY31UqjT0/XyDf2Q7MM="
+          "hash": "87W/m66RPQG+yFMoH25erWgIDdTtv43AsUBawUdYmiE="
         }
       },
       "is_incremental": false,
@@ -54654,7 +54654,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.OverlayMessageStrategyController.html",
-          "hash": "MMTlE9Rx+GApDLX9Ob+sf23/UYzV8YPYs2cQGQDcG+s="
+          "hash": "ZCWHx13FlBZyUVaYxOgk+ozTFOdZZmWPcgg55c2pI6w="
         }
       },
       "is_incremental": false,
