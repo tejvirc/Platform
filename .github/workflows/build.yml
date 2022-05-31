@@ -25,10 +25,16 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
     env:
       BUILD_COUNTER: ${{ github.run_number }}
       ENLISTMENT_ROOT: ${{ github.workspace }}
+      SOURCE_PATH: ${{ github.workspace }}
+      DETERMINISTIC: false
+    strategy:
+      fail-fast: true
+      matrix:
+        configuration: [Debug, Release, Retail]
+    runs-on: windows-2019
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -57,8 +63,10 @@ jobs:
           ~/.nuget/packages
         key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
     - name: Setup VSTest Path
+      if: matrix.configuration == 'Debug'
       uses: darenm/setup-vstest@v1
     - name: Setup dotCover
+      if: matrix.configuration == 'Debug'
       run: |
         nuget install JetBrains.dotCover.CommandLineTools -Version 2021.1.2 -OutputDirectory .\packages
         echo "${{ github.workspace }}\packages\JetBrains.dotCover.CommandLineTools.2021.1.2\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
@@ -79,10 +87,16 @@ jobs:
     - name: Restore
       run: |
         nuget restore .\Monaco.sln
-    - name: Build - Debug
+    - name: Set deterministic build
+      if: matrix.configuration == 'Retail'
       run: |
-        msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
+        echo "SOURCE_PATH=C:\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+        echo "DETERMINISTIC=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+    - name: Build
+      run: |
+        msbuild -p:"Configuration=${{ matrix.configuration }}" -p:"Platform=Any CPU" -t:Rebuild -p:"Deterministic=${{ env.DETERMINISTIC }}" -p:"PathMap=${{ env.ENLISTMENT_ROOT }}=${{ env.SOURCE_PATH }}" .\Monaco.sln
     - name: Test
+      if: matrix.configuration == 'Debug'
       continue-on-error: true
       run: >
         dotCover cover
@@ -97,37 +111,24 @@ jobs:
         --logger:trx
         --resultsDirectory:TestResults
     - name: Test Report
+      if: matrix.configuration == 'Debug'
       uses: dorny/test-reporter@v1
       with:
         name: Unit Tests
         path: "**/*.trx"
         reporter: dotnet-trx
         fail-on-error: true
-    - name: Build - Release
-      run: |
-        msbuild -p:"Configuration=Release" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
-    - name: Create Package - Release
+    - name: Create Package
       if: github.event_name != 'pull_request'
       run: >
-        monaco image new -d ./bin/Release/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
-    - name: Create Manifest - Release
+        monaco image new -d ./bin/${{ matrix.configuration }}/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
+    - name: Create Manifest
       if: github.event_name != 'pull_request'
       run: >
-        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemFileVer }} -j WinnersWorld
-    - name: Build - Retail
-      run: |
-        msbuild -p:"Configuration=Retail" -p:"Platform=Any CPU" -p:"Deterministic=true" -p:"PathMap=${{ env.ENLISTMENT_ROOT }}=C:\" -t:Rebuild .\Monaco.sln
-    - name: Create Package - Retail
-      if: github.event_name != 'pull_request'
-      run: >
-        monaco image new -d ./bin/Retail/Platform/bin -p ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
-    - name: Create Manifest - Retail
-      if: github.event_name != 'pull_request'
-      run: >
-        monaco manifest new image -f ./artifacts/RETAIL_Platform_Files/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemFileVer }} -j WinnersWorld
+        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemFileVer }}
     - uses: actions/upload-artifact@v2
       if: github.event_name != 'pull_request'
       with:
-        name: ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
+        name: ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}_${{ matrix.configuration }}
         path: artifacts/
         if-no-files-found: error

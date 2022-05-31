@@ -97,27 +97,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
       shell: powershell
       run: |
-        .\.sonar\scanner\dotnet-sonarscanner begin /k:"monaco" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.cs.dotcover.reportsPaths="**/coverage.*.xml"
+        .\.sonar\scanner\dotnet-sonarscanner begin /k:"monaco" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
     - name: Restore
       run: |
         nuget restore .\Monaco.sln
     - name: Build - Debug
       run: |
         msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
-    - name: Test
-      continue-on-error: true
-      run: >
-        dotCover cover
-        --LogFile="dotCover.log"
-        --TargetExecutable="$((Get-command vstest.console.exe).Path)"
-        --TargetWorkingDir="$((Get-Location).Path)"
-        --Output="CodeCoverage\coverage.dotcover.xml"
-        --ReportType=DetailedXML
-        --ExcludeFileMasks=Test/**/*.cs
-        -- "**\bin\Debug\*.Tests.dll"
-        --platform:x64
-        --logger:trx
-        --resultsDirectory:TestResults
     - name: End Scan
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
