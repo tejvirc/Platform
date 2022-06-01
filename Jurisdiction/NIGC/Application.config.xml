@@ -14,6 +14,7 @@ as follows:
   <HardMeterMonitor DisableOnError="true"/>
   <NoteAcceptorMonitor DisableOnError="Immediate" LockupOnDisconnect="false" SoftErrorOnStackerFull="true"/>
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
+  <TicketMode Audit="Inspection"/>
   <MediaDisplay Enabled="true"/>
   <GeneralMessages>
     <DisabledByOperator Message=""/>
