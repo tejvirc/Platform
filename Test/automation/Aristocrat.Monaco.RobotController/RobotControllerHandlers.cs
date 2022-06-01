@@ -75,7 +75,7 @@
 
             }
 
-            TransitionState(desiredTransition);
+            ControllerState = desiredTransition;
 
             // Must come last to override other states
             BalanceCheck();
@@ -95,7 +95,7 @@
             {
                 if (RequestGameLoad())
                 {
-                    TransitionState(RobotControllerState.WaitGameLoad);
+                    ControllerState = (RobotControllerState.WaitGameLoad);
                 }
                 else
                 {
@@ -113,7 +113,7 @@
         private void HandlerForceGameExit()
         {
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
-            TransitionState(RobotControllerState.WaitForRecoveryStart);
+            ControllerState = (RobotControllerState.WaitForRecoveryStart);
         }
 
         private void HandlerRequestGameExit()
@@ -127,11 +127,11 @@
                 if (PlatformState != RobotPlatformState.Lobby)
                 {
                     _automator.RequestGameExit();
-                    TransitionState(RobotControllerState.WaitLobbyLoad);
+                    ControllerState = (RobotControllerState.WaitLobbyLoad);
                 }
                 else
                 {
-                    TransitionState(RobotControllerState.Running);
+                    ControllerState = (RobotControllerState.Running);
                 }
             }
         }
@@ -143,7 +143,7 @@
             if (PlatformState == RobotPlatformState.GameLoaded ||
                 PlatformState == RobotPlatformState.GamePlaying)
             {
-                TransitionState(RobotControllerState.Running);
+                ControllerState = (RobotControllerState.Running);
             }
         }
 
@@ -153,7 +153,7 @@
 
             if (!Enabled)
             {
-                TransitionState(RobotControllerState.Disabled);
+                ControllerState = (RobotControllerState.Disabled);
             }
 
             if (TimeTo(_counter, _config.Active.IntervalTouch))
@@ -180,7 +180,7 @@
                 BalanceCheck();
             }
 
-            if (PlatformState == RobotPlatformState.GameLoaded ||
+            if  (PlatformState == RobotPlatformState.GameLoaded ||
                 PlatformState == RobotPlatformState.GamePlaying ||
                 PlatformState == RobotPlatformState.GameIdle)
             {
@@ -204,7 +204,7 @@
                 if (TimeTo(_counter, _config.Active.IntervalSoftReboot))
                 {
                     LogInfo("Requesting soft reboot");
-                    TransitionState(RobotControllerState.RequestSoftReboot);
+                    ControllerState = (RobotControllerState.RequestSoftReboot);
                 }
 
                 if(TimeTo(_counter, _config.Active.IntervalRebootMachine))
@@ -217,7 +217,7 @@
             if (TimeTo(_counter, _config.Active.IntervalSetOperatingHours))
             {
                 LogInfo("Setting Operating Hours");
-                TransitionState(RobotControllerState.SettingOperatingHours);
+                ControllerState = (RobotControllerState.SettingOperatingHours);
                 return;
             }
 
@@ -245,7 +245,7 @@
                         _automator.EnableCashOut(true);
                         _automator.EnableExitToLobby(true);
                         _eventBus.Publish(new CashOutButtonPressedEvent());
-                        TransitionState(RobotControllerState.WaitCashOut);
+                        ControllerState = (RobotControllerState.WaitCashOut);
                     }
                 }
             }
@@ -257,7 +257,7 @@
 
             if (PlatformState == RobotPlatformState.Lobby)
             {
-                TransitionState(RobotControllerState.Running);
+                ControllerState = (RobotControllerState.Running);
             }
         }
 
@@ -268,7 +268,7 @@
             if (_waitDuration >= 2000)
             {
                 _waitDuration = 0;
-                TransitionState(RobotControllerState.DriveRecovery);
+                ControllerState = (RobotControllerState.DriveRecovery);
             }
         }
 
@@ -287,7 +287,7 @@
             else if (PlatformState != RobotPlatformState.GamePlaying)
             {
                 _expectingRecovery = false;
-                TransitionState(RobotControllerState.RecoveryComplete);
+                ControllerState = (RobotControllerState.RecoveryComplete);
             }
         }
 
@@ -302,7 +302,7 @@
                 _waitDuration = 0;
 
                 // If a game is being played after 4 seconds, go back to driving recovery. A free game feature may have started.
-                TransitionState(RobotControllerState.DriveRecovery);
+                ControllerState = (RobotControllerState.DriveRecovery);
             }
             else if (_waitDuration >= 8000 && PlatformState != RobotPlatformState.GamePlaying)
             {
@@ -311,11 +311,11 @@
                 {
                     if (PlatformState != RobotPlatformState.Lobby && _gameLoaded)
                     {
-                        TransitionState(RobotControllerState.RequestGameExit);
+                        ControllerState = (RobotControllerState.RequestGameExit);
                     }
                     else
                     {
-                        TransitionState(RobotControllerState.RequestGameLoad);
+                        ControllerState = (RobotControllerState.RequestGameLoad);
                     }
                 }
                 else
@@ -328,7 +328,7 @@
 
         private void HandlerLoadAuditMenu()
         {
-            if (IsPlatformIdle() || _expectingLockup)
+            if (IsPlatformIdle() || ExpectingLockup)
             {
                 LogInfo("Requesting Audit Menu");
                 _expectingAuditMenu = true;
@@ -363,23 +363,20 @@
             {
                 _waitDuration = 0;
                 _automator.ExitAuditMenu();
-                TransitionState(RobotControllerState.Running);
+                ControllerState = (RobotControllerState.Running);
             }
         }
 
         private void HandlerEnterLockup()
         {
-            LogInfo("Requesting Lockup");
-            _expectingLockup = true;
+            if(!ExpectingLockup){
+                return;
+            }
             _automator.EnterLockup();
-
             _lockupTimer = new Timer(
             (sender) =>
             {
                 _automator.ExitLockup();
-
-                _expectingLockup = false;
-
                 _lockupTimer.Dispose();
             }, null, Constants.LockupDuration, System.Threading.Timeout.Infinite);
         }
@@ -392,7 +389,7 @@
             {
                 _waitDuration = 0;
                 _automator.ExitLockup();
-                TransitionState(RobotControllerState.Running);
+                ControllerState = (RobotControllerState.Running);
             }
         }
 
@@ -410,7 +407,7 @@
                 _waitDuration = 0;
                 _automator.EnableCashOut(false);
                 _automator.EnableExitToLobby(false);
-                TransitionState(RobotControllerState.Running);
+                ControllerState = (RobotControllerState.Running);
             }
         }
 
@@ -420,7 +417,7 @@
             {
                 _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
 
-                TransitionState(RobotControllerState.WaitRebootStart);
+                ControllerState = (RobotControllerState.WaitRebootStart);
             }
             else
             {
@@ -432,7 +429,7 @@
         {
             SetOperatingHours();
 
-            TransitionState(RobotControllerState.OutOfOperatingHours);
+            ControllerState = (RobotControllerState.OutOfOperatingHours);
         }
 
         private void HandlerOutOfOperatingHours()
@@ -508,7 +505,7 @@
 
                     _automator.InsertDollars(_config.GetDollarsInserted());
 
-                    TransitionState(RobotControllerState.InsertCreditsComplete);
+                    ControllerState = (RobotControllerState.InsertCreditsComplete);
                 }
             }
             else
@@ -539,7 +536,7 @@
 
                     _eventBus.Unsubscribe<BankBalanceChangedEvent>(this);
 
-                    TransitionState(PreviousControllerState);
+                    ControllerState = (PreviousControllerState);
                 }
             }
             else
@@ -556,7 +553,7 @@
 
                     _eventBus.Unsubscribe<BankBalanceChangedEvent>(this);
 
-                    TransitionState(RobotControllerState.InsertCredits);
+                    ControllerState = (RobotControllerState.InsertCredits);
                 }
             }
         }
@@ -576,11 +573,11 @@
                         _voucherRedeemed = true;
                     });
 
-                    TransitionState(RobotControllerState.InsertVoucherComplete);
+                    ControllerState = (RobotControllerState.InsertVoucherComplete);
                 }
                 else
                 {
-                    TransitionState(PreviousControllerState);
+                    ControllerState = (PreviousControllerState);
                 }
             }
             else
@@ -601,7 +598,7 @@
 
                 _lastVoucherIssued = null;
 
-                TransitionState(PreviousControllerState);
+                ControllerState = (PreviousControllerState);
             }
             else
             {
