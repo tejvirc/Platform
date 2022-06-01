@@ -26,6 +26,7 @@
     <Optimize>true</Optimize>
     <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
