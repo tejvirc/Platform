@@ -226,7 +226,7 @@
                     Command="{Binding ShowGameProgressiveWinCommand}"
                     Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameMeters}}"
-                    IsEnabled="{Binding IsHistoryItemSelected}"
+                    IsEnabled="{Binding IsMeteredGameSelected}"
                     Command="{Binding ShowGameMetersCommand}"
                     Visibility="{Binding ShowGameInfoButtons, Converter={StaticResource BoolToVisConverter}}"/>
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameTransactions}}"

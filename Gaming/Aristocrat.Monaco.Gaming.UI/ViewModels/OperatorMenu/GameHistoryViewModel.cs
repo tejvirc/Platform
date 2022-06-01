@@ -56,6 +56,7 @@
         private readonly IGamePlayState _gamePlayState;
         private readonly IBank _bank;
         private readonly IDialogService _dialogService;
+        private readonly IGameHistoryLog[] _gameLogs;
 
         private ObservableCollection<GameRoundHistoryItem> _gameHistory;
         private bool _isReplaying;
@@ -111,6 +112,8 @@
                 _detailedGameMetersViewModel = container.Container.GetInstance<DetailedGameMetersViewModel>();
                 // Hide the sequence number if we're going to make free games look like independent games (ALC Only)
                 ShowSequenceNumber = !_meterFreeGamesIndependently;
+
+                _gameLogs = _gameHistoryProvider.GetGameHistory().ToArray();
             }
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
@@ -229,7 +232,7 @@
                     RaisePropertyChanged(nameof(IsGameRoundComplete));
                     RaisePropertyChanged(nameof(IsHistoryItemSelected));
                     RaisePropertyChanged(nameof(GameProgressiveWinButtonEnabled));
-
+                    RaisePropertyChanged(nameof(IsMeteredGameSelected));
                     UpdateStatusText();
                     ResetScrollToTop = false;
                 }
@@ -280,6 +283,23 @@
             SelectedGameItem != null && !SelectedGameItem.EndTime.Equals(DateTime.MinValue);
 
         public bool ShowGameInfoButtons { get; }
+
+        public bool IsMeteredGameSelected
+        {
+            get
+            {
+                if (SelectedGameItem == null || _gameLogs == null)
+                {
+                    return false;
+                }
+
+                var gameHistoryItem = _gameLogs
+                    .FirstOrDefault(g => g.LogSequence == SelectedGameItem.LogSequence);
+
+                return gameHistoryItem?.MeterSnapshots != null &&
+                       gameHistoryItem.MeterSnapshots.Any();
+            }
+        }
 
         public bool ShowGameDetailsButton { get; }
 
