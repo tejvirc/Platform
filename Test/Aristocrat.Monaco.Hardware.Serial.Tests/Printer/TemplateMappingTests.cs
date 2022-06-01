@@ -187,6 +187,7 @@
         }
 
         [TestMethod]
+        [DoNotParallelize]
         public void RemapHandpayNoBarcodePrintCommandTest()
         {
             const string establishmentName = "My Casino";
@@ -244,6 +245,7 @@
         }
 
         [TestMethod]
+        [DoNotParallelize]
         public void RemapHandPayReceiptTest()
         {
             const string barCode = "123456789";
