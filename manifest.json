@@ -14434,6 +14434,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23650,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -66702,7 +66702,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.html",
-          "hash": "9mSVTi+DFOnaZUzkf/N6xAuKhJoVWscpibVkTpLNnJI="
+          "hash": "95tFulur5fin0wD8FIvPOe/R7sh9YkesDr8Q0z6EdAc="
         }
       },
       "is_incremental": false,
