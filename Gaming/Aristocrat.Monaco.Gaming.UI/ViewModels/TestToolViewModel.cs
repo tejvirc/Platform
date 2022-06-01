@@ -1589,37 +1589,20 @@
         private List<double> ParseTimeLimits()
         {
             var timeLimits = new List<double>();
-            if (ParseDoubleText(TimeLimit1, timeLimits))
+            if (ParseDoubleText(TimeLimit1, timeLimits) && ParseDoubleText(TimeLimit3, timeLimits) && ParseDoubleText(TimeLimit4, timeLimits) && ParseDoubleText(TimeLimit5, timeLimits) && (timeLimits[0] < timeLimits[1] && timeLimits[1] < timeLimits[2] &&
+                                    timeLimits[2] < timeLimits[3]))
             {
-                if (ParseDoubleText(TimeLimit2, timeLimits))
+                var parsed = true;
+                if ((_responsibleGamingMode == ResponsibleGamingMode.Continuous) && (timeLimits[3] >= timeLimits[4]))
                 {
-                    if (ParseDoubleText(TimeLimit3, timeLimits))
-                    {
-                        if (ParseDoubleText(TimeLimit4, timeLimits))
-                        {
-                            if (ParseDoubleText(TimeLimit5, timeLimits))
-                            {
-                                if (timeLimits[0] < timeLimits[1] && timeLimits[1] < timeLimits[2] &&
-                                    timeLimits[2] < timeLimits[3])
-                                {
-                                    var parsed = true;
-                                    if (_responsibleGamingMode == ResponsibleGamingMode.Continuous)
-                                    {
-                                        if (timeLimits[3] >= timeLimits[4])
-                                        {
-                                            parsed = false;
-                                        }
-                                    }
-
-                                    if (parsed)
-                                    {
-                                        return timeLimits;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                   parsed = false;
                 }
+
+                if (parsed)
+                {
+                    return timeLimits;
+                }
+
             }
 
             return new List<double>();
@@ -1633,23 +1616,10 @@
             }
 
             var playBreaks = new List<double>();
-            if (ParseDoubleText(PlayBreak1, playBreaks, true))
+            if (ParseDoubleText(PlayBreak1, playBreaks, true) && ParseDoubleText(PlayBreak2, playBreaks, true) && ParseDoubleText(PlayBreak3, playBreaks, true) && ParseDoubleText(PlayBreak4, playBreaks, true) &&
+                (playBreaks[0] < timeLimits[0] && playBreaks[1] < timeLimits[1] && playBreaks[2] < timeLimits[2] && playBreaks[3] < timeLimits[3]))
             {
-                if (ParseDoubleText(PlayBreak2, playBreaks, true))
-                {
-                    if (ParseDoubleText(PlayBreak3, playBreaks, true))
-                    {
-                        if (ParseDoubleText(PlayBreak4, playBreaks, true))
-                        {
-                            if (playBreaks[0] < timeLimits[0] && playBreaks[1] < timeLimits[1] &&
-                                playBreaks[2] < timeLimits[2] &&
-                                playBreaks[3] < timeLimits[3])
-                            {
-                                return playBreaks;
-                            }
-                        }
-                    }
-                }
+               return playBreaks;
             }
 
             return new List<double>();
@@ -1659,12 +1629,9 @@
         {
             long? limit = null;
 
-            if (long.TryParse(text, out var tempLimit))
+            if (long.TryParse(text, out var tempLimit) && (tempLimit > 0 || allowZero && tempLimit == 0))
             {
-                if (tempLimit > 0 || allowZero && tempLimit == 0)
-                {
-                    limit = tempLimit;
-                }
+                limit = tempLimit;
             }
 
             return limit;
@@ -1673,12 +1640,9 @@
         private double? ParseDoubleText(string text, bool allowZero = false)
         {
             double? timeInterval = null;
-            if (double.TryParse(text, out var tempInterval))
+            if (double.TryParse(text, out var tempInterval) && (tempInterval > 0 || allowZero && tempInterval.Equals(0)))
             {
-                if (tempInterval > 0 || allowZero && tempInterval.Equals(0))
-                {
-                    timeInterval = tempInterval;
-                }
+                timeInterval = tempInterval;
             }
 
             return timeInterval;
@@ -1686,13 +1650,10 @@
 
         private bool ParseDoubleText(string text, List<double> list, bool allowZero = false)
         {
-            if (double.TryParse(text, out double value))
+            if (double.TryParse(text, out double value) && (value > 0 || allowZero))
             {
-                if (value > 0 || allowZero)
-                {
-                    list.Add(value);
+                list.Add(value);
                     return true;
-                }
             }
 
             return false;

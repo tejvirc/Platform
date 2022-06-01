@@ -192,19 +192,6 @@
             eventBus.Subscribe<HardwareDiagnosticTestFinishedEvent>(this, HandleEvent);
         }
 
-        public MachineMode GetCurrentMode()
-        {
-            _stateLock.EnterReadLock();
-            try
-            {
-                return _state.State;
-            }
-            finally
-            {
-                _stateLock.ExitReadLock();
-            }
-        }
-
         public void HandleEvent(InitializationCompletedEvent @event)
         {
             _eventBus.Unsubscribe<InitializationCompletedEvent>(this);
@@ -238,11 +225,6 @@
             {
                 TransitState(MachineModeTrigger.FatalError);
             }
-        }
-
-        private bool IsFatalError()
-        {
-            return _systemDisableManager.CurrentDisableKeys.Any(a => FatalErrorKeys.Contains(a));
         }
 
         public void HandleEvent(StorageErrorEvent @event)
@@ -335,6 +317,24 @@
             finally
             {
                 _stateLock.ExitWriteLock();
+            }
+        }
+
+        private bool IsFatalError()
+        {
+            return _systemDisableManager.CurrentDisableKeys.Any(a => FatalErrorKeys.Contains(a));
+        }
+
+        public MachineMode GetCurrentMode()
+        {
+            _stateLock.EnterReadLock();
+            try
+            {
+                return _state.State;
+            }
+            finally
+            {
+                _stateLock.ExitReadLock();
             }
         }
 
