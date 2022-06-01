@@ -12,20 +12,21 @@
         /// </summary>
         /// <param name="progressiveLevel">The progressive level for which to generate the magic number</param>
         /// <returns>The magic number generated</returns>
-        decimal GenerateMagicNumber(ProgressiveLevel progressiveLevel);
+        decimal GenerateMagicNumber(IViewableProgressiveLevel progressiveLevel);
 
         /// <summary>
         ///     Retrieves the magic number for a progressive level
         /// </summary>
-        /// <param name="assignedProgressiveKey">The assigned progressive key for the level</param>
-        /// <returns>The magic number for the progressive level</returns>
-        decimal GetMagicNumber(string assignedProgressiveKey);
+        /// <param name="progressiveLevel">The progressive level for which to retrieve the magic number</param>
+        /// <param name="magicNumber">The magic number for the level, if found</param>
+        /// <returns>True if the progressive level has a magic number associated, otherwise false</returns>
+        bool GetMagicNumber(IViewableProgressiveLevel progressiveLevel, out decimal magicNumber);
 
         /// <summary>
         ///     Determines if the progressive level has met the requirements for triggering mystery jackpot
         /// </summary>
-        /// <param name="assignedProgressiveKey">The assigned progressive key for the level</param>
+        /// <param name="progressiveLevel">The progressive level to check</param>
         /// <returns>True if mystery jackpot requirements are met, false otherwise</returns>
-        bool CheckMysteryJackpot(string assignedProgressiveKey);
+        bool CheckMysteryJackpot(IViewableProgressiveLevel progressiveLevel);
     }
 }
