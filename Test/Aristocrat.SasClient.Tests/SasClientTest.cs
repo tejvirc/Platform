@@ -422,7 +422,7 @@
 
             var thread = new Thread(_target.Run);
             thread.Start();
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(125));
             Assert.AreEqual(TestConstants.SasAddress | SasConstants.Nack, sent[0]);
             Assert.AreEqual(1, sent.Count);
             _commPort.Verify();
