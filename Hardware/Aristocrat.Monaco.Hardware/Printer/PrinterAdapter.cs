@@ -19,6 +19,7 @@
     using Serial.Printer;
     using Stateless;
     using Tickets;
+    using TaskExtensions = Common.TaskExtensions;
 
     /// <summary>A printer adapter.</summary>
     /// <seealso
@@ -607,20 +608,22 @@
                 return true;
             }
 
-            if (ReasonDisabled == DisabledReasons.Error)
+            if (ReasonDisabled != DisabledReasons.Error)
             {
-                if (ContainsError(PrinterFaultTypes.OtherFault))
-                {
-                    ImplementationFaultCleared(
-                        new object(),
-                        new FaultEventArgs { Fault = PrinterFaultTypes.OtherFault });
-                }
+                return true;
+            }
 
-                if (!Faults.HasFlag(PrinterFaultTypes.PaperEmpty)
-                    && !Faults.HasFlag(PrinterFaultTypes.PaperJam))
-                {
-                    Reset();
-                }
+            if (ContainsError(PrinterFaultTypes.OtherFault))
+            {
+                ImplementationFaultCleared(
+                    new object(),
+                    new FaultEventArgs { Fault = PrinterFaultTypes.OtherFault });
+            }
+
+            if (!Faults.HasFlag(PrinterFaultTypes.PaperEmpty)
+                && !Faults.HasFlag(PrinterFaultTypes.PaperJam))
+            {
+                Reset();
             }
 
             return true;
@@ -661,6 +664,11 @@
 
             Fire(PrinterLogicalStateTrigger.Initialized, new InspectedEvent(PrinterId));
             Initialized = true;
+            if (!Enabled && !AnyErrors && ReasonDisabled == 0)
+            {
+                Reset();
+            }
+
             if (Enabled)
             {
                 Implementation?.Enable();
@@ -898,15 +906,16 @@
                 .Permit(PrinterLogicalStateTrigger.Connected, PrinterLogicalState.Inspecting);
 
             stateMachine.Configure(PrinterLogicalState.Idle)
-                .OnEntryAsync(
-                    async ()
-                        =>
+                .OnEntry(
+                    () =>
                     {
-                        if (_formFeedPending)
+                        if (!_formFeedPending)
                         {
-                            _formFeedPending = false;
-                            await FormFeed();
+                            return;
                         }
+
+                        _formFeedPending = false;
+                        TaskExtensions.FireAndForget(FormFeed());
                     })
                 .PermitDynamic(
                     PrinterLogicalStateTrigger.Initialized,
@@ -964,7 +973,7 @@
             Logger.Debug($"Transitioning {_state.State} with trigger {trigger}");
             try
             {
-                _state.FireAsync(trigger);
+                _state.Fire(trigger);
             }
             finally
             {
