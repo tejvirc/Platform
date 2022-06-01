@@ -165,5 +165,13 @@
         /// </summary>
         /// <param name="role">The display role</param>
         bool IsDisplayExpectedAndDisconnected(DisplayRole role);
+
+        /// <summary>
+        ///     Is the display expected and connected. Basically saying is this display not
+        ///     only expected but currently present.
+        /// </summary>
+        /// <param name="role">The display role</param>
+        /// <returns></returns>
+        bool IsDisplayExpectedAndConnected(DisplayRole role);
     }
 }

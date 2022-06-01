@@ -145,6 +145,12 @@
             return (display != null && display.Status != DeviceStatus.Connected);
         }
 
+        public bool IsDisplayExpectedAndConnected(DisplayRole role)
+        {
+            var display = GetDisplayDeviceByItsRole(role);
+            return (display != null && display.Status == DeviceStatus.Connected);
+        }
+
         public CabinetType Type
         {
             get

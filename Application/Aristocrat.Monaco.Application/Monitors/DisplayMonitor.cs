@@ -24,7 +24,6 @@
         private const string LcdButtonDeckDescription = "USBD480";
         private const string BlockName = "Aristocrat.Monaco.Application.Monitors.DisplayMonitor";
         private const int ExpectedButtonDeckDisplayCount = 2;
-        private const int JackpotKeyLogicalId = 130;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -60,7 +59,6 @@
         private readonly object _lock = new object();
         private readonly IPersistentStorageAccessor _persistentBlock;
         private readonly IPersistentStorageManager _persistentStorage;
-        private readonly IPropertiesManager _properties;
         private readonly List<DeviceStatusHandler> _deviceStatusHandlers = new List<DeviceStatusHandler>();
         private readonly bool _lcdButtonDeckExpected;
         private bool _lcdButtonDeckConnected = true;
@@ -102,8 +100,6 @@
                 ?? throw new ArgumentNullException(nameof(buttonDeckDisplay));
             _persistentStorage = persistentStorage
                 ?? throw new ArgumentNullException(nameof(persistentStorage));
-            _properties = properties
-                ?? throw new ArgumentNullException(nameof(properties));
 
             AddDeviceHandlers<IDisplayDevice>(
                 VideoDisplayMeters,
@@ -133,16 +129,16 @@
         {
             lock (_lock)
             {
-                _eventBus.Subscribe<DeviceConnectedEvent>(
-                    this,
-                    _ => CheckDevicesCount(),
-                    FilterDeviceEvent);
-                _eventBus.Subscribe<DeviceDisconnectedEvent>(
-                    this,
+                _eventBus.Subscribe<DeviceConnectedEvent>(this,
                     _ => CheckDevicesCount(),
                     FilterDeviceEvent);
 
-                _eventBus.Subscribe<OnEvent>(this, HandleEvent, evt => evt.LogicalId == JackpotKeyLogicalId);
+                _eventBus.Subscribe<DeviceDisconnectedEvent>(this,
+                    _ => CheckDevicesCount(),
+                    FilterDeviceEvent);
+
+                _eventBus.Subscribe<ClearDisplayDisconnectedLockupEvent>(this,
+                    evt => _disableManager.Enable(ApplicationConstants.DisplayDisconnectedLockupKey));
 
                 CheckDevicesCount();
             }
@@ -434,6 +430,8 @@
                     SystemDisablePriority.Immediate,
                     () => Localizer.For(CultureFor.Operator).GetString(resource));
             }
+
+            _eventBus.Publish(new DisplayMonitorStatusChangeEvent());
         }
 
         private void CheckLcdButtonDeck()
@@ -451,25 +449,6 @@
 
             _lcdButtonDeckConnected = newStatus;
             OnButtonDeckStatusChanged(newStatus);
-        }
-
-        private void HandleEvent(OnEvent evt)
-        {
-            // This flag will allow the technician to clear the "Display Disconnected" lockup
-            if (!_properties.GetValue(ApplicationConstants.TopperDisplayDisconnectNoReconfigure, false))
-            {
-                return;
-            }
-
-            // Check if topper is expected to be on this cabinet, and if it's currently disconnected,
-            // but all other displays are accounted for, then we are OK to clear the lockup.
-            if (_cabinetDetectionService.IsDisplayExpectedAndDisconnected(DisplayRole.Topper) &&
-                _cabinetDetectionService.IsDisplayConnectedOrNotExpected(DisplayRole.Top) &&
-                _cabinetDetectionService.IsDisplayConnectedOrNotExpected(DisplayRole.Main) &&
-                _cabinetDetectionService.IsDisplayConnectedOrNotExpected(DisplayRole.VBD))
-            {
-                _disableManager.Enable(ApplicationConstants.DisplayDisconnectedLockupKey);
-            }
         }
 
         private class DeviceStatusHandler

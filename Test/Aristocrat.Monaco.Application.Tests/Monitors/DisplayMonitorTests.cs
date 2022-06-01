@@ -116,8 +116,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object,
-//                        _properties.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -126,8 +125,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object,
-//                        _properties.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -136,8 +134,7 @@
 //                        null,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object,
-//                        _properties.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -146,8 +143,7 @@
 //                        _meterManager.Object,
 //                        null,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object,
-//                        _properties.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -156,8 +152,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        null,
-//                        _buttonDeckDisplay.Object,
-//                        _properties.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -166,18 +161,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        null,
-//                        _properties.Object));
-//            AssertHelper.Throws<ArgumentNullException>(
-//                () => dm =
-//                    new DisplayMonitor(
-//                        _eventBus.Object,
-//                        _disableManager.Object,
-//                        _meterManager.Object,
-//                        _persistentStorage.Object,
-//                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object,
-//                        null));
+//                        null);
 //            Assert.IsNull(dm);
 //        }
 
@@ -621,6 +605,7 @@
 //            }
 
 //            _eventBus.Setup(x => x.Publish(It.IsAny<TEvent>()));
+//            _eventBus.Setup(x => x.Publish(It.IsAny<DisplayMonitorStatusChangeEvent>()));
 //        }
 
 //        private void SetupDeviceConnect<TEvent, TDevice>(Mock<TDevice> deviceMock, string meter, Guid enableKey)
@@ -672,6 +657,7 @@
 //                        _disconnectedHandler = handler;
 //                        ValidateFilter(filter, x => new DeviceDisconnectedEvent(x));
 //                    });
+//            _eventBus.Setup(x => x.Subscribe(displayMonitor, It.IsAny<Action<ClearDisplayDisconnectedLockupEvent>>()));
 //            _eventBus.Setup(x => x.UnsubscribeAll(displayMonitor));
 
 //            _eventBus.Setup(x => x.Subscribe(displayMonitor, It.IsAny<Action<OnEvent>>()));
