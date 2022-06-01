@@ -39,6 +39,9 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="VolumeSettingPropertiesProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider.xml" />
   </ItemGroup>
   <ItemGroup>

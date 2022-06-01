@@ -13,7 +13,6 @@
 // 
 namespace Aristocrat.Monaco.Application.Contracts {
     using System.Xml.Serialization;
-
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 
@@ -25,6 +24,10 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class ApplicationConfiguration {
+        
+        private ApplicationConfigurationVolumeNode[] masterVolumeSettingsField;
+        
+        private ApplicationConfigurationScalarNode[] volumeScalarSettingsField;
         
         private string[] allowedLocalesField;
         
@@ -146,6 +149,28 @@ namespace Aristocrat.Monaco.Application.Contracts {
             this.barcodeTypeField = BarcodeTypeOptions.Interleave2of5;
             this.validationLengthField = ValidationLengthOptions.System;
             this.layoutTypeField = LayoutTypeOptions.ExtendedLayout;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("VolumeNode", IsNullable=false)]
+        public ApplicationConfigurationVolumeNode[] MasterVolumeSettings {
+            get {
+                return this.masterVolumeSettingsField;
+            }
+            set {
+                this.masterVolumeSettingsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("ScalarNode", IsNullable=false)]
+        public ApplicationConfigurationScalarNode[] VolumeScalarSettings {
+            get {
+                return this.volumeScalarSettingsField;
+            }
+            set {
+                this.volumeScalarSettingsField = value;
+            }
         }
         
         /// <remarks/>
@@ -731,6 +756,140 @@ namespace Aristocrat.Monaco.Application.Contracts {
                 this.displayDisconnectNoReconfigureField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationVolumeNode : i_volumelevel {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class i_volumelevel {
+        
+        private VolumeLevelSetting keyField;
+        
+        private float valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public VolumeLevelSetting Key {
+            get {
+                return this.keyField;
+            }
+            set {
+                this.keyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public float Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    public enum VolumeLevelSetting {
+        
+        /// <remarks/>
+        ExtraLow,
+        
+        /// <remarks/>
+        Low,
+        
+        /// <remarks/>
+        MediumLow,
+        
+        /// <remarks/>
+        Medium,
+        
+        /// <remarks/>
+        MediumHigh,
+        
+        /// <remarks/>
+        High,
+        
+        /// <remarks/>
+        ExtraHigh,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class i_volumescalar {
+        
+        private VolumeScalarSetting keyField;
+        
+        private float valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public VolumeScalarSetting Key {
+            get {
+                return this.keyField;
+            }
+            set {
+                this.keyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public float Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    public enum VolumeScalarSetting {
+        
+        /// <remarks/>
+        Scalar20,
+        
+        /// <remarks/>
+        Scalar40,
+        
+        /// <remarks/>
+        Scalar60,
+        
+        /// <remarks/>
+        Scalar80,
+        
+        /// <remarks/>
+        Scalar100,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationScalarNode : i_volumescalar {
     }
     
     /// <remarks/>
