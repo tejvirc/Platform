@@ -5,13 +5,12 @@
     using System.Windows;
     using Events;
     using Kernel;
-    using Models;
     using MVVM;
 
     public class BingoHelpTestToolViewModel : BingoTestToolViewModelBase
     {
         private readonly IEventBus _eventBus;
-        private BingoHelpAppearance _currentHelpSettings;
+        private BingoDisplayConfigurationHelpAppearance _currentHelpSettings;
 
         public BingoHelpTestToolViewModel(
             IEventBus eventBus,
@@ -29,7 +28,7 @@
             set
             {
                 var rect = _currentHelpSettings.HelpBox;
-                _currentHelpSettings.HelpBox = new Thickness(value, rect.Top, rect.Right, rect.Bottom);
+                _currentHelpSettings.HelpBox = new BingoDisplayConfigurationHelpAppearanceHelpBox() { Left = value, Top = rect.Top, Right = rect.Right, Bottom = rect.Bottom};
                 RaisePropertyChanged(nameof(HelpBoxLeft), nameof(HelpBoxLeftWidth), nameof(HelpBoxCenterWidth));
 
                 Update();
@@ -42,7 +41,7 @@
             set
             {
                 var rect = _currentHelpSettings.HelpBox;
-                _currentHelpSettings.HelpBox = new Thickness(rect.Left, value, rect.Right, rect.Bottom);
+                _currentHelpSettings.HelpBox = new BingoDisplayConfigurationHelpAppearanceHelpBox() { Left = rect.Left, Top = value, Right = rect.Right, Bottom = rect.Bottom };
                 RaisePropertyChanged(nameof(HelpBoxTop), nameof(HelpBoxTopHeight), nameof(HelpBoxMiddleHeight));
 
                 Update();
@@ -55,7 +54,7 @@
             set
             {
                 var rect = _currentHelpSettings.HelpBox;
-                _currentHelpSettings.HelpBox = new Thickness(rect.Left, rect.Top, value, rect.Bottom);
+                _currentHelpSettings.HelpBox = new BingoDisplayConfigurationHelpAppearanceHelpBox() { Left = rect.Left, Top = rect.Top, Right = value, Bottom = rect.Bottom };
                 RaisePropertyChanged(nameof(HelpBoxRight), nameof(HelpBoxRightWidth), nameof(HelpBoxCenterWidth));
 
                 Update();
@@ -68,7 +67,7 @@
             set
             {
                 var rect = _currentHelpSettings.HelpBox;
-                _currentHelpSettings.HelpBox = new Thickness(rect.Left, rect.Top, rect.Right, value);
+                _currentHelpSettings.HelpBox = new BingoDisplayConfigurationHelpAppearanceHelpBox() {Left = rect.Left, Top = rect.Top, Right = rect.Right, Bottom = value };
                 RaisePropertyChanged(nameof(HelpBoxBottom), nameof(HelpBoxBottomHeight), nameof(HelpBoxMiddleHeight));
 
                 Update();

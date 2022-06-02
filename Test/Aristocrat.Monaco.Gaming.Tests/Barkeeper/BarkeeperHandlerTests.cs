@@ -338,7 +338,7 @@
 
             VerifyRewardLevel2();
 
-            Thread.Sleep(100);
+            Thread.Sleep(250);
             // Verify the Coin-In is reset to 0 as the session expires
             Assert.AreEqual(0, _target.CoinInDuringSession);
 
@@ -367,7 +367,7 @@
             VerifyRewardLevel2();
 
             _propertiesManager.ResetCalls();
-            Thread.Sleep(100);
+            Thread.Sleep(250);
             // Verify the Coin-In is reset to 0 as the session expires
             Assert.AreEqual(0, _target.CoinInDuringSession);
             VerifyActiveCoinInRewardPersistence(_target.RewardLevels.RewardLevels[1], false);
@@ -411,7 +411,7 @@
 
             VerifyRewardLevel3();
             _propertiesManager.ResetCalls();
-            Thread.Sleep(150);
+            Thread.Sleep(250);
             // CoinIn Session TimerElapsed
             Assert.AreEqual(0, _target.CoinInDuringSession);
             VerifyActiveCoinInRewardPersistence(_target.RewardLevels.RewardLevels[2], false);
@@ -676,8 +676,8 @@
 
             var log = new GameHistoryLog(0) {EndCredits = 0};
             _target.GameEnded(log);
-            // Wait for CoinIn SessionTimeout(50ms) to expire and expect CoinIn state to go idle
-            Thread.Sleep(100);
+            // Wait for CoinIn SessionTimeout(100ms) to expire and expect CoinIn state to go idle
+            Thread.Sleep(125);
             Verify(BarkeeperAlertOptions.LightOn, CoinInIdleColor, ButtonLed, 1);
             VerifyRateOfPlayIsPersistedAsZeroOnce();
             VerifyActiveCoinInRewardPersistedAsNull();
@@ -731,7 +731,7 @@
             // Rate of play is 60ms for $1. So bet $1 and wait for 60ms to elapse and expect CoinIn reward state to be in Idle
             VerifyRewardLevel1();
             _propertiesManager.ResetCalls();
-            Thread.Sleep(100);
+            Thread.Sleep(125);
             Assert.AreEqual(0, _target.CoinInDuringSession);
             VerifyRateOfPlayIsPersistedAsZeroOnce();
         }

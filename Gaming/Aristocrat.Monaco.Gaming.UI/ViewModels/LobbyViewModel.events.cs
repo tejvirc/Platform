@@ -134,6 +134,7 @@
             _eventBus.Subscribe<PlayerMenuButtonPressedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PlayerInfoDisplayExitedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -142,6 +143,8 @@
 
         private void HandleEvent(ViewInjectionEvent evt)
         {
+            Logger.Debug($"ViewInjectionEvent: Role: {evt.DisplayRole}, Action: {evt.Action}, Element: {evt.Element?.GetType().FullName}/{evt.Element?.GetHashCode()}");
+
             if (evt.DisplayRole == DisplayRole.Main && !MessageOverlayDisplay.CustomMainViewElementVisible)
             {
                 MessageOverlayDisplay.CustomMainViewElementVisible = evt.Action == ViewInjectionEvent.ViewAction.Add;
@@ -1409,6 +1412,13 @@
         {
             Logger.Debug("Player Info Display Off");
             MvvmHelper.ExecuteOnUI(HandleMessageOverlayVisibility);
+        }
+
+        private void HandleEvent(GambleFeatureActiveEvent evt)
+        {
+            _isGambleFeatureActive = evt.Active;
+            RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
+            RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
         }
 
         private void HandleMessageOverlayVisibility()

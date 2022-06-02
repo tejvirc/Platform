@@ -11,12 +11,12 @@
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
+    using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
-    using DetailedGameMeters;
     using Contracts;
     using Contracts.Central;
     using Contracts.Lobby;
@@ -24,8 +24,10 @@
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Contracts.Tickets;
+    using DetailedGameMeters;
     using Diagnostics;
     using Hardware.Contracts.Printer;
+    using Hardware.Contracts.Reel;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
@@ -54,6 +56,7 @@
         private readonly IGamePlayState _gamePlayState;
         private readonly IBank _bank;
         private readonly IDialogService _dialogService;
+        private readonly IGameHistoryLog[] _gameLogs;
 
         private ObservableCollection<GameRoundHistoryItem> _gameHistory;
         private bool _isReplaying;
@@ -63,6 +66,7 @@
         private readonly ICentralProvider _centralProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly IGameRoundDetailsDisplayProvider _gameRoundDetailsDisplayProvider;
+        private readonly IReelController _reelController;
         private readonly DetailedGameMetersViewModel _detailedGameMetersViewModel;
         private bool _resetScrollToTop;
         private bool _replayPauseEnabled;
@@ -103,10 +107,13 @@
                     container.Container.GetInstance<IProtocolLinkedProgressiveAdapter>();
 
                 _gameRoundDetailsDisplayProvider = ServiceManager.GetInstance().TryGetService<IGameRoundDetailsDisplayProvider>();
+                _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
 
                 _detailedGameMetersViewModel = container.Container.GetInstance<DetailedGameMetersViewModel>();
                 // Hide the sequence number if we're going to make free games look like independent games (ALC Only)
                 ShowSequenceNumber = !_meterFreeGamesIndependently;
+
+                _gameLogs = _gameHistoryProvider.GetGameHistory().ToArray();
             }
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
@@ -225,7 +232,7 @@
                     RaisePropertyChanged(nameof(IsGameRoundComplete));
                     RaisePropertyChanged(nameof(IsHistoryItemSelected));
                     RaisePropertyChanged(nameof(GameProgressiveWinButtonEnabled));
-
+                    RaisePropertyChanged(nameof(IsMeteredGameSelected));
                     UpdateStatusText();
                     ResetScrollToTop = false;
                 }
@@ -251,7 +258,8 @@
                                            !_gameHistoryProvider.IsRecoveryNeeded &&
                                            !_propertiesManager.GetValue(
                                                GamingConstants.AdditionalInfoGameInProgress,
-                                               false);
+                                               false) &&
+                                           !HasFaultsThatAffectReels();
 
         public bool IsGameRoundComplete => SelectedGameItem?.Status ==
                                               Localizer.For(CultureFor.Operator)
@@ -276,6 +284,23 @@
 
         public bool ShowGameInfoButtons { get; }
 
+        public bool IsMeteredGameSelected
+        {
+            get
+            {
+                if (SelectedGameItem == null || _gameLogs == null)
+                {
+                    return false;
+                }
+
+                var gameHistoryItem = _gameLogs
+                    .FirstOrDefault(g => g.LogSequence == SelectedGameItem.LogSequence);
+
+                return gameHistoryItem?.MeterSnapshots != null &&
+                       gameHistoryItem.MeterSnapshots.Any();
+            }
+        }
+
         public bool ShowGameDetailsButton { get; }
 
         public bool ShowGameEventLogsButton { get; }
@@ -297,6 +322,9 @@
             EventBus.Subscribe<TransactionCompletedEvent>(this, HandleUpdate);
             EventBus.Subscribe<BankBalanceChangedEvent>(this, HandleUpdate);
             EventBus.Subscribe<PrintStartedEvent>(this, PrintStatusChanged);
+            EventBus.Subscribe<HardwareReelFaultEvent>(this, HandleReelRelatedFault);
+            EventBus.Subscribe<HardwareReelFaultClearEvent>(this, HandleReelRelatedFault);
+
             // We don't need to subscribe to completed events because that is handled by the UpdatePrinterButtons override
 
             SelectedGameItem = null;
@@ -331,6 +359,10 @@
                     text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayDisabledInGameText);
                 }
                 else if (_gameHistoryProvider.IsRecoveryNeeded)
+                {
+                    text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayDisabledReelFaultText);
+                }
+                else if (HasFaultsThatAffectReels())
                 {
                     text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayDisabledInRecoveryText);
                 }
@@ -879,6 +911,11 @@
                 });
         }
 
+        private void HandleReelRelatedFault(IEvent theEvent)
+        {
+            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+        }
+
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
             IEnumerable<Ticket> tickets = null;
@@ -1022,7 +1059,17 @@
                 transaction.TransactionId);
         }
 
-        protected override void GameDiagnosticsComplete()
+        private bool HasFaultsThatAffectReels()
+        {
+            if (!(bool)_propertiesManager.GetProperty(ApplicationConstants.ReelControllerEnabled, false))
+            {
+                return false;
+            }
+
+            return _reelController?.ReelControllerFaults != ReelControllerFaults.None;
+        }
+
+    protected override void GameDiagnosticsComplete()
         {
             IsReplaying = false;
         }

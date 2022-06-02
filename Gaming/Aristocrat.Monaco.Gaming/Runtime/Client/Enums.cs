@@ -28,7 +28,9 @@
         AllowCombinedOutcomes = 21,
         InPlayerMenu = 22,
         InPlayerInfoDisplayMenu = 23,
-        InOverlayLockup = 24
+        InOverlayLockup = 24,
+        RequestExitGame = 25,
+        GambleFeatureActive = 26
     }
 
     public enum RuntimeRequestState

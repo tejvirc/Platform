@@ -41,8 +41,13 @@
                     case ReelLogicalState.IdleUnknown:
                         command.States.Add(reelState.Key, ReelState.Stopped);
                         break;
+                    case ReelLogicalState.Homing:
                     case ReelLogicalState.Spinning:
+                    case ReelLogicalState.SpinningForward:
                         command.States.Add(reelState.Key, ReelState.SpinningForward);
+                        break;
+                    case ReelLogicalState.SpinningBackwards:
+                        command.States.Add(reelState.Key, ReelState.SpinningBackwards);
                         break;
                     case ReelLogicalState.Stopping:
                         command.States.Add(reelState.Key, ReelState.Stopping);

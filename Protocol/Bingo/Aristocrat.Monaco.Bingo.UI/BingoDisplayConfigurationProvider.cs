@@ -15,12 +15,13 @@
     using Kernel;
     using Localization.Properties;
     using Models;
+    using PresentationOverrideMessageFormat = BingoDisplayConfigurationPresentationOverrideMessageFormat;
 
     public class BingoDisplayConfigurationProvider : IBingoDisplayConfigurationProvider, IService, IDisposable
     {
         private const string DisplayConfigurationFile = @"BingoDisplayConfiguration.xml";
 
-        private readonly BingoHelpAppearance _defaultHelpAppearance = new() { HelpBox = new(0.2, 0.2, 0.2, 0.3) };
+        private readonly BingoDisplayConfigurationHelpAppearance _defaultHelpAppearance = new() { HelpBox = new(){ Left=0.2, Top=0.2, Right=0.2, Bottom=0.3 }};
         private readonly object _sync = new();
 
         private readonly ConcurrentDictionary<string, BingoDisplayConfiguration> _displayConfigurations =
@@ -33,13 +34,15 @@
 
         private readonly Dictionary<BingoWindow, Window> _windowMap = new();
 
-        private readonly Dictionary<BingoWindow, BingoWindowSettings> _windowSettings =
+        private readonly Dictionary<BingoWindow, BingoDisplayConfigurationBingoWindowSettings> _windowSettings =
             new();
 
-        private BingoHelpAppearance _helpAppearance;
-        private BingoAttractSettings _attractSettings = new();
+        private BingoDisplayConfigurationHelpAppearance _helpAppearance;
+        private BingoDisplayConfigurationBingoAttractSettings _attractSettings = new();
+        private List<PresentationOverrideMessageFormat> _presentationOverrideMessageFormats = new();
         private BingoWindow _currentWindow;
         private bool _disposed;
+        private int _version;
 
         public BingoDisplayConfigurationProvider(
             IDispatcher dispatcher,
@@ -73,12 +76,14 @@
             ScanForGameFiles();
         }
 
-        public BingoHelpAppearance GetHelpAppearance() => _helpAppearance;
+        public List<PresentationOverrideMessageFormat> GetPresentationOverrideMessageFormats() => _presentationOverrideMessageFormats;
 
-        public BingoAttractSettings GetAttractSettings() => _attractSettings;
+        public BingoDisplayConfigurationHelpAppearance GetHelpAppearance() => _helpAppearance;
+
+        public BingoDisplayConfigurationBingoAttractSettings GetAttractSettings() => _attractSettings;
 
         /// <inheritdoc />
-        public BingoWindowSettings GetSettings(BingoWindow window)
+        public BingoDisplayConfigurationBingoWindowSettings GetSettings(BingoWindow window)
         {
             if (!_windowSettings.ContainsKey(window))
             {
@@ -98,6 +103,8 @@
 
             return _windowMap[window];
         }
+
+        public int GetVersion() => _version;
 
         /// <inheritdoc />
         public BingoWindow CurrentWindow
@@ -119,7 +126,7 @@
         }
 
 #if !RETAIL
-        public void OverrideHelpAppearance(BingoHelpAppearance helpAppearance)
+        public void OverrideHelpAppearance(BingoDisplayConfigurationHelpAppearance helpAppearance)
         {
             if (helpAppearance is not null)
             {
@@ -129,7 +136,7 @@
             }
         }
 
-        public void OverrideSettings(BingoWindow window, BingoWindowSettings settings)
+        public void OverrideSettings(BingoWindow window, BingoDisplayConfigurationBingoWindowSettings settings)
         {
             if (settings is not null && _windowSettings.ContainsKey(window))
             {
@@ -150,9 +157,12 @@
             var config = new BingoDisplayConfiguration
             {
                 BingoAttractSettings = _attractSettings,
-                BingoInfoWindowSettings = _windowSettings.Values.ToList(),
-                HelpAppearance = _helpAppearance
+                BingoInfoWindowSettings = _windowSettings.Values.ToArray(),
+                HelpAppearance = _helpAppearance,
+                Version = _version,
+                PresentationOverrideMessageFormats = _presentationOverrideMessageFormats.ToArray()
             };
+
             var serializer = new XmlSerializer(config.GetType());
             var writer = new StreamWriter(path);
             serializer.Serialize(writer, config);
@@ -217,10 +227,11 @@
 
         private void LoadSettings(BingoWindow window)
         {
-            _attractSettings = new BingoAttractSettings();
+            _attractSettings = new BingoDisplayConfigurationBingoAttractSettings();
             _helpAppearance = _defaultHelpAppearance;
+            _presentationOverrideMessageFormats = new List<PresentationOverrideMessageFormat>();
 
-            var appearance = new BingoWindowSettings
+            var appearance = new BingoDisplayConfigurationBingoWindowSettings
             {
                 Allow0PaddingBingoCard = false,
                 Allow0PaddingBallCall = false,
@@ -239,7 +250,7 @@
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.MalfunctionVoids).ToUpper(),
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerAllPrizes).ToUpper(),
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerReelsAre).ToUpper()
-                }
+                }.ToArray()
             };
 
             _windowSettings[window] = appearance;
@@ -267,13 +278,9 @@
 
         private BingoDisplayConfiguration CreateSettingsFromFile(string path)
         {
-            var config = new BingoDisplayConfiguration();
-            var serializer = new XmlSerializer(config.GetType());
-
-            var reader = new StreamReader(path);
-            config = (BingoDisplayConfiguration)serializer.Deserialize(reader);
-            reader.Close();
-
+            var config = ConfigurationUtilities.SafeDeserialize<BingoDisplayConfiguration>(path);
+            _version = config?.Version ?? 1;
+            LoadFromSettings(config);
             return config;
         }
 
@@ -284,6 +291,8 @@
 
             _helpAppearance = config.HelpAppearance;
             _attractSettings = config.BingoAttractSettings ?? _attractSettings;
+            _presentationOverrideMessageFormats = config.PresentationOverrideMessageFormats?.ToList();
+            _version = config.Version;
 
             _eventBus.Publish(new BingoDisplayHelpAppearanceChangedEvent(_helpAppearance));
         }

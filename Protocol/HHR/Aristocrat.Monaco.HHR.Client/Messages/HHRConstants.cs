@@ -121,6 +121,9 @@
         /// <summary>Lockup key guid when ManualHandpay win is generated.</summary>
         public static Guid ManualHandicapWinKey => new Guid("6E300674-3936-4FFB-A5C9-A0DFC67D4C81");
 
+        /// <summary>Lockup key guid when a display connection status changes</summary>
+        public static Guid DisplayConnectionChangedRestartRequiredKey => new Guid("747C1541-20F9-4BE5-867A-003DD2554E09");
+
         /// <summary>Setting value for Quick-Pick manual handicap mode.</summary>
         public static string QuickPickMode => "Quick-Pick";
 

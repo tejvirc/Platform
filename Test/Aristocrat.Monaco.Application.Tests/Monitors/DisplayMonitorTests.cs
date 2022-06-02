@@ -9,6 +9,7 @@
 //    using Hardware.Contracts.ButtonDeck;
 //    using Hardware.Contracts.Cabinet;
 //    using Hardware.Contracts.Display;
+//    using Hardware.Contracts.KeySwitch;
 //    using Hardware.Contracts.Persistence;
 //    using Hardware.Contracts.Touch;
 //    using Kernel;
@@ -46,6 +47,7 @@
 //        private Mock<IPersistentStorageManager> _persistentStorage;
 //        private Mock<ICabinetDetectionService> _cabinetDetectionService;
 //        private Mock<IButtonDeckDisplay> _buttonDeckDisplay;
+//        private Mock<IPropertiesManager> _properties;
 //        private Mock<IPersistentStorageAccessor> _storageAccessorMock;
 //        private Mock<IPersistentStorageTransaction> _transactionMock;
 //        private MockRepository _mockRepository;
@@ -66,6 +68,7 @@
 //            _persistentStorage = _mockRepository.Create<IPersistentStorageManager>();
 //            _cabinetDetectionService = _mockRepository.Create<ICabinetDetectionService>();
 //            _buttonDeckDisplay = _mockRepository.Create<IButtonDeckDisplay>();
+//            _properties = _mockRepository.Create<IPropertiesManager>();
 //            _storageAccessorMock = _mockRepository.Create<IPersistentStorageAccessor>();
 //            _transactionMock = _mockRepository.Create<IPersistentStorageTransaction>();
 //            _meterMock = _mockRepository.Create<IMeter>();
@@ -88,6 +91,7 @@
 //            _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Default);
 //            _persistentStorage = MoqServiceManager.CreateAndAddService<IPersistentStorageManager>(MockBehavior.Default);
 //            _buttonDeckDisplay = MoqServiceManager.CreateAndAddService<IButtonDeckDisplay>(MockBehavior.Default);
+//            _properties = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
 //            _cabinetDetectionService =
 //                MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Default);
 //            SetCabinetDetectionMock();
@@ -112,7 +116,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -121,7 +125,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -130,7 +134,7 @@
 //                        null,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -139,7 +143,7 @@
 //                        _meterManager.Object,
 //                        null,
 //                        _cabinetDetectionService.Object,
-//                        _buttonDeckDisplay.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -148,7 +152,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        null,
-//                        _buttonDeckDisplay.Object));
+//                        _buttonDeckDisplay.Object);
 //            AssertHelper.Throws<ArgumentNullException>(
 //                () => dm =
 //                    new DisplayMonitor(
@@ -157,7 +161,7 @@
 //                        _meterManager.Object,
 //                        _persistentStorage.Object,
 //                        _cabinetDetectionService.Object,
-//                        null));
+//                        null);
 //            Assert.IsNull(dm);
 //        }
 
@@ -173,7 +177,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            Assert.AreEqual(typeof(DisplayMonitor).Name, dm.Name);
 //            Assert.IsTrue(dm.ServiceTypes.SequenceEqual(new[] { typeof(DisplayMonitor) }));
 //            SetupEventBusSubscription(dm);
@@ -181,7 +186,7 @@
 //            dm.Dispose();
 //            dm.Dispose(); // No exception after double dispose.
 //        }
-        
+
 //        [TestMethod]
 //        public void DisplayMonitorTestPersistenceNotExistsWithLcd()
 //        {
@@ -196,7 +201,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            SetupEventBusSubscription(dm);
 //            dm.Initialize();
 //            dm.Dispose();
@@ -215,7 +221,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            SetupEventBusSubscription(dm);
 //            dm.Initialize();
 //            dm.Dispose();
@@ -234,7 +241,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            SetupEventBusSubscription(dm);
 //            dm.Initialize();
 //            dm.Dispose();
@@ -254,7 +262,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            SetupEventBusSubscription(dm);
 //            dm.Initialize();
 //            dm.Dispose();
@@ -425,7 +434,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            SetupEventBusSubscription(dm);
 //            dm.Initialize();
 
@@ -459,7 +469,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            SetupEventBusSubscription(dm);
 //            dm.Initialize();
 //            VerifyDisconnectDevices<DisplayDisconnectedEvent, IDisplayDevice>(
@@ -554,7 +565,8 @@
 //                _meterManager.Object,
 //                _persistentStorage.Object,
 //                _cabinetDetectionService.Object,
-//                _buttonDeckDisplay.Object);
+//                _buttonDeckDisplay.Object,
+//                _properties.Object);
 //            SetupEventBusSubscription(dm);
 //            disconnectSetup?.Invoke();
 //            dm.Initialize();
@@ -593,6 +605,7 @@
 //            }
 
 //            _eventBus.Setup(x => x.Publish(It.IsAny<TEvent>()));
+//            _eventBus.Setup(x => x.Publish(It.IsAny<DisplayMonitorStatusChangeEvent>()));
 //        }
 
 //        private void SetupDeviceConnect<TEvent, TDevice>(Mock<TDevice> deviceMock, string meter, Guid enableKey)
@@ -644,7 +657,10 @@
 //                        _disconnectedHandler = handler;
 //                        ValidateFilter(filter, x => new DeviceDisconnectedEvent(x));
 //                    });
+//            _eventBus.Setup(x => x.Subscribe(displayMonitor, It.IsAny<Action<ClearDisplayDisconnectedLockupEvent>>()));
 //            _eventBus.Setup(x => x.UnsubscribeAll(displayMonitor));
+
+//            _eventBus.Setup(x => x.Subscribe(displayMonitor, It.IsAny<Action<OnEvent>>()));
 
 //            void ValidateFilter<T>(Predicate<T> filter, Func<IDictionary<string, object>, T> factory)
 //                where T : BaseDeviceEvent

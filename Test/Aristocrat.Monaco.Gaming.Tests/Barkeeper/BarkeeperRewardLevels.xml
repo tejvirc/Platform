@@ -44,10 +44,10 @@
   </RewardLevels>
   <CoinInStrategy>
     <CoinInRate>
-      <SessionRateInMs>50</SessionRateInMs>
+      <SessionRateInMs>100</SessionRateInMs>
       <Amount>100</Amount>
     </CoinInRate>
-    <SessionTimeout>50</SessionTimeout>
+    <SessionTimeout>100</SessionTimeout>
   </CoinInStrategy>
   <CashInStrategy />
 </BarkeeperRewardLevels>

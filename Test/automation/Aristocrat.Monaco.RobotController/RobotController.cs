@@ -79,13 +79,16 @@
         public DateTime TimeStamp { get; set; } = DateTime.Now;
     }
 
-
     public sealed partial class RobotController : BaseRunnable, IRobotController
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private static readonly ReaderWriterLockSlim _controllerStateLock = new ReaderWriterLockSlim();
+        private static readonly ReaderWriterLockSlim _previousControllerStateLock = new ReaderWriterLockSlim();
+        private static readonly ReaderWriterLockSlim _previousPlatformStateLock = new ReaderWriterLockSlim();
+        private static readonly ReaderWriterLockSlim _platformStateLock = new ReaderWriterLockSlim();
         private readonly Guid _overlayTextGuid = new Guid("2774B299-E8FE-436C-B68C-F6CF8DCDB31B");
         private readonly TransferInformation _previousVoucherBalance = new TransferInformation();
+        private readonly Dictionary<RobotControllerState, Func<bool>> _controlStateTransitionValidator = new Dictionary<RobotControllerState, Func<bool>>();
 
         private IEventBus _eventBus;
         private IBank _bank;
@@ -111,14 +114,13 @@
         private long _idleDuration;
         private long _waitDuration;
         private long _timeoutDuration;
-        private bool _expectingLockup;
         private bool _expectingAuditMenu;
         private bool _expectingRecovery;
 
         private Timer _lockupTimer;
         private Timer _exitAuditMenuTimer;
 
-        private bool ExpectingLockup => _expectingLockup || _expectingAuditMenu ||
+        private bool ExpectingLockup => _expectingAuditMenu ||
                                         (ControllerState == RobotControllerState.WaitCashOut ||
                                         ControllerState == RobotControllerState.EnterLockup ||
                                         ControllerState == RobotControllerState.ExitLockup ||
@@ -129,17 +131,63 @@
                                           ControllerState == RobotControllerState.OutOfOperatingHours ||
                                           _expectingRecovery;
 
+
         private RobotControllerState ControllerState
         {
             get
             {
-                return _controllerState;
+                return ControllerStateReaderLockHandler();
             }
 
             set
             {
-                LogInfo("Transition Controller State: " + value);
-                _controllerState = value;
+                if (_controllerState != value && !ValidateControlStateTransition(value))
+                {
+                    LogError($"ValidateStateTransition Failed for Transitioning to {value}");
+                    return;
+                }
+                ControllerStateWriterLockHandler(value);
+            }
+        }
+
+        private void ControllerStateWriterLockHandler(RobotControllerState value)
+        {
+            PreviousControllerState = ControllerState;
+            _controllerStateLock.EnterWriteLock();
+            try
+            {
+                if (_controllerState != value)
+                {
+                    Logger.Info($"Transition Controller to {value} state succeeded!");
+                    _controllerState = value;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Transition Controller to {value} state failed: " + ex.ToString());
+                Enabled = false;
+            }
+            finally
+            {
+                _controllerStateLock.ExitWriteLock();
+            }
+        }
+
+        private RobotControllerState ControllerStateReaderLockHandler()
+        {
+            _controllerStateLock.EnterReadLock();
+            try
+            {
+                return _controllerState;
+            }
+            catch (Exception ex) {
+                Logger.Error("ControllerStateReaderLockHandler failed: " + ex.ToString());
+                Enabled = false;
+                return _controllerState;
+            }
+            finally
+            {
+                _controllerStateLock.ExitReadLock();
             }
         }
 
@@ -147,13 +195,56 @@
         {
             get
             {
-                return _previousControllerState;
+                return PreviousControllerStateReaderLockHandler();
             }
 
             set
             {
-                LogInfo("Set Previous Controller State: " + value);
-                _previousControllerState = value;
+                if (value == RobotControllerState.InsertCredits || value == RobotControllerState.InsertCreditsComplete)
+                {
+                    return;
+                }
+                PreviousControllerStateWriterLockHandler(value);                
+            }
+        }
+
+        private void PreviousControllerStateWriterLockHandler(RobotControllerState value)
+        {
+            _previousControllerStateLock.EnterWriteLock();
+            try
+            {
+                if (_previousControllerState != value)
+                {
+                    _previousControllerState = value;
+                    Logger.Info($"Transition PreviousController to {value} state succeeded!");
+                }
+            }
+            catch (Exception ex) {
+                Logger.Error($"Transition PreviousController to {value} state failed: " + ex.ToString());
+                Enabled = false;
+            }
+            finally
+            {
+                _previousControllerStateLock.ExitWriteLock();
+            }
+        }
+
+        private RobotControllerState PreviousControllerStateReaderLockHandler()
+        {
+            _previousControllerStateLock.EnterReadLock();
+            try
+            {
+                return _previousControllerState;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("PreviousControllerStateReaderLockHandler Failed: " + ex.ToString());
+                Enabled = false;
+                return _previousControllerState;
+            }
+            finally
+            {
+                _previousControllerStateLock.ExitReadLock();
             }
         }
 
@@ -161,13 +252,53 @@
         {
             get
             {
-                return _platformState;
+                return PlatformStateReaderLockHandler();
             }
-
             set
             {
-                LogInfo($"Transition Platform from [{_platformState}] to [{value}]");
-                _platformState = value;
+                PlatformStateWriterLockHandler(value);
+            }
+        }
+
+        private void PlatformStateWriterLockHandler(RobotPlatformState value)
+        {
+            PreviousPlatformState = PlatformState;
+            _platformStateLock.EnterWriteLock();
+            try
+            {
+                if (_platformState != value)
+                {
+                    _platformState = value;
+                    Logger.Info($"Transition Platform to [{value}] state succeeded!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Transition Platform to [{value}] state failed! " + ex.ToString());
+                Enabled = false;
+            }
+            finally
+            {
+                _platformStateLock.ExitWriteLock();
+            }
+        }
+
+        private RobotPlatformState PlatformStateReaderLockHandler()
+        {
+            _platformStateLock.EnterReadLock();
+            try
+            {
+                return _platformState;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("HandlePlatformStateReaderLock failed: " + ex.ToString());
+                Enabled = false;
+                return _platformState;
+            }
+            finally
+            {
+                _platformStateLock.ExitReadLock();
             }
         }
 
@@ -175,53 +306,64 @@
         {
             get
             {
-                return _previousPlatformState;
+                return PreviousPlatformStateReaderLockHandler();
             }
 
             set
             {
-                LogInfo("Set Previous Platform State: " + value);
-                _previousPlatformState = value;
+                if (value == RobotPlatformState.InAudit || value == RobotPlatformState.InCashOut)
+                {
+                    return;
+                }
+                PreviousPlatformStateWriterLockHandler(value);                
             }
         }
 
-        private void TransitionState(RobotControllerState newState)
+        private void PreviousPlatformStateWriterLockHandler(RobotPlatformState value)
         {
-            if (ValidateStateTransition(newState))
+            _previousPlatformStateLock.EnterWriteLock();
+            try
             {
-                LogInfo($"Transition: {ControllerState} -> {newState.ToString()}");
-                ControllerState = newState;
-                return;
+                if (_previousPlatformState != value)
+                {
+                    _previousPlatformState = value;
+                    Logger.Info($"Transition PreviousPlatform to [{value}] state succeeded!");
+                }
             }
-            LogInfo($"ValidateStateTransition Failed for Transition: {ControllerState} -> {newState.ToString()}");
-        }
-
-        private bool ValidateStateTransition(RobotControllerState newState)
-        {
-            var result = true;
-            result &= ValidateTransitionToDriveRecoveryState(newState);
-            result &= ValidateTransitionToWaitForRecoveryStart(newState);
-            return result;
-        }
-
-        private bool ValidateRecoveryTransition(){
-            return ExpectingRecovery || (_gameService != null && _gameService.Running);
-        }
-
-        private bool ValidateTransitionToWaitForRecoveryStart(RobotControllerState newState)
-        {
-            if (newState == RobotControllerState.WaitForRecoveryStart)
-            {
-                return ValidateRecoveryTransition();
+            catch (Exception ex) {
+                Logger.Error($"Transition PreviousPlatform to [{value}] state failed! " + ex.ToString());
+                Enabled = false;
             }
-            return true;
+            finally
+            {
+                _previousPlatformStateLock.ExitWriteLock();
+            }
         }
 
-        private bool ValidateTransitionToDriveRecoveryState(RobotControllerState newState)
+        private RobotPlatformState PreviousPlatformStateReaderLockHandler()
         {
-            if (newState == RobotControllerState.DriveRecovery)
+            _previousPlatformStateLock.EnterReadLock();
+            try
             {
-                return ValidateRecoveryTransition();
+                return _previousPlatformState;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("PreviousPlatformStateReaderLockHandler failed: " + ex.ToString());
+                return _previousPlatformState;
+            }
+            finally
+            {
+                _previousPlatformStateLock.ExitReadLock();
+            }
+        }
+
+        private bool ValidateControlStateTransition(RobotControllerState newState)
+        {
+            if(_controlStateTransitionValidator.ContainsKey(newState)){
+                var result = _controlStateTransitionValidator[newState]();
+                _expectingRecovery = false;
+                return result;
             }
             return true;
         }
@@ -235,7 +377,7 @@
             {
                 if (Enabled != value)
                 {
-                    TransitionState(value ? RobotControllerState.Starting : RobotControllerState.Disabled);
+                    ControllerState = (value ? RobotControllerState.Starting : RobotControllerState.Disabled);
 
                     _automator.EnableExitToLobby(!value);
 
@@ -262,7 +404,15 @@
             _automator = new Automation(_pm, _eventBus);
             SubscribeToEvents();
             WaitForServices();
+            InitializeControlStateTransitionValidator();
             LogInfo("Initialized");
+        }
+
+        private void InitializeControlStateTransitionValidator()
+        {
+            Func<bool> recoveryValidator = () =>  ExpectingRecovery || (_gameService != null && _gameService.Running);
+            _controlStateTransitionValidator.Add(RobotControllerState.WaitForRecoveryStart, recoveryValidator);
+            _controlStateTransitionValidator.Add(RobotControllerState.DriveRecovery, recoveryValidator);
         }
 
         private void WaitForServices()
@@ -440,7 +590,6 @@
                                     HandlerInsertVoucherComplete();
                                     break;
                                 }
-
                         }
                     }
                 }
@@ -537,7 +686,7 @@
                     if (evt.IsLastPrompt && Enabled)
                     {
                         _automator.EnableCashOut(true);
-                        TransitionState(RobotControllerState.WaitCashOut);
+                        ControllerState = RobotControllerState.WaitCashOut;
                     }
                 });
 
@@ -684,7 +833,7 @@
                         && evt.DisableReasons == "Outside Hours of Operation")
                     {
                         LogInfo("Not disabling because disable for Operating Hours is expected.");
-                        TransitionState(RobotControllerState.OutOfOperatingHours);
+                        ControllerState = RobotControllerState.OutOfOperatingHours;
                         return;
                     }
 
@@ -737,19 +886,18 @@
             {
                 if (Enabled && ControllerState == RobotControllerState.OutOfOperatingHours)
                 {
-                    TransitionState(RobotControllerState.Running);
+                    ControllerState = RobotControllerState.Running;
                 }
             });
 
             _eventBus.Subscribe<RecoveryStartedEvent>(this, _ =>
                 {
-                    if (ValidateRecoveryTransition())
+                    if (ExpectingRecovery || (_gameService != null && _gameService.Running))
                     {
                         PlatformState = RobotPlatformState.InRecovery;
-                        TransitionState(RobotControllerState.DriveRecovery);
+                        ControllerState = RobotControllerState.DriveRecovery;
                         return;
                     }
-                    LogInfo($"RecoveryStartedEvent didn't pass the ValidateRecoveryTransitrion");
                 });
 
             _eventBus.Subscribe<CashOutStartedEvent>(this, _ =>
@@ -808,7 +956,7 @@
                     LogInfo("Keying off large win");
                     PreviousPlatformState = PlatformState;
                     PlatformState = RobotPlatformState.InCashOut;
-                    TransitionState(RobotControllerState.WaitCashOut);
+                    ControllerState = RobotControllerState.WaitCashOut;
                     //Task.Delay(3000).ContinueWith(_ => _eventBus.Publish(new RemoteKeyOffEvent(KeyOffType.LocalHandpay, evt.CashableAmount, evt.PromoAmount, evt.NonCashAmount)));
                     Task.Delay(1000).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_=> _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
                 }
@@ -867,7 +1015,7 @@
                 {
                     _config.SelectNextGame();
                     _automator.EnableExitToLobby(true);
-                    TransitionState(_config.Active.TestRecovery ? RobotControllerState.ForceGameExit : RobotControllerState.DriveRecovery);
+                    ControllerState = (_config.Active.TestRecovery ? RobotControllerState.ForceGameExit : RobotControllerState.DriveRecovery);
                     return;
                 }
 
@@ -878,7 +1026,7 @@
                     LogInfo("Queueing game load");
                     _config.SelectNextGame();
                     _automator.EnableExitToLobby(false);
-                    TransitionState(RobotControllerState.RequestGameLoad);
+                    ControllerState = (RobotControllerState.RequestGameLoad);
                 }
             }
         }
@@ -897,6 +1045,9 @@
 
         private void ActionPlayer()
         {
+            if(ControllerState != RobotControllerState.Running){
+                return;
+            }
             Random Rng = new System.Random((int)DateTime.Now.Ticks);
             var action =
                 _config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_config.CurrentGameProfile.RobotActions.Count));
@@ -1018,7 +1169,7 @@
 
         private void BalanceCheck([CallerMemberName] string caller = null)
         {
-            if (Enabled)
+            if (Enabled && !ExpectingRecovery)
             {
                 if (_bank == null)
                 {
@@ -1042,7 +1193,7 @@
                 if(balance < 0)
                 {
                     LogFatal("NEGATIVE BALANCE DETECTED");
-                    TransitionState(RobotControllerState.Disabled);
+                    ControllerState = (RobotControllerState.Disabled);
                     return;
                 }
 
@@ -1063,7 +1214,7 @@
                         PreviousControllerState = ControllerState;
 
                         //using a state for this to isolate credits entry
-                        TransitionState(RobotControllerState.InsertCredits);
+                        ControllerState = (RobotControllerState.InsertCredits);
                     }
                 }
             }

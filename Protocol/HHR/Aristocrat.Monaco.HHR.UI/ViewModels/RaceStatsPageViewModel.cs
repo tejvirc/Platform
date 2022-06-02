@@ -128,8 +128,8 @@
                 Timeout = Math.Min(UiProperties.ManualHandicapRemainingTime, ClientProperties.RaceStatTimeOut),
                 TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
                 IsVisible = true,
-                IsQuickPickTextVisible = ClientProperties.ManualHandicapMode == HhrConstants.QuickPickMode,
-                IsAutoPickTextVisible = ClientProperties.ManualHandicapMode != HhrConstants.QuickPickMode,
+                IsQuickPickTextVisible = false,
+                IsAutoPickTextVisible = false,
                 IsEnabled = true
             };
         }

@@ -98,7 +98,6 @@
         {
             try
             {
-                _eventBus.Publish(new BingoTestTimingEvent(BingoTestEventType.ResponseFromClient));
                 token.ThrowIfCancellationRequested();
                 if (!outcome.IsSuccessful || !_gameState.InGameRound)
                 {
@@ -354,8 +353,6 @@
                 _currentGameTransactionId = transaction.TransactionId;
 
                 var currentGame = _gameProvider.GetGame(transaction.GameId);
-
-                _eventBus.Publish(new BingoTestTimingEvent(BingoTestEventType.SentToClient));
 
                 var machineSerial = _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty);
                 var details = _properties.GetValue(

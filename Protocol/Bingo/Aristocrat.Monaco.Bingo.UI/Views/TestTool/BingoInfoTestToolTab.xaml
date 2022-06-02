@@ -5,6 +5,8 @@
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
          xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
          xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.TestTool"
+         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+         xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
          mc:Ignorable="d" 
          d:DesignHeight="450" d:DesignWidth="800"
          Header="BingoInfo"
@@ -87,6 +89,10 @@
                     <!-- Waiting for Game -->
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Presentation Override -->
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -294,9 +300,49 @@
                          Text="{Binding WaitingForGameTimeoutMessage}"
                          Style="{StaticResource MessageTextBox}" />
 
-                <!-- Settings Buttons -->
+                <!-- PRESENTATION OVERRIDE -->
+                <Label Grid.Row="27" Grid.Column="0"
+                       Content="PRESENTATION OVERRIDE"
+                       Style="{StaticResource SectionLabel}" />
                 <Border Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
-                <StackPanel Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                
+                <ListBox Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="2"
+                         HorizontalAlignment="Stretch" Margin="0 0 20 0"
+                         ItemsSource="{Binding PresentationOverrideMessageFormats}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox ItemsSource="{Binding Path=DataContext.PresentationOverrideType, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                          SelectedItem="{Binding OverrideType}"
+                                          Width="250"/>
+                                <TextBox Text="{Binding Path=MessageFormat}"
+                                         Style="{StaticResource MessageTextBox}">
+                                    <i:Interaction.Triggers>
+                                        <events:RoutedEventTrigger RoutedEvent="TextBox.LostFocus">
+                                            <events:EventToCommandAction Command="{Binding Path=DataContext.ApplyPresentationOverrideMessageFormatsCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
+                                        </events:RoutedEventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                                <Button Margin="16,4,4,4"
+                                        Content="-"
+                                        HorizontalContentAlignment="Center"
+                                        Command="{Binding Path=DataContext.RemovePresentationOverrideMessageFormatCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Grid.Row="29" Grid.Column="0" Orientation="Horizontal">
+                    <Button Margin="4,4,4,4"
+                            Content="+"
+                            HorizontalContentAlignment="Center"
+                            Command="{Binding AddPresentationOverrideMessageFormatCommand}"/>
+                </StackPanel>
+
+                <!-- Settings Buttons -->
+                <Border Grid.Row="30" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
+                <StackPanel Grid.Row="30" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Content="Reset to Defaults"
                             Command="{Binding DefaultsCommand}"
                             Margin="16,4,4,4"/>
@@ -308,6 +354,11 @@
                     <Button Content="Save Settings"
                             Command="{Binding SaveCommand}"
                             Margin="16,4,4,4"/>
+
+                    <Label Content="VERSION: "
+                           Style="{StaticResource ItemLabel}"/>
+                    <Label Content="{Binding Version}"
+                           Style="{StaticResource ItemLabel}" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

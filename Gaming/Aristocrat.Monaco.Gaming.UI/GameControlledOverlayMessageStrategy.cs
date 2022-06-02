@@ -8,7 +8,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Application.Contracts.Extensions;
     using log4net;
+    using Utils;
     using ViewModels;
 
     public class GameControlledOverlayMessageStrategy : IOverlayMessageStrategy
@@ -90,7 +92,8 @@
 
                 Logger.Debug("Sending PresentOverriddenPresentation with message: " + message);
 
-                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, presentation)).ToList();
+                var amount = OverlayMessageUtils.ToCredits(LastCashOutAmount).FormattedCurrencyString();
+                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, amount, presentation)).ToList();
 
                 _presentationService.PresentOverriddenPresentation(presentations);
             }
@@ -125,8 +128,9 @@
                     gameDrivenData.SubText2);
 
                 Logger.Debug("Sending PresentOverriddenPresentation with message: " + message);
-
-                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, presentation)).ToList();
+                
+                var amount = OverlayMessageUtils.ToCredits(HandpayAmount).FormattedCurrencyString();
+                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, amount, presentation)).ToList();
 
                 _presentationService.PresentOverriddenPresentation(presentations);
             }

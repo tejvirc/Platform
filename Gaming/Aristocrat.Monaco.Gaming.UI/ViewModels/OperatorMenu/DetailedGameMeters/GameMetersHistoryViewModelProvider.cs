@@ -32,7 +32,8 @@
                                          s.PlayState == PlayState.GameEnded ||
                                          s.PlayState == PlayState.PresentationIdle);
 
-            var beforeNextGame = nextGame == null
+            var beforeNextGame = nextGame?.MeterSnapshots == null ||
+                                 !nextGame.MeterSnapshots.Any()
                 ? _meterSnapshotProvider.GetSnapshot(PlayState.Idle)
                 : nextGame.MeterSnapshots.FirstOrDefault(
                     s => s.PlayState == PlayState.PrimaryGameStarted

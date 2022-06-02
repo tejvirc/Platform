@@ -14,6 +14,7 @@
     using Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.DetailedGameMeters;
     using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
     using Aristocrat.Monaco.Hardware.Contracts.IO;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Contracts;
     using Contracts.Progressives;
     using Kernel;
@@ -40,6 +41,7 @@
         private Mock<IProgressiveLevelProvider> _progressiveProvider = new Mock<IProgressiveLevelProvider>(MockBehavior.Default);
         private Mock<ICentralProvider> _centralProvider = new Mock<ICentralProvider>(MockBehavior.Default);
         private Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>(MockBehavior.Default);
+        private Mock<IReelController> _reelController = new Mock<IReelController>(MockBehavior.Default);
         private Mock<IGameRoundDetailsDisplayProvider> _gameRoundDetailsDisplayProvider;
         private Mock<IDialogService> _dialogService;
         private Mock<IContainerService> _containerService;
@@ -77,6 +79,8 @@
             _menuLauncher = MoqServiceManager.CreateAndAddService<IOperatorMenuLauncher>(MockBehavior.Default);
             _gameHistory = MoqServiceManager.CreateAndAddService<IGameHistory>(MockBehavior.Default);
             _cabinet = MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Default);
+            _reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
+
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Default);
             MockLocalization.Setup(MockBehavior.Strict);
 
@@ -100,6 +104,7 @@
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.ReplayPauseActive, true)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.ReplayPauseEnable, true)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.KeepGameRoundEvents, true)).Returns(true);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ReelControllerEnabled, false)).Returns(false);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<GameHistoryViewModel>(), It.IsAny<Action<TransactionCompletedEvent>>()))
                 .Callback<object, Action<TransactionCompletedEvent>>((_, action) => _handleProtocolInitializedEvent = action);
 

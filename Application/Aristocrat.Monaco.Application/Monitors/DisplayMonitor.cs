@@ -12,6 +12,7 @@
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Display;
+    using Hardware.Contracts.KeySwitch;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.Touch;
     using Kernel;
@@ -23,6 +24,7 @@
         private const string LcdButtonDeckDescription = "USBD480";
         private const string BlockName = "Aristocrat.Monaco.Application.Monitors.DisplayMonitor";
         private const int ExpectedButtonDeckDisplayCount = 2;
+
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private static readonly Dictionary<DisplayRole, string> TouchScreenMeters = new Dictionary<DisplayRole, string>
@@ -72,7 +74,8 @@
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
-                ServiceManager.GetInstance().GetService<IButtonDeckDisplay>())
+                ServiceManager.GetInstance().GetService<IButtonDeckDisplay>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
@@ -82,15 +85,21 @@
             IMeterManager meterManager,
             IPersistentStorageManager persistentStorage,
             ICabinetDetectionService cabinetDetectionService,
-            IButtonDeckDisplay buttonDeckDisplay)
+            IButtonDeckDisplay buttonDeckDisplay,
+            IPropertiesManager properties)
         {
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
-            _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
-            _cabinetDetectionService = cabinetDetectionService ??
-                                       throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _buttonDeckDisplay = buttonDeckDisplay ?? throw new ArgumentNullException(nameof(buttonDeckDisplay));
-            _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
+            _disableManager = disableManager
+                ?? throw new ArgumentNullException(nameof(disableManager));
+            _meterManager = meterManager
+                ?? throw new ArgumentNullException(nameof(meterManager));
+            _cabinetDetectionService = cabinetDetectionService
+                ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+            _buttonDeckDisplay = buttonDeckDisplay
+                ?? throw new ArgumentNullException(nameof(buttonDeckDisplay));
+            _persistentStorage = persistentStorage
+                ?? throw new ArgumentNullException(nameof(persistentStorage));
 
             AddDeviceHandlers<IDisplayDevice>(
                 VideoDisplayMeters,
@@ -120,14 +129,17 @@
         {
             lock (_lock)
             {
-                _eventBus.Subscribe<DeviceConnectedEvent>(
-                    this,
+                _eventBus.Subscribe<DeviceConnectedEvent>(this,
                     _ => CheckDevicesCount(),
                     FilterDeviceEvent);
-                _eventBus.Subscribe<DeviceDisconnectedEvent>(
-                    this,
+
+                _eventBus.Subscribe<DeviceDisconnectedEvent>(this,
                     _ => CheckDevicesCount(),
                     FilterDeviceEvent);
+
+                _eventBus.Subscribe<ClearDisplayDisconnectedLockupEvent>(this,
+                    evt => _disableManager.Enable(ApplicationConstants.DisplayDisconnectedLockupKey));
+
                 CheckDevicesCount();
             }
         }
@@ -418,6 +430,8 @@
                     SystemDisablePriority.Immediate,
                     () => Localizer.For(CultureFor.Operator).GetString(resource));
             }
+
+            _eventBus.Publish(new DisplayMonitorStatusChangeEvent());
         }
 
         private void CheckLcdButtonDeck()

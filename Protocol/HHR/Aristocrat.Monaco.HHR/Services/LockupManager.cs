@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Services
 {
     using System;
+    using System.Text;
     using Application.Contracts.Localization;
     using Client.Messages;
     using Events;
@@ -55,6 +56,28 @@
 
             _eventBus.Subscribe<TransactionPendingEvent>(this, Handle);
             _eventBus.Subscribe<PendingRequestRemovedEvent>(this, Handle);
+
+            _eventBus.Subscribe<DisplayConnectionChangedEvent>(this, Handle);
+        }
+
+        private void Handle(DisplayConnectionChangedEvent evt)
+        {
+            var connectedString = evt.IsConnected
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText)
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
+            var disableReason = new StringBuilder();
+            disableReason.Append(evt.Display);
+            disableReason.Append(" ");
+            disableReason.Append(connectedString);
+            disableReason.Append(" - ");
+            disableReason.Append(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RestartRequired));
+
+            _systemDisableManager.Disable(
+                HhrConstants.DisplayConnectionChangedRestartRequiredKey,
+                SystemDisablePriority.Immediate,
+                () => disableReason.ToString(),
+                true,
+                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RestartToClearLockup));
         }
 
         private void Handle(PendingRequestRemovedEvent obj)

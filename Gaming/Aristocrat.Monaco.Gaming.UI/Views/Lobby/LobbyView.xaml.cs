@@ -221,6 +221,12 @@
                 _customOverlays.Add(DisplayRole.Top, (
                     (element) =>
                     {
+                        if (_topView == null)
+                        {
+                            Logger.Debug("Top view is null");
+                            return;
+                        }
+
                         if (_topMediaDisplayWindow == null)
                         {
                             _topView.SetupMediaDisplayWindow();
@@ -233,7 +239,7 @@
                         if (grid.Children.Contains(element))
                         {
                             Logger.Warn(
-                                $"Trying to add twice the custom view model {element.GetType().FullName} to Top Screen, hash: {element.GetHashCode()}");
+                                $"Trying to add twice the custom view {element.GetType().FullName} to Top Screen, hash: {element.GetHashCode()}");
                         }
                         else
                         {
@@ -241,21 +247,26 @@
                             _topMediaDisplayWindow.Content = grid;
                             _topMediaDisplayWindow.Show();
                             Logger.Debug(
-                                $"Added the custom view model {element.GetType().FullName} to Top Screen, hash: {element.GetHashCode()}");
+                                $"Added the custom view {element.GetType().FullName} to Top Screen, hash: {element.GetHashCode()}");
                         }
                     },
                     (element) =>
                     {
                         if (_topMediaDisplayWindow != null)
                         {
-                            if (element != null)
+                            var grid = _topMediaDisplayWindow.Content as Grid;
+                            if (grid?.Children.Count > 0)
                             {
-                                var grid = _topMediaDisplayWindow.Content as Grid;
-                                if (grid?.Children.Count > 0)
+                                if (element != null)
+                                {
+                                    grid.Children.Remove(element);
+                                    Logger.Debug($"Cleared the custom view {element.GetType().FullName} from Top Screen, hash: {element.GetHashCode()}");
+                                }
+                                else
                                 {
                                     grid.Children.Clear();
                                     _topMediaDisplayWindow.Content = null;
-                                    Logger.Debug($"Cleared the custom view model {element.GetType().FullName} from Top Screen, hash: {element.GetHashCode()}");
+                                    Logger.Debug($"Cleared all custom views from Top Screen");
                                 }
                             }
                         }
@@ -270,6 +281,12 @@
                 _customOverlays.Add(DisplayRole.Topper, (
                     (element) =>
                     {
+                        if (_topperView == null)
+                        {
+                            Logger.Debug("Topper view is null");
+                            return;
+                        }
+
                         if (_topperMediaDisplayWindow == null)
                         {
                             _topperView.SetupMediaDisplayWindow();
@@ -282,28 +299,33 @@
                         if (grid.Children.Contains(element))
                         {
                             Logger.Warn(
-                                $"Trying to add twice the custom view model {element.GetType().FullName} to Topper Screen, hash: {element.GetHashCode()}");
+                                $"Trying to add twice the custom view {element.GetType().FullName} to Topper Screen, hash: {element.GetHashCode()}");
                         }
                         else
                         {
                             grid.Children.Add(element);
                             _topperMediaDisplayWindow.Content = grid;
                             _topperMediaDisplayWindow.Show();
-                            Logger.Debug($"Added the custom view model {element.GetType().FullName} to Topper Screen, hash: {element.GetHashCode()}");
+                            Logger.Debug($"Added the custom view {element.GetType().FullName} to Topper Screen, hash: {element.GetHashCode()}");
                         }
                     },
                     (element) =>
                     {
                         if (_topperMediaDisplayWindow != null)
                         {
-                            if (element != null)
+                            var grid = _topperMediaDisplayWindow.Content as Grid;
+                            if (grid?.Children.Count > 0)
                             {
-                                var grid = _topperMediaDisplayWindow.Content as Grid;
-                                if (grid?.Children.Count > 0)
+                                if (element != null)
+                                {
+                                    grid.Children.Remove(element);
+                                    Logger.Debug($"Cleared the custom view {element.GetType().FullName} from Topper Screen, hash: {element.GetHashCode()}");
+                                }
+                                else
                                 {
                                     grid.Children.Clear();
                                     _topperMediaDisplayWindow.Content = null;
-                                    Logger.Debug($"Cleared the custom view model {element.GetType().FullName} from Topper Screen, hash: {element.GetHashCode()}");
+                                    Logger.Debug($"Cleared all custom views from Topper Screen");
                                 }
                             }
                         }
@@ -319,13 +341,13 @@
                     if (grid != null && grid.Children.Contains(element))
                     {
                         Logger.Warn(
-                            $"Trying to add twice the custom view model {element.GetType().FullName} to Main Screen, hash: {element.GetHashCode()}");
+                            $"Trying to add twice the custom view {element.GetType().FullName} to Main Screen, hash: {element.GetHashCode()}");
                     }
                     else
                     {
-                        Logger.Debug(
-                            $"Adding the custom view model {element.GetType().FullName} to Main Screen, hash: {element.GetHashCode()}");
                         grid?.Children.Add(element);
+                        Logger.Debug(
+                            $"Added the custom view {element.GetType().FullName} to Main Screen, hash: {element.GetHashCode()}");
                     }
                 },
                 (element) =>
@@ -333,9 +355,17 @@
                     Grid grid = _overlayWindow.FindName("ViewInjectionRoot") as Grid;
                     if (grid?.Children.Count > 0)
                     {
-                        Logger.Debug(
-                            $"Removing the custom view model {element.GetType().FullName} from Main Screen, hash: {element.GetHashCode()}");
-                        grid.Children.Remove(element);
+                        if (element != null)
+                        {
+                            grid.Children.Remove(element);
+                            Logger.Debug(
+                                $"Removing the custom view model {element.GetType().FullName} from Main Screen, hash: {element.GetHashCode()}");
+                        }
+                        else
+                        {
+                            grid.Children.Clear();
+                            Logger.Debug($"Cleared all custom views from Main Screen");
+                        }
                     }
                 }
             ));
@@ -679,8 +709,7 @@
                 simulateVirtualButtonDeck.ToUpperInvariant() != Constants.True,
                 $"{nameof(simulateLcdButtonDeck)} and {nameof(simulateVirtualButtonDeck)} are mutually exclusive.");
 
-            var ioService = ServiceManager.GetInstance().TryGetService<IIO>();  // used to check for laptop usage
-            if (HardwareHelpers.CheckForVirtualButtonDeckHardware() || ioService?.LogicalState == IOLogicalState.Disabled)
+            if (HostMachineIsNotAnEGM())
             {
                 LoadVbd();
             }
@@ -730,6 +759,16 @@
 
             _overlayWindow.IsVisibleChanged += OnChildWindowIsVisibleChanged;
             SetStylusSettings(_overlayWindow);
+        }
+        private bool HostMachineIsNotAnEGM()
+        {
+            var ioService = ServiceManager.GetInstance().TryGetService<IIO>();  // used to check for laptop usage
+            if (HardwareHelpers.CheckForVirtualButtonDeckHardware() || ioService?.LogicalState == IOLogicalState.Disabled)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void LoadVbd()

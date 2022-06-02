@@ -166,7 +166,6 @@
             var outcome = new CentralTransaction(2, dateTime, currentTransactionGameId, 1, "standard", 1000, 4);
             _gamePlayState.Setup(x => x.SetGameEndHold(true)).Verifiable();
             _gameProvider.Setup(x => x.GetGame(currentTransactionGameId)).Returns(gameDetail.Object).Verifiable();
-            _eventBus.Setup(x => x.Publish(It.IsAny<BingoTestTimingEvent>())).Verifiable();
             _properties.Setup(x => x.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns(machineSerial).Verifiable();
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedBetDetails, It.IsAny<BetDetails>())).Returns(defaultBetDetails).Verifiable();
             _commandHandlerFactory.Setup(x => x.Execute(It.IsAny<object>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask).Verifiable();
@@ -196,8 +195,7 @@
             MoqServiceManager.CreateInstance(MockBehavior.Default);
 
             _gamePlayState.Setup(x => x.InGameRound).Returns(true);
-
-            _eventBus.Setup(x => x.Publish(It.IsAny<BingoTestTimingEvent>())).Verifiable();
+            
             using var source = new CancellationTokenSource();
 
             Task<bool> playTask = _target.ProcessGameOutcome(

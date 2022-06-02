@@ -23,7 +23,7 @@
     /// <summary>
     ///     Implements <see cref="IProgressiveController" />.
     /// </summary>
-    public class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
+    public sealed class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
     {
         //private readonly Guid _infoBarOwnershipKey = new Guid("{1E1A5CCE-AB14-498E-9472-F83F75573D85}");
         private readonly IEventBus _eventBus;
@@ -87,12 +87,6 @@
                                              throw new ArgumentNullException(nameof(multiProtocolEventBusRegistry));
 
             SubscribeToEvents();
-        }
-
-        /// <inheritdoc />
-        ~ProgressiveController()
-        {
-            Dispose(false);
         }
 
         /// <inheritdoc />
@@ -273,21 +267,12 @@
         /// <inheritdoc />
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected void Dispose(bool disposing)
-        {
             if (_disposed)
             {
                 return;
             }
 
-            if (disposing)
-            {
-                _eventBus.UnsubscribeAll(this);
-            }
+            _eventBus.UnsubscribeAll(this);
 
             _disposed = true;
         }

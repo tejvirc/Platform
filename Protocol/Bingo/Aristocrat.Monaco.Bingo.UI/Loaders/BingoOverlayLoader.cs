@@ -72,12 +72,12 @@
         {
             if (_overlayWindow is not null)
             {
-                _overlayWindow.Close();
                 _overlayWindow.Dispose();
+                var window = _overlayWindow;
+                _dispatcher.ExecuteOnUIThread(() => window?.Close());
             }
 
             _overlayWindow = null;
-
             if (_viewModel is not null)
             {
                 _viewModel.Dispose();

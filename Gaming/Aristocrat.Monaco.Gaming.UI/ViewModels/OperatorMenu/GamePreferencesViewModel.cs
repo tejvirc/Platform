@@ -1301,14 +1301,16 @@
 
             var images = Directory.EnumerateFiles(imagesPath).OrderBy(s => s).ToList();
 
-            foreach (var color in PokerBackgroundColors)
+            foreach (var color in PokerBackgroundColors.ToList())
             {
-                foreach (var filePath in images)
+                var matchingFilePath = images.Where(path => Path.GetFileName(path).StartsWith(color)).ToList();
+                if (matchingFilePath.Any())
                 {
-                    if (Path.GetFileName(filePath).StartsWith(color))
-                    {
-                        BackgroundPreviewFiles.Add((color, filePath));
-                    }
+                    BackgroundPreviewFiles.Add((color, matchingFilePath.First()));
+                }
+                else
+                {
+                    PokerBackgroundColors.Remove(color);
                 }
             }
         }

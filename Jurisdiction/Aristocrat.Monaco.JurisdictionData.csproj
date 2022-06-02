@@ -1,67 +1,25 @@
-﻿<Project Sdk="Microsoft.Net.Sdk">
+﻿<Project Sdk="Microsoft.Build.NoTargets/3.3.0">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <JurisdictionDir>..\bin\$(Configuration)\Platform\bin\jurisdiction\</JurisdictionDir>
-    <EnableDefaultItems>false</EnableDefaultItems>
-    <Company>Aristocrat</Company>
-    <Authors>Aristocrat</Authors>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <OutputPath>..\bin\$(Configuration)\Platform\bin\jurisdiction\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
     <EnableDefaultItems>true</EnableDefaultItems>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>true</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <MakeDir Directories="$(JurisdictionDir)" />
-    <Exec Command="xcopy /s /q /y /d * $(JurisdictionDir)" />
-    <Exec Command="del /q $(JurisdictionDir)*.*" />
-    <RemoveDir Directories="$(JurisdictionDir)obj;$(JurisdictionDir)bin" />
-    <Exec Command="&quot;$(MSBuildBinPath)\MSBuild.exe&quot; &quot;$(MSBuildThisFileDirectory)..\Tasks\Resources.msbuild&quot; /v:d /property:TargetDir=$(JurisdictionDir)..\" />
+    <ItemGroup>
+      <JurisdictionFiles Include="**/*" Exclude="**/*.resx;*.*;obj/**"></JurisdictionFiles>
+    </ItemGroup>
+    <RemoveDir Directories="$(OutputPath)" />
+    <Copy SourceFiles="@(JurisdictionFiles)" DestinationFiles="@(JurisdictionFiles->'$(OutputPath)%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+    <Exec Command="&quot;$(MSBuildBinPath)\MSBuild.exe&quot; &quot;$(MSBuildThisFileDirectory)..\Tasks\Resources.msbuild&quot; /v:d /p:Configuration=$(Configuration) /p:OutputPath=$(OutputPath)" />
   </Target>
-  <Target Name="Cleanup" AfterTargets="Clean">
-    <RemoveDir Directories="$(JurisdictionDir)" />
+  <Target Name="Cleanup" AfterTargets="Clean" Condition="'$(Force)' != ''">
+    <RemoveDir Directories="$(OutputPath)" />
+    <RemoveDir Directories="$(MSBuildThisFileDirectory)obj\$(Configuration)\resources" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
-  <ItemGroup>
-    <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="KentuckyHHR\resources\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="LouisianaHHR\resources\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="NewHampshireHHR\resources\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="WyomingHHR\resources\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="KentuckyHHR\resources\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="LouisianaHHR\resources\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="NewHampshireHHR\resources\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="WyomingHHR\resources\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
 </Project>

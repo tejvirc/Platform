@@ -15,8 +15,18 @@
         private readonly IOverlayMessageStrategyFactory _overlayMessageStrategyFactory;
         private readonly IPropertiesManager _properties;
         private readonly IPresentationService _presentationService;
+        private readonly IRuntime _runtime;
+        private readonly IEventBus _eventBus;
 
-        public bool GameRegistered { get; private set; }
+        private bool _gameRegistered;
+
+        private bool _disposed;
+
+        public bool GameRegistered
+        {
+            get => _gameRegistered && _runtime.Connected;
+            private set => _gameRegistered = value;
+        }
 
         public IList<PresentationOverrideTypes> RegisteredPresentations { get; set; }
 
@@ -27,15 +37,43 @@
         public OverlayMessageStrategyController(
             IOverlayMessageStrategyFactory overlayMessageStrategyFactory,
             IPropertiesManager properties,
-            IPresentationService presentationService)
+            IPresentationService presentationService,
+            IRuntime runtime,
+            IEventBus eventBus)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _overlayMessageStrategyFactory = overlayMessageStrategyFactory ?? throw new ArgumentNullException(nameof(overlayMessageStrategyFactory));
             _presentationService = presentationService ?? throw new ArgumentNullException(nameof(presentationService));
+            _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
             RegisteredPresentations = new List<PresentationOverrideTypes>();
-
+            
             SetOverlayMessageStrategy();
+
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, HandleEvent);
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus.UnsubscribeAll(this);
+            }
+
+            _disposed = true;
         }
 
         public Task<bool> RegisterPresentation(bool registered, IEnumerable<PresentationOverrideTypes> types)
@@ -85,6 +123,11 @@
 
             OverlayStrategy = _overlayMessageStrategyFactory.Create(strategy);
             FallBackStrategy = _overlayMessageStrategyFactory.Create(fallbackStrategy);
+        }
+
+        private void HandleEvent(GameProcessExitedEvent evt)
+        {
+            GameRegistered = false;
         }
     }
 }

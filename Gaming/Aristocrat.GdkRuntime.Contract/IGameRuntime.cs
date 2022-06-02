@@ -873,7 +873,13 @@ namespace Aristocrat.GDKRuntime
             InPlayerInfoDisplayMenu = 23,
 
             /// <summary>in a lockup that allows animating overlays</summary>
-            InOverlayLockup = 24
+            InOverlayLockup = 24,
+
+            /// <summary>Request exit the current game</summary>
+            RequestExitGame = 25,
+
+            /// <summary>Gamble button is enabled on Game's UPI</summary>
+            GambleFeatureActive = 26
         }
 
         /// <summary>

@@ -87,7 +87,7 @@
                 metersViewModel.AfterGameEnd,
                 metersViewModel.BeforeNextGame
             );
-
+            
             AddMeters(new Dictionary<string, (long, long, long)>
             {
                 {"Credit",
@@ -326,7 +326,8 @@
             var (previousGame, currentGame, nextGame) =
                 GetMeteredGames(logSequence);
 
-            if (currentGame == null)
+            var currentSnapshots = currentGame?.MeterSnapshots;
+            if (currentSnapshots == null || !currentSnapshots.Any())
             {
                 return null;
             }

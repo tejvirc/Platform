@@ -25568,6 +25568,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Reconnected.
+		/// </summary>
+		public static string Reconnected {
+			get {
+				return ResourceManager.GetString("Reconnected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Recovering.
 		/// </summary>
         /// <remarks>
@@ -26045,6 +26054,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Please clear reel related faults to allow Replay..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ReplayDisabledReelFaultText {
+			get {
+				return ResourceManager.GetString("ReplayDisabledReelFaultText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Game Win Bonus Awarded: {0}.
 		/// </summary>
 		public static string ReplayGameWinBonusAwarded {
@@ -26512,6 +26533,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ResponseFromEgm {
 			get {
 				return ResourceManager.GetString("ResponseFromEgm", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Restart Required.
+		/// </summary>
+		public static string RestartRequired {
+			get {
+				return ResourceManager.GetString("RestartRequired", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Restart the machine to clear this lockup.
+		/// </summary>
+		public static string RestartToClearLockup {
+			get {
+				return ResourceManager.GetString("RestartToClearLockup", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -59929,6 +59968,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Reconnected.
+		/// </summary>
+		public static string Reconnected {
+			get {
+				return "Reconnected";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Recovering.
 		/// </summary>
         /// <remarks>
@@ -60406,6 +60454,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Please clear reel related faults to allow Replay..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ReplayDisabledReelFaultText {
+			get {
+				return "ReplayDisabledReelFaultText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Game Win Bonus Awarded: {0}.
 		/// </summary>
 		public static string ReplayGameWinBonusAwarded {
@@ -60873,6 +60933,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ResponseFromEgm {
 			get {
 				return "ResponseFromEgm";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Restart Required.
+		/// </summary>
+		public static string RestartRequired {
+			get {
+				return "RestartRequired";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Restart the machine to clear this lockup.
+		/// </summary>
+		public static string RestartToClearLockup {
+			get {
+				return "RestartToClearLockup";
 			}
 		}
 
@@ -83332,6 +83410,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ReconfigureSelected,
 		/// <summary>
+		///   Looks up a localized string similar to Reconnected.
+		/// </summary>
+		Reconnected,
+		/// <summary>
 		///   Looks up a localized string similar to Recovering.
 		/// </summary>
         /// <remarks>
@@ -83604,6 +83686,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ReplayDisabledInRecoveryText1,
 		/// <summary>
+		///   Looks up a localized string similar to Please clear reel related faults to allow Replay..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ReplayDisabledReelFaultText,
+		/// <summary>
 		///   Looks up a localized string similar to Game Win Bonus Awarded: {0}.
 		/// </summary>
 		ReplayGameWinBonusAwarded,
@@ -83869,6 +83958,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Sas
         /// </remarks>
 		ResponseFromEgm,
+		/// <summary>
+		///   Looks up a localized string similar to Restart Required.
+		/// </summary>
+		RestartRequired,
+		/// <summary>
+		///   Looks up a localized string similar to Restart the machine to clear this lockup.
+		/// </summary>
+		RestartToClearLockup,
 		/// <summary>
 		///   Looks up a localized string similar to Restore Default.
 		/// </summary>

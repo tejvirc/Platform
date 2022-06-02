@@ -39,7 +39,7 @@
 
             EnabledGamesLimit = _digitalRights.LicenseCount == int.MaxValue
                 ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Unlimited)
-                : _digitalRights.ToString();
+                : _digitalRights.LicenseCount.ToString();
         }
 
         public string Id => _digitalRights.License.Id;

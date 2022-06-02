@@ -79,7 +79,9 @@
         protected virtual void Save()
         {
             var sfd = new System.Windows.Forms.SaveFileDialog();
-            if (System.Windows.Forms.DialogResult.OK != sfd.ShowDialog())
+            sfd.Filter = "XML-File | *.xml";
+            if (System.Windows.Forms.DialogResult.OK != sfd.ShowDialog() ||
+                string.IsNullOrWhiteSpace(sfd.FileName))
             {
                 return;
             }
