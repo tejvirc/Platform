@@ -39,7 +39,7 @@
                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}"/>
             <ComboBox MinWidth="250"
                           Margin="0 10 0 0"
-                          ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
+                          ItemsSource ="{Binding Path=SoundLevelConfigCollection}"
                           SelectedIndex="0"
                           DisplayMemberPath="Description"
                           SelectedValuePath="Value"

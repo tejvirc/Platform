@@ -39,22 +39,20 @@
 
         private readonly Dictionary<VolumeScalar, float> _volumeScalars = new Dictionary<VolumeScalar, float>
         {
-            { VolumeScalar.Scale20, 0.2f },
-            { VolumeScalar.Scale40, 0.4f },
-            { VolumeScalar.Scale60, 0.6f },
-            { VolumeScalar.Scale80, 0.8f },
-            { VolumeScalar.Scale100, 1.0f }
+            { VolumeScalar.Scale20, 0.32f },
+            { VolumeScalar.Scale40, 0.49f },
+            { VolumeScalar.Scale60, 0.67f },
+            { VolumeScalar.Scale80, 0.80f },
+            { VolumeScalar.Scale100, 1.00f }
         };
 
         private readonly Dictionary<VolumeLevel, float> _volumePresets = new Dictionary<VolumeLevel, float>
         {
-            { VolumeLevel.ExtraLow, 10.0f },
-            { VolumeLevel.Low, 35.0f },
+            { VolumeLevel.Low, 36.0f },
             { VolumeLevel.MediumLow, 43.0f },
-            { VolumeLevel.Medium, 54.0f },
+            { VolumeLevel.Medium, 53.0f },
             { VolumeLevel.MediumHigh, 65.0f },
-            { VolumeLevel.High, 81.0f },
-            { VolumeLevel.ExtraHigh, 96.0f }
+            { VolumeLevel.High, 83.0f },
         };
 
         private Channel _channel;
@@ -233,6 +231,16 @@
         public IVolume GetVolumeControl(int processId)
         {
             return processId <= 0 ? null : new Volume(processId);
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<VolumeLevel> SoundLevelCollection
+        {
+            get
+            {
+                var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+                return volumePresets.Keys.ToList();
+            }
         }
 
         /// <inheritdoc />

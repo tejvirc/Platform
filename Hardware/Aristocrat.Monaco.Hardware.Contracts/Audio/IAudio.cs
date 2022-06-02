@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Audio
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
 
     /// <summary>Volume Levels</summary>
@@ -154,5 +155,10 @@
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <remarks>If sound is not currently playing, this call has no effect.</remarks>
         void SetSpeakerMix(SpeakerMix speakers);
+
+        /// <summary>
+        ///     Gets a set of master volume levels requested per jurisdiction 
+        /// </summary>
+        IEnumerable<VolumeLevel> SoundLevelCollection { get; }
     }
 }

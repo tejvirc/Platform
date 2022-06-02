@@ -1,7 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
+    using Aristocrat.Monaco.UI.Common.Extensions;
+    using Aristocrat.Monaco.UI.Common.Markup;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -39,6 +43,7 @@
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
             SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
+            SoundLevelConfigurationParser(_audio.SoundLevelCollection);
         }
 
         private void LoadVolumeSettings()
@@ -73,6 +78,17 @@
         }
 
         public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
+
+        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection { get; } = new();
+        private void SoundLevelConfigurationParser(IEnumerable<VolumeLevel> enumValues)
+        {
+            SoundLevelConfigCollection.Clear();
+            foreach (var level in enumValues)
+            {
+                SoundLevelConfigCollection.Add(new EnumerationExtension.EnumerationMember()
+                    {Description = level.GetDescription(typeof(VolumeLevel)), Value = level});
+            }
+        }
 
         private bool IsSystemDisabled =>
             _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioDisconnectedLockKey) ||
