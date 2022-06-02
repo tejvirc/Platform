@@ -361,7 +361,9 @@
         private bool ValidateControlStateTransition(RobotControllerState newState)
         {
             if(_controlStateTransitionValidator.ContainsKey(newState)){
-                return _controlStateTransitionValidator[newState]();
+                var result = _controlStateTransitionValidator[newState]();
+                _expectingRecovery = false;
+                return result;
             }
             return true;
         }
@@ -1162,7 +1164,7 @@
 
         private void BalanceCheck([CallerMemberName] string caller = null)
         {
-            if (Enabled)
+            if (Enabled && !ExpectingRecovery)
             {
                 if (_bank == null)
                 {
