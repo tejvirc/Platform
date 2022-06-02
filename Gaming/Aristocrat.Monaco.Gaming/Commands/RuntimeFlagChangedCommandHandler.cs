@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
     using Contracts;
+    using Contracts.Events;
     using Kernel;
     using log4net;
     using Runtime.Client;
@@ -83,6 +84,9 @@
                     break;
                 case RuntimeCondition.Class2MultipleOutcomeSpins:
                     _bus.Publish(new Class2MultipleOutcomeSpinsChangedEvent(command.State));
+                    break;
+                case RuntimeCondition.GambleFeatureActive:
+                    _bus.Publish(new GambleFeatureActiveEvent(command.State));
                     break;
             }
         }

@@ -443,7 +443,7 @@
                                 Margin="0 16 0 0">
                         <!-- CashOut button -->
                         <Button x:Name="CashOutButton"
-                                Command="{Binding CashOutCommand}"
+                                Command="{Binding CashOutFromPlayerMenuPopupCommand}"
                                 IsEnabled="{Binding CashOutEnabledInPlayerMenu}"
                                 Margin="0 0 20 0">
                             <Button.Template>

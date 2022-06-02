@@ -64,5 +64,10 @@
         /// </summary>
         /// <param name="value">The state of the service button (On or Off)</param>
         void SetServiceRequested(bool value);
+        /// <summary>
+        ///     Notifies GDKRuntimeHost that platform want the game to exit and move to lobby
+        /// </summary>
+        /// <param name="value"></param>
+        void SetRequestExitGame(bool value);
     }
 }

@@ -50,6 +50,7 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Kernel.Contracts;
+    using Hardware.Contracts.Button;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
@@ -261,6 +262,7 @@
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
         private bool _isSelectPayModeVisible;
         private bool _vbdInfoBarOpenRequested;
+        private bool _isGambleFeatureActive;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -445,6 +447,7 @@
             DenominationForSpecificGamePressedCommand = new ActionCommand<object[]>(OnDenominationForSpecificGamePressed);
             SubTabPressedCommand = new ActionCommand<object>(OnSubTabPressed);
             ReturnToLobbyCommand = new ActionCommand<object>(ReturnToLobbyButtonPressed);
+            CashOutFromPlayerMenuPopupCommand = new ActionCommand<object>(CashoutFromPlayerPopUpMenu);
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
@@ -656,6 +659,11 @@
         ///     Command to return to the lobby when in the game
         /// </summary>
         public ICommand ReturnToLobbyCommand { get; set; }
+
+        /// <summary>
+        ///     Command to cashout from player menu pop up
+        /// </summary>
+        public ICommand CashOutFromPlayerMenuPopupCommand { get; set; }
 
         /// <summary>
         ///     Gets the object that handles RG info logic.
@@ -1290,7 +1298,7 @@
         /// <summary>
         ///     Gets a value indicating whether the cash out button is enabled in the player menu
         /// </summary>
-        public bool CashOutEnabledInPlayerMenu => CashOutEnabled && !_gameState.InGameRound;
+        public bool CashOutEnabledInPlayerMenu => CashOutEnabled && (!_gameState.InGameRound || _isGambleFeatureActive);
 
         /// <summary>
         ///     Gets a value indicating whether the cash out button is lit (it's enabled or in attract mode).
@@ -1315,9 +1323,8 @@
         /// <summary>
         ///     True if the return to lobby button is enabled, false otherwise
         /// </summary>
-        public bool ReturnToLobbyAllowed => _gameState.Idle && !_transferOutHandler.InProgress &&
-                                            !_gameHistory.IsRecoveryNeeded && !_gameHistory
-                                                .HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
+        public bool ReturnToLobbyAllowed => (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress &&
+                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
 
         /// <summary>
         ///     Controls whether the machine can be put into reserve
@@ -3549,9 +3556,14 @@
         {
             Logger.Debug("Return to lobby");
             PlayerMenuPopupViewModel.IsMenuVisible = false;
-            OnUserInteraction();
-            InitiateGameShutdown();
-            SendTrigger(LobbyTrigger.ReturnToLobby);
+            _runtime.SetRequestExitGame(true);
+        }
+
+        private void CashoutFromPlayerPopUpMenu(object obj)
+        {
+            Logger.Debug("Cashout Button Pressed from player pop up menu");
+            PlayerMenuPopupViewModel.IsMenuVisible = false;
+            _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Collect));
         }
 
         private void RefreshDisplayedGameList(bool generateDenominationList = true, bool generateSubTabList = true)

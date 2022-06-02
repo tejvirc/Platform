@@ -90,6 +90,17 @@
             }
         }
 
+        public void SetRequestExitGame(bool value)
+        {
+            lock (_sync)
+            {
+                if (_runtime.Connected)
+                {
+                    _runtime.UpdateFlag(RuntimeCondition.RequestExitGame, value);
+                }
+            }
+        }
+
         public void SetTimeRemaining(string timeRemainingText)
         {
             if (_runtime.Connected)

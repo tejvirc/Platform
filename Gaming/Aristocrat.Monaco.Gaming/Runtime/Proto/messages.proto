@@ -85,6 +85,8 @@ enum RuntimeFlag
 	InPlayerMenu = 22;
 	InPlayerInfoDisplayMenu = 23;
 	InOverlayLockup = 24;
+	RequestExitGame = 25;
+	GambleFeatureActive = 26;
 }
 
 enum ConfigurationTarget
