@@ -67,7 +67,7 @@
             }
 
             var calculator = _calculatorFactory.Create(level.FundingType);
-            
+
             calculator?.Reset(level);
         }
 
