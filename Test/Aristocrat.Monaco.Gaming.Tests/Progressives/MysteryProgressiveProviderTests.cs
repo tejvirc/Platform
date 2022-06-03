@@ -17,6 +17,8 @@
     [TestClass]
     public class MysteryProgressiveProviderTests
     {
+        private static readonly AssignableProgressiveId _nonSharedSap = new(AssignableProgressiveType.None, "0");
+
         private static readonly AssignableProgressiveId _sharedSap = new(AssignableProgressiveType.AssociativeSap, "1");
 
         private static readonly AssignableProgressiveId _customSap = new(AssignableProgressiveType.CustomSap, "2");
@@ -44,7 +46,7 @@
                 ResetValue = 300,
                 MaximumValue = 1000,
                 CurrentValue = 1000,
-                AssignedProgressiveId = _customSap 
+                AssignedProgressiveId = _customSap
             },
             new ProgressiveLevel
             {
@@ -66,8 +68,32 @@
                 MaximumValue = 9999,
                 CurrentValue = 5000,
                 AssignedProgressiveId = _linkedProg
-            }
-        };
+            },
+            new ProgressiveLevel
+            {
+                ResetValue = 1,
+                MaximumValue = 2,
+                CurrentValue = 2,
+                ProgressivePackName = "Pack1",
+                ProgressivePackId = 1,
+                LevelName = "Level1",
+                Denomination = new List<long> { 1000 },
+                AssignedProgressiveId = _nonSharedSap
+            },
+            new ProgressiveLevel
+            {
+                ResetValue = 999,
+                MaximumValue = 9999,
+                CurrentValue = 5000,
+                ProgressivePackName = "Pack2",
+                ProgressivePackId = 2,
+                LevelName = "Level2",
+                Denomination = new List<long> { 1000 },
+                AssignedProgressiveId = _nonSharedSap
+            },
+
+
+    };
 
         private MysteryProgressiveProvider _mysteryProgressiveProvider;
         private Mock<IRandomFactory> _randomFactory;
@@ -111,6 +137,7 @@
         {
 
         }
+
 
         [TestMethod]
         public void GenerateMagicNumbersTest()
@@ -167,6 +194,7 @@
 
             for (var i = 0; i < _testData.Count(); i += 2)
             {
+
                 var progressiveLevel = _testData[i];
                 var sharedLevel = _testData[i + 1];
 
@@ -177,7 +205,15 @@
                 Assert.IsNotNull(magicNumberOne);
                 Assert.IsTrue(statusTwo);
                 Assert.IsNotNull(magicNumberTwo);
-                Assert.AreEqual(magicNumberOne, magicNumberTwo);
+
+                if (_testData[i].AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.None)
+                {
+                    Assert.AreNotEqual(magicNumberOne, magicNumberTwo);
+                }
+                else
+                {
+                    Assert.AreEqual(magicNumberOne, magicNumberTwo);
+                }
             }
         }
 
