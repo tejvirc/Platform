@@ -46,7 +46,7 @@
         }
 
         /// <inheritdoc />
-        public bool GetMagicNumber(IViewableProgressiveLevel progressiveLevel, out decimal magicNumber)
+        public bool TryGetMagicNumber(IViewableProgressiveLevel progressiveLevel, out decimal magicNumber)
         {
             var index = GetProgressiveLevelKey(progressiveLevel);
 
@@ -56,7 +56,7 @@
         /// <inheritdoc />
         public bool CheckMysteryJackpot(IViewableProgressiveLevel progressiveLevel)
         {
-            if (!GetMagicNumber(progressiveLevel, out var magicNumber))
+            if (!TryGetMagicNumber(progressiveLevel, out var magicNumber))
             {
                 return false;
             }

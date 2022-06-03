@@ -20,7 +20,7 @@
         /// <param name="progressiveLevel">The progressive level for which to retrieve the magic number</param>
         /// <param name="magicNumber">The magic number for the level, if found</param>
         /// <returns>True if the progressive level has a magic number associated, otherwise false</returns>
-        bool GetMagicNumber(IViewableProgressiveLevel progressiveLevel, out decimal magicNumber);
+        bool TryGetMagicNumber(IViewableProgressiveLevel progressiveLevel, out decimal magicNumber);
 
         /// <summary>
         ///     Determines if the progressive level has met the requirements for triggering mystery jackpot

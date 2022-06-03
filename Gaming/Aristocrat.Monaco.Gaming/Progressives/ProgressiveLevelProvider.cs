@@ -235,7 +235,7 @@
             };
 
             if (progressiveLevel.TriggerControl == TriggerType.Mystery &&
-                !_mysteryProgressiveProvider.GetMagicNumber(progressiveLevel, out _))
+                !_mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out _))
             {
                 _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
             }
