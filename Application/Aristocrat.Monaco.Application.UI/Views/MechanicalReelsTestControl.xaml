@@ -8,6 +8,7 @@
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
              xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"             
              mc:Ignorable="d" d:DesignWidth="800"
              Loaded="ControlLoaded"
              d:DataContext="{d:DesignInstance {x:Type viewModels:MechanicalReelsTestViewModel}}">
@@ -142,28 +143,40 @@
                                         </MultiBinding>
                                     </StackPanel.IsEnabled>
 
-                                    <xctk:DecimalUpDown
+                                    <xctk:IntegerUpDown
+                                        Style="{StaticResource MonacoIntegerUpDown}"                                        
                                         VerticalAlignment="Center"
-                                        Margin="10 0 5 5"
+                                        Margin="10 0 0 0"
                                         Value="{Binding SpinStep}"
                                         Maximum="{Binding MaxReelStep}"
                                         Minimum="0"
                                         Increment="1"
                                         AllowSpin="True"
                                         FontSize="18"
-                                        Width="60"
+                                        Width="125"
                                         Height="45">
-                                    </xctk:DecimalUpDown>
+                                    </xctk:IntegerUpDown>
 
                                     <CheckBox VerticalAlignment="Center"
                                               IsChecked="{Binding DirectionToSpin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                               Margin="5 0 0 0" />
 
-                                    <Label VerticalAlignment="Center"
+                                    <iconPacks:PackIconMaterial Kind="ArrowDown"
+                                           VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
-                                           Content="{Binding DirectionToSpinText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                           Width="110"
-                                           Margin="5 0 0 0"/>
+                                           Foreground="{StaticResource Brush3}" 
+                                           Width="32"
+                                           Height="32"
+                                           Margin="5 0 5 0" 
+                                           Visibility="{Binding DirectionToSpin, Converter={StaticResource BoolToVisConverter}}"/>
+                                    <iconPacks:PackIconMaterial Kind="ArrowUp"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{StaticResource Brush3}" 
+                                           Width="32"
+                                           Height="32"
+                                           Margin="5 0 5 0" 
+                                           Visibility="{Binding DirectionToSpin, Converter={StaticResource BoolToCollapsedConverter}}"/>
                                 </StackPanel>
 
                                 <!-- Nudge Steps/Direction -->
@@ -175,28 +188,40 @@
                                         </MultiBinding>
                                     </StackPanel.IsEnabled>
 
-                                    <xctk:DecimalUpDown
+                                    <xctk:IntegerUpDown
+                                        Style="{StaticResource MonacoIntegerUpDown}" 
                                         VerticalAlignment="Center"
-                                        Margin="10 0 5 5"
+                                        Margin="10 0 0 0"
                                         Value="{Binding NudgeSteps}"
                                         Maximum="{Binding MaxReelStep}"
                                         Minimum="1"
                                         Increment="1"
                                         AllowSpin="True"
                                         FontSize="18"
-                                        Width="60"
+                                        Width="125"
                                         Height="45">
-                                    </xctk:DecimalUpDown>
+                                    </xctk:IntegerUpDown>
 
                                     <CheckBox VerticalAlignment="Center"
                                               IsChecked="{Binding DirectionToNudge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                               Margin="5 0 0 0" />
-
-                                    <Label VerticalAlignment="Center"
+                                    
+                                    <iconPacks:PackIconMaterial Kind="ArrowDown"
+                                           VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
-                                           Content="{Binding DirectionToNudgeText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                           Width="110"
-                                           Margin="5 0 0 0"/>
+                                           Foreground="{StaticResource Brush3}" 
+                                           Width="32"
+                                           Height="32"
+                                           Margin="5 0 5 0" 
+                                           Visibility="{Binding DirectionToNudge, Converter={StaticResource BoolToVisConverter}}"/>
+                                    <iconPacks:PackIconMaterial Kind="ArrowUp"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{StaticResource Brush3}" 
+                                           Width="32"
+                                           Height="32"
+                                           Margin="5 0 5 0" 
+                                           Visibility="{Binding DirectionToNudge, Converter={StaticResource BoolToCollapsedConverter}}"/>
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>

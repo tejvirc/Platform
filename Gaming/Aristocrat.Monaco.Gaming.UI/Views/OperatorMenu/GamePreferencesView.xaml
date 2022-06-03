@@ -196,7 +196,7 @@
                                         Maximum="{Binding MaximumGameRoundDuration}"
                                         Increment="100"
                                         FontSize="14"
-                                        Width="100"
+                                        Width="130"
                                         Style="{StaticResource MonacoIntegerUpDown}"
                                         Value="{Binding GameRoundDurationMs, Mode=TwoWay}"
                                         IsEnabled="{Binding Path=InputEnabled}"/>
