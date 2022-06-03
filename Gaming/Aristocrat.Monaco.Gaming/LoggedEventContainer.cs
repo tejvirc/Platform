@@ -40,7 +40,7 @@
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly IEventBus _eventBus;
         private readonly IIdProvider _idProvider;
-        private readonly IPropertiesManager _props;
+        private readonly IPropertiesManager _properties;
         private readonly IPersistentStorageAccessor _accessor;
         private readonly string _tiltLoggerConfigurationPath = "/TiltLogger/Configuration";
         private readonly ConcurrentQueue<(IEvent Event, DateTime DateTime)> _queuedEvents = new ConcurrentQueue<(IEvent Event, DateTime DateTime)>();
@@ -72,7 +72,7 @@
         private bool _disposed;
 
         private bool KeepGameHistoryEvents =>
-            _props.GetValue(GamingConstants.KeepGameRoundEvents, true);
+            _properties.GetValue(GamingConstants.KeepGameRoundEvents, true);
 
         public IEnumerable<GameEventLogEntry> Events
         {
@@ -108,17 +108,16 @@
             }
         }
 
-
         public LoggedEventContainer(
             IPersistentStorageManager storageManager,
             IEventBus eventBus,
             IIdProvider idProvider,
-            IPropertiesManager props)
+            IPropertiesManager properties)
         {
             _persistentStorage = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
-            _props = props ?? throw new ArgumentNullException(nameof(props));
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
 
             if (!KeepGameHistoryEvents)
             {
@@ -218,8 +217,8 @@
                 var config = ConfigurationUtilities.GetConfiguration(_tiltLoggerConfigurationPath,
                     () => new TiltLoggerConfiguration
                     {
-                        ArrayOfEventTypes = new EventType[0],
-                        ArrayOfEventDescription = new EventDescription[0]
+                        ArrayOfEventTypes = Array.Empty<EventType>(),
+                        ArrayOfEventDescription = Array.Empty<EventDescription>()
                     });
 
 

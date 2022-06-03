@@ -235,7 +235,10 @@
         private void OnInitializationFailed()
         {
             _initializationTimer.Start();
-            _eventBus.Publish(new ProtocolInitializationFailed());
+            if (!_systemDisableManager.CurrentDisableKeys.Contains(HhrConstants.ProgressivesInitializationFailedKey))
+            {
+                _eventBus.Publish(new ProtocolInitializationFailed());
+            }
         }
 
         private void OnReady()

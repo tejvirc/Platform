@@ -250,6 +250,12 @@
                     ResetConnection();
                     return false;
                 }
+                catch (ArgumentException e)
+                {
+                    Logger.Error($"Open: ArgumentException {e}");
+                    ResetConnection();
+                    return false;
+                }
             }
         }
 

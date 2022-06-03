@@ -129,7 +129,6 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.CentralServerOffline, Aristocrat.Monaco.Hhr" Level="error" Type="Comms" />
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.ProtocolInitializationComplete, Aristocrat.Monaco.Hhr" Level="info" Type="Comms" />
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.ProtocolInitializationFailed, Aristocrat.Monaco.Hhr" Level="error" Type="Comms" />
-    <EventDescription Name="Aristocrat.Monaco.Hhr.Events.ProtocolInitializationInProgress, Aristocrat.Monaco.Hhr" Level="info" Type="Comms" />
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.GameConfigurationNotSupportedEvent, Aristocrat.Monaco.Hhr" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.PrizeCalculationErrorEvent, Aristocrat.Monaco.Hhr" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hhr.Events.ProgressiveInitializationFailed, Aristocrat.Monaco.Hhr" Level="error" Type="Error" />

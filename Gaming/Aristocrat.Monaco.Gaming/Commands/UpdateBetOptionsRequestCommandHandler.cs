@@ -35,6 +35,12 @@
         public void Handle(UpdateBetOptions command)
         {
             var (currentGame, currentDenom) = _properties.GetActiveGame();
+            Logger.Debug($"UpdateBetOptions for GameId {currentGame} and Denom {currentDenom}");
+
+            if (currentGame == null || currentDenom == null)
+            {
+                return;
+            }
 
             _properties.SetProperty(GamingConstants.SelectedBetMultiplier, command.BetMultiplier);
             _properties.SetProperty(GamingConstants.SelectedLineCost, command.LineCost);

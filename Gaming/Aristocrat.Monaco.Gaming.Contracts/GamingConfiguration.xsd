@@ -5,11 +5,11 @@
   <xs:element name="GamingConfiguration">
     <xs:complexType>
       <xs:sequence>
-	  	<xs:element minOccurs="0" maxOccurs="1" name="GameHistory">
-		  <xs:complexType>
-		    <xs:attribute name="KeepGameRoundEvents" type="xs:boolean" use="optional" default="true" />
-			<xs:attribute name="KeepGameRoundMeterSnapshots" type="xs:boolean" use="optional" default="true" />
-		  </xs:complexType>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameHistory">
+          <xs:complexType>
+            <xs:attribute name="KeepGameRoundEvents" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="KeepGameRoundMeterSnapshots" type="xs:boolean" use="optional" default="true" />
+           </xs:complexType>
         </xs:element>
         <xs:element maxOccurs="1" name="GameEnd">
           <xs:complexType>
@@ -90,19 +90,19 @@
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WinMeterResetOnBetLineDenomChanged">
-	      <xs:complexType>
-		      <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
-	      </xs:complexType>
+          <xs:complexType>
+              <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WinMeterResetOnBetLineChanged">
-	      <xs:complexType>
-		      <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
-	      </xs:complexType>
+          <xs:complexType>
+              <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WinMeterResetOnDenomChanged">
-	      <xs:complexType>
-		      <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
-	      </xs:complexType>
+          <xs:complexType>
+              <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="LockupBehavior">
           <xs:complexType>
@@ -181,17 +181,17 @@
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
-	      <xs:element minOccurs="0" maxOccurs="1" name="PlayOnFromGambleAvailable">
-		      <xs:complexType>
-			      <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
-		      </xs:complexType>
-	      </xs:element>
-	      <xs:element minOccurs="0" maxOccurs="1" name="PlayOnFromPresentWins">
-		      <xs:complexType>
-			      <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
-		      </xs:complexType>
-	      </xs:element>
-	      <xs:element minOccurs="0" maxOccurs="1" name="Gamble">
+          <xs:element minOccurs="0" maxOccurs="1" name="PlayOnFromGambleAvailable">
+              <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+              </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="PlayOnFromPresentWins">
+              <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+              </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="Gamble">
           <xs:complexType>
             <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
