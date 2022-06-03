@@ -253,5 +253,15 @@
         {
             _logger.Info(msg);
         }
+
+        public void SetSpeed(string speed)
+        {
+            _pm.SetProperty(GamingConstants.RuntimeArgs, $"--plugin=SpeedPlugin.dll --parg=SpeedPlugin:\"{speed}\"");
+        }
+
+        public void ResetSpeed()
+        {
+            _pm.SetProperty(GamingConstants.RuntimeArgs, string.Empty);
+        }
     }
 }

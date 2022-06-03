@@ -378,18 +378,18 @@
                 if (Enabled != value)
                 {
                     ControllerState = (value ? RobotControllerState.Starting : RobotControllerState.Disabled);
-
                     _automator.EnableExitToLobby(!value);
-
                     _automator.EnableCashOut(!value);
-
                     if (!value)
                     {
                         _automator.SetOverlayText("", true, _overlayTextGuid, InfoLocation.TopLeft);
+                        _automator.ResetSpeed();
                     }
-
+                    else
+                    {
+                        _automator.SetSpeed(_config.Speed);
+                    }
                     LogInfo("RobotController is now " + (ControllerState != RobotControllerState.Disabled ? "enabled." : "disabled."));
-
                     _automator.IsRobotModeRunning = value;
                 }
             }
@@ -1188,7 +1188,7 @@
                 if(balance < 0)
                 {
                     LogFatal("NEGATIVE BALANCE DETECTED");
-                    ControllerState = (RobotControllerState.Disabled);
+                    Enabled = false;
                     return;
                 }
 
@@ -1273,7 +1273,6 @@
             if (_config != null)
             {
                 _automator.SetTimeLimitButtons(_config.GetTimeLimitButtons());
-
                 LogInfo(_config.ToString());
             }
         }

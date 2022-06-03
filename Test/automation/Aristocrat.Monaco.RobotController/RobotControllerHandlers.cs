@@ -43,6 +43,7 @@
                     break;
                 }
                 case RobotPlatformState.Lobby:
+                case RobotPlatformState.GameExiting:
                 {
                     if (_gameLoaded)
                     {
@@ -54,7 +55,6 @@
                         desiredTransition = RobotControllerState.RequestGameLoad;
                         _config.SelectNextGame();
                     }
-
                     break;
                 }
                 case RobotPlatformState.InAudit:
@@ -70,6 +70,7 @@
                 default:
                 {
                     LogFatal("Disabling because it could not determine the state of the platform. Are comms online for the protocol configured?");
+                    Enabled = false;
                     break;
                 }
 

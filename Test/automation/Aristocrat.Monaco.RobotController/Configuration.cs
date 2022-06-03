@@ -378,6 +378,7 @@
         {
             Active = new Mode();
             ActiveType = ModeType.Regular;
+            Speed = "1.0";
             Modes = new List<Mode>();
 
             var width = 2560;
@@ -404,6 +405,9 @@
 
         [XmlElement]
         public ModeType ActiveType { get; set; }
+
+        [XmlElement]
+        public string Speed { get; set; }
 
         [XmlArray]
         [XmlArrayItem("Mode")]
@@ -459,6 +463,7 @@
                 }
 
                 config.SetActiveMode();
+
 
                 if (config.Active == null)
                 {
@@ -629,6 +634,7 @@
         private void SetValuesOnDeserializing(StreamingContext context)
         {
             ActiveType = ModeType.Regular;
+            Speed = "1.0";
             Modes = new List<Mode> { new Mode() };
             GameScreen = new Screen { Width = 2560, Height = 1560 };
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
