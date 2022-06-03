@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Application.Contracts;
+    using Common;
     using Contracts;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
@@ -171,6 +172,7 @@
                 { GamingConstants.UseGambleWinLimit, ((object)configuration.Gamble?.UseWinLimit ?? false, false) },
                 { GamingConstants.ContinuousPlayMode, (InitFromStorage(GamingConstants.ContinuousPlayMode), true) },
                 { GamingConstants.ContinuousPlayModeConfigurable, ((object)configuration.ContinuousPlaySupport?.Configurable ?? false, false) },
+                { GamingConstants.ContinuousPlayModeButtonsToUse, ((object)configuration.ContinuousPlaySupport?.AllowedButtons ?? new [] { ContinuousPlayButton.Play }, false) },
                 { GamingConstants.AnyGameMinimumReturnToPlayer, (anyGameMinRtp, false) },
                 { GamingConstants.AnyGameMaximumReturnToPlayer, (anyGameMaxRtp, false) },
                 { GamingConstants.SlotMinimumReturnToPlayer, (GetRtpValue((slotRtpLimits?.MinimumSpecified ?? false) ? slotRtpLimits.Minimum : anyGameMinRtp, anyGameMinRtp), false) },

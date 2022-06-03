@@ -211,6 +211,15 @@
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="ContinuousPlaySupport">
           <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="AllowedButtons">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Button" type="ContinuousPlayButton"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
             <xs:attribute name="Mode" type="PlayMode" use="optional" default="Toggle" />
             <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
           </xs:complexType>
@@ -479,6 +488,12 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="GameStart" />
       <xs:enumeration value="NextGameEnd" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ContinuousPlayButton">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Play" />
+      <xs:enumeration value="MaxBet" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
