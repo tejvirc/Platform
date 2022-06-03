@@ -91,12 +91,14 @@
 
         private string GenerateUniqueStandaloneProgressiveKey(IViewableProgressiveLevel progressiveLevel)
         {
-            return SharedSapProviderExtensions.GeneratedLevelName(
+            var progressiveLevelName = SharedSapProviderExtensions.GeneratedLevelName(
                 progressiveLevel.ProgressivePackName,
                 progressiveLevel.ProgressivePackId,
                 progressiveLevel.LevelName,
                 progressiveLevel.Denomination.First(),
                 progressiveLevel.BetOption);
+
+            return $"{progressiveLevel.GameId} - {progressiveLevelName}";
         }
     }
 }
