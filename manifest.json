@@ -14371,6 +14371,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14455,9 +14458,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -15639,7 +15639,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/asp/Aristocrat.Monaco.Asp.Client.DataSources.CurrentMachineModeStateManager.html",
-          "hash": "pIj4aBUmOidv0w2J/boDSNoi7X7XE1KKAIbxxl+Yuq8="
+          "hash": "wLXOKxI1CkTNqqYXpsrMlvkqDcHI0rr8/X5jcRTukP0="
         }
       },
       "is_incremental": false,
@@ -23614,6 +23614,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41134,9 +41137,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -55830,7 +55830,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.ReserveOverlayViewModel.html",
-          "hash": "MbUrdzRDDbKKrUd6TN7KYQnzg+Pv7ZB0ExZZxwWgGNI="
+          "hash": "EaxsQnIG1NSHtDZZJTTgZJAR6FDjjVgAfVVd/YhXenc="
         }
       },
       "is_incremental": false,
@@ -82866,7 +82866,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Monaco.Mgam.Services.GamePlay.ProgressiveController.html",
-          "hash": "b1HwtAL8NXK7FXv+NVqeY5sy/f/TLCIK6taXIi4B0vI="
+          "hash": "3htl2AoX384/KvQmNlxDQO+gzWensVkc79RYroV42gI="
         }
       },
       "is_incremental": false,
