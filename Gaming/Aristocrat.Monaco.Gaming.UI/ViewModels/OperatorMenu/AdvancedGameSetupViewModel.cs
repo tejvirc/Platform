@@ -363,9 +363,12 @@
             }
         }
 
-        public bool IsEnabledGamesLimitExceeded => AllEnabledGames > _digitalRights.LicenseCount;
+        public bool IsEnabledGamesLimitExceeded => TotalEnabledGames > _digitalRights.LicenseCount;
 
-        public int AllEnabledGames => Games.SelectMany(g => g.GameConfigurations).Count(c => c.Enabled);
+        public int TotalEnabledGames => _gamesMapping.Values
+            .SelectMany(m => m)
+            .SelectMany(p => p.GameConfigurations)
+            .Count(c => c.Enabled);
 
         public string SaveWarningText
         {
@@ -695,7 +698,7 @@
                 SaveWarningText = string.Format(
                     CultureInfo.CurrentCulture,
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledGamesLimitExceeded),
-                    AllEnabledGames,
+                    TotalEnabledGames,
                     _digitalRights.LicenseCount);
                 SaveWarningEnabled = true;
             }
