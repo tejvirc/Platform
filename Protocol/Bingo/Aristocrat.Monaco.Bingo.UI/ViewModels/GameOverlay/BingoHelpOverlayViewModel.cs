@@ -174,7 +174,6 @@
                     if (visible)
                     {
                         Address = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-                        _webBrowser?.Reload();
                     }
 
                     Visible = visible;
