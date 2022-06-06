@@ -1,12 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tests.Commands
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Aristocrat.GdkRuntime.V1;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Gaming.Commands;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Enum = System.Enum;
 
     /// <summary>
     ///     GetReelStateCommandHandler unit tests
@@ -15,18 +18,14 @@
     public class GetReelStateCommandHandlerTests
     {
         private Mock<IReelController> _reelController;
-
-        /// <summary>
-        ///     Gets or sets the test context which provides
-        ///     information about and functionality for the current test run.
-        /// </summary>
-        public TestContext TestContext { get; set; }
+        private GetReelStateCommandHandler _target;
 
         [TestInitialize]
         public void TestInitialization()
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             _reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
+            _target = new GetReelStateCommandHandler();
         }
 
         [TestCleanup]
@@ -36,37 +35,41 @@
         }
 
         [TestMethod]
-        public void HandleTest()
+        public void InvalidReelState()
         {
-            var command = new GetReelState();
-            IReadOnlyDictionary<int, ReelLogicalState> states = new Dictionary<int, ReelLogicalState>()
-            {
-                { 1, ReelLogicalState.Disconnected },
-                { 2, ReelLogicalState.IdleUnknown },
-                { 3, ReelLogicalState.IdleAtStop },
-                { 4, ReelLogicalState.Spinning },
-                { 5, ReelLogicalState.Stopping },
-                { 6, ReelLogicalState.Tilted }
-            };
+            var maxvalue = Enum.GetValues(typeof(ReelLogicalState)).Cast<int>().Max();
+            var states = new Dictionary<int, ReelLogicalState> { { 1, (ReelLogicalState)(maxvalue + 1) } };
+            _reelController.Setup(x => x.ReelStates).Returns(states);
 
-            _reelController.Setup(r => r.ReelStates).Returns(states);
-
-            var handler = Factory_CreateHandler();
-            handler.Handle(command);
-
-            _reelController.Verify(r => r.ReelStates, Times.Once);
-            Assert.AreEqual(command.States.Count, states.Count);
-            Assert.AreEqual(command.States[1], ReelState.Disconnected);
-            Assert.AreEqual(command.States[2], ReelState.Stopped);
-            Assert.AreEqual(command.States[3], ReelState.Stopped);
-            Assert.AreEqual(command.States[4], ReelState.SpinningForward);
-            Assert.AreEqual(command.States[5], ReelState.Stopping);
-            Assert.AreEqual(command.States[6], ReelState.Faulted);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => _target.Handle(new GetReelState()));
         }
 
-        private GetReelStateCommandHandler Factory_CreateHandler()
+        [DataRow(ReelLogicalState.Disconnected, ReelState.Disconnected)]
+        [DataRow(ReelLogicalState.Homing, ReelState.SpinningForward)]
+        [DataRow(ReelLogicalState.Spinning, ReelState.SpinningForward)]
+        [DataRow(ReelLogicalState.Stopping, ReelState.Stopping)]
+        [DataRow(ReelLogicalState.Tilted, ReelState.Faulted)]
+        [DataRow(ReelLogicalState.IdleUnknown, ReelState.Stopped)]
+        [DataRow(ReelLogicalState.IdleAtStop, ReelState.Stopped)]
+        [DataRow(ReelLogicalState.SpinningBackwards, ReelState.SpinningBackwards)]
+        [DataRow(ReelLogicalState.SpinningForward, ReelState.SpinningForward)]
+        [DataTestMethod]
+        public void HandleTest(ReelLogicalState logicalState, ReelState expectedState)
         {
-            return new GetReelStateCommandHandler();
+            const int reelCount = 6;
+            const int reelStartIndex = 1;
+            var states = Enumerable.Range(reelStartIndex, reelCount).ToDictionary(x => x, _ => logicalState);
+            _reelController.Setup(x => x.ReelStates).Returns(states);
+
+            var command = new GetReelState();
+            _target.Handle(command);
+
+            _reelController.Verify(r => r.ReelStates, Times.Once);
+            Assert.AreEqual(states.Count, command.States.Count);
+            foreach (var commandState in command.States.Select(x => x.Value))
+            {
+                Assert.AreEqual(expectedState, commandState);
+            }
         }
     }
 }
