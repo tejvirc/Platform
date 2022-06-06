@@ -10,9 +10,15 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
+    using System.Windows.Data;
     using System.Windows.Input;
+    using Events;
+    using Gaming.Contracts;
+    using Monaco.UI.Common.Extensions;
     using PresentationOverrideMessageFormat = BingoDisplayConfigurationPresentationOverrideMessageFormat;
+    using PresentationOverrideTypes = UI.PresentationOverrideTypes;
 
     public class BingoInfoTestToolViewModel : BingoTestToolViewModelBase
     {
@@ -21,20 +27,37 @@
         private List<PresentationOverrideMessageFormat> _presentationOverrideMessageFormats;
         private BingoWindow _bingoWindowName;
         private readonly IEventBus _eventBus;
+        private readonly IGameProvider _gameProvider;
+        private readonly IPropertiesManager _propertiesManager;
+        private readonly object _disclaimerTextLock = new object();
 
         public BingoInfoTestToolViewModel(
             IEventBus eventBus,
-            IBingoDisplayConfigurationProvider bingoConfigurationProvider)
+            IBingoDisplayConfigurationProvider bingoConfigurationProvider,
+            IGameProvider gameProvider,
+            IPropertiesManager propertiesManager)
         : base(eventBus, bingoConfigurationProvider)
         {
             _eventBus = eventBus;
+            _gameProvider = gameProvider;
+            _propertiesManager = propertiesManager;
 
             MvvmHelper.ExecuteOnUI(
                 () => WindowName = BingoConfigProvider.CurrentWindow);
 
             DaubColors = new List<string>(Colors) { BingoConstants.RainbowColor };
+            
+            _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, Handle);
+            _eventBus.Subscribe<BingoDisplayAttractSettingsChangedEvent>(this, Handle);
 
+            DefaultsCommand = new ActionCommand<object>(_ => ResetToDefaults());
             ChangeSceneCommand = new ActionCommand<object>(_ => ChangeScene());
+            CreateDisclaimerTextBoxCommand = new ActionCommand<object>(_ => AddDisclaimerText());
+            RemoveDisclaimerTextBoxCommand = new ActionCommand<object>(RemoveDisclaimerTexts);
+            ApplyDisclaimerListChangesCommand = new ActionCommand<object>(_ => ApplyDisclaimerListChanges());
+
+            BindingOperations.EnableCollectionSynchronization(DisclaimerText, _disclaimerTextLock);
+            UpdateObservableListToWindowSettingsDisclaimerList(BingoConfigProvider.GetSettings(WindowName));
 
             AddPresentationOverrideMessageFormatCommand = new ActionCommand<object>(_ => AddPresentationOverrideMessageFormat());
             RemovePresentationOverrideMessageFormatCommand = new ActionCommand<object>(RemovePresentationOverrideMessageFormat);
@@ -56,42 +79,9 @@
         }
 
         public ICommand ChangeSceneCommand { get; set; }
-
-        public string Disclaimer1Text
-        {
-            get => _currentBingoSettings.DisclaimerText[0];
-            set
-            {
-                _currentBingoSettings.DisclaimerText[0] = value;
-                RaisePropertyChanged(nameof(Disclaimer1Text));
-
-                Update();
-            }
-        }
-
-        public string Disclaimer2Text
-        {
-            get => _currentBingoSettings.DisclaimerText[1];
-            set
-            {
-                _currentBingoSettings.DisclaimerText[1] = value;
-                RaisePropertyChanged(nameof(Disclaimer2Text));
-
-                Update();
-            }
-        }
-
-        public string Disclaimer3Text
-        {
-            get => _currentBingoSettings.DisclaimerText[2];
-            set
-            {
-                _currentBingoSettings.DisclaimerText[2] = value;
-                RaisePropertyChanged(nameof(Disclaimer3Text));
-
-                Update();
-            }
-        }
+        public ICommand CreateDisclaimerTextBoxCommand { get; set; }
+        public ICommand RemoveDisclaimerTextBoxCommand { get; set; }
+        public ICommand ApplyDisclaimerListChangesCommand { get; set; }
 
         public int PatternCyclePeriod
         {
@@ -140,6 +130,7 @@
                 Update();
             }
         }
+
         public string InitialScene
         {
             get => _currentBingoSettings.InitialScene;
@@ -271,11 +262,13 @@
             set
             {
                 _currentBingoSettings.PatternDaubTime = value;
-                RaisePropertyChanged(nameof(AttractPatternCycleTimeMs));
+                RaisePropertyChanged(nameof(PatternDaubTime));
                 Update();
             }
         }
         
+        public ObservableCollection<DisclaimerItemModel> DisclaimerText { get; } = new();
+
         public ObservableCollection<PresentationOverrideMessageFormat> PresentationOverrideMessageFormats { get; } = new();
 
         public ICommand AddPresentationOverrideMessageFormatCommand { get; set; }
@@ -297,6 +290,77 @@
 
         public int Version => BingoConfigProvider.GetVersion();
 
+        public void Handle(BingoDisplayConfigurationChangedEvent displayConfigChangedEvent)
+        {
+            SetDefaults();
+            UpdateObservableListToWindowSettingsDisclaimerList(displayConfigChangedEvent.Settings);
+        }
+
+        public void Handle(BingoDisplayAttractSettingsChangedEvent attractSettingsChangedEvent)
+        {
+            _currentBingoAttractSettings = attractSettingsChangedEvent.AttractSettings;
+            RaisePropertyChanged(nameof(AttractOverlayScene));
+            RaisePropertyChanged(nameof(AttractPatternCycleTimeMs));
+        }
+
+        public void UpdateObservableListToWindowSettingsDisclaimerList(BingoDisplayConfigurationBingoWindowSettings windowSettings)
+        {
+            lock (_disclaimerTextLock)
+            {
+                DisclaimerText.Clear();
+                foreach (var text in windowSettings.DisclaimerText)
+                {
+                    DisclaimerText.Add(new DisclaimerItemModel() { Text = text });
+                }
+            }
+        }
+
+        public void ApplyDisclaimerListChanges()
+        {
+            _currentBingoSettings.DisclaimerText = DisclaimerText.Where(x => !x.Text.IsNullOrWhiteSpace()).Select(x => x.Text).ToArray();
+        }
+
+        public void AddDisclaimerText()
+        {
+            DisclaimerText.Add(new DisclaimerItemModel() { Text = string.Empty });
+            ApplyDisclaimerListChanges();
+        }
+
+        public void RemoveDisclaimerTexts(object objectToRemove)
+        {
+            if (objectToRemove is DisclaimerItemModel disclaimerItem)
+            {
+                DisclaimerText.Remove(disclaimerItem);
+                ApplyDisclaimerListChanges();
+            }
+        }
+
+        protected void ResetToDefaults()
+        {
+            BingoConfigProvider.RestoreSettings(WindowName);
+
+            var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
+
+            if (currentGame is null)
+            {
+                return;
+            }
+
+            string filePath = $"{currentGame.Folder}\\{BingoConstants.DisplayConfigurationPath}";
+
+            if (File.Exists(filePath))
+            {
+                BingoConfigProvider.LoadFromFile(filePath);
+            }
+
+            _currentBingoSettings = BingoConfigProvider.GetSettings(WindowName);
+            _presentationOverrideMessageFormats = BingoConfigProvider.GetPresentationOverrideMessageFormats();
+            PresentationOverrideMessageFormats.Clear();
+            PresentationOverrideMessageFormats.AddRange(_presentationOverrideMessageFormats);
+
+            RaiseAllPropertiesChanged();
+        }
+
         protected override void SetDefaults()
         {
             base.SetDefaults();
@@ -304,6 +368,9 @@
             _currentBingoSettings = BingoConfigProvider.GetSettings(WindowName);
             _currentBingoAttractSettings = BingoConfigProvider.GetAttractSettings();
             _presentationOverrideMessageFormats = BingoConfigProvider.GetPresentationOverrideMessageFormats();
+
+            UpdateObservableListToWindowSettingsDisclaimerList(_currentBingoSettings);
+
             IsInitializing = false;
         }
 
@@ -327,12 +394,15 @@
             _currentBingoAttractSettings = BingoConfigProvider.GetAttractSettings();
             _presentationOverrideMessageFormats = BingoConfigProvider.GetPresentationOverrideMessageFormats();
             RaisePropertyChanged(nameof(Version));
+            RaiseAllPropertiesChanged();
         }
 
         protected void ChangeScene()
         {
-            if(!Scene.IsNullOrWhiteSpace())
+            if (!Scene.IsNullOrWhiteSpace())
+            {
                 _eventBus.Publish(new SceneChangedEvent(Scene));
+            }
         }
 
         private void UpdateConfigPresentationOverrideMessageFormats()
@@ -361,6 +431,30 @@
                 PresentationOverrideMessageFormats.Remove(messageFormat);
                 UpdateConfigPresentationOverrideMessageFormats();
             }
+        }
+
+        private void RaiseAllPropertiesChanged()
+        {
+            RaisePropertyChanged(nameof(CardTitle));
+            RaisePropertyChanged(nameof(Allow0PaddingBingoCard));
+            RaisePropertyChanged(nameof(PatternCyclePeriod));
+            RaisePropertyChanged(nameof(BallCallTitle));
+            RaisePropertyChanged(nameof(Allow0PaddingBallCall));
+            RaisePropertyChanged(nameof(FreeSpaceCharacter));
+            RaisePropertyChanged(nameof(CssPath));
+            RaisePropertyChanged(nameof(InitialScene));
+            RaisePropertyChanged(nameof(WaitingForGameMessage));
+            RaisePropertyChanged(nameof(WaitingForGameTimeoutMessage));
+            RaisePropertyChanged(nameof(WaitingForGameDelaySeconds));
+            RaisePropertyChanged(nameof(WaitingForGameTimeoutDisplaySeconds));
+
+            UpdateObservableListToWindowSettingsDisclaimerList(_currentBingoSettings);
+            RaisePropertyChanged(nameof(DisclaimerText));
+
+            RaisePropertyChanged(nameof(AttractOverlayScene));
+            RaisePropertyChanged(nameof(AttractPatternCycleTimeMs));
+            
+            RaisePropertyChanged(nameof(PresentationOverrideMessageFormats));
         }
     }
 }
