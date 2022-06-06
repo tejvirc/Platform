@@ -156,7 +156,12 @@
         ///     The default overlay css path
         /// </summary>
         public const string DefaultOverlayCssPath = "scenes.css";
-        
+
+        /// <summary>
+        ///     The default display configuration path
+        /// </summary>
+        public const string DisplayConfigurationPath = "BingoDisplayConfiguration.xml";
+
         /// <summary>
         ///     The default initial overlay scene
         /// </summary>

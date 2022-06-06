@@ -55,6 +55,7 @@
                 .Returns(It.IsAny<int>());
 
             _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, It.IsAny<bool>())).Returns(false);
+            _propertiesManager.Setup(x => x.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty));
             _disableManager.Setup(d => d.CurrentDisableKeys).Returns(new List<Guid>());
         }
 

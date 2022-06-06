@@ -12,20 +12,13 @@
         ///     Constructor for <see cref="BingoGameBallCallEvent"/>
         /// </summary>
         /// <param name="ballCall">A <see cref="BingoBallCall"/>.</param>
-        public BingoGameBallCallEvent(BingoBallCall ballCall)
-        {
-            BallCall = ballCall;
-        }
-
-        /// <summary>
-        ///     Constructor for <see cref="BingoGameBallCallEvent"/>
-        /// </summary>
-        /// <param name="ballCall">A <see cref="BingoBallCall"/>.</param>
         /// <param name="daubs">the card daubs</param>
-        public BingoGameBallCallEvent(BingoBallCall ballCall, int daubs)
+        /// <param name="isRecovery">Whether or not this is for recovery</param>
+        public BingoGameBallCallEvent(BingoBallCall ballCall, int daubs, bool isRecovery = false)
         {
             BallCall = ballCall;
             Daubs = daubs;
+            IsRecovery = isRecovery;
         }
 
         /// <summary>
@@ -37,5 +30,10 @@
         ///     Get the bingo card daubs packed into an int
         /// </summary>
         public int Daubs { get; }
+
+        /// <summary>
+        ///     Gets whether or not the ball call is for recovery
+        /// </summary>
+        public bool IsRecovery { get; }
     }
 }

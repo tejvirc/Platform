@@ -351,7 +351,7 @@
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
-                                    <helpers:SelectableCurrencyDecimalUpDown Width="120" FontSize="14"
+                                    <helpers:SelectableCurrencyDecimalUpDown Width="160" FontSize="14"
                                                                              SelectableValues="{Binding MinBetOptions, Mode=OneWay}"
                                                                              Minimum="{Binding BetMinimum, Mode=OneWay}" 
                                                                              Maximum="{Binding BetMaximum, Mode=OneWay}" 
@@ -368,7 +368,7 @@
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
-                                    <helpers:CurrencyDecimalUpDown Width="120" FontSize="14"
+                                    <helpers:CurrencyDecimalUpDown Width="160" FontSize="14"
                                                                    Minimum="{Binding BetMinimum, Mode=OneWay}" 
                                                                    Maximum="{Binding BetMaximum, Mode=OneWay}"
                                                                    Increment="{Binding Denom}"
@@ -385,7 +385,7 @@
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
-                                    <helpers:CurrencyDecimalUpDown Width="120" FontSize="14"
+                                    <helpers:CurrencyDecimalUpDown Width="160" FontSize="14"
                                                                    Minimum="{Binding BetMinimum, Mode=OneWay}" 
                                                                    Maximum="{Binding BetMaximum, Mode=OneWay}"
                                                                    Increment="{Binding Denom}"
@@ -402,7 +402,7 @@
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
-                                    <helpers:CurrencyDecimalUpDown Width="120" FontSize="14"
+                                    <helpers:CurrencyDecimalUpDown Width="160" FontSize="14"
                                                                    Minimum="{Binding BetMinimum, Mode=OneWay}" 
                                                                    Maximum="{Binding BetMaximum, Mode=OneWay}"
                                                                    Increment="{Binding Denom}"

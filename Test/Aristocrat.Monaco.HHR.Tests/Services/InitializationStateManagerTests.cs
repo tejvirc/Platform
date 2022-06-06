@@ -104,6 +104,8 @@
             _properties.Setup(x => x.GetProperty(HHRPropertyNames.ManualHandicapMode, It.IsAny<string>())).Returns(HhrConstants.DetectPickMode);
             ClientProperties.ManualHandicapMode = HhrConstants.DetectPickMode;
 
+            _systemDisableManager.SetupGet(x => x.CurrentDisableKeys).Returns(new List<Guid>());
+
             CreateInitializationStateManager();
         }
 

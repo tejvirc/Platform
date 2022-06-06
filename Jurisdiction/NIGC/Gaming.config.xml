@@ -25,6 +25,13 @@ as follows:
 	<AlwaysCombineOutcomesByType Enabled="false" />
 	<Gamble Allowed="false" />
 	<LetItRide Allowed="false" />
+	<ContinuousPlaySupport>
+		<AllowedButtons>
+			<Button>Play</Button >
+			<Button>MaxBet</Button >
+		</AllowedButtons>
+	</ContinuousPlaySupport>
+
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

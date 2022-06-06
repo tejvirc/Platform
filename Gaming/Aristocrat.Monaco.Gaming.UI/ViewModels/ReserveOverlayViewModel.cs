@@ -235,6 +235,7 @@
                         ShowCountDownTimer = false;
                         ShowLockupBackground = false;
                         ShowIncorrectUnlockPinDisplay = false;
+                        CancelButtonPressed();
                         break;
                 }
             }
@@ -484,7 +485,7 @@
         /// </summary>
         private void CancelButtonPressed()
         {
-            if (State == ReserveMachineDisplayState.Confirm)
+            if (State == ReserveMachineDisplayState.Confirm || State == ReserveMachineDisplayState.None)
             {
                 IsDialogVisible = false;
                 _propertiesManager.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty);

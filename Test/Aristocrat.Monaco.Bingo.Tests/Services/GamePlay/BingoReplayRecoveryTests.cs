@@ -169,7 +169,6 @@
         public async Task RecoveryGameLoadedTimeoutTest()
         {
             _gameExitedConsumer?.Invoke(null);
-            _target.GameLoadedWaitInterval = TimeSpan.FromMilliseconds(100);
             var description = new BingoGameDescription
             {
                 BallCallNumbers = Enumerable.Repeat(new BingoNumber(123, BingoNumberState.BallCallInitial), 40),

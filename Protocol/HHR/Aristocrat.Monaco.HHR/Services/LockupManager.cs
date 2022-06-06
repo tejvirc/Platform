@@ -40,9 +40,7 @@
 
             _eventBus.Subscribe<ProtocolInitializationFailed>(this, OnProtocolInitializationFailed);
             _eventBus.Subscribe<ProtocolInitializationInProgress>(this, OnProtocolInitializationInProgress);
-            _eventBus.Subscribe<ProtocolInitializationComplete>(
-                this,
-                _ => systemDisableManager.Enable(HhrConstants.ProtocolInitializationInProgress));
+            _eventBus.Subscribe<ProtocolInitializationComplete>(this, OnProtocolInitializationComplete);
 
             _eventBus.Subscribe<ProgressiveInitializationFailed>(this, Handle);
             _eventBus.Subscribe<PrizeCalculationErrorEvent>(this, Handle);
@@ -80,11 +78,6 @@
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RestartToClearLockup));
         }
 
-        private void Handle(PendingRequestRemovedEvent obj)
-        {
-            _systemDisableManager.Enable(HhrConstants.TransactionPendingKey);
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -104,6 +97,17 @@
             }
 
             _disposed = true;
+        }
+
+        private void OnProtocolInitializationComplete(ProtocolInitializationComplete obj)
+        {
+            _systemDisableManager.Enable(HhrConstants.ProtocolInitializationFailed);
+            _systemDisableManager.Enable(HhrConstants.ProtocolInitializationInProgress);
+        }
+
+        private void Handle(PendingRequestRemovedEvent obj)
+        {
+            _systemDisableManager.Enable(HhrConstants.TransactionPendingKey);
         }
 
         private void Handle(TransactionPendingEvent obj)
@@ -128,8 +132,6 @@
                 true,
                 () => Localizer.For(CultureFor.Operator)
                     .GetString(ResourceKeys.ErrorInfoHHRProtocolInitializationInProgress));
-
-            _systemDisableManager.Enable(HhrConstants.ProtocolInitializationFailed);
         }
 
         private void OnProtocolInitializationFailed(ProtocolInitializationFailed obj)

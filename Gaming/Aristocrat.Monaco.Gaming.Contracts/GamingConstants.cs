@@ -546,6 +546,11 @@
         public const string ContinuousPlayModeConfigurable = @"GamePlay.ContinuousPlaySupport.Configurable";
 
         /// <summary>
+        ///     Buttons that start continuous play mode
+        /// </summary>
+        public const string ContinuousPlayModeButtonsToUse = @"GamePlay.ContinuousPlaySupport.ButtonsToUse";
+
+        /// <summary>
         ///     When enabled, for each enabled progressive level, their name and ceiling will be shown to the user in the game rules screen.
         /// </summary>
         public const string DisplayProgressiveCeilingMessage = @"GamePlay.DisplayProgressiveCeilingMessage";

@@ -69,7 +69,7 @@
 
         public TimeSpan TimeRemaining => GetCounterValue(
             Counter.TimeRemaining,
-            v => v >= 0 && v < int.MaxValue ? TimeSpan.FromSeconds(v) : Timeout.InfiniteTimeSpan,
+            v => v is >= 0 and < int.MaxValue ? TimeSpan.FromSeconds(v) : Timeout.InfiniteTimeSpan,
             Timeout.InfiniteTimeSpan);
 
         public int LicenseCount => GetCounterValue(Counter.LicenseCount,

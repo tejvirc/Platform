@@ -187,7 +187,8 @@
                             <DataTemplate DataType="{x:Type models:ReelInfoItem}">
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="{Binding Name}" Margin="10 0 0 0"/>
-                                    <xctk:DecimalUpDown
+                                    <xctk:IntegerUpDown
+                                        Style="{StaticResource MonacoIntegerUpDown}"
                                         Margin="10 0 0 0"
                                         VerticalAlignment="Center"
                                         Value="{Binding OffsetSteps}"
@@ -196,9 +197,9 @@
                                         Increment="1"
                                         AllowSpin="True"
                                         FontSize="18"
-                                        Width="60"
+                                        Width="130"
                                         Height="45">
-                                    </xctk:DecimalUpDown>
+                                    </xctk:IntegerUpDown>
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

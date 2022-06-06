@@ -20,7 +20,6 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using Monaco.Common;
     using Protocol.Common.Storage.Entity;
     using GameEndWinFactory =
         Common.IBingoStrategyFactory<GameEndWin.IGameEndWinStrategy, Common.Storage.Model.GameEndWinStrategy>;
@@ -38,7 +37,6 @@
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IUnitOfWorkFactory _unitOfWork;
         private readonly GameEndWinFactory _gewFactory;
-        private readonly ManualResetEvent _gameLoaded = new(false);
 
         private bool _disposed;
         private string _recoveredGameEndWinMessage;
@@ -62,16 +60,13 @@
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _gewFactory = gewFactory ?? throw new ArgumentNullException(nameof(gewFactory));
 
-            _bus.Subscribe<GameLoadedEvent>(this, _ => _gameLoaded.Set());
-            _bus.Subscribe<GameProcessExitedEvent>(this, _ => _gameLoaded.Reset());
             _bus.Subscribe<GamePlayInitiatedEvent>(this, _ => ClearGameEndWinMessage());
         }
 
-        public TimeSpan GameLoadedWaitInterval { get; set; } = TimeSpan.FromMilliseconds(10000);
-
-        public async Task RecoverDisplay(CancellationToken token)
+        public Task RecoverDisplay(CancellationToken token)
         {
-            await RecoverBingoDisplay(GetLastTransaction(), false, true, token);
+            RecoverBingoDisplay(GetLastTransaction(), false, true);
+            return Task.CompletedTask;
         }
 
         public async Task RecoverGamePlay(CancellationToken token)
@@ -79,10 +74,11 @@
             await RecoveryBingoGamePlay(GetLastTransaction(), token);
         }
 
-        public async Task Replay(IGameHistoryLog log, bool finalizeReplay, CancellationToken token)
+        public Task Replay(IGameHistoryLog log, bool finalizeReplay, CancellationToken token)
         {
             var transaction = _centralProvider.Transactions.FirstOrDefault(x => x.AssociatedTransactions.Contains(log.TransactionId));
-            await RecoverBingoDisplay(transaction, !finalizeReplay, false, token);
+            RecoverBingoDisplay(transaction, !finalizeReplay, false);
+            return Task.CompletedTask;
         }
 
         /// <inheritdoc />
@@ -102,7 +98,6 @@
             if (disposing)
             {
                 _bus.UnsubscribeAll(this);
-                _gameLoaded.Dispose();
             }
 
             _disposed = true;
@@ -120,18 +115,16 @@
                 .FirstOrDefault(h => transaction.AssociatedTransactions.Contains(h.TransactionId));
         }
 
-        private async Task RecoverBingoDisplay(
+        private void RecoverBingoDisplay(
             CentralTransaction transaction,
             bool initialBallCall,
-            bool isRecovery,
-            CancellationToken token)
+            bool isRecovery)
         {
             if (transaction?.Descriptions?.FirstOrDefault() is not BingoGameDescription bingoGame)
             {
                 return;
             }
 
-            await _gameLoaded.AsTask(GameLoadedWaitInterval, token);
             foreach (var card in bingoGame.Cards)
             {
                 Logger.Debug($"Recovering the bingo card: {card}");
@@ -140,7 +133,7 @@
 
             var bingoNumbers = (initialBallCall ? bingoGame.GetJoiningBalls() : bingoGame.BallCallNumbers).ToList();
             Logger.Debug($"Recovering the ball call: {string.Join(", ", bingoNumbers)}");
-            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), bingoGame.Cards.First().DaubedBits));
+            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), bingoGame.Cards.First().DaubedBits, isRecovery));
 
             var bingoPatterns = bingoGame.Patterns.ToList();
             Logger.Debug($"Recovering the bingo patterns: {string.Join(Environment.NewLine, bingoPatterns)}");

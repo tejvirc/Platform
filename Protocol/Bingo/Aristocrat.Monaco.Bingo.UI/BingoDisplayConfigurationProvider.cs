@@ -281,6 +281,17 @@
             var config = ConfigurationUtilities.SafeDeserialize<BingoDisplayConfiguration>(path);
             _version = config?.Version ?? 1;
             LoadFromSettings(config);
+
+            foreach (var windowSettings in config.BingoInfoWindowSettings)
+            {
+                windowSettings.DisclaimerText ??= new List<string>()
+                {
+                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.MalfunctionVoids).ToUpper(),
+                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerAllPrizes).ToUpper(),
+                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerReelsAre).ToUpper()
+                }.ToArray();
+            }
+
             return config;
         }
 
