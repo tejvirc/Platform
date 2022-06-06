@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "vFAPy3S7qoLUQBHylTGwykBqoZGYCDG0P7YnbM64qvE="
+          "hash": "nTX/AcZbvvRnm3pUlWUCnPbastcyuhRW9yIiCqajr28="
         }
       },
       "is_incremental": false,
@@ -14371,6 +14371,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -17811,7 +17814,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.BingoConstants.html",
-          "hash": "I4FmQOj8j+dgKTCMcOnEiPvvmCPFDbZjFRRLWbPPRk0="
+          "hash": "9xgEKk6zXhR0jbkzwGGv5SdMDJxHHp+EE1XKzi8oc2M="
         }
       },
       "is_incremental": false,
@@ -20531,6 +20534,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Events.BingoDisplayAttractSettingsChangedEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Events.BingoDisplayAttractSettingsChangedEvent.html",
+          "hash": "aMnGUWVXWIMpL3WI/qdIG5YxTHv1N15d8Pe0yP+p/4E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Events.BingoDisplayConfigurationChangedEvent.yml",
       "output": {
         ".html": {
@@ -20571,7 +20586,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Events.html",
-          "hash": "pTukeaimDmglIkeS9L2MT2FB5VZaAOvQEXRuM+QvYaY="
+          "hash": "ibkai1uxn+9qjoxmiEJzbsqPD2cH8YwDPnasfZD0gZQ="
         }
       },
       "is_incremental": false,
@@ -20619,7 +20634,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Loaders.BingoInfoTestToolLoader.html",
-          "hash": "RXqdgMIhpxf4EuXy6gqShty+Axaun9uWXerwUenk0XM="
+          "hash": "v3Bflk9VIu3B/kzP0kp/fjL9BZftasxsQbXT5Tbm/tw="
         }
       },
       "is_incremental": false,
@@ -20771,11 +20786,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Models.DisclaimerItemModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Models.DisclaimerItemModel.html",
+          "hash": "aAv56Uh/IE9+irTtIrXxZUHhoC6Czy0EegB+VLkqglE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Models.yml",
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Models.html",
-          "hash": "0TnkuAT6mHYCBsYVui0iyZ5IJ7ihKeKS9BbMpskG5R8="
+          "hash": "Y1YhlJHDlMRtmMVf/JjojQz9mFXIphYcUMVhvegLyYs="
         }
       },
       "is_incremental": false,
@@ -20931,7 +20958,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.TestTool.BingoInfoTestToolViewModel.html",
-          "hash": "as2aNmG+dWpNvKks9HPBW+kprauC4cNvOKBk6vXsLDY="
+          "hash": "9aeBsi/8Rjhonhd9gSDFP4/c9Anr9zMyDs2fmGy/HYE="
         }
       },
       "is_incremental": false,
@@ -41134,9 +41161,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -83457,7 +83481,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6921,
+          "total_file_count": 6923,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
