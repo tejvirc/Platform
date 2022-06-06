@@ -819,23 +819,20 @@
 
             if (configuration.MasterVolumeSettings != null)
             {
-                var _volumePresets = LoadVolumeLevel(configuration.MasterVolumeSettings);
                 _properties.Add(HardwareConstants.VolumePreset,
                     Tuple.Create(
-                        (object)_volumePresets,
+                        (object)LoadVolumeLevel(configuration.MasterVolumeSettings),
                         HardwareConstants.VolumePreset,
                         false));
             }
 
             if (configuration.VolumeScalarSettings != null)
             {
-                var _volumeScalarPresets = LoadVolumeScalar(configuration.VolumeScalarSettings);
                 _properties.Add(HardwareConstants.VolumeScalarPreset,
                     Tuple.Create(
-                        (object)_volumeScalarPresets,
+                        (object)LoadVolumeScalar(configuration.VolumeScalarSettings),
                         HardwareConstants.VolumeScalarPreset,
                         false));
-
             }
 
 
@@ -850,42 +847,14 @@
             }
         }
 
-        private Dictionary<VolumeLevel, float> LoadVolumeLevel(ApplicationConfigurationVolumeNode[] masterVolumeSettings)
+        private Dictionary<byte, Tuple<string,float>> LoadVolumeLevel(ApplicationConfigurationVolumeNode[] masterVolumeSettings)
         {
-            var result = new Dictionary<VolumeLevel, float>();
+            var result = new Dictionary<byte, Tuple<string,float>>();
             foreach (var i in masterVolumeSettings)
             {
-                VolumeLevel level;
-
-                switch (i.Key)
-                {
-                    case VolumeLevelSetting.ExtraLow:
-                        level = VolumeLevel.ExtraLow;
-                        break;
-                    case VolumeLevelSetting.Low:
-                        level = VolumeLevel.Low;
-                        break;
-                    case VolumeLevelSetting.MediumLow:
-                        level = VolumeLevel.MediumLow;
-                        break;
-                    case VolumeLevelSetting.Medium:
-                        level = VolumeLevel.Medium;
-                        break;
-                    case VolumeLevelSetting.MediumHigh:
-                        level = VolumeLevel.MediumHigh;
-                        break;
-                    case VolumeLevelSetting.High:
-                        level = VolumeLevel.High;
-                        break;
-                    case VolumeLevelSetting.ExtraHigh:
-                        level = VolumeLevel.ExtraHigh;
-                        break;
-                    default:
-                        throw new Exception("Unkown volume level!");
-                }
-
-                result.Add(level, i.Value);
+                result.Add(i.Key, new Tuple<string, float>(i.Description, i.Value));    
             }
+
             return result;
         }
 
@@ -894,34 +863,10 @@
             var result = new Dictionary<VolumeScalar, float>();
             foreach (var i in VolumeScalarSettings)
             {
-                VolumeScalar scalar;
-
-                switch (i.Key)
-                {
-                    case VolumeScalarSetting.Scalar20:
-                        scalar = VolumeScalar.Scale20;
-                        break;
-                    case VolumeScalarSetting.Scalar40:
-                        scalar = VolumeScalar.Scale40;
-                        break;
-                    case VolumeScalarSetting.Scalar60:
-                        scalar = VolumeScalar.Scale60;
-                        break;
-                    case VolumeScalarSetting.Scalar80:
-                        scalar = VolumeScalar.Scale80;
-                        break;
-                    case VolumeScalarSetting.Scalar100:
-                        scalar = VolumeScalar.Scale100;
-                        break;
-                    default:
-                        throw new Exception("Unkown volume scalar!");
-                }
-
-                result.Add(scalar, i.Value);
+                result.Add((VolumeScalar)i.Key, i.Value); 
             }
             return result;
         }
-
 
         /// <inheritdoc />
         public ICollection<KeyValuePair<string, object>> GetCollection

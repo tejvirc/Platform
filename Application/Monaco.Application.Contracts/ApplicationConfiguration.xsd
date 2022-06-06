@@ -9,7 +9,7 @@
 					  <xs:element maxOccurs="unbounded" name="VolumeNode">
 						  <xs:complexType>
 							  <xs:complexContent>
-								  <xs:extension base="i_volumelevel">
+								  <xs:extension base="VolumeLevel">
 								  </xs:extension>
 							  </xs:complexContent>
 						  </xs:complexType>
@@ -23,7 +23,7 @@
 					  <xs:element maxOccurs="unbounded" name="ScalarNode">
 						  <xs:complexType>
 							  <xs:complexContent>
-								  <xs:extension base="i_volumescalar">
+								  <xs:extension base="iVolumeScalar">
 								  </xs:extension>
 							  </xs:complexContent>
 						  </xs:complexType>
@@ -569,34 +569,15 @@
       <xs:enumeration value="LobbyAndGame" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="i_volumescalar">
-  	<xs:attribute name="Key" type="VolumeScalarSetting" use="required" />
-  	<xs:attribute name="Value" type="xs:float" use="required" />
+  <xs:complexType name="iVolumeScalar">
+  	<xs:attribute name="Key" type="xs:unsignedByte " use="required" />
+	<xs:attribute name="Value" type="xs:float" use="required" />
   </xs:complexType>
   
-  <xs:complexType name="i_volumelevel">
-  	<xs:attribute name="Key" type="VolumeLevelSetting" use="required" />
-  	<xs:attribute name="Value" type="xs:float" use="required" />
+  <xs:complexType name="VolumeLevel">
+  	<xs:attribute name="Key" type="xs:unsignedByte " use="required" />
+	  <xs:attribute name="Description" type="xs:string" use="required" />
+	  <xs:attribute name="Value" type="xs:float" use="required" />
   </xs:complexType>
-  
-  <xs:simpleType name="VolumeScalarSetting">
-  	<xs:restriction base="xs:string">
-  		<xs:enumeration value="Scalar20" />
-  		<xs:enumeration value="Scalar40" />
-  		<xs:enumeration value="Scalar60" />
-  		<xs:enumeration value="Scalar80" />
-  		<xs:enumeration value="Scalar100" />
-  	</xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="VolumeLevelSetting">
-  	<xs:restriction base="xs:string">
-  		<xs:enumeration value="ExtraLow" />
-  		<xs:enumeration value="Low" />
-  		<xs:enumeration value="MediumLow" />
-  		<xs:enumeration value="Medium" />
-  		<xs:enumeration value="MediumHigh" />
-  		<xs:enumeration value="High" />
-  		<xs:enumeration value="ExtraHigh" />
-  	</xs:restriction>
-  </xs:simpleType>
+ 
 </xs:schema>

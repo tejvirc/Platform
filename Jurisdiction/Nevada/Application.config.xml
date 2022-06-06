@@ -93,19 +93,18 @@ as follows:
   </LogTypesAllowedForDisplay>
   <MultiGame DefaultBetAfterSwitch="false" />
 		<MasterVolumeSettings>
-			<VolumeNode Key="ExtraLow" Value="5" />
-			<VolumeNode Key="Low" Value="10" />
-			<VolumeNode Key="MediumLow" Value="20" />
-			<VolumeNode Key="Medium" Value="40" />
-			<VolumeNode Key="MediumHigh" Value="60" />
-			<VolumeNode Key="High" Value="80" />
-			<VolumeNode Key="ExtraHigh" Value="96" />
-		</MasterVolumeSettings>
+			<VolumeNode Key="1" Description="Low" Value="10" />
+            <VolumeNode Key="2" Description="Medium Low" Value="20" />
+            <VolumeNode Key="3" Description="Medium" Value="40" />
+            <VolumeNode Key="4" Description="Medium High" Value="60" />
+            <VolumeNode Key="5" Description="High" Value="80" />
+            <VolumeNode Key="6" Description="Extra High" Value="90" />
+        </MasterVolumeSettings>
 		<VolumeScalarSettings>
-			<ScalarNode Key="Scalar20" Value="0.2" />
-			<ScalarNode Key="Scalar40" Value="0.4" />
-			<ScalarNode Key="Scalar60" Value="0.6" />
-			<ScalarNode Key="Scalar80" Value="0.8" />
-			<ScalarNode Key="Scalar100" Value="1" />
+			<ScalarNode Key="1" Value="0.21" />
+			<ScalarNode Key="2" Value="0.43" />
+			<ScalarNode Key="3" Value="0.64" />
+			<ScalarNode Key="4" Value="0.8" />
+			<ScalarNode Key="5" Value="1" />
 		</VolumeScalarSettings>
 </ApplicationConfiguration>

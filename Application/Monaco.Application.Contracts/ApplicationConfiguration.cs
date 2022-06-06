@@ -764,7 +764,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class ApplicationConfigurationVolumeNode : i_volumelevel {
+    public partial class ApplicationConfigurationVolumeNode : VolumeLevel {
     }
     
     /// <remarks/>
@@ -772,20 +772,33 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class i_volumelevel {
+    public partial class VolumeLevel {
         
-        private VolumeLevelSetting keyField;
+        private byte keyField;
+        
+        private string descriptionField;
         
         private float valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public VolumeLevelSetting Key {
+        public byte Key {
             get {
                 return this.keyField;
             }
             set {
                 this.keyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
             }
         }
         
@@ -804,44 +817,17 @@ namespace Aristocrat.Monaco.Application.Contracts {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
-    public enum VolumeLevelSetting {
-        
-        /// <remarks/>
-        ExtraLow,
-        
-        /// <remarks/>
-        Low,
-        
-        /// <remarks/>
-        MediumLow,
-        
-        /// <remarks/>
-        Medium,
-        
-        /// <remarks/>
-        MediumHigh,
-        
-        /// <remarks/>
-        High,
-        
-        /// <remarks/>
-        ExtraHigh,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class i_volumescalar {
+    public partial class iVolumeScalar {
         
-        private VolumeScalarSetting keyField;
+        private byte keyField;
         
         private float valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public VolumeScalarSetting Key {
+        public byte Key {
             get {
                 return this.keyField;
             }
@@ -860,27 +846,6 @@ namespace Aristocrat.Monaco.Application.Contracts {
                 this.valueField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    public enum VolumeScalarSetting {
-        
-        /// <remarks/>
-        Scalar20,
-        
-        /// <remarks/>
-        Scalar40,
-        
-        /// <remarks/>
-        Scalar60,
-        
-        /// <remarks/>
-        Scalar80,
-        
-        /// <remarks/>
-        Scalar100,
     }
     
     /// <remarks/>
@@ -889,7 +854,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class ApplicationConfigurationScalarNode : i_volumescalar {
+    public partial class ApplicationConfigurationScalarNode : iVolumeScalar {
     }
     
     /// <remarks/>

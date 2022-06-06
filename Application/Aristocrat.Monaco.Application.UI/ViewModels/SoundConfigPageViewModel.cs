@@ -31,7 +31,7 @@
         private readonly IAudio _audio;
         private readonly ISystemDisableManager _disableManager;
 
-        private VolumeLevel _soundLevel;
+        private byte _soundLevel;
         private byte _alertVolume;
         private byte _alertMinimumVolume;
         private string _infoText;
@@ -72,7 +72,7 @@
             RaisePropertyChanged(nameof(IsAlertConfigurable));
 
             // Load default volume level
-            _soundLevel = (VolumeLevel)PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
             RaisePropertyChanged(nameof(SoundLevel));
         }
@@ -80,13 +80,13 @@
         public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
 
         public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection { get; } = new();
-        private void SoundLevelConfigurationParser(IEnumerable<VolumeLevel> enumValues)
+        private void SoundLevelConfigurationParser(IEnumerable<Tuple<byte,string>> enumValues)
         {
             SoundLevelConfigCollection.Clear();
             foreach (var level in enumValues)
             {
                 SoundLevelConfigCollection.Add(new EnumerationExtension.EnumerationMember()
-                    {Description = level.GetDescription(typeof(VolumeLevel)), Value = level});
+                    {Description = level.Item2, Value = level.Item1});
             }
         }
 
@@ -127,7 +127,7 @@
                  Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SoundTest));
         }
 
-        public VolumeLevel SoundLevel
+        public byte SoundLevel
         {
             get => _soundLevel;
 

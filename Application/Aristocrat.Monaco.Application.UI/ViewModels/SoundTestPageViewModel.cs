@@ -42,7 +42,7 @@
         private readonly ISystemDisableManager _disableManager;
         private ITimer _playingTimer;
         private SoundFileViewModel _sound;
-        private VolumeLevel _soundLevel;
+        private byte _soundLevel;
         private readonly SpeakerMix _enabledSpeakersMask;
         private bool IsAudioServiceAvailable => _audio != null;
         public SoundTestPageViewModel()
@@ -96,7 +96,7 @@
         private void LoadVolumeSettings()
         {
             // Load default volume level
-            _soundLevel = (VolumeLevel)PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
             RaisePropertyChanged(nameof(SoundLevel));
         }
@@ -157,7 +157,7 @@
             }
         }
 
-        public VolumeLevel SoundLevel
+        public byte SoundLevel
         {
             get => _soundLevel;
 

@@ -4,24 +4,24 @@
     using System.Collections.Generic;
     using System.ComponentModel;
 
-    /// <summary>Volume Levels</summary>
-    public enum VolumeLevel : byte
-    {
-        /// <summary>Extra Low</summary>
-        [Description("Extra Low")] ExtraLow = 1,
-        /// <summary>Low</summary>
-        [Description("Low")] Low = 2,
-        /// <summary>Medium-Low</summary>
-        [Description("Medium-Low")] MediumLow = 3,
-        /// <summary>Medium</summary>
-        [Description("Medium")] Medium = 4,
-        /// <summary>Medium-High</summary>
-        [Description("Medium-High")] MediumHigh = 5,
-        /// <summary>High</summary>
-        [Description("High")] High = 6,
-        /// <summary>Extra High</summary>
-        [Description("Extra High")] ExtraHigh = 7
-    }
+    ///// <summary>Volume Levels</summary>
+    //public enum VolumeLevel : byte
+    //{
+    //    /// <summary>Extra Low</summary>
+    //    [Description("Extra Low")] ExtraLow = 1,
+    //    /// <summary>Low</summary>
+    //    [Description("Low")] Low = 2,
+    //    /// <summary>Medium-Low</summary>
+    //    [Description("Medium-Low")] MediumLow = 3,
+    //    /// <summary>Medium</summary>
+    //    [Description("Medium")] Medium = 4,
+    //    /// <summary>Medium-High</summary>
+    //    [Description("Medium-High")] MediumHigh = 5,
+    //    /// <summary>High</summary>
+    //    [Description("High")] High = 6,
+    //    /// <summary>Extra High</summary>
+    //    [Description("Extra High")] ExtraHigh = 7
+    //}
 
     /// <summary>Volume Scalars</summary>
     public enum VolumeScalar : byte
@@ -126,7 +126,14 @@
         /// </summary>
         /// <param name="level">the volume level</param>
         /// <returns>returns the volume (0-100.0)</returns>
-        float GetVolume(VolumeLevel level);
+        float GetVolume(byte level);
+
+        /// <summary>
+        ///     Get volume by preset
+        /// </summary>
+        /// <param name="level">the volume level</param>
+        /// <returns>returns the description string to display</returns>
+        string GetVolumeDescription(byte level);
 
         /// <summary>
         ///     Gets an <see cref="IVolume"/> instance that can be used to control the volume for a process
@@ -159,6 +166,6 @@
         /// <summary>
         ///     Gets a set of master volume levels requested per jurisdiction 
         /// </summary>
-        IEnumerable<VolumeLevel> SoundLevelCollection { get; }
+        IEnumerable<Tuple<byte,string>> SoundLevelCollection { get; }
     }
 }

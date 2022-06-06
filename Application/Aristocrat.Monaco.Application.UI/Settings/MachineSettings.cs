@@ -320,7 +320,8 @@
         ///     Gets the platform default volume level to display.
         /// </summary>
         [JsonIgnore]
-        public string DefaultVolumeLevelDisplay => ((VolumeLevel)_defaultVolumeLevel).GetDescription(((VolumeLevel)_defaultVolumeLevel).GetType());
+        //Todo: Get volume level description to display
+        public string DefaultVolumeLevelDisplay => _defaultVolumeLevel.ToString(); // ((VolumeLevel)_defaultVolumeLevel).GetDescription(((VolumeLevel)_defaultVolumeLevel).GetType());
 
         /// <summary>
         ///     Gets or sets the volume control location.
