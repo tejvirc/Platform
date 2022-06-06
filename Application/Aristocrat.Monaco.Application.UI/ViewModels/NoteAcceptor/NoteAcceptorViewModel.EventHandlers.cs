@@ -106,7 +106,7 @@
                 }
 
                 PropertiesManager.SetProperty(PropertyKey.MaxCreditsIn, BillAcceptanceLimit.DollarsToMillicents());
-            }            
+            }
 
             base.StopEventHandler();
         }
@@ -276,6 +276,7 @@
         private void HandleHardwareNoteAcceptorSelfTestPassedEvent(SelfTestPassedEvent @event)
         {
             SelfTestCurrentState = SelfTestState.Passed;
+            SetDeviceInformation();
             UpdateStatus();
             SetDiagnosticButtonsEnabled(true);
         }

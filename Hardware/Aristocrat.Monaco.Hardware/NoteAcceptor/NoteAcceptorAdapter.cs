@@ -735,8 +735,8 @@
                 _selfTestRetryCount = 0;
                 if (Implementation != null &&
                     Implementation.IsConnected &&
-                    SelfTestInternal(false, true).Result &&
-                    CalculateCrc(0).Result != 0)
+                    CalculateCrc(0).Result != 0 &&
+                    SelfTestInternal(false, true).Result)
                 {
                     if (ReasonDisabled.HasFlag(DisabledReasons.Device))
                     {
