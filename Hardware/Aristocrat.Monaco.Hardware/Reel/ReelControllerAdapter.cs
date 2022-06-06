@@ -114,7 +114,7 @@
 
             set
             {
-                if (value < 1 || value > 100)
+                if (value is < 1 or > 100)
                 {
                     return;
                 }
@@ -335,14 +335,12 @@
         {
             block = new ReelControllerOptions { ReelBrightness = DefaultReelBrightness, ReelOffsets = ReelOffsets.ToArray() };
 
-            using (var transaction = accessor.StartTransaction())
-            {
-                transaction[blockIndex, ReelBrightnessOption] = block.ReelBrightness;
-                transaction[blockIndex, ReelOffsetsOption] = block.ReelOffsets;
+            using var transaction = accessor.StartTransaction();
+            transaction[blockIndex, ReelBrightnessOption] = block.ReelBrightness;
+            transaction[blockIndex, ReelOffsetsOption] = block.ReelOffsets;
 
-                transaction.Commit();
-                return true;
-            }
+            transaction.Commit();
+            return true;
         }
 
         /// <inheritdoc />
@@ -377,11 +375,13 @@
                 return;
             }
 
-            if (Fire(ReelControllerTrigger.Disable, new DisabledEvent(ReelControllerId, ReasonDisabled)))
+            if (!Fire(ReelControllerTrigger.Disable, new DisabledEvent(ReelControllerId, ReasonDisabled)))
             {
-                Logger.Debug($"Disabling for {ReasonDisabled}");
-                Implementation?.Disable();
+                return;
             }
+
+            Logger.Debug($"Disabling for {ReasonDisabled}");
+            Implementation?.Disable();
         }
 
         protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)
@@ -604,7 +604,7 @@
                         ? ReelControllerState.IdleAtStops
                         : ReelControllerState.IdleUnknown,
                     () => Enabled && ReelStates.All(
-                        x => x.Value == ReelLogicalState.IdleUnknown || x.Value == ReelLogicalState.IdleAtStop));
+                        x => x.Value is ReelLogicalState.IdleUnknown or ReelLogicalState.IdleAtStop));
 
             stateMachine.Configure(ReelControllerState.Disconnected)
                 .Permit(ReelControllerTrigger.Connected, ReelControllerState.Inspecting);
@@ -933,6 +933,11 @@
 
         private void ReelControllerInitialized(object sender, EventArgs e)
         {
+            if (!CanFire(ReelControllerTrigger.Initialized))
+            {
+                return;
+            }
+
             if ((ReasonDisabled & DisabledReasons.Device) != 0)
             {
                 Enable(EnabledReasons.Device);
@@ -942,12 +947,6 @@
             if ((ReasonDisabled & DisabledReasons.Error) != 0)
             {
                 ClearError(DisabledReasons.Error);
-            }
-
-            if (!Fire(ReelControllerTrigger.Initialized, new InspectedEvent(ReelControllerId)))
-            {
-                Logger.Debug("ReelControllerInitialized - FAILED Fire for trigger Initialized");
-                return;
             }
 
             SetInternalConfiguration();
@@ -962,9 +961,15 @@
                 Enable(EnabledReasons.Reset);
             }
 
+            Fire(ReelControllerTrigger.Initialized, new InspectedEvent(ReelControllerId));
             if (Enabled)
             {
                 Implementation?.Enable();
+            }
+            else
+            {
+                DisabledDetected();
+                Implementation?.Disable();
             }
         }
 
@@ -983,8 +988,7 @@
             try
             {
                 _validatingDevice = true;
-                if (Implementation != null &&
-                    Implementation.IsConnected &&
+                if (Implementation is { IsConnected: true } &&
                     await CalculateCrc(0) != 0 &&
                     await SelfTest(false))
                 {
