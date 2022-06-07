@@ -158,7 +158,7 @@
             {
                  _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
 
-                var status = _mysteryProgressiveProvider.GetMagicNumber(progressiveLevel, out var magicNumber);
+                var status = _mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out var magicNumber);
 
                 Assert.IsTrue(status);
                 Assert.IsNotNull(magicNumber);
@@ -198,8 +198,8 @@
                 var progressiveLevel = _testData[i];
                 var sharedLevel = _testData[i + 1];
 
-                var statusOne = _mysteryProgressiveProvider.GetMagicNumber(progressiveLevel, out var magicNumberOne);
-                var statusTwo = _mysteryProgressiveProvider.GetMagicNumber(sharedLevel, out var magicNumberTwo);
+                var statusOne = _mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out var magicNumberOne);
+                var statusTwo = _mysteryProgressiveProvider.TryGetMagicNumber(sharedLevel, out var magicNumberTwo);
 
                 Assert.IsTrue(statusOne);
                 Assert.IsNotNull(magicNumberOne);
@@ -230,8 +230,8 @@
                 var progressiveLevel = _testData[i];
                 var notSharedLevel = _testData[i + 2];
 
-                var statusOne = _mysteryProgressiveProvider.GetMagicNumber(progressiveLevel, out var magicNumberOne);
-                var statusTwo = _mysteryProgressiveProvider.GetMagicNumber(notSharedLevel, out var magicNumberTwo);
+                var statusOne = _mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out var magicNumberOne);
+                var statusTwo = _mysteryProgressiveProvider.TryGetMagicNumber(notSharedLevel, out var magicNumberTwo);
 
                 Assert.IsTrue(statusOne);
                 Assert.IsNotNull(magicNumberOne);
