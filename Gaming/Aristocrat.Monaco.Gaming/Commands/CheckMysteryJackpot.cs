@@ -50,6 +50,6 @@
         /// <summary>
         ///     Gets or sets the result of the command
         /// </summary>
-        public Dictionary<int, bool> Results { get; set; }
+        public Dictionary<uint, bool> Results { get; set; }
     }
 }

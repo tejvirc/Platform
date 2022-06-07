@@ -733,5 +733,31 @@
             return command.Result;
 
         }
+
+        public IDictionary<uint, bool> CheckMysteryJackpot(
+            GameRoundPlayMode mode,
+            string poolName,
+            IList<uint> levels,
+            IList<ulong> transactionIds)
+        {
+            Logger.Debug(
+                $"CheckMystery mode: {mode.IsReplayOrRecovery()} poolName: {poolName} levels: {string.Join(",", levels)} transactionIds:{string.Join(",", transactionIds)}");
+
+            var command = new CheckMysteryJackpot(
+                poolName,
+                levels.Select(i => (int)i).ToList(),
+                transactionIds.Select(i => (long)i).ToList(),
+                mode.IsReplayOrRecovery());
+
+            _handlerFactory.Create<CheckMysteryJackpot>()
+                .Handle(command);
+
+            var results = command.Results;
+
+            Logger.Debug(
+                $"CheckMystery Response poolName:{poolName} levels: {string.Join(",", levels)} transactionIds:{string.Join(",", results.Values)}");
+
+            return results;
+        }
     }
 }

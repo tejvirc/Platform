@@ -41,7 +41,7 @@
                                       .ToList();
 
                 command.Results = command.LevelIds.ToDictionary(
-                    id => id,
+                    id => (uint)id,
                     id => jackpots.Exists(jackpot => jackpot.LevelId == id)
                 );
 
@@ -50,7 +50,7 @@
 
             command.Results = _progressiveGame.GetActiveProgressiveLevels()
                                               .ToDictionary(
-                                                  level => level.LevelId,
+                                                  level =>(uint)level.LevelId,
                                                   level => _mysteryProgressiveProvider.CheckMysteryJackpot(level)
                                               );
         }
