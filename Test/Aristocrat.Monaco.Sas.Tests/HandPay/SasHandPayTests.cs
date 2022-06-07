@@ -94,6 +94,7 @@
                 cashoutAmount,
                 promoAmount,
                 0,
+                100,
                 handPayType,
                 false,
                 Guid.NewGuid());

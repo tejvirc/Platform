@@ -16736,6 +16736,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Jackpot of {0} with Wager {1}, Please Call Attenda....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string JackpotPendingWithWager {
+			get {
+				return ResourceManager.GetString("JackpotPendingWithWager", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to YOU HAVE WON A JACKPOT.
 		/// </summary>
         /// <remarks>
@@ -16840,6 +16852,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string JackpotValidationMoreThanMaximum {
 			get {
 				return ResourceManager.GetString("JackpotValidationMoreThanMaximum", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to WAGER {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string JackpotWager {
+			get {
+				return ResourceManager.GetString("JackpotWager", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -30676,6 +30700,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TicketVoidAfter {
 			get {
 				return ResourceManager.GetString("TicketVoidAfter", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Wager:.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TicketWagerText {
+			get {
+				return ResourceManager.GetString("TicketWagerText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -51136,6 +51172,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Jackpot of {0} with Wager {1}, Please Call Attenda....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string JackpotPendingWithWager {
+			get {
+				return "JackpotPendingWithWager";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to YOU HAVE WON A JACKPOT.
 		/// </summary>
         /// <remarks>
@@ -51240,6 +51288,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string JackpotValidationMoreThanMaximum {
 			get {
 				return "JackpotValidationMoreThanMaximum";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to WAGER {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string JackpotWager {
+			get {
+				return "JackpotWager";
 			}
 		}
 
@@ -65080,6 +65140,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Wager:.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TicketWagerText {
+			get {
+				return "TicketWagerText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Tilted.
 		/// </summary>
         /// <remarks>
@@ -78358,6 +78430,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		JackpotPending,
 		/// <summary>
+		///   Looks up a localized string similar to Jackpot of {0} with Wager {1}, Please Call Attenda....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		JackpotPendingWithWager,
+		/// <summary>
 		///   Looks up a localized string similar to YOU HAVE WON A JACKPOT.
 		/// </summary>
         /// <remarks>
@@ -78420,6 +78499,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		JackpotValidationMoreThanMaximum,
+		/// <summary>
+		///   Looks up a localized string similar to WAGER {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		JackpotWager,
 		/// <summary>
 		///   Looks up a localized string similar to Jackpot Wins.
 		/// </summary>
@@ -86311,6 +86397,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting
         /// </remarks>
 		TicketVoidAfter,
+		/// <summary>
+		///   Looks up a localized string similar to Wager:.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TicketWagerText,
 		/// <summary>
 		///   Looks up a localized string similar to Tilted.
 		/// </summary>

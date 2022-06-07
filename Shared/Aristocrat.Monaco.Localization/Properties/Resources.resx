@@ -11613,6 +11613,18 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Manual Handicap Mode</value>
     <comment>Aristocrat.Monaco.Hhr.UI</comment>
   </data>
+  <data name="JackpotPendingWithWager" xml:space="preserve">
+    <value>Jackpot of {0} with Wager {1}, Please Call Attendant</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="JackpotWager" xml:space="preserve">
+    <value>WAGER {0}</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="TicketWagerText" xml:space="preserve">
+    <value>Wager:</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
   <data name="ReplayDisabledReelFaultText" xml:space="preserve">
     <value>Please clear reel related faults to allow Replay.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>

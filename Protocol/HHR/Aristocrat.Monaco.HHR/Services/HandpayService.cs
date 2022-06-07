@@ -5,6 +5,7 @@
     using System.Reflection;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
+    using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Gaming.Contracts.Payment;
@@ -28,7 +29,7 @@
         private const uint HandpayTypeNonProgressive = (uint)Client.Messages.HandpayType.HandpayTypeNonProgressive;
 
         private readonly ICentralManager _centralManager;
-        private readonly IPropertiesManager _egmSettings;
+        private readonly IPropertiesManager _properties;
         private readonly IPlayerSessionService _playerSession;
         private readonly IPlayerBank _playerBank;
         private readonly IPrizeInformationEntityHelper _prizeInformationEntityHelper;
@@ -39,7 +40,7 @@
         ///     by HHR, and register for handpay/voucher events so that we may send handpay messages as required by the spec.
         /// </summary>
         /// <param name="centralManager">The HHR central manager, used for sending messages to the server</param>
-        /// <param name="egmSettings">The property provider, where we can find configured IRS limits for handpay</param>
+        /// <param name="properties">The property provider, where we can find configured IRS limits for handpay</param>
         /// <param name="playerSession">The player ID service, so we can get a player ID for the messages we send</param>
         /// <param name="playerBank">The player bank which tells us how much credit is currently on the meter</param>
         /// <param name="eventBus">The event bus, where we can listen for the handpay completion events</param>
@@ -49,7 +50,7 @@
         /// <param name="transactionIdProvider">Provides with next transaction Id</param>
         public HandpayService(
             ICentralManager centralManager,
-            IPropertiesManager egmSettings,
+            IPropertiesManager properties,
             IPlayerSessionService playerSession,
             IPlayerBank playerBank,
             IEventBus eventBus,
@@ -59,7 +60,7 @@
             ITransactionIdProvider transactionIdProvider)
         {
             _centralManager = centralManager ?? throw new ArgumentNullException(nameof(centralManager));
-            _egmSettings = egmSettings ?? throw new ArgumentNullException(nameof(egmSettings));
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _playerSession = playerSession ?? throw new ArgumentNullException(nameof(playerSession));
             _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
             _prizeInformationEntityHelper = prizeInformationEntityHelper ?? throw new ArgumentNullException(nameof(prizeInformationEntityHelper));
@@ -145,7 +146,7 @@
                 return listOfHandpays;
             }
 
-            var ctx = new HandpayServiceContext(_egmSettings, prizeInfo)
+            var ctx = new HandpayServiceContext(_properties, prizeInfo)
             {
                 // Get the current credit meter in cents, as we'll need this amount as we go. If there is no handpay we can
                 // update this value as we determine they can be credited. If there is a handpay, we have to wait until it
@@ -193,6 +194,9 @@
                     prizeInfo.RaceSet1HandpayKeyedOff = false;
 
                     _prizeInformationEntityHelper.PrizeInformation = prizeInfo;
+
+                    // One last thing, record the wager amount so that the accounting layer can display and print it.
+                    _properties.SetProperty(ApplicationConstants.LastWagerWithLargeWinInfo, ((long)ctx.RaceSet1WagerCents).CentsToMillicents());
 
                     return;
                 }
@@ -260,6 +264,9 @@
                     prizeInfo.RaceSet2HandpayKeyedOff = false;
 
                     _prizeInformationEntityHelper.PrizeInformation = prizeInfo;
+
+                    // One last thing, record the wager amount so that the accounting layer can display and print it.
+                    _properties.SetProperty(ApplicationConstants.LastWagerWithLargeWinInfo, ((long)ctx.RaceSet2WagerCents).CentsToMillicents());
 
                     return;
                 }

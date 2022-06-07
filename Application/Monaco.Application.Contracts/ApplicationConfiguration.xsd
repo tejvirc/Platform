@@ -471,6 +471,11 @@
             <xs:attribute name="RunSignatureVerificationAfterReboot" type="xs:boolean" use="optional" default="false" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="LargeWinInfo">
+          <xs:complexType>
+            <xs:attribute name="ShowWager" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="DisplayDisconnectNoReconfigure">
           <xs:complexType>
             <xs:attribute name="Topper" type="xs:boolean" use="optional" default="false" />

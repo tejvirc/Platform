@@ -118,6 +118,7 @@
                             100,
                             200,
                             300,
+                            400,
                             HandpayType.GameWin,
                             false,
                             Guid.NewGuid())
@@ -172,6 +173,7 @@
                 100,
                 200,
                 300,
+                400,
                 HandpayType.CancelCredit,
                 false,
                 Guid.NewGuid())
@@ -239,6 +241,7 @@
                 ((long)100).CentsToMillicents(),
                 ((long)200).CentsToMillicents(),
                 0,
+                100,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid())
@@ -286,6 +289,7 @@
                             100,
                             200,
                             300,
+                            400,
                             HandpayType.CancelCredit,
                             false,
                             Guid.NewGuid())
@@ -330,6 +334,7 @@
                             100,
                             200,
                             300,
+                            400,
                             HandpayType.CancelCredit,
                             false,
                             Guid.NewGuid())
@@ -374,6 +379,7 @@
                             100,
                             200,
                             300,
+                            400,
                             HandpayType.CancelCredit,
                             false,
                             Guid.NewGuid())
@@ -438,6 +444,7 @@
                         100,
                         200,
                         300,
+                        400,
                         HandpayType.GameWin,
                         false,
                         Guid.NewGuid())
@@ -453,6 +460,7 @@
                         100,
                         200,
                         300,
+                        400,
                         HandpayType.CancelCredit,
                         false,
                         Guid.NewGuid())

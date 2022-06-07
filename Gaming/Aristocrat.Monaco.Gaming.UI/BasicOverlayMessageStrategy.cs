@@ -27,6 +27,8 @@
 
         public long HandpayAmount { get; set; }
 
+        public long LargeWinWager { get; set; }
+
         public HandpayType? LastHandpayType { get; set; } = HandpayType.CancelCredit;
 
         public bool CashOutButtonPressed { get; set; } = false;

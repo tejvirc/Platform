@@ -16,6 +16,11 @@
         public long Amount { get; set; }
 
         /// <summary>
+        ///     Gets or sets the wager amount for large win
+        /// </summary>
+        public long Wager { get; set; }
+
+        /// <summary>
         ///     Gets or sets the reason
         /// </summary>
         public TransferOutReason Reason { get; set; }

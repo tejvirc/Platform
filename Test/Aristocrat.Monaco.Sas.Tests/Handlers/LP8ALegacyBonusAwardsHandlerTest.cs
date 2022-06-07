@@ -165,7 +165,7 @@
             _disableManager.Setup(m => m.CurrentDisableKeys).Returns(guids);
 
             var transactions = new List<HandpayTransaction>();
-                        var trans = new HandpayTransaction(0, new DateTime(2020, 01, 24), 1000000, 100, 200000, HandpayType.BonusPay, false, new Guid("11111111111111111111111111111111"));
+                        var trans = new HandpayTransaction(0, new DateTime(2020, 01, 24), 1000000, 100, 200000, 100, HandpayType.BonusPay, false, new Guid("11111111111111111111111111111111"));
             transactions.Add(trans);
             _transactionHistory.Setup(m => m.RecallTransactions<HandpayTransaction>()).Returns(transactions);
 
@@ -188,7 +188,7 @@
             _disableManager.Setup(m => m.CurrentDisableKeys).Returns(guids);
 
             var transactions = new List<HandpayTransaction>();
-            var trans = new HandpayTransaction(0, new DateTime(2020, 01, 24), 1000000, 100, 200000, HandpayType.BonusPay, false, new Guid("11111111111111111111111111111111"));
+            var trans = new HandpayTransaction(0, new DateTime(2020, 01, 24), 1000000, 100, 200000, 100, HandpayType.BonusPay, false, new Guid("11111111111111111111111111111111"));
             transactions.Add(trans);
             _transactionHistory.Setup(m => m.RecallTransactions<HandpayTransaction>()).Returns(transactions);
 
@@ -212,7 +212,7 @@
             _disableManager.Setup(m => m.CurrentDisableKeys).Returns(guids);
 
             var transactions = new List<HandpayTransaction>();
-            var trans = new HandpayTransaction(0, new DateTime(2020, 01, 24), 1000000, 100, 200000, HandpayType.BonusPay, false, new Guid("11111111111111111111111111111111"));
+            var trans = new HandpayTransaction(0, new DateTime(2020, 01, 24), 1000000, 100, 200000, 100, HandpayType.BonusPay, false, new Guid("11111111111111111111111111111111"));
             transactions.Add(trans);
             _transactionHistory.Setup(m => m.RecallTransactions<HandpayTransaction>()).Returns(transactions);
 

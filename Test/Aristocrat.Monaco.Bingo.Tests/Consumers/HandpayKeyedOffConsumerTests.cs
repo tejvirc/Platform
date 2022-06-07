@@ -20,7 +20,7 @@
         private readonly Mock<IReportTransactionQueueService> _reportingService = new(MockBehavior.Strict);
         private readonly Mock<IReportEventQueueService> _bingoEventQueue = new(MockBehavior.Strict);
         private HandpayKeyedOffEvent _event;
-        private readonly HandpayTransaction _transaction = new(1, DateTime.Now, TestAmount, 0, 0, HandpayType.GameWin, false, new Guid())
+        private readonly HandpayTransaction _transaction = new(1, DateTime.Now, TestAmount, 0, 0, 123, HandpayType.GameWin, false, new Guid())
                                                             { KeyOffCashableAmount = TestAmount };
 
         [TestInitialize]
@@ -76,7 +76,7 @@
         public void ConsumesCancelledCreditTest()
         {
             var evt = new HandpayKeyedOffEvent(
-                new HandpayTransaction(1, DateTime.Now, TestAmount, 0, 0, HandpayType.CancelCredit, false, new Guid())
+                new HandpayTransaction(1, DateTime.Now, TestAmount, 0, 0, 123, HandpayType.CancelCredit, false, new Guid())
                 { KeyOffCashableAmount = TestAmount });
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
                 Common.TransactionType.CancelledCredits, TestAmount.MillicentsToCents(), 0, 0, 0, 0)).Verifiable();
@@ -101,7 +101,7 @@
         public void ConsumesZeroAmountTest()
         {
             var evt = new HandpayKeyedOffEvent(
-                new HandpayTransaction(1, DateTime.Now, 0, 0, 0, HandpayType.CancelCredit, false, new Guid()));
+                new HandpayTransaction(1, DateTime.Now, 0, 0, 0, 123, HandpayType.CancelCredit, false, new Guid()));
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
                 Common.TransactionType.CashIn, 0, 0, 0, 0, 0)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.HandpayKeyOff)).Verifiable();

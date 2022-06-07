@@ -19,6 +19,11 @@
         long HandpayAmount { get; set; }
 
         /// <summary>
+        ///     The current handpay amount
+        /// </summary>
+        long LargeWinWager { get; set; }
+
+        /// <summary>
         ///     The most recent handpay type paid
         /// </summary>
         HandpayType? LastHandpayType { get; set; }

@@ -96,6 +96,7 @@
                 1045000,
                 2144000,
                 0,
+                123,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid()) { LogSequence = 987 };

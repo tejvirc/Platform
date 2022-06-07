@@ -99,13 +99,16 @@
             FallBackStrategy.LastCashOutAmount = cashOutAmount;
         }
 
-        public void SetHandpayAmountAndType(long handpayAmount, HandpayType handpayType)
+        public void SetHandpayAmountAndType(long handpayAmount, HandpayType handpayType, long wagerAmount)
         {
             OverlayStrategy.HandpayAmount = handpayAmount;
             FallBackStrategy.HandpayAmount = handpayAmount;
 
             OverlayStrategy.LastHandpayType = handpayType;
             FallBackStrategy.LastHandpayType = handpayType;
+
+            OverlayStrategy.LargeWinWager = wagerAmount;
+            FallBackStrategy.LargeWinWager = wagerAmount;
         }
 
         public void ClearGameDrivenPresentation()

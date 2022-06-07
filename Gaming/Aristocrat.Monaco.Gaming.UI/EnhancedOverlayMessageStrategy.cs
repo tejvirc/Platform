@@ -43,6 +43,8 @@
 
         public long HandpayAmount { get; set; }
 
+        public long LargeWinWager { get; set; }
+
         public HandpayType? LastHandpayType { get; set; }
 
         public bool CashOutButtonPressed { get; set; } = false;
@@ -137,6 +139,14 @@
 
             data.SubText = OverlayMessageUtils.ToCredits(HandpayAmount).FormattedCurrencyString();
             data.SubText2 = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CancelCreditPending);
+
+            if (_properties.GetValue(ApplicationConstants.ShowWagerWithLargeWinInfo, false) &&
+                LastHandpayType == HandpayType.GameWin && LargeWinWager > 0)
+            {
+                data.IsSubText3Visible = true;
+                data.SubText3 = Localizer.For(CultureFor.Operator)
+                    .FormatString(ResourceKeys.JackpotWager, OverlayMessageUtils.ToCredits(LargeWinWager).FormattedCurrencyString());
+            }
 
             // Enable Cancel handpay for CancelCredit only
             var enableHandpayExit = (bool)_properties.GetProperty(

@@ -240,6 +240,7 @@
                                 cashAmount,
                                 promoAmount,
                                 0,
+                                100,
                                 type,
                                 false,
                                 Guid.Empty) { TransactionId = transactionId, State = state }

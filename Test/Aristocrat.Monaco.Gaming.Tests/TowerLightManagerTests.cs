@@ -887,7 +887,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                 // add hand pay first and tilt second. remove tilt first and hand pay second
                 // hand pay: hand pay : AllClosed
-                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, false));
+                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, 1, false));
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier1]);
                 Assert.AreEqual(FlashState.SlowFlash, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier3]);
@@ -920,7 +920,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                 // add hand pay first and tilt second. remove tilt second and hand pay first
                 // hand pay: hand pay : AllClosed
-                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, false));
+                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, 1, false));
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier1]);
                 Assert.AreEqual(FlashState.SlowFlash, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier3]);
@@ -1078,7 +1078,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                 //START add handpay first and tilt second. remove tilt first and hand pay second
                 // hand pay: hand pay : AllClosed
-                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, false));
+                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, 1, false));
                 Assert.AreEqual(FlashState.MediumFlashReversed, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.MediumFlash, flashStateDic[LightTier.Tier1]);
 
@@ -1103,7 +1103,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                 //START add hand pay first and tilt second. remove tilt second and hand pay first
                 // hand pay: hand pay : AllClosed
-                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, false));
+                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, 1, false));
                 Assert.AreEqual(FlashState.MediumFlashReversed, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.MediumFlash, flashStateDic[LightTier.Tier1]);
 
@@ -1128,7 +1128,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                 //START add hand pay first and audit second. remove audit first and hand pay second
                 // hand pay: handpay : AllClosed
-                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, false));
+                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, 1, false));
                 Assert.AreEqual(FlashState.MediumFlashReversed, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.MediumFlash, flashStateDic[LightTier.Tier1]);
 
@@ -1149,12 +1149,12 @@ namespace Aristocrat.Monaco.Gaming.Tests
                 //END add hand pay first and audit second. remove audit first and hand pay second
 
                 // 'cancel credit': cancel credit : AllClosed
-                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.CancelCredit, 1, 1, 1, false));
+                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.CancelCredit, 1, 1, 1, 1, false));
                 Assert.AreEqual(FlashState.Off, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.MediumFlash, flashStateDic[LightTier.Tier1]);
 
                 // hand pay (should exclude 'cancel credit'): hand pay : AllClosed
-                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, false));
+                _handlerHandpayStartedEvent?.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 1, 1, 1, 1, false));
                 Assert.AreEqual(FlashState.MediumFlashReversed, flashStateDic[LightTier.Tier2]);
                 Assert.AreEqual(FlashState.MediumFlash, flashStateDic[LightTier.Tier1]);
             }
@@ -1551,7 +1551,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                     (object subscriber, Action<HandpayStartedEvent> eventCallback) => { callback = eventCallback; });
 
             _target.Initialize();
-            callback.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 0, 0, 0, false));
+            callback.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 0, 0, 0, 0, false));
 
             _towerLight.Verify(
                 m => m.SetFlashState(
@@ -1574,7 +1574,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                     (object subscriber, Action<HandpayStartedEvent> eventCallback) => { callback = eventCallback; });
 
             _target.Initialize();
-            callback.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 0, 0, 0, false));
+            callback.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 0, 0, 0, 0, false));
 
             _towerLight.Verify(
                 m => m.SetFlashState(

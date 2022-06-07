@@ -47,6 +47,7 @@
             100,
             200,
             300,
+            400,
             HandpayType.GameWin,
             false,
             Guid.NewGuid())

@@ -212,6 +212,8 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.LocalizationPlayerTicketDateFormat, It.IsAny<string>()))
                 .Returns(LocaleDateFormat)
                 .Verifiable();
+            _propertiesManager.Setup(mock => mock.GetProperty("LargeWinInfo.ShowWager", It.IsAny<object>()))
+                .Returns(true);
             return _propertiesManager;
         }
 
@@ -313,6 +315,7 @@
                 1045000,
                 0,
                 0,
+                123,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid()) { LogSequence = 987, Barcode = "123459876" };

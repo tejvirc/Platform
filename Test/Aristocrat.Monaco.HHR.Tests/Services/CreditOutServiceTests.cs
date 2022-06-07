@@ -304,6 +304,7 @@
                 1045000,
                 0,
                 0,
+                100,
                 handPayType,
                 true,
                 Guid.NewGuid()) {LogSequence = 987, Barcode = "123459876", HostOnline = true};

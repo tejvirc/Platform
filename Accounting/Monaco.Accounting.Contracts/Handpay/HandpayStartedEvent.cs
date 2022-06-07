@@ -21,18 +21,21 @@
         /// <param name="cashableAmount">The cashable amount requiring a handpay</param>
         /// <param name="promoAmount">The promotional amount requiring a handpay</param>
         /// <param name="nonCashAmount">The non-cashable amount requiring a handpay</param>
+        /// <param name="wagerAmount">wager responsible for large win handpay</param>
         /// <param name="eligibleResetToCreditMeter">would be true if current handpay transaction can be reset to credit meter</param>
         public HandpayStartedEvent(
             HandpayType handpayType,
             long cashableAmount,
             long promoAmount,
             long nonCashAmount,
+            long wagerAmount,
             bool eligibleResetToCreditMeter)
         {
             Handpay = handpayType;
             CashableAmount = cashableAmount;
             PromoAmount = promoAmount;
             NonCashAmount = nonCashAmount;
+            WagerAmount = wagerAmount;
             EligibleResetToCreditMeter = eligibleResetToCreditMeter;
         }
 
@@ -55,6 +58,11 @@
         ///     Gets the non-cashable amount
         /// </summary>
         public long NonCashAmount { get; }
+
+        /// <summary>
+        ///     Gets the wager amount
+        /// </summary>
+        public long WagerAmount { get; }
 
         /// <summary>true if current handpay transaction can be reset to credit meter.</summary>
         public bool EligibleResetToCreditMeter { get; }

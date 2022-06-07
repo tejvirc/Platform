@@ -167,6 +167,12 @@
 
         private async void ReadCallback(IAsyncResult readResult)
         {
+            // Happens when we dispose before closing.
+            if (_lock == null)
+            {
+                return;
+            }
+
             // Complete the read operation by finding out how many bytes we received while waiting.
             await _lock.WaitAsync();
             {

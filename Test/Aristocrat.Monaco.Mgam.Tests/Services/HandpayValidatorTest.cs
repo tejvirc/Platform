@@ -180,7 +180,7 @@
             var (_, repo, _) = DataModelHelpers.SetUpDataModel(_unitOfWorkFactory, voucher);
             repo.Setup(r => r.Delete(It.IsAny<Voucher>())).Verifiable();
 
-            var transaction = new HandpayTransaction(1, DateTime.Today, 10000, 10000, 0, HandpayType.GameWin, true, Guid.Empty);
+            var transaction = new HandpayTransaction(1, DateTime.Today, 10000, 10000, 0, 100, HandpayType.GameWin, true, Guid.Empty);
             _target.RequestHandpay(transaction).Wait(10);
 
             repo.Verify();

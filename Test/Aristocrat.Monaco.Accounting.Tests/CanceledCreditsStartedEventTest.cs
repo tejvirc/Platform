@@ -18,7 +18,7 @@
         [TestMethod]
         public void ConstuctorTest()
         {
-            var accessor = new HandpayStartedEvent(HandpayType.CancelCredit, 1000, 0, 0, false);
+            var accessor = new HandpayStartedEvent(HandpayType.CancelCredit, 1000, 0, 0, 123, false);
 
             Assert.AreEqual(1000, accessor.CashableAmount);
         }

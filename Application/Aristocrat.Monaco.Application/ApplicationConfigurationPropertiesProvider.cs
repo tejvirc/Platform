@@ -766,6 +766,13 @@
                         false)
                 },
                 {
+                    ApplicationConstants.ShowWagerWithLargeWinInfo,
+                    Tuple.Create(
+                        (object)configuration.LargeWinInfo?.ShowWager ?? false,
+                        ApplicationConstants.ShowWagerWithLargeWinInfo,
+                        false)
+                },
+                {
                     ApplicationConstants.TopperDisplayDisconnectNoReconfigure,
                     Tuple.Create(
                         (object)configuration.DisplayDisconnectNoReconfigure?.Topper ?? false,

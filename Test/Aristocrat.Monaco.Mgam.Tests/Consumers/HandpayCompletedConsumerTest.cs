@@ -128,7 +128,7 @@
 
             _target.Consume(
                 new HandpayCompletedEvent(
-                    new HandpayTransaction(1, DateTime.Today, 1000, 0, 0, HandpayType.CancelCredit, false, Guid.Empty)),
+                    new HandpayTransaction(1, DateTime.Today, 1000, 0, 0, 100, HandpayType.CancelCredit, false, Guid.Empty)),
                 CancellationToken.None).Wait(10);
 
             _notificationLift.Verify();
@@ -156,7 +156,7 @@
 
             _target.Consume(
                 new HandpayCompletedEvent(
-                    new HandpayTransaction(1, DateTime.Today, 1000, 0, 0, HandpayType.CancelCredit, false, Guid.Empty)),
+                    new HandpayTransaction(1, DateTime.Today, 1000, 0, 0, 100, HandpayType.CancelCredit, false, Guid.Empty)),
                 CancellationToken.None).Wait(10);
 
             _notificationLift.Verify();
@@ -179,7 +179,7 @@
 
             _target.Consume(
                 new HandpayCompletedEvent(
-                    new HandpayTransaction(1, DateTime.Today, 1000, 0, 0, HandpayType.CancelCredit, false, Guid.Empty)),
+                    new HandpayTransaction(1, DateTime.Today, 1000, 0, 0, 100, HandpayType.CancelCredit, false, Guid.Empty)),
                 CancellationToken.None).Wait(10);
 
             _notificationLift.Verify();

@@ -35,6 +35,7 @@
         /// <param name="cashableAmount">The cashable amount requiring a handpay</param>
         /// <param name="promoAmount">The promotional amount requiring a handpay</param>
         /// <param name="nonCashAmount">The non-cashable amount requiring a handpay</param>
+        /// <param name="wagerAmount">Wager responsible for handpay</param>
         /// <param name="type">The handpay type</param>
         /// <param name="printTicket">true if the associated ticket should be printed</param>
         /// <param name="transactionId">The current transactionId</param>
@@ -44,6 +45,7 @@
             long cashableAmount,
             long promoAmount,
             long nonCashAmount,
+            long wagerAmount,
             HandpayType type,
             bool printTicket,
             Guid transactionId)
@@ -52,6 +54,7 @@
             CashableAmount = cashableAmount;
             PromoAmount = promoAmount;
             NonCashAmount = nonCashAmount;
+            WagerAmount = wagerAmount;
             HandpayType = type;
             PrintTicket = printTicket;
             BankTransactionId = transactionId;
@@ -82,6 +85,11 @@
         ///     Gets the non-cashable amount
         /// </summary>
         public long NonCashAmount { get; private set; }
+
+        /// <summary>
+        ///     Gets the wager amount
+        /// </summary>
+        public long WagerAmount { get; private set; }
 
         /// <summary>
         ///     Gets the handpay type
@@ -191,6 +199,7 @@
                 CashableAmount,
                 PromoAmount,
                 NonCashAmount,
+                WagerAmount,
                 HandpayType,
                 PrintTicket,
                 BankTransactionId)
@@ -202,6 +211,7 @@
                 KeyOffType = KeyOffType,
                 KeyOffCashableAmount = KeyOffCashableAmount,
                 KeyOffPromoAmount = KeyOffPromoAmount,
+                WagerAmount = WagerAmount,
                 KeyOffNonCashAmount = KeyOffNonCashAmount,
                 KeyOffDateTime = KeyOffDateTime,
                 State = State,
@@ -282,6 +292,7 @@
                 KeyOffCashableAmount = (long)values["KeyOffCashableAmount"];
                 KeyOffPromoAmount = (long)values["KeyOffPromoAmount"];
                 KeyOffNonCashAmount = (long)values["KeyOffNonCashAmount"];
+                WagerAmount = (long)values["WagerAmount"];
                 KeyOffDateTime = (DateTime)values["KeyOffDateTime"];
                 State = (HandpayState)values["HandpayState"];
                 PrintTicket = (bool)values["PrintTicket"];
@@ -333,6 +344,7 @@
                 transaction[element, "Amount"] = CashableAmount;
                 transaction[element, "PromoAmount"] = PromoAmount;
                 transaction[element, "NonCashAmount"] = NonCashAmount;
+                transaction[element, "WagerAmount"] = WagerAmount;
                 transaction[element, "HandpayType"] = HandpayType;
                 transaction[element, "KeyOffType"] = KeyOffType;
                 transaction[element, "KeyOffCashableAmount"] = KeyOffCashableAmount;
@@ -363,7 +375,7 @@
         public override string ToString()
         {
             return
-                $"{GetType()} [DeviceId={DeviceId}, LogSequence={LogSequence}, DateTime={TransactionDateTime.ToString(CultureInfo.InvariantCulture)} TransactionId={TransactionId} Cashable={CashableAmount} Promo={PromoAmount} NonCash={NonCashAmount} HandpayType={HandpayType} PrintTicket={PrintTicket} BankTransactionId={BankTransactionId} Printed={Printed} KeyOffType={KeyOffType} KeyOffCashableAmount={KeyOffCashableAmount} KeyOffPromoAmount={KeyOffPromoAmount} KeyOffNonCashAmount={KeyOffNonCashAmount} KeyOffDateTime={KeyOffDateTime.ToString(CultureInfo.InvariantCulture)} State={State} Barcode={Barcode} RequestAcknowledged={RequestAcknowledged} ReceiptSequence={ReceiptSequence} HostSequence={HostSequence} AssociatedTransactions={GetAssociatedTransactions()} TraceId={TraceId} Read={Read} Expiration={Expiration} HostOnline={HostOnline}";
+                $"{GetType()} [DeviceId={DeviceId}, LogSequence={LogSequence}, DateTime={TransactionDateTime.ToString(CultureInfo.InvariantCulture)} TransactionId={TransactionId} Cashable={CashableAmount} Promo={PromoAmount} NonCash={NonCashAmount} Wager={WagerAmount} HandpayType={HandpayType} PrintTicket={PrintTicket} BankTransactionId={BankTransactionId} Printed={Printed} KeyOffType={KeyOffType} KeyOffCashableAmount={KeyOffCashableAmount} KeyOffPromoAmount={KeyOffPromoAmount} KeyOffNonCashAmount={KeyOffNonCashAmount} KeyOffDateTime={KeyOffDateTime.ToString(CultureInfo.InvariantCulture)} State={State} Barcode={Barcode} RequestAcknowledged={RequestAcknowledged} ReceiptSequence={ReceiptSequence} HostSequence={HostSequence} AssociatedTransactions={GetAssociatedTransactions()} TraceId={TraceId} Read={Read} Expiration={Expiration} HostOnline={HostOnline}";
 
             string GetAssociatedTransactions()
             {

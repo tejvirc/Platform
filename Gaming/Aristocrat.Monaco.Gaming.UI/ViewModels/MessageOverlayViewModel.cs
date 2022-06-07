@@ -614,7 +614,7 @@
 
             _lobbyStateManager.CashOutState = LobbyCashOutState.HandPay;
 
-            _overlayMessageStrategyController.SetHandpayAmountAndType(evt.CashableAmount + evt.NonCashAmount + evt.PromoAmount, evt.Handpay);
+            _overlayMessageStrategyController.SetHandpayAmountAndType(evt.CashableAmount + evt.NonCashAmount + evt.PromoAmount, evt.Handpay, evt.WagerAmount);
 
             Logger.Debug("Detected HandpayStartedEvent. " +
                          $"HandpayAmount: {_overlayMessageStrategyController.OverlayStrategy.HandpayAmount} " +

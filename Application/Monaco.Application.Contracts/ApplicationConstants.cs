@@ -1416,6 +1416,16 @@
         public const string RunSignatureVerificationAfterReboot = @"LiveAuthenticationManager.RunSignatureVerificationAfterReboot";
 
         /// <summary>
+        ///     Show the wager information on LargeWin/JackpotWin presentation and Jackpot Receipt.
+        /// </summary>
+        public const string ShowWagerWithLargeWinInfo = @"LargeWinInfo.ShowWager";
+
+        /// <summary>
+        ///     Stores the last wager for the LargeWin/JackpotWin presentation and Jackpot Receipt.
+        /// </summary>
+        public const string LastWagerWithLargeWinInfo = @"LargeWinInfo.LastWager";
+
+        /// <summary>
         ///     Do not require the EGM to be reconfigured if the Topper gets disconnected. Note Topper must be connected for initial configure.
         /// </summary>
         public const string TopperDisplayDisconnectNoReconfigure = @"Application.TopperDisplayDisconnectNoReconfigure";

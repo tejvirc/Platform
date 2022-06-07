@@ -277,7 +277,7 @@
 
             if (typeof(HandpayStartedEvent) == type)
             {
-                _handlerHandpayStartedEvent.Invoke(new HandpayStartedEvent(HandpayType.BonusPay, 1, 2, 3, true));
+                _handlerHandpayStartedEvent.Invoke(new HandpayStartedEvent(HandpayType.BonusPay, 1, 2, 3, 4, true));
             }
             else if (typeof(VoucherOutStartedEvent) == type)
             {

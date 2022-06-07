@@ -176,6 +176,7 @@
                         {
                             pendingTransaction |= Handpay(
                                 result.MillicentsToPayUsingLargeWinStrategy,
+                                result.MillicentsToPayToCreditMeter,
                                 TransferOutReason.LargeWin,
                                 result.TransactionIdentifier);
                         }
@@ -189,7 +190,8 @@
                         pendingTransaction |= CashOut(
                             result.MillicentsToPayUsingLargeWinStrategy,
                             TransferOutReason.CashOut,
-                            result.TransactionIdentifier);
+                            result.TransactionIdentifier,
+                            result.MillicentsToPayToCreditMeter);
 
                         break;
                     }
@@ -199,30 +201,31 @@
             return pendingTransaction;
         }
 
-        private bool Handpay(long amount, TransferOutReason reason, Guid traceId)
+        private bool Handpay(long amount, long wager, TransferOutReason reason, Guid traceId)
         {
             var result = _bank.ForceHandpay(traceId, amount, reason, _gameHistory.CurrentLog.TransactionId);
 
-            LogCashOut(amount, reason, traceId, true);
+            LogCashOut(amount, wager, reason, traceId, true);
 
             return result;
         }
 
-        private bool CashOut(long amount, TransferOutReason reason, Guid traceId)
+        private bool CashOut(long amount, TransferOutReason reason, Guid traceId, long wager = 0)
         {
             var result = _bank.CashOut(traceId, amount, reason, true, _gameHistory.CurrentLog.TransactionId);
 
-            LogCashOut(amount, reason, traceId, false);
+            LogCashOut(amount, wager, reason, traceId, false);
 
             return result;
         }
 
-        private void LogCashOut(long amount, TransferOutReason reason, Guid traceId, bool handpay)
+        private void LogCashOut(long amount, long wager, TransferOutReason reason, Guid traceId, bool handpay)
         {
             _gameHistory.AppendCashOut(
                 new CashOutInfo
                 {
                     Amount = amount,
+                    Wager = wager,
                     TraceId = traceId,
                     Reason = reason,
                     Handpay = handpay,

@@ -8,7 +8,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Handpay;
     using Contracts.Tickets;
@@ -22,6 +21,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Kernel.Contracts.LockManagement;
     using Localization.Properties;
 
     public class HandpayProvider : TransferOutProviderBase, IHandpayProvider, IDisposable
@@ -181,7 +181,7 @@
                         return await Task.FromResult(false);
                     }
 
-                    _bus.Publish(new HandpayStartedEvent(transaction.HandpayType, transaction.CashableAmount, transaction.PromoAmount, transaction.NonCashAmount, transaction.EligibleResetToCreditMeter(_properties, _bank)));
+                    _bus.Publish(new HandpayStartedEvent(transaction.HandpayType, transaction.CashableAmount, transaction.PromoAmount, transaction.NonCashAmount, transaction.WagerAmount, transaction.EligibleResetToCreditMeter(_properties, _bank)));
 
                     var keyOff = Initiate(transaction);
 
@@ -304,12 +304,19 @@
                     keyOffType = jurisdictionLargeWinKeyOffType;
                 }
 
+                var wagerAmount = 0L;
+                if (handpayType == HandpayType.GameWin && _properties.GetValue(ApplicationConstants.ShowWagerWithLargeWinInfo, false))
+                {
+                    wagerAmount = _properties.GetValue(ApplicationConstants.LastWagerWithLargeWinInfo, 0L);
+                }
+
                 var transaction = new HandpayTransaction(
                     DeviceId,
                     DateTime.UtcNow,
                     cashableAmount,
                     promoAmount,
                     nonCashAmount,
+                    wagerAmount,
                     handpayType,
                     allowReceipt,
                     transactionId)
@@ -326,7 +333,7 @@
 
                 _transactions.AddTransaction(transaction);
 
-                _bus.Publish(new HandpayStartedEvent(handpayType, cashableAmount, promoAmount, nonCashAmount, transaction.EligibleResetToCreditMeter(_properties, _bank)));
+                _bus.Publish(new HandpayStartedEvent(transaction.HandpayType, transaction.CashableAmount, transaction.PromoAmount, transaction.NonCashAmount, transaction.WagerAmount, transaction.EligibleResetToCreditMeter(_properties, _bank)));
 
                 var keyOff = Initiate(transaction);
 
@@ -940,7 +947,15 @@
             {
                 case HandpayType.GameWin:
                 case HandpayType.BonusPay:
-                    var divisor = _properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 0d);
+                    var divisor = _properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
+                    var totalAmount = (transaction.CashableAmount + transaction.NonCashAmount + transaction.PromoAmount) / divisor;
+
+                    if (transaction.HandpayType == HandpayType.GameWin && _properties.GetValue(ApplicationConstants.ShowWagerWithLargeWinInfo, false) && transaction.WagerAmount > 0)
+                    {
+                        var wagerAmount = transaction.WagerAmount / divisor;
+                        return Localizer.For(CultureFor.PlayerTicket).FormatString(ResourceKeys.JackpotPendingWithWager,
+                            totalAmount.FormattedCurrencyString(), wagerAmount.FormattedCurrencyString());
+                    }
 
                     return Localizer.For(CultureFor.PlayerTicket).FormatString(ResourceKeys.JackpotPending,
                         (transaction.WinAmount() / divisor).FormattedCurrencyString());

@@ -117,6 +117,7 @@
                 0,
                 0,
                 0,
+                100,
                 HandpayType.CancelCredit,
                 true,
                 Guid.Empty

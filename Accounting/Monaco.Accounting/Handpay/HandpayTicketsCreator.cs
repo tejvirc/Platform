@@ -135,6 +135,14 @@
             ticket["validation number"] = VoucherExtensions.GetValidationStringWithHyphen(transaction.Barcode);
             ticket["barcode"] = transaction.Barcode?.Replace("-", string.Empty);
 
+            if (transaction.WagerAmount > 0 && propertiesManager.GetValue(ApplicationConstants.ShowWagerWithLargeWinInfo, false) && transaction.HandpayType == HandpayType.GameWin)
+            {
+                var divisor = propertiesManager.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
+                var wagerAmount = transaction.WagerAmount / divisor;
+
+                ticket["validation number alt"] = ticket["validation number alt"] + "  " + Localizer.For(CultureFor.Player).GetString(ResourceKeys.TicketWagerText) + " " + wagerAmount.FormattedCurrencyString();
+            }
+
             return ticket;
         }
 

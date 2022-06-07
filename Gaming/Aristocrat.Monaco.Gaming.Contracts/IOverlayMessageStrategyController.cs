@@ -45,11 +45,12 @@
         void SetLastCashOutAmount(long cashOutAmount);
 
         /// <summary>
-        ///     Sets the handpay amount and last handpay type for both the overlay and fallback strategy
+        ///     Sets the handpay amount, handpay type, and wager amount for both the overlay and fallback strategy
         /// </summary>
         /// <param name="handpayAmount">Handpay amount</param>
-        /// <param name="handpayType"><Last handpay type/param>
-        void SetHandpayAmountAndType(long handpayAmount, HandpayType handpayType);
+        /// <param name="handpayType">Last handpay type</param>
+        /// <param name="wagerAmount">Wager amount</param>
+        void SetHandpayAmountAndType(long handpayAmount, HandpayType handpayType, long wagerAmount);
 
         /// <summary>
         ///     Tells the game to remove any presentation

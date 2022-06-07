@@ -140,6 +140,8 @@ namespace Aristocrat.Monaco.Application.Contracts {
         
         private ApplicationConfigurationLiveAuthenticationManager liveAuthenticationManagerField;
         
+        private ApplicationConfigurationLargeWinInfo largeWinInfoField;
+        
         private ApplicationConfigurationDisplayDisconnectNoReconfigure displayDisconnectNoReconfigureField;
         
         public ApplicationConfiguration() {
@@ -719,6 +721,16 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.liveAuthenticationManagerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public ApplicationConfigurationLargeWinInfo LargeWinInfo {
+            get {
+                return this.largeWinInfoField;
+            }
+            set {
+                this.largeWinInfoField = value;
             }
         }
         
@@ -3752,6 +3764,33 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.runSignatureVerificationAfterRebootField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationLargeWinInfo {
+        
+        private bool showWagerField;
+        
+        public ApplicationConfigurationLargeWinInfo() {
+            this.showWagerField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool ShowWager {
+            get {
+                return this.showWagerField;
+            }
+            set {
+                this.showWagerField = value;
             }
         }
     }

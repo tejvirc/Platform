@@ -23,6 +23,11 @@
         string SubText2 { get; set; }
 
         /// <summary>
+        ///     Extra additional secondary message text
+        /// </summary>
+        string SubText3 { get; set; }
+
+        /// <summary>
         ///     Replay Text
         /// </summary>
         string ReplayText { get; set; }
@@ -41,6 +46,11 @@
         ///     Whether SubText2 is visible or not
         /// </summary>
         bool IsSubText2Visible { get; set; }
+
+        /// <summary>
+        ///     Whether SubText3 is visible or not
+        /// </summary>
+        bool IsSubText3Visible { get; set; }
 
         /// <summary>
         ///     Whether data should be displayed for events

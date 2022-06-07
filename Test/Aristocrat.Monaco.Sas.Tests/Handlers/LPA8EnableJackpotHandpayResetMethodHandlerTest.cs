@@ -38,6 +38,7 @@
                     _eligibleAmount,
                     0,
                     0,
+                    100,
                     HandpayType.GameWin,
                     true,
                     Guid.NewGuid())
@@ -51,6 +52,7 @@
                     _ineligibleAmount,
                     0,
                     0,
+                    100,
                     HandpayType.GameWin,
                     true,
                     Guid.NewGuid())

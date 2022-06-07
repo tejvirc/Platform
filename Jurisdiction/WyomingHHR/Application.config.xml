@@ -96,5 +96,6 @@ as follows:
   <Cashout ClearWins="false" />
   <MultiGame DefaultBetAfterSwitch="false" />
   <WaitForProgressiveInitialization Enabled="true"/>
+  <LargeWinInfo ShowWager="true"/>
   <DisplayDisconnectNoReconfigure Topper="true"/>
 </ApplicationConfiguration>

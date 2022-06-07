@@ -108,6 +108,7 @@
                         ExpectedCashableAmountMilliCents,
                         ExpectedPromoAmountMilliCents,
                         ExpectedNonCashAmountMilliCents,
+                        123,
                         HandpayType.CancelCredit,
                         false,
                         Guid.NewGuid())
@@ -146,6 +147,7 @@
                         ExpectedCashableAmountMilliCents,
                         ExpectedPromoAmountMilliCents,
                         ExpectedNonCashAmountMilliCents,
+                        123,
                         HandpayType.CancelCredit,
                         true,
                         Guid.NewGuid())
@@ -186,6 +188,7 @@
                         ExpectedCashableAmountMilliCents,
                         ExpectedPromoAmountMilliCents,
                         ExpectedNonCashAmountMilliCents,
+                        123,
                         HandpayType.GameWin,
                         false,
                         Guid.NewGuid())
@@ -225,6 +228,7 @@
                         ExpectedCashableAmountMilliCents,
                         ExpectedPromoAmountMilliCents,
                         ExpectedNonCashAmountMilliCents,
+                        123,
                         HandpayType.BonusPay,
                         true,
                         Guid.NewGuid())
@@ -335,6 +339,7 @@
                         ExpectedCashableAmountMilliCents,
                         ExpectedPromoAmountMilliCents,
                         ExpectedNonCashAmountMilliCents,
+                        123,
                         HandpayType.GameWin,
                         false,
                         Guid.NewGuid())

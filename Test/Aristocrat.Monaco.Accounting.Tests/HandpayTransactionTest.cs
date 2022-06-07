@@ -84,6 +84,7 @@
                 { "AssociatedTransactions", string.Empty },
                 { "PromoAmount", 0L },
                 { "NonCashAmount", 0L },
+                { "WagerAmount", 123L },
                 { "Printed", false },
                 { "Barcode", "12345678" },
                 { "RequestAcknowledged", false },
@@ -124,6 +125,7 @@
                 { "AssociatedTransactions", string.Empty },
                 { "PromoAmount", 0L },
                 { "NonCashAmount", 0L },
+                { "WagerAmount", 123L },
                 { "Printed", false },
                 { "Barcode", "000000000000000000" },
                 { "RequestAcknowledged", false },
@@ -165,6 +167,7 @@
                 { "AssociatedTransactions", string.Empty },
                 { "PromoAmount", 0L },
                 { "NonCashAmount", 0L },
+                { "WagerAmount", 123L },
                 { "Printed", false },
                 { "Barcode", string.Empty },
                 { "RequestAcknowledged", false },
@@ -336,6 +339,7 @@
                 Amount,
                 0,
                 0,
+                100,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid())
@@ -415,6 +419,7 @@
                 Amount,
                 0,
                 0,
+                100,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid());
@@ -440,6 +445,7 @@
                 Amount,
                 0,
                 0,
+                100,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid());
@@ -464,6 +470,7 @@
                 Amount,
                 0,
                 0,
+                100,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid());
@@ -511,6 +518,7 @@
                 Amount,
                 0,
                 0,
+                100,
                 HandpayType.CancelCredit,
                 true,
                 Guid.NewGuid())

@@ -15,10 +15,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private string _text = string.Empty;
         private string _subText = string.Empty;
         private string _subText2 = string.Empty;
+        private string _subText3 = string.Empty;
         private string _replayText = string.Empty;
         private string _displayImageResourceKey = string.Empty;
         private bool _isSubTextVisible;
         private bool _isSubText2Visible;
+        private bool _isSubText3Visible;
         private bool _displayForEvents;
         private bool _displayForPopUp;
         private bool _isDialogVisible;
@@ -50,6 +52,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _subText2, value);
         }
 
+        public string SubText3
+        {
+            get => _subText3;
+            set => SetProperty(ref _subText3, value);
+        }
+
         public string ReplayText
         {
             get => _replayText;
@@ -76,6 +84,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             get => _isSubText2Visible;
             set => SetProperty(ref _isSubText2Visible, value);
+        }
+
+        public bool IsSubText3Visible
+        {
+            get => _isSubText3Visible;
+            set => SetProperty(ref _isSubText3Visible, value);
         }
 
         public bool DisplayForEvents
@@ -162,8 +176,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             sb.AppendLine($"MessageOverlay Text: {Text}");
             sb.AppendLine($"MessageOverlay SubText: {SubText}");
             sb.AppendLine($"MessageOverlay SubText2: {SubText2}");
+            sb.AppendLine($"MessageOverlay SubText3: {SubText3}");
             sb.AppendLine($"IsSubTextVisible: {IsSubTextVisible}");
             sb.AppendLine($"IsSubText2Visible: {IsSubText2Visible}");
+            sb.AppendLine($"IsSubText3Visible: {IsSubText3Visible}");
             sb.AppendLine($"IsButtonVisible: {IsButtonVisible}");
             sb.AppendLine($"ButtonText: {ButtonText}");
             sb.AppendLine($"DisplayForEvents: {DisplayForEvents}");

@@ -18,6 +18,7 @@
     using Storage.Helpers;
     using Test.Common;
     using Mono.Addins;
+    using Aristocrat.Monaco.Application.Contracts;
 
     [TestClass]
     public class HandpayServiceTests
@@ -54,6 +55,7 @@
             _mockProperties.Setup(m => m.GetProperty(AccountingConstants.LargeWinRatio, It.IsAny<long>())).Returns(30000L); // 300.00x
             _mockProperties.Setup(m => m.GetProperty(GamingConstants.SelectedGameId, It.IsAny<uint>())).Returns(99u); _mockProperties.Setup(m => m.GetProperty(GamingConstants.GameWinMaxCreditCashOutStrategy, It.IsAny<MaxCreditCashOutStrategy>())).Returns(MaxCreditCashOutStrategy.Win);
             _mockProperties.Setup(m => m.GetProperty(AccountingConstants.MaxCreditMeter, It.IsAny<long>())).Returns(500000000L);
+            _mockProperties.Setup(m => m.SetProperty(ApplicationConstants.LastWagerWithLargeWinInfo, It.IsAny<long>()));
 
             // Set up the central manager so we can monitor for handpays being sent over the connection.
             _mockManager.Setup(

@@ -25,7 +25,7 @@
             _transactionHistory = new Mock<ITransactionHistory>(MockBehavior.Default);
             _eventBus = new Mock<IEventBus>(MockBehavior.Default);
             _properties = new Mock<IPropertiesManager>(MockBehavior.Default);
-            _target = new LP94RemoteHandPayResetHandler(_transactionHistory.Object, _eventBus.Object, _properties.Object);           
+            _target = new LP94RemoteHandPayResetHandler(_transactionHistory.Object, _eventBus.Object, _properties.Object);
         }
 
         [TestMethod]
@@ -64,6 +64,7 @@
                         cashableAmount,
                         promoAmount,
                         nonCashAmount,
+                        100,
                         HandpayType.CancelCredit,
                         false,
                         Guid.Empty)
@@ -103,6 +104,7 @@
                         cashableAmount,
                         promoAmount,
                         nonCashAmount,
+                        100,
                         HandpayType.CancelCredit,
                         false,
                         Guid.Empty)

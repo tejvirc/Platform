@@ -48,12 +48,12 @@
                 <Style TargetType="Viewbox">
                     <Style.Triggers>
                         <!--Resize content to fit inside overlay image if display image is available-->
-                            <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
+                        <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
                             <Setter Property="Stretch" Value="Uniform"/>
-								<Setter Property="Height" Value="{Binding ElementName=BackgroundImage, Path=ActualHeight, Converter={StaticResource ScaleConverter}, ConverterParameter=0.4}"/>
+                            <Setter Property="Height" Value="{Binding ElementName=BackgroundImage, Path=ActualHeight, Converter={StaticResource ScaleConverter}, ConverterParameter=0.4}"/>
                             <Setter Property="Width" Value="{Binding ElementName=BackgroundImage, Path=ActualWidth, Converter={StaticResource ScaleConverter}, ConverterParameter=0.75}"/>
                         </DataTrigger>
-                            <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
+                        <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
                             <Setter Property="Stretch" Value="None"/>
                             <Setter Property="Height" Value="Auto"/>
                             <Setter Property="Width" Value="Auto"/>
@@ -112,21 +112,41 @@
                                    Fill="Gold" Stroke="Black" StrokeThickness="1.0"
                                    Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText2Visible, Converter={StaticResource BoolToVisible}}"
                                    Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText2}">
-						<controls:TextPath.Style>
-							<Style TargetType="controls:TextPath">
-								<Style.Triggers>
-                                    <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
-										<Setter Property="Margin" Value="0 120 0 0"></Setter>
-									</DataTrigger>
-                                    <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
-										<Setter Property="Margin" Value="0 20 0 0"></Setter>
-									</DataTrigger>
-								</Style.Triggers>
-							</Style>
-						</controls:TextPath.Style>
+                    <controls:TextPath.Style>
+                        <Style TargetType="controls:TextPath">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
+                                    <Setter Property="Margin" Value="0 120 0 0"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
+                                    <Setter Property="Margin" Value="0 20 0 0"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:TextPath.Style>
                 </controls:TextPath>
 
-                <Border BorderBrush="Gold" BorderThickness="5" CornerRadius="28" HorizontalAlignment="Center"
+                <controls:TextPath HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="30" FontFamily="Arial" FontWeight="ExtraBold"
+                                   Fill="Gold" Stroke="Black" StrokeThickness="1.0"
+                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText3Visible, Converter={StaticResource BoolToVisible}}"
+                                   Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText3}">
+                    <controls:TextPath.Style>
+                        <Style TargetType="controls:TextPath">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
+                                    <Setter Property="Margin" Value="0 120 0 0"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
+                                    <Setter Property="Margin" Value="0 20 0 0"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </controls:TextPath.Style>
+                </controls:TextPath>
+
+                    <Border BorderBrush="Gold" BorderThickness="5" CornerRadius="28" HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Margin="0 0 0 -100"
                         Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsButtonVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
