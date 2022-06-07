@@ -367,12 +367,18 @@
             if (AssociatedProgressiveLevel.AssignedProgressiveId.AssignedProgressiveType ==
                 AssignableProgressiveType.AssociativeSap)
             {
-                return Resources.SharedStandaloneProgressive;
+                return AssociatedProgressiveLevel.TriggerControl == TriggerType.Mystery
+                           ? Resources.MysterySharedStandalone
+                           : Resources.SharedStandaloneProgressive;
             }
 
             if (LevelType == ProgressiveLevelType.Sap ||
                 AssignedProgressiveInfo.AssignedProgressiveType == AssignableProgressiveType.CustomSap)
-                return Resources.StandaloneProgressive;
+            {
+                return AssociatedProgressiveLevel.TriggerControl == TriggerType.Mystery
+                           ? Resources.MysteryStandalone
+                           : Resources.StandaloneProgressive;
+            }
 
             if (LevelType == ProgressiveLevelType.LP ||
                 AssignedProgressiveInfo.AssignedProgressiveType == AssignableProgressiveType.Linked)

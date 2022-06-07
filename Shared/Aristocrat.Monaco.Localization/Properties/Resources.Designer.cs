@@ -20558,6 +20558,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Mystery Shared Standalone.
+		/// </summary>
+		public static string MysterySharedStandalone {
+			get {
+				return ResourceManager.GetString("MysterySharedStandalone", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Mystery Standalone.
+		/// </summary>
+		public static string MysteryStandalone {
+			get {
+				return ResourceManager.GetString("MysteryStandalone", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Nack.
 		/// </summary>
         /// <remarks>
@@ -55072,6 +55090,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Mystery Shared Standalone.
+		/// </summary>
+		public static string MysterySharedStandalone {
+			get {
+				return "MysterySharedStandalone";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Mystery Standalone.
+		/// </summary>
+		public static string MysteryStandalone {
+			get {
+				return "MysteryStandalone";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Nack.
 		/// </summary>
         /// <remarks>
@@ -80757,6 +80793,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Must be less than {0} characters..
 		/// </summary>
 		MustBeLessThan,
+		/// <summary>
+		///   Looks up a localized string similar to Mystery Shared Standalone.
+		/// </summary>
+		MysterySharedStandalone,
+		/// <summary>
+		///   Looks up a localized string similar to Mystery Standalone.
+		/// </summary>
+		MysteryStandalone,
 		/// <summary>
 		///   Looks up a localized string similar to Nack.
 		/// </summary>

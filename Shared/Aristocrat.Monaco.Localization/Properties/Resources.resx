@@ -11581,6 +11581,12 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Please clear reel related faults to allow Replay.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="MysteryStandalone" xml:space="preserve">
+    <value>Mystery Standalone</value>
+  </data>
+  <data name="MysterySharedStandalone" xml:space="preserve">
+    <value>Mystery Shared Standalone</value>
+  </data>
   <data name="Reconnected" xml:space="preserve">
     <value>Reconnected</value>
   </data>
