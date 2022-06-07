@@ -31,13 +31,20 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        private static readonly IReadOnlyList<ReelLogicalState> NonIdleStates = new List<ReelLogicalState>
+        {
+            ReelLogicalState.Spinning,
+            ReelLogicalState.Homing,
+            ReelLogicalState.Stopping,
+            ReelLogicalState.SpinningBackwards,
+            ReelLogicalState.SpinningForward,
+            ReelLogicalState.Tilted
+        };
+
         private readonly StateMachine<ReelControllerState, ReelControllerTrigger> _state;
-
-        private readonly ConcurrentDictionary<int, StateMachineWithStoppingTrigger> _reelStates = new ConcurrentDictionary<int, StateMachineWithStoppingTrigger>();
-
-        private readonly ReaderWriterLockSlim _stateLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
-
-        private readonly ConcurrentDictionary<int, int> _steps = new ConcurrentDictionary<int, int>();
+        private readonly ConcurrentDictionary<int, StateMachineWithStoppingTrigger> _reelStates = new();
+        private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
+        private readonly ConcurrentDictionary<int, int> _steps = new();
 
         private IReelControllerImplementation _reelController;
         private bool _validatingDevice;
@@ -598,13 +605,9 @@
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
                 .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
                 .Ignore(ReelControllerTrigger.Disable)
-                .PermitDynamicIf(
+                .PermitDynamic(
                     ReelControllerTrigger.Enable,
-                    () => ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)
-                        ? ReelControllerState.IdleAtStops
-                        : ReelControllerState.IdleUnknown,
-                    () => Enabled && ReelStates.All(
-                        x => x.Value is ReelLogicalState.IdleUnknown or ReelLogicalState.IdleAtStop));
+                    GetEnabledState);
 
             stateMachine.Configure(ReelControllerState.Disconnected)
                 .Permit(ReelControllerTrigger.Connected, ReelControllerState.Inspecting);
@@ -634,6 +637,28 @@
                 });
 
             return stateMachine;
+        }
+
+        private ReelControllerState GetEnabledState()
+        {
+            var nonIdleReels = ReelStates.Where(x => NonIdleStates.Contains(x.Value)).ToList();
+            if (nonIdleReels.Any())
+            {
+                return nonIdleReels.FirstOrDefault().Value switch
+                {
+                    ReelLogicalState.Spinning or ReelLogicalState.SpinningBackwards or ReelLogicalState.SpinningForward
+                        or ReelLogicalState.Stopping => ReelControllerState.Spinning,
+                    ReelLogicalState.Homing => ReelControllerState.Homing,
+                    ReelLogicalState.Tilted => ReelControllerState.Tilted,
+                    _ => ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)
+                        ? ReelControllerState.IdleAtStops
+                        : ReelControllerState.IdleUnknown
+                };
+            }
+
+            return ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)
+                ? ReelControllerState.IdleAtStops
+                : ReelControllerState.IdleUnknown;
         }
 
         private bool CanFire(ReelControllerTrigger trigger)
