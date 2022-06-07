@@ -240,11 +240,6 @@
             }
         }
 
-        private bool IsFatalError()
-        {
-            return _systemDisableManager.CurrentDisableKeys.Any(a => FatalErrorKeys.Contains(a));
-        }
-
         public void HandleEvent(StorageErrorEvent @event)
         {
             if (IsFatalError())
@@ -315,6 +310,11 @@
             TransitStateIf(MachineModeTrigger.GameReplayCompleted, MachineMode.GameReplayActive);
 
             TransitState(MachineModeTrigger.OperatorMenuExited);
+        }
+
+        private bool IsFatalError()
+        {
+            return _systemDisableManager.CurrentDisableKeys.Any(a => FatalErrorKeys.Contains(a));
         }
 
         private void TransitState(MachineModeTrigger trigger)

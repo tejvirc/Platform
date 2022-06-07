@@ -25,7 +25,11 @@
     /// </summary>
     public sealed class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
     {
-        //private readonly Guid _infoBarOwnershipKey = new Guid("{1E1A5CCE-AB14-498E-9472-F83F75573D85}");
+        // NOTE: NYL no longer wants progressive messages being sent to InfoBar. If that changes again, uncomment this code
+
+#pragma warning disable S125 // Sections of code should not be commented out
+                            //private readonly Guid _infoBarOwnershipKey = new Guid("{1E1A5CCE-AB14-498E-9472-F83F75573D85}");
+#pragma warning restore S125 // Sections of code should not be commented out
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
@@ -147,7 +151,10 @@
         /// <inheritdoc />
         public void Configure()
         {
-            // TODO: Need to determine how to handle reconfiguration of games. This may not be able to be support with MGAM protocol.
+
+#pragma warning disable S1135 // Track uses of "TODO" tags
+                             // TODO: Need to determine how to handle reconfiguration of games. This may not be able to be support with MGAM protocol.
+#pragma warning restore S1135 // Track uses of "TODO" tags
             _progressives.Clear();
             _activeProgressiveInfos.Clear();
             if (_pendingAwards == null)
@@ -302,25 +309,23 @@
                 amountInPennies = JackpotAmountInPennies();
             }
 
-            if (_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(levelName, out var level))
+            if (_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(levelName, out var level)&&
+                level.ClaimStatus.Status == LinkedClaimState.Hit)
             {
-                if (level.ClaimStatus.Status == LinkedClaimState.Hit)
+                using (var scope = _storage.ScopedTransaction())
                 {
-                    using (var scope = _storage.ScopedTransaction())
-                    {
-                        _logger.LogInfo($"AwardJackpot {levelName} amountInPennies {amountInPennies}");
-                        _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(
-                            levelName,
-                            ProtocolNames.MGAM);
-                        _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(
-                            levelName,
-                            amountInPennies,
-                            ProtocolNames.MGAM);
+                    _logger.LogInfo($"AwardJackpot {levelName} amountInPennies {amountInPennies}");
+                    _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(
+                        levelName,
+                        ProtocolNames.MGAM);
+                    _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(
+                        levelName,
+                        amountInPennies,
+                        ProtocolNames.MGAM);
 
-                        _updateProgressiveMeter = attributePropertyName;
+                    _updateProgressiveMeter = attributePropertyName;
 
-                        scope.Complete();
-                    }
+                    scope.Complete();
                 }
             }
 
@@ -415,14 +420,11 @@
                 foreach (var level in evt.LinkedProgressiveLevels)
                 {
                     var poolName = GetPoolName(level.LevelName);
-                    if (!string.IsNullOrEmpty(poolName))
+                    if (!string.IsNullOrEmpty(poolName)&&           // we cannot guarantee the amount, so set to 0 and the host should send the correct one or recovery will trigger
+                        (!_pendingAwards.Any(
+                            a => a.poolName.Equals(poolName))))
                     {
-                // we cannot guarantee the amount, so set to 0 and the host should send the correct one or recovery will trigger
-                        if (!_pendingAwards.Any(
-                            a => a.poolName.Equals(poolName)))
-                {
-                            _pendingAwards.Add((poolName, 0));
-                }
+                        _pendingAwards.Add((poolName, 0));
                     }
 
             UpdatePendingAwards();
@@ -435,36 +437,6 @@
             UpdateProgressiveMeter();
 
             _updateProgressiveMeter = null;
-        }
-
-        private void UpdateProgressiveMeter()
-        {
-            if (!string.IsNullOrEmpty(_updateProgressiveMeter))
-            {
-                if (_progressives.TryGetValue(_updateProgressiveMeter, out var progressiveInfos))
-                {
-                    var value = _attributes.Get(_updateProgressiveMeter, 0);
-
-                    foreach (var progressiveInfo in progressiveInfos)
-                    {
-                        UpdateLinkedProgressiveLevels(
-                            progressiveInfo.ProgId,
-                            progressiveInfo.LevelId,
-                            value
-                        );
-                    }
-                }
-            }
-        }
-
-        private void CheckProgressiveRecovery()
-        {
-            if (_gameHistory?.CurrentLog?.PlayState != PlayState.Idle &&
-                _gameHistory?.CurrentLog?.Outcomes.Count() > 1 &&
-                (JackpotAmountInPennies() != 0 || AllJackpotsClaimed()))
-            {
-                _progressiveRecovery = true;
-            }
         }
 
         private void Handle(GamePlayStateChangedEvent evt)
@@ -489,43 +461,23 @@
             }
         }
 
-        private void UpdateProgressiveValues()
-        {
-            foreach (var progressiveInfos in _progressives)
-            {
-                var value = _attributes.Get(progressiveInfos.Key, 0);
-
-                if (value > 0)
-                {
-                    foreach (var progressive in progressiveInfos.Value)
-                    {
-                        UpdateLinkedProgressiveLevels(
-                            progressive.ProgId,
-                            progressive.LevelId,
-                            value
-                        );
-                    }
-                }
-            }
-        }
-
         private void Handle(LinkedProgressiveHitEvent evt)
         {
             lock (_pendingAwardsLock)
             {
-            if (_progressiveRecovery)
-            {
-                ProcessProgressiveLevels(evt.LinkedProgressiveLevels);
+                if (_progressiveRecovery)
+                {
+                    ProcessProgressiveLevels(evt.LinkedProgressiveLevels);
 
-                return;
-            }
+                    return;
+                }
 
                 if (_pendingAwards.Count > 0)
-            {
-                    foreach (var (poolName, amountInPennies) in _pendingAwards)
                 {
-                        if (!_progressives.ContainsKey(poolName) || amountInPennies == 0)
+                    foreach (var (poolName, amountInPennies) in _pendingAwards)
                     {
+                        if (!_progressives.ContainsKey(poolName) || amountInPennies == 0)
+                        {
                             continue;
                         }
 
@@ -538,38 +490,12 @@
                             }
 
                             AwardJackpotLevel(amountInPennies, levelName, poolName);
-                        return;
+                            return;
+                        }
                     }
                 }
-            }
 
-            _currentLinkedProgressiveLevelsHit = evt.LinkedProgressiveLevels;
-        }
-        }
-
-        private void ProcessProgressiveLevels(IEnumerable<IViewableLinkedProgressiveLevel> levels)
-        {
-            var awards = levels.ToList();
-            foreach (var progressiveInfos in _progressives.Values)
-            {
-                foreach (var progressiveInfo in progressiveInfos)
-                {
-                    var award = awards.FirstOrDefault(
-                        p => progressiveInfo.LevelId == p.LevelId &&
-                             progressiveInfo.ProgId == p.ProgressiveGroupId);
-
-                    if (award == null)
-                    {
-                        continue;
-                    }
-
-                    AwardJackpotLevel(0, award.LevelName, progressiveInfo.ValueAttributeName);
-                    awards.Remove(award);
-                    if (awards.Count == 0)
-                    {
-                        return;
-                    }
-                }
+                _currentLinkedProgressiveLevelsHit = evt.LinkedProgressiveLevels;
             }
         }
 
@@ -600,6 +526,8 @@
             else if (_progressiveMessageAttributes.Contains(evt.AttributeName))
             {
                 //// NOTE: NYL no longer wants progressive messages being sent to InfoBar. If that changes again, uncomment this code
+
+#pragma warning disable S125 // Sections of code should not be commented out
                 //var value = _attributes.Get(evt.AttributeName, string.Empty);
                 //if (!string.IsNullOrEmpty(value))
                 //{
@@ -612,6 +540,81 @@
                 //        DisplayRole.VBD);
                 //    _eventBus.Publish(infoBarEvent);
                 //}
+            }
+#pragma warning restore S125 // Sections of code should not be commented out
+        }
+
+        private void UpdateProgressiveMeter()
+        {
+            if (!string.IsNullOrEmpty(_updateProgressiveMeter)&&
+                _progressives.TryGetValue(_updateProgressiveMeter, out var progressiveInfos))
+            {
+                var value = _attributes.Get(_updateProgressiveMeter, 0);
+
+                foreach (var progressiveInfo in progressiveInfos)
+                {
+                    UpdateLinkedProgressiveLevels(
+                        progressiveInfo.ProgId,
+                        progressiveInfo.LevelId,
+                        value
+                    );
+                }
+            }
+        }
+
+        private void CheckProgressiveRecovery()
+        {
+            if (_gameHistory?.CurrentLog?.PlayState != PlayState.Idle &&
+                _gameHistory?.CurrentLog?.Outcomes.Count() > 1 &&
+                (JackpotAmountInPennies() != 0 || AllJackpotsClaimed()))
+            {
+                _progressiveRecovery = true;
+            }
+        }
+
+        private void UpdateProgressiveValues()
+        {
+            foreach (var progressiveInfos in _progressives)
+            {
+                var value = _attributes.Get(progressiveInfos.Key, 0);
+
+                if (value > 0)
+                {
+                    foreach (var progressive in progressiveInfos.Value)
+                    {
+                        UpdateLinkedProgressiveLevels(
+                            progressive.ProgId,
+                            progressive.LevelId,
+                            value
+                        );
+                    }
+                }
+            }
+        }
+
+        private void ProcessProgressiveLevels(IEnumerable<IViewableLinkedProgressiveLevel> levels)
+        {
+            var awards = levels.ToList();
+            foreach (var progressiveInfos in _progressives.Values)
+            {
+                foreach (var progressiveInfo in progressiveInfos)
+                {
+                    var award = awards.FirstOrDefault(
+                        p => progressiveInfo.LevelId == p.LevelId &&
+                             progressiveInfo.ProgId == p.ProgressiveGroupId);
+
+                    if (award == null)
+                    {
+                        continue;
+                    }
+
+                    AwardJackpotLevel(0, award.LevelName, progressiveInfo.ValueAttributeName);
+                    awards.Remove(award);
+                    if (awards.Count == 0)
+                    {
+                        return;
+                    }
+                }
             }
         }
 
@@ -644,7 +647,9 @@
 
         private string GetPoolName(string levelName)
         {
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
             foreach (var progressive in _progressives)
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
             {
                 if(progressive.Value.Any(i => LevelName(i).Equals(levelName)))
                 {
