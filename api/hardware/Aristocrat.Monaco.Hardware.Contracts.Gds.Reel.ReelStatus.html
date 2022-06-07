@@ -130,7 +130,7 @@
   <h5 id="Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Serializable]
-public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;</code></pre>
+public class ReelStatus : GdsSerializableMessage, IEquatable&lt;ReelStatus&gt;, ICloneable</code></pre>
   </div>
   
   
@@ -550,10 +550,56 @@ public byte Reserved1 { get; set; }</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Clone.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Clone_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.Clone*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Clone" data-uid="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.Clone"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Clone" class="expander" data-toggle="collapse">Clone()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Clone" class="collapse in">
+  <div class="markdown level1 summary"><p>Returns a new instance of the existing reel status</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Clone()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.icloneable.clone#system-icloneable-clone">ICloneable.Clone()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Equals_Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.Equals(Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Equals_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.Equals*"></a>
@@ -608,7 +654,7 @@ public byte Reserved1 { get; set; }</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Equals_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_Equals_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.Equals*"></a>
@@ -663,7 +709,7 @@ public byte Reserved1 { get; set; }</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_GetHashCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L85" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_GetHashCode_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.GetHashCode*"></a>
@@ -708,7 +754,7 @@ public byte Reserved1 { get; set; }</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L95" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Gds/Reel/ReelStatus.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Gds_Reel_ReelStatus_ToString_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Gds.Reel.ReelStatus.ToString*"></a>
