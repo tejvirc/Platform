@@ -314,6 +314,8 @@
                     return;
                 }
 
+                SetupMenu();
+                
                 _runtimeFlagHandler.SetInPlayerMenu(_isMenuVisible);
                 _keyboardService.DisableKeyboard = _isMenuVisible;
 
