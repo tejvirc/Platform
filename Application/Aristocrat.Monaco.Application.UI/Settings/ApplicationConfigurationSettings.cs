@@ -16,6 +16,7 @@
     using Kernel.Contracts;
     using MVVM;
     using Application.Contracts.Localization;
+    using Aristocrat.Monaco.Hardware.Contracts.Audio;
 
     /// <summary>
     ///     Implements the <see cref="IConfigurationSettings"/> interface.
@@ -25,14 +26,16 @@
         private readonly IPropertiesManager _propertiesManager;
         private readonly IDisabledNotesService _disabledNotesService;
         private readonly IMultiProtocolConfigurationProvider _multiProtocolConfigurationProvider;
- 
+        private readonly IAudio _audio;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="ApplicationConfigurationSettings"/> class.
         /// </summary>
         public ApplicationConfigurationSettings()
             : this(ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IDisabledNotesService>(),
-                ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>())
+                ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>(),
+                ServiceManager.GetInstance().GetService<IAudio>())
         {
         }
 
@@ -45,11 +48,13 @@
         public ApplicationConfigurationSettings(
             IPropertiesManager propertiesManager,
             IDisabledNotesService disabledNotesService,
-            IMultiProtocolConfigurationProvider multiProtocolConfigurationProvider)
+            IMultiProtocolConfigurationProvider multiProtocolConfigurationProvider,
+            IAudio audio)
         {
             _propertiesManager = propertiesManager;
             _disabledNotesService = disabledNotesService;
             _multiProtocolConfigurationProvider = multiProtocolConfigurationProvider;
+            _audio = audio;
         }
 
         /// <inheritdoc />
@@ -113,7 +118,8 @@
                 {
                     disabledNotes[i] = new DisabledNotes
                     {
-                        Denom = noteInfo.Notes[i].Denom, IsoCode = noteInfo.Notes[i].IsoCode
+                        Denom = noteInfo.Notes[i].Denom,
+                        IsoCode = noteInfo.Notes[i].IsoCode
                     };
                 }
             }
@@ -127,15 +133,17 @@
             var idReaderEnabled = _propertiesManager.GetValue(ApplicationConstants.IdReaderEnabled, false);
             var reelControllerEnabled = _propertiesManager.GetValue(ApplicationConstants.ReelControllerEnabled, false);
             var notAvailable = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            var defaultVolumeLevel = _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, (byte)2);
+            var defaultVolumeLevelDescription = _audio.GetVolumeDescription(defaultVolumeLevel);
             return await Task.FromResult(
                 new MachineSettings
                 {
-                    NoteAcceptorEnabled =noteAcceptorEnabled,
+                    NoteAcceptorEnabled = noteAcceptorEnabled,
                     NoteAcceptorManufacturer =
                         noteAcceptorEnabled ? _propertiesManager.GetValue(ApplicationConstants.NoteAcceptorManufacturer, string.Empty) : notAvailable,
                     PrinterEnabled = printerEnabled,
                     PrinterManufacturer =
-                        printerEnabled?_propertiesManager.GetValue(ApplicationConstants.PrinterManufacturer, string.Empty): notAvailable,
+                        printerEnabled ? _propertiesManager.GetValue(ApplicationConstants.PrinterManufacturer, string.Empty) : notAvailable,
                     CurrencyId =
                         _propertiesManager.GetValue(ApplicationConstants.CurrencyId, ApplicationConstants.DefaultCurrencyId),
                     CurrencyDescription =
@@ -175,19 +183,19 @@
                         _propertiesManager.GetValue(PropertyKey.TicketTextLine3, string.Empty),
                     MaxCreditsIn =
                         _propertiesManager.GetValue(PropertyKey.MaxCreditsIn, ApplicationConstants.DefaultMaxCreditsIn),
-                    DefaultVolumeLevel =
-                        _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, (byte)2),
+                    DefaultVolumeLevel = defaultVolumeLevel,
+                    DefaultVolumeLevelDisplay = defaultVolumeLevelDescription,
                     VolumeControlLocation =
                         _propertiesManager.GetValue(ApplicationConstants.VolumeControlLocationKey, (VolumeControlLocation)ApplicationConstants.VolumeControlLocationDefault),
                     VoucherIn =
                         _propertiesManager.GetValue(PropertyKey.VoucherIn, false),
                     IdReaderEnabled = idReaderEnabled,
                     IdReaderManufacturer =
-                        idReaderEnabled?_propertiesManager.GetValue(ApplicationConstants.IdReaderManufacturer, string.Empty): notAvailable,
+                        idReaderEnabled ? _propertiesManager.GetValue(ApplicationConstants.IdReaderManufacturer, string.Empty) : notAvailable,
                     ReelControllerEnabled =
                         reelControllerEnabled,
                     ReelControllerManufacturer =
-                        reelControllerEnabled?_propertiesManager.GetValue(ApplicationConstants.ReelControllerManufacturer, string.Empty): notAvailable,
+                        reelControllerEnabled ? _propertiesManager.GetValue(ApplicationConstants.ReelControllerManufacturer, string.Empty) : notAvailable,
                     DoorOpticSensorEnabled =
                         _propertiesManager.GetValue(ApplicationConstants.ConfigWizardDoorOpticsEnabled, false),
                     RequireZeroCreditsForOutOfService =

@@ -321,7 +321,7 @@
         /// </summary>
         [JsonIgnore]
         //Todo: Get volume level description to display
-        public string DefaultVolumeLevelDisplay => _defaultVolumeLevel.ToString(); // ((VolumeLevel)_defaultVolumeLevel).GetDescription(((VolumeLevel)_defaultVolumeLevel).GetType());
+        public string DefaultVolumeLevelDisplay { get; set; }
 
         /// <summary>
         ///     Gets or sets the volume control location.
@@ -485,7 +485,7 @@
         ///     Gets or sets a value that indicates whether disabled notes are visible.
         /// </summary>
         [JsonIgnore]
-        public bool DisabledNotesVisible { get; set;  }
+        public bool DisabledNotesVisible { get; set; }
 
         /// <summary>
         ///     Gets a comma separated value of currently configured protocols.
