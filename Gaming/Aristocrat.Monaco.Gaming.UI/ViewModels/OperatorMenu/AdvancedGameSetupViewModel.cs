@@ -112,7 +112,6 @@
             GlobalOptionsVisible = GetConfigSetting(OperatorMenuSetting.ShowGlobalOptions, false);
             _enableRtpScaling = GetConfigSetting(OperatorMenuSetting.EnableRtpScaling, false);
             ShowGameRtpAsRange = GetGlobalConfigSetting(OperatorMenuSetting.ShowGameRtpAsRange, true);
-
             _gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
             _gameService = ServiceManager.GetInstance().GetService<IGameService>();
             _denomMultiplier = PropertiesManager.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
@@ -141,6 +140,13 @@
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
+
+            EventBus.Subscribe<PropertyChangedEvent>(
+                this,
+                HandlePropertyChangedEvent,
+                evt =>
+                    evt.PropertyName == ApplicationConstants.EKeyVerified ||
+                    evt.PropertyName == ApplicationConstants.EKeyDrive);
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
@@ -384,6 +390,19 @@
             set => SetProperty(ref _saveWarningEnabled, value);
         }
 
+        public void HandlePropertyChangedEvent(PropertyChangedEvent eventObject)
+        {
+            MvvmHelper.ExecuteOnUI(
+            () =>
+            {
+                ImportCommand.RaiseCanExecuteChanged();
+                ExportCommand.RaiseCanExecuteChanged();
+
+                RaisePropertyChanged(nameof(CanExecuteImportCommand));
+                RaisePropertyChanged(nameof(CanExecuteExportCommand));
+            });
+        }
+
         public override bool HasChanges()
         {
             return _editableGames.Any(g => g.Value.HasChanges()) ||
@@ -494,7 +513,7 @@
                 {
                     ImportCommand.RaiseCanExecuteChanged();
                     ExportCommand.RaiseCanExecuteChanged();
-
+                    
                     RaisePropertyChanged(nameof(CanExecuteImportCommand));
                     RaisePropertyChanged(nameof(CanExecuteExportCommand));
                 });

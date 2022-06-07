@@ -17,6 +17,7 @@ namespace Aristocrat.Monaco.Application
     using Contracts.Protocol;
     using Contracts.TiltLogger;
     using Drm;
+    using EKey;
     using ErrorMessage;
     using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
@@ -86,6 +87,7 @@ namespace Aristocrat.Monaco.Application
         private IService _multiProtocolConfigurationProvider;
         private IService _configurationUtilitiesProvider;
         private IService _protocolCapabilityAttributeProvider;
+        private IService _ekeyService;
 
         /// <inheritdoc />
         protected override void OnInitialize()
@@ -125,6 +127,8 @@ namespace Aristocrat.Monaco.Application
                 LoadConfigurationSettingsManager();
 
                 LoadDigitalRights();
+
+                LoadEkeyService();
 
                 CheckInitialConfiguration();
             }
@@ -375,6 +379,12 @@ namespace Aristocrat.Monaco.Application
         {
             _digitalRights = new DigitalRights();
             ServiceManager.GetInstance().AddServiceAndInitialize(_digitalRights);
+        }
+
+        private void LoadEkeyService()
+        {
+            _ekeyService = new EKeyService();
+            ServiceManager.GetInstance().AddServiceAndInitialize(_ekeyService);
         }
 
         private void LoadDisableByOperatorManager()
@@ -683,6 +693,12 @@ namespace Aristocrat.Monaco.Application
             {
                 serviceManager.RemoveService(_digitalRights);
                 _digitalRights = null;
+            }
+
+            if(_ekeyService != null)
+            {
+                serviceManager.RemoveService(_ekeyService);
+                _ekeyService = null;
             }
 
             if (_liveAuthentication != null)

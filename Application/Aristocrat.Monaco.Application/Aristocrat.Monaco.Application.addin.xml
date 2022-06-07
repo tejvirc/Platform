@@ -72,7 +72,6 @@
     <Service type="Aristocrat.Monaco.Application.Monitors.SecondaryStorageMonitor" />
     <Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />
     <Service type="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" />
-    <Service type="Aristocrat.Monaco.Application.EKey.EKeyService" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">
