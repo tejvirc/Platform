@@ -37,6 +37,7 @@
         private Mock<IRuntimeFlagHandler> _runtimeFlagHandler;
         private Mock<IHhrHostPageView> _hhrHostPageView;
         private Mock<ITransactionCoordinator> _transactionCoordinator;
+        private Mock<IGamePlayState> _gamePlayState;
 
         private ManualHandicapPageViewModel _manualHandicapPageViewModel;
         private RaceStatsPageViewModel _raceStatsPageViewModel;
@@ -65,6 +66,7 @@
             _playerBank = new Mock<IPlayerBank>(MockBehavior.Default);
             _runtimeFlagHandler = new Mock<IRuntimeFlagHandler>(MockBehavior.Default);
             _transactionCoordinator = new Mock<ITransactionCoordinator>(MockBehavior.Default);
+            _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
 
             _protocolLinkedProgressiveAdapter =
                 MoqServiceManager.CreateAndAddService<IProtocolLinkedProgressiveAdapter>(MockBehavior.Strict);
@@ -94,7 +96,8 @@
                 _systemDisable.Object,
                 _prizeDeterminationService.Object,
                 _manualHandicapEntityHelper.Object,
-                _gameProvider.Object);
+                _gameProvider.Object,
+                _gamePlayState.Object);
 
             _manualHandicapHelpPageViewModel = new ManualHandicapHelpPageViewModel(
                 _eventBus.Object,

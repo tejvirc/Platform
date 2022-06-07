@@ -33,6 +33,7 @@
         private readonly IPrizeDeterminationService _prizeDeterminationService;
         private readonly IManualHandicapEntityHelper _manualHandicapEntityHelper;
         private readonly IGameProvider _gameProvider;
+        private readonly IGamePlayState _gamePlayState;
 
         private bool _raceSelectionCompleted;
 
@@ -50,20 +51,29 @@
             ISystemDisableManager systemDisable,
             IPrizeDeterminationService prizeDeterminationService,
             IManualHandicapEntityHelper manualHandicapEntityHelper,
-            IGameProvider gameProvider)
+            IGameProvider gameProvider,
+            IGamePlayState gamePlayState)
         {
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
-            _prizeDeterminationService = prizeDeterminationService ?? throw new ArgumentNullException(nameof(prizeDeterminationService));
-            _manualHandicapEntityHelper = manualHandicapEntityHelper ?? throw new ArgumentNullException(nameof(manualHandicapEntityHelper));
-            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
+            _properties = properties
+                ?? throw new ArgumentNullException(nameof(properties));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
+            _systemDisable = systemDisable
+                ?? throw new ArgumentNullException(nameof(systemDisable));
+            _prizeDeterminationService = prizeDeterminationService
+                ?? throw new ArgumentNullException(nameof(prizeDeterminationService));
+            _manualHandicapEntityHelper = manualHandicapEntityHelper
+                ?? throw new ArgumentNullException(nameof(manualHandicapEntityHelper));
+            _gameProvider = gameProvider
+                ?? throw new ArgumentNullException(nameof(gameProvider));
+            _gamePlayState = gamePlayState
+                ?? throw new ArgumentNullException(nameof(gamePlayState));
 
             HorseNumberClicked = new ActionCommand<object>(OnHorseNumberClicked);
 
             _tickCount = 0;
             _manualHandicapTimer = new HHRTimer(1000);
-            _manualHandicapTimer.Elapsed += (obj, args) => OnTickElapsed();
+            _manualHandicapTimer.Elapsed += (_, _) => OnTickElapsed();
 
             _eventBus.Subscribe<ManualHandicapAbortedEvent>(this, Handle);
             _eventBus.Subscribe<StartQuickPickEvent>(this, Handle);
@@ -372,9 +382,21 @@
                 return;
             }
 
-            _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
-
             _eventBus.Unsubscribe<AwaitingPlayerSelectionChangedEvent>(this);
+
+            if (_gamePlayState.Enabled)
+            {
+                _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
+                return;
+            }
+
+            Logger.Debug($"Game play is not enabled for manual handicap");
+            _eventBus.Subscribe<GamePlayEnabledEvent>(this, _ =>
+            {
+                Logger.Debug($"Start pending manual handicap game play");
+                _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
+                _eventBus.Unsubscribe<GamePlayEnabledEvent>(this);
+            });
         }
 
         public ReadOnlyCollection<string> GetPersistedPicks()

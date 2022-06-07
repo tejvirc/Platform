@@ -42,13 +42,13 @@
             if ((bool)_propertiesManager.GetProperty(SasProperties.MultipleDenominationSupportedKey, false))
             {
                 var value = (long)_propertiesManager.GetProperty(GamingConstants.SelectedDenom, 0);
-
                 var isGameRunning = (bool)_propertiesManager.GetProperty(GamingConstants.IsGameRunning, false);
 
                 if (!isGameRunning || _gameHistory.IsDiagnosticsActive)
                 {
                     value = 0;
                 }
+
                 var code = DenominationCodes.GetCodeForDenomination((int)value.MillicentsToCents());
                 return new LongPollReadSingleValueResponse<byte>(code);
             }

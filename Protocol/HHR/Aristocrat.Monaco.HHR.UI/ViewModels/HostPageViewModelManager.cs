@@ -114,14 +114,35 @@
             eventBus.Subscribe<GamePlayDisabledEvent>(this, OnGamePlayDisabled);
             eventBus.Subscribe<GamePlayEnabledEvent>(this, OnGamePlayEnabled);
             eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, HandleEvent);
+
             InitializeCommandMapper();
+
+            // If there was a power-cycle in the middle of manual handicap, we need to abandon that transaction
+            _transactionCoordinator.AbandonTransactions(RaceInfoTransactionRequestorId);
         }
 
         private void OnGameConnected(GameConnectedEvent obj)
         {
-            var awaitingPlayerSelection = _properties.GetValue(GamingConstants.AwaitingPlayerSelection, false);
-            _runtimeFlagHandler.SetAwaitingPlayerSelection(awaitingPlayerSelection);
-            Logger.Debug($"Updated the AwaitingPlayerSelection as {awaitingPlayerSelection}");
+            // If the host view is null, we aren't in the race menu, so reset the AwaitingPlayerSelection.
+            // This is need primarily for when we are in the race menu and a power-cycle happens. On boot,
+            // the VBD buttons will be disabled if we don't clear this
+            if (_selectedViewModel is null)
+            {
+                Logger.Debug("Resetting AwaitingPlayerSelection flag");
+                // Reset this flag in case a power-cycle occurred in the middle of an activity that had set this flag
+                _properties.SetProperty(GamingConstants.AwaitingPlayerSelection, false);
+                _runtimeFlagHandler.SetAwaitingPlayerSelection(false);
+            }
+
+            // If the host view is not null, then the operator menu was opened and then now closed, causing the
+            // race menu to hide and show, and the runtime to close and be started again. Since we are in the race
+            // race menu when this happens, we need to update runtime with the current value of the flag
+            else
+            {
+                var awaitingPlayerSelection = _properties.GetValue(GamingConstants.AwaitingPlayerSelection, false);
+                Logger.Debug($"Updated the AwaitingPlayerSelection as {awaitingPlayerSelection}");
+                _runtimeFlagHandler.SetAwaitingPlayerSelection(awaitingPlayerSelection);
+            }
         }
 
         public IHhrMenuPageViewModel SelectedViewModel => _selectedViewModel;
