@@ -24,7 +24,7 @@
         {
             for (var i = startingReelId; i <= maxReelId; ++i)
             {
-                _reelStatus.TryAdd(startingReelId, new ReelStatus());
+                _reelStatus.TryAdd(startingReelId, new ReelStatus { ReelId = i });
             }
         }
 
@@ -49,12 +49,12 @@
         {
             _reelStatus.AddOrUpdate(
                 reelId,
-                id =>
+                _ =>
                 {
                     OnMessageReceived(status);
                     return status;
                 },
-                (id, reelStatus) =>
+                (_, reelStatus) =>
                 {
                     if (!status.Equals(reelStatus))
                     {
@@ -74,11 +74,12 @@
         {
             _reelStatus.AddOrUpdate(
                 reelId,
-                _ => statusUpdater.Invoke(new ReelStatus()),
+                _ => statusUpdater.Invoke(new ReelStatus { ReelId = reelId }),
                 (_, reelStatus) =>
                 {
+                    var oldStatus = (ReelStatus)reelStatus.Clone();
                     var status = statusUpdater.Invoke(reelStatus);
-                    if (!status.Equals(reelStatus))
+                    if (!oldStatus.Equals(status))
                     {
                         OnMessageReceived(status);
                     }

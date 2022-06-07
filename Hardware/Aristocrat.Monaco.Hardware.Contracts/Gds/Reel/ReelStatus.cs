@@ -7,7 +7,7 @@
 
     /// <summary>(Serializable) a reel status.</summary>
     [Serializable]
-    public class ReelStatus : GdsSerializableMessage, IEquatable<ReelStatus>
+    public class ReelStatus : GdsSerializableMessage, IEquatable<ReelStatus>, ICloneable
     {
         /// <summary>Constructor</summary>
         public ReelStatus()
@@ -55,6 +55,14 @@
         [FieldOrder(7)]
         [FieldBitLength(1)]
         public bool FailedHome { get; set; }
+
+        /// <summary>
+        ///     Returns a new instance of the existing reel status
+        /// </summary>
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
 
         /// <inheritdoc />
         public bool Equals(ReelStatus other)
