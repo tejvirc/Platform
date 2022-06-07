@@ -14458,9 +14458,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -15642,7 +15639,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/asp/Aristocrat.Monaco.Asp.Client.DataSources.CurrentMachineModeStateManager.html",
-          "hash": "wLXOKxI1CkTNqqYXpsrMlvkqDcHI0rr8/X5jcRTukP0="
+          "hash": "jX1BQ8Cs3AUiIX83DjiSuU+VxQrb6bi/eNZ+BSmA9bY="
         }
       },
       "is_incremental": false,
@@ -23641,6 +23638,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -82902,7 +82902,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Monaco.Mgam.Services.GamePlay.ProgressiveController.html",
-          "hash": "3htl2AoX384/KvQmNlxDQO+gzWensVkc79RYroV42gI="
+          "hash": "1OpqokAqLMbaPoBH1dOcQFClleIL6sD9qamCziBPYoQ="
         }
       },
       "is_incremental": false,
