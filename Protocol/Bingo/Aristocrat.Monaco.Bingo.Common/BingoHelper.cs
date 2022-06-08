@@ -33,7 +33,7 @@
             {
                 Host = bingoHost.HostName,
                 Port = HelpPort,
-                Scheme = Uri.UriSchemeHttp,
+                Scheme = Uri.UriSchemeHttps,
             };
 
             if (serverSettings is not null)
