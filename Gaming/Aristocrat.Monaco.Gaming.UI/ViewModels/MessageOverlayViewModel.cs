@@ -51,6 +51,7 @@
         private bool _isAgeWarningDlgVisible;
         private bool _isResponsibleGamingInfoOverlayDlgVisible;
         private bool _isOverlayWindowVisible;
+        private bool _isGameOverrideCleared;
 
         /// <summary>
         ///     Gets a value indicating whether the Non Cash Overlay Dlg is visible
@@ -233,6 +234,7 @@
 
         public void HandleMessageOverlayText(string message)
         {
+            _isGameOverrideCleared = false;
             MessageOverlayData.Clear();
             Logger.Debug("MessageOverlayData cleared. " +
                          $"MessageOverlayState={_messageOverlayState}, " +
@@ -243,6 +245,7 @@
             {
                 Logger.Debug("Sending PresentOverriddenPresentation Clear");
                 _overlayMessageStrategyController.ClearGameDrivenPresentation();
+                _isGameOverrideCleared = true;
             }
             
             _messageOverlayState = GetMessageOverlayState();
@@ -390,15 +393,15 @@
                 ReserveOverlayViewModel.IsDialogVisible = false;
             }
 
-            IsOverlayWindowVisible = !IsPresentationOverridden() &&
-                (IsReplayRecoveryDlgVisible ||
-                IsAgeWarningDlgVisible ||
-                IsResponsibleGamingInfoOverlayDlgVisible ||
-                MessageOverlayData.IsDialogVisible ||
-                ReserveOverlayViewModel.IsDialogVisible ||
-                _playerMenuPopup.IsMenuVisible ||
-                _playerInfoDisplayManager.IsActive() ||
-                CustomMainViewElementVisible);
+            IsOverlayWindowVisible = (!IsPresentationOverridden() || _isGameOverrideCleared) &&
+                                     (IsReplayRecoveryDlgVisible ||
+                                      IsAgeWarningDlgVisible ||
+                                      IsResponsibleGamingInfoOverlayDlgVisible ||
+                                      MessageOverlayData.IsDialogVisible ||
+                                      ReserveOverlayViewModel.IsDialogVisible ||
+                                      _playerMenuPopup.IsMenuVisible ||
+                                      _playerInfoDisplayManager.IsActive() ||
+                                      CustomMainViewElementVisible);
         }
 
         private string BuildLockupMessageText()
