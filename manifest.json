@@ -14383,6 +14383,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14467,6 +14470,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -22860,7 +22866,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.ResourceKeys.html",
-          "hash": "B4ePibnCDUo/JvPiPp/SoWP/leLNrQ2u/Eu1Dgm1YHE="
+          "hash": "TXTjShxCs7o7rXav66STsIYnL3J56Z5MMnSXacb4slw="
         }
       },
       "is_incremental": false,
@@ -22872,7 +22878,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.Resources.html",
-          "hash": "n25EheQDskle4aPx1sM+iyZf+dU9e4HGHfKffK4Wgeo="
+          "hash": "uqRSqEINJ9bZ/bxMQBH4gnVTBJkHIvo+vGg7AB91A9A="
         }
       },
       "is_incremental": false,
@@ -22896,7 +22902,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.StringResourceKey.html",
-          "hash": "qVBRiDOyxvohrDmCjHPujWZXYGceGXOM3t0Um0Vzze4="
+          "hash": "46PMM+wyS803g1qNL/BclVUDbyvMU247s+UVWh+wpE4="
         }
       },
       "is_incremental": false,
@@ -23647,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41170,9 +41173,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
