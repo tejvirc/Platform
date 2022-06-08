@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
+    using System.Globalization;
     using Kernel;
 
     /// <summary>
@@ -20,5 +21,13 @@
         ///     Gets the current state.
         /// </summary>
         public PlayState CurrentState { get; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return string.Format(
+                CultureInfo.InvariantCulture,
+                $"{GetType().Name} [Timestamp={Timestamp}, CurrentState={CurrentState}]");
+        }
     }
 }

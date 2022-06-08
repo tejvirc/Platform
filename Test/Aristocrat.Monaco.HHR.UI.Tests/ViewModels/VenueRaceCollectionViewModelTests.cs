@@ -3,47 +3,37 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows;
     using Client.Data;
+    using Gaming.Contracts;
     using UI.Models;
     using UI.ViewModels;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Aristocrat.Monaco.Kernel;
+    using Storage.Helpers;
+    using Kernel;
     using Moq;
-    using Aristocrat.Monaco.Test.Common;
-    using System.Windows;
-    using Aristocrat.Monaco.Hhr.Storage.Helpers;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class VenueRaceCollectionViewModelTests
     {
         private VenueRaceCollectionViewModel _target;
-        private Mock<IPropertiesManager> _propertiesManager;
-        private Mock<IServiceManager> _serviceManagerMock;
-        private Mock<IPrizeInformationEntityHelper> _prizeInformationEntityHelper;
-        private Mock<IEventBus> _eventBus;
-        private Mock<ISystemDisableManager> _disableManager;
-        private Mock<IGamePlayEntityHelper> _gameEntityHelper;
+        private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>(MockBehavior.Default);
+        private readonly Mock<IPrizeInformationEntityHelper> _prizeEntityHelper = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
+        private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);
+        private readonly Mock<IRuntimeFlagHandler> _runtimeFlagHandler = new Mock<IRuntimeFlagHandler>(MockBehavior.Default);
 
         [TestInitialize]
         public void TestInitialization()
         {
-           // MoqServiceManager.CreateInstance(MockBehavior.Strict);
-            //MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
-            _serviceManagerMock = MoqServiceManager.CreateInstance(MockBehavior.Default);
-            _prizeInformationEntityHelper = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
-            _eventBus = new Mock<IEventBus>(MockBehavior.Default);
-            _disableManager = new Mock<ISystemDisableManager>(MockBehavior.Default);
-            _gameEntityHelper = new Mock<IGamePlayEntityHelper>(MockBehavior.Default);
-            _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);
             _propertiesManager.Setup(p => p.GetProperty(HHRPropertyNames.HorseResultsRunTime, It.IsAny<int>())).Returns(2400);
             _propertiesManager.Setup(p => p.GetProperty("horseAnimationOff", It.IsAny<string>())).Returns("");
 
             _target = new VenueRaceCollectionViewModel(
                 _eventBus.Object,
-                _prizeInformationEntityHelper.Object,
-                _disableManager.Object,
-                _gameEntityHelper.Object,
-                _propertiesManager.Object);
+                _prizeEntityHelper.Object,
+                _propertiesManager.Object,
+                _runtimeFlagHandler.Object);
+
             _target.SetupRaces(GetRaceInfo());
         }
 
@@ -97,11 +87,11 @@
             {
                 var venueRaceTrackModel = raceSet.ToArray()[i];
 
-                var dataHorseActuals = _target.GetHorseActualArray(raceInfoData[i+dataIdxStart].HorseActual);
+                var dataHorseActuals = _target.GetHorseActualArray(raceInfoData[i + dataIdxStart].HorseActual);
 
                 AssertTrackPositionsMatchData(venueRaceTrackModel, dataHorseActuals);
 
-                Assert.AreEqual(raceInfoData[i+dataIdxStart].TrackDescription, venueRaceTrackModel.VenueName);
+                Assert.AreEqual(raceInfoData[i + dataIdxStart].TrackDescription, venueRaceTrackModel.VenueName);
             }
         }
 

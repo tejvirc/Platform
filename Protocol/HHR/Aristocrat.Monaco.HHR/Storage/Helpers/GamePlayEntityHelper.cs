@@ -16,7 +16,6 @@
         private GamePlayResponse _gamePlayResponse;
         private bool _prizeCalculationError;
         private bool _gamePlayRequestFailed;
-        private bool _horseAnimationFinished;
         private bool _manualHandicapWin;
 
         public GamePlayEntityHelper(IUnitOfWorkFactory unitOfWorkFactory)
@@ -46,7 +45,6 @@
                 _gamePlayResponse = JsonConvert.DeserializeObject<GamePlayResponse>(entity.GamePlayResponse);
                 _prizeCalculationError = entity.PrizeCalculationError;
                 _gamePlayRequestFailed = entity.GamePlayRequestFailed;
-                _horseAnimationFinished = entity.HorseAnimationFinished;
                 _manualHandicapWin = entity.ManualHandicapWin;
             }
         }
@@ -135,24 +133,6 @@
                     var repo = unitOfWork.Repository<GamePlayEntity>();
                     var entity = repo.Queryable().First();
                     entity.GamePlayRequestFailed = value;
-                    repo.AddOrUpdate(entity);
-                    unitOfWork.Commit();
-                }
-            }
-        }
-
-        public bool HorseAnimationFinished
-        {
-            get => _horseAnimationFinished;
-            set
-            {
-                _horseAnimationFinished = value;
-                using (var unitOfWork = _unitOfWorkFactory.Create())
-                {
-                    unitOfWork.BeginTransaction(IsolationLevel.Serializable);
-                    var repo = unitOfWork.Repository<GamePlayEntity>();
-                    var entity = repo.Queryable().First();
-                    entity.HorseAnimationFinished = value;
                     repo.AddOrUpdate(entity);
                     unitOfWork.Commit();
                 }

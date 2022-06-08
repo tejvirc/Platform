@@ -5,15 +5,15 @@
              xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
              x:Name="VenueRaceTracksTitle">
 
-	<UserControl.Resources>
-		<Style x:Key="VenueNameStyle" TargetType="{x:Type Label}">
-			<Setter Property="FontSize" Value="18"/>
-			<Setter Property="FontWeight" Value="Bold"/>
-			<Setter Property="Foreground" Value="WhiteSmoke"/>
-		</Style>
-	</UserControl.Resources>
+    <UserControl.Resources>
+        <Style x:Key="VenueNameStyle" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+        </Style>
+    </UserControl.Resources>
 
-	<Grid>
+    <Grid>
         <!-- Two grids with the same layout are needed because some the race track background must be trasparent, but the venue name
              and the horses must not be. Making a grid transparent makes all its children transparent too. So one grid here as the 
              transparent image backgrounds, and the other has the content -->
@@ -33,46 +33,14 @@
             <Border Grid.Row="1" x:Name="FieldMiddleBorder" />
             <Border Grid.Row="2" x:Name="FieldBottomBorder" />
 
-			<Rectangle x:Name="FinishLine" 
-					Grid.Row="1"
-					HorizontalAlignment="Right" 
-					Width="8" 
-					Height="Auto"
-					Margin="0 0 0 0"
-					Fill="Black">
-				<Rectangle.Style>
-					<Style>
-						<Style.Triggers>
-							<!-- Start/Stop -->
-							<DataTrigger Binding="{Binding RaceStarted, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Value="True">
-								<DataTrigger.EnterActions>
-									<BeginStoryboard x:Name="FinishLineStoryboard">
-										<Storyboard>
-											<ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
-												<SplineThicknessKeyFrame KeyTime="00:00:00" Value="0 0 0 0" />
-												<SplineThicknessKeyFrame KeyTime="00:00:2.7" Value="0 0 316 0" />
-											</ThicknessAnimationUsingKeyFrames>
-										</Storyboard>
-									</BeginStoryboard>
-								</DataTrigger.EnterActions>
-								<DataTrigger.ExitActions>
-									<StopStoryboard BeginStoryboardName="FinishLineStoryboard" />
-								</DataTrigger.ExitActions>
-							</DataTrigger>
-							<!-- Pause/Resume -->
-							<DataTrigger Binding="{Binding IsPaused, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Value="True">
-								<DataTrigger.EnterActions>
-									<PauseStoryboard BeginStoryboardName="FinishLineStoryboard" />
-								</DataTrigger.EnterActions>
-								<DataTrigger.ExitActions>
-									<ResumeStoryboard BeginStoryboardName="FinishLineStoryboard" />
-								</DataTrigger.ExitActions>
-							</DataTrigger>
-						</Style.Triggers>
-					</Style>
-				</Rectangle.Style>
-			</Rectangle>
-		</Grid>
+            <Rectangle x:Name="FinishLine" 
+                       Grid.Row="1"
+                       HorizontalAlignment="Right" 
+                       Width="8" 
+                       Height="Auto"
+                       Margin="0 0 0 0"
+                       Fill="Black"/>
+        </Grid>
 
         <Grid x:Name="ContentGrid">
 

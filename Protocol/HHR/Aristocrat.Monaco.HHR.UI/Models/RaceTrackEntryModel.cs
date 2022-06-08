@@ -13,7 +13,7 @@
         public bool RaceStarted
         {
             get => _raceStarted;
-            set => SetProperty(ref _raceStarted, value, nameof(RaceStarted));
+            set => SetProperty(ref _raceStarted, value);
         }
         
         private int _position;
@@ -24,7 +24,7 @@
         public int Position
         {
             get => _position;
-            set => SetProperty(ref _position, value, nameof(Position));
+            set => SetProperty(ref _position, value);
         }
 
         private int _finishPosition;
@@ -35,7 +35,7 @@
         public int FinishPosition
         {
             get => _finishPosition;
-            set => SetProperty(ref _finishPosition, value, nameof(FinishPosition));
+            set => SetProperty(ref _finishPosition, value);
         }
 
         private Visibility _visibility;
@@ -46,7 +46,7 @@
         public Visibility Visibility
         {
             get => _visibility;
-            set => SetProperty(ref _visibility, value, nameof(Visibility));
+            set => SetProperty(ref _visibility, value);
         }
     }
 }

@@ -14,8 +14,6 @@
 
         bool GamePlayRequestFailed { get; set; }
 
-        bool HorseAnimationFinished { get; set; }
-
         bool ManualHandicapWin { get; set; }
     }
 }

@@ -257,6 +257,8 @@
             image.UriSource = new Uri(imageLocalPath);
             image.EndInit();
 
+            image.Freeze();
+
             return image;
         }
 

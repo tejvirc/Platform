@@ -1,12 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.Controls
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Media;
+    using System.Windows.Media.Animation;
+    using log4net;
     using Models;
-    using BitmapImage=System.Windows.Media.Imaging.BitmapImage;
+    using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
 
     /// <summary>
     ///     Interaction logic for VenueRaceTracks.xaml
@@ -14,17 +18,37 @@
     public partial class VenueRaceTracks
     {
         private static readonly Dictionary<string, BitmapImage> ImageLookup = new Dictionary<string, BitmapImage>();
-
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string BackgroundTop = "Resources/VenueRaceTrackBackground_Top.PNG";
         private const string BackgroundMiddle = "Resources/VenueRaceTrackBackground_Middle.PNG";
         private const string BackgroundBottom = "Resources/VenueRaceTrackBackground_Bottom.PNG";
+        private AnimationClock _clock;
 
         public static readonly DependencyProperty IsPausedProperty =
             DependencyProperty.RegisterAttached(
                 "IsPaused",
                 typeof(bool),
                 typeof(VenueRaceTracks),
-                new PropertyMetadata(false));
+                new PropertyMetadata(false, IsPausedPropertyChangedCallback));
+
+        private static void IsPausedPropertyChangedCallback(
+            DependencyObject dependencyObject,
+            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            if (dependencyPropertyChangedEventArgs.NewValue != null)
+            {
+                var thisControl = (VenueRaceTracks)dependencyObject;
+
+                if ((bool)dependencyPropertyChangedEventArgs.NewValue)
+                {
+                    thisControl.PauseAnimation();
+                }
+                else
+                {
+                    thisControl.ResumeAnimation();
+                }
+            }
+        }
 
         /// <summary>
         /// Flag to pause/play the animation
@@ -35,12 +59,40 @@
             set => SetValue(IsPausedProperty, value);
         }
 
+        private void PauseAnimation()
+        {
+            _clock?.Controller?.Pause();
+        }
+
+        private void ResumeAnimation()
+        {
+            if (_clock?.IsPaused ?? false)
+            {
+                _clock?.Controller?.Resume();
+            }
+        }
+
         public static readonly DependencyProperty RaceStartedProperty =
             DependencyProperty.RegisterAttached(
                 "RaceStarted",
                 typeof(bool),
                 typeof(VenueRaceTracks),
-                new PropertyMetadata(false));
+                new PropertyMetadata(false, RaceStartedPropertyChangedCallback));
+
+        private static void RaceStartedPropertyChangedCallback(
+            DependencyObject dependencyObject,
+            DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            if (dependencyPropertyChangedEventArgs.NewValue != null)
+            {
+                var thisControl = (VenueRaceTracks)dependencyObject;
+
+                if ((bool)dependencyPropertyChangedEventArgs.NewValue)
+                {
+                    thisControl.SetupAndStartAnimation();
+                }
+            }
+        }
 
         /// <summary>
         /// Flag to start the finish line animation
@@ -49,6 +101,22 @@
         {
             get => (bool)GetValue(RaceStartedProperty);
             set => SetValue(RaceStartedProperty, value);
+        }
+
+        public static readonly DependencyProperty RaceFinishedProperty =
+            DependencyProperty.RegisterAttached(
+                "RaceFinished",
+                typeof(bool),
+                typeof(VenueRaceTracks),
+                new PropertyMetadata(false));
+
+        /// <summary>
+        /// Flag to start the finish line animation
+        /// </summary>
+        public bool RaceFinished
+        {
+            get => (bool)GetValue(RaceFinishedProperty);
+            set => SetValue(RaceFinishedProperty, value);
         }
 
         public static readonly DependencyProperty VenueNameProperty =
@@ -108,6 +176,27 @@
             {
                 ImageSource = ImageLookup[BackgroundBottom]
             };
+        }
+
+        private void FinishLineStoryboard_OnCompleted(object sender, EventArgs e)
+        {
+            Logger.Debug("FinishLineStoryboard_OnCompleted");
+            RaceFinished = true;
+        }
+
+        public void SetupAndStartAnimation()
+        {
+            const double distance = 376;
+            TranslateTransform transform = new TranslateTransform();
+            FinishLine.RenderTransform = transform;
+            DoubleAnimation animation = new DoubleAnimation(
+                0,
+                -distance,
+                TimeSpan.FromMilliseconds(UiProperties.HorseResultsRunTimeMilliseconds));
+            _clock = (AnimationClock)animation.CreateClock(true);
+            _clock.Completed += FinishLineStoryboard_OnCompleted;
+            transform.ApplyAnimationClock(TranslateTransform.XProperty, _clock);
+            //transform.BeginAnimation(TranslateTransform.XProperty, animation); works with no clock, but no pausing
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.Models
 {
+    using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using MVVM.ViewModel;
 
     public class VenueRaceTracksModel : BaseViewModel
@@ -20,7 +22,24 @@
                     raceLane.RaceStarted = value;
                 }
 
-                SetProperty(ref _raceStarted, value, nameof(RaceStarted));
+                SetProperty(ref _raceStarted, value);
+            }
+        }
+
+        public EventHandler RaceFinishedEventHandler;
+
+        private bool _raceFinished;
+
+        /// <summary>
+        /// Flag indicating the race is finished
+        /// </summary>
+        public bool RaceFinished
+        {
+            get => _raceFinished;
+            set
+            {
+                SetProperty(ref _raceFinished, value);
+                RaceFinishedEventHandler.Invoke(this, new PropertyChangedEventArgs(nameof(RaceFinished)));
             }
         }
 
@@ -32,7 +51,7 @@
         public string VenueName
         {
             get => _venueName;
-            set => SetProperty(ref _venueName, value, nameof(VenueName));
+            set => SetProperty(ref _venueName, value);
         }
 
         private ObservableCollection<RaceTrackEntryModel> _raceTrackModels;
@@ -43,7 +62,7 @@
         public ObservableCollection<RaceTrackEntryModel> RaceTrackModels
         {
             get => _raceTrackModels;
-            set => SetProperty(ref _raceTrackModels, value, nameof(RaceTrackModels));
+            set => SetProperty(ref _raceTrackModels, value);
         }
     }
 }

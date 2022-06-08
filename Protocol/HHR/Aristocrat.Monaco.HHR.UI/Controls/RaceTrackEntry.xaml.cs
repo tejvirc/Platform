@@ -6,8 +6,8 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media;
+    using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
-    using Kernel;
     using log4net;
     using MVVM;
     using WpfAnimatedGif;
@@ -21,11 +21,11 @@
 
         private static readonly Dictionary<int, BitmapImage> HorseNumberToImageLookup = new Dictionary<int, BitmapImage>();
 
-        private readonly ISystemDisableManager _disableManager;
-
         private readonly object _lock = new object();
 
         private bool _initialized;
+
+        private AnimationClock _clock;
 
         /// <summary>
         ///     Path to the gif of the galloping horse
@@ -43,10 +43,8 @@
         }
 
         public RaceTrackEntry()
-        { 
+        {
             InitializeComponent();
-
-            _disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
         }
 
         /// <summary>
@@ -77,7 +75,7 @@
                 {
                     thisControl.PauseAnimation();
                 }
-                else if(thisControl._initialized)
+                else if (thisControl._initialized)
                 {
                     thisControl.PlayAnimation();
                 }
@@ -88,13 +86,11 @@
         {
             lock (_lock)
             {
-                if (_initialized)
+                _clock?.Controller?.Pause();
+                MvvmHelper.ExecuteOnUI(() =>
                 {
-                    MvvmHelper.ExecuteOnUI(() =>
-                    {
-                        ImageBehavior.GetAnimationController(Horse)?.Pause();
-                    });
-                }
+                    ImageBehavior.GetAnimationController(Horse)?.Pause();
+                });
             }
         }
 
@@ -102,6 +98,11 @@
         {
             lock (_lock)
             {
+                if (_clock?.IsPaused ?? false)
+                {
+                    _clock?.Controller?.Resume();
+                }
+
                 if (_initialized)
                 {
                     MvvmHelper.ExecuteOnUI(() =>
@@ -186,7 +187,6 @@
                 image.BeginInit();
                 image.UriSource = new Uri(imageLocalPath);
                 image.EndInit();
-                
 
                 RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.NearestNeighbor);
                 image.Freeze();
@@ -194,17 +194,38 @@
             }
         }
 
-        public void StartRace()
+        private double CalculateDistance(int place)
+        {
+            // The amount of distance the fastest horse will cover in the race time.
+            const double distanceToRun = 250;
+
+            var runDistance = distanceToRun * ((12 - place) / 12.0) + 50;
+
+            return runDistance;
+        }
+
+        private void SetupAndStartAnimation(double distanceToRun)
+        {
+            Vector offset = VisualTreeHelper.GetOffset(Horse);
+            var left = offset.X;
+            TranslateTransform transform = new TranslateTransform();
+            Horse.RenderTransform = transform;
+            DoubleAnimation animation = new DoubleAnimation(
+                0,
+                distanceToRun - left,
+                TimeSpan.FromMilliseconds(UiProperties.HorseResultsRunTimeMilliseconds));
+            _clock = (AnimationClock)animation.CreateClock(true);
+            transform.ApplyAnimationClock(TranslateTransform.XProperty, _clock);
+            //transform.BeginAnimation(TranslateTransform.XProperty, animation); works with no clock, but no pausing
+        }
+
+        private void StartRace()
         {
             lock (_lock)
             {
                 _initialized = true;
 
-                if (_disableManager.IsDisabled && !_disableManager.IsGamePlayAllowed())
-                {
-                    Logger.Debug("System disabled : pause and return");
-                    PauseAnimation();
-                }
+                SetupAndStartAnimation(CalculateDistance(Place));
             }
         }
 

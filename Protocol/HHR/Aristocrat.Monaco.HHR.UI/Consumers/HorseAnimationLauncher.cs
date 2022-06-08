@@ -28,7 +28,7 @@
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
         private readonly ISystemDisableManager _systemDisableManager;
-        private readonly IGamePlayEntityHelper _gamePlayEntityHelper;
+        private readonly IRuntimeFlagHandler _runtimeFlagHandler;
         private readonly IPropertiesManager _propertiesManager;
         private bool _disposed;
         private VenueRaceCollection _venueRaceCollection;
@@ -42,7 +42,7 @@
             ICabinetDetectionService cabinetDetectionService,
             IPrizeInformationEntityHelper prizeEntityHelper,
             ISystemDisableManager systemDisableManager,
-            IGamePlayEntityHelper gamePlayEntityHelper,
+            IRuntimeFlagHandler runtimeFlagHandler,
             IPropertiesManager properties)
         {
             _eventBus = eventBus
@@ -51,11 +51,12 @@
                 ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _prizeEntityHelper = prizeEntityHelper
                 ?? throw new ArgumentNullException(nameof(prizeEntityHelper));
-            _systemDisableManager = systemDisableManager ??
-                                    throw new ArgumentNullException(nameof(systemDisableManager));
-            _gamePlayEntityHelper = gamePlayEntityHelper ??
-                                    throw new ArgumentNullException(nameof(gamePlayEntityHelper));
-            _propertiesManager = properties ?? throw new ArgumentNullException(nameof(properties));
+            _systemDisableManager = systemDisableManager
+                ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            _runtimeFlagHandler = runtimeFlagHandler
+                ?? throw new ArgumentNullException(nameof(runtimeFlagHandler));
+            _propertiesManager = properties
+                ?? throw new ArgumentNullException(nameof(properties));
 
             _eventBus.Subscribe<DisplayMonitorStatusChangeEvent>(this, HandleEvent);
 
@@ -139,9 +140,8 @@
             _venueRaceCollectionViewModel = new VenueRaceCollectionViewModel(
                 _eventBus,
                 _prizeEntityHelper,
-                _systemDisableManager,
-                _gamePlayEntityHelper,
-                _propertiesManager);
+                _propertiesManager,
+                _runtimeFlagHandler);
 
             MvvmHelper.ExecuteOnUI(
                 () =>
