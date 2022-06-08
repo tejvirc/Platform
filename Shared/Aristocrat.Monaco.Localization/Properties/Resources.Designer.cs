@@ -22514,7 +22514,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Call Attendant - Memory ...
+		///   Looks up a localized string similar to Call Attendant - Insufficient Memory.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -56950,7 +56950,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Call Attendant - Memory ...
+		///		Looks up a localized string similar to Call Attendant - Insufficient Memory.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -81728,7 +81728,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		OutcomeStateHeader,
 		/// <summary>
-		///   Looks up a localized string similar to Call Attendant - Memory ...
+		///   Looks up a localized string similar to Call Attendant - Insufficient Memory.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
