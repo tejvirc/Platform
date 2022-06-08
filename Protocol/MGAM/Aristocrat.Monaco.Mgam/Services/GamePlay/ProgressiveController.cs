@@ -279,7 +279,7 @@
                 return;
             }
 
-            _eventBus.UnsubscribeAll(this);
+                _eventBus.UnsubscribeAll(this);
 
             _disposed = true;
         }
