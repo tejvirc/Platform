@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Progressives
+namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
     using System.Collections.Concurrent;
@@ -13,7 +13,7 @@
 
     public class MysteryProgressiveProvider : IMysteryProgressiveProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly ConcurrentDictionary<string, decimal> _magicNumberIndex;
         private readonly IPersistentBlock _saveBlock;
         private readonly IPRNG _prng;
@@ -57,9 +57,7 @@
         public bool CheckMysteryJackpot(IViewableProgressiveLevel progressiveLevel)
         {
             if (!TryGetMagicNumber(progressiveLevel, out var magicNumber))
-            {
                 return false;
-            }
 
             return progressiveLevel.CurrentValue >= magicNumber;
         }
@@ -71,23 +69,20 @@
             Logger.Debug($"Logging Magic number - {index} - {magicNumber}");
             _magicNumberIndex.AddOrUpdate(index, magicNumber, (_, _) => magicNumber);
 
+            // StandaloneProgressiveProvider does not persist levels, so we do not persist magic numbers
+            if (IsStandaloneProgressive(progressiveLevel))
+                return;
+
             using var transaction = _saveBlock.Transaction();
             transaction.SetValue(_saveKey, _magicNumberIndex);
             transaction.Commit();
         }
 
-        private string GetProgressiveLevelKey(IViewableProgressiveLevel progressiveLevel)
-        {
-            var key = progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey;
+        private string GetProgressiveLevelKey(IViewableProgressiveLevel progressiveLevel) =>
+            IsStandaloneProgressive(progressiveLevel)
+                ? GenerateUniqueStandaloneProgressiveKey(progressiveLevel)
+                : progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey;
 
-            if (progressiveLevel.AssignedProgressiveId == null ||
-                progressiveLevel.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.None)
-            {
-                key = GenerateUniqueStandaloneProgressiveKey(progressiveLevel);
-            }
-
-            return key;
-        }
 
         private string GenerateUniqueStandaloneProgressiveKey(IViewableProgressiveLevel progressiveLevel)
         {
@@ -96,9 +91,14 @@
                 progressiveLevel.ProgressivePackId,
                 progressiveLevel.LevelName,
                 progressiveLevel.Denomination.First(),
-                progressiveLevel.BetOption);
+                progressiveLevel.BetOption
+            );
 
             return $"{progressiveLevel.GameId} - {progressiveLevelName}";
         }
+
+        private bool IsStandaloneProgressive(IViewableProgressiveLevel progressiveLevel) =>
+            progressiveLevel.AssignedProgressiveId == null ||
+            progressiveLevel.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.None;
     }
 }
