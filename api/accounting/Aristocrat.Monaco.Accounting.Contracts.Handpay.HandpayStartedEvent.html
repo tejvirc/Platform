@@ -139,24 +139,24 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.%23ctor(Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayType%2CSystem.Int64%2CSystem.Int64%2CSystem.Int64%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Int64_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.%23ctor(Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayType%2CSystem.Int64%2CSystem.Int64%2CSystem.Int64%2CSystem.Int64%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Boolean_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.#ctor(Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayType,System.Int64,System.Int64,System.Int64,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Boolean_" class="expander" data-toggle="collapse">HandpayStartedEvent(HandpayType, Int64, Int64, Int64, Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Int64_System_Boolean_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.#ctor(Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayType,System.Int64,System.Int64,System.Int64,System.Int64,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Int64_System_Boolean_" class="expander" data-toggle="collapse">HandpayStartedEvent(HandpayType, Int64, Int64, Int64, Int64, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent__ctor_Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayType_System_Int64_System_Int64_System_Int64_System_Int64_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.html">HandpayStartedEvent</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public HandpayStartedEvent(HandpayType handpayType, long cashableAmount, long promoAmount, long nonCashAmount, bool eligibleResetToCreditMeter)</code></pre>
+    <pre><code class="lang-csharp hljs">public HandpayStartedEvent(HandpayType handpayType, long cashableAmount, long promoAmount, long nonCashAmount, long wagerAmount, bool eligibleResetToCreditMeter)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -195,6 +195,14 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
     </tr>
     <tr>
       <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">wagerAmount</span>
+        <p><p>wager responsible for large win handpay</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
         <span class="parametername">eligibleResetToCreditMeter</span>
         <p><p>would be true if current handpay transaction can be reset to credit meter</p>
@@ -222,7 +230,7 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_CashableAmount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.CashableAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_CashableAmount_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.CashableAmount*"></a>
@@ -266,7 +274,7 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_EligibleResetToCreditMeter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.EligibleResetToCreditMeter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_EligibleResetToCreditMeter_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.EligibleResetToCreditMeter*"></a>
@@ -310,7 +318,7 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_Handpay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.Handpay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_Handpay_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.Handpay*"></a>
@@ -354,7 +362,7 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_NonCashAmount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.NonCashAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L60" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_NonCashAmount_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.NonCashAmount*"></a>
@@ -398,7 +406,7 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_PromoAmount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.PromoAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_PromoAmount_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.PromoAmount*"></a>
@@ -436,6 +444,50 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
   
   
   </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_WagerAmount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.WagerAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_WagerAmount_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.WagerAmount*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_WagerAmount" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.WagerAmount"><a href="#collapsible-Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_WagerAmount" class="expander" data-toggle="collapse">WagerAmount</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_WagerAmount" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the wager amount</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long WagerAmount { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
   <h3 id="methods">Methods
   </h3>
   
@@ -444,7 +496,7 @@ public class HandpayStartedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting.Contracts/Handpay/HandpayStartedEvent.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Accounting_Contracts_Handpay_HandpayStartedEvent_ToString_" data-uid="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent.ToString*"></a>
