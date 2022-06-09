@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Contracts.Progressives;
     using Progressives;
 
 
@@ -30,6 +31,7 @@
         public void Handle(CheckMysteryJackpot command)
         {
             command.Results = _progressiveGame.GetActiveProgressiveLevels()
+                                              .Where(progressive => progressive.TriggerControl == TriggerType.Mystery)
                                               .ToDictionary(
                                                   level =>(uint)level.LevelId,
                                                   level => _mysteryProgressiveProvider.CheckMysteryJackpot(level)
