@@ -22526,6 +22526,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to To clear this lockup, restart the machine..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OutOfMemoryMessageDescription {
+			get {
+				return ResourceManager.GetString("OutOfMemoryMessageDescription", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Out Of Service.
 		/// </summary>
         /// <remarks>
@@ -56962,6 +56974,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to To clear this lockup, restart the machine..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OutOfMemoryMessageDescription {
+			get {
+				return "OutOfMemoryMessageDescription";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Out Of Service.
 		/// </summary>
         /// <remarks>
@@ -81734,6 +81758,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		OutOfMemoryMessage,
+		/// <summary>
+		///   Looks up a localized string similar to To clear this lockup, restart the machine..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		OutOfMemoryMessageDescription,
 		/// <summary>
 		///   Looks up a localized string similar to Out Of Service.
 		/// </summary>
