@@ -269,12 +269,27 @@
                     () =>
                     {
                         _activeWindow?.UpdateCalibration(e);
-                        if (!string.IsNullOrEmpty(e.ResourceKey) && !string.IsNullOrEmpty(e.Error))
+                        if (!string.IsNullOrEmpty(e.ResourceKey))
                         {
-                            CalibrationError = true;
-                            var error = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SerialCalibrationError), CalibrationErrorTimeoutSeconds);
-                            _activeWindow?.UpdateError(error);
-                            StartTimer(MilliSecondsPerSecond);
+                            if (!string.IsNullOrEmpty(e.Error))
+                            {
+                                if (e.ResourceKey == ResourceKeys.TouchCalibrateModel)
+                                {
+                                    var message = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftLockMessage)); // Please Wait...
+                                    _activeWindow?.UpdateError(message);
+                                }
+                                else
+                                {
+                                    CalibrationError = true;
+                                    var error = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SerialCalibrationError), CalibrationErrorTimeoutSeconds);
+                                    _activeWindow?.UpdateError(error);
+                                    StartTimer(MilliSecondsPerSecond);
+                                }
+                            }
+                            else
+                            {
+                                _activeWindow?.UpdateError(string.Empty);
+                            }
                         }
                     });
             }
