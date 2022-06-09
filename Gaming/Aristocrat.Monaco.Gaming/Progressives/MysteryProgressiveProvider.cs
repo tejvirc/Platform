@@ -7,8 +7,8 @@ namespace Aristocrat.Monaco.Gaming.Progressives
     using Contracts;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
-    using log4net;
     using PRNGLib;
+    using log4net;
 
 
     public class MysteryProgressiveProvider : IMysteryProgressiveProvider

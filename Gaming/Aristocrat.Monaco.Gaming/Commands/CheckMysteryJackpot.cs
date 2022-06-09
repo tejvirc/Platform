@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System.Collections.Generic;
-    using Contracts.Progressives;
 
     /// <summary>
     ///     Trigger jackpot command
