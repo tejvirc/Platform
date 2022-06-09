@@ -1,14 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tests.Progressives
 {
-    using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using Contracts.Progressives;
-    using Contracts.Progressives.Linked;
     using Gaming.Progressives;
     using Hardware.Contracts.Persistence;
-    using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using PRNGLib;
@@ -17,7 +14,7 @@
     [TestClass]
     public class MysteryProgressiveProviderTests
     {
-        private static readonly AssignableProgressiveId _nonSharedSap = new(AssignableProgressiveType.None, "0");
+        private static readonly AssignableProgressiveId _nonSharedSap = new(AssignableProgressiveType.None, null);
 
         private static readonly AssignableProgressiveId _sharedSap = new(AssignableProgressiveType.AssociativeSap, "1");
 
@@ -25,27 +22,35 @@
 
         private static readonly AssignableProgressiveId _linkedProg = new(AssignableProgressiveType.Linked, "3");
 
+        // with default rng stub, every even (0, 2, ...) index should jackpot
         private readonly List<ProgressiveLevel> _testData = new()
         {
             new ProgressiveLevel
             {
                 ResetValue = 1000,
                 MaximumValue = 2000,
-                CurrentValue = 2000,
+                CurrentValue = 1500,
                 AssignedProgressiveId = _sharedSap
             },
             new ProgressiveLevel
             {
                 ResetValue = 500,
                 MaximumValue = 1000,
-                CurrentValue = 999,
+                CurrentValue = 749,
                 AssignedProgressiveId = _sharedSap
             },
             new ProgressiveLevel
             {
                 ResetValue = 300,
                 MaximumValue = 1000,
-                CurrentValue = 1000,
+                CurrentValue = 650,
+                AssignedProgressiveId = _customSap
+            },
+            new ProgressiveLevel
+            {
+                ResetValue = 1,
+                MaximumValue = 2,
+                CurrentValue = 0,
                 AssignedProgressiveId = _customSap
             },
             new ProgressiveLevel
@@ -53,13 +58,6 @@
                 ResetValue = 1,
                 MaximumValue = 2,
                 CurrentValue = 1,
-                AssignedProgressiveId = _customSap
-            },
-            new ProgressiveLevel
-            {
-                ResetValue = 1,
-                MaximumValue = 2,
-                CurrentValue = 2,
                 AssignedProgressiveId = _linkedProg
             },
             new ProgressiveLevel
@@ -73,7 +71,7 @@
             {
                 ResetValue = 1,
                 MaximumValue = 2,
-                CurrentValue = 2,
+                CurrentValue = 1,
                 ProgressivePackName = "Pack1",
                 ProgressivePackId = 1,
                 LevelName = "Level1",
@@ -91,9 +89,7 @@
                 Denomination = new List<long> { 1000 },
                 AssignedProgressiveId = _nonSharedSap
             },
-
-
-    };
+        };
 
         private MysteryProgressiveProvider _mysteryProgressiveProvider;
         private Mock<IRandomFactory> _randomFactory;
@@ -108,7 +104,7 @@
             _prng = new Mock<IPRNG>();
             _prng
                 .Setup(x => x.GetValue(It.IsAny<ulong>()))
-                .Returns<ulong>(x => x);
+                .Returns<ulong>(x => x / 2);
 
             _randomFactory = new Mock<IRandomFactory>();
             _randomFactory
@@ -138,7 +134,6 @@
 
         }
 
-
         [TestMethod]
         public void GenerateMagicNumbersTest()
         {
@@ -147,6 +142,46 @@
                 var number = _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
 
                 Assert.IsNotNull(number);
+                Assert.IsTrue(MagicNumberIsInProgressiveRange(progressiveLevel, number));
+            }
+        }
+
+        [TestMethod]
+        public void GenerateMagicNumbersMinTest()
+        {
+            _prng
+                .Setup(x => x.GetValue(It.IsAny<ulong>()))
+                .Returns<ulong>(x => 0);
+            _randomFactory
+                .Setup(x => x.Create(It.IsAny<RandomType>()))
+                .Returns(_prng.Object);
+
+            foreach (var progressiveLevel in _testData)
+            {
+                var number = _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+
+                Assert.IsNotNull(number);
+                Assert.IsTrue(MagicNumberIsInProgressiveRange(progressiveLevel, number));
+                Assert.AreEqual(progressiveLevel.ResetValue, number);
+            }
+        }
+
+        [TestMethod]
+        public void GenerateMagicNumbersMaxTest()
+        {
+            _prng
+                .Setup(x => x.GetValue(It.IsAny<ulong>()))
+                .Returns<ulong>(x => x);
+            _randomFactory
+                .Setup(x => x.Create(It.IsAny<RandomType>()))
+                .Returns(_prng.Object);
+
+            foreach (var progressiveLevel in _testData)
+            {
+                var number = _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+
+                Assert.IsNotNull(number);
+                Assert.IsTrue(MagicNumberIsInProgressiveRange(progressiveLevel, number));
                 Assert.AreEqual(progressiveLevel.MaximumValue, number);
             }
         }
@@ -156,13 +191,14 @@
         {
             foreach (var progressiveLevel in _testData)
             {
-                 _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+                var generatedNumber = _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
 
                 var status = _mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out var magicNumber);
 
                 Assert.IsTrue(status);
                 Assert.IsNotNull(magicNumber);
-                Assert.AreEqual(progressiveLevel.MaximumValue, magicNumber);
+                Assert.IsNotNull(generatedNumber);
+                Assert.AreEqual(generatedNumber, magicNumber);
             }
         }
 
@@ -171,74 +207,93 @@
         {
             foreach (var progressiveLevel in _testData)
             {
-                _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+                var magicNumber = _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+
+                var shouldHit = progressiveLevel.CurrentValue >= magicNumber;
 
                 var hit = _mysteryProgressiveProvider.CheckMysteryJackpot(progressiveLevel);
 
-                if (progressiveLevel.MaximumValue == progressiveLevel.CurrentValue)
-                {
+                if (shouldHit)
                     Assert.IsTrue(hit);
-                    continue;
-                }
-                Assert.IsFalse(hit);
+                else
+                    Assert.IsFalse(hit);
             }
         }
 
         [TestMethod]
         public void GetSharedMagicNumbersTest()
         {
-            foreach (var progressiveLevel in _testData)
+            var groupOne = _testData.Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey == "1");
+            var groupTwo = _testData.Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey == "2");
+            var groupThree = _testData.Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey == "3");
+
+            foreach (var group in new List<IEnumerable<ProgressiveLevel>> { groupOne, groupTwo, groupThree })
             {
-                _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
-            }
-
-            for (var i = 0; i < _testData.Count(); i += 2)
-            {
-
-                var progressiveLevel = _testData[i];
-                var sharedLevel = _testData[i + 1];
-
-                var statusOne = _mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out var magicNumberOne);
-                var statusTwo = _mysteryProgressiveProvider.TryGetMagicNumber(sharedLevel, out var magicNumberTwo);
-
-                Assert.IsTrue(statusOne);
-                Assert.IsNotNull(magicNumberOne);
-                Assert.IsTrue(statusTwo);
-                Assert.IsNotNull(magicNumberTwo);
-
-                if (_testData[i].AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.None)
+                foreach (var progressiveLevel in group)
                 {
-                    Assert.AreNotEqual(magicNumberOne, magicNumberTwo);
+                    _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
                 }
-                else
+
+                _mysteryProgressiveProvider.TryGetMagicNumber(group.First(), out var firstMagicNumber);
+
+                var allShareMagicNumber = group.All(prog =>
                 {
-                    Assert.AreEqual(magicNumberOne, magicNumberTwo);
-                }
+                    _mysteryProgressiveProvider.TryGetMagicNumber(prog, out var magicNumber);
+                    return magicNumber == firstMagicNumber;
+                });
+
+                Assert.IsTrue(allShareMagicNumber);
             }
         }
 
         [TestMethod]
         public void GetUniqueMagicNumbersTest()
         {
-            foreach(var progressiveLevel in _testData)
+            var progsWithDifferentIds = _testData
+                .GroupBy(prog => prog.AssignedProgressiveId.AssignedProgressiveKey)
+                .Select(g => g.First())
+                .ToList();
+
+            foreach (var progressiveLevel in progsWithDifferentIds)
             {
                 _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
             }
 
-            for (var i = 0; i < _testData.Count() - 2; i += 2)
+            _mysteryProgressiveProvider.TryGetMagicNumber(progsWithDifferentIds.First(), out var firstMagicNumber);
+            progsWithDifferentIds.RemoveAt(0);
+
+            var allUniqueNumbers = progsWithDifferentIds.All(prog =>
             {
-                var progressiveLevel = _testData[i];
-                var notSharedLevel = _testData[i + 2];
+                _mysteryProgressiveProvider.TryGetMagicNumber(prog, out var magicNumber);
+                return magicNumber != firstMagicNumber;
+            });
 
-                var statusOne = _mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out var magicNumberOne);
-                var statusTwo = _mysteryProgressiveProvider.TryGetMagicNumber(notSharedLevel, out var magicNumberTwo);
-
-                Assert.IsTrue(statusOne);
-                Assert.IsNotNull(magicNumberOne);
-                Assert.IsTrue(statusTwo);
-                Assert.IsNotNull(magicNumberTwo);
-                Assert.AreNotEqual(magicNumberOne, magicNumberTwo);
-            }
+            Assert.IsTrue(allUniqueNumbers);
         }
+
+        [TestMethod]
+        public void StandaloneUniqueMagicNumbersTest()
+        {
+            var standaloneProgs = _testData.Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey == null).ToList();
+
+            foreach (var progressiveLevel in standaloneProgs)
+            {
+                _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+            }
+
+            _mysteryProgressiveProvider.TryGetMagicNumber(standaloneProgs.First(), out var firstMagicNumber);
+            standaloneProgs.RemoveAt(0);
+
+            var allUniqueNumbers = standaloneProgs.All(prog =>
+            {
+                _mysteryProgressiveProvider.TryGetMagicNumber(prog, out var magicNumber);
+                return magicNumber != firstMagicNumber;
+            });
+
+            Assert.IsTrue(allUniqueNumbers);
+        }
+
+        private bool MagicNumberIsInProgressiveRange(ProgressiveLevel progressiveLevel, decimal magicNumber) =>
+            progressiveLevel.ResetValue <= magicNumber && magicNumber <= progressiveLevel.MaximumValue;
     }
 }
