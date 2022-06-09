@@ -150,7 +150,7 @@
                 { "/Runtime/MaximumGambleHandWager", !useWinLimit ? "true" : "false" },
                 { "/Runtime/MaximumGambleHandWager&valueCents", _properties.GetValue(GamingConstants.GambleWagerLimit, long.MaxValue).MillicentsToCents().ToString() },
                 { "/Runtime/Flag&ContinuousPlayMode", _properties.GetValue(GamingConstants.ContinuousPlayMode, PlayMode.Toggle) == PlayMode.Toggle ? "toggle" : "continuous" },
-                { "Runtime/ContinuousPlay&buttons", string.Join(",", continuousPlayButtons) },
+                { "/Runtime/ContinuousPlay&buttons", string.Join(",", continuousPlayButtons) },
                 { "/Runtime/Hardware/EdgeLightSharedMemoryName", EdgeLightRuntimeParameters.EdgeLightSharedMemoryName },
                 { "/Runtime/Hardware/EdgeLightSharedMutexName", EdgeLightRuntimeParameters.EdgeLightSharedMutexName },
                 { "/Runtime/Hardware/VBD&type", _cabinetDetectionService.ButtonDeckType },
