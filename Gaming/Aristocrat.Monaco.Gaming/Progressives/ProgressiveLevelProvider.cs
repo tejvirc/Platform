@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Progressives
+namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
     using System.Collections.Generic;
@@ -234,8 +234,7 @@
                 WagerCredits = wagerCredits
             };
 
-            if (progressiveLevel.TriggerControl == TriggerType.Mystery &&
-                !_mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out _))
+            if (ShouldGenerateMagicNumber(progressiveLevel))
             {
                 _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
             }
@@ -588,6 +587,12 @@
             public string Id { get; }
 
             public int? MaxWagerCredits { get; }
+        }
+
+        private bool ShouldGenerateMagicNumber(ProgressiveLevel progressiveLevel)
+        {
+            return progressiveLevel.TriggerControl == TriggerType.Mystery &&
+                   !_mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out _);
         }
     }
 }
