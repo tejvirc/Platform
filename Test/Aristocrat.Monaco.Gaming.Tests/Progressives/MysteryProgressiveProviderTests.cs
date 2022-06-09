@@ -223,11 +223,12 @@
         [TestMethod]
         public void GetSharedMagicNumbersTest()
         {
-            var groupOne = _testData.Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey == "1");
-            var groupTwo = _testData.Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey == "2");
-            var groupThree = _testData.Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey == "3");
+            var sharedGroups = _testData
+                .Where(prog => prog.AssignedProgressiveId.AssignedProgressiveKey != null)
+                .GroupBy(prog => prog.AssignedProgressiveId.AssignedProgressiveKey)
+                .ToList();
 
-            foreach (var group in new List<IEnumerable<ProgressiveLevel>> { groupOne, groupTwo, groupThree })
+            foreach (var group in sharedGroups)
             {
                 foreach (var progressiveLevel in group)
                 {
