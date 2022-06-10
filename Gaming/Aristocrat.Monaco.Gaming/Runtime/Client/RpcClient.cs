@@ -42,7 +42,7 @@
             _processManager = processManager ?? throw new ArgumentNullException(nameof(processManager));
 
             // Create channel using transport (in this case … named pipe)
-            _namedPipe = new NamedPipeTransport(GamingConstants.IpcPipeName);
+            _namedPipe = new NamedPipeTransport(GamingConstants.IpcRuntimePipeName);
             _channel = new Channel(_namedPipe);
 
             // Connect to Server - here, it’s assumed that the Runtime server is already running (because the
