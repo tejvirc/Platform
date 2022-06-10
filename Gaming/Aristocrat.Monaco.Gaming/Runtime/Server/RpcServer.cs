@@ -57,7 +57,7 @@
                 callbacks.AddCallback(_presentationService);
 
                 // Create and start server with transport (named pipe)
-                _transport = new NamedPipeTransport(GamingConstants.IpcPipeName);
+                _transport = new NamedPipeTransport(GamingConstants.IpcPlatformPipeName);
                 _server = new Server(_transport, callbacks);
                 _server.Start();
             }
