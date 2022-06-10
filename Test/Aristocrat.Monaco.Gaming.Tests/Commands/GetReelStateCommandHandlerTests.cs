@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Aristocrat.GdkRuntime.V1;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Gaming.Commands;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
-    using V1;
     using Enum = System.Enum;
 
     /// <summary>

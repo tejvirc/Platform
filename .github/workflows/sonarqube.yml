@@ -2,11 +2,12 @@ name: SonarQube
 
 on:
   workflow_dispatch:
-  
+
   push:
     branches:
     - main
     - release/*
+    - develop
     paths:
     - 'Accounting/**'
     - 'Application/**'
@@ -17,12 +18,13 @@ on:
     - 'Protocol/**'
     - 'Shared/**'
     - 'Test/**'
-  
+
   pull_request:
     branches:
     - main
     - release/*
-      
+    - develop
+
 jobs:
   analyze:
     name: Analyze

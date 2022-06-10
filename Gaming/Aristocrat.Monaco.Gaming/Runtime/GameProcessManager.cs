@@ -18,7 +18,7 @@
     /// </summary>
     public class GameProcessManager : IProcessManager
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IClientEndpointProvider<IRuntime> _serviceProvider;
@@ -26,7 +26,7 @@
         private readonly string _gamesPath;
         private readonly string _runtimeRoot;
 
-        private readonly ConcurrentDictionary<int, bool> _processes = new ConcurrentDictionary<int, bool>();
+        private readonly ConcurrentDictionary<int, bool> _processes = new ();
 
         private bool _expectProcessExit;
 

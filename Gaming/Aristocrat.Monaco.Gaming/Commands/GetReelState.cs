@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System.Collections.Generic;
-    using V1;
+    using Aristocrat.GdkRuntime.V1;
 
     /// <summary>
     ///     Request the status of the mechanical reels

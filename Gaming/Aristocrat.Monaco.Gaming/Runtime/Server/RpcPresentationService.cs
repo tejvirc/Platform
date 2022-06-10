@@ -3,15 +3,13 @@
     using System;
     using log4net;
     using System.Reflection;
-    using System.Threading.Tasks;
+    using GdkRuntime.V1;
     using Commands;
     using Contracts;
-    using Grpc.Core;
-    using V1;
 
-    public class RpcPresentationService : PresentationService.PresentationServiceBase
+    public class RpcPresentationService : IPresentationServiceCallback
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly ICommandHandlerFactory _handlerFactory;
 
         public RpcPresentationService(ICommandHandlerFactory handlerFactory)
@@ -19,9 +17,8 @@
             _handlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
         }
 
-        public override Task<RegisterPresentationResponse> RegisterPresentation(
-            RegisterPresentationRequest request,
-            ServerCallContext context)
+        public override RegisterPresentationResponse RegisterPresentation(
+            RegisterPresentationRequest request)
         {
             Logger.Debug("RegisterPresentation entered");
 
@@ -46,8 +43,7 @@
 
             _handlerFactory.Create<RegisterPresentation>().Handle(command);
 
-            return Task.FromResult(new RegisterPresentationResponse { Result = command.Success });
+            return new RegisterPresentationResponse { Result = command.Success };
         }
-
     }
 }
