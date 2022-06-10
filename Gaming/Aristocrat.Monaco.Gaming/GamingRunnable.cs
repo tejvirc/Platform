@@ -22,7 +22,6 @@
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
-    using Grpc.Core;
     using Hardware.Contracts;
     using Kernel;
     using Kernel.Contracts;
@@ -345,8 +344,6 @@
 
             RemoveServices();
             _container?.Dispose();
-
-            GrpcEnvironment.ShutdownChannelsAsync().Wait(ShutdownTimeout);
         }
 
         private void HandleStartupEvents()

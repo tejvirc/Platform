@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Aristocrat.GdkRuntime.V1;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Kernel;
     using log4net;
-    using V1;
 
     /// <summary>
     ///     Command handler for the <see cref="GetReelState" /> command.

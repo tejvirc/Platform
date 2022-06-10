@@ -2,19 +2,17 @@
 {
     using System;
     using System.Reflection;
-    using System.Threading.Tasks;
+    using GdkRuntime.V1;
     using Commands;
-    using Grpc.Core;
     using log4net;
-    using V1;
     using NudgeReelData = Hardware.Contracts.Reel.NudgeReelData;
     using ReelSpinData = Hardware.Contracts.Reel.ReelSpinData;
     using ReelSpeedData = Hardware.Contracts.Reel.ReelSpeedData;
     using SpinDirection = Hardware.Contracts.Reel.SpinDirection;
 
-    public class RpcReelService : ReelService.ReelServiceBase
+    public class RpcReelService : IReelServiceCallback
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly ICommandHandlerFactory _handlerFactory;
 
         public RpcReelService(ICommandHandlerFactory handlerFactory)
@@ -22,7 +20,7 @@
             _handlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
         }
 
-        public override Task<ConnectedReelsResponse> GetConnectedReels(ConnectedReelsRequest request, ServerCallContext context)
+        public override ConnectedReelsResponse GetConnectedReels(ConnectedReelsRequest request)
         {
             Logger.Debug($"GetConnectedReels");
 
@@ -32,10 +30,10 @@
 
             var response = new ConnectedReelsResponse();
             response.ReelId.AddRange(command.ReelIds);
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<GetReelsStateResponse> GetReelsState(GetReelsStateRequest request, ServerCallContext context)
+        public override GetReelsStateResponse GetReelsState(GetReelsStateRequest request)
         {
             Logger.Debug($"GetReelsState");
 
@@ -49,10 +47,10 @@
                 response.States.Add(reelState.Key, reelState.Value);
             }
 
-            return Task.FromResult(response);
+            return response;
         }
 
-        public override Task<NudgeReelsResponse> NudgeReels(NudgeReelsRequest request, ServerCallContext context)
+        public override NudgeReelsResponse NudgeReels(NudgeReelsRequest request)
         {
             Logger.Debug($"NudgeReels");
 
@@ -73,10 +71,10 @@
 
             Logger.Debug($"NudgeReels with request: {request} Result: { command.Success}");
 
-            return Task.FromResult(new NudgeReelsResponse { Result = command.Success });
+            return new NudgeReelsResponse { Result = command.Success };
         }
 
-        public override Task<SpinReelsResponse> SpinReels(SpinReelsRequest request, ServerCallContext context)
+        public override SpinReelsResponse SpinReels(SpinReelsRequest request)
         {
             Logger.Debug($"SpinReels");
 
@@ -97,10 +95,10 @@
 
             Logger.Debug($"SpinReels with request: {request} Result: {command.Success}");
 
-            return Task.FromResult(new SpinReelsResponse { Result = command.Success });
+            return new SpinReelsResponse { Result = command.Success };
         }
 
-        public override Task<UpdateReelsSpeedResponse> UpdateReelsSpeed(UpdateReelsSpeedRequest request, ServerCallContext context)
+        public override UpdateReelsSpeedResponse UpdateReelsSpeed(UpdateReelsSpeedRequest request)
         {
             Logger.Debug($"UpdateReelsSpeed");
 
@@ -118,7 +116,7 @@
 
             Logger.Debug($"UpdateReelsSpeed with request: {request} Result: {command.Success}");
 
-            return Task.FromResult(new UpdateReelsSpeedResponse { Result = command.Success });
+            return new UpdateReelsSpeedResponse { Result = command.Success };
         }
     }
 }
