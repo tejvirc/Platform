@@ -55,6 +55,7 @@
         /// <param name="persistenceProvider">The persistence provider.</param>
         /// <param name="loggedEventContainer">The logged events</param>
         /// <param name="transactionHistory">An <see cref="ITransactionHistory"/> instance</param>
+        /// <param name="meterSnapshotProvider">An <see cref="IGameRoundMeterSnapshotProvider"/> instance</param>
         public GameHistory(
             IPropertiesManager properties,
             IBank bank,
@@ -91,16 +92,17 @@
             _logs = new List<GameHistoryLog>(MaxEntries);
 
             LoadGameHistory();
-
-            if (IsGameFatalError)
+            if (!IsGameFatalError)
             {
-                var log = _currentLog;
-
-                systemDisable.Disable(GamingConstants.FatalGameErrorGuid, SystemDisablePriority.Immediate,
-                    () => GameErrorCode.LiabilityLimit == log?.ErrorCode
-                        ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.LiabilityCheckFailed)
-                        : Localizer.For(CultureFor.Player).GetString(ResourceKeys.LegitimacyCheckFailed));
+                return;
             }
+
+            var log = _currentLog;
+
+            systemDisable.Disable(GamingConstants.FatalGameErrorGuid, SystemDisablePriority.Immediate,
+                () => GameErrorCode.LiabilityLimit == log?.ErrorCode
+                    ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.LiabilityCheckFailed)
+                    : Localizer.For(CultureFor.Player).GetString(ResourceKeys.LegitimacyCheckFailed));
         }
 
         private int CurrentLogIndex { get; set; }
@@ -212,7 +214,7 @@
 
             if (_currentLog?.PlayState != PlayState.PrimaryGameEscrow)
             {
-                InitializeLog(PlayState.PrimaryGameStarted, initialWager, null, jackpotSnapshot);
+                InitializeLog(PlayState.PrimaryGameStarted, initialWager, data, jackpotSnapshot);
             }
             else
             {
@@ -239,11 +241,13 @@
 
         public void IncrementUncommittedWin(long win)
         {
-            if (!_gameDiagnostics.IsActive && win > 0)
+            if (_gameDiagnostics.IsActive || win <= 0)
             {
-                _currentLog.UncommittedWin += win;
-                Logger.Debug($"[Set Uncommitted Win {CurrentLogIndex}] Win Amount {win}");
+                return;
             }
+
+            _currentLog.UncommittedWin += win;
+            Logger.Debug($"[Set Uncommitted Win {CurrentLogIndex}] Win Amount {win}");
         }
 
         public void CommitWin()
@@ -500,7 +504,7 @@
                 return;
             }
 
-             var log = _currentLog;
+            var log = _currentLog;
 
             UpdateTransactions(log, true);
             AddMeterSnapshot();
@@ -508,7 +512,7 @@
             log.PlayState = PlayState.Idle;
             log.Events = _loggedEventContainer.HandOffEvents();
             log.LastUpdate = DateTime.UtcNow;
-            
+
             Persist(log);
 
             Logger.Debug($"[Finalizing Game Log {CurrentLogIndex}]");
@@ -533,7 +537,7 @@
         /// <inheritdoc />
         public void AssociateTransactions(IEnumerable<TransactionInfo> transactions, bool applyToFreeGame = false)
         {
-            if (!(CurrentLog is GameHistoryLog log))
+            if (CurrentLog is not GameHistoryLog log)
             {
                 return;
             }
@@ -548,16 +552,14 @@
                 var lastFreeGame = log.FreeGames.LastOrDefault(g => g.EndDateTime != DateTime.MinValue);
                 if (lastFreeGame != null)
                 {
-                    using (var persistentTransaction = _persistentBlock.Transaction())
-                    {
-                        log.Transactions = finalList;
-                        _currencyHandler.Reset();
-                        lastFreeGame.AmountOut =
-                            finalList.Where(t => t.GameIndex == log.FreeGameIndex).Sum(t => t.Amount);
-                        var index = _logs.IndexOf(_currentLog);
-                        persistentTransaction.SetValue(index, log);
-                        persistentTransaction.Commit();
-                    }
+                    using var persistentTransaction = _persistentBlock.Transaction();
+                    log.Transactions = finalList;
+                    _currencyHandler.Reset();
+                    lastFreeGame.AmountOut =
+                        finalList.Where(t => t.GameIndex == log.FreeGameIndex).Sum(t => t.Amount);
+                    var index = _logs.IndexOf(_currentLog);
+                    persistentTransaction.SetValue(index, log);
+                    persistentTransaction.Commit();
 
                     return;
                 }
@@ -578,7 +580,7 @@
 
         public void AppendCashOut(CashOutInfo cashOut)
         {
-            if (!(CurrentLog is GameHistoryLog log))
+            if (CurrentLog is not GameHistoryLog log)
             {
                 return;
             }
@@ -600,22 +602,24 @@
 
         public void CompleteCashOut(Guid referenceId)
         {
-            if (!(CurrentLog is GameHistoryLog log))
+            if (CurrentLog is not GameHistoryLog log)
             {
                 return;
             }
 
             var infos = log.CashOutInfo.ToList();
             var infoToComplete = infos.FirstOrDefault(c => c.TraceId == referenceId);
-            if (infoToComplete != null)
+            if (infoToComplete == null)
             {
-                infoToComplete.Complete = true;
-
-                log.CashOutInfo = infos;
-                Persist(log);
-
-                Logger.Debug($"[Complete Cash Out {CurrentLogIndex}] Info {infoToComplete.Reason} {infoToComplete.Amount} {infoToComplete.TraceId}");
+                return;
             }
+
+            infoToComplete.Complete = true;
+
+            log.CashOutInfo = infos;
+            Persist(log);
+
+            Logger.Debug($"[Complete Cash Out {CurrentLogIndex}] Info {infoToComplete.Reason} {infoToComplete.Amount} {infoToComplete.TraceId}");
         }
 
         /// <inheritdoc />
@@ -673,7 +677,7 @@
             var existing = log.FreeGames.ElementAtOrDefault(log.FreeGameIndex);
             if (log.FreeGameIndex < log.LastCommitIndex || existing != null)
             {
-                if (existing != null && existing.Result == GameResult.None)
+                if (existing is { Result: GameResult.None })
                 {
                     existing.FinalWin = 0;
                 }
@@ -686,8 +690,9 @@
 
             log.FreeGames = new List<FreeGame>(log.FreeGames)
             {
-                new FreeGame { StartDateTime = DateTime.UtcNow, StartCredits = _bank.QueryBalance() }
+                new() { StartDateTime = DateTime.UtcNow, StartCredits = _bank.QueryBalance() }
             };
+
             log.FreeGameIndex++;
 
             Logger.Debug($"[StartFreeGame {CurrentLogIndex} ({log.FreeGameIndex})]");
@@ -702,20 +707,21 @@
             }
 
             var log = _currentLog;
-
             var freeGames = log.FreeGames.ToList();
-
-            if (log.FreeGameIndex > log.LastCommitIndex)
+            if (log.FreeGameIndex <= log.LastCommitIndex)
             {
-                var freeGame = freeGames.ElementAt(log.FreeGameIndex - 1);
-
-                if (freeGame != null && freeGame.Result == GameResult.None)
-                {
-                    freeGame.FinalWin += finalWin;
-
-                    Logger.Debug($"[FreeGameResults {CurrentLogIndex} ({log.FreeGameIndex}): Win {finalWin}]");
-                }
+                return;
             }
+
+            var freeGame = freeGames.ElementAt(log.FreeGameIndex - 1);
+            if (freeGame is not { Result: GameResult.None })
+            {
+                return;
+            }
+
+            freeGame.FinalWin += finalWin;
+
+            Logger.Debug($"[FreeGameResults {CurrentLogIndex} ({log.FreeGameIndex}): Win {finalWin}]");
         }
 
         public IFreeGameInfo EndFreeGame()
@@ -727,28 +733,27 @@
             }
 
             var log = _currentLog;
-
             var freeGames = log.FreeGames.ToList();
-
-            if (log.FreeGameIndex > log.LastCommitIndex)
+            if (log.FreeGameIndex <= log.LastCommitIndex)
             {
-                var freeGame = freeGames.LastOrDefault(g => g.Result == GameResult.None);
-                if (freeGame == null)
-                {
-                    return null;
-                }
-
-                freeGame.EndDateTime = DateTime.UtcNow;
-                freeGame.EndCredits = _bank.QueryBalance();
-                log.LastCommitIndex = log.FreeGameIndex;
-                Persist(log);
-
-                Logger.Debug($"[EndFreeGame {CurrentLogIndex} ({log.FreeGameIndex}): Final Win {freeGame.FinalWin}]");
-
-                return freeGame;
+                return null;
             }
 
-            return null;
+            var freeGame = freeGames.LastOrDefault(g => g.Result == GameResult.None);
+            if (freeGame == null)
+            {
+                return null;
+            }
+
+            freeGame.EndDateTime = DateTime.UtcNow;
+            freeGame.EndCredits = _bank.QueryBalance();
+            log.LastCommitIndex = log.FreeGameIndex;
+            Persist(log);
+
+            Logger.Debug($"[EndFreeGame {CurrentLogIndex} ({log.FreeGameIndex}): Final Win {freeGame.FinalWin}]");
+
+            return freeGame;
+
         }
 
         /// <inheritdoc />
