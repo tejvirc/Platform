@@ -4,10 +4,10 @@
     using System.Collections;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Drawing;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using Contracts.Gds;
     using Contracts.Gds.Reel;
     using Contracts.Reel;
@@ -22,32 +22,32 @@
     public class HarkeyProtocol : SerialReelController
     {
         private const int PollingIntervalMs = 1000;
+        private const int SpinningPollingIntervalMs = 3000;
         private const int ExpectedResponseTime = 50;
         private const int LightsPerReel = 3;
         private const int MaxLightId = HarkeyConstants.MaxReelId * LightsPerReel;
         private const int NumberOfMotorSteps = 200;
         private const int NumberOfStops = 22;
-        private const int AllowableStatusResponseTime = PollingIntervalMs + ExpectedResponseTime * 2;
+        private const int AllowableStatusResponseTime = ExpectedResponseTime * 2;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ManualResetEvent _statusWaiter = new(false);
 
-        private readonly ConcurrentDictionary<Type, InvokerQueue> _router =
-            new ConcurrentDictionary<Type, InvokerQueue>();
+        private readonly ConcurrentDictionary<Type, InvokerQueue> _router = new();
 
-        private readonly object _sequenceLock = new object();
-        private readonly object _countLock = new object();
-        private readonly object _reelStepsLock = new object();
-        private readonly object _homeStepsLock = new object();
-        private readonly object _initializeLock = new object();
+        private readonly object _sequenceLock = new();
+        private readonly object _countLock = new();
+        private readonly object _reelStepsLock = new();
+        private readonly object _homeStepsLock = new();
+        private readonly object _initializeLock = new();
 
-        private readonly ConcurrentDictionary<int, (byte sequenceId, bool responseReceived)> _homeReelMessageDictionary =
-            new ConcurrentDictionary<int, (byte, bool)>();
+        private readonly ConcurrentDictionary<int, (byte sequenceId, bool responseReceived)>
+            _homeReelMessageDictionary = new();
 
         private (byte sequenceId, byte commandedReelBits) _lastSpinCommandReels;
 
-        private readonly Stopwatch _statusResponse = new Stopwatch();
         private readonly ReelFaults _faults = ReelFaults.None;
-        private readonly List<ReelLampData> _currentLightState = new List<ReelLampData>();
-        private readonly List<bool> _reelsConnected = new List<bool>();
+        private readonly List<ReelLampData> _currentLightState = new();
+        private readonly List<bool> _reelsConnected = new();
         private readonly byte[] _homeSteps = new byte[HarkeyConstants.MaxReelId];
         private readonly ReelColors[] _lastReelColors = new ReelColors[HarkeyConstants.MaxReelId];
         private byte _sequenceId;
@@ -124,11 +124,6 @@
             }
             finally
             {
-                lock (_sequenceLock)
-                {
-                    _statusResponse.Restart();
-                }
-
                 EnablePolling(true);
             }
         }
@@ -188,6 +183,7 @@
             {
                 _router.Clear();
                 MessageBuilt -= OnMessageBuilt;
+                _statusWaiter.Dispose();
             }
 
             _disposed = true;
@@ -206,18 +202,15 @@
 
         protected override bool RequestStatus()
         {
+            _statusWaiter.Reset();
             SendCommand(new GetReelStatus());
-
-            lock (_sequenceLock)
-            {
-                return _statusResponse.ElapsedMilliseconds < AllowableStatusResponseTime;
-            }
+            return _statusWaiter.WaitOne(AllowableStatusResponseTime);
         }
 
         protected override void HomeReel(int reelId, int position)
         {
-            if (reelId <= 0 || reelId > HarkeyConstants.MaxReelId ||
-                position < -1 || position > NumberOfMotorSteps || !IsAttached)
+            if (reelId is <= 0 or > HarkeyConstants.MaxReelId ||
+                position is < -1 or > NumberOfMotorSteps || !IsAttached)
             {
                 return;
             }
@@ -246,7 +239,7 @@
             var stateChanged = false;
             foreach (var data in lampData)
             {
-                if (data.Id < 1 || data.Id > MaxLightId)
+                if (data.Id is < 1 or > MaxLightId)
                 {
                     continue;
                 }
@@ -286,7 +279,7 @@
         protected override void SetReelLightBrightness(int reelId, int brightness)
         {
             var reelConnectedCount = ReelConnectedCount;
-            if (reelId < 0 || reelId > reelConnectedCount || brightness < 1 || brightness > 100)
+            if (reelId < 0 || reelId > reelConnectedCount || brightness is < 1 or > 100)
             {
                 return;
             }
@@ -309,7 +302,7 @@
         {
             // The Harkey protocol does not set individual reel speeds so using the speed in the first parameter array item
 
-            if (speedData[0].Speed < 0 || speedData[0].Speed > 200)
+            if (speedData[0].Speed is < 0 or > 200)
             {
                 return;
             }
@@ -340,7 +333,7 @@
             var reels = GetSelectedReels(spinData);
 
             byte rampTable = HarkeyConstants.DefaultRampTable;
-            if (spinData[0].Rpm >= byte.MinValue && spinData[0].Rpm <= byte.MaxValue)
+            if (spinData[0].Rpm is >= byte.MinValue and <= byte.MaxValue)
             {
                 rampTable = (byte)spinData[0].Rpm;
             }
@@ -368,7 +361,7 @@
             var reels = GetSelectedReels(nudgeData);
 
             byte rampTable = HarkeyConstants.DefaultNudgeDelay;
-            if (nudgeData[0].Delay >= byte.MinValue && nudgeData[0].Delay <= byte.MaxValue)
+            if (nudgeData[0].Delay is >= byte.MinValue and <= byte.MaxValue)
             {
                 rampTable = (byte)nudgeData[0].Delay;
             }
@@ -378,6 +371,7 @@
 
         protected override void TiltReels()
         {
+            SetPollingRate(PollingIntervalMs);
             SendCommand(new AbortAndSlowSpin { SelectedReels = GetAllReelsSelectedBits() });
         }
 
@@ -406,6 +400,7 @@
                 Reel6Status = ReelStatus.None
             };
 
+            UpdatePollingRate(PollingIntervalMs);
             HandleStatus(status);
             base.OnDeviceDetached();
         }
@@ -437,7 +432,6 @@
             }
             catch (Exception exception)
             {
-
                 Logger.Error("Failed to parse message", exception);
             }
 
@@ -446,13 +440,13 @@
 
         private static byte GetReelDirections(IEnumerable<ISpinData> spinData)
         {
-            return spinData.Where(data => data.ReelId >= 1 && data.ReelId <= HarkeyConstants.MaxReelId && data.Direction != SpinDirection.Forward)
+            return spinData.Where(data => data.ReelId is >= 1 and <= HarkeyConstants.MaxReelId && data.Direction != SpinDirection.Forward)
                 .Aggregate<ISpinData, byte>(0, (current, data) => (byte)(current | (byte)(1 << data.ReelId - 1)));
         }
 
         private static byte GetSelectedReels(IEnumerable<ISpinData> spinData)
         {
-            return spinData.Where(data => data.ReelId >= 1 && data.ReelId <= HarkeyConstants.MaxReelId)
+            return spinData.Where(data => data.ReelId is >= 1 and <= HarkeyConstants.MaxReelId)
                 .Aggregate<ISpinData, byte>(0, (current, data) => (byte)(current | (byte)(1 << data.ReelId - 1)));
         }
 
@@ -463,10 +457,10 @@
 
         private static bool IsResponseError(int responseCode)
         {
-            return responseCode == (int)HarkeyResponseErrorCodes.NotAvailable ||
-                   responseCode == (int)HarkeyResponseErrorCodes.NoSync ||
-                   responseCode == (int)HarkeyResponseErrorCodes.Skew ||
-                   responseCode == (int)HarkeyResponseErrorCodes.Stall;
+            return responseCode is (int)HarkeyResponseErrorCodes.NotAvailable or
+                (int)HarkeyResponseErrorCodes.NoSync or
+                (int)HarkeyResponseErrorCodes.Skew or
+                (int)HarkeyResponseErrorCodes.Stall;
         }
 
         private static void HandleSimpleAckResponse(ISimpleAckResponse response)
@@ -482,21 +476,21 @@
             (
                 new List<MessageTemplateElement>
                 {
-                    new MessageTemplateElement
+                    new()
                     {
                         ElementType = MessageTemplateElementType.ConstantMask,
                         BigEndian = false,
                         Length = commandLength,
                         IncludedInCrc = true
                     },
-                    new MessageTemplateElement
+                    new()
                     {
                         ElementType = MessageTemplateElementType.VariableData,
                         BigEndian = false,
                         Length = messageLength - commandLength,
                         IncludedInCrc = true
                     },
-                    new MessageTemplateElement
+                    new()
                     {
                         ElementType = MessageTemplateElementType.Crc,
                         BigEndian = false,
@@ -514,8 +508,8 @@
 
             foreach (var data in spinData)
             {
-                if (data.ReelId < 1 || data.ReelId > HarkeyConstants.MaxReelId ||
-                    data.Step < byte.MinValue || data.Step > byte.MaxValue)
+                if (data.ReelId is < 1 or > HarkeyConstants.MaxReelId ||
+                    data.Step is < byte.MinValue or > byte.MaxValue)
                 {
                     continue;
                 }
@@ -532,17 +526,12 @@
             var offset =  _offsets.Length >= reelId ? _offsets[reelId - 1] : 0;
             var offsetPosition = position + offset;
 
-            if (offsetPosition >= NumberOfMotorSteps)
+            return offsetPosition switch
             {
-                return offsetPosition - NumberOfMotorSteps;
-            }
-
-            if (offsetPosition < 0)
-            {
-                return offsetPosition + NumberOfMotorSteps;
-            }
-
-            return offsetPosition;
+                >= NumberOfMotorSteps => offsetPosition - NumberOfMotorSteps,
+                < 0 => offsetPosition + NumberOfMotorSteps,
+                _ => offsetPosition
+            };
         }
 
         private int GetAllReelsSelectedBits()
@@ -750,6 +739,7 @@
             {
                 if (response.ResponseCode1 == (int)SpinResponseCodes.AllReelsStopped)
                 {
+                    SetPollingRate(PollingIntervalMs);
                     return;
                 }
 
@@ -777,6 +767,7 @@
 
         private void HandleStatus(ReelStatusResponse status)
         {
+            _statusWaiter.Set();
             Status = status.GlobalStatus.ToFailureStatus();
 
             Contracts.Gds.Reel.ReelStatus reel1Status;
@@ -873,13 +864,14 @@
                 });
         }
 
-        private void SpinReelsToGoal(byte directions, byte[] stops, byte selectedReels, byte rampTable)
+        private void SpinReelsToGoal(byte directions, IReadOnlyList<byte> stops, byte selectedReels, byte rampTable)
         {
             byte sequenceId;
             lock (_sequenceLock)
             {
                 sequenceId = NextSequenceId();
                 _lastSpinCommandReels = (sequenceId, selectedReels);
+                SetPollingRate(SpinningPollingIntervalMs);
             }
 
             SendCommand(new SpinReelsToGoal
@@ -904,6 +896,7 @@
             {
                 sequenceId = NextSequenceId();
                 _lastSpinCommandReels = (sequenceId, selectedReels);
+                SetPollingRate(SpinningPollingIntervalMs);
             }
 
             SendCommand(new Nudge
@@ -1032,7 +1025,8 @@
                     {
                         lock (_sequenceLock)
                         {
-                            _statusResponse.Restart();
+                            SetPollingRate(PollingIntervalMs);
+                            FailedPollCount = 0;
                         }
 
                         callback(buffer as T);
@@ -1042,6 +1036,16 @@
                         Logger.Error($"ReportReceived: exception processing object {e}");
                     }
                 });
+        }
+
+        private void SetPollingRate(int pollingRate)
+        {
+            if (!IsAttached)
+            {
+                return;
+            }
+
+            UpdatePollingRate(pollingRate);
         }
 
         private byte NextSequenceId()

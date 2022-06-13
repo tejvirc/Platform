@@ -38,7 +38,6 @@
         private int _elementsSoFar;
         private int _crcIn;
         private bool _allowPolling = true;
-        private int _failedPollCount;
         private byte _transactionId;
         private bool _disposed;
 
@@ -153,6 +152,11 @@
         /// </summary>
         public int CommunicationTimeoutMs { get; protected set; } = 150;
 
+        /// <summary>
+        ///     Gets or sets total failed poll count
+        /// </summary>
+        protected int FailedPollCount { get; set; }
+
         /// <inheritdoc />
         public void SendMessage(GdsSerializableMessage message, CancellationToken token)
         {
@@ -182,8 +186,8 @@
                 _defaultMessageTemplate = newDefaultTemplate;
 
             _pollTimer = new Timer(PollTimerCallback, null, Timeout.Infinite, Timeout.Infinite);
- 
-            // *NOTE* This override is needed when using the Device Simulator on a slower/resource starved system to avoid 
+
+            // *NOTE* This override is needed when using the Device Simulator on a slower/resource starved system to avoid
             // unintentional disconnects due to more than 3 failed polls.
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             MaxFailedPollCount = Convert.ToInt32(propertiesManager.GetProperty(HardwareConstants.MaxFailedPollCount, HardwareConstants.DefaultMaxFailedPollCount));
@@ -391,7 +395,7 @@
         /// <summary>Raises the <see cref="DeviceAttached"/> event.</summary>
         protected virtual void OnDeviceAttached()
         {
-            _failedPollCount = 0;
+            FailedPollCount = 0;
             DeviceAttached?.Invoke(this, EventArgs.Empty);
         }
 
@@ -577,13 +581,13 @@
 
             if (RequestStatus())
             {
-                _failedPollCount = 0;
+                FailedPollCount = 0;
                 IsAttached = true;
             }
-            else if (IsAttached && ++_failedPollCount >= MaxFailedPollCount)
+            else if (IsAttached && ++FailedPollCount >= MaxFailedPollCount)
             {
                 IsAttached = false;
-                Logger.Error($"Poll failed {_failedPollCount} times, device detached");                
+                Logger.Error($"Poll failed {FailedPollCount} times, device detached");
             }
         }
 
