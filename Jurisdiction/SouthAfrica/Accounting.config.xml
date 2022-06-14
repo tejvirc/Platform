@@ -30,6 +30,9 @@ as follows:
   <CreditLimits>
 	<MaxCreditMeter Default="119999000" MaxAllowed="999999999000"/>	
   </CreditLimits>
+  <WinLimits>
+    <LargeWinLimit Default="119999000" MaxAllowed="119999000" Editable="true"/>
+  </WinLimits>
   <VoucherIn State="Enabled" LimitDefault="100000000"/>
 <!--
     VoucherOut Settings:
