@@ -17568,7 +17568,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.BingoClientConfigurationProvider.html",
-          "hash": "xtzMftt20N8pbkEF9pAMvQ6mCiTMegbpG82ch3RQ4ys="
+          "hash": "PO1ocdTWSLpwQIPJ2zmUbILHOkZl9woHz2wx4dj1eIQ="
         }
       },
       "is_incremental": false,
@@ -20280,7 +20280,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Security.CertificateService.html",
-          "hash": "KI6cdLyZltOGAuY61TmgaNgYHDvZ4EOOkzw6Q6d1Lng="
+          "hash": "oEzbrRfFO17YsQVasYDfe+v99SgVQ/vLkobDxYT4OMs="
         }
       },
       "is_incremental": false,
@@ -20292,7 +20292,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Security.ICertificateService.html",
-          "hash": "YG7WETihv9GdLIYVbnoregN72NaQyhTAE3EBIDpdGpY="
+          "hash": "0UyE925n/vuqZRupAK3qwM1MS72p9x5wICseEFTY1NM="
         }
       },
       "is_incremental": false,
@@ -21000,7 +21000,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Views.GameOverlay.BingoHelpOverlayWindow.html",
-          "hash": "oqhRVf2SHofjXOIk9C5yIFBfbMoycsg+JZbAh4phrpk="
+          "hash": "lmfE5M2bTvU3BLIduHrh6jUjR6ggj5rOpE470BltOY8="
         }
       },
       "is_incremental": false,
@@ -21012,7 +21012,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Views.GameOverlay.BingoHtmlHostOverlayWindow.html",
-          "hash": "HRQIQykehVxHAFTZI4TgwYo4wpfyNl3vF97ZHuT5hCA="
+          "hash": "lBaIz2Sz12ysWTMpO6IdOSKAhXVMfTmRrXog/0U8KB8="
         }
       },
       "is_incremental": false,

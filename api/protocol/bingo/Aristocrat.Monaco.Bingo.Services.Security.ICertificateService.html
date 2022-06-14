@@ -117,53 +117,26 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_Get_System_Security_Cryptography_X509Certificates_StoreName_System_Security_Cryptography_X509Certificates_StoreLocation_System_Security_Cryptography_X509Certificates_X509FindType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Security.ICertificateService.Get(System.Security.Cryptography.X509Certificates.StoreName%2CSystem.Security.Cryptography.X509Certificates.StoreLocation%2CSystem.Security.Cryptography.X509Certificates.X509FindType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_GetCertificates.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Security.ICertificateService.GetCertificates%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Security/ICertificateService.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Security/ICertificateService.cs/#L15" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_Get_" data-uid="Aristocrat.Monaco.Bingo.Services.Security.ICertificateService.Get*"></a>
+  <a id="Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_GetCertificates_" data-uid="Aristocrat.Monaco.Bingo.Services.Security.ICertificateService.GetCertificates*"></a>
   
-  <h4 id="Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_Get_System_Security_Cryptography_X509Certificates_StoreName_System_Security_Cryptography_X509Certificates_StoreLocation_System_Security_Cryptography_X509Certificates_X509FindType_" data-uid="Aristocrat.Monaco.Bingo.Services.Security.ICertificateService.Get(System.Security.Cryptography.X509Certificates.StoreName,System.Security.Cryptography.X509Certificates.StoreLocation,System.Security.Cryptography.X509Certificates.X509FindType)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_Get_System_Security_Cryptography_X509Certificates_StoreName_System_Security_Cryptography_X509Certificates_StoreLocation_System_Security_Cryptography_X509Certificates_X509FindType_" class="expander" data-toggle="collapse">Get(StoreName, StoreLocation, X509FindType)</a></h4>
+  <h4 id="Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_GetCertificates" data-uid="Aristocrat.Monaco.Bingo.Services.Security.ICertificateService.GetCertificates"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_GetCertificates" class="expander" data-toggle="collapse">GetCertificates()</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_Get_System_Security_Cryptography_X509Certificates_StoreName_System_Security_Cryptography_X509Certificates_StoreLocation_System_Security_Cryptography_X509Certificates_X509FindType_" class="collapse in">
-  <div class="markdown level1 summary"><p>Gets the saved certificate file.</p>
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Security_ICertificateService_GetCertificates" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the saved certificates</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEnumerable&lt;X509Certificate2&gt; Get(StoreName name, StoreLocation location, X509FindType findType)</code></pre>
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;X509Certificate2&gt; GetCertificates()</code></pre>
   </div>
   
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.x509certificates.storename">StoreName</a></span>
-        <span class="parametername">name</span>
-        <p><p>Name of the x509 certificate store.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.x509certificates.storelocation">StoreLocation</a></span>
-        <span class="parametername">location</span>
-        <p><p>Location of the x509 certificate store.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.security.cryptography.x509certificates.x509findtype">X509FindType</a></span>
-        <span class="parametername">findType</span>
-        <p><p>Type of the x509 to be retrieved.</p>
-</p>
-      </td>
-    </tr>
-  </table>
   
   <h5 class="returns">Returns</h5>
   <table>
