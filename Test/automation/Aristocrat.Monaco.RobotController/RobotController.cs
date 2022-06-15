@@ -141,6 +141,7 @@
 
             set
             {
+                if (value == _controllerState) { return; }
                 if (_controllerState != value && !ValidateControlStateTransition(value))
                 {
                     LogError($"ValidateStateTransition Failed for Transitioning to {value}");
@@ -200,6 +201,7 @@
 
             set
             {
+                if (_previousControllerState == value) return;
                 if (value == RobotControllerState.InsertCredits || value == RobotControllerState.InsertCreditsComplete)
                 {
                     return;
@@ -256,6 +258,7 @@
             }
             set
             {
+                if (value == _platformState) { return; }
                 PlatformStateWriterLockHandler(value);
             }
         }
@@ -311,6 +314,7 @@
 
             set
             {
+                if (_previousPlatformState == value) return;
                 if (value == RobotPlatformState.InAudit || value == RobotPlatformState.InCashOut)
                 {
                     return;
