@@ -224,7 +224,7 @@
 
             if (TimeTo(_counter, _config.Active.IntervalLoadAuditMenu))
             {
-                HandlerLoadAuditMenu();
+                ControllerState = (RobotControllerState.LoadAuditMenu);
             }
 
             if (TimeTo(_counter, _config.Active.IntervalTriggerLockup))
@@ -333,16 +333,13 @@
             {
                 LogInfo("Requesting Audit Menu");
                 _expectingAuditMenu = true;
-                PreviousPlatformState = PlatformState;
                 _automator.LoadAuditMenu();
 
                 _exitAuditMenuTimer = new Timer(
                     (sender) =>
                     {
                         _automator.ExitAuditMenu();
-
                         _expectingAuditMenu = false;
-
                         _exitAuditMenuTimer.Dispose();
                     },
                     null,

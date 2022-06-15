@@ -202,7 +202,10 @@
             set
             {
                 if (_previousControllerState == value) return;
-                if (value == RobotControllerState.InsertCredits || value == RobotControllerState.InsertCreditsComplete)
+                if (value == RobotControllerState.InsertCredits ||
+                    value == RobotControllerState.InsertCreditsComplete ||
+                    value == RobotControllerState.InsertVoucher ||
+                    value == RobotControllerState.InsertVoucherComplete)
                 {
                     return;
                 }
@@ -417,6 +420,11 @@
             Func<bool> recoveryValidator = () =>  ExpectingRecovery || (_gameService != null && _gameService.Running);
             _controlStateTransitionValidator.Add(RobotControllerState.WaitForRecoveryStart, recoveryValidator);
             _controlStateTransitionValidator.Add(RobotControllerState.DriveRecovery, recoveryValidator);
+            _controlStateTransitionValidator.Add(RobotControllerState.InsertCredits, () =>
+                    ControllerState != RobotControllerState.InsertVoucherComplete &&
+                    ControllerState != RobotControllerState.InsertCreditsComplete &&
+                    ControllerState != RobotControllerState.OutOfOperatingHours &&
+                    ControllerState != RobotControllerState.RequestGameLoad);
         }
 
         private void WaitForServices()
@@ -779,7 +787,6 @@
                         _expectingRecovery = true;
                     }
 
-                    PreviousPlatformState = PlatformState;
                     PlatformState = RobotPlatformState.InAudit;
                 });
 
@@ -788,6 +795,7 @@
                 _ =>
                 {
                     PlatformState = PreviousPlatformState;
+                    ControllerState = PreviousControllerState;
                     _expectingAuditMenu = false;
                 });
 
@@ -903,7 +911,6 @@
             {
                 if (ControllerState == RobotControllerState.WaitCashOut)
                 {
-                    PreviousPlatformState = PlatformState;
                     PlatformState = RobotPlatformState.InCashOut;
                 }
             });
@@ -953,7 +960,6 @@
                      evt.Handpay == HandpayType.CancelCredit))
                 {
                     LogInfo("Keying off large win");
-                    PreviousPlatformState = PlatformState;
                     PlatformState = RobotPlatformState.InCashOut;
                     ControllerState = RobotControllerState.WaitCashOut;
                     //Task.Delay(3000).ContinueWith(_ => _eventBus.Publish(new RemoteKeyOffEvent(KeyOffType.LocalHandpay, evt.CashableAmount, evt.PromoAmount, evt.NonCashAmount)));
