@@ -616,7 +616,7 @@
                 ActionTouch();
             }
 
-            if (TimeTo(_counter, 2000) && _gameService.Running)
+            if (TimeTo(_counter, 2000))
             {
                 LogInfo("Spin Request");
                 _automator.SpinRequest();
