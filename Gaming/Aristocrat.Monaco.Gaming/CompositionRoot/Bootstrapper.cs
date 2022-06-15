@@ -120,6 +120,7 @@
             container.Register<IBarkeeperHandler, BarkeeperHandler>(Lifestyle.Singleton);
             container.Register<ICentralProvider, CentralProvider>(Lifestyle.Singleton);
             container.Register<IPaymentDeterminationProvider, PaymentDeterminationProvider>(Lifestyle.Singleton);
+            container.Register<IGameStartConditionProvider, GameStartConditionProvider>(Lifestyle.Singleton);
             container.Register<IOutcomeValidatorProvider, OutcomeValidatorProvider>(Lifestyle.Singleton);
             container.Register<IConfigurationProvider, ConfigurationProvider>(Lifestyle.Singleton);
             container.Register<IGameConfigurationProvider, GameConfigurationProvider>(Lifestyle.Singleton);

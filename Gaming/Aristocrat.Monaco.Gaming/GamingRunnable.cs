@@ -273,6 +273,7 @@
             serviceManager.AddService(_container.GetInstance<IGameConfigurationProvider>());
             serviceManager.AddService(_container.GetInstance<IConfigurationProvider>());
             serviceManager.AddService(_container.GetInstance<IPaymentDeterminationProvider>());
+            serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
         }
 
@@ -323,6 +324,7 @@
             serviceManager.RemoveService(_container.GetInstance<IGameConfigurationProvider>());
             serviceManager.RemoveService(_container.GetInstance<IConfigurationProvider>());
             serviceManager.RemoveService(_container.GetInstance<IPaymentDeterminationProvider>());
+            serviceManager.RemoveService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.RemoveService(_container.GetInstance<IOutcomeValidatorProvider>());
         }
 

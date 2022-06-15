@@ -20,21 +20,21 @@
     /// <summary>
     ///     Handler responsible for launching Horse Animation.
     /// </summary>
-    public class HorseAnimationLauncher : IDisposable
+    public class HorseAnimationLauncher : IGameStartCondition, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
-        private readonly ISystemDisableManager _systemDisableManager;
-        private readonly IRuntimeFlagHandler _runtimeFlagHandler;
         private readonly IPropertiesManager _propertiesManager;
-        private bool _disposed;
+        private readonly IGameStartConditionProvider _gameStartConditions;
+
         private VenueRaceCollection _venueRaceCollection;
         private VenueRaceCollectionViewModel _venueRaceCollectionViewModel;
         private DisplayRole _currentDisplay;
         private readonly DisplayRole _expectedTopMostDisplay;
+        private bool _disposed;
 
 
         public HorseAnimationLauncher(
@@ -42,7 +42,7 @@
             ICabinetDetectionService cabinetDetectionService,
             IPrizeInformationEntityHelper prizeEntityHelper,
             ISystemDisableManager systemDisableManager,
-            IRuntimeFlagHandler runtimeFlagHandler,
+            IGameStartConditionProvider gameStartConditions,
             IPropertiesManager properties)
         {
             _eventBus = eventBus
@@ -51,10 +51,8 @@
                 ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _prizeEntityHelper = prizeEntityHelper
                 ?? throw new ArgumentNullException(nameof(prizeEntityHelper));
-            _systemDisableManager = systemDisableManager
-                ?? throw new ArgumentNullException(nameof(systemDisableManager));
-            _runtimeFlagHandler = runtimeFlagHandler
-                ?? throw new ArgumentNullException(nameof(runtimeFlagHandler));
+            _gameStartConditions = gameStartConditions
+                ?? throw new ArgumentNullException(nameof(gameStartConditions));
             _propertiesManager = properties
                 ?? throw new ArgumentNullException(nameof(properties));
 
@@ -82,7 +80,19 @@
                 _eventBus.Publish(new ClearDisplayDisconnectedLockupEvent());
             }
 
+            _gameStartConditions.AddGameStartCondition(this);
+
             SetupAnimationWindow(_currentDisplay);
+        }
+
+        public bool CanGameStart()
+        {
+            if (_venueRaceCollectionViewModel == null)
+            {
+                return false;
+            }
+
+            return !_venueRaceCollectionViewModel.IsAnimationVisible;
         }
 
         private bool TopperConnected => _cabinetDetectionService.IsDisplayConnected(DisplayRole.Topper);
@@ -140,8 +150,7 @@
             _venueRaceCollectionViewModel = new VenueRaceCollectionViewModel(
                 _eventBus,
                 _prizeEntityHelper,
-                _propertiesManager,
-                _runtimeFlagHandler);
+                _propertiesManager);
 
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -203,24 +212,27 @@
             }
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _eventBus.UnsubscribeAll(this);
-                }
-
-                _disposed = true;
-            }
-        }
-
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus.UnsubscribeAll(this);
+                _gameStartConditions.RemoveGameStartCondition(this);
+            }
+
+            _disposed = true;
         }
     }
 

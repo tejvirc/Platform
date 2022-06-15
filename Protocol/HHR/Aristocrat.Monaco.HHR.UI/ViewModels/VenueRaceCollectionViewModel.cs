@@ -26,13 +26,13 @@
 
     public class VenueRaceCollectionViewModel : BaseViewModel, IDisposable
     {
-        private readonly IEventBus _eventBus;
-        private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
-        private readonly IRuntimeFlagHandler _runtimeFlagHandler;
-        private readonly ManualResetEvent _horsesShowing = new ManualResetEvent(true);
         private const string RaceFinishedName = "RaceFinished";
 
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        private readonly IEventBus _eventBus;
+        private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
+        private readonly ManualResetEvent _horsesShowing = new(true);
 
         private CancellationTokenSource _cancelToken;
         private DateTime _startTime = DateTime.MinValue;
@@ -46,12 +46,12 @@
         public VenueRaceCollectionViewModel(
             IEventBus eventBus,
             IPrizeInformationEntityHelper entityHelper,
-            IPropertiesManager properties,
-            IRuntimeFlagHandler runtimeFlagHandler)
+            IPropertiesManager properties)
         {
-            _prizeEntityHelper = entityHelper ?? throw new ArgumentNullException(nameof(entityHelper));
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _runtimeFlagHandler = runtimeFlagHandler ?? throw new ArgumentNullException(nameof(runtimeFlagHandler));
+            _prizeEntityHelper = entityHelper
+                ?? throw new ArgumentNullException(nameof(entityHelper));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
 
             if (properties == null)
             {
@@ -61,11 +61,11 @@
             var horseAnimationOff = properties.GetValue("horseAnimationOff", Constants.False).ToUpperInvariant();
             if (horseAnimationOff == Constants.False)
             {
-                _eventBus.Subscribe<PrimaryGameEndedEvent>(this, Handler);
                 _eventBus.Subscribe<GamePlayDisabledEvent>(this, GameDisabledEventHandler);
                 _eventBus.Subscribe<GamePlayEnabledEvent>(this, GameEnabledEventHandler);
                 _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, Handler);
                 _eventBus.Subscribe<GameInitializationCompletedEvent>(this, Handler);
+                _eventBus.Subscribe<RecoveryStartedEvent>(this, Handler);
                 // Setup and show the animation as soon as we get the needed data from the server
                 _eventBus.Subscribe<PrizeInformationEvent>(
                     this,
@@ -76,7 +76,7 @@
                     properties.GetValue(
                         HHRPropertyNames.HorseResultsRunTime,
                         UiProperties.HorseResultsRunTimeMilliseconds.ToString()),
-                    out int commandLineHorseResultsRunTime)
+                    out var commandLineHorseResultsRunTime)
                 && commandLineHorseResultsRunTime > 0)
             {
                 UiProperties.HorseResultsRunTimeMilliseconds = commandLineHorseResultsRunTime;
@@ -85,7 +85,7 @@
             InitializeModels();
         }
 
-        public CRaceInfo GetRaceInfo => _prizeEntityHelper.PrizeInformation.RaceInfo;
+        public CRaceInfo CurrentRaceInfo => _prizeEntityHelper.PrizeInformation.RaceInfo;
 
         private void InitializeModels()
         {
@@ -126,12 +126,12 @@
 
             for (int i = 0; i < 5; i++)
             {
-                RaceSet1Models[i].RaceFinishedEventHandler += (sender, args) =>
+                RaceSet1Models[i].RaceFinishedEventHandler += (_, _) =>
                 {
                     VenueRaceTracksModelOnPropertyChanged(new PropertyChangedEventArgs(RaceFinishedName));
                 };
 
-                RaceSet2Models[i].RaceFinishedEventHandler += (sender, args) =>
+                RaceSet2Models[i].RaceFinishedEventHandler += (_, _) =>
                 {
                     VenueRaceTracksModelOnPropertyChanged(new PropertyChangedEventArgs(RaceFinishedName));
                 };
@@ -154,7 +154,7 @@
 
                             if (allRacesFinished)
                             {
-                                Logger.Debug($"All race animations are complete, hiding window");
+                                Logger.Debug("All race animations are complete, hiding window");
                                 RaceStarted = false;
                                 IsAnimationVisible = false;
                                 // Pause to ensure the GIFs aren't running when the window is hidden
@@ -196,13 +196,10 @@
             });
         }
 
-        private void Handler(PrimaryGameEndedEvent evt)
+        private void Handler(RecoveryStartedEvent evt)
         {
-            // If the game has ended and the horses are still running, stop them now. With
-            // this commented out, the horses will ALWAYS run to their completion, and if the
-            // AwaitingPlayerSelection flag is being used, will prevent another game from
-            // starting until they have done so.
-            //StopHorseAnimation();
+            _willRecover = true;
+            Logger.Debug($"RecoveryStartedEvent RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
         }
 
         private void Handler(GameInitializationCompletedEvent evt)
@@ -211,14 +208,25 @@
 
             MvvmHelper.ExecuteOnUI(() =>
             {
-                if (!RaceStarted || !_willRecover)
+                // If we aren't recovering, then do not show or continue the races on account of receiving
+                // the GameInitializationCompletedEvent event
+                if (!_willRecover)
                 {
                     // If we aren't in recovery, or the races have started return now, another event handler
                     // will handle it
                     return;
                 }
 
-                ContinueRaces();
+                // If the race was started, then we are coming out of the audit menu
+                if (RaceStarted)
+                {
+                    ContinueRaces();
+                }
+                // If race hasn't started, then we are loading from a power-cycle, so show the entire race again
+                else
+                {
+                    ShowHorseAnimation(CurrentRaceInfo);
+                }
             });
         }
 
@@ -255,7 +263,6 @@
 
         private async Task DelayedHideHorseAnimation(int delay)
         {
-
             using (var source = new CancellationTokenSource())
             {
                 _cancelToken = source;
@@ -294,7 +301,7 @@
 
         private void GameDisabledEventHandler(GamePlayDisabledEvent evt)
         {
-            Logger.Debug($"GameDisabledEventHandler");
+            Logger.Debug("GameDisabledEventHandler");
 
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -358,11 +365,9 @@
 
         public int VenuesPerRow { get; } = 5;
 
-        public ObservableCollection<VenueRaceTracksModel> RaceSet1Models { get; } =
-            new ObservableCollection<VenueRaceTracksModel>();
+        public ObservableCollection<VenueRaceTracksModel> RaceSet1Models { get; } = new();
 
-        public ObservableCollection<VenueRaceTracksModel> RaceSet2Models { get; } =
-            new ObservableCollection<VenueRaceTracksModel>();
+        public ObservableCollection<VenueRaceTracksModel> RaceSet2Models { get; } = new();
 
         public int GetHorseNumberFromActual(char ch) => Convert.ToByte(ch.ToString(), 16);
 
@@ -430,7 +435,6 @@
             set
             {
                 Logger.Debug($"Set RaceStarted: {value}");
-                _runtimeFlagHandler.SetAwaitingPlayerSelection(value);
 
                 foreach (var venue in RaceSet1Models)
                 {

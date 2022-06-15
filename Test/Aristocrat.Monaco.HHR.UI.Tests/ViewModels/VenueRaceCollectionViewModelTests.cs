@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Windows;
     using Client.Data;
-    using Gaming.Contracts;
     using UI.Models;
     using UI.ViewModels;
     using Storage.Helpers;
@@ -20,7 +19,6 @@
         private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<IPrizeInformationEntityHelper> _prizeEntityHelper = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);
-        private readonly Mock<IRuntimeFlagHandler> _runtimeFlagHandler = new Mock<IRuntimeFlagHandler>(MockBehavior.Default);
 
         [TestInitialize]
         public void TestInitialization()
@@ -31,8 +29,7 @@
             _target = new VenueRaceCollectionViewModel(
                 _eventBus.Object,
                 _prizeEntityHelper.Object,
-                _propertiesManager.Object,
-                _runtimeFlagHandler.Object);
+                _propertiesManager.Object);
 
             _target.SetupRaces(GetRaceInfo());
         }

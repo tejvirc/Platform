@@ -64,15 +64,20 @@
             ITransferOutHandler transferHandler,
             IMoneyLaunderingMonitor moneyLaunderingMonitor)
         {
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _systemDisableManager =
-                systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
-            _handlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
-            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
-            _transferHandler = transferHandler ?? throw new ArgumentNullException(nameof(transferHandler));
-            _moneyLaunderingMonitor = moneyLaunderingMonitor ??
-                                         throw new ArgumentNullException(nameof(moneyLaunderingMonitor));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
+            _systemDisableManager = systemDisableManager
+                ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            _handlerFactory = handlerFactory
+                ?? throw new ArgumentNullException(nameof(handlerFactory));
+            _gameHistory = gameHistory
+                ?? throw new ArgumentNullException(nameof(gameHistory));
+            _properties = properties
+                ?? throw new ArgumentNullException(nameof(properties));
+            _transferHandler = transferHandler
+                ?? throw new ArgumentNullException(nameof(transferHandler));
+            _moneyLaunderingMonitor = moneyLaunderingMonitor
+                ?? throw new ArgumentNullException(nameof(moneyLaunderingMonitor));
 
             _stateLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
