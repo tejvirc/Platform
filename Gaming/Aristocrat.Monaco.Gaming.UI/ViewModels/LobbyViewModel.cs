@@ -2972,12 +2972,17 @@
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
 
 #if !(RETAIL)
-            _eventBus.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
+            _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
 #endif
         }
 
         private void MessageOverlayDisplay_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (_disposed)
+            {
+                return;
+            }
+
             switch (e.PropertyName)
             {
                 case nameof(MessageOverlayDisplay.IsReplayRecoveryDlgVisible):
