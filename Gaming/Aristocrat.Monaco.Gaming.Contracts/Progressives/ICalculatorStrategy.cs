@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
 {
+    using Application.Contracts;
+
     /// <summary>
     ///     The ICalculatorStrategy interface provides methods for processing jackpots
     /// </summary>
@@ -10,7 +12,8 @@
         /// </summary>
         /// <param name="level">The level that the contribution is being applied to</param>
         /// <param name="levelUpdate">The level update that describes the the update</param>
-        void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate);
+        /// <param name="hiddenTotalMeter">the hidden total meter.</param>
+        void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate, IMeter hiddenTotalMeter);
 
         /// <summary>
         ///     Applies the provided increment to the specified game and denom
@@ -18,7 +21,8 @@
         /// <param name="level">The level that the contribution is being applied to</param>
         /// <param name="wager">The wager amount</param>
         /// <param name="ante">The ante amount</param>
-        void Increment(ProgressiveLevel level, long wager, long ante);
+        /// <param name="hiddenTotalMeter">the hidden total meter.</param>
+        void Increment(ProgressiveLevel level, long wager, long ante, IMeter hiddenTotalMeter);
 
         /// <summary>
         ///     Resets the progressive level

@@ -227,12 +227,19 @@
 
                         level.IncrementRate = sharedSapLevel.IncrementRate;
                         level.HiddenIncrementRate = sharedSapLevel.HiddenIncrementRate;
-                        level.HiddenTotal = sharedSapLevel.HiddenTotal;
+                        level.HiddenValue = sharedSapLevel.HiddenValue;
                         level.Overflow = sharedSapLevel.Overflow;
                         level.OverflowTotal = sharedSapLevel.OverflowTotal;
                         level.MaximumValue = sharedSapLevel.MaximumValue;
 
-                        calculator?.Increment(level, wager, ante);
+                        calculator?.Increment(
+                            level,
+                            wager,
+                            ante,
+                            _meters.GetMeter(
+                                level.DeviceId,
+                                level.LevelId,
+                                ProgressiveMeters.ProgressiveLevelHiddenTotal));
 
                         sharedSapLevel.CanEdit = false; // Once we update we can no longer edit the level ever again
 
@@ -293,7 +300,7 @@
             sharedSapLevel.Overflow = level.Overflow;
             sharedSapLevel.OverflowTotal = level.OverflowTotal;
             sharedSapLevel.HiddenIncrementRate = level.HiddenIncrementRate;
-            sharedSapLevel.HiddenTotal = level.HiddenTotal;
+            sharedSapLevel.HiddenValue = level.HiddenValue;
         }
 
         private static void CheckForNull(IEnumerable<IViewableSharedSapLevel> levels)

@@ -44,7 +44,7 @@
 
             foreach (var progressive in progressives.Where(p => p.GameId == _game.Id && p.Denomination.Contains(_denomMillicents) && p.CurrentState != ProgressiveLevelState.Init))
             {
-                string resetValue, incrementRate, hiddenIncrementRate, hiddenTotal, overflow, overflowTotal;
+                string resetValue, incrementRate, hiddenIncrementRate, hiddenValue, overflow, overflowTotal;
 
                 if (progressive.LevelType == ProgressiveLevelType.Selectable && progressive.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.None)
                 {
@@ -58,7 +58,7 @@
                 if (progressive.LevelType == ProgressiveLevelType.LP ||
                     progressive.LevelType == ProgressiveLevelType.Selectable && progressive.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.Linked)
                 {
-                    resetValue = incrementRate = hiddenIncrementRate = hiddenTotal = overflow = overflowTotal = TicketLocalizer.GetString(ResourceKeys.NotAvailable);
+                    resetValue = incrementRate = hiddenIncrementRate = hiddenValue = overflow = overflowTotal = TicketLocalizer.GetString(ResourceKeys.NotAvailable);
                     var linkedLevel = linkedLevels
                         .FirstOrDefault(
                             x => x.LevelName == progressive.AssignedProgressiveId.AssignedProgressiveKey);
@@ -70,13 +70,13 @@
                     if (progressive.LevelType == ProgressiveLevelType.Selectable && progressive.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.CustomSap)
                     {
                         var sharedSapLevel = progressiveProvider.ViewSharedSapLevels().FirstOrDefault(x => x.LevelAssignmentKey == progressive.AssignedProgressiveId.AssignedProgressiveKey);
-                        
+
                         currentValue = sharedSapLevel.CurrentValue.MillicentsToDollars().FormattedCurrencyString() ??
                                        TicketLocalizer.GetString(ResourceKeys.NotAvailable);
                         resetValue = sharedSapLevel.ResetValue.MillicentsToDollars().FormattedCurrencyString();
                         incrementRate = (sharedSapLevel.IncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
                         hiddenIncrementRate = (sharedSapLevel.HiddenIncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
-                        hiddenTotal = sharedSapLevel.HiddenTotal.MillicentsToDollars().FormattedCurrencyString();
+                        hiddenValue = sharedSapLevel.HiddenValue.MillicentsToDollars().FormattedCurrencyString();
                         overflow = sharedSapLevel.Overflow.MillicentsToDollars().FormattedCurrencyString();
                         overflowTotal = sharedSapLevel.OverflowTotal.MillicentsToDollars().FormattedCurrencyString();
                     }
@@ -85,7 +85,7 @@
                         resetValue = progressive.ResetValue.MillicentsToDollars().FormattedCurrencyString();
                         incrementRate = (progressive.IncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
                         hiddenIncrementRate = (progressive.HiddenIncrementRate.ToPercentage() / 100M).ToString("P", TicketLocalizer.CurrentCulture);
-                        hiddenTotal = progressive.HiddenTotal.MillicentsToDollars().FormattedCurrencyString();
+                        hiddenValue = progressive.HiddenValue.MillicentsToDollars().FormattedCurrencyString();
                         overflow = progressive.Overflow.MillicentsToDollars().FormattedCurrencyString();
                         overflowTotal = progressive.OverflowTotal.MillicentsToDollars().FormattedCurrencyString();
                     }
@@ -96,7 +96,10 @@
                 AddLabeledLine(ResourceKeys.ResetValue, resetValue);
                 AddLabeledLine(ResourceKeys.IncrementRate, incrementRate);
                 AddLabeledLine(ResourceKeys.HiddenIncrementRate, hiddenIncrementRate);
-                AddLabeledLine(ResourceKeys.TotalHidden, hiddenTotal);
+                AddLabeledLine(ResourceKeys.HiddenValue, hiddenValue);
+                AddLabeledLine(ResourceKeys.TotalHidden,
+                    FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId, progressive.LevelId,
+                    ProgressiveMeters.ProgressiveLevelHiddenTotal)));
                 AddLabeledLine(ResourceKeys.OverflowText, overflow);
                 AddLabeledLine(ResourceKeys.TotalOverflow, overflowTotal);
                 AddLabeledLine(ResourceKeys.CurrentValue, currentValue);

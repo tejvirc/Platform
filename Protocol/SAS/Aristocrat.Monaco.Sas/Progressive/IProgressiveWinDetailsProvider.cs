@@ -33,7 +33,8 @@
         ///     Adds a non SAS progressive level.
         /// </summary>
         /// <param name="level">The level.</param>
-        void AddNonSasProgressiveLevelWin(IViewableProgressiveLevel level);
+        /// <param name="jackpotTransaction">The jackpot transaction.</param>
+        void AddNonSasProgressiveLevelWin(IViewableProgressiveLevel level, JackpotTransaction jackpotTransaction);
 
         /// <summary>
         ///     Gets the Non Sas Progressive Win Data and marks them as sent

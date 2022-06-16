@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Protocol;
     using Aristocrat.Sas.Client.LongPollDataClasses;
     using Contracts.SASProperties;
@@ -219,7 +220,7 @@
         }
 
         /// <inheritdoc />
-        public void AddNonSasProgressiveLevelWin(IViewableProgressiveLevel level)
+        public void AddNonSasProgressiveLevelWin(IViewableProgressiveLevel level, JackpotTransaction jackpotTransaction)
         {
             var sapLevels = _progressiveLevelProvider.GetProgressiveLevels().Count(l => l.LevelType == ProgressiveLevelType.Sap);
             int levelId;
@@ -251,7 +252,7 @@
                         break;
                 }
             }
-            var win = new NonSasProgressiveWinData(controllerType, controllerId, levelId, level.CurrentValue, level.ResetValue, level.Overflow);
+            var win = new NonSasProgressiveWinData(controllerType, controllerId, levelId, jackpotTransaction.WinAmount.MillicentsToCents(), level.ResetValue.MillicentsToCents(), level.Overflow.MillicentsToCents());
             lock (_nonSasProgressiveLock)
             {
                 if (_host1NonSasReporting)

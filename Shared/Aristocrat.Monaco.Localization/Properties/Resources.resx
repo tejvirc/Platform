@@ -11642,4 +11642,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>To clear this lockup, restart the machine.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="HiddenValue" xml:space="preserve">
+    <value>Hidden Value</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

@@ -279,7 +279,7 @@
             BonusId = (string)values["BonusId"];
             AssignedProgressiveKey = (string)values["AssignedProgressiveKey"];
             AssignableProgressiveType = (int)values["AssignableProgressiveType"];
-            HiddenTotal = (long)values["HiddenTotal"];
+            HiddenTotal = (long)values["HiddenValue"];
             Overflow = (long)values["Overflow"];
 
             return true;
@@ -312,7 +312,7 @@
                 transaction[element, "BonusId"] = BonusId;
                 transaction[element, "AssignedProgressiveKey"] = AssignedProgressiveKey;
                 transaction[element, "AssignableProgressiveType"] = AssignableProgressiveType;
-                transaction[element, "HiddenTotal"] = HiddenTotal;
+                transaction[element, "HiddenValue"] = HiddenTotal;
                 transaction[element, "Overflow"] = Overflow;
 
                 transaction.Commit();

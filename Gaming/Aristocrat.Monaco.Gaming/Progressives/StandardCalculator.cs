@@ -1,26 +1,29 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
+    using Application.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts.Progressives;
 
     public class StandardCalculator : ICalculatorStrategy
     {
-        public void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate)
+        public void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate, IMeter hiddenTotalMeter)
         {
             throw new NotSupportedException();
         }
 
-        public void Increment(ProgressiveLevel level, long wager, long ante)
+        public void Increment(ProgressiveLevel level, long wager, long ante, IMeter hiddenTotalMeter)
         {
             const decimal percentToFraction = 0.01m;
 
             var incrValue = level.IncrementRate.ToPercentage() * percentToFraction * wager;
-            var hiddenIncrementValue = level.HiddenIncrementRate.ToPercentage() * percentToFraction * wager;
+            var hiddenIncrementValue =
+                (long)decimal.Round(level.HiddenIncrementRate.ToPercentage() * percentToFraction * wager);
 
             // Use banker's rounding (midpoint to even) to prevent millicent truncation on conversion to long
             level.CurrentValue += (long)decimal.Round(incrValue);
-            level.HiddenTotal += (long)decimal.Round(hiddenIncrementValue);
+            level.HiddenValue += hiddenIncrementValue;
+            hiddenTotalMeter?.Increment(hiddenIncrementValue);
 
             if (level.LevelType == ProgressiveLevelType.Sap)
             {
@@ -37,10 +40,10 @@
 
         public void Reset(ProgressiveLevel level, long resetValue)
         {
-            level.CurrentValue = resetValue + level.Overflow + level.HiddenTotal;
+            level.CurrentValue = resetValue + level.Overflow + level.HiddenValue;
 
             level.Overflow = 0;
-            level.HiddenTotal = 0;
+            level.HiddenValue = 0;
             // OverflowTotal will not reset to zero
 
             CheckOverflow(level);

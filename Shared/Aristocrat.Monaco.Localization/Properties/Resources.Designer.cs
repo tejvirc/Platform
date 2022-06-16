@@ -14744,6 +14744,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Hidden Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string HiddenValue {
+			get {
+				return ResourceManager.GetString("HiddenValue", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Hide Bingo Card When Inactive.
 		/// </summary>
         /// <remarks>
@@ -49192,6 +49204,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Hidden Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string HiddenValue {
+			get {
+				return "HiddenValue";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Hide Bingo Card When Inactive.
 		/// </summary>
         /// <remarks>
@@ -77326,6 +77350,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		HiddenIncrementRate,
+		/// <summary>
+		///   Looks up a localized string similar to Hidden Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		HiddenValue,
 		/// <summary>
 		///   Looks up a localized string similar to Hide Bingo Card When Inactive.
 		/// </summary>

@@ -146,7 +146,7 @@
                 FundingType = level.FundingType,
                 GameId = level.GameId,
                 HiddenIncrementRate = level.HiddenIncrementRate,
-                HiddenTotal = level.HiddenTotal,
+                HiddenValue = level.HiddenValue,
                 IncrementRate = level.IncrementRate,
                 InitialValue = level.InitialValue,
                 LevelRtp = level.LevelRtp,

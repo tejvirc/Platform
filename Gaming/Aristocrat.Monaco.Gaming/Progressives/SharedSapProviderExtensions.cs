@@ -196,7 +196,7 @@
                             IncrementRate = level.IncrementRate,
                             MaximumValue = level.MaximumValue,
                             HiddenIncrementRate = level.HiddenIncrementRate,
-                            HiddenTotal = level.HiddenTotal,
+                            HiddenValue = level.HiddenValue,
                             Overflow = level.Overflow,
                             OverflowTotal = level.OverflowTotal,
                             CanEdit = true,
