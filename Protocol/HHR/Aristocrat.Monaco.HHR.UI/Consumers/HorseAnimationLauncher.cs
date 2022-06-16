@@ -29,11 +29,13 @@
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IGameStartConditionProvider _gameStartConditions;
+        private readonly IGamePlayState _gamePlayState;
 
         private VenueRaceCollection _venueRaceCollection;
         private VenueRaceCollectionViewModel _venueRaceCollectionViewModel;
         private DisplayRole _currentDisplay;
         private readonly DisplayRole _expectedTopMostDisplay;
+        private DateTime _lastAllowedGameStart;
         private bool _disposed;
 
 
@@ -43,7 +45,8 @@
             IPrizeInformationEntityHelper prizeEntityHelper,
             ISystemDisableManager systemDisableManager,
             IGameStartConditionProvider gameStartConditions,
-            IPropertiesManager properties)
+            IPropertiesManager properties,
+            IGamePlayState gamePlayState)
         {
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
@@ -55,6 +58,8 @@
                 ?? throw new ArgumentNullException(nameof(gameStartConditions));
             _propertiesManager = properties
                 ?? throw new ArgumentNullException(nameof(properties));
+            _gamePlayState = gamePlayState
+                ?? throw new ArgumentNullException(nameof(gamePlayState));
 
             _eventBus.Subscribe<DisplayMonitorStatusChangeEvent>(this, HandleEvent);
 
@@ -92,7 +97,20 @@
                 return false;
             }
 
-            return !_venueRaceCollectionViewModel.IsAnimationVisible;
+            // Are the horses on the screen? We don't want to allow game start.
+            if (_venueRaceCollectionViewModel.IsAnimationVisible)
+            {
+                // Has it been more than 10 seconds since we last allowed game start? In that
+                // case the horses might be stuck on the screen, so we'll let the game start.
+                var timeNow = DateTime.UtcNow;
+                if (timeNow - _lastAllowedGameStart < TimeSpan.FromSeconds(10))
+                {
+                    return false;
+                }
+            }
+
+            _lastAllowedGameStart = DateTime.UtcNow;
+            return true;
         }
 
         private bool TopperConnected => _cabinetDetectionService.IsDisplayConnected(DisplayRole.Topper);
@@ -150,7 +168,8 @@
             _venueRaceCollectionViewModel = new VenueRaceCollectionViewModel(
                 _eventBus,
                 _prizeEntityHelper,
-                _propertiesManager);
+                _propertiesManager,
+                _gamePlayState);
 
             MvvmHelper.ExecuteOnUI(
                 () =>

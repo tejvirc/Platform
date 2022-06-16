@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Accounting.Contracts;
     using Application.Contracts;
     using Client.Messages;
     using Events;
@@ -13,31 +14,32 @@
     using Hhr.Services;
     using Hhr.Services.Progressive;
     using Kernel;
+    using Test.Common;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using Test.Common;
 
     [TestClass]
     public class ProgressiveAssociationTests
     {
         private const int Million = 1000000;
-        private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>(MockBehavior.Strict);
 
+        private readonly Mock<IEventBus> _eventBus =
+            new Mock<IEventBus>(MockBehavior.Strict);
         private readonly Mock<IGameDataService> _gameDataService =
             new Mock<IGameDataService>(MockBehavior.Strict);
-
-        private readonly List<GameInfoResponse> _gameInfo = new List<GameInfoResponse>();
-
-        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Strict);
-
+        private readonly Mock<IGameProvider> _gameProvider =
+            new Mock<IGameProvider>(MockBehavior.Strict);
         private readonly Mock<IProtocolLinkedProgressiveAdapter> _progAdapter =
             new Mock<IProtocolLinkedProgressiveAdapter>(MockBehavior.Strict);
+        private readonly Mock<IProgressiveUpdateService> _progressiveUpdateService =
+            new Mock<IProgressiveUpdateService>(MockBehavior.Strict);
+        private readonly Mock<IPropertiesManager> _propertiesManager =
+            new Mock<IPropertiesManager>(MockBehavior.Strict);
 
+        private readonly List<GameInfoResponse> _gameInfo = new List<GameInfoResponse>();
         private readonly List<ProgressiveInfoResponse> _progInfo = new List<ProgressiveInfoResponse>();
         private readonly List<ProgressiveLevel> _progressiveLevel = new List<ProgressiveLevel>();
 
-        private readonly Mock<IProgressiveUpdateService> _progressiveUpdateService =
-            new Mock<IProgressiveUpdateService>(MockBehavior.Strict);
 
         //private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
 
@@ -54,22 +56,26 @@
             _gameProvider.Setup(g => g.GetGame(2)).Returns(GetGame(2));
 
             _gameProvider.Setup(g => g.GetEnabledGames()).Returns(GetGames());
+
+            _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.MaxBetLimit, It.IsAny<long>())).Returns(1000000L);
         }
 
-        [DataRow(true, false, false, false, DisplayName = "Null GameProvider")]
-        [DataRow(false, true, false, false, DisplayName = "Null ProtocolLinkedProgressiveAdapter")]
-        [DataRow(false, false, true, false, DisplayName = "Null EventBus")]
-        [DataRow(false, false, false, true, DisplayName = "Null ProgressiveUpdateService")]
+        [DataRow(true, false, false, false, false, DisplayName = "Null GameProvider")]
+        [DataRow(false, true, false, false, false, DisplayName = "Null ProtocolLinkedProgressiveAdapter")]
+        [DataRow(false, false, true, false, false, DisplayName = "Null EventBus")]
+        [DataRow(false, false, false, true, false, DisplayName = "Null ProgressiveUpdateService")]
+        [DataRow(false, false, false, false, true, DisplayName = "Null PropertiesManager")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_InvalidParams_ThrowsException(
             bool nullGameProvider,
             bool nullLpProvider,
             bool nullEventBus,
-            bool nullProgressiveUpdateService)
+            bool nullProgressiveUpdateService,
+            bool nullPropertiesManager)
         {
             _ = CreateProgressiveAssociation(nullGameProvider, nullLpProvider, nullEventBus,
-                nullProgressiveUpdateService);
+                nullProgressiveUpdateService, nullPropertiesManager);
         }
 
         [TestMethod]
@@ -79,13 +85,14 @@
             _progressiveLevel.Add(CreateProgressiveLevel(40, 1, "Pack1", 1, 1, 0, 10, "Grand", 2000,
                 ProgressiveLevelType.LP, new List<long> {1}));
 
-            // Server progressive level info
-            _progInfo.Add(CreateProgressiveResponse(101, 1, 10, 80, 2000));
+            // Server progressive level info with wrong bet
+            _progInfo.Add(CreateProgressiveResponse(101, 1, 10, 999, 2000));
 
+            SetupGameOpenResponses();
             CreateProgressiveAssociation();
 
             foreach (var result in _progInfo.Select(progressiveInfo =>
-                _target.AssociateServerLevelsToGame(progressiveInfo, null, new List<ProgressiveLevelAssignment>())
+                _target.AssociateServerLevelsToGame(progressiveInfo, _gameInfo[0], new List<ProgressiveLevelAssignment>())
                     .Result))
             {
                 Assert.IsFalse(result);
@@ -99,13 +106,14 @@
             _progressiveLevel.Add(CreateProgressiveLevel(40, 1, "Pack1", 1, 1, 1, 10, "Grand", 2000,
                 ProgressiveLevelType.LP, new List<long> {1}));
 
-            // Server progressive level info
-            _progInfo.Add(CreateProgressiveResponse(101, 1, 10, 40, 2000));
+            // Server progressive level info with wrong ID
+            _progInfo.Add(CreateProgressiveResponse(999, 1, 10, 40, 2000));
 
+            SetupGameOpenResponses();
             CreateProgressiveAssociation();
 
             foreach (var result in _progInfo.Select(progressiveInfo =>
-                _target.AssociateServerLevelsToGame(progressiveInfo, null, new List<ProgressiveLevelAssignment>())
+                _target.AssociateServerLevelsToGame(progressiveInfo, _gameInfo[0], new List<ProgressiveLevelAssignment>())
                     .Result))
             {
                 Assert.IsFalse(result);
@@ -122,10 +130,11 @@
             // Server progressive level info
             _progInfo.Add(CreateProgressiveResponse(101, 1, 10, 40, 2000));
 
+            SetupGameOpenResponses();
             CreateProgressiveAssociation();
 
             foreach (var result in _progInfo.Select(progressiveInfo =>
-                _target.AssociateServerLevelsToGame(progressiveInfo, null, new List<ProgressiveLevelAssignment>())
+                _target.AssociateServerLevelsToGame(progressiveInfo, _gameInfo[0], new List<ProgressiveLevelAssignment>())
                     .Result))
             {
                 Assert.IsFalse(result);
@@ -145,7 +154,6 @@
             _progInfo.Add(CreateProgressiveResponse(102, 2, 11, 40, 1000));
 
             SetupGameOpenResponses();
-
             CreateProgressiveAssociation();
 
             foreach (var result in _progInfo.Select(progressiveInfo =>
@@ -257,8 +265,7 @@
         }
 
         [TestMethod]
-        public void
-            ProgressiveAssociation_ProgressiveLevelAlreadyAssignedFoundInRecoveryWhichMatch_AssociationSucceeds()
+        public void ProgressiveAssociation_ProgressiveLevelAlreadyAssignedFoundInRecoveryWhichMatch_AssociationSucceeds()
         {
             var linkedLevel = new LinkedProgressiveLevel {ProgressiveGroupId = 103, LevelId = 1};
 
@@ -332,9 +339,10 @@
             _progressiveUpdateService.Setup(x => x.IsProgressiveLevelUpdateLocked(It.IsAny<LinkedProgressiveLevel>()))
                 .Returns(false);
 
-            _progAdapter.Setup(l =>
-                l.UpdateLinkedProgressiveLevels(It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
-                    ProtocolNames.HHR)).Verifiable();
+            _progAdapter.Setup(l => l.UpdateLinkedProgressiveLevels(
+                It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
+                ProtocolNames.HHR)).Verifiable();
+
             CreateProgressiveAssociation();
 
             foreach (var result in _progInfo.Select(progressiveInfo =>
@@ -343,6 +351,36 @@
             {
                 Assert.IsTrue(result);
             }
+        }
+
+        [TestMethod]
+        public void ProgressiveAssociation_LevelDenomExceedsMaxBet_AssociationIgnored()
+        {
+            // Setup progressive game levels and server levels
+            SetupProgressiveLevels();
+
+            // GameOpen Responses setup
+            _gameInfo.Add(CreateGameInfoResponse(new uint[] { 101, 102 }, 1, 100, 999999));
+
+            _progressiveUpdateService.Setup(x => x.IsProgressiveLevelUpdateLocked(It.IsAny<LinkedProgressiveLevel>()))
+                .Returns(false);
+
+            _progAdapter.Setup(l => l.UpdateLinkedProgressiveLevels(
+                It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
+                ProtocolNames.HHR)).Verifiable();
+
+            CreateProgressiveAssociation();
+
+            foreach (var result in _progInfo.Select(progressiveInfo =>
+                _target.AssociateServerLevelsToGame(progressiveInfo, _gameInfo[0],
+                    new List<ProgressiveLevelAssignment>()).Result))
+            {
+                Assert.IsTrue(result);
+            }
+
+            _progAdapter.Verify(x => x.UpdateLinkedProgressiveLevels(
+                It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
+                ProtocolNames.HHR), Times.Never);
         }
 
         [TestMethod]
@@ -371,13 +409,15 @@
             bool nullGameProvider = false,
             bool nullLpProvider = false,
             bool nullEventBus = false,
-            bool nullProgressiveUpdateService = false)
+            bool nullProgressiveUpdateService = false,
+            bool nullPropertiesManager = false)
         {
             _target = new ProgressiveAssociation(
                 nullGameProvider ? null : _gameProvider.Object,
                 nullLpProvider ? null : _progAdapter.Object,
                 nullEventBus ? null : _eventBus.Object,
-                nullProgressiveUpdateService ? null : _progressiveUpdateService.Object);
+                nullProgressiveUpdateService ? null : _progressiveUpdateService.Object,
+                nullPropertiesManager ? null : _propertiesManager.Object);
 
             return _target;
         }
@@ -407,9 +447,9 @@
             // Server GameOpen: Denom-2
             _gameInfo.Add(CreateGameInfoResponse(new uint[] {103}, 2, 101));
 
-            _progAdapter.Setup(l =>
-                l.UpdateLinkedProgressiveLevels(It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
-                    ProtocolNames.HHR)).Verifiable();
+            _progAdapter.Setup(l => l.UpdateLinkedProgressiveLevels(
+                It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
+                ProtocolNames.HHR)).Verifiable();
         }
 
         private void SetupProgressiveMatchFailureDueToReferenceIdMismatch()
@@ -426,9 +466,9 @@
             // Server GameOpen: Denom-1, referenceId-101
             _gameInfo.Add(CreateGameInfoResponse(new uint[] {103}, 1, 103));
 
-            _progAdapter.Setup(l =>
-                l.UpdateLinkedProgressiveLevels(It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
-                    ProtocolNames.HHR)).Verifiable();
+            _progAdapter.Setup(l => l.UpdateLinkedProgressiveLevels(
+                It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
+                ProtocolNames.HHR)).Verifiable();
         }
 
         private void SetupProgressiveWithAssignedProgressiveId(IViewableLinkedProgressiveLevel level, bool ret = false)
@@ -443,12 +483,12 @@
             // GameOpen
             _gameInfo.Add(CreateGameInfoResponse(new uint[] {101, 102, 103}, 1, 100));
 
-            _progAdapter.Setup(l =>
-                l.UpdateLinkedProgressiveLevels(It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
-                    ProtocolNames.HHR)).Verifiable();
+            _progAdapter.Setup(l => l.UpdateLinkedProgressiveLevels(
+                It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(),
+                ProtocolNames.HHR)).Verifiable();
 
-            _progAdapter.Setup(l =>
-                l.ViewLinkedProgressiveLevel(It.IsAny<string>(), out level)).Returns(ret);
+            _progAdapter.Setup(l => l.ViewLinkedProgressiveLevel(
+                It.IsAny<string>(), out level)).Returns(ret);
         }
 
         private void SetupProgressiveLevels()
@@ -472,13 +512,14 @@
             _gameInfo.Add(CreateGameInfoResponse(new uint[] {101, 102}, 1, 100));
         }
 
-        private GameInfoResponse CreateGameInfoResponse(uint[] progIds, uint denom, uint referenceId)
+        private GameInfoResponse CreateGameInfoResponse(uint[] progIds, uint denom, uint referenceId, uint progBet = 1)
         {
             return new GameInfoResponse
             {
                 ProgressiveIds = progIds,
                 Denomination = denom,
-                GameId = referenceId
+                GameId = referenceId,
+                ProgCreditsBet = new uint[] { progBet }
             };
         }
 

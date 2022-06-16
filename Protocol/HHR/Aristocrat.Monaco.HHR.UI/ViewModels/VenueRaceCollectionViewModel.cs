@@ -30,6 +30,7 @@
 
         private readonly IEventBus _eventBus;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
+        private readonly IGamePlayState _gamePlayState;
 
         private bool _isPaused;
         private bool _isAnimationVisible;
@@ -40,12 +41,15 @@
         public VenueRaceCollectionViewModel(
             IEventBus eventBus,
             IPrizeInformationEntityHelper entityHelper,
-            IPropertiesManager properties)
+            IPropertiesManager properties,
+            IGamePlayState gamePlayState)
         {
             _prizeEntityHelper = entityHelper
                 ?? throw new ArgumentNullException(nameof(entityHelper));
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
+            _gamePlayState = gamePlayState
+                ?? throw new ArgumentNullException(nameof(gamePlayState));
 
             if (properties == null)
             {
@@ -96,7 +100,7 @@
                 };
             }
 
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < VenuesPerRow; i++)
             {
                 var venueRaceTracksModel1 = new VenueRaceTracksModel
                 {
@@ -118,7 +122,7 @@
                 }
             }
 
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < VenuesPerRow; i++)
             {
                 RaceSet1Models[i].RaceFinishedEventHandler += (_, _) =>
                 {
@@ -151,14 +155,6 @@
                             IsAnimationVisible = false;
                             // Pause to ensure the GIFs aren't running when the window is hidden
                             IsPaused = true;
-                        }
-                        else
-                        {
-                            for (var i = 0; i < 5; i++)
-                            {
-                                Logger.Debug(
-                                    $"RaceSet1Models[{i}].RaceFinished: {RaceSet1Models[i].RaceFinished}, RaceSet2Models[{i}].RaceFinished: {RaceSet2Models[i].RaceFinished}");
-                            }
                         }
                     }
                     else
@@ -250,6 +246,13 @@
 
                 RaceStarted = true;
                 IsAnimationVisible = true;
+
+                // If the game was started, and then a lockup created before the races started, pause
+                if (!_gamePlayState.Enabled)
+                {
+                    Logger.Debug("System is disabled, pausing horses right after start");
+                    IsPaused = true;
+                }
             });
         }
 
@@ -266,11 +269,11 @@
 
         private async Task GameEnabledEventHandler(GamePlayEnabledEvent evt, CancellationToken token)
         {
-            Logger.Debug($"GameEnabledEventHandler willRecover: {_willRecover}");
+            Logger.Debug($"GameEnabledEventHandler RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
 
             await ExecuteOnUI(() =>
             {
-                if (_willRecover)
+                if (_willRecover || !RaceStarted)
                 {
                     // Do not resume the horses yet, once the game is loaded another event will let them
                     // reappear and continue on. This is to prevent any glitches that can happen by

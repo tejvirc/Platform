@@ -5,35 +5,44 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Accounting.Contracts;
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Client.Messages;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
-    using Aristocrat.Monaco.Protocol.Common.Logging;
+    using Gaming.Contracts.Progressives.Linked;
+    using Protocol.Common.Logging;
     using Events;
     using Kernel;
     using log4net;
-    using Gaming.Contracts.Progressives.Linked;
 
     public class ProgressiveAssociation : IProgressiveAssociation
     {
+        private const int Million = 1000000;
+
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IGameProvider _gameProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly IProgressiveUpdateService _progressiveUpdateService;
-        private const int Million = 1000000;
+        private readonly IPropertiesManager _propertiesManager;
 
         public ProgressiveAssociation(
             IGameProvider gameProvider,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
             IEventBus eventBus,
-            IProgressiveUpdateService progressiveUpdateService)
+            IProgressiveUpdateService progressiveUpdateService,
+            IPropertiesManager propertiesManager)
         {
-            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
-            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ??
-                                                throw new ArgumentNullException(
-                                                    nameof(protocolLinkedProgressiveAdapter));
-            _progressiveUpdateService = progressiveUpdateService ?? throw new ArgumentNullException(nameof(progressiveUpdateService));
+            _gameProvider = gameProvider
+                ?? throw new ArgumentNullException(nameof(gameProvider));
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter
+                ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
+            _progressiveUpdateService = progressiveUpdateService
+                ?? throw new ArgumentNullException(nameof(progressiveUpdateService));
+            _propertiesManager = propertiesManager
+                ?? throw new ArgumentNullException(nameof(propertiesManager));
 
             if (eventBus == null)
             {
@@ -68,6 +77,21 @@
                 .Where(x => x.LevelType == ProgressiveLevelType.LP).ToList();
 
             Logger.Debug($"[PROG] Server Level - [{serverDefinedLevel.ToJson()}]");
+
+
+            // Check the max bet for this game denom. If it exceeds the maximum bet setting, then
+            // the progressive levels for this denom won't exist.
+            var maxBetForServerGame = gameInfo.Denomination * gameInfo.ProgCreditsBet.Max();
+            var maxBetForMachine = _propertiesManager.GetValue(
+                    AccountingConstants.MaxBetLimit,
+                    AccountingConstants.DefaultMaxBetLimit)
+                .MillicentsToCents();
+
+            if (maxBetForServerGame > maxBetForMachine)
+            {
+                Logger.Warn("[PROG] Ignoring server level as this denom exceeds max bet.");
+                return Task.FromResult(true);
+            }
 
             //Filtering Game levels based on Level Id and wager amount from server level.
             // Game progressive level Ids are indexed from 0, whereas the ones from server are index from 1.
