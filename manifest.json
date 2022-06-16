@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "ZbrjW2RSPbKXuu6AlOkt2QVAg9Q8AyGjgC6SPmVZfoQ="
+          "hash": "Mvwup+1D9S9xBdQBeprXgqozFfJl2tngXlZsO7Itq6g="
         }
       },
       "is_incremental": false,
@@ -14470,6 +14470,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23650,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41810,11 +41810,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.BeginGameRoundCommandAsyncHandler.yml",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.BeginGameRoundAsyncCommandHandler.yml",
       "output": {
         ".html": {
-          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.BeginGameRoundCommandAsyncHandler.html",
-          "hash": "I/HiLc5foRFVxv9Jjjta0K1/fEk96M+eloDtO3yVO4g="
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.BeginGameRoundAsyncCommandHandler.html",
+          "hash": "ASj6qe8rqvIMGuLJIgwCLCTC9ZKOl0AH+t4qITGtAyI="
         }
       },
       "is_incremental": false,
@@ -43446,7 +43446,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.html",
-          "hash": "lyjuCC3uO4dtItrDvVnCijCJCrA6t0D9/PdZmuimaTI="
+          "hash": "UoGqloZcX/3eQgeZzJLmFY+dESllooSgzjUQN05bYQM="
         }
       },
       "is_incremental": false,
@@ -51798,7 +51798,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.GameStartConditionProvider.html",
-          "hash": "p1dFInOect/H680qRavZkKCa++Kcj9ldmVDntLMA7Xk="
+          "hash": "6j+rB2qPDkTXuE7iSX/O5jVMVgn/kbNvYKB+OVHbiqE="
         }
       },
       "is_incremental": false,
