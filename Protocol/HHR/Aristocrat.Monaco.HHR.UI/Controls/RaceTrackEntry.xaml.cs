@@ -216,7 +216,7 @@
                 TimeSpan.FromMilliseconds(UiProperties.HorseResultsRunTimeMilliseconds));
             _clock = (AnimationClock)animation.CreateClock(true);
             transform.ApplyAnimationClock(TranslateTransform.XProperty, _clock);
-            //transform.BeginAnimation(TranslateTransform.XProperty, animation); works with no clock, but no pausing
+            PlayAnimation();
         }
 
         private void StartRace()

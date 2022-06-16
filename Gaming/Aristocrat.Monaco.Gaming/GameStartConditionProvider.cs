@@ -35,6 +35,7 @@
         /// <inheritdoc />
         public bool CheckGameStartConditions()
         {
+            var retVal = true;
             lock (_conditions)
             {
                 foreach (var gameStartCondition in _conditions)
@@ -42,12 +43,12 @@
                     if (!gameStartCondition.CanGameStart())
                     {
                         Logger.Debug("Preventing game start because of " + gameStartCondition.GetType().Name);
-                        return false;
+                        retVal = false;
                     }
                 }
             }
 
-            return true;
+            return retVal;
         }
 
         /// <inheritdoc />

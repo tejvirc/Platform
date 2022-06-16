@@ -20,7 +20,7 @@
     ///     Command handler for the <see cref="BeginGameRound" /> command.
     /// </summary>
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
-    public class BeginGameRoundCommandAsyncHandler : ICommandHandler<BeginGameRoundAsync>
+    public class BeginGameRoundAsyncCommandHandler : ICommandHandler<BeginGameRoundAsync>
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -35,9 +35,9 @@
         private readonly IGameStartConditionProvider _gameStartConditions;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BeginGameRoundCommandHandler" /> class.
+        ///     Initializes a new instance of the <see cref="BeginGameRoundAsyncCommandHandler" /> class.
         /// </summary>
-        public BeginGameRoundCommandAsyncHandler(
+        public BeginGameRoundAsyncCommandHandler(
             IRuntime runtime,
             IGameRecovery recovery,
             IGamePlayState gamePlayState,
@@ -81,7 +81,6 @@
                 if (!_gameStartConditions.CheckGameStartConditions() || !_gamePlayState.Prepare())
                 {
                     Failed();
-
                     return;
                 }
             }

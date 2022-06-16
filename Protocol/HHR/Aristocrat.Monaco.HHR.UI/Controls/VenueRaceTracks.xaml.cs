@@ -186,6 +186,11 @@
 
         public void SetupAndStartAnimation()
         {
+            if (_clock != null)
+            {
+                _clock.Completed -= FinishLineStoryboard_OnCompleted;
+            }
+
             const double distance = 376;
             TranslateTransform transform = new TranslateTransform();
             FinishLine.RenderTransform = transform;
@@ -196,7 +201,6 @@
             _clock = (AnimationClock)animation.CreateClock(true);
             _clock.Completed += FinishLineStoryboard_OnCompleted;
             transform.ApplyAnimationClock(TranslateTransform.XProperty, _clock);
-            //transform.BeginAnimation(TranslateTransform.XProperty, animation); works with no clock, but no pausing
         }
     }
 }
