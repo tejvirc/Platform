@@ -189,6 +189,7 @@
                 { GamingConstants.AllowPokerGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Poker) ?? 0) == 0, false) },
                 { GamingConstants.AllowKenoGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Keno) ?? 0) == 0, false) },
                 { GamingConstants.AllowBlackjackGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Blackjack) ?? 0) == 0, false) },
+                { GamingConstants.AllowRouletteGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Roulette) ?? 0) == 0, false) },
                 { GamingConstants.RestrictedProgressiveTypes, (configuration.GameRestrictions?.RestrictedProgressivesTypes?.Select(x => x.ProgressiveType.ToProgressiveLevelType()).ToList() ?? new List<ProgressiveLevelType>(), false) },
                 { GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp, (slotRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? anyGameIncludeLinkProgressiveIncrementRtp, false) },
                 { GamingConstants.PokerIncludeLinkProgressiveIncrementRtp, (pokerRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? anyGameIncludeLinkProgressiveIncrementRtp, false) },

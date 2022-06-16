@@ -83,7 +83,7 @@ the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
       <Setting Name="EdgeLightingOverrideVisible" Value="false" />
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
-    <Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
+    <Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false">
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
     <Page Type="DisplaysPageViewModel" PrintButtonEnabled="false">
