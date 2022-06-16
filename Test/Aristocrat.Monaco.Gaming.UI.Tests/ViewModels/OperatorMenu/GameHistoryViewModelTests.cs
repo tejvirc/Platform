@@ -46,6 +46,7 @@
         private Mock<IDialogService> _dialogService;
         private Mock<IContainerService> _containerService;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<ISystemDisableManager> _disableManager = new Mock<ISystemDisableManager>(MockBehavior.Default);
         private Container _container;
 
         // base class mocks
@@ -98,6 +99,7 @@
             _container.Register(() => _gameMeterManager.Object, Lifestyle.Singleton);
             _container.Register(() => _currencyContainer.Object, Lifestyle.Singleton);
             _container.Register(() => _protocolLinkedProgressiveAdapter.Object, Lifestyle.Singleton);
+            _container.Register(() => _disableManager.Object, Lifestyle.Singleton);
 
             _containerService.Setup(m => m.Container).Returns(_container);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.MeterFreeGamesIndependently, false)).Returns(false);
