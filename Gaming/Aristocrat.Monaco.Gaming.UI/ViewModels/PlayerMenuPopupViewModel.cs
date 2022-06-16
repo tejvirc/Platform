@@ -292,6 +292,7 @@
 
         private void StartMachineReservation(object obj)
         {
+            PlayClickSound();
             if (Pin.Length == GamingConstants.ReserveMachinePinLength)
             {
                 var storedPin = (string)_properties.GetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
