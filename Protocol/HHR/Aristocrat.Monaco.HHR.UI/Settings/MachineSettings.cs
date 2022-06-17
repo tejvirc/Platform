@@ -11,6 +11,7 @@
         private int _centralServerTcpPortNumber;
         private string _centralServerEncryptionKey;
         private int _centralServerUdpPortNumber;
+        private string _centralServerHandicapMode;
 
         /// <summary>
         ///     Gets or sets the central server ip address.
@@ -50,6 +51,16 @@
             get => _centralServerUdpPortNumber;
 
             set => SetProperty(ref _centralServerUdpPortNumber, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the central server udp port number.
+        /// </summary>
+        public string CentralServerHandicapMode
+        {
+            get => _centralServerHandicapMode;
+
+            set => SetProperty(ref _centralServerHandicapMode, value);
         }
     }
 }

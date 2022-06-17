@@ -28,7 +28,6 @@
         private Mock<ISystemDisableManager> _systemDisable;
         private Mock<IEventBus> _eventBus;
         private Mock<IGameProvider> _gameProvider;
-        private Mock<IGamePlayState> _gamePlayState;
         private Mock<IServiceManager> _serviceManagerMock;
         private Mock<IManualHandicapEntityHelper> _manualHandicapEntityHelper;
 
@@ -42,7 +41,6 @@
             _eventBus = new Mock<IEventBus>(MockBehavior.Default);
             _systemDisable = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
-            _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
 
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>())).Returns(It.IsAny<int>());
             UiProperties.ManualHandicapRemainingTime = 200;
@@ -66,8 +64,7 @@
                 _systemDisable.Object,
                 _prizeDeterminationService.Object,
                 _manualHandicapEntityHelper.Object,
-                _gameProvider.Object,
-                _gamePlayState.Object);
+                _gameProvider.Object);
 
             _target.Init(Command.ManualHandicap);
         }

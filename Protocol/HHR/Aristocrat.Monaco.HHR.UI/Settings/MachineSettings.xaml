@@ -12,6 +12,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -54,6 +55,15 @@
                        Style="{DynamicResource SettingValueStyle}"
                        Grid.Row="3"
                        Text="{Binding CentralServerUdpPortNumber}" />
+
+            <TextBlock Grid.Column="0"
+                       Style="{DynamicResource SettingNameStyle}"
+                       Grid.Row="4"
+                       Text="{lex:Loc {x:Static loc:ResourceKeys.ManualHandicapModeLabel}}" />
+            <TextBlock Grid.Column="1"
+                       Style="{DynamicResource SettingValueStyle}"
+                       Grid.Row="4"
+                       Text="{Binding CentralServerHandicapMode}" />
         </Grid>
 
     </DataTemplate>

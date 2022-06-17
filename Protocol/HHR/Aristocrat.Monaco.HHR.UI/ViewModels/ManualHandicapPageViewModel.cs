@@ -33,16 +33,14 @@
         private readonly IPrizeDeterminationService _prizeDeterminationService;
         private readonly IManualHandicapEntityHelper _manualHandicapEntityHelper;
         private readonly IGameProvider _gameProvider;
-        private readonly IGamePlayState _gamePlayState;
-
-        private bool _raceSelectionCompleted;
 
         private readonly Dictionary<int, RaceInfo> _racesToHandicap = new Dictionary<int, RaceInfo>();
-        private int _currentRaceIndex;
-
         private readonly HHRTimer _manualHandicapTimer;
-        private int _tickCount;
 
+        private bool _gameStarted;
+        private bool _raceSelectionCompleted;
+        private int _currentRaceIndex;
+        private int _tickCount;
         private bool _disposed;
 
         public ManualHandicapPageViewModel(
@@ -51,8 +49,7 @@
             ISystemDisableManager systemDisable,
             IPrizeDeterminationService prizeDeterminationService,
             IManualHandicapEntityHelper manualHandicapEntityHelper,
-            IGameProvider gameProvider,
-            IGamePlayState gamePlayState)
+            IGameProvider gameProvider)
         {
             _properties = properties
                 ?? throw new ArgumentNullException(nameof(properties));
@@ -66,8 +63,6 @@
                 ?? throw new ArgumentNullException(nameof(manualHandicapEntityHelper));
             _gameProvider = gameProvider
                 ?? throw new ArgumentNullException(nameof(gameProvider));
-            _gamePlayState = gamePlayState
-                ?? throw new ArgumentNullException(nameof(gamePlayState));
 
             HorseNumberClicked = new ActionCommand<object>(OnHorseNumberClicked);
 
@@ -383,19 +378,22 @@
             }
 
             _eventBus.Unsubscribe<AwaitingPlayerSelectionChangedEvent>(this);
+            _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
 
-            if (_gamePlayState.Enabled)
+            _gameStarted = false;
+            _eventBus.Subscribe<PrimaryGameEscrowEvent>(this, e =>
             {
-                _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
-                return;
-            }
+                _gameStarted = true;
+                _eventBus.Unsubscribe<PrimaryGameEscrowEvent>(this);
+            });
 
-            Logger.Debug($"Game play is not enabled for manual handicap");
-            _eventBus.Subscribe<GamePlayEnabledEvent>(this, _ =>
+            _eventBus.Subscribe<GamePlayEnabledEvent>(this, e =>
             {
-                Logger.Debug($"Start pending manual handicap game play");
-                _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
-                _eventBus.Unsubscribe<GamePlayEnabledEvent>(this);
+                Logger.Debug($"GameStarted is {_gameStarted}");
+                if (!_gameStarted)
+                {
+                    _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));
+                }
             });
         }
 
@@ -648,6 +646,7 @@
             Logger.Debug("Cleanup");
 
             _manualHandicapEntityHelper.IsCompleted = false;
+            _gameStarted = false;
 
             _properties.SetProperty(GamingConstants.HandpayPresentationOverride, false);
             _properties.SetProperty(GamingConstants.AdditionalInfoGameInProgress, false);
@@ -655,6 +654,8 @@
             _eventBus.Unsubscribe<GameEndedEvent>(this);
             _eventBus.Unsubscribe<HandpayCompletedEvent>(this);
             _eventBus.Unsubscribe<AwaitingPlayerSelectionChangedEvent>(this);
+            _eventBus.Unsubscribe<GamePlayEnabledEvent>(this);
+            _eventBus.Unsubscribe<PrimaryGameEscrowEvent>(this);
         }
 
         protected override void Dispose(bool disposing)
