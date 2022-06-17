@@ -12,11 +12,12 @@
     using Contracts;
     using Contracts.Central;
     using Contracts.Process;
-    using Grpc.Core;
     using Kernel;
+    using Grpc.Core;
     using log4net;
     using V1;
     using LocalStorage = V1.LocalStorage;
+    using EventTypes = V1.RuntimeEventNotification.Types.RuntimeEvent;
 
     public class RpcService : GameService.GameServiceBase
     {
@@ -99,12 +100,12 @@
         {
             switch (request.RuntimeEvent)
             {
-                case RuntimeEventNotification.Types.RuntimeEvent.NotifyGameReady:
+                case EventTypes.NotifyGameReady:
                     Logger.Debug("Notify Game Ready/Started");
 
                     _bus.Publish(new GameLoadedEvent());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.RequestGameExit:
+                case EventTypes.RequestGameExit:
                     Logger.Debug("Client Requested Game Exit");
 
                     if (!_gameDiagnostics.IsActive)
@@ -117,65 +118,68 @@
                     }
 
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.RequestCashout:
+                case EventTypes.RequestCashout:
                     Logger.Debug("Client Requested Cashout");
 
                     _handlerFactory.Create<RequestCashout>()
                         .Handle(new RequestCashout());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.ServiceButtonPressed:
+                case EventTypes.ServiceButtonPressed:
                     Logger.Debug("Service button pressed");
 
                     _handlerFactory.Create<ServiceButton>()
                         .Handle(new ServiceButton());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.PlayerInfoDisplayMenuRequested:
+                case EventTypes.PlayerInfoDisplayMenuRequested:
                     Logger.Debug("'I' button pressed - requesting entry");
 
                     _handlerFactory.Create<PlayerInfoDisplayEnterRequest>()
                         .Handle(new PlayerInfoDisplayEnterRequest());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.PlayerInfoDisplayExited:
+                case EventTypes.PlayerInfoDisplayExited:
                     Logger.Debug("Play information display exited");
 
                     _handlerFactory.Create<PlayerInfoDisplayExitRequest>()
                         .Handle(new PlayerInfoDisplayExitRequest());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.PlayerMenuEntered:
+                case EventTypes.PlayerMenuEntered:
                     Logger.Debug("PlayerMenu button pressed - requesting entry");
 
                     _handlerFactory.Create<PlayerMenuEnterRequest>()
                         .Handle(new PlayerMenuEnterRequest());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.PlayerMenuExited:
+                case EventTypes.PlayerMenuExited:
                     Logger.Debug("PlayerMenu button pressed - requesting exit");
 
                     _handlerFactory.Create<PlayerMenuExitRequest>()
                         .Handle(new PlayerMenuExitRequest());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.RequestConfiguration:
+                case EventTypes.RequestConfiguration:
                     Logger.Debug("Client Requested Configuration");
 
                     _handlerFactory.Create<ConfigureClient>()
                         .Handle(new ConfigureClient());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.AdditionalInfoButtonPressed:
+                case EventTypes.AdditionalInfoButtonPressed:
                     Logger.Debug("AdditionalInfo button pressed");
 
                     _handlerFactory.Create<AdditionalInfoButton>()
                         .Handle(new AdditionalInfoButton());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.GameAttractModeExited:
+                case EventTypes.GameAttractModeExited:
                     _handlerFactory.Create<AttractModeEnded>()
                         .Handle(new AttractModeEnded());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.GameAttractModeEntered:
+                case EventTypes.GameAttractModeEntered:
                     _handlerFactory.Create<AttractModeStarted>()
                         .Handle(new AttractModeStarted());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.RequestAllowGameRound:
-                case RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenEntered:
-                case RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenExited:
+                case EventTypes.GameSelectionScreenEntered:
+                case EventTypes.GameSelectionScreenExited:
+                    _bus.Publish(new GameSelectionScreenEvent(
+                        request.RuntimeEvent == EventTypes.GameSelectionScreenEntered));
+                    break;
+                case EventTypes.RequestAllowGameRound:
                     // Not used
                     break;
                 default:
