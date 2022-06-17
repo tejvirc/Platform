@@ -31,19 +31,24 @@
                 return false;
             }
 
-            return x.HandpayReportingType == y.HandpayReportingType && x.TransferLimit == y.TransferLimit &&
+            return x.HandpayReportingType == y.HandpayReportingType &&
+                   x.TransferLimit == y.TransferLimit &&
                    x.MaxAllowedTransferLimits == y.MaxAllowedTransferLimits &&
                    x.PartialTransferAllowed == y.PartialTransferAllowed &&
                    x.TransferInAllowed == y.TransferInAllowed &&
                    x.DebitTransfersAllowed == y.DebitTransfersAllowed &&
                    x.TransferToTicketAllowed == y.TransferToTicketAllowed &&
-                   x.TransferOutAllowed == y.TransferOutAllowed && x.WinTransferAllowed == y.WinTransferAllowed &&
-                   x.AftBonusAllowed == y.AftBonusAllowed && x.LegacyBonusAllowed == y.LegacyBonusAllowed &&
-                   x.ValidationType == y.ValidationType && x.OverflowBehavior == y.OverflowBehavior &&
-                   x.ConfigNotification == y.ConfigNotification && x.DisableOnDisconnect == y.DisableOnDisconnect &&
+                   x.TransferOutAllowed == y.TransferOutAllowed &&
+                   x.WinTransferAllowed == y.WinTransferAllowed &&
+                   x.AftBonusAllowed == y.AftBonusAllowed &&
+                   x.LegacyBonusAllowed == y.LegacyBonusAllowed &&
+                   x.ValidationType == y.ValidationType &&
+                   x.OverflowBehavior == y.OverflowBehavior &&
+                   x.ConfigNotification == y.ConfigNotification &&
+                   x.DisableOnDisconnect == y.DisableOnDisconnect &&
                    x.DisabledOnPowerUp == y.DisabledOnPowerUp &&
                    x.DisableOnDisconnectConfigurable == y.DisableOnDisconnectConfigurable &&
-                   x.NonSasProgressiveHitReporting && y.NonSasProgressiveHitReporting &&
+                   x.NonSasProgressiveHitReporting == y.NonSasProgressiveHitReporting &&
                    x.GeneralControlEditable == y.GeneralControlEditable &&
                    x.AddressConfigurableOnlyOnce == y.AddressConfigurableOnlyOnce &&
                    x.BonusTransferStatusEditable == y.BonusTransferStatusEditable &&

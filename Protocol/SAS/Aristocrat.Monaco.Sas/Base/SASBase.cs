@@ -33,17 +33,17 @@
     /// </summary>
     [ProtocolCapability(
         protocol: CommsProtocol.SAS,
-        isValidationSupported:true,
-        isFundTransferSupported:true,
-        isProgressivesSupported:true,
-        isCentralDeterminationSystemSupported:false)]
+        isValidationSupported: true,
+        isFundTransferSupported: true,
+        isProgressivesSupported: true,
+        isCentralDeterminationSystemSupported: false)]
     public sealed class SasBase : BaseRunnable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static bool _isFirstLoad = true;
         private bool _disposed;
-        private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
-        private ManualResetEvent _startupWaiter = new ManualResetEvent(false);
+        private ManualResetEvent _shutdownEvent = new(false);
+        private ManualResetEvent _startupWaiter = new(false);
         private ISasHost _sasHost;
 
         /// <summary>
