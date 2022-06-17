@@ -52,69 +52,87 @@
             switch (gameRoundEvent.Action)
             {
                 case GameRoundEventAction.Completed:
-                    _gameHistory.AppendGameRoundEventInfo(gameRoundEvent.GameRoundInfo);
-
+                    HandleCompleted(gameRoundEvent);
                     break;
                 case GameRoundEventAction.Begin:
-                    if (_recovery.IsRecovering)
-                    {
-                        if (!_systemDisableManager.IsDisabled)
-                        {
-                            _operatorMenu.DisableKey(GamingConstants.OperatorMenuDisableKey);
-                        }
-
-                        // Recovery will resend us the game events (including the game round event info).  So to
-                        // prevent duplicate data, we need to clear the data and recovery will rebuild it.  However,
-                        // we still want to persist it as we go along so we have it for a dispute in case we cannot
-                        // recover.
-                        _gameHistory.ClearForRecovery();
-                    }
-
-                    _gamePlayState.Start((long)gameRoundEvent.Bet, gameRoundEvent.Data, _recovery.IsRecovering);
-
-                    SetAllowSubgameRound(false);
-
+                    HandleBegin(gameRoundEvent);
                     break;
                 case GameRoundEventAction.Invoked:
-                    using (var scope = _persistentStorage.ScopedTransaction())
-                    {
-                        _gameHistory.AppendGameRoundEventInfo(gameRoundEvent.GameRoundInfo);
-
-                        if (gameRoundEvent.State == GameRoundEventState.Primary)
-                        {
-                            if (gameRoundEvent.Stake > 0)
-                            {
-                                // For secondary games we don't have a traditional start
-                                _gamePlayState.StartSecondaryGame((long)gameRoundEvent.Stake, (long)gameRoundEvent.Win, gameRoundEvent.PlayMode == PlayMode.Recovery);
-                            }
-                            else
-                            {
-                                if (gameRoundEvent.Win > 0)
-                                {
-                                    _gameHistory.IncrementUncommittedWin((long)gameRoundEvent.Win);
-                                }
-
-                                if (gameRoundEvent.Bet > 0)
-                                {
-                                    _gameHistory.AdditionalWager((long)gameRoundEvent.Bet);
-
-                                    var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
-                                    var denomId = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
-
-                                    _bank.Lock();
-
-                                    _commandFactory.Create<Wager>()
-                                        .Handle(new Wager(gameId, denomId, (long)gameRoundEvent.Bet));
-                                    UpdateBalance();
-                                }
-                            }
-                        }
-
-                        scope.Complete();
-                    }
-
+                    HandleInvoked(gameRoundEvent);
                     break;
             }
+        }
+
+        private void HandleCompleted(GameRoundEvent gameRoundEvent)
+        {
+            _gameHistory.AppendGameRoundEventInfo(gameRoundEvent.GameRoundInfo);
+        }
+
+        private void HandleBegin(GameRoundEvent gameRoundEvent)
+        {
+            if (_recovery.IsRecovering)
+            {
+                if (!_systemDisableManager.IsDisabled)
+                {
+                    _operatorMenu.DisableKey(GamingConstants.OperatorMenuDisableKey);
+                }
+
+                // Recovery will resend us the game events (including the game round event info).  So to
+                // prevent duplicate data, we need to clear the data and recovery will rebuild it.  However,
+                // we still want to persist it as we go along so we have it for a dispute in case we cannot
+                // recover.
+                _gameHistory.ClearForRecovery();
+            }
+
+            _gamePlayState.Start((long)gameRoundEvent.Bet, gameRoundEvent.Data, _recovery.IsRecovering);
+            SetAllowSubgameRound(false);
+        }
+
+        private void HandleInvoked(GameRoundEvent gameRoundEvent)
+        {
+            using var scope = _persistentStorage.ScopedTransaction();
+            _gameHistory.AppendGameRoundEventInfo(gameRoundEvent.GameRoundInfo);
+
+            if (gameRoundEvent.State == GameRoundEventState.Primary)
+            {
+                if (gameRoundEvent.Stake > 0)
+                {
+                    // For secondary games we don't have a traditional start
+                    _gamePlayState.StartSecondaryGame(
+                        (long)gameRoundEvent.Stake,
+                        (long)gameRoundEvent.Win,
+                        gameRoundEvent.PlayMode == PlayMode.Recovery);
+                }
+                else
+                {
+                    if (gameRoundEvent.Win > 0)
+                    {
+                        _gameHistory.IncrementUncommittedWin((long)gameRoundEvent.Win);
+                    }
+
+                    if (gameRoundEvent is { Bet: > 0, PlayMode: PlayMode.Demo or PlayMode.Normal })
+                    {
+                        _gameHistory.AdditionalWager((long)gameRoundEvent.Bet);
+
+                        var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
+                        var denomId = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
+
+                        _bank.Lock();
+
+                        _commandFactory.Create<Wager>()
+                            .Handle(new Wager(gameId, denomId, (long)gameRoundEvent.Bet));
+                        UpdateBalance();
+                    }
+                }
+
+                if (gameRoundEvent is { PlayMode: PlayMode.Demo or PlayMode.Normal, Data: { } })
+                {
+                    _commandFactory.Create<AddRecoveryDataPoint>()
+                        .Handle(new AddRecoveryDataPoint(gameRoundEvent.Data));
+                }
+            }
+
+            scope.Complete();
         }
     }
 }
