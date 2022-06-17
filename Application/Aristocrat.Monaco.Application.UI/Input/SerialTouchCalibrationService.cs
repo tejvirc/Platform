@@ -257,6 +257,11 @@
 
         private void OnOperatorMenuExit(OperatorMenuExitedEvent evt)
         {
+            if (!IsCalibrating)
+            {
+                return;
+            }
+
             Logger.Info("Operator Menu exited -- Serial touch calibration aborted.");
             FinalizeCalibration(true, "Serial touch calibration aborted via exit Operator Menu.");
         }
