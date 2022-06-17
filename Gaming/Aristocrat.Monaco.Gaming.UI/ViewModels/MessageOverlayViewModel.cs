@@ -51,7 +51,6 @@
         private bool _isAgeWarningDlgVisible;
         private bool _isResponsibleGamingInfoOverlayDlgVisible;
         private bool _isOverlayWindowVisible;
-        private bool _isGameOverrideCleared;
 
         /// <summary>
         ///     Gets a value indicating whether the Non Cash Overlay Dlg is visible
@@ -234,7 +233,6 @@
 
         public void HandleMessageOverlayText(string message)
         {
-            _isGameOverrideCleared = false;
             MessageOverlayData.Clear();
             Logger.Debug("MessageOverlayData cleared. " +
                          $"MessageOverlayState={_messageOverlayState}, " +
@@ -245,7 +243,6 @@
             {
                 Logger.Debug("Sending PresentOverriddenPresentation Clear");
                 _overlayMessageStrategyController.ClearGameDrivenPresentation();
-                _isGameOverrideCleared = true;
             }
             
             _messageOverlayState = GetMessageOverlayState();
@@ -393,7 +390,7 @@
                 ReserveOverlayViewModel.IsDialogVisible = false;
             }
 
-            IsOverlayWindowVisible = (!IsPresentationOverridden() || _isGameOverrideCleared) &&
+            IsOverlayWindowVisible = !IsPresentationOverridden()  &&
                                      (IsReplayRecoveryDlgVisible ||
                                       IsAgeWarningDlgVisible ||
                                       IsResponsibleGamingInfoOverlayDlgVisible ||
@@ -547,7 +544,7 @@
                                           PresentationOverrideTypes.TransferingInCredits) &&
                                       IsCashingInDlgVisible && _messageOverlayState == MessageOverlayState.CashIn;
 
-            var isPresentationOverridden = _overlayMessageStrategyController.GameRegistered &&
+            return (_overlayMessageStrategyController.GameRegistered && !ForceBuildLockupText) &&
                    (isCashoutOverridden ||
                    isCashWinOverridden ||
                    isTransferOutOverridden ||
@@ -556,8 +553,6 @@
                    isCancelledCreditHandpayOverridden ||
                    isCashInOverridden ||
                    IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
-
-            return isPresentationOverridden;
         }
 
         private void SubscribeToEvents()
