@@ -2,20 +2,19 @@
 {
     using System.Windows;
     using System.Windows.Input;
-    using Contracts;
     using Monaco.UI.Common;
     using ViewModels;
-    using Timer = System.Timers.Timer;
     using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
+    using System;
+    using System.Windows.Media;
+    using Aristocrat.Monaco.Kernel;
 
     /// <summary>
     ///     Interaction logic for PlayerMenuPopupView.xaml
     /// </summary>
     public partial class PlayerMenuPopupView
     {
-        private bool _inbetweenTouchs;
-        private readonly Timer _inbetweenTouchTimer = new Timer(GamingConstants.PlayerMenuPopupOpenCloseDelayMilliseconds);
-
+        private int mouseDownTimeStamp;
         public BitmapImage ThreeSectionBackgroundImage { get; set; }
 
         public BitmapImage TwoSectionTrackingBackgroundImage { get; set; }
@@ -38,8 +37,7 @@
             SessionTrackingSection.Height = TwoSectionTrackingBackgroundImage.Height - OneSectionBackgroundImage.Height;
             ReserveMachineSection.Height = TwoSectionReserveBackgroundImage.Height - OneSectionBackgroundImage.Height;
             ButtonSection.Height = OneSectionBackgroundImage.Height;
-
-            _inbetweenTouchTimer.Elapsed += (o, args) => _inbetweenTouchs = false;
+            mouseDownTimeStamp = 0;
         }
 
         /// <summary>
@@ -51,58 +49,83 @@
             set => DataContext = value;
         }
 
-        // This functionality is to force some time inbetween handling outside touches.
-        // Touch sensitivitly can sometimes cause multiple touches to register, which can close
-        // the menu unexpectedly 
-        private void SetInbetweenTouchTimer()
-        {
-            if(_inbetweenTouchTimer.Enabled)
-            {
-                _inbetweenTouchTimer.Stop();
-            }
-
-            _inbetweenTouchs = true;
-            _inbetweenTouchTimer.Start();
-        }
-
-        private void OnClickOutside(object sender, MouseButtonEventArgs e)
-        { 
-            if (_inbetweenTouchs)
-            {
-                return;
-            }
-
-            ViewModel.SendButtonPressToExit();
-
-            SetInbetweenTouchTimer();
-        }
-
         private void PlayerMenuPopupView_OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (ViewModel.IsMenuVisible)
             {
-                SetInbetweenTouchTimer();
-
-                AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickOutside), true);
-                Mouse.Capture(this, CaptureMode.SubTree);
+                SubscribeEvents();
             }
             else
             {
-                Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnClickOutside);
+                UnSubscribeEvents();
             }
         }
 
-        private void PlayerMenuPopupView_OnUnloaded(object sender, RoutedEventArgs e)
+        private void OnTouchDown(object sender, TouchEventArgs e)
         {
-            _inbetweenTouchTimer.Dispose();
+            Console.WriteLine("Touch Down happended");
+        }
+        private void OnTouchUp(object sender, TouchEventArgs e)
+        {
+            Console.WriteLine("Touch Up happended");
+            var touchPosition = e.GetTouchPoint(this);
+            Handle(touchPosition.Position);
         }
 
+        private void Handle(Point point)
+        {
+            ViewModel.ResetCloseDelay();
+            var element = InputHitTest(point) as UIElement;
+            if (VisualTreeHelper.GetParent(element) is PlayerMenuPopupView)
+            {
+                UnSubscribeEvents();
+                ViewModel.SendButtonPressToExit();
+            }
+        }
+        private void OnMouseUp(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine($"Mouse Up happended at {e.Timestamp} and downEvent is {mouseDownTimeStamp}");
+            if (mouseDownTimeStamp == e.Timestamp || mouseDownTimeStamp == 0)
+            {
+                Console.WriteLine("Invalid Event");
+                return;
+            }
+            var position = e.GetPosition(this);
+            Handle(position);
+        }
+
+        private void OnMouseDown(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine($"Mouse downEvent happened at {e.Timestamp}");
+            mouseDownTimeStamp = e.Timestamp;
+
+        }
+
+        private void SubscribeEvents()
+        {
+            UnSubscribeEvents();
+            var propManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+            if (propManager.GetValue("display", string.Empty) == "windowed")
+            {
+                MouseDown += OnMouseDown;
+                MouseUp += OnMouseUp;
+            }
+            TouchUp += OnTouchUp;
+            TouchDown += OnTouchDown;
+        }
+
+        private void UnSubscribeEvents()
+        {
+            MouseDown -= OnMouseDown;
+            MouseUp -= OnMouseUp;
+            TouchUp -= OnTouchUp;
+            TouchDown -= OnTouchDown;
+        }
         private void HandleNonClosingPress(object sender, RoutedEventArgs e)
         {
+            SubscribeEvents();
             ViewModel.PlayClickSound();
-            Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnClickOutside);
-            AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickOutside), true);
-            Mouse.Capture(this, CaptureMode.SubTree);
         }
     }
 }
