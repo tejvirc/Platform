@@ -31,7 +31,7 @@
         {
             if (_properties.GetValue(GamingConstants.ShowPlayerMenuPopup, true))
             {
-                _eventBus.Publish(new PlayerMenuButtonPressedEvent(false));
+                //_eventBus.Publish(new PlayerMenuButtonPressedEvent(false));
             }
         }
     }
