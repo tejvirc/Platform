@@ -4,14 +4,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              x:Name="PlayerMenuPopup"
              mc:Ignorable="d" 
+             Width="Auto" Height="Auto"
+             Margin="10 0 0 166"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Bottom"
              VerticalContentAlignment="Bottom"
              IsVisibleChanged="PlayerMenuPopupView_OnIsVisibleChanged"
-             Background="#01000000"
-             HorizontalAlignment="Stretch"
-             VerticalAlignment="Stretch"
+             Unloaded="PlayerMenuPopupView_OnUnloaded"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown" >
+            <i:InvokeCommandAction Command="{Binding PlayerMenuPopupViewModel.MouseDownOnMenuCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -47,8 +57,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="Root" Margin="10 0 0 166"
-          VerticalAlignment="Bottom" HorizontalAlignment="Left"
+    <Grid x:Name="Root"
+          HorizontalAlignment="Center" VerticalAlignment="Bottom"
           Width="{DynamicResource OneSectionBackgroundImage.Width}">
         <Grid.Style>
             <Style TargetType="Grid">

@@ -74,6 +74,8 @@
 
         public ICommand StartNewSessionClickedCommand { get; }
 
+        public ICommand MouseDownOnMenuCommand { get; }
+
         public void SendButtonPressToExit() => _eventBus.Publish(new PlayerMenuButtonPressedEvent(false));
 
         public PlayerMenuPopupViewModel()
@@ -101,13 +103,14 @@
 
             _eventBus.Subscribe<GamePlayStateChangedEvent>(this, eventArgs => Handler(eventArgs.CurrentState));
             _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == ApplicationConstants.VolumeControlLocationKey);
-            _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
+            _closeDelayTimer.Elapsed += (sender, args) => IsMenuVisible = false;
             _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, "");
 
             ReserveDigitClickedCommand = new ActionCommand<string>(ConcatenateReservePin);
             ReserveClickedCommand = new ActionCommand<object>(StartMachineReservation);
             ReserveBackspaceClickedCommand = new ActionCommand<object>(BackspaceOnReservePin);
             StartNewSessionClickedCommand = new ActionCommand<object>(StartNewTrackingSession);
+            MouseDownOnMenuCommand = new ActionCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
 
             IsMenuVisible = false;
 

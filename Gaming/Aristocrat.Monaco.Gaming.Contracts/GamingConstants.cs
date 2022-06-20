@@ -1075,7 +1075,7 @@
         /// <summary>
         ///     The minimum open/close time before again opening/closing the player menu popup
         /// </summary>
-        public const int PlayerMenuPopupOpenCloseDelayMilliseconds = 500;
+        public const int PlayerMenuPopupOpenCloseDelayMilliseconds = 1000;
 
         /// <summary>
         ///     Property key for ShowTopPickBanners
