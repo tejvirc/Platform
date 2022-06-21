@@ -173,12 +173,12 @@
                     _handlerFactory.Create<AttractModeStarted>()
                         .Handle(new AttractModeStarted());
                     break;
-                case EventTypes.GameSelectionScreenEntered:
-                case EventTypes.GameSelectionScreenExited:
+                case RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenEntered:
+                case RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenExited:
                     _bus.Publish(new GameSelectionScreenEvent(
-                        request.RuntimeEvent == EventTypes.GameSelectionScreenEntered));
+                        request.RuntimeEvent == RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenEntered));
                     break;
-                case EventTypes.RequestAllowGameRound:
+                case RuntimeEventNotification.Types.RuntimeEvent.RequestAllowGameRound:
                     // Not used
                     break;
                 default:

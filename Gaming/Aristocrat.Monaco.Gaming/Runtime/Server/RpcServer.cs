@@ -17,7 +17,6 @@
         private readonly RpcPresentationService _presentationService;
         private readonly object _lock = new ();
 
-        private ITransport _transport;
         private Server _server;
         private bool _disposed;
 
@@ -47,6 +46,7 @@
             {
                 if (_server != null)
                 {
+                    Logger.Debug("(already started)");
                     return;
                 }
 
@@ -57,47 +57,40 @@
                 callbacks.AddCallback(_presentationService);
 
                 // Create and start server with transport (named pipe)
-                _transport = new NamedPipeTransport(GamingConstants.IpcPlatformPipeName);
-                _server = new Server(_transport, callbacks);
+                _server = new Server(new NamedPipeTransport(GamingConstants.IpcPlatformPipeName), callbacks);
                 _server.Start();
+                Logger.Debug("(started)");
             }
         }
 
         public void Shutdown()
         {
+            Logger.Debug("Shutdown RpcServer");
             lock (_lock)
             {
                 if (_server == null)
                 {
+                    Logger.Debug("(no server to shut down)");
                     return;
                 }
 
                 try
                 {
-                    _transport?.Disconnect();
+                    if (_server is IDisposable disposableServer)
+                    {
+                        Logger.Debug("(disposing server)");
+                        disposableServer.Dispose();
+                    }
+                    Logger.Debug("(server disposed)");
                 }
                 catch (Exception ex)
                 {
-                    Logger.Warn("Error while disconnecting transport; probably it wasn't connected (yet)", ex);
+                    Logger.Warn("Error while ending comms with", ex);
                 }
                 finally
                 {
-                    try
-                    {
-                        _transport?.Dispose();
-                        _server?.Stop();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Warn("Error while ending comms with", ex);
-                    }
-                    finally
-                    {
-                        _transport = null;
-                        _server = null;
-                    }
+                    _server = null;
                 }
-
             }
         }
 
@@ -111,21 +104,6 @@
             if (disposing)
             {
                 Shutdown();
-
-                lock (_lock)
-                {
-                    if (_server != null)
-                    {
-                        _server.Dispose();
-                        _server = null;
-                    }
-
-                    if (_transport != null)
-                    {
-                        _transport.Dispose();
-                        _transport = null;
-                    }
-                }
             }
 
             _eventBus.UnsubscribeAll(this);
