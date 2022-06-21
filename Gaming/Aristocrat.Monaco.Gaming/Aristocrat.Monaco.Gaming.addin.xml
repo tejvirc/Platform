@@ -207,7 +207,7 @@
         <ProgressiveAtomicMeter name="ProgressiveLevel.WageredAmount" classification="Currency" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="ProgressiveLevel.WinOccurrence" classification="Occurrence" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="ProgressiveLevel.WinAccumulation" classification="Currency" group="progressiveLevel" />
-
+        <ProgressiveAtomicMeter name="ProgressiveLevel.HiddenTotal" classification="Currency" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="SharedLevel.WinOccurrence" classification="Occurrence" group="sharedLevel" />
         <ProgressiveAtomicMeter name="SharedLevel.WinAccumulation" classification="Currency" group="sharedLevel" />
   </Extension>

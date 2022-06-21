@@ -11,23 +11,31 @@
         public const int MaxReelId = 6;
         public const int DefaultRampTable = 0;
         public const int DefaultNudgeDelay = 0;
-        public const int CommandAcknowledged20 = 0x20;
+        public const int Acknowledged20 = 0x20;
+        public const int PollingIntervalMs = 1000;
+        public const int SpinningPollingIntervalMs = 3000;
+        public const int ExpectedResponseTime = 50;
+        public const int LightsPerReel = 3;
+        public const int MaxLightId = MaxReelId * LightsPerReel;
+        public const int NumberOfMotorSteps = 200;
+        public const int NumberOfStops = 22;
+        public const int AllowableResponseTime = ExpectedResponseTime * 2;
 
         public static readonly IMessageTemplate MessageTemplate = new MessageTemplate<XorChecksumEngine>(
             new List<MessageTemplateElement>
             {
-                new MessageTemplateElement
+                new()
                 {
                     ElementType = MessageTemplateElementType.ConstantDataLengthMask,
                     Value = new[] { DataLengthMask },
                     Length = 1,
                     IncludedInCrc = true
                 },
-                new MessageTemplateElement
+                new()
                 {
                     ElementType = MessageTemplateElementType.VariableData, IncludedInCrc = true
                 },
-                new MessageTemplateElement
+                new()
                 {
                     ElementType = MessageTemplateElementType.Crc, IncludedInCrc = false, Length = 1
                 }

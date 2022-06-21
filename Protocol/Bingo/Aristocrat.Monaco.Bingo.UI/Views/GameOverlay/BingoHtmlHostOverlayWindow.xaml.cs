@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.Views.GameOverlay
 {
     using System;
+    using System.ComponentModel;
     using System.Windows;
     using Models;
     using MVVM;
@@ -10,9 +11,9 @@
 #endif
 
     /// <summary>
-    /// Interaction logic for BingoHtmlHostOverlayViewModel.xaml
+    ///     Interaction logic for BingoHtmlHostOverlayViewModel.xaml
     /// </summary>
-    public partial class BingoHtmlHostOverlayWindow : IDisposable
+    public partial class BingoHtmlHostOverlayWindow
     {
         private readonly IBingoDisplayConfigurationProvider _bingoConfigurationProvider;
         private readonly BingoWindow _targetWindow;
@@ -20,8 +21,6 @@
 #if DEBUG
         private bool _devToolsVisible;
 #endif
-
-        private bool _disposed;
 
         public BingoHtmlHostOverlayWindow(
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
@@ -42,25 +41,13 @@
 #endif
         }
 
-        public void Dispose()
+        protected override void OnClosing(CancelEventArgs e)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                BingoHtmlHost?.Dispose();
-            }
-
-            _disposed = true;
+#if DEBUG
+            KeyDown -= OnKeyDown;
+#endif
+            BingoHtmlHost.Dispose();
+            base.OnClosing(e);
         }
 
         private void BingoHtmlHostOverlayWindow_OnLoaded(object sender, RoutedEventArgs e)

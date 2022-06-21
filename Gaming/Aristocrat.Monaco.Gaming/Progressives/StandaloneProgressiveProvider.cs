@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
+    using Application.Contracts;
     using Contracts.Progressives;
     using Kernel;
 
@@ -20,7 +21,7 @@
             _bus.Subscribe<ProgressiveCommitEvent>(this, Handle);
         }
 
-        public void Increment(ProgressiveLevel level, long wager, long ante)
+        public void Increment(ProgressiveLevel level, long wager, long ante, IMeter hiddenTotalMeter)
         {
             if (level == null)
             {
@@ -28,7 +29,7 @@
             }
 
             var calculator = _calculatorFactory.Create(level.FundingType);
-            calculator?.Increment(level, wager, ante);
+            calculator?.Increment(level, wager, ante, hiddenTotalMeter);
         }
 
         public void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction)

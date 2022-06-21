@@ -257,6 +257,11 @@
 
         private void OnOperatorMenuExit(OperatorMenuExitedEvent evt)
         {
+            if (!IsCalibrating)
+            {
+                return;
+            }
+
             Logger.Info("Operator Menu exited -- Serial touch calibration aborted.");
             FinalizeCalibration(true, "Serial touch calibration aborted via exit Operator Menu.");
         }
@@ -269,12 +274,27 @@
                     () =>
                     {
                         _activeWindow?.UpdateCalibration(e);
-                        if (!string.IsNullOrEmpty(e.ResourceKey) && !string.IsNullOrEmpty(e.Error))
+                        if (!string.IsNullOrEmpty(e.ResourceKey))
                         {
-                            CalibrationError = true;
-                            var error = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SerialCalibrationError), CalibrationErrorTimeoutSeconds);
-                            _activeWindow?.UpdateError(error);
-                            StartTimer(MilliSecondsPerSecond);
+                            if (!string.IsNullOrEmpty(e.Error))
+                            {
+                                if (e.ResourceKey == ResourceKeys.TouchCalibrateModel)
+                                {
+                                    var message = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AftLockMessage)); // Please Wait...
+                                    _activeWindow?.UpdateError(message);
+                                }
+                                else
+                                {
+                                    CalibrationError = true;
+                                    var error = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SerialCalibrationError), CalibrationErrorTimeoutSeconds);
+                                    _activeWindow?.UpdateError(error);
+                                    StartTimer(MilliSecondsPerSecond);
+                                }
+                            }
+                            else
+                            {
+                                _activeWindow?.UpdateError(string.Empty);
+                            }
                         }
                     });
             }

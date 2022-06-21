@@ -99,6 +99,7 @@
 
         private void HandleNonClosingPress(object sender, RoutedEventArgs e)
         {
+            ViewModel.PlayClickSound();
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnClickOutside);
             AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickOutside), true);
             Mouse.Capture(this, CaptureMode.SubTree);

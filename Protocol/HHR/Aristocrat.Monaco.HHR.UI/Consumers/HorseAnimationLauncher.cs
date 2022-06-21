@@ -20,21 +20,23 @@
     /// <summary>
     ///     Handler responsible for launching Horse Animation.
     /// </summary>
-    public class HorseAnimationLauncher : IDisposable
+    public class HorseAnimationLauncher : IGameStartCondition, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
-        private readonly ISystemDisableManager _systemDisableManager;
-        private readonly IRuntimeFlagHandler _runtimeFlagHandler;
         private readonly IPropertiesManager _propertiesManager;
-        private bool _disposed;
+        private readonly IGameStartConditionProvider _gameStartConditions;
+        private readonly IGamePlayState _gamePlayState;
+
         private VenueRaceCollection _venueRaceCollection;
         private VenueRaceCollectionViewModel _venueRaceCollectionViewModel;
         private DisplayRole _currentDisplay;
         private readonly DisplayRole _expectedTopMostDisplay;
+        private DateTime _lastAllowedGameStart;
+        private bool _disposed;
 
 
         public HorseAnimationLauncher(
@@ -42,8 +44,9 @@
             ICabinetDetectionService cabinetDetectionService,
             IPrizeInformationEntityHelper prizeEntityHelper,
             ISystemDisableManager systemDisableManager,
-            IRuntimeFlagHandler runtimeFlagHandler,
-            IPropertiesManager properties)
+            IGameStartConditionProvider gameStartConditions,
+            IPropertiesManager properties,
+            IGamePlayState gamePlayState)
         {
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
@@ -51,12 +54,12 @@
                 ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _prizeEntityHelper = prizeEntityHelper
                 ?? throw new ArgumentNullException(nameof(prizeEntityHelper));
-            _systemDisableManager = systemDisableManager
-                ?? throw new ArgumentNullException(nameof(systemDisableManager));
-            _runtimeFlagHandler = runtimeFlagHandler
-                ?? throw new ArgumentNullException(nameof(runtimeFlagHandler));
+            _gameStartConditions = gameStartConditions
+                ?? throw new ArgumentNullException(nameof(gameStartConditions));
             _propertiesManager = properties
                 ?? throw new ArgumentNullException(nameof(properties));
+            _gamePlayState = gamePlayState
+                ?? throw new ArgumentNullException(nameof(gamePlayState));
 
             _eventBus.Subscribe<DisplayMonitorStatusChangeEvent>(this, HandleEvent);
 
@@ -82,7 +85,32 @@
                 _eventBus.Publish(new ClearDisplayDisconnectedLockupEvent());
             }
 
+            _gameStartConditions.AddGameStartCondition(this);
+
             SetupAnimationWindow(_currentDisplay);
+        }
+
+        public bool CanGameStart()
+        {
+            if (_venueRaceCollectionViewModel == null)
+            {
+                return false;
+            }
+
+            // Are the horses on the screen? We don't want to allow game start.
+            if (_venueRaceCollectionViewModel.IsAnimationVisible)
+            {
+                // Has it been more than 10 seconds since we last allowed game start? In that
+                // case the horses might be stuck on the screen, so we'll let the game start.
+                var timeNow = DateTime.UtcNow;
+                if (timeNow - _lastAllowedGameStart < TimeSpan.FromSeconds(10))
+                {
+                    return false;
+                }
+            }
+
+            _lastAllowedGameStart = DateTime.UtcNow;
+            return true;
         }
 
         private bool TopperConnected => _cabinetDetectionService.IsDisplayConnected(DisplayRole.Topper);
@@ -141,7 +169,7 @@
                 _eventBus,
                 _prizeEntityHelper,
                 _propertiesManager,
-                _runtimeFlagHandler);
+                _gamePlayState);
 
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -203,24 +231,27 @@
             }
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _eventBus.UnsubscribeAll(this);
-                }
-
-                _disposed = true;
-            }
-        }
-
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus.UnsubscribeAll(this);
+                _gameStartConditions.RemoveGameStartCondition(this);
+            }
+
+            _disposed = true;
         }
     }
 

@@ -67,12 +67,13 @@
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly IGameRoundDetailsDisplayProvider _gameRoundDetailsDisplayProvider;
         private readonly IReelController _reelController;
+        private readonly ISystemDisableManager _disableManager;
         private readonly DetailedGameMetersViewModel _detailedGameMetersViewModel;
         private bool _resetScrollToTop;
         private bool _replayPauseEnabled;
         private bool _replayPauseActive;
         private ObservableCollection<string> _selectedGameRoundTextList;
-
+        
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistoryViewModel" /> class.
         /// </summary>
@@ -105,6 +106,7 @@
                 _centralProvider = container.Container.GetInstance<ICentralProvider>();
                 _protocolLinkedProgressiveAdapter =
                     container.Container.GetInstance<IProtocolLinkedProgressiveAdapter>();
+                _disableManager = container.Container.GetInstance<ISystemDisableManager>();
 
                 _gameRoundDetailsDisplayProvider = ServiceManager.GetInstance().TryGetService<IGameRoundDetailsDisplayProvider>();
                 _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
@@ -252,18 +254,20 @@
             }
         }
 
-        public bool ReplayButtonEnabled => SelectedGameItem != null && _selectedGameItem.CanReplay && !IsReplaying &&
-                                           !SelectedGameItem.EndTime.Equals(DateTime.MinValue) &&
-                                           AllowReplayDuringGame &&
-                                           !_gameHistoryProvider.IsRecoveryNeeded &&
-                                           !_propertiesManager.GetValue(
-                                               GamingConstants.AdditionalInfoGameInProgress,
-                                               false) &&
-                                           !HasFaultsThatAffectReels();
-
+        public bool ReplayButtonEnabled => SelectedGameItem != null &&
+                                           _selectedGameItem.CanReplay &&
+                                           !IsReplaying &&
+                                          !SelectedGameItem.EndTime.Equals(DateTime.MinValue) &&
+                                          AllowReplayDuringGame &&
+                                          !_gameHistoryProvider.IsRecoveryNeeded &&
+                                          !_propertiesManager.GetValue(
+                                              GamingConstants.AdditionalInfoGameInProgress,
+                                              false) &&
+                                          IsReelControllerAvailable();
+    
         public bool IsGameRoundComplete => SelectedGameItem?.Status ==
-                                              Localizer.For(CultureFor.Operator)
-                                                  .GetString(ResourceKeys.GameHistoryStatusComplete);
+                                           Localizer.For(CultureFor.Operator)
+                                               .GetString(ResourceKeys.GameHistoryStatusComplete);
 
         public bool ShowGameRoundInfo { get; }
 
@@ -324,6 +328,8 @@
             EventBus.Subscribe<PrintStartedEvent>(this, PrintStatusChanged);
             EventBus.Subscribe<HardwareReelFaultEvent>(this, HandleReelRelatedFault);
             EventBus.Subscribe<HardwareReelFaultClearEvent>(this, HandleReelRelatedFault);
+            EventBus.Subscribe<SystemDisableAddedEvent>(this, HandleSystemDisableAddedEvent);
+            EventBus.Subscribe<SystemDisableRemovedEvent>(this, HandleSystemDisableRemovedEvent);
 
             // We don't need to subscribe to completed events because that is handled by the UpdatePrinterButtons override
 
@@ -360,11 +366,11 @@
                 }
                 else if (_gameHistoryProvider.IsRecoveryNeeded)
                 {
-                    text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayDisabledReelFaultText);
-                }
-                else if (HasFaultsThatAffectReels())
-                {
                     text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayDisabledInRecoveryText);
+                }
+                else if (!IsReelControllerAvailable())
+                {
+                    text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayDisabledReelFaultText);
                 }
             }
 
@@ -916,6 +922,24 @@
             RaisePropertyChanged(nameof(ReplayButtonEnabled));
         }
 
+        private void HandleSystemDisableAddedEvent(SystemDisableAddedEvent theEvent)
+        {
+            if (theEvent.DisableId == ApplicationConstants.ReelControllerDisconnectedGuid)
+            {
+                UpdateStatusText();
+                RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            }
+        }
+
+        private void HandleSystemDisableRemovedEvent(SystemDisableRemovedEvent theEvent)
+        {
+            if (theEvent.DisableId == ApplicationConstants.ReelControllerDisconnectedGuid)
+            {
+                UpdateStatusText();
+                RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            }
+        }
+
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
             IEnumerable<Ticket> tickets = null;
@@ -1059,14 +1083,25 @@
                 transaction.TransactionId);
         }
 
-        private bool HasFaultsThatAffectReels()
+        private bool IsReelControllerAvailable()
         {
+            // If the cabinet does not have a reel controller then return true
             if (!(bool)_propertiesManager.GetProperty(ApplicationConstants.ReelControllerEnabled, false))
+            {
+                return true;
+            }
+
+            if (_disableManager == null ||
+                _reelController == null ||
+                _disableManager.CurrentDisableKeys.Contains(ApplicationConstants.ReelControllerDisconnectedGuid) ||
+                !_reelController.Enabled ||
+                _reelController.ReelControllerFaults != ReelControllerFaults.None ||
+                _reelController.LogicalState != ReelControllerState.IdleAtStops)
             {
                 return false;
             }
 
-            return _reelController?.ReelControllerFaults != ReelControllerFaults.None;
+            return true;
         }
 
     protected override void GameDiagnosticsComplete()

@@ -7,6 +7,7 @@
     using Application.Contracts;
     using Application.Contracts.Protocol;
     using Application.Contracts.Settings;
+    using Client.Messages;
     using Kernel;
     using MVVM;
 
@@ -98,7 +99,8 @@
                     CentralServerIpAddress = _properties.GetValue(HHRPropertyNames.ServerTcpIp, string.Empty),
                     CentralServerTcpPortNumber = _properties.GetValue(HHRPropertyNames.ServerTcpPort, 0),
                     CentralServerEncryptionKey = _properties.GetValue(HHRPropertyNames.EncryptionKey, string.Empty),
-                    CentralServerUdpPortNumber = _properties.GetValue(HHRPropertyNames.ServerUdpPort, 0)
+                    CentralServerUdpPortNumber = _properties.GetValue(HHRPropertyNames.ServerUdpPort, 0),
+                    CentralServerHandicapMode = _properties.GetValue(HHRPropertyNames.ManualHandicapMode, HhrConstants.DetectPickMode)
                 });
         }
 
@@ -108,6 +110,7 @@
             _properties.SetProperty(HHRPropertyNames.ServerTcpPort, settings.CentralServerTcpPortNumber);
             _properties.SetProperty(HHRPropertyNames.EncryptionKey, settings.CentralServerEncryptionKey);
             _properties.SetProperty(HHRPropertyNames.ServerUdpPort, settings.CentralServerUdpPortNumber);
+            _properties.SetProperty(HHRPropertyNames.ManualHandicapMode, settings.CentralServerHandicapMode);
             await Task.CompletedTask;
         }
     }

@@ -58,7 +58,7 @@
         /// <summary>
         ///     The pressure applied for the touch
         /// </summary>
-        public const int TouchPressure = 32000;
+        public const int TouchPressure = 0; // 0 (default) to 1024
 
         /// <summary>
         ///     Command used to query the controller and wait for a response

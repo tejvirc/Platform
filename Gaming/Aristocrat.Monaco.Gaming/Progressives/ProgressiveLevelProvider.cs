@@ -184,7 +184,7 @@
                 LevelId = level.LevelId,
                 IncrementRate = level.IncrementRate.ToPercentage(),
                 HiddenIncrementRate = level.HiddenIncrementRate.ToPercentage(),
-                HiddenTotal = current?.HiddenTotal ?? 0,
+                HiddenValue = current?.HiddenValue ?? 0,
                 LevelName = level.Name,
                 Probability = level.Probability.ToPercentage(),
                 MaximumValue = level.MaximumValue(denominationList).CentsToMillicents(),

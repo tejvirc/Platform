@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Progressives
 {
+    using Application.Contracts;
     using Contracts.Progressives;
 
     /// <summary>
@@ -13,7 +14,8 @@
         /// <param name="level">The level to increment</param>
         /// <param name="wager">The wager to be applied to the level</param>
         /// <param name="ante">The ante to be applied to the level</param>
-        void Increment(ProgressiveLevel level, long wager, long ante);
+        /// <param name="hiddenTotalMeter">The hidden total meter.</param>
+        void Increment(ProgressiveLevel level, long wager, long ante, IMeter hiddenTotalMeter);
 
         /// <summary>
         ///     Process a hit on a standalone progressive level

@@ -64,7 +64,6 @@
         {
             if (_overlayWindow is not null)
             {
-                _overlayWindow.Dispose();
                 var window = _overlayWindow;
                 _dispatcher.ExecuteOnUIThread(() => window?.Close());
             }

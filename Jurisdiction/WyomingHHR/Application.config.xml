@@ -58,7 +58,7 @@ as follows:
   <SoundConfiguration>
     <DefaultVolumeLevel>4</DefaultVolumeLevel>
     <AlertVolume Value="80" />
-    <VolumeControl Location="Lobby" />
+    <VolumeControl Location="Game" />
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
 <!--

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
     using Common.Storage.Model;
     using log4net;
@@ -10,8 +11,8 @@
 
     public class CertificateService : ICertificateService
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        protected readonly ILog Logger;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CertificateService"/> class.
@@ -20,7 +21,6 @@
         public CertificateService(IUnitOfWorkFactory unitOfWorkFactory)
         {
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
-            Logger = LogManager.GetLogger(GetType());
         }
 
         public string Name => GetType().Name;
@@ -33,7 +33,7 @@
             foreach (var certificate in certificates)
             {
                 AddIfNotExist(
-                    StoreName.AuthRoot,
+                    StoreName.Root,
                     StoreLocation.LocalMachine,
                     X509FindType.FindByThumbprint,
                     certificate.Thumbprint,
@@ -41,7 +41,10 @@
             }
         }
 
-        public IEnumerable<X509Certificate2> Get(
+        public IEnumerable<X509Certificate2> GetCertificates() =>
+            GetCertificates(StoreName.Root, StoreLocation.LocalMachine, X509FindType.FindByThumbprint);
+
+        private IEnumerable<X509Certificate2> GetCertificates(
             StoreName name,
             StoreLocation location,
             X509FindType findType)
@@ -77,15 +80,14 @@
 
             using var store = new X509Store(name, location);
             store.Open(OpenFlags.ReadWrite);
-            var certificate = store.Certificates.Find(findType, findValue, false)
-                .OfType<X509Certificate2>()
-                .FirstOrDefault();
-            if (certificate != null)
+            var certificates = store.Certificates.Find(findType, findValue, false)
+                .OfType<X509Certificate2>();
+            if (certificates.Any())
             {
                 return;
             }
 
-            certificate = factory();
+            var certificate = factory();
             Logger.Debug($"Installing certificate with thumbprint {certificate.Thumbprint}.");
             store.Add(certificate);
         }

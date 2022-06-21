@@ -49,7 +49,7 @@
             }
             else
             {
-                _progressiveWinDetailsProvider.AddNonSasProgressiveLevelWin(theEvent.Level);
+                _progressiveWinDetailsProvider.AddNonSasProgressiveLevelWin(theEvent.Level, theEvent.Jackpot);
                 _hitExceptionProvider.ReportNonSasProgressiveHit();
             }
         }

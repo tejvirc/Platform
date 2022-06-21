@@ -52,7 +52,7 @@
             <Field DataType="Int64" FieldName="PaidAmount" />
             <Field DataType="Byte" FieldName="Exception" />
             <Field DataType="DateTime" FieldName="PaidDateTime" />
-            <Field DataType="Int64" FieldName="HiddenTotal" />
+            <Field DataType="Int64" FieldName="HiddenValue" />
             <Field DataType="Int64" FieldName="Overflow" />
 
             <Field DataType="Int64" FieldName="ResetValue" />

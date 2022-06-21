@@ -89,7 +89,7 @@
         /// <summary>
         ///     The total value of the hidden pool (in millicents) which will be added after JP hit and reset
         /// </summary>
-        public long HiddenTotal { get; set; }
+        public long HiddenValue { get; set; }
 
         /// <summary>
         ///     Gets or sets the probability for the level to be hit. Optional for linked progressives. This is the theoretical

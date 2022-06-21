@@ -18,38 +18,46 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IGamePlayState _gamePlayState;
-        private readonly IEventBus _bus;
+        private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
         private readonly IGameRecovery _recovery;
+        private readonly IGameDiagnostics _gameDiagnostics;
+        private readonly IGameStartConditionProvider _gameStartConditions;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="BeginGameRoundCommandHandler" /> class.
         /// </summary>
-        /// <param name="recovery">An <see cref="IGameRecovery" /> instance.</param>
-        /// <param name="gamePlayState"></param>
-        /// <param name="properties">An <see cref="IPropertiesManager" /> instance.</param>
-        /// <param name="bus">An <see cref="IEventBus" /> instance.</param>
         public BeginGameRoundCommandHandler(
             IGameRecovery recovery,
+            IGameDiagnostics diagnostics,
             IGamePlayState gamePlayState,
             IPropertiesManager properties,
-            IEventBus bus)
+            IEventBus eventBus,
+            IGameStartConditionProvider gameStartConditions)
         {
-            _recovery = recovery ?? throw new ArgumentNullException(nameof(recovery));
-            _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
-            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _recovery = recovery
+                ?? throw new ArgumentNullException(nameof(recovery));
+            _gamePlayState = gamePlayState
+                ?? throw new ArgumentNullException(nameof(gamePlayState));
+            _gameDiagnostics = diagnostics
+                ?? throw new ArgumentNullException(nameof(diagnostics));
+            _properties = properties
+                ?? throw new ArgumentNullException(nameof(properties));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
+            _gameStartConditions = gameStartConditions
+                ?? throw new ArgumentNullException(nameof(gameStartConditions));
         }
 
         /// <inheritdoc />
         public void Handle(BeginGameRound command)
         {
-            if (!_recovery.IsRecovering && !_gamePlayState.Prepare())
+            if (!_recovery.IsRecovering && (!_gameStartConditions.CheckGameStartConditions() || !_gamePlayState.Prepare()))
             {
                 Logger.Warn("Failed to start game round.");
 
                 command.Success = false;
-                _bus.Publish(new GameRequestFailedEvent());
+                _eventBus.Publish(new GameRequestFailedEvent());
                 return;
             }
 

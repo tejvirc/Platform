@@ -2,11 +2,12 @@
 {
     using System;
     using Accounting.Contracts.Handpay;
-    using Aristocrat.Monaco.Sas.VoucherValidation;
     using Contracts.Client;
+    using Kernel;
+    using Sas.Consumers;
+    using Test.Common;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using Sas.Consumers;
 
     [TestClass]
     public class HandpayKeyedOffConsumerTests
@@ -17,8 +18,17 @@
         [TestInitialize]
         public void MyTestInitialize()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
+
             _sasHandPayCommittedHandler = new Mock<ISasHandPayCommittedHandler>(MockBehavior.Default);
             _target = new HandpayKeyedOffConsumer(_sasHandPayCommittedHandler.Object);
+        }
+
+        [TestCleanup]
+        public void MyTestCleanup()
+        {
+            MoqServiceManager.RemoveInstance();
         }
 
         [ExpectedException(typeof(ArgumentNullException))]

@@ -1,18 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.Views.GameOverlay
 {
     using System;
+    using System.ComponentModel;
     using System.Windows;
     using CefSharp;
     using Models;
     using MVVM;
     using ViewModels.GameOverlay;
 
-    public partial class BingoHelpOverlayWindow : IDisposable
+    public partial class BingoHelpOverlayWindow
     {
         private readonly IBingoDisplayConfigurationProvider _bingoConfigurationProvider;
         private readonly BingoWindow _targetWindow;
-
-        private bool _disposed;
 
         public BingoHelpOverlayWindow(
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
@@ -47,25 +46,10 @@
             }
         }
 
-        public void Dispose()
+        protected override void OnClosing(CancelEventArgs e)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                BingoHelp?.Dispose();
-            }
-
-            _disposed = true;
+            BingoHelp?.Dispose();
+            base.OnClosing(e);
         }
 
         private void BingoHelpOverlayWindow_OnLoaded(object sender, RoutedEventArgs e)

@@ -38,10 +38,10 @@
         private IDictionary<SasGroup, int> _sasGroupPort;
         private SasClientConfiguration _client1Configuration;
         private SasClientConfiguration _client2Configuration;
-        
+
         private readonly ConcurrentDictionary<int, RunningClient> _runningClients = new ConcurrentDictionary<int, RunningClient>();
         private bool _disposed;
-        
+
         private IValidationHandler _validationHandler;
         private ISasTicketPrintedHandler _ticketPrintedHandler;
         private IAftRegistrationProvider _aftRegistrationProvider;
@@ -97,7 +97,7 @@
         {
             var hostId = GetIdOfHostThatHandles(sasGroup);
 
-            return hostId != ClientNotExisting  && _runningClients.Count != 0 && 
+            return hostId != ClientNotExisting && _runningClients.Count != 0 &&
                    _runningClients[hostId].Client.LinkUp;
         }
 
@@ -114,7 +114,7 @@
             Logger.Debug("SetConfiguration");
 
             // This method is currently called AFTER Initialize
-            
+
             ConfigureSasClient(ref _client1Configuration, configuration, Client1);
             ConfigureSasClient(ref _client2Configuration, configuration, Client2);
 
@@ -179,7 +179,7 @@
             clientConfiguration.HandlesProgressives =
                 configuration.SasConfiguration.System.ControlPorts.ProgressivePort == clientNumber;
 
-            Logger.Debug($"Host1 Aft:{clientConfiguration.HandlesAft}, General:{clientConfiguration.HandlesGeneralControl}, " +
+            Logger.Debug($"Host {clientNumber} - Aft:{clientConfiguration.HandlesAft}, General:{clientConfiguration.HandlesGeneralControl}, " +
                 $"Bonusing:{clientConfiguration.HandlesLegacyBonusing}, Validation:{clientConfiguration.HandlesValidation}, " +
                 $"Progressives:{clientConfiguration.HandlesProgressives}, " +
                 $"Game Start/End:{clientConfiguration.HandlesGameStartEnd}");
@@ -579,12 +579,12 @@
                 var state = Client1HandlesGeneralControl
                     ? DisableState.PowerUpDisabledByHost0
                     : DisableState.PowerUpDisabledByHost1;
-                _disableProvider.Disable( SystemDisablePriority.Normal, state).WaitForCompletion();
+                _disableProvider.Disable(SystemDisablePriority.Normal, state).WaitForCompletion();
             }
         }
 
         private bool IsProgressiveHost(int hostId)
-        { 
+        {
             return hostId == GetIdOfHostThatHandles(SasGroup.Progressives);
         }
     }

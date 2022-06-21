@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using Aristocrat.Bingo.Client.Configuration;
     using Services.Security;
     using Common.Storage.Model;
@@ -22,9 +21,6 @@
 
         public ClientConfigurationOptions Configuration =>
             _unitOfWorkFactory.Invoke(x => x.Repository<Host>().Queryable().Single())
-            .ToConfigurationOptions(_certificateService.Get(
-                StoreName.AuthRoot,
-                StoreLocation.LocalMachine,
-                X509FindType.FindByThumbprint));
+            .ToConfigurationOptions(_certificateService.GetCertificates());
     }
 }

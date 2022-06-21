@@ -61,6 +61,8 @@
 
         public IReelDisplayControl ReelsSimulation { get; set; }
 
+        public bool ReelsVisible { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ICommand HomeCommand { get; }
@@ -251,6 +253,8 @@
             }
 
             _eventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.MechanicalReels));
+            ReelsVisible = true;
+            RaisePropertyChanged(nameof(ReelsVisible));
 
             for (var i = 1; i <= _maxSupportedReels; ++i)
             {

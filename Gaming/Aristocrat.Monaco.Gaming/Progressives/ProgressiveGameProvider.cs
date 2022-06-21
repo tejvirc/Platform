@@ -118,7 +118,7 @@
                     level.CurrentValue = cSapLevel.CurrentValue;
                     level.Residual = cSapLevel.Residual;
                     level.HiddenIncrementRate = cSapLevel.HiddenIncrementRate;
-                    level.HiddenTotal = cSapLevel.HiddenTotal;
+                    level.HiddenValue = cSapLevel.HiddenValue;
                     level.Overflow = cSapLevel.Overflow;
                     level.OverflowTotal = cSapLevel.OverflowTotal;
                     level.ResetValue = cSapLevel.ResetValue;
@@ -219,7 +219,10 @@
                 var level = GetUniqueLevelIDs().First(l => l.LevelId == update.Id);
                 var calculator = _calculatorFactory.Create(level.FundingType);
 
-                calculator?.ApplyContribution(level, update);
+                calculator?.ApplyContribution(
+                    level,
+                    update,
+                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelHiddenTotal));
 
                 _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkContribution)
                     .Increment(update.Amount);
@@ -499,7 +502,7 @@
                         (int)level.AssignedProgressiveId.AssignedProgressiveType,
                         level.AssignedProgressiveId?.AssignedProgressiveKey ?? string.Empty,
                         PayMethod.Any,
-                        level.HiddenTotal,
+                        level.HiddenValue,
                         level.Overflow)
                     { BonusId = bonusId };
 
@@ -581,7 +584,14 @@
                         }
                     case ProgressiveLevelType.Sap:
                         {
-                            _standaloneProgressives.Increment(level, wager, ante);
+                            _standaloneProgressives.Increment(
+                                level,
+                                wager,
+                                ante,
+                                _meters.GetMeter(
+                                    level.DeviceId,
+                                    level.LevelId,
+                                    ProgressiveMeters.ProgressiveLevelHiddenTotal));
                             break;
                         }
                     case ProgressiveLevelType.LP:

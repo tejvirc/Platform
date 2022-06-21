@@ -20,41 +20,52 @@
     ///     Command handler for the <see cref="BeginGameRound" /> command.
     /// </summary>
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
-    public class BeginGameRoundCommandAsyncHandler : ICommandHandler<BeginGameRoundAsync>
+    public class BeginGameRoundAsyncCommandHandler : ICommandHandler<BeginGameRoundAsync>
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IGamePlayState _gamePlayState;
-        private readonly IEventBus _bus;
+        private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly IGameHistory _gameHistory;
         private readonly IRuntime _runtime;
         private readonly IGameRecovery _recovery;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
+        private readonly IGameStartConditionProvider _gameStartConditions;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BeginGameRoundCommandHandler" /> class.
+        ///     Initializes a new instance of the <see cref="BeginGameRoundAsyncCommandHandler" /> class.
         /// </summary>
-        public BeginGameRoundCommandAsyncHandler(
+        public BeginGameRoundAsyncCommandHandler(
             IRuntime runtime,
             IGameRecovery recovery,
             IGamePlayState gamePlayState,
             IPropertiesManager properties,
             IGameDiagnostics diagnostics,
             IGameHistory gameHistory,
-            IEventBus bus,
-            IProgressiveGameProvider progressiveGameProvider)
+            IEventBus eventBus,
+            IProgressiveGameProvider progressiveGameProvider,
+            IGameStartConditionProvider gameStartConditions)
         {
-            _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
-            _recovery = recovery ?? throw new ArgumentNullException(nameof(recovery));
-            _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
-            _gameDiagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
-            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
-            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
-            _progressiveGameProvider = progressiveGameProvider ??
-                                       throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _runtime = runtime
+                ?? throw new ArgumentNullException(nameof(runtime));
+            _recovery = recovery
+                ?? throw new ArgumentNullException(nameof(recovery));
+            _gamePlayState = gamePlayState
+                ?? throw new ArgumentNullException(nameof(gamePlayState));
+            _properties = properties
+                ?? throw new ArgumentNullException(nameof(properties));
+            _gameDiagnostics = diagnostics
+                ?? throw new ArgumentNullException(nameof(diagnostics));
+            _gameHistory = gameHistory
+                ?? throw new ArgumentNullException(nameof(gameHistory));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
+            _progressiveGameProvider = progressiveGameProvider
+                ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _gameStartConditions = gameStartConditions
+                ?? throw new ArgumentNullException(nameof(gameStartConditions));
         }
 
         /// <inheritdoc />
@@ -65,17 +76,16 @@
 
         private void HandleAsync(BeginGameRoundAsync command)
         {
-            var (game, denomination) = _properties.GetActiveGame();
-            
             if (!_recovery.IsRecovering && !_gameDiagnostics.IsActive)
             {
-                if (!_gamePlayState.Prepare())
+                if (!_gameStartConditions.CheckGameStartConditions() || !_gamePlayState.Prepare())
                 {
                     Failed();
-
                     return;
                 }
             }
+
+            var (game, denomination) = _properties.GetActiveGame();
 
             if (command.Request is not null)
             {
@@ -83,8 +93,9 @@
 
                 if (command.Request is ITemplateRequest request)
                 {
-                    wagerCategory =
-                        game?.WagerCategories?.SingleOrDefault(w => w.Id.Equals(request.WagerCategory.ToString()));
+                    wagerCategory = game?.WagerCategories?.SingleOrDefault(w =>
+                        w.Id.Equals(request.WagerCategory.ToString()));
+
                     if (wagerCategory is null)
                     {
                         Failed();
@@ -143,7 +154,7 @@
 
                 Logger.Warn("Failed to start game round.");
 
-                _bus.Publish(new GameRequestFailedEvent());
+                _eventBus.Publish(new GameRequestFailedEvent());
             }
 
             void SetWagerCategory(IWagerCategory wagerCategory = null)

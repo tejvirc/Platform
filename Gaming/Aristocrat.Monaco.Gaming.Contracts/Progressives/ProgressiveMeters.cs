@@ -26,6 +26,11 @@
         public const string ProgressiveLevelWinAccumulation = "ProgressiveLevel.WinAccumulation";
 
         /// <summary>
+        ///     Progressive hidden total (total accumulated value of hits for each level)
+        /// </summary>
+        public const string ProgressiveLevelHiddenTotal = "ProgressiveLevel.HiddenTotal";
+
+        /// <summary>
         ///     Shared Level Win Occurrence
         /// </summary>
         public const string SharedLevelWinOccurrence = "SharedLevel.WinOccurrence";
@@ -89,8 +94,8 @@
         /// <summary>
         ///     DisplayMeter key for the total value of the hidden pool which will be added after JP hit and reset
         /// </summary>
-        public const string HiddenTotalDisplayMeter = "HiddenTotal";
-
+        public const string HiddenValueDisplayMeter = "HiddenValue";
+        
         /// <summary>
         ///   	Initial value of a progressive level. Used to identify DisplayMeter node.
         /// </summary>

@@ -20,7 +20,7 @@
         private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<IPrizeInformationEntityHelper> _prizeEntityHelper = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);
-        private readonly Mock<IRuntimeFlagHandler> _runtimeFlagHandler = new Mock<IRuntimeFlagHandler>(MockBehavior.Default);
+        private readonly Mock<IGamePlayState> _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
 
         [TestInitialize]
         public void TestInitialization()
@@ -32,7 +32,7 @@
                 _eventBus.Object,
                 _prizeEntityHelper.Object,
                 _propertiesManager.Object,
-                _runtimeFlagHandler.Object);
+                _gamePlayState.Object);
 
             _target.SetupRaces(GetRaceInfo());
         }

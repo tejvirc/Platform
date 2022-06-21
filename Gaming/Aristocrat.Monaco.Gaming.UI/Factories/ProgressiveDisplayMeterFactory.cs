@@ -62,12 +62,18 @@
                         progressiveLevel,
                         prog => $"{prog.HiddenIncrementRate.ToPercentage()}%",
                         meterNode.Order);
-                case ProgressiveMeters.HiddenTotalDisplayMeter:
+                case ProgressiveMeters.HiddenValueDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
                         meterNode.DisplayName,
                         progressiveLevel,
-                        prog => prog.HiddenTotal.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
+                        prog => prog.HiddenValue.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                         meterNode.Order);
+                case ProgressiveMeters.ProgressiveLevelHiddenTotal:
+                    return CreateValueDisplayMeter(
+                        progressiveManager,
+                        progressiveLevel,
+                        meterNode,
+                        showLifetime);
                 case ProgressiveMeters.InitialValueDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
                         meterNode.DisplayName,

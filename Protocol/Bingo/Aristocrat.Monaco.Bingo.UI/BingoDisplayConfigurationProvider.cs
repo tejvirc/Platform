@@ -280,7 +280,6 @@
         {
             var config = ConfigurationUtilities.SafeDeserialize<BingoDisplayConfiguration>(path);
             _version = config?.Version ?? 1;
-            LoadFromSettings(config);
 
             foreach (var windowSettings in config.BingoInfoWindowSettings)
             {
@@ -290,7 +289,12 @@
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerAllPrizes).ToUpper(),
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerReelsAre).ToUpper()
                 }.ToArray();
+                
             }
+
+            config.PresentationOverrideMessageFormats ??= Array.Empty<PresentationOverrideMessageFormat>();
+
+            LoadFromSettings(config);
 
             return config;
         }
@@ -298,14 +302,13 @@
         private void LoadFromSettings(BingoDisplayConfiguration config)
         {
             _windowSettings[BingoWindow.Main] = config.BingoInfoWindowSettings[0];
-            RaiseChangeEvent(BingoWindow.Main);
 
             _helpAppearance = config.HelpAppearance;
             _attractSettings = config.BingoAttractSettings ?? _attractSettings;
             _presentationOverrideMessageFormats = config.PresentationOverrideMessageFormats?.ToList();
             _version = config.Version;
 
-            _eventBus.Publish(new BingoDisplayHelpAppearanceChangedEvent(_helpAppearance));
+            RaiseChangeEvent(BingoWindow.Main);
         }
 
         private void RestoreSettings()

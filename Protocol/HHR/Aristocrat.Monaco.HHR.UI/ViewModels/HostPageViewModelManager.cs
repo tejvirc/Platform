@@ -526,8 +526,8 @@
 
         private void OnGamePlayDisabled(GamePlayDisabledEvent evt)
         {
-            /*Hide the menu if manual handicap is active to avoid the player
-              leveraging the added time while the terminal is faulted */
+            /* Hide the menu if manual handicap is active to avoid the player
+            leveraging the added time while the terminal is faulted. */
             if (IsHandicapActive)
             {
                 Hide();
@@ -536,13 +536,10 @@
 
         private void OnGamePlayEnabled(GamePlayEnabledEvent evt)
         {
-            Logger.Debug($"IsHandicapActive = {IsHandicapActive} and GameLoaded:{UiProperties.GameLoaded} ");
-
-            /*GamePlayEnabledEvent is published before 3 sec of GameInitializationCompletedEvent
-             and it is not good to show Manual Handicap screen on Game Loading page,UnHide
-             would be called by consumer of GameInitializationCompletedEvent*/
-
-            if (IsHandicapActive && UiProperties.GameLoaded)
+            /* GamePlayEnabledEvent is published before 3 sec of GameInitializationCompletedEvent
+            and it is not good to show Manual Handicap screen on Game Loading page, Unhide
+            would be called by consumer of GameInitializationCompletedEvent. */
+            if ((IsHandicapActive && UiProperties.GameLoaded) || _selectedViewModel == null)
             {
                 Unhide();
             }

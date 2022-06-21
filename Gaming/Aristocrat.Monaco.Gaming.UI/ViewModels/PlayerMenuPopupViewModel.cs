@@ -5,6 +5,7 @@
     using System.Timers;
     using System.Windows.Input;
     using Application.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Common;
     using Contracts;
     using Contracts.Events;
@@ -45,6 +46,7 @@
         private readonly IPropertiesManager _properties;
         private readonly IRuntimeFlagHandler _runtimeFlagHandler;
         private readonly IOnScreenKeyboardService _keyboardService;
+        private readonly IAudio _audioService;
 
         private readonly string PasswordChar = "*";
 
@@ -60,6 +62,7 @@
         private string _trackingAmountPlayed = string.Empty;
         private string _trackingAmountWon = string.Empty;
         private string _pin = string.Empty;
+        private readonly string _touchSoundFile = string.Empty;
 
         private readonly Timer _closeDelayTimer = new Timer(GamingConstants.PlayerMenuPopupTimeoutMilliseconds);
 
@@ -80,7 +83,8 @@
                 ServiceManager.GetInstance().TryGetService<IEventBus>(),
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IRuntimeFlagHandler>(),
-                ServiceManager.GetInstance().TryGetService<IOnScreenKeyboardService>())
+                ServiceManager.GetInstance().TryGetService<IOnScreenKeyboardService>(),
+                ServiceManager.GetInstance().TryGetService<IAudio>())
         {
         }
 
@@ -88,16 +92,19 @@
             IEventBus eventBus,
             IPropertiesManager propertiesManager,
             IRuntimeFlagHandler runtimeFlagHandler,
-            IOnScreenKeyboardService keyboardService)
+            IOnScreenKeyboardService keyboardService,
+            IAudio audioService)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _runtimeFlagHandler = runtimeFlagHandler ?? throw new ArgumentException(nameof(runtimeFlagHandler));
             _keyboardService = keyboardService ?? throw new ArgumentException(nameof(keyboardService));
+            _audioService = audioService ?? throw new ArgumentException(nameof(audioService));
 
             _eventBus.Subscribe<GamePlayStateChangedEvent>(this, eventArgs => Handler(eventArgs.CurrentState));
             _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == ApplicationConstants.VolumeControlLocationKey);
             _closeDelayTimer.Elapsed += (sender, args) => IsMenuVisible = false;
+            _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, "");
 
             ReserveDigitClickedCommand = new ActionCommand<string>(ConcatenateReservePin);
             ReserveClickedCommand = new ActionCommand<object>(StartMachineReservation);
@@ -285,6 +292,7 @@
 
         private void StartMachineReservation(object obj)
         {
+            PlayClickSound();
             if (Pin.Length == GamingConstants.ReserveMachinePinLength)
             {
                 var storedPin = (string)_properties.GetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
@@ -387,6 +395,12 @@
 
             IsVolumeButtonVisible = volumeControlLocation == VolumeControlLocation.Game ||
                                     volumeControlLocation == VolumeControlLocation.LobbyAndGame;
+        }
+
+        public void PlayClickSound()
+        {
+            var soundVolume = (byte)_properties.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+            _audioService.Play(_touchSoundFile, soundVolume);
         }
     }
 }

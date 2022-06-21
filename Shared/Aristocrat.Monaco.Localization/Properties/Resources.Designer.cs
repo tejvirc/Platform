@@ -14744,6 +14744,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Hidden Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string HiddenValue {
+			get {
+				return ResourceManager.GetString("HiddenValue", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Hide Bingo Card When Inactive.
 		/// </summary>
         /// <remarks>
@@ -22514,7 +22526,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Call Attendant - Insufficient Memory.
+		///   Looks up a localized string similar to Call Attendant - Memory Low.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -22522,6 +22534,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string OutOfMemoryMessage {
 			get {
 				return ResourceManager.GetString("OutOfMemoryMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to To clear this lockup, restart the machine..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OutOfMemoryMessageDescription {
+			get {
+				return ResourceManager.GetString("OutOfMemoryMessageDescription", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -49180,6 +49204,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Hidden Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string HiddenValue {
+			get {
+				return "HiddenValue";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Hide Bingo Card When Inactive.
 		/// </summary>
         /// <remarks>
@@ -56950,7 +56986,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Call Attendant - Insufficient Memory.
+		///		Looks up a localized string similar to Call Attendant - Memory Low.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -56958,6 +56994,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string OutOfMemoryMessage {
 			get {
 				return "OutOfMemoryMessage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to To clear this lockup, restart the machine..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OutOfMemoryMessageDescription {
+			get {
+				return "OutOfMemoryMessageDescription";
 			}
 		}
 
@@ -77303,6 +77351,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HiddenIncrementRate,
 		/// <summary>
+		///   Looks up a localized string similar to Hidden Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		HiddenValue,
+		/// <summary>
 		///   Looks up a localized string similar to Hide Bingo Card When Inactive.
 		/// </summary>
         /// <remarks>
@@ -81728,12 +81783,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		OutcomeStateHeader,
 		/// <summary>
-		///   Looks up a localized string similar to Call Attendant - Insufficient Memory.
+		///   Looks up a localized string similar to Call Attendant - Memory Low.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		OutOfMemoryMessage,
+		/// <summary>
+		///   Looks up a localized string similar to To clear this lockup, restart the machine..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		OutOfMemoryMessageDescription,
 		/// <summary>
 		///   Looks up a localized string similar to Out Of Service.
 		/// </summary>

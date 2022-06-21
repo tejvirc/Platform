@@ -39,6 +39,7 @@
         private const int CommunicationTimeoutMs = 1000;
 
         private const int CalibrationDelayMs = 2000; // Used to wait between calibration steps
+        private const int DefaultInjectionDelayMs = 5; // Used to throttle between injections for Kortek
         private const int MaxCoordinateRange = 16383; // 14 bits max
 
         private const int MaxTouchInfo = 1;
@@ -67,6 +68,13 @@
         private bool _checkDisconnect;
         private int _checkDisconnectAttempts;
         private bool _disposed;
+
+        private int _prevTouchX = 0;
+        private int _prevTouchY = 0;
+        private bool _prevTouchDown = false;
+
+        private int _injectionDelayMs = 0;
+        private bool _skipCalibrationPrompts = false; // Used to skip prompts for auto-calibrating device such as Kortek 130
 
         public SerialTouchService()
             : this(ServiceManager.GetInstance().TryGetService<IEventBus>(),
@@ -274,7 +282,14 @@
                 {
                     CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
-                    _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                    if (!_skipCalibrationPrompts)
+                    {
+                        _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                    }
+                    else
+                    {
+                        _eventBus.Publish(new SerialTouchCalibrationStatusEvent(Model, ResourceKeys.TouchCalibrateModel, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                    }
                 }
 
                 _serialPortController.WriteBuffer(M3SerialTouchConstants.ResetCommand);
@@ -510,8 +525,12 @@
         {
             if (status == M3SerialTouchConstants.StatusGood)
             {
-                CrosshairColorLowerLeft = CalibrationCrosshairColors.Active;
-                _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.TouchLowerLeftCrosshair, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                if (!_skipCalibrationPrompts)
+                {
+                    CrosshairColorLowerLeft = CalibrationCrosshairColors.Active;
+                    _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.TouchLowerLeftCrosshair, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                }
+
                 Status = "CALIBRATE EXTENDED...TOUCH LOWER LEFT CROSSHAIR";
                 Fire(SerialTouchTrigger.LowerLeftTarget);
             }
@@ -570,14 +589,22 @@
         {
             if (status == M3SerialTouchConstants.TargetAcknowledged)
             {
-                CrosshairColorLowerLeft = CalibrationCrosshairColors.Acknowledged;
-                _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
-                Status = "CALIBRATE EXTENDED LOWER LEFT OK";
-                Thread.Sleep(CalibrationDelayMs);
-                CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
-                CrosshairColorUpperRight = CalibrationCrosshairColors.Active;
-                Status = "CALIBRATE EXTENDED...TOUCH UPPER RIGHT CROSSHAIR";
-                _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.TouchUpperRightCrosshair, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                if (!_skipCalibrationPrompts)
+                {
+                    CrosshairColorLowerLeft = CalibrationCrosshairColors.Acknowledged;
+                    _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                    Status = "CALIBRATE EXTENDED LOWER LEFT OK";
+                    Thread.Sleep(CalibrationDelayMs);
+                    CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
+                    CrosshairColorUpperRight = CalibrationCrosshairColors.Active;
+                    Status = "CALIBRATE EXTENDED...TOUCH UPPER RIGHT CROSSHAIR";
+                    _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.TouchUpperRightCrosshair, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                }
+                else
+                {
+                    Thread.Sleep(CalibrationDelayMs);
+                }
+
                 Fire(SerialTouchTrigger.UpperRightTarget);
             }
             else
@@ -597,6 +624,12 @@
         private void HandleName(byte[] response)
         {
             Model = GetModel(response);
+            if (Model.Contains("Kortek"))
+            {
+                _skipCalibrationPrompts = true;
+                _injectionDelayMs = DefaultInjectionDelayMs;
+            }
+
             if (!Initialized)
             {
                 SendOutputIdentityCommand();
@@ -770,11 +803,19 @@
             if (status == M3SerialTouchConstants.TargetAcknowledged)
             {
                 PendingCalibration = false;
-                CrosshairColorUpperRight = CalibrationCrosshairColors.Acknowledged;
-                _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
-                Status = "CALIBRATE EXTENDED UPPER RIGHT OK";
-                Thread.Sleep(CalibrationDelayMs);
-                CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
+                if (!_skipCalibrationPrompts)
+                {
+                    CrosshairColorUpperRight = CalibrationCrosshairColors.Acknowledged;
+                    _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                    Status = "CALIBRATE EXTENDED UPPER RIGHT OK";
+                    Thread.Sleep(CalibrationDelayMs);
+                    CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
+                }
+                else
+                {
+                    Thread.Sleep(CalibrationDelayMs);
+                }
+
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.CalibrationComplete, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 Thread.Sleep(CalibrationDelayMs);
                 Status = "CALIBRATION COMPLETE";
@@ -803,6 +844,15 @@
         private void InjectTouchCoordinate(int x, int y)
         {
             var state = _touchDown ? (_injectUpdate ? "UPDATE" : " DOWN ") : "  UP  ";
+
+            // Do we have a duplicate?
+            if (_prevTouchX == x && _prevTouchY == y && _prevTouchDown == _touchDown)
+            {
+                // Yes, ignore it.
+                return;
+            }
+
+            bool injected;
             if (_touchDown)
             {
                 if (!_injectUpdate)
@@ -820,14 +870,89 @@
             else
             {
                 _injectUpdate = false;
+
+                // Does this lift-off have different coordinates then the last touch-down?
+                if (_prevTouchX != x || _prevTouchY != y)
+                {
+                    // Yes, inject update with previous touch-down coordinates before injecting lift-off.
+                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                    UpdateContactArea(_prevTouchX, _prevTouchY, PointerId);
+                    injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
+                    if (!injected || _injectionDelayMs > 0)
+                    {
+                        Thread.Sleep(DefaultInjectionDelayMs);
+                    }
+
+                    if (!injected)
+                    {
+                        Logger.Warn($"InjectTouchCoordinate - RECOVER - {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X} {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y} - FAILED");
+                    }
+                }
+
                 _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UP;
-                UpdateContactArea(x, y, PointerId);
             }
 
-            var injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
+            injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
+            if (!injected || _injectionDelayMs > 0)
+            {
+                Thread.Sleep(DefaultInjectionDelayMs);
+            } 
+
             if (!injected)
             {
-                Logger.Warn($"InjectTouchCoordinate - {state} - {x} {y} - FAILED INJECTION");
+                Logger.Warn($"InjectTouchCoordinate - {state} - {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X} {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y} - FAILED INJECTION");
+                if (!_touchDown)
+                {
+                    _prevTouchX = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X;
+                    _prevTouchY = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y;
+                    _pointerTouchInfo[PointerId] = CreateDefaultPointerTouchInfo(_prevTouchX, _prevTouchY, PointerId);
+                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                    injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
+                    if (!injected || _injectionDelayMs > 0)
+                    {
+                        Thread.Sleep(DefaultInjectionDelayMs);
+                    }
+
+                    if (!injected)
+                    {
+                        Logger.Warn($"InjectTouchCoordinate - RECOVER UP - {_prevTouchX} {_prevTouchY} - FAILED DOWN INJECTION");
+                    }
+                    else
+                    {
+                        _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UP;
+                        injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
+                        if (!injected || _injectionDelayMs > 0)
+                        {
+                            Thread.Sleep(DefaultInjectionDelayMs);
+                        }
+
+                        if (!injected)
+                        {
+                            Logger.Warn($"InjectTouchCoordinate - RECOVER UP - {_prevTouchX} {_prevTouchY} - FAILED UP INJECTION");
+                        }
+                    }
+                }
+                else if (_injectUpdate)
+                {
+                    _injectUpdate = false;
+                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UP;
+                    injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
+                    if (!injected || _injectionDelayMs > 0)
+                    {
+                        Thread.Sleep(DefaultInjectionDelayMs);
+                    }
+
+                    if (!injected)
+                    {
+                        Logger.Warn($"InjectTouchCoordinate - RECOVER UPDATE - {_prevTouchX} {_prevTouchY} - FAILED UP INJECTION");
+                    }
+                }
+            }
+            else
+            {
+                _prevTouchX = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X;
+                _prevTouchY = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y;
+                _prevTouchDown = _touchDown;
             }
         }
 

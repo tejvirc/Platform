@@ -17,16 +17,18 @@
     /// </summary>
     public class TcpConnection : ITcpConnection, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const int ReadBufferSize = 65536;
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly byte[] _readBuffer = new byte[ReadBufferSize];
-        private byte[] _messageBuffer = Array.Empty<byte>();
-        private readonly Subject<Packet> _observedBuffer = new Subject<Packet>();
-        private readonly BehaviorSubject<ConnectionStatus> _statusSubject =
-            new BehaviorSubject<ConnectionStatus>(new ConnectionStatus());
-        private readonly SemaphoreSlim _lock = new SemaphoreSlim(1);
-        private TcpClient _transport;
+        private readonly Subject<Packet> _observedBuffer = new();
+        private readonly BehaviorSubject<ConnectionStatus> _statusSubject = new(new ConnectionStatus());
+        private readonly SemaphoreSlim _lock = new(1);
         private readonly int _sizeOfEncryptedHeader;
+
+        private TcpClient _transport;
+        private byte[] _messageBuffer = Array.Empty<byte>();
         private MessageEncryptHeader? _header;
         private bool _disposed;
 
@@ -168,7 +170,7 @@
         private async void ReadCallback(IAsyncResult readResult)
         {
             // Happens when we dispose before closing.
-            if (_lock == null)
+            if (_disposed)
             {
                 return;
             }

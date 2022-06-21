@@ -70,6 +70,7 @@
             serviceWaiter.AddServiceToWaitFor<IOutcomeValidatorProvider>();
             serviceWaiter.AddServiceToWaitFor<IGamePlayState>();
             serviceWaiter.AddServiceToWaitFor<ITransactionCoordinator>();
+            serviceWaiter.AddServiceToWaitFor<IGameStartConditionProvider>();
 
             if (serviceWaiter.WaitForServices())
             {
@@ -165,6 +166,7 @@
             container.RegisterInstance(serviceManager.GetService<IPersistentStorageManager>());
             container.RegisterInstance(serviceManager.GetService<IGamePlayState>());
             container.RegisterInstance(serviceManager.GetService<ITransactionCoordinator>());
+            container.RegisterInstance(serviceManager.GetService<IGameStartConditionProvider>());
         }
 
         private static void AddCommandHandlers(this Container container)

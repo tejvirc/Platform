@@ -82,8 +82,8 @@
         /// <summary>
         ///     The total value of the hidden pool (in millicents) which will be added after JP hit and reset
         /// </summary>
-        long HiddenTotal { get; }
-
+        long HiddenValue { get; }
+        
         /// <summary>
         ///     Gets the probability for the level to be hit. Optional for linked progressives. This is the theoretical probability
         ///     for a 1c bet to trigger a hit on the progressive level

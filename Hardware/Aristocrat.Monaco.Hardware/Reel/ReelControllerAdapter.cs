@@ -26,10 +26,9 @@
         private const string ReelBrightnessOption = "ReelBrightness";
         private const string ReelOffsetsOption = "ReelOffsets";
         private const int ReelOffsetDefaultValue = 0;
-        private const int SelfTestInterval = 10000;
         private const int MaxBrightness = 100;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IReadOnlyList<ReelLogicalState> NonIdleStates = new List<ReelLogicalState>
         {
@@ -47,7 +46,6 @@
         private readonly ConcurrentDictionary<int, int> _steps = new();
 
         private IReelControllerImplementation _reelController;
-        private bool _validatingDevice;
 
         private int _reelBrightness = MaxBrightness;
         private int[] _reelOffsets = new int[ReelConstants.MaxSupportedReels];
@@ -979,12 +977,8 @@
             RegisterComponent();
             Initialized = true;
 
+            InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());
-
-            if (!AnyErrors && (ReasonDisabled == 0 || (ReasonDisabled & DisabledReasons.Error) != 0))
-            {
-                Enable(EnabledReasons.Reset);
-            }
 
             Fire(ReelControllerTrigger.Initialized, new InspectedEvent(ReelControllerId));
             if (Enabled)
@@ -1003,29 +997,21 @@
             PostEvent(new HardwareInitializedEvent());
         }
 
-        private async Task CheckDevice()
+        private async Task InitializeReels()
         {
-            if (_validatingDevice)
+            if (await CalculateCrc(0) == 0 || !await SelfTest(false))
             {
                 return;
             }
 
-            try
+            if (Enable(EnabledReasons.Device))
             {
-                _validatingDevice = true;
-                if (Implementation is { IsConnected: true } &&
-                    await CalculateCrc(0) != 0 &&
-                    await SelfTest(false))
-                {
-                    if (ReasonDisabled.HasFlag(DisabledReasons.Device))
-                    {
-                        Enable(EnabledReasons.Device);
-                    }
-                }
+                return;
             }
-            finally
+
+            if (!AnyErrors && (ReasonDisabled & DisabledReasons.Error) != 0)
             {
-                _validatingDevice = false;
+                Enable(EnabledReasons.Reset);
             }
         }
 
@@ -1074,7 +1060,6 @@
         private void ReelControllerConnected(object sender, EventArgs e)
         {
             Fire(ReelControllerTrigger.Connected, new ConnectedEvent(ReelControllerId));
-            Task.Delay(SelfTestInterval).ContinueWith(_ => CheckDevice());
         }
 
         private void ReelControllerSlowSpinning(object sender, ReelEventArgs e)

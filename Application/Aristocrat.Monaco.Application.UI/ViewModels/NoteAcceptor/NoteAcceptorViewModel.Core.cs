@@ -397,14 +397,14 @@
         {
             if (NoteAcceptor != null)
             {
-                bool canEnableSelfTest = false;
+                var canEnableSelfTest = false;
                 if (!NoteAcceptor.Enabled)
                 {
                     if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
                     {
                         canEnableSelfTest = SelfTestCurrentState != SelfTestState.Running;
                     }
-                    else if (IsEnableAllowedForTesting())
+                    else if (IsEnableAllowedForTesting(HasDocumentCheckFault))
                     {
                         canEnableSelfTest = true;
                     }
@@ -836,30 +836,25 @@
             return Denominations.Any(denom => denom.Enabled && denom.Selected);
         }
 
-        private bool IsEnableAllowedForTesting()
+        private bool IsEnableAllowedForTesting(bool allowDuringGameRound = false)
         {
-            if (NoteAcceptor == null || !NoteAcceptor.Connected)
+            if (NoteAcceptor is not { Connected: true })
             {
                 return false;
             }
 
-            if (NoteAcceptor.ReasonDisabled > 0 && GameIdle &&
-                (NoteAcceptor.ReasonDisabled |
-                  DisabledReasons.System |
-                  DisabledReasons.Backend |
-                  DisabledReasons.Device |
-                  DisabledReasons.Configuration |
-                  DisabledReasons.GamePlay) ==
-                (DisabledReasons.System |
-                 DisabledReasons.Backend |
-                 DisabledReasons.Device |
-                 DisabledReasons.Configuration |
-                 DisabledReasons.GamePlay))
-            {
-                return true;
-            }
-
-            return false;
+            return NoteAcceptor.ReasonDisabled > 0 && (GameIdle || allowDuringGameRound) &&
+                   (NoteAcceptor.ReasonDisabled |
+                    DisabledReasons.System |
+                    DisabledReasons.Backend |
+                    DisabledReasons.Device |
+                    DisabledReasons.Configuration |
+                    DisabledReasons.GamePlay) ==
+                   (DisabledReasons.System |
+                    DisabledReasons.Backend |
+                    DisabledReasons.Device |
+                    DisabledReasons.Configuration |
+                    DisabledReasons.GamePlay);
         }
     }
 

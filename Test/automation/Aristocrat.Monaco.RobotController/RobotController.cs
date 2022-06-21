@@ -1,5 +1,14 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Runtime.CompilerServices;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Vouchers;
@@ -17,15 +26,6 @@
     using Kernel;
     using Kernel.Contracts;
     using log4net;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Test.Automation;
 
     public enum RobotControllerState
@@ -180,7 +180,8 @@
             {
                 return _controllerState;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logger.Error("ControllerStateReaderLockHandler failed: " + ex.ToString());
                 Enabled = false;
                 return _controllerState;
@@ -204,7 +205,7 @@
                 {
                     return;
                 }
-                PreviousControllerStateWriterLockHandler(value);                
+                PreviousControllerStateWriterLockHandler(value);
             }
         }
 
@@ -219,7 +220,8 @@
                     Logger.Info($"Transition PreviousController to {value} state succeeded!");
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logger.Error($"Transition PreviousController to {value} state failed: " + ex.ToString());
                 Enabled = false;
             }
@@ -315,7 +317,7 @@
                 {
                     return;
                 }
-                PreviousPlatformStateWriterLockHandler(value);                
+                PreviousPlatformStateWriterLockHandler(value);
             }
         }
 
@@ -330,7 +332,8 @@
                     Logger.Info($"Transition PreviousPlatform to [{value}] state succeeded!");
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logger.Error($"Transition PreviousPlatform to [{value}] state failed! " + ex.ToString());
                 Enabled = false;
             }
@@ -360,7 +363,8 @@
 
         private bool ValidateControlStateTransition(RobotControllerState newState)
         {
-            if(_controlStateTransitionValidator.ContainsKey(newState)){
+            if (_controlStateTransitionValidator.ContainsKey(newState))
+            {
                 var result = _controlStateTransitionValidator[newState]();
                 _expectingRecovery = false;
                 return result;
@@ -394,7 +398,7 @@
                 }
             }
         }
-        
+
         /// <inheritdoc />
         protected override void OnInitialize()
         {
@@ -410,7 +414,7 @@
 
         private void InitializeControlStateTransitionValidator()
         {
-            Func<bool> recoveryValidator = () =>  ExpectingRecovery || (_gameService != null && _gameService.Running);
+            Func<bool> recoveryValidator = () => ExpectingRecovery || (_gameService != null && _gameService.Running);
             _controlStateTransitionValidator.Add(RobotControllerState.WaitForRecoveryStart, recoveryValidator);
             _controlStateTransitionValidator.Add(RobotControllerState.DriveRecovery, recoveryValidator);
         }
@@ -652,7 +656,7 @@
 
             _eventBus.Subscribe<VoucherRejectedEvent>(this, evt =>
             {
-                if(Enabled)
+                if (Enabled)
                 {
                     if (evt.Transaction.Exception.Equals((int)VoucherInExceptionCode.CreditInLimitExceeded) ||
                         evt.Transaction.Exception.Equals((int)VoucherInExceptionCode.LaundryLimitExceeded))
@@ -787,7 +791,8 @@
                     _expectingAuditMenu = false;
                 });
 
-            _eventBus.Subscribe<PrimaryGameStartedEvent>(this, _ => {
+            _eventBus.Subscribe<PrimaryGameStartedEvent>(this, _ =>
+            {
                 PlatformState = PlatformState != RobotPlatformState.InRecovery
                     ? RobotPlatformState.GamePlaying
                     : RobotPlatformState.InRecovery;
@@ -802,14 +807,16 @@
                 _idleDuration = 0;
             });
 
-            _eventBus.Subscribe<FreeGameStartedEvent>(this, _ => {
+            _eventBus.Subscribe<FreeGameStartedEvent>(this, _ =>
+            {
                 PlatformState = PlatformState != RobotPlatformState.InRecovery
                     ? RobotPlatformState.GamePlaying
                     : RobotPlatformState.InRecovery;
                 _idleDuration = 0;
             });
 
-            _eventBus.Subscribe<GamePresentationEndedEvent>(this, _ => {
+            _eventBus.Subscribe<GamePresentationEndedEvent>(this, _ =>
+            {
                 PlatformState = PlatformState != RobotPlatformState.InRecovery
                     ? RobotPlatformState.GamePlaying
                     : RobotPlatformState.InRecovery;
@@ -837,28 +844,35 @@
                         return;
                     }
 
-                    if (evt.DisableReasons.Contains("Disabled by the voucher"))
+                    if (evt.DisableReasons != null)
                     {
-                        LogInfo("Not disabling for voucher device");
-                        return;
-                    }
+                        if (evt.DisableReasons.Contains("Disabled by the voucher"))
+                        {
+                            LogInfo("Not disabling for voucher device");
+                            return;
+                        }
 
-                    if (evt.DisableReasons.Contains("Game Play Request Failed"))
-                    {
-                        LogInfo("Not disabling for game play request failed");
-                        return;
-                    }
+                        if (evt.DisableReasons.Contains("Game Play Request Failed"))
+                        {
+                            LogInfo("Not disabling for game play request failed");
+                            return;
+                        }
 
-                    if (evt.DisableReasons.Contains("Central Server Offline"))
-                    {
-                        LogInfo("Not disabling for central server offline");
-                        return;
-                    }
+                        if (evt.DisableReasons.Contains("Central Server Offline"))
+                        {
+                            LogInfo("Not disabling for central server offline");
+                            return;
+                        }
 
-                    if (evt.DisableReasons.Contains("Protocol Initialization In Progress"))
+                        if (evt.DisableReasons.Contains("Protocol Initialization In Progress"))
+                        {
+                            LogInfo("Not disabling for protocol initialization");
+                            return;
+                        }
+                    }
+                    else
                     {
-                        LogInfo("Not disabling for protocol initialization");
-                        return;
+                        LogError("DisableReasons is null");
                     }
 
                     if (evt.DisableId == ApplicationConstants.LiveAuthenticationDisableKey)
@@ -875,13 +889,13 @@
                     }
                 });
 
-            _eventBus.Subscribe<OperatingHoursEnabledEvent>( this, _ => 
-            {
-                if (Enabled && ControllerState == RobotControllerState.OutOfOperatingHours)
-                {
-                    ControllerState = RobotControllerState.Running;
-                }
-            });
+            _eventBus.Subscribe<OperatingHoursEnabledEvent>(this, _ =>
+           {
+               if (Enabled && ControllerState == RobotControllerState.OutOfOperatingHours)
+               {
+                   ControllerState = RobotControllerState.Running;
+               }
+           });
 
             _eventBus.Subscribe<RecoveryStartedEvent>(
                 this,
@@ -953,13 +967,13 @@
                     PlatformState = RobotPlatformState.InCashOut;
                     ControllerState = RobotControllerState.WaitCashOut;
                     //Task.Delay(3000).ContinueWith(_ => _eventBus.Publish(new RemoteKeyOffEvent(KeyOffType.LocalHandpay, evt.CashableAmount, evt.PromoAmount, evt.NonCashAmount)));
-                    Task.Delay(1000).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_=> _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
+                    Task.Delay(1000).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
                 }
             });
 
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, evt =>
             {
-                if(_previousVoucherBalance.Amount == evt.CashableAmount &&
+                if (_previousVoucherBalance.Amount == evt.CashableAmount &&
                     evt.Timestamp.Subtract(_previousVoucherBalance.TimeStamp).TotalSeconds < Constants.DuplicateVoucherWindow)
                 {
                     LogFatal("Possible identical vouchers detected. Disabling.");
@@ -970,7 +984,7 @@
                 _previousVoucherBalance.Amount = evt.CashableAmount;
             });
 
-            _eventBus.Subscribe<GamePlayRequestFailedEvent>(this, _ => 
+            _eventBus.Subscribe<GamePlayRequestFailedEvent>(this, _ =>
             {
                 LogInfo("Keying off GamePlayRequestFailed");
                 ToggleJackpotKey(1000);
@@ -1029,7 +1043,7 @@
         private void MessageSwarm()
         {
             int i = 0;
-            while(i <= _config.Active.LogMessageLoadTestSize)
+            while (i <= _config.Active.LogMessageLoadTestSize)
             {
                 // Call to seperate method to determine message size before sending
                 LogInfo("Log message swarm " + i);
@@ -1040,7 +1054,8 @@
 
         private void ActionPlayer()
         {
-            if(ControllerState != RobotControllerState.Running){
+            if (ControllerState != RobotControllerState.Running)
+            {
                 return;
             }
             Random Rng = new System.Random((int)DateTime.Now.Ticks);
@@ -1050,42 +1065,42 @@
             switch (action)
             {
                 case Actions.SpinRequest:
-                {
-                    if(_config.Active.LogMessageLoadTest)
                     {
-                        MessageSwarm();
+                        if (_config.Active.LogMessageLoadTest)
+                        {
+                            MessageSwarm();
+                        }
+                        LogInfo("Spin Request");
+                        _automator.SpinRequest();
+                        break;
                     }
-                    LogInfo("Spin Request");
-                    _automator.SpinRequest();
-                    break;
-                }
                 case Actions.BetLevel:
-                {
-                    LogInfo("Changing bet level");
+                    {
+                        LogInfo("Changing bet level");
 
-                    //increment/decrement bet level - physical id: 23 - 27
-                    var betIndices = _config.GetBetIndices();
+                        //increment/decrement bet level - physical id: 23 - 27
+                        var betIndices = _config.GetBetIndices();
 
-                    var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
+                        var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
 
-                    _automator.SetBetLevel(index);
+                        _automator.SetBetLevel(index);
 
-                    break;
-                }
+                        break;
+                    }
                 case Actions.BetMax:
-                {
-                    LogInfo("Bet Max");
-                    _automator.SetBetMax();
-                    break;
-                }
+                    {
+                        LogInfo("Bet Max");
+                        _automator.SetBetMax();
+                        break;
+                    }
                 case Actions.LineLevel:
-                {
-                    LogInfo("Change Line Level");
-                    // increment/decrement line level - physical id: 30 - 34
-                    var lineIndices = _config.GetLineIndices();
-                    _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
-                    break;
-                }
+                    {
+                        LogInfo("Change Line Level");
+                        // increment/decrement line level - physical id: 30 - 34
+                        var lineIndices = _config.GetLineIndices();
+                        _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
+                        break;
+                    }
             }
         }
 
@@ -1122,7 +1137,7 @@
                             _automator.TouchMainScreen(x, y);
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         LogInfo("Error while using Extra Touch Areas: " + ex);
                     }
@@ -1185,7 +1200,7 @@
 
                 LogInfo($"Platform balance: {balance}");
 
-                if(balance < 0)
+                if (balance < 0)
                 {
                     LogFatal("NEGATIVE BALANCE DETECTED");
                     Enabled = false;

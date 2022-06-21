@@ -150,7 +150,8 @@
             { ApplicationConstants.ReserveDisableKey, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReservedMachineErrorFaultMessage) },
             { ApplicationConstants.ExcessiveMeterIncrementErrorGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClearLockupExcessiveMeterIncrement) },
             { ApplicationConstants.SelfAuditErrorGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClearRAMSelfAuditErrorLockup) },
-            { ApplicationConstants.BellyDoorDiscrepencyGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorDiscrepancy) }
+            { ApplicationConstants.BellyDoorDiscrepencyGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorDiscrepancy) },
+            { ApplicationConstants.MemoryBelowThresholdDisableKey, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessageDescription) }
         };
 
         private bool _outOfServiceModeButtonActive;

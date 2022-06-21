@@ -11468,7 +11468,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <comment>Aristocrat.Monaco.Sas</comment>
   </data>
   <data name="OutOfMemoryMessage" xml:space="preserve">
-    <value>Call Attendant - Insufficient Memory</value>
+    <value>Call Attendant - Memory Low</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="TouchCalibrateExtendedCommandFailed" xml:space="preserve">
@@ -11637,5 +11637,13 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="RestartToClearLockup" xml:space="preserve">
     <value>Restart the machine to clear this lockup</value>
+  </data>
+  <data name="OutOfMemoryMessageDescription" xml:space="preserve">
+    <value>To clear this lockup, restart the machine.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HiddenValue" xml:space="preserve">
+    <value>Hidden Value</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
 </root>

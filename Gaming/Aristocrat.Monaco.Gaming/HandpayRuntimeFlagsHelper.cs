@@ -20,20 +20,23 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly IRuntime _runtime;
         private readonly IOverlayMessageStrategyController _overlayController;
+        private readonly IGameDiagnostics _gameDiagnostics;
 
         public HandpayRuntimeFlagsHelper(
             IRuntime runtime,
             ISystemDisableManager systemDisableManager,
-            IOverlayMessageStrategyController overlayController)
+            IOverlayMessageStrategyController overlayController,
+            IGameDiagnostics gameDiagnostics)
         {
             _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _overlayController = overlayController ?? throw new ArgumentNullException(nameof(overlayController));
+            _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
         }
 
         public void SetHandpayRuntimeLockupFlags()
         {
-            if (!_systemDisableManager.IsDisabled)
+            if (!_systemDisableManager.IsDisabled || _gameDiagnostics.IsActive)
             {
                 return;
             }

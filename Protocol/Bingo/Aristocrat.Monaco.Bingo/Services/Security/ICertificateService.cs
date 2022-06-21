@@ -10,11 +10,8 @@
     public interface ICertificateService : IService
     {
         /// <summary>
-        ///     Gets the saved certificate file.
+        ///     Gets the saved certificates
         /// </summary>
-        /// <param name="name">Name of the x509 certificate store.</param>
-        /// <param name="location">Location of the x509 certificate store.</param>
-        /// <param name="findType">Type of the x509 to be retrieved.</param>
-        public IEnumerable<X509Certificate2> Get(StoreName name, StoreLocation location, X509FindType findType);
+        public IEnumerable<X509Certificate2> GetCertificates();
     }
 }
