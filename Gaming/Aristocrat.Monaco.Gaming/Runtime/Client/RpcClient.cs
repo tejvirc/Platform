@@ -27,7 +27,6 @@
 
         private readonly object _sync = new ();
 
-        private NamedPipeTransport _namedPipe;
         private Channel _channel;
         private RuntimeServiceStub _runtimeStub;
         private RuntimeReelServiceStub _runtimeReelStub;
@@ -42,8 +41,7 @@
             _processManager = processManager ?? throw new ArgumentNullException(nameof(processManager));
 
             // Create channel using transport (in this case … named pipe)
-            _namedPipe = new NamedPipeTransport(GamingConstants.IpcRuntimePipeName);
-            _channel = new Channel(_namedPipe);
+            _channel = new Channel(new NamedPipeTransport(GamingConstants.IpcRuntimePipeName));
 
             // Connect to Server - here, it’s assumed that the Runtime server is already running (because the
             // Runtime calls RpcServer.Join() which creates this object, so we know that the Runtime server is up)
@@ -243,10 +241,9 @@
             {
                 _eventBus.UnsubscribeAll(this);
 
-                if (_namedPipe != null)
+                if (_channel is IDisposable disposableChannel)
                 {
-                    _namedPipe.Dispose();
-                    _namedPipe = null;
+                    disposableChannel.Dispose();
                 }
             }
 
@@ -260,8 +257,7 @@
 
         private static bool IsRuntimePresumedDead(Exception ex)
         {
-            return ex is StatusCodeException snappException &&
-                   snappException.Status.StatusCode != StatusCode.Ok;
+            return ex is StatusCodeException;
         }
 
         private void Invoke<T>(Func<RuntimePresentationServiceStub, T> callback)
