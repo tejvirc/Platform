@@ -14383,6 +14383,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -20427,7 +20430,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.BingoDisplayConfigurationPresentationOverrideMessageFormat.html",
-          "hash": "KpyaWNV3ff7bM3jLP6/MiozvpHOuKJ9UXJgpkFo5VT0="
+          "hash": "l3yRm9jgA20rKGLr3RAdYkOMn8PhoBguCT+BH+y9utY="
         }
       },
       "is_incremental": false,
@@ -20655,7 +20658,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Loaders.BingoOverlayLoader.html",
-          "hash": "1DOyHLTnJzBb475GtkO38OdItymC2SJ7t1OkJ2blc2k="
+          "hash": "wOv1xGz6C86c5lgdbLPcEz4jkbSnepZhRWEZDDfDaE8="
         }
       },
       "is_incremental": false,
@@ -20823,7 +20826,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.PresentationOverrideTypes.html",
-          "hash": "OiX+Z/NOAt770fonmBYSuKwMWdJYMTsxFdxSDD0HjTg="
+          "hash": "3gLu5/yz+huhmjyZrNLE5qSkZ9TNcSbjgKPKQi5DJMs="
         }
       },
       "is_incremental": false,
@@ -20883,7 +20886,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay.BingoHtmlHostOverlayViewModel.html",
-          "hash": "Ebi1sqCF+XAZdeRgA64nnozh5uGGq9zaEkquOenAW4o="
+          "hash": "hDZjLC9tlMZeOU69XJpnH51+rRQvVuG6Qjfu2NVFeOM="
         }
       },
       "is_incremental": false,
@@ -41170,9 +41173,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
