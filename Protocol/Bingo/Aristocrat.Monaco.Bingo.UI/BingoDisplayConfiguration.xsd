@@ -73,6 +73,7 @@
 									<xs:sequence>
 										<xs:element name="OverrideType" type="PresentationOverrideTypes" minOccurs="1" />
 										<xs:element name="MessageFormat" type="xs:string" minOccurs="1" />
+										<xs:element name="MeterFormat" type="xs:string" minOccurs="1" />
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>

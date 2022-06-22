@@ -9,6 +9,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Common;
     using Common.Events;
@@ -35,10 +36,11 @@
         private readonly ILegacyAttractProvider _legacyAttractProvider;
         private readonly IGameProvider _gameProvider;
         private readonly IServer _overlayServer;
+        private readonly IPlayerBank _playerBank;
         private readonly List<BallCallNumber> _ballCallNumbers = new(BingoConstants.MaxBall);
         private readonly List<BingoCardNumber> _bingoCardNumbers = new(BingoConstants.BingoCardSquares);
         private readonly Stopwatch _stopwatch = new();
-        private readonly ConcurrentDictionary<PresentationOverrideTypes, string> _configuredOverrideMessageFormats = new();
+        private readonly ConcurrentDictionary<PresentationOverrideTypes, (string, string)> _configuredOverrideMessageFormats = new();
         private readonly object _locker = new();
         private List<BingoNumber> _lastBallCall = new();
         private BingoCard _lastBingoCard;
@@ -59,7 +61,8 @@
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
             ILegacyAttractProvider legacyAttractProvider,
             IGameProvider gameProvider,
-            IServer overlayServer)
+            IServer overlayServer,
+            IPlayerBank playerBank)
         {
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
@@ -68,7 +71,7 @@
             _legacyAttractProvider = legacyAttractProvider ?? throw new ArgumentNullException(nameof(legacyAttractProvider));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _overlayServer = overlayServer ?? throw new ArgumentNullException(nameof(overlayServer));
-
+            _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
             _overlayServer.ServerStarted += HandleServerStarted;
             _overlayServer.AttractCompleted += AttractCompleted;
             _overlayServer.ClientConnected += OverlayClientConnected;
@@ -405,7 +408,7 @@
             var data = e.PresentationOverrideData;
             if (data == null || data.Count == 0)
             {
-                UpdateOverlay(() => new BingoLiveData { HideDynamicMessage = true });
+                UpdateOverlay(() => new BingoLiveData { HideDynamicMessage = true, HideMeterValue = true });
             }
             else
             {
@@ -416,8 +419,14 @@
                 }
 
                 var messageFormat = _configuredOverrideMessageFormats[overrideType];
-                var message = string.Format(messageFormat, data.First().FormattedAmount ?? string.Empty);
-                UpdateOverlay(() => new BingoLiveData { DynamicMessage = message });
+                var message = string.Format(messageFormat.Item1, data.First().FormattedAmount ?? string.Empty);
+                var subUnitDigits = CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
+                var meterMessage = string.Format(
+                    messageFormat.Item2,
+                    _playerBank.Balance.MillicentsToDollars().ToString(
+                        $"C{subUnitDigits}",
+                        CurrencyExtensions.CurrencyCultureInfo));
+                UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, MeterValue = meterMessage });
             }
         }
 
@@ -606,7 +615,7 @@
             {
                 _configuredOverrideMessageFormats.TryAdd(
                     (PresentationOverrideTypes)messageFormat.OverrideType,
-                    messageFormat.MessageFormat);
+                    (messageFormat.MessageFormat, messageFormat.MeterFormat));
             }
         }
     }
