@@ -61,7 +61,8 @@
         }
         private void SuperRobotInitialization()
         {
-            _serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _gameService, _gamePlayState, _bank, _logger, _eventBus));
+            _serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
+            _serviceCollection.Add(typeof(ActionTouch).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
         }
 
         protected override void OnRun()
