@@ -14,6 +14,7 @@
     using log4net;
     using MVVM.Command;
     using MVVM.ViewModel;
+    using Aristocrat.Monaco.Hardware.Contracts.Audio;
 
     /// <summary>
     ///     Reserve machine GUI states
@@ -54,10 +55,12 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _eventBus;
         private readonly IOnScreenKeyboardService _keyboardService;
+        private readonly IAudio _audioService;
 
         private const string TimeFormat = "m\\:ss";
         private const int DefaultTimeOutInMinutes = 5;
         private readonly string PasswordChar = "*";
+        private readonly string _touchSoundFile;
 
         private int FullLockupTimeSeconds => _propertiesManager.GetValue(
             ApplicationConstants.ReserveServiceTimeoutInSeconds,
@@ -106,7 +109,8 @@
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IReserveService>(),
                 ServiceManager.GetInstance().TryGetService<ISystemDisableManager>(),
-                ServiceManager.GetInstance().TryGetService<IOnScreenKeyboardService>())
+                ServiceManager.GetInstance().TryGetService<IOnScreenKeyboardService>(),
+                ServiceManager.GetInstance().TryGetService<IAudio>())
         {
         }
 
@@ -115,13 +119,16 @@
             IPropertiesManager propertiesManager,
             IReserveService reserveService,
             ISystemDisableManager disableManager,
-            IOnScreenKeyboardService keyboardService)
+            IOnScreenKeyboardService keyboardService,
+            IAudio audioService)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _reserveService = reserveService ?? throw new ArgumentNullException(nameof(reserveService));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _keyboardService = keyboardService ?? throw new ArgumentNullException(nameof(keyboardService));
+            _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
+            _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, "");
 
             DigitClickedCommand = new ActionCommand<object>(ConcatenateReservePin);
 
@@ -476,6 +483,7 @@
         /// </summary>
         private void ExitReserveButtonPressed()
         {
+            PlayButtonClickSound();
             State = ReserveMachineDisplayState.Exit;
         }
 
@@ -487,18 +495,21 @@
         {
             if (State == ReserveMachineDisplayState.Confirm || State == ReserveMachineDisplayState.None)
             {
+                PlayButtonClickSound();
                 IsDialogVisible = false;
                 _propertiesManager.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
                 RemovePreReserveLockup();
             }
             else if (State == ReserveMachineDisplayState.Exit)
             {
+                PlayButtonClickSound();
                 State = ReserveMachineDisplayState.Countdown;
             }
         }
 
         private void BackspaceButtonPressed()
         {
+            PlayButtonClickSound();
             if (Pin.Length > 0)
             {
                 Pin = Pin.Substring(0, Pin.Length - 1);
@@ -510,6 +521,7 @@
 
         private void ConcatenateReservePin(object obj)
         {
+            PlayButtonClickSound();
             if (Pin.Length < GamingConstants.ReserveMachinePinLength)
             {
                 Pin += (string)obj;
@@ -522,6 +534,7 @@
 
         private void ReserveTheMachine()
         {
+            PlayButtonClickSound();
             var storedPin = (string)_propertiesManager.GetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
 
             // The pin was confirmed, reserve the machine
@@ -543,6 +556,7 @@
         private void UnlockReserve()
         {
             var storedPin = (string)_propertiesManager.GetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
+            PlayButtonClickSound();
 
             // The entered pin matches the saved pin, unlock the machine and exit reserve
             if (string.Compare(storedPin, Pin, StringComparison.CurrentCultureIgnoreCase) == 0)
@@ -620,6 +634,12 @@
             {
                 _disableManager.Enable(ApplicationConstants.WaitingForInputDisableKey);
             }
+        }
+
+        private void PlayButtonClickSound()
+        {
+            var soundVolume = (byte)_propertiesManager.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+            _audioService.Play(_touchSoundFile, soundVolume);
         }
     }
 }
