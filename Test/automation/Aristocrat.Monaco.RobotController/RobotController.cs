@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Contracts;
     using Kernel;
@@ -10,23 +12,22 @@
 
     public sealed class RobotController : BaseRunnable, IRobotController
     {
-        private readonly Configuration _config;
-        private readonly ILobbyStateManager _lobbyStateManager;
+        private readonly Configuration _config;        
         private readonly ILog _logger;
         private readonly Dictionary<string, IRobotService> _serviceCollection;
         private IBank _bank;
         private IEventBus _eventBus;
+        private ILobbyStateManager _lobbyStateManager;
+        private IGamePlayState _gamePlayState;
         public bool Enabled { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public RobotController(Configuration config,
-                               ILobbyStateManager lobbyStateManager,
                                IBank bank,
                                ILog logger,
                                IEventBus eventBus,
                                bool enabled)
         {
             _config = config;
-            _lobbyStateManager = lobbyStateManager;
             _bank = bank;
             _logger = logger;
             _eventBus = eventBus;
@@ -36,12 +37,28 @@
 
         protected override void OnInitialize()
         {
+            WaitForServices();
             SuperRobotInitialization();
         }
-
+        private void WaitForServices()
+        {
+            Task.Run(() =>
+            {
+                using (var serviceWaiter = new ServiceWaiter(_eventBus))
+                {
+                    serviceWaiter.AddServiceToWaitFor<ILobbyStateManager>();
+                    serviceWaiter.AddServiceToWaitFor<IGamePlayState>();
+                    if (serviceWaiter.WaitForServices())
+                    {
+                        _lobbyStateManager = ServiceManager.GetInstance().GetService<ILobbyStateManager>();
+                        _gamePlayState = ServiceManager.GetInstance().GetService<IGamePlayState>();
+                    }
+                }
+            });
+        }
         private void SuperRobotInitialization()
         {
-            _serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _bank, _logger, _eventBus));
+            _serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
         }
 
         protected override void OnRun()

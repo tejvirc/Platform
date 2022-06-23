@@ -16,20 +16,20 @@
         private Timer _balanceCheckTimer;
         private readonly Configuration _config;
         private readonly ILobbyStateManager _lobbyStateManager;
+        private readonly IGamePlayState _gamePlayState;
         private IBank _bank;
         private readonly ILog _logger;
         private IEventBus _eventBus;
         private bool _disposed;
-        //TODO: fix the possible race condition
-        private bool _isGamePlaying;
 
-        public BalanceCheck(Configuration config, ILobbyStateManager lobbyStateManager, IBank bank, ILog logger,IEventBus eventBus)
+        public BalanceCheck(Configuration config, ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState, IBank bank, ILog logger, IEventBus eventBus)
         {
             _config = config;
             _lobbyStateManager = lobbyStateManager;
             _bank = bank;
             _logger = logger;
             _eventBus = eventBus;
+            _gamePlayState = gamePlayState;
         }
 
         ~BalanceCheck()
@@ -42,19 +42,6 @@
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<BalanceCheckEvent>(this, HandleEvent);
-            _eventBus.Subscribe<GamePlayStateChangedEvent>(this, HandleEvent);
-        }
-
-        private void HandleEvent(GamePlayStateChangedEvent e)
-        {
-            if (e.CurrentState == PlayState.GameEnded)
-            {
-                _isGamePlaying = false;
-            }
-            else if (e.CurrentState == PlayState.Initiated)
-            {
-                _isGamePlaying = true;
-            }
         }
 
         private void HandleEvent(BalanceCheckEvent obj)
@@ -75,7 +62,6 @@
             else
             {
                 _logger.Info($"state : [{_lobbyStateManager.CurrentState}] - BalanceCheck Invalidated.");
-                _isGamePlaying = false;
             }
         }
 
@@ -84,7 +70,7 @@
         {
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
-            if (_isGamePlaying || _config?.Active?.InsertCreditsDuringGameRound == false) { return; }
+            if (_gamePlayState.CurrentState != PlayState.Idle || _config?.Active?.InsertCreditsDuringGameRound == false) { return; }
             _eventBus.Publish(new DebugNoteEvent(_config.GetDollarsInserted()));
 
         }
