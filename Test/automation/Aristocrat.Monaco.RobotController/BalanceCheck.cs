@@ -15,17 +15,17 @@
     {
         private Timer _balanceCheckTimer;
         private readonly Configuration _config;
-        private readonly ILobbyStateManager _lobbyStateManager;
+        private readonly IGameService _gameService;
         private readonly IGamePlayState _gamePlayState;
         private IBank _bank;
         private readonly ILog _logger;
         private IEventBus _eventBus;
         private bool _disposed;
 
-        public BalanceCheck(Configuration config, ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState, IBank bank, ILog logger, IEventBus eventBus)
+        public BalanceCheck(Configuration config, IGameService gameService, IGamePlayState gamePlayState, IBank bank, ILog logger, IEventBus eventBus)
         {
             _config = config;
-            _lobbyStateManager = lobbyStateManager;
+            _gameService = gameService;
             _bank = bank;
             _logger = logger;
             _eventBus = eventBus;
@@ -46,22 +46,21 @@
 
         private void HandleEvent(BalanceCheckEvent obj)
         {
-            _logger.Info($"state : [{_lobbyStateManager.CurrentState}] - BalanceCheck Begins.");
-            if (_lobbyStateManager.CurrentState is LobbyState.Game)
+            if (_gameService.Running)
             {
                 _bank = Helper.GetBankInfo(_bank, _logger);
-                Helper.CheckNegativeBalance(_lobbyStateManager, _bank, _logger);
+                Helper.CheckNegativeBalance(_bank, _logger);
                 long minBalance = _config.GetMinimumBalance();
                 long balance = _bank.QueryBalance();
                 if (balance <= minBalance * 1000)
                 {
-                    _logger.Info($"state : [{_lobbyStateManager.CurrentState}] - Insufficient balance.  Balance: {balance}, Minimum Balance: {minBalance * 1000}");
+                    _logger.Info($"Insufficient balance.  Balance: {balance}, Minimum Balance: {minBalance * 1000}");
                     InsertCredit();
                 }
             }
             else
             {
-                _logger.Info($"state : [{_lobbyStateManager.CurrentState}] - BalanceCheck Invalidated.");
+                _logger.Info($"BalanceCheck Invalidated due to Game wasn't running.");
             }
         }
 
@@ -124,13 +123,13 @@
 
     internal static class Helper
     {
-        public static void CheckNegativeBalance(ILobbyStateManager lobbyStateManager, IBank _bank, ILog Logger)
+        public static void CheckNegativeBalance(IBank _bank, ILog Logger)
         {
-            Logger.Info($"state : [{lobbyStateManager.CurrentState}] - Platform balance: {_bank.QueryBalance()}");
+            Logger.Info($"Platform balance: {_bank.QueryBalance()}");
             if (_bank.QueryBalance() < 0)
             {
                 Logger.Fatal("NEGATIVE BALANCE DETECTED");
-                throw new Exception($"state : [{lobbyStateManager.CurrentState}] NEGATIVE BALANCE DETECTED");
+                throw new Exception($"NEGATIVE BALANCE DETECTED");
             }
         }
 

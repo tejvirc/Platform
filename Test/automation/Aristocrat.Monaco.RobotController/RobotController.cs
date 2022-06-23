@@ -19,6 +19,7 @@
         private IEventBus _eventBus;
         private ILobbyStateManager _lobbyStateManager;
         private IGamePlayState _gamePlayState;
+        private IGameService _gameService;
         public bool Enabled { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public RobotController(Configuration config,
@@ -48,17 +49,19 @@
                 {
                     serviceWaiter.AddServiceToWaitFor<ILobbyStateManager>();
                     serviceWaiter.AddServiceToWaitFor<IGamePlayState>();
+                    serviceWaiter.AddServiceToWaitFor<IGameService>();
                     if (serviceWaiter.WaitForServices())
                     {
                         _lobbyStateManager = ServiceManager.GetInstance().GetService<ILobbyStateManager>();
                         _gamePlayState = ServiceManager.GetInstance().GetService<IGamePlayState>();
+                        _gameService = ServiceManager.GetInstance().GetService<IGameService>();
                     }
                 }
             });
         }
         private void SuperRobotInitialization()
         {
-            _serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
+            _serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _gameService, _gamePlayState, _bank, _logger, _eventBus));
         }
 
         protected override void OnRun()
@@ -66,6 +69,12 @@
             foreach (var service in _serviceCollection)
             {
                 service.Value.Execute();
+            }
+            while (Enabled)
+            {
+                //if(TryLoadGame()){
+
+                //}
             }
         }
 
