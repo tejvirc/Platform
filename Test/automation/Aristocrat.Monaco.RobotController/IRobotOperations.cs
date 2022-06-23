@@ -1,8 +1,6 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-
-    internal interface IRobotService : IService
+    internal interface IRobotOperations 
     {
         void Execute();
         void Halt();

@@ -12,7 +12,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    internal class ActionLobby : IRobotService, IDisposable
+    internal class ActionLobby : IRobotOperations, IDisposable
     {
         private readonly Configuration _config;
         private readonly ILobbyStateManager _lobbyStateManager;

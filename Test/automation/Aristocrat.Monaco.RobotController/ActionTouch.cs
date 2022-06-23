@@ -9,7 +9,7 @@
     using System.Collections.Generic;
     using System.Threading;
 
-    internal class ActionTouch : IRobotService, IDisposable
+    internal class ActionTouch : IRobotOperations, IDisposable
     {
         private readonly Configuration _config;
         private readonly ILobbyStateManager _lobbyStateManager;

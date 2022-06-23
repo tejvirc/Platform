@@ -15,7 +15,7 @@
     {
         private readonly Configuration _config;
         private readonly ILog _logger;
-        private readonly Dictionary<string, IRobotService> _serviceCollection;
+        private readonly Dictionary<string, IRobotOperations> _serviceCollection;
         private IBank _bank;
         private IEventBus _eventBus;
         private IPropertiesManager _pm;
@@ -35,7 +35,7 @@
             _logger = logger;
             _eventBus = eventBus;
             Enabled = enabled;
-            _serviceCollection = new Dictionary<string, IRobotService>();
+            _serviceCollection = new Dictionary<string, IRobotOperations>();
         }
 
         protected override void OnInitialize()

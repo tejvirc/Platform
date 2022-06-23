@@ -11,7 +11,7 @@
     using System.Threading;
     using Vgt.Client12.Testing.Tools;
 
-    internal class BalanceCheck : IRobotService, IDisposable
+    internal class BalanceCheck : IRobotOperations, IDisposable
     {
         private Timer _balanceCheckTimer;
         private readonly Configuration _config;

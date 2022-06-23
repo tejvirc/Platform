@@ -10,7 +10,7 @@
     using System.Linq;
     using System.Threading;
 
-    internal class ActionPlayer : IRobotService, IDisposable
+    internal class ActionPlayer : IRobotOperations, IDisposable
     {
         private readonly Configuration _config;
         private readonly ILobbyStateManager _lobbyStateManager;
