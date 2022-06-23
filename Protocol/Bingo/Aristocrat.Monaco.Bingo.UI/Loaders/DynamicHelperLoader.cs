@@ -90,7 +90,7 @@
                 _bingoConfigurationProvider,
                 BingoWindow.Main,
                 _viewModel);
-
+            
             _overlayWindow.Show();
         }
     }
