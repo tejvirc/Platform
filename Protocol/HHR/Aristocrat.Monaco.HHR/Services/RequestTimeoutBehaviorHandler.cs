@@ -301,7 +301,6 @@
             return !_requestsPending.Any();
         }
 
-
         private void ReleasePlayAllowed()
         {
             _logger.Debug("Release play allowed");

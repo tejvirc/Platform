@@ -19,8 +19,9 @@
 
         private readonly IIO _io;
         private readonly IButtonService _buttonService;
-        private readonly ConcurrentDictionary<int, Lamp> _lamps = new ConcurrentDictionary<int, Lamp>();
-        private readonly Timer _blinkTimer = new Timer(BlinkInterval);
+        private readonly ConcurrentDictionary<int, Lamp> _lamps = new();
+        private readonly List<int> _invalidLamps = new();
+        private readonly Timer _blinkTimer = new(BlinkInterval);
 
         private bool _disposed;
 
@@ -48,8 +49,8 @@
 
             var lamp = _lamps.AddOrUpdate(
                 buttonId,
-                k => new Lamp(state, lightOn),
-                (k, v) =>
+                _ => new Lamp(state, lightOn),
+                (_, v) =>
                 {
                     v.State = state;
                     v.LightOn = lightOn;
@@ -68,8 +69,8 @@
             {
                 _lamps.AddOrUpdate(
                     lampId,
-                    k => new Lamp { Disabled = true },
-                    (k, v) =>
+                    _ => new Lamp { Disabled = true },
+                    (_, v) =>
                     {
                         v.Disabled = true;
                         return v;
@@ -85,8 +86,8 @@
             {
                 var lamp = _lamps.AddOrUpdate(
                     lampId,
-                    k => new Lamp(),
-                    (k, v) =>
+                    _ => new Lamp(),
+                    (_, v) =>
                     {
                         v.Disabled = false;
                         return v;
@@ -134,7 +135,14 @@
             }
             else
             {
-                Logger.Debug($"Unable to find button ID:  {buttonId}");
+                lock (_invalidLamps)
+                {
+                    if (!_invalidLamps.Contains(buttonId))
+                    {
+                        Logger.Debug($"Unable to find button ID: {buttonId}");
+                        _invalidLamps.Add(buttonId);
+                    }
+                }
             }
         }
 

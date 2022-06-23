@@ -53,7 +53,7 @@
         public static int StartupMessageTimeouts => 200000;
 
         /// <summary>Timeout after which Connection attempt will be made.</summary>
-        public static double ReconnectTimeInMilliseconds = 1000.0;
+        public static double ReconnectTimeInMilliseconds = 3000.0;
 
         /// <summary>Timeout after which protocol initialization attempt will be made.</summary>
         public static double ReInitializationTimeInMilliseconds = 5000.0;

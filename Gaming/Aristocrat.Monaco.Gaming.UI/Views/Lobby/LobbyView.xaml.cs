@@ -215,7 +215,7 @@
             _customOverlays = new Dictionary<DisplayRole, (Action<UIElement> entryAction, Action<UIElement> exitAction)>();
 
             if (_cabinetDetectionService.Family == HardwareFamily.Unknown ||
-                _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Top) != null)
+                _cabinetDetectionService.IsDisplayExpected(DisplayRole.Top))
             {
                 Logger.Debug("Initializing top overlay");
                 _customOverlays.Add(DisplayRole.Top, (
@@ -266,7 +266,7 @@
                                 {
                                     grid.Children.Clear();
                                     _topMediaDisplayWindow.Content = null;
-                                    Logger.Debug($"Cleared all custom views from Top Screen");
+                                    Logger.Debug("Cleared all custom views from Top Screen");
                                 }
                             }
                         }
@@ -275,7 +275,7 @@
             }
 
             if (_cabinetDetectionService.Family == HardwareFamily.Unknown ||
-                _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Topper) != null)
+                _cabinetDetectionService.IsDisplayExpected(DisplayRole.Topper))
             {
                 Logger.Debug("Initializing topper overlay");
                 _customOverlays.Add(DisplayRole.Topper, (
@@ -325,7 +325,7 @@
                                 {
                                     grid.Children.Clear();
                                     _topperMediaDisplayWindow.Content = null;
-                                    Logger.Debug($"Cleared all custom views from Topper Screen");
+                                    Logger.Debug("Cleared all custom views from Topper Screen");
                                 }
                             }
                         }
@@ -1015,7 +1015,5 @@
         {
             ViewModel.OnGameAttractVideoCompleted();
         }
-
-
     }
 }

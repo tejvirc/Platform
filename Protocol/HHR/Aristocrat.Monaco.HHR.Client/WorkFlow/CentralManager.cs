@@ -185,7 +185,7 @@
 
                         if (res is CloseTranErrorResponse closeTranErrorResponse)
                         {
-                            Logger.Debug($"[RECV] Received close tran error Response [{closeTranErrorResponse.ToJson()}]");
+                            Logger.Warn($"[RECV] Received close tran error Response [{closeTranErrorResponse}]");
                         }
 
                         if (!(res is TResponse expectedResponse))
@@ -194,9 +194,7 @@
                             throw UnexpectedResponseException(MessageStatus.UnexpectedResponse, res);
                         }
 
-#if !RETAIL
                         Logger.Debug($"[RECV] Received [{res.MessageData()}]");
-#endif
 
                         return expectedResponse;
                     }, token);
