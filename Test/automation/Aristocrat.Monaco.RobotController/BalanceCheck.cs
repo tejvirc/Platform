@@ -74,7 +74,7 @@
 
         }
 
-        public ICollection<Type> ServiceTypes => throw new NotImplementedException();
+        public ICollection<Type> ServiceTypes => new[] { typeof(BalanceCheck) };
 
         public void Execute()
         {
@@ -90,7 +90,7 @@
 
         public void Halt()
         {
-            _balanceCheckTimer?.Dispose();
+            _balanceCheckTimer.Dispose();
         }
 
         public void Dispose()
