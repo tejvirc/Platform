@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Application;
     using Aristocrat.Monaco.Application.Contracts.Operations;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;

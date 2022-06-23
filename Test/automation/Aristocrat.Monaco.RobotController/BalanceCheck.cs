@@ -7,7 +7,6 @@
     using Aristocrat.Monaco.Kernel;
     using log4net;
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using Vgt.Client12.Testing.Tools;
 
@@ -38,8 +37,6 @@
             Dispose(false);
         }
 
-        public string Name => typeof(BalanceCheck).FullName;
-
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<BalanceCheckEvent>(this, HandleEvent);
@@ -49,8 +46,8 @@
         {
             if (_lobbyStateManager.CurrentState is LobbyState.Game)
             {
-                _bank = Helper.GetBankInfo(_bank, _logger);
-                Helper.CheckNegativeBalance(_bank, _logger);
+                _bank = GetBankInfo(_bank, _logger);
+                CheckNegativeBalance(_bank, _logger);
                 var minBalance = _config.GetMinimumBalance();
                 var balance = _bank.QueryBalance();
                 if (balance <= minBalance * 1000)
@@ -64,18 +61,16 @@
                 _logger.Info($"BalanceCheck Invalidated due to Game wasn't running.");
             }
         }
-
-
         private void InsertCredit()
         {
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
-            if (_gamePlayState.CurrentState != PlayState.Idle || _config?.Active?.InsertCreditsDuringGameRound == false) { return; }
+            if (_gamePlayState.CurrentState != PlayState.Idle && _config?.Active?.InsertCreditsDuringGameRound == false)
+            {
+                return;
+            }
             _eventBus.Publish(new DebugNoteEvent(_config.GetDollarsInserted()));
-
         }
-
-        public ICollection<Type> ServiceTypes => new[] { typeof(BalanceCheck) };
 
         public void Execute()
         {
@@ -91,7 +86,7 @@
 
         public void Halt()
         {
-            _balanceCheckTimer.Dispose();
+            _balanceCheckTimer?.Dispose();
         }
 
         public void Dispose()
@@ -116,13 +111,7 @@
             _disposed = true;
         }
 
-        public void Initialize()
-        {
-        }
-    }
-
-    internal static class Helper
-    {
+        //Todo: Move these to a static Helper Class
         public static void CheckNegativeBalance(IBank _bank, ILog Logger)
         {
             Logger.Info($"Platform balance: {_bank.QueryBalance()}");
@@ -132,7 +121,6 @@
                 throw new Exception($"NEGATIVE BALANCE DETECTED");
             }
         }
-
         public static IBank GetBankInfo(IBank _bank, ILog Logger)
         {
             if (_bank == null)
@@ -141,7 +129,7 @@
             }
             if (_bank == null)
             {
-                Logger.Info("BalanceCheck. _bank is null);");
+                Logger.Info("_bank is null);");
             }
 
             return _bank;
