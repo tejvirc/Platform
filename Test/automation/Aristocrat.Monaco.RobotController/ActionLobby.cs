@@ -48,6 +48,8 @@
         }
         private void SubscribeToEvents()
         {
+            _eventBus.Subscribe<ActionLobbyEvent>(this, HandleEvent);
+
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
                 this,
                 evt =>
@@ -66,6 +68,34 @@
                     _isTimeLimitDialogVisible = false;
                 });
         }
+
+        private void HandleEvent(ActionLobbyEvent obj)
+        {
+            //TODO: Create a Operation for IntervalLoadGame
+            //if (_lobbyStateManager.CurrentState is LobbyState.Game)
+            //{
+            //    _config.SelectNextGame();
+            //    _automator.EnableExitToLobby(true);
+            //    if (_config.Active.TestRecovery)
+            //    {
+            //        _automator.ForceGameExit(Constants.GdkRuntimeHostName);
+            //    }
+            //    else
+            //    {
+            //        HandlerDriveRecovery();
+            //    }
+            //}
+
+            if (_lobbyStateManager.CurrentState is LobbyState.Chooser &&
+                     !_operatingHoursMonitor.OutsideOperatingHours)
+            {
+                _logger.Info("Queueing game load");
+                _config.SelectNextGame();
+                _automator.EnableExitToLobby(false);
+                //TODO:RequestGameLoad using statemangager
+            }
+        }
+
         public string Name => typeof(ActionLobby).FullName;
 
         public ICollection<Type> ServiceTypes => new[] { typeof(ActionLobby) };
@@ -86,6 +116,7 @@
             if (disposing)
             {
                 _ActionLobbyTimer?.Dispose();
+                _eventBus.UnsubscribeAll(this);
             }
 
             _disposed = true;
@@ -98,38 +129,12 @@
                                {
                                    if (!_lobbyStateManager.AllowSingleGameAutoLaunch)
                                    {
-                                       PerformAction();
+                                       _eventBus.Publish(new ActionPlayerEvent());
                                    }
                                },
                                null,
                                _config.Active.IntervalLobby,
                                Timeout.Infinite);
-        }
-
-        private void PerformAction()
-        {
-            if (_lobbyStateManager.CurrentState is LobbyState.Game)
-            {
-                _config.SelectNextGame();
-                _automator.EnableExitToLobby(true);
-                if (_config.Active.TestRecovery)
-                {
-                    _automator.ForceGameExit(Constants.GdkRuntimeHostName);
-                }
-                else
-                {
-                    HandlerDriveRecovery();
-                }
-            }
-
-            else if (_lobbyStateManager.CurrentState is LobbyState.Chooser &&
-                     !_operatingHoursMonitor.OutsideOperatingHours)
-            {
-                _logger.Info("Queueing game load");
-                _config.SelectNextGame();
-                _automator.EnableExitToLobby(false);
-                //TODO:RequestGameLoad using statemangager
-            }
         }
 
         //TODO: retest this
