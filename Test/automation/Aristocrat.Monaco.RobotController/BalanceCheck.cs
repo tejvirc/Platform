@@ -15,17 +15,17 @@
     {
         private Timer _balanceCheckTimer;
         private readonly Configuration _config;
-        private readonly IGameService _gameService;
+        private readonly ILobbyStateManager _lobbyStateManager;
         private readonly IGamePlayState _gamePlayState;
         private IBank _bank;
         private readonly ILog _logger;
         private IEventBus _eventBus;
         private bool _disposed;
 
-        public BalanceCheck(Configuration config, IGameService gameService, IGamePlayState gamePlayState, IBank bank, ILog logger, IEventBus eventBus)
+        public BalanceCheck(Configuration config, ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState, IBank bank, ILog logger, IEventBus eventBus)
         {
             _config = config;
-            _gameService = gameService;
+            _lobbyStateManager = lobbyStateManager;
             _bank = bank;
             _logger = logger;
             _eventBus = eventBus;
@@ -46,7 +46,7 @@
 
         private void HandleEvent(BalanceCheckEvent obj)
         {
-            if (_gameService.Running)
+            if (_lobbyStateManager.CurrentState is LobbyState.Game)
             {
                 _bank = Helper.GetBankInfo(_bank, _logger);
                 Helper.CheckNegativeBalance(_bank, _logger);
