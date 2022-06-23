@@ -23,13 +23,13 @@
         //TODO: fix the possible race condition
         private bool _isGamePlaying;
 
-        public BalanceCheck(Configuration config, ILobbyStateManager lobbyStateManager, IBank bank, ILog logger)
+        public BalanceCheck(Configuration config, ILobbyStateManager lobbyStateManager, IBank bank, ILog logger,IEventBus eventBus)
         {
             _config = config;
             _lobbyStateManager = lobbyStateManager;
             _bank = bank;
             _logger = logger;
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            _eventBus = eventBus;
         }
 
         ~BalanceCheck()
