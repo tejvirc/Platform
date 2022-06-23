@@ -26,6 +26,7 @@
             _lobbyStateManager = lobbyStateManager;
             _logger = logger;
             _eventBus = eventBus;
+            SubscribeToEvents();
         }
 
         ~ActionTouch()
@@ -49,9 +50,15 @@
             if (disposing)
             {
                 _ActionTouchTimer?.Dispose();
+                _eventBus.UnsubscribeAll(this);
             }
 
             _disposed = true;
+        }
+
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<ActionTouchEvent>(this, HandleEvent);
         }
 
         public string Name => typeof(ActionTouch).FullName;
@@ -66,7 +73,7 @@
                                    if(_lobbyStateManager.CurrentState is LobbyState.Game)
                                     {
                                         BalanceCheck();
-                                        PerformAction();
+                                        _eventBus.Publish(new ActionTouchEvent());
                                     }
                                 },
                                 null,
@@ -79,7 +86,7 @@
             _eventBus.Publish(new BalanceCheckEvent());
         }
 
-        private void PerformAction()
+        private void HandleEvent(ActionTouchEvent obj)
         {
             var Rng = new Random((int)DateTime.Now.Ticks);
             TouchGameScreen(Rng);
