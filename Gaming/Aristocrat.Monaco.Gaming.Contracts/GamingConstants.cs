@@ -396,6 +396,11 @@
         public const string ApplyGameCategorySettings = "ApplyGameCategorySettings";
 
         /// <summary>
+        ///     Property Manager key for whether or not the browser processes are being monitored
+        /// </summary>
+        public const string MonitorBrowserProcess = "Browser.MonitorBrowserProcess";
+
+        /// <summary>
         ///     Property Manager key for maximum CPU usage per browser process
         /// </summary>
         public const string BrowserMaxCpuPerProcess = "Browser.MaxCpuPerProcess";

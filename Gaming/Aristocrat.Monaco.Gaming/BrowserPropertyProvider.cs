@@ -24,7 +24,8 @@
             {
                 { GamingConstants.BrowserMaxCpuPerProcess, config.Browser.MaxCpuPerProcess },
                 { GamingConstants.BrowserMaxCpuTotal, config.Browser.MaxCpuTotal },
-                { GamingConstants.BrowserMaxMemoryPerProcess, config.Browser.MaxMemoryPerProcess }
+                { GamingConstants.BrowserMaxMemoryPerProcess, config.Browser.MaxMemoryPerProcess },
+                { GamingConstants.MonitorBrowserProcess, config.Browser.MonitorBrowserProcess }
             };
         }
 
@@ -52,12 +53,13 @@
                 throw new UnknownPropertyException(errorMessage);
             }
 
-            if (value != propertyValue)
+            if (value == propertyValue)
             {
-                Logger.Debug($"setting property {propertyName} to {propertyValue}. Type is {propertyValue.GetType()}");
-
-                _properties[propertyName] = propertyValue;
+                return;
             }
+
+            Logger.Debug($"setting property {propertyName} to {propertyValue}. Type is {propertyValue.GetType()}");
+            _properties[propertyName] = propertyValue;
         }
     }
 }

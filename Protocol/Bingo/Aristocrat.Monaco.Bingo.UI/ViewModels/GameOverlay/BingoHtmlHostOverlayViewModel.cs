@@ -11,6 +11,7 @@
     using System.Threading.Tasks;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using CefSharp;
     using Common;
     using Common.Events;
     using Common.GameOverlay;
@@ -28,7 +29,7 @@
 
     public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
         private readonly IDispatcher _dispatcher;
         private readonly IEventBus _eventBus;
@@ -52,7 +53,7 @@
         private bool _disposed;
         private string _address;
         private bool _visible;
-        private bool _connected;
+        private IWebBrowser _webBrowser;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -118,6 +119,12 @@
             set => SetProperty(ref _address, value);
         }
 
+        public IWebBrowser WebBrowser
+        {
+            get => _webBrowser;
+            set => SetProperty(ref _webBrowser, value);
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -179,10 +186,8 @@
         private async Task HandleGameLoaded()
         {
             LoadPresentationOverrideMessageFormats();
-
             if (!_overlayServer.IsRunning)
             {
-                _connected = false;
                 var windowName = _bingoConfigurationProvider.CurrentWindow;
                 _currentBingoSettings = _bingoConfigurationProvider.GetSettings(windowName);
                 var attractSettings = _bingoConfigurationProvider.GetAttractSettings();
@@ -563,32 +568,47 @@
         private void OverlayClientConnected(object sender, OverlayType overlayType)
         {
             Logger.Debug($"Overlay client connected: {overlayType}");
-            if (_connected || overlayType is not OverlayType.BingoOverlay)
-            {
-                return;
-            }
-
-            UpdateOverlay(
-                () =>
-                {
-                    _connected = true;
-                    return new BingoLiveData
-                    {
-                        BallCallNumbers = _ballCallNumbers,
-                        BingoCardNumbers = _bingoCardNumbers,
-                        BingoPatterns = GetBingoPatternForOverlay(_cyclingPatterns)
-                    };
-                });
-        }
-
-        private void OverlayClientDisconnected(object sender, OverlayType overlayType)
-        {
             if (overlayType is not OverlayType.BingoOverlay)
             {
                 return;
             }
 
-            _connected = false;
+            UpdateOverlay(
+                () => new BingoLiveData
+                {
+                    BallCallNumbers = _ballCallNumbers,
+                    BingoCardNumbers = _bingoCardNumbers,
+                    BingoPatterns = GetBingoPatternForOverlay(_cyclingPatterns)
+                });
+        }
+
+        private void OverlayClientDisconnected(object sender, OverlayType overlayType)
+        {
+            Logger.Debug($"Overlay client disconnected: {overlayType}");
+            if (Address is not null && !Address.Contains(overlayType.GetOverlayRoute()))
+            {
+                return;
+            }
+
+            _dispatcher.Invoke(ReloadPage);
+        }
+
+        private void ReloadPage()
+        {
+            if (!Visible)
+            {
+                return;
+            }
+
+            try
+            {
+                WebBrowser?.Reload();
+            }
+            catch (Exception ex)
+            {
+                // CefSharp throws a general exception for things so we must catch Exception
+                Logger.Warn("Failed to reload the browser", ex);
+            }
         }
 
         private void SetVisibility(bool visible)

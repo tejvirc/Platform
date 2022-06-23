@@ -19,18 +19,18 @@
     public class BrowserProcessManager : IBrowserProcessManager
     {
         private const string CefStartQuery =
-            "select * from Win32_ProcessStartTrace where processname='CefSharp.BrowserSubprocess.exe'";
+            @"select * from Win32_ProcessStartTrace where processname='CefSharp.BrowserSubprocess.exe'";
 
         private const string CefStopQuery =
-            "select * from Win32_ProcessStopTrace where processname='CefSharp.BrowserSubprocess.exe'";
+            @"select * from Win32_ProcessStopTrace where processname='CefSharp.BrowserSubprocess.exe'";
 
         private const string ProcessCategoryName = "Process";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly List<int> _overCpuLimit = new List<int>();
-        private readonly List<int> _overRamLimit = new List<int>();
-        private readonly List<Process> _processes = new List<Process>();
-        private readonly object _processLock = new object();
+        private readonly List<int> _overCpuLimit = new();
+        private readonly List<int> _overRamLimit = new();
+        private readonly List<Process> _processes = new();
+        private readonly object _processLock = new();
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -59,7 +59,8 @@
 
         public void Initialize()
         {
-            if (!_properties.GetValue(ApplicationConstants.MediaDisplayEnabled, false))
+            if (!_properties.GetValue(ApplicationConstants.MediaDisplayEnabled, false) ||
+                !_properties.GetValue(GamingConstants.MonitorBrowserProcess, true))
             {
                 return;
             }
@@ -92,16 +93,18 @@
 
         public void ReleaseBrowser(Control mediaPlayerView)
         {
-            if (mediaPlayerView is ChromiumWebBrowser view)
+            if (mediaPlayerView is not ChromiumWebBrowser view)
             {
-                if (view.DataContext is IMediaPlayerViewModel vm)
-                {
-                    Logger.Info($"ReleaseBrowser for ID {vm.Id}");
-                }
-
-                view.GetBrowserHost().CloseBrowser(true);
-                view.Dispose();
+                return;
             }
+
+            if (view.DataContext is IMediaPlayerViewModel vm)
+            {
+                Logger.Info($"ReleaseBrowser for ID {vm.Id}");
+            }
+
+            view.GetBrowserHost().CloseBrowser(true);
+            view.Dispose();
         }
 
         public void Dispose()
@@ -154,13 +157,11 @@
             var instances = category.GetInstanceNames().Where(n => n.Contains(process.ProcessName));
             foreach (var instance in instances)
             {
-                using (var counter = new PerformanceCounter(ProcessCategoryName, "ID Process", instance, true))
+                using var counter = new PerformanceCounter(ProcessCategoryName, "ID Process", instance, true);
+                var raw = (int)counter.RawValue;
+                if (raw == process.Id)
                 {
-                    var raw = (int)counter.RawValue;
-                    if (raw == process.Id)
-                    {
-                        return instance;
-                    }
+                    return instance;
                 }
             }
 
@@ -192,15 +193,21 @@
 
         private void CheckProcessLimits(object state)
         {
-            if (!_processes.Any())
-            {
-                return;
-            }
-
+            IEnumerable<Process> processes;
+            var processesToRemove = new List<Process>();
             var totalUsage = 0.0;
 
-            var processesToRemove = new List<Process>();
-            foreach (var process in _processes.ToArray())
+            lock (_processLock)
+            {
+                if (!_processes.Any())
+                {
+                    return;
+                }
+
+                processes = _processes.ToList();
+            }
+
+            foreach (var process in processes)
             {
                 try
                 {
@@ -217,27 +224,7 @@
                         continue;
                     }
 
-                    using (var cpuUsageTotal = new PerformanceCounter(ProcessCategoryName, "% Processor Time", "_Total"))
-                        using (var cpuUsageProcess = new PerformanceCounter(ProcessCategoryName, "% Processor Time", name))
-                        {
-                            cpuUsageProcess.NextValue();
-                            cpuUsageTotal.NextValue();
-                            Thread.Sleep(100); // necessary to retrieve correct next values
-
-                            var cpuUsage = Math.Round(cpuUsageProcess.NextValue() / cpuUsageTotal.NextValue() * 100, 1);
-
-                            if (double.IsNaN(cpuUsage))
-                            {
-                                cpuUsage = 0;
-                            }
-
-                            // CPU Usage
-                            Logger.Debug($"Process {process.Id} CPU Usage: {cpuUsage}%");
-                            totalUsage += cpuUsage;
-
-                            // If CPU % is above threshold for over 10 seconds, kill process
-                            CheckLimit(cpuUsage, _maxCpuPerProcess, process, _overCpuLimit);
-                        }
+                    totalUsage += GetTotalUsage(name, process);
 
                     // Process Memory Usage
                     var memUsage = process.PrivateMemorySize64 / 1048576;
@@ -277,30 +264,54 @@
             CheckTotalLimit(totalUsage);
         }
 
+        private double GetTotalUsage(string name, Process process)
+        {
+            using var cpuUsageTotal = new PerformanceCounter(ProcessCategoryName, "% Processor Time", "_Total");
+            using var cpuUsageProcess = new PerformanceCounter(ProcessCategoryName, "% Processor Time", name);
+            cpuUsageProcess.NextValue();
+            cpuUsageTotal.NextValue();
+            Thread.Sleep(100); // necessary to retrieve correct next values
+
+            var cpuUsage = Math.Round(cpuUsageProcess.NextValue() / cpuUsageTotal.NextValue() * 100, 1);
+            if (double.IsNaN(cpuUsage))
+            {
+                cpuUsage = 0;
+            }
+
+            // CPU Usage
+            Logger.Debug($"Process {process.Id} CPU Usage: {cpuUsage}%");
+
+            // If CPU % is above threshold for over 10 seconds, kill process
+            CheckLimit(cpuUsage, _maxCpuPerProcess, process, _overCpuLimit);
+            return cpuUsage;
+        }
+
         private void CheckTotalLimit(double totalUsage)
         {
             // Overall Memory Usage
             Logger.Debug($"Total CEF Processes CPU Usage: {totalUsage}%");
-
-            if (totalUsage > _maxCpuTotal)
+            if (totalUsage <= _maxCpuTotal)
             {
-                if (_overTotalCpuLimit)
-                {
-                    // Total CPU Usage has been over the limit for more than 10 seconds and we should kill the worst offender
-                    Process process;
-                    lock (_processLock)
-                    {
-                        process = _processes.OrderByDescending(p => p.TotalProcessorTime).First();
-                    }
+                _overTotalCpuLimit = false;
+                return;
+            }
 
-                    Logger.Warn($"KILLING CEF PROCESS {process.Id} due to overall CPU usage");
-                    process.Kill();
-                    _overTotalCpuLimit = false;
-                }
-                else
+            if (_overTotalCpuLimit)
+            {
+                // Total CPU Usage has been over the limit for more than 10 seconds and we should kill the worst offender
+                Process process;
+                lock (_processLock)
                 {
-                    _overTotalCpuLimit = true;
+                    process = _processes.OrderByDescending(p => p.TotalProcessorTime).First();
                 }
+
+                Logger.Warn($"KILLING CEF PROCESS {process.Id} due to overall CPU usage");
+                process.Kill();
+                _overTotalCpuLimit = false;
+            }
+            else
+            {
+                _overTotalCpuLimit = true;
             }
         }
 
@@ -315,16 +326,18 @@
                 lock (_processLock)
                 {
                     var process = Process.GetProcessById((int)pid);
-                    if (!_processes.Contains(process))
+                    if (_processes.Contains(process))
                     {
-                        _processes.Add(process);
-
-                        // Monitor CefSharp.Browser Sub-process for errors
-                        process.EnableRaisingEvents = true;
-                        process.ErrorDataReceived += Process_ErrorDataReceived;
-                        process.OutputDataReceived += Process_OnOutputDataReceived;
-                        process.Exited += Process_OnExited;
+                        return;
                     }
+
+                    _processes.Add(process);
+
+                    // Monitor CefSharp.Browser Sub-process for errors
+                    process.EnableRaisingEvents = true;
+                    process.ErrorDataReceived += Process_ErrorDataReceived;
+                    process.OutputDataReceived += Process_OnOutputDataReceived;
+                    process.Exited += Process_OnExited;
                 }
             }
             catch (Exception ex)
@@ -377,12 +390,13 @@
         private void Process_OnExited(object sender, EventArgs e)
         {
             // The actual restarting of the process is initiated by RequestHandler, so here we just need to clean up locals
-            if (sender is Process process)
+            if (sender is not Process process)
             {
-                RemoveProcess(process);
-
-                Logger.Info($"Process_OnExited with exit code {process.ExitCode} occurred for process ID {process.Id}");
+                return;
             }
+
+            RemoveProcess(process);
+            Logger.Info($"Process_OnExited with exit code {process.ExitCode} occurred for process ID {process.Id}");
         }
     }
 }

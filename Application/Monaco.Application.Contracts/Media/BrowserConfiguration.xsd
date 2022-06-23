@@ -8,6 +8,7 @@
             <xs:attribute name="MaxCpuPerProcess" type="xs:double" use="optional" default="25" />
             <xs:attribute name="MaxCpuTotal" type="xs:double" use="optional" default="50" />
             <xs:attribute name="MaxMemoryPerProcess" type="xs:double" use="optional" default="500" />
+            <xs:attribute name="MonitorBrowserProcess" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>
