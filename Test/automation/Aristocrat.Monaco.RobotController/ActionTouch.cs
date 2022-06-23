@@ -15,7 +15,7 @@
         private readonly ILobbyStateManager _lobbyStateManager;
         private readonly ILog _logger;
         private readonly IEventBus _eventBus;
-        private Automation _automator;
+        private readonly Automation _automator;
         private Timer _ActionTouchTimer;
         private bool _disposed;
 
@@ -173,7 +173,7 @@
 
         public void Halt()
         {
-            _ActionTouchTimer.Dispose();
+            _ActionTouchTimer?.Dispose();
         }
 
         public void Initialize()

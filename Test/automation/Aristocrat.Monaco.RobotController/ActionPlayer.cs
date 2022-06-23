@@ -73,9 +73,9 @@
             });
         }
 
-        public string Name => throw new NotImplementedException();
+        public string Name => typeof(ActionPlayer).FullName;
 
-        public ICollection<Type> ServiceTypes => throw new NotImplementedException();
+        public ICollection<Type> ServiceTypes => new[] { typeof(ActionPlayer) };
 
         public void Dispose()
         {
@@ -92,7 +92,7 @@
 
             if (disposing)
             {
-                _ActionPlayerTimer.Dispose();
+                _ActionPlayerTimer?.Dispose();
             }
 
             _disposed = true;

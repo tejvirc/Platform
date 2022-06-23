@@ -30,6 +30,7 @@
             _logger = logger;
             _eventBus = eventBus;
             _gamePlayState = gamePlayState;
+            SubscribeToEvents();
         }
 
         ~BalanceCheck()
@@ -109,7 +110,7 @@
             if (disposing)
             {
                 _eventBus.UnsubscribeAll(this);
-                _balanceCheckTimer.Dispose();
+                _balanceCheckTimer?.Dispose();
             }
 
             _disposed = true;
@@ -117,7 +118,6 @@
 
         public void Initialize()
         {
-            SubscribeToEvents();
         }
     }
 
