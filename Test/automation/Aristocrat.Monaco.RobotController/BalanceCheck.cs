@@ -9,6 +9,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using Vgt.Client12.Testing.Tools;
 
     internal class BalanceCheck : IRobotService, IDisposable
     {
@@ -83,8 +84,8 @@
         {
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
-            if (_isGamePlaying && _config?.Active?.InsertCreditsDuringGameRound == false) { return; }
-            //publish InsertCredit Event
+            if (_isGamePlaying || _config?.Active?.InsertCreditsDuringGameRound == false) { return; }
+            _eventBus.Publish(new DebugNoteEvent(_config.GetDollarsInserted()));
 
         }
 
@@ -99,7 +100,7 @@
                                 },
                                 null,
                                 _config.Active.IntervalBalanceCheck,
-                                System.Threading.Timeout.Infinite);
+                                Timeout.Infinite);
         }
 
         public void Halt()
