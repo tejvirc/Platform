@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "M5RRRP87sW8pwh8K5vjqeuH7LKILALtWIUIHR+l9YO8="
+          "hash": "f+6eizRHPsggd2P0F4tw7Ym17r/91jwv+MsfLMjEXdY="
         }
       },
       "is_incremental": false,
@@ -14470,6 +14470,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -20871,7 +20874,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay.BingoHelpOverlayViewModel.html",
-          "hash": "D8g19r0ermXUgJu0IjYV30mZLsGRKuuMFtqBX6pQkDM="
+          "hash": "bQDwWd8z8/DjZpdJQDbGa5wGBqSKXOJZCtHowi9dLGQ="
         }
       },
       "is_incremental": false,
@@ -21003,7 +21006,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Views.GameOverlay.BingoHelpOverlayWindow.html",
-          "hash": "lmfE5M2bTvU3BLIduHrh6jUjR6ggj5rOpE470BltOY8="
+          "hash": "cZnR71m4Kpbf6lB8OPFBEn92Zrfli2LZOtexx9QiLLo="
         }
       },
       "is_incremental": false,
@@ -23650,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -43650,7 +43650,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.Consumes-1.html",
-          "hash": "d9Z0CzieeA4B13QucAytoLp+15bLGBxB9hGKAxLnHKk="
+          "hash": "qC2ghRWyHv8iFqvqDupJuV9W0WC+7DQxFyAFMSldoCk="
         }
       },
       "is_incremental": false,
@@ -43879,6 +43879,18 @@
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.HandpayKeyedOffConsumer.html",
           "hash": "uX27UqxUejGzyNkRyKk6WmU9lh1ONSzx9mibkDiLdVI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Consumers.HelpExitConsumer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.HelpExitConsumer.html",
+          "hash": "cC6GsxJFaIeY+RYGsww5NjVSUW2CO2jYwLpkqhf3LfU="
         }
       },
       "is_incremental": false,
@@ -44238,7 +44250,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.html",
-          "hash": "11kqy9A9XpZbnE1jONf8ZC4lrUrY7d1HOIePc+/U6uE="
+          "hash": "Kp9wcEg+ddSd9Fg3Oaqp0G9GSU7kfxn7uwNuA43Rctg="
         }
       },
       "is_incremental": false,
@@ -45602,6 +45614,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.Events.ExitHelpEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Events.ExitHelpEvent.html",
+          "hash": "lJAHeXTu0TH5fEQig7J1E0jzMAgBXW7sxgM+b5DbrpM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.Events.GambleFeatureActiveEvent.yml",
       "output": {
         ".html": {
@@ -45822,7 +45846,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Events.html",
-          "hash": "BqMj0yU8w0OEBvFHqDgcOrHqt71MaM6aWKzB5LAhUUY="
+          "hash": "OmJIQMmBypR4xGmVgalbgEAihZgWi9kVhakjHhyAbQI="
         }
       },
       "is_incremental": false,
@@ -83553,7 +83577,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6929,
+          "total_file_count": 6931,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
