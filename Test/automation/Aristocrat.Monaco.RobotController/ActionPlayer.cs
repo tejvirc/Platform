@@ -14,10 +14,9 @@
     {
         private readonly Configuration _config;
         private readonly ILobbyStateManager _lobbyStateManager;
-        private readonly Dictionary<Actions,Action<Random>> ActionPlayerFunctions;
+        private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
         private readonly ILog _logger;
         private readonly IEventBus _eventBus;
-
         private Automation _automator;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
@@ -29,24 +28,39 @@
             _logger = logger;
             _automator = automator;
             _eventBus = eventBus;
-            ActionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
+            _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             InitializeActionPlayer();
+            SubscribeToEvents();
+        }
+
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<ActionPlayerEvent>(this, HandleEvent);
+        }
+
+        private void HandleEvent(ActionPlayerEvent obj)
+        {
+            var Rng = new Random((int)DateTime.Now.Ticks);
+            var action =
+                _config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_config.CurrentGameProfile.RobotActions.Count));
+            _actionPlayerFunctions[action](Rng);
+        }
+
+        ~ActionPlayer()
+        {
+            Dispose(false);
         }
 
         private void InitializeActionPlayer()
         {
-            ActionPlayerFunctions.Add(Actions.SpinRequest,
+            _actionPlayerFunctions.Add(Actions.SpinRequest,
             (Rng) =>
             {
-                if (_config.Active.LogMessageLoadTest)
-                {
-                    MessageSwarm();
-                }
                 _logger.Info("Spin Request");
                 _automator.SpinRequest();
             });
 
-            ActionPlayerFunctions.Add(Actions.BetLevel,
+            _actionPlayerFunctions.Add(Actions.BetLevel,
             (Rng) =>
             {
                 _logger.Info("Changing bet level");
@@ -56,14 +70,14 @@
                 _automator.SetBetLevel(index);
             });
 
-            ActionPlayerFunctions.Add(Actions.BetMax,
+            _actionPlayerFunctions.Add(Actions.BetMax,
             (Rng) =>
             {
                 _logger.Info("Bet Max");
                 _automator.SetBetMax();
             });
 
-            ActionPlayerFunctions.Add(Actions.LineLevel,
+            _actionPlayerFunctions.Add(Actions.LineLevel,
             (Rng) =>
             {
                 _logger.Info("Change Line Level");
@@ -72,10 +86,6 @@
                 _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
             });
         }
-
-        public string Name => typeof(ActionPlayer).FullName;
-
-        public ICollection<Type> ServiceTypes => new[] { typeof(ActionPlayer) };
 
         public void Dispose()
         {
@@ -93,6 +103,7 @@
             if (disposing)
             {
                 _ActionPlayerTimer?.Dispose();
+                _eventBus.UnsubscribeAll(this);
             }
 
             _disposed = true;
@@ -106,7 +117,7 @@
                                    if (_lobbyStateManager.CurrentState is LobbyState.Game)
                                    {
                                        BalanceCheck();
-                                       PerformAction();
+                                       _eventBus.Publish(new ActionPlayerEvent());
                                    }
                                },
                                null,
@@ -119,34 +130,9 @@
             _eventBus.Publish(new BalanceCheckEvent());
         }
 
-        private void PerformAction()
-        {
-            var Rng = new Random((int)DateTime.Now.Ticks);
-            var action =
-                _config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_config.CurrentGameProfile.RobotActions.Count));
-            ActionPlayerFunctions[action](Rng);
-        }
-
-        private void MessageSwarm()
-        {
-            int i = 0;
-            while (i <= _config.Active.LogMessageLoadTestSize)
-            {
-                // Call to seperate method to determine message size before sending
-                _logger.Info("Log message swarm " + i);
-                i++;
-            }
-            return;
-        }
-
         public void Halt()
         {
             _ActionPlayerTimer?.Dispose();
-        }
-
-        public void Initialize()
-        {
-
         }
     }
 }
