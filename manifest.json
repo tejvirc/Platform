@@ -14470,6 +14470,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -20883,7 +20886,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay.BingoHtmlHostOverlayViewModel.html",
-          "hash": "hDZjLC9tlMZeOU69XJpnH51+rRQvVuG6Qjfu2NVFeOM="
+          "hash": "StaWYwjgGCU6uAkgz87Qb5cgHdOpVRSyzyWpL8zmHQY="
         }
       },
       "is_incremental": false,
@@ -23650,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41466,7 +41466,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.BrowserPropertyProvider.html",
-          "hash": "vdN6H/UJRw49bz/vucrmim/qZe2TGlUiFx+OsbUUsUg="
+          "hash": "PLt8JqVJIRGuNbQvSI9EKJrx6LEMtVJ7UKtDP7O5gbo="
         }
       },
       "is_incremental": false,
@@ -47478,7 +47478,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GamingConstants.PlayerInformationDisplay.html",
-          "hash": "pxhiWwYKot59WsY1EGVLiOWBOai8mZs9c5p9eOTbpck="
+          "hash": "Z1SVHfV10j+X9sb71cICDcCF30LJGMKNN5+eMB/k0jA="
         }
       },
       "is_incremental": false,
@@ -47490,7 +47490,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GamingConstants.html",
-          "hash": "GbRc23pbtsjNoUCbvvVubCCTG7sKBPK9aT7btvhXi0Y="
+          "hash": "e6B0mIISrvYgxe5n38cvARlUR5QIlMqM2RwRUdrKc90="
         }
       },
       "is_incremental": false,
@@ -56466,7 +56466,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay.Handlers.BrowserProcessManager.html",
-          "hash": "Nr8JcZ3t0fsdA8kfpvn/Xwy4O7IzLMrBVN1QEkXfVC0="
+          "hash": "VYde+WHpZgGYuuD4xq4ZfJSotvPXioMQILAxXhE+i7A="
         }
       },
       "is_incremental": false,
