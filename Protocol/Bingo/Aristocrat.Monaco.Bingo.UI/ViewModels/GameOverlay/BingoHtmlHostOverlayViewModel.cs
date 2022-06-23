@@ -431,6 +431,7 @@
                     _playerBank.Balance.MillicentsToDollars().ToString(
                         $"C{subUnitDigits}",
                         CurrencyExtensions.CurrencyCultureInfo));
+
                 UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, MeterValue = meterMessage });
             }
         }
@@ -635,7 +636,7 @@
             {
                 _configuredOverrideMessageFormats.TryAdd(
                     (PresentationOverrideTypes)messageFormat.OverrideType,
-                    (messageFormat.MessageFormat, messageFormat.MeterFormat));
+                    (messageFormat.MessageFormat, messageFormat.MeterFormat ?? string.Empty));
             }
         }
     }
