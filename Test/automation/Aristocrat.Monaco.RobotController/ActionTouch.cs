@@ -13,17 +13,19 @@
     {
         private readonly Configuration _config;
         private readonly ILobbyStateManager _lobbyStateManager;
-        private Automation _automator;
         private readonly ILog _logger;
+        private readonly IEventBus _eventBus;
+        private Automation _automator;
         private Timer _ActionTouchTimer;
         private bool _disposed;
 
-        public ActionTouch(Configuration config, ILobbyStateManager lobbyStateManager, ILog logger, Automation automator)
+        public ActionTouch(Configuration config, ILobbyStateManager lobbyStateManager, ILog logger, Automation automator, IEventBus eventBus)
         {
             _config = config;
             _automator = automator;
             _lobbyStateManager = lobbyStateManager;
             _logger = logger;
+            _eventBus = eventBus;
         }
 
         ~ActionTouch()
@@ -63,6 +65,7 @@
                                 {
                                    if(_lobbyStateManager.CurrentState is LobbyState.Game)
                                     {
+                                        BalanceCheck();
                                         PerformAction();
                                     }
                                 },
@@ -71,9 +74,13 @@
                                 Timeout.Infinite);
         }
 
+        private void BalanceCheck()
+        {
+            _eventBus.Publish(new BalanceCheckEvent());
+        }
+
         private void PerformAction()
         {
-            
             var Rng = new Random((int)DateTime.Now.Ticks);
             TouchGameScreen(Rng);
             TouchVbd(Rng);

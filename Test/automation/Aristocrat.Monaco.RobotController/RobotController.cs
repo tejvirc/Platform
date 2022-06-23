@@ -13,7 +13,7 @@
 
     public sealed class RobotController : BaseRunnable, IRobotController
     {
-        private readonly Configuration _config;        
+        private readonly Configuration _config;
         private readonly ILog _logger;
         private readonly Dictionary<string, IRobotService> _serviceCollection;
         private IBank _bank;
@@ -66,8 +66,8 @@
         private void SuperRobotInitialization()
         {
             _serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
-            _serviceCollection.Add(typeof(ActionTouch).ToString(), new ActionTouch(_config, _lobbyStateManager, _logger, new Automation(_pm, _eventBus)));
-            _serviceCollection.Add(typeof(ActionPlayer).ToString(), new ActionPlayer(_config, _lobbyStateManager, _logger, new Automation(_pm, _eventBus)));
+            _serviceCollection.Add(typeof(ActionTouch).ToString(), new ActionTouch(_config, _lobbyStateManager, _logger, new Automation(_pm, _eventBus), _eventBus));
+            _serviceCollection.Add(typeof(ActionPlayer).ToString(), new ActionPlayer(_config, _lobbyStateManager, _logger, new Automation(_pm, _eventBus), _eventBus));
         }
 
         protected override void OnRun()

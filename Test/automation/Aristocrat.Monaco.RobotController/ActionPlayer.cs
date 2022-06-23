@@ -2,6 +2,7 @@
 {
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
+    using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using log4net;
     using System;
@@ -15,16 +16,19 @@
         private readonly ILobbyStateManager _lobbyStateManager;
         private readonly Dictionary<Actions,Action<Random>> ActionPlayerFunctions;
         private readonly ILog _logger;
+        private readonly IEventBus _eventBus;
+
         private Automation _automator;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
 
-        public ActionPlayer(Configuration config, ILobbyStateManager lobbyStateManager, ILog logger, Automation automator)
+        public ActionPlayer(Configuration config, ILobbyStateManager lobbyStateManager, ILog logger, Automation automator, IEventBus eventBus)
         {
             _config = config;
             _lobbyStateManager = lobbyStateManager;
             _logger = logger;
             _automator = automator;
+            _eventBus = eventBus;
             ActionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             InitializeActionPlayer();
         }
@@ -101,12 +105,18 @@
                                {
                                    if (_lobbyStateManager.CurrentState is LobbyState.Game)
                                    {
+                                       BalanceCheck();
                                        PerformAction();
                                    }
                                },
                                null,
                                _config.Active.IntervalAction,
                                Timeout.Infinite);
+        }
+
+        private void BalanceCheck()
+        {
+            _eventBus.Publish(new BalanceCheckEvent());
         }
 
         private void PerformAction()

@@ -50,8 +50,8 @@
             {
                 _bank = Helper.GetBankInfo(_bank, _logger);
                 Helper.CheckNegativeBalance(_bank, _logger);
-                long minBalance = _config.GetMinimumBalance();
-                long balance = _bank.QueryBalance();
+                var minBalance = _config.GetMinimumBalance();
+                var balance = _bank.QueryBalance();
                 if (balance <= minBalance * 1000)
                 {
                     _logger.Info($"Insufficient balance.  Balance: {balance}, Minimum Balance: {minBalance * 1000}");
