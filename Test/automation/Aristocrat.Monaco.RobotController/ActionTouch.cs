@@ -13,20 +13,17 @@
     {
         private readonly Configuration _config;
         private readonly ILobbyStateManager _lobbyStateManager;
-        private readonly IPropertiesManager _pm;
-        private readonly IEventBus _eventBus;
         private Automation _automator;
         private readonly ILog _logger;
         private Timer _ActionTouchTimer;
         private bool _disposed;
 
-        public ActionTouch(Configuration config, ILobbyStateManager lobbyStateManager, IPropertiesManager pm, IEventBus eventBus)
+        public ActionTouch(Configuration config, ILobbyStateManager lobbyStateManager, ILog logger, Automation automator)
         {
             _config = config;
-            _pm = pm;
-            _eventBus = eventBus;
-            _automator = new Automation(_pm, _eventBus);
+            _automator = automator;
             _lobbyStateManager = lobbyStateManager;
+            _logger = logger;
         }
 
         ~ActionTouch()
@@ -49,7 +46,7 @@
 
             if (disposing)
             {
-                _ActionTouchTimer.Dispose();
+                _ActionTouchTimer?.Dispose();
             }
 
             _disposed = true;

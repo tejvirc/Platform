@@ -90,7 +90,7 @@
 
         public void Halt()
         {
-            _balanceCheckTimer.Dispose();
+            _balanceCheckTimer?.Dispose();
         }
 
         public void Dispose()
