@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.CompositionRoot
 {
     using Contracts;
+    using Contracts.Lobby;
     using SimpleInjector;
     using ViewModels;
 
@@ -16,6 +17,7 @@
             container.RegisterInstance<IOverlayMessageStrategyFactory>(overlayMessageStrategyFactory);
             container.RegisterSingleton<IMessageOverlayData, MessageOverlayData>();
             container.RegisterSingleton<IOverlayMessageStrategyController, OverlayMessageStrategyController>();
+            //container.RegisterSingleton<ILobbyStateManager, LobbyStateManager>();
             return container;
         }
     }

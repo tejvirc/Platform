@@ -21,18 +21,38 @@
         private Timer _LoadGameTimer;
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
-
-        public LoadGame(Configuration config, ILobbyStateManager lobbyStateManager, Automation automator, ILog logger, IEventBus eventBus, IPropertiesManager pm)
+        private int sanityCounter;
+        private bool _enabled;
+        public LoadGame(RobotInfo robotInfo)
         {
-            _config = config;
-            _lobbyStateManager = lobbyStateManager;
-            _automator = automator;
-            _logger = logger;
-            _eventBus = eventBus;
-            _pm = pm;
-            SubscribeToEvents();
+            _config = robotInfo.Config;
+            _lobbyStateManager = robotInfo.LobbyStateManager;
+            _automator = robotInfo.Automator;
+            _logger = robotInfo.Logger;
+            _eventBus = robotInfo.EventBus;
+            _pm = robotInfo.PropertiesManager;
         }
-
+        ~LoadGame() => Dispose(false);
+        public void Execute()
+        {
+            SubscribeToEvents();
+            _LoadGameTimer = new Timer(
+                               (sender) =>
+                               {
+                                   if (!_enabled) { return; }
+                                   _eventBus.Publish(new LoadGameEvent());
+                               },
+                               null,
+                               _config.Active.IntervalLoadGame,
+                               Timeout.Infinite);
+            _enabled = true;
+        }
+        public void Halt()
+        {
+            _enabled = false;
+            _LoadGameTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
+        }
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<LoadGameEvent>(this, Handler);
@@ -50,43 +70,34 @@
                     _isTimeLimitDialogVisible = false;
                 });
         }
-
-        private void Handler(LoadGameEvent obj)
+        private void Handler(LoadGameEvent evt)
         {
-            _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
-            if (obj.GoToNextGame)
-            {
-                _config.SelectNextGame();
-            }
-            if (!IsTimeLimitDialogInProgress())
+            if (!IsValid()) return;
+            DismissTimeLimitDialog();
+            SelectGame(evt);
+            if (!IsTimeLimitDialogInProgress() && CheckSanity())
             {
                 RequestGameLoad();
             }
         }
-
+        private void DismissTimeLimitDialog()
+        {
+            _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
+        }
+        private void SelectGame(LoadGameEvent evt)
+        {
+            if (evt.GoToNextGame)
+            {
+                _config.SelectNextGame();
+            }
+        }
         private bool IsTimeLimitDialogInProgress()
         {
             var timeLimitDialogVisible = _pm.GetValue(LobbyConstants.LobbyIsTimeLimitDlgVisible, false);
             var timeLimitDialogPending = _pm.GetValue(LobbyConstants.LobbyShowTimeLimitDlgPending, false);
             return timeLimitDialogVisible && timeLimitDialogPending;
         }
-
-        public void Execute()
-        {
-            _LoadGameTimer = new Timer(
-                               (sender) =>
-                               {
-                                   if (Validate())
-                                   {
-                                       _eventBus.Publish(new LoadGameEvent());
-                                   }
-                               },
-                               null,
-                               _config.Active.IntervalLoadGame,
-                               Timeout.Infinite);
-        }
-
-        private bool Validate()
+        private bool IsValid()
         {
             var isGameRuning = _lobbyStateManager.CurrentState == LobbyState.Game;
             var isGameLoading = _lobbyStateManager.CurrentState == LobbyState.GameLoading;
@@ -94,7 +105,6 @@
             var isGameLoadingForDiagnostics = _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics;
             return !isGameRuning && !isGameLoading && !isGameDiagnostic && !isGameLoadingForDiagnostics;
         }
-
         private void RequestGameLoad()
         {
             var games = _pm.GetValues<IGameDetail>(GamingConstants.Games).ToList();
@@ -104,25 +114,27 @@
                 var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
                 _logger.Info($"Requesting game {gameInfo.ThemeName} with denom {denom} be loaded.");
                 _automator.RequestGameLoad(gameInfo.Id, denom);
+                sanityCounter = 0;
             }
             else
             {
+                sanityCounter++;
                 _logger.Info($"Did not find game, {_config.CurrentGame}");
                 _config.SelectNextGame();
+                _eventBus.Publish(new LoadGameEvent());                
             }
         }
-
-        public void Halt()
+        private bool CheckSanity()
         {
-            _LoadGameTimer?.Dispose();
+            if (sanityCounter < 10) { return true ; }
+            Halt();
+            return false;
         }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         private void Dispose(bool disposing)
         {
             if (_disposed)
