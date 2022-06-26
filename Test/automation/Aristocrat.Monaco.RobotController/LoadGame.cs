@@ -12,21 +12,36 @@
 
     internal class LoadGame : IRobotOperations, IDisposable
     {
-        private readonly ILobbyStateManager _lobbyStateManager;
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly Automation _automator;
         private readonly IPropertiesManager _pm;
         private readonly ILog _logger;
+        private readonly StateChecker _sc;
+        //todo: Handle this
+        //private IOperatingHoursMonitor _operatingHoursMonitor;
         private Timer _LoadGameTimer;
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int sanityCounter;
         private bool _enabled;
-        public LoadGame(RobotInfo robotInfo)
+        private static LoadGame instance = null;
+        private static readonly object padlock = new object();
+        public static LoadGame Instatiate(RobotInfo robotInfo)
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new LoadGame(robotInfo);
+                }
+                return instance;
+            }
+        }
+        private LoadGame(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
-            _lobbyStateManager = robotInfo.LobbyStateManager;
+            _sc = robotInfo.StateChecker;
             _automator = robotInfo.Automator;
             _logger = robotInfo.Logger;
             _eventBus = robotInfo.EventBus;
@@ -39,12 +54,12 @@
             _LoadGameTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!_enabled) { return; }
-                                   _eventBus.Publish(new LoadGameEvent());
+                                   if (!_enabled || !IsValid()) { return; }
+                                   _eventBus.Publish(new LoadGameEvent(true));
                                },
                                null,
-                               _config.Active.IntervalLoadGame,
-                               Timeout.Infinite);
+                               1000,
+                               _config.Active.IntervalLoadGame);
             _enabled = true;
         }
         public void Halt()
@@ -52,10 +67,11 @@
             _enabled = false;
             _LoadGameTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            sanityCounter = 0;
         }
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<LoadGameEvent>(this, Handler);
+            _eventBus.Subscribe<LoadGameEvent>(this, HandleEvent);
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
                             this,
                             evt =>
@@ -70,9 +86,13 @@
                     _isTimeLimitDialogVisible = false;
                 });
         }
-        private void Handler(LoadGameEvent evt)
+        private void HandleEvent(LoadGameEvent evt)
         {
-            if (!IsValid()) return;
+            if (!IsValid())
+            {
+                //Todo: Log Something
+                return;
+            }
             DismissTimeLimitDialog();
             SelectGame(evt);
             if (!IsTimeLimitDialogInProgress() && CheckSanity())
@@ -99,11 +119,7 @@
         }
         private bool IsValid()
         {
-            var isGameRuning = _lobbyStateManager.CurrentState == LobbyState.Game;
-            var isGameLoading = _lobbyStateManager.CurrentState == LobbyState.GameLoading;
-            var isGameDiagnostic = _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics;
-            var isGameLoadingForDiagnostics = _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics;
-            return !isGameRuning && !isGameLoading && !isGameDiagnostic && !isGameLoadingForDiagnostics;
+            return _sc.IsChooser;
         }
         private void RequestGameLoad()
         {
@@ -120,13 +136,12 @@
             {
                 sanityCounter++;
                 _logger.Info($"Did not find game, {_config.CurrentGame}");
-                _config.SelectNextGame();
-                _eventBus.Publish(new LoadGameEvent());                
+                _eventBus.Publish(new LoadGameEvent(true));
             }
         }
         private bool CheckSanity()
         {
-            if (sanityCounter < 10) { return true ; }
+            if (sanityCounter < 10) { return true; }
             Halt();
             return false;
         }

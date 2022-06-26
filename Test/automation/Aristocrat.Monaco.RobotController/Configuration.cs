@@ -223,6 +223,12 @@
         public int IntervalLobby { get; set; } = 10000;
 
         /// <summary>
+        ///     (ms) how long between any lobby action is possible
+        /// </summary>
+        [XmlElement]
+        public int IntervalForceGameExit { get; set; } = 600000;
+
+        /// <summary>
         ///     (ms) interval between a game loaded or reloaded
         /// </summary>
         [XmlElement]
@@ -232,7 +238,7 @@
         ///     (ms) interval between Audit Menu loads
         /// </summary>
         [XmlElement]
-        public int IntervalLoadAuditMenu { get; set; }
+        public int IntervalLoadAuditMenu { get; set; } = 600000;
 
         /// <summary>
         ///     (ms) interval between lockups

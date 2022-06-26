@@ -1,12 +1,14 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
+    using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Test.Automation;
     using Contracts;
@@ -20,15 +22,14 @@
         public ILog Logger;
         public IEventBus EventBus;
         public IPropertiesManager PropertiesManager;
-        public ILobbyStateManager LobbyStateManager;
-        public IGamePlayState GamePlayState;
         public IContainerService ContainerService;
+        public StateChecker StateChecker;
     }
     public sealed class RobotController : BaseRunnable, IRobotController
     {
         private Configuration _config = new Configuration();
         private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly Dictionary<string, IRobotOperations> _operationCollection;
+        private readonly HashSet<IRobotOperations> _operationCollection;
         private readonly Guid _overlayTextGuid = new Guid("2774B299-E8FE-436C-B68C-F6CF8DCDB31B");
         private Automation _automator;
         private IEventBus _eventBus;
@@ -40,7 +41,7 @@
         private bool _enabled;
         public bool Enabled
         {
-            get{ return _enabled; }
+            get { return _enabled; }
             set
             {
                 if (_enabled != value)
@@ -72,10 +73,10 @@
             _automator.SetOverlayText(_config.ActiveType.ToString(), false, _overlayTextGuid, InfoLocation.TopLeft);
             _automator.SetTimeLimitButtons(_config.GetTimeLimitButtons());
             //Todo: we need to Dispose the SuperRobot
-            //_automator.SetSpeed(_config.Speed);
-            foreach (var service in _operationCollection)
+            _automator.SetSpeed(_config.Speed);
+            foreach (var op in _operationCollection)
             {
-                service.Value.Execute();
+                op.Execute();
             }
             StartSuperRobot();
         }
@@ -100,10 +101,10 @@
         private void DisablingRobot()
         {
             _automator.SetOverlayText("", true, _overlayTextGuid, InfoLocation.TopLeft);
-            //_automator.ResetSpeed();
-            foreach (var service in _operationCollection)
+            _automator.ResetSpeed();
+            foreach (var op in _operationCollection)
             {
-                service.Value.Halt();
+                op.Halt();
             }
             _operationCollection.Clear();
             UnsubscribeToEvents();
@@ -117,7 +118,7 @@
 
         public RobotController()
         {
-            _operationCollection = new Dictionary<string, IRobotOperations>();
+            _operationCollection = new HashSet<IRobotOperations>();
         }
 
         protected override void OnInitialize()
@@ -164,7 +165,7 @@
             _config = Configuration.Load(configPath);
 
             if (_config != null)
-            {                
+            {
                 _logger.Info(_config.ToString());
             }
         }
@@ -178,15 +179,19 @@
                 Automator = _automator,
                 ContainerService = _containerService,
                 EventBus = _eventBus,
-                GamePlayState = _gamePlayState,
-                LobbyStateManager = _lobbyStateManager,
+                StateChecker = new StateChecker(_lobbyStateManager, _gamePlayState),
                 Logger = _logger,
                 PropertiesManager = _propertyManager
             };
             //_serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
             //_serviceCollection.Add(typeof(ActionTouch).ToString(), new ActionTouch(_config, _lobbyStateManager, _logger, _automator, _eventBus));
             //_serviceCollection.Add(typeof(ActionPlayer).ToString(), new ActionPlayer(_config, _lobbyStateManager, _logger, _automator, _eventBus));
-            _operationCollection.Add(typeof(LoadGame).ToString(), new LoadGame(robotInfo));
+            _operationCollection.Add(LoadGame.Instatiate(robotInfo));
+            _operationCollection.Add(BalanceCheck.Instatiate(robotInfo));
+            _operationCollection.Add(ActionTouch.Instatiate(robotInfo));
+            _operationCollection.Add(ActionPlayer.Instatiate(robotInfo));
+            _operationCollection.Add(ActionLobby.Instatiate(robotInfo));
+            _operationCollection.Add(LoadAuditMenu.Instatiate(robotInfo));
         }
 
         protected override void OnRun()
@@ -196,9 +201,9 @@
 
         protected override void OnStop()
         {
-            
+
         }
-//Todo:
+        //Todo:
         private void IdleCheck()
         {
             if (_idleDuration > Constants.IdleTimeout)

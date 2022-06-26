@@ -9,25 +9,60 @@
 
     internal class LoadAuditMenu : IRobotOperations, IDisposable
     {
+        private readonly IEventBus _eventBus;
         private readonly Configuration _config;
-        private readonly IOperatorMenuLauncher _launcher;
         private readonly Automation _automator;
         private readonly ILog _logger;
-        private readonly IEventBus _eventBus;
+        private readonly StateChecker _sc;
         private Timer _loadAuditMenuTimer;
+        private Timer _exitAuditMenuTimer;
         private bool _disposed;
-
-        public LoadAuditMenu(Configuration config, IOperatorMenuLauncher launcher, Automation automator, ILog logger, IEventBus eventBus)
+        private bool _enabled;
+        private static LoadAuditMenu instance = null;
+        private static readonly object padlock = new object();
+        public static LoadAuditMenu Instatiate(RobotInfo robotInfo)
         {
-            _config = config;
-            _launcher = launcher;
-            _automator = automator;
-            _logger = logger;
-            _eventBus = eventBus;
-            SubscribeToEvents();
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new LoadAuditMenu(robotInfo);
+                }
+                return instance;
+            }
+        }
+        public LoadAuditMenu(RobotInfo robotInfo)
+        {
+            _config = robotInfo.Config;
+            _sc = robotInfo.StateChecker;
+            _automator = robotInfo.Automator;
+            _logger = robotInfo.Logger;
+            _eventBus = robotInfo.EventBus;
         }
 
         ~LoadAuditMenu() => Dispose(false);
+        public void Execute()
+        {
+            SubscribeToEvents();
+            _loadAuditMenuTimer = new Timer(
+                (sender) =>
+                {
+                    if (!_enabled || !IsValid()) { return; }
+                    {
+                        _eventBus.Publish(new LoadAuditMenuEvent());
+                    }
+                },
+                null,
+                _config.Active.IntervalLoadAuditMenu,
+                _config.Active.IntervalLoadAuditMenu);
+            _enabled = true;
+        }
+        public void Halt()
+        {
+            _enabled = false;
+            _loadAuditMenuTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
+        }
 
         private void SubscribeToEvents()
         {
@@ -36,28 +71,27 @@
 
         private void HandleEvent(LoadAuditMenuEvent obj)
         {
-            _logger.Info($"Loading the audit menu.");
+            if (!IsValid())
+            {
+                //Todo: Log Something
+                return;
+            }
+            _logger.Info("Requesting Audit Menu");
             _automator.LoadAuditMenu();
-        }
-
-        public void Execute()
-        {
-            _loadAuditMenuTimer = new Timer(
+            _automator.EnableCashOut(true);
+            _exitAuditMenuTimer = new Timer(
                 (sender) =>
                 {
-                    if (Validate())
-                    {
-                        _eventBus.Publish(new LoadAuditMenuEvent());
-                    }
+                    _automator.ExitAuditMenu();
+                    _eventBus.Publish(new LoadGameEvent());
+                    _exitAuditMenuTimer.Dispose();
                 },
                 null,
-                _config.Active.IntervalLoadAuditMenu,
-                Timeout.Infinite);
+                5000,
+                System.Threading.Timeout.Infinite);
         }
 
-        private bool Validate() => !_launcher.IsOperatorKeyDisabled;
-
-        public void Halt() => _loadAuditMenuTimer?.Dispose();
+        private bool IsValid() => _sc.IsChooser || _sc.IsGame;
 
         private void Dispose(bool disposing)
         {
@@ -68,7 +102,7 @@
 
             if (disposing)
             {
-                Halt();
+                _loadAuditMenuTimer?.Dispose();
                 _eventBus.UnsubscribeAll(this);
             }
             _disposed = true;

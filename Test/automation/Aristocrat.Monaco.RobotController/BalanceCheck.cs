@@ -12,105 +12,105 @@
 
     internal class BalanceCheck : IRobotOperations, IDisposable
     {
-        private Timer _balanceCheckTimer;
-        private readonly Configuration _config;
-        private readonly ILobbyStateManager _lobbyStateManager;
-        private readonly IGamePlayState _gamePlayState;
-        private IBank _bank;
-        private readonly ILog _logger;
         private IEventBus _eventBus;
+        private readonly Configuration _config;
+        private readonly StateChecker _sc;
+        private readonly ILog _logger;
+        private Timer _balanceCheckTimer;
+        private IBank _bank;
         private bool _disposed;
-
-        public BalanceCheck(Configuration config, ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState, IBank bank, ILog logger, IEventBus eventBus)
+        private bool _enabled;
+        private static BalanceCheck instance = null;
+        private static readonly object padlock = new object();
+        public static BalanceCheck Instatiate(RobotInfo robotInfo)
         {
-            _config = config;
-            _lobbyStateManager = lobbyStateManager;
-            _bank = bank;
-            _logger = logger;
-            _eventBus = eventBus;
-            _gamePlayState = gamePlayState;
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new BalanceCheck(robotInfo);
+                }
+                return instance;
+            }
+        }
+        private BalanceCheck(RobotInfo robotInfo)
+        {
+            _config = robotInfo.Config;
+            _sc = robotInfo.StateChecker;
+            _bank = robotInfo.ContainerService.Container.GetInstance<IBank>();
+            _logger = robotInfo.Logger;
+            _eventBus = robotInfo.EventBus;
+        }
+        ~BalanceCheck() => Dispose(false);
+        public void Execute()
+        {
             SubscribeToEvents();
+            _balanceCheckTimer = new Timer(
+                                (sender) =>
+                                {
+                                    if (!_enabled || !IsValid()) { return; }
+                                    _eventBus.Publish(new BalanceCheckEvent());
+                                },
+                                null,
+                                1000,
+                                _config.Active.IntervalBalanceCheck);
+            _enabled = true;
         }
-
-        ~BalanceCheck()
+        public void Halt()
         {
-            Dispose(false);
+            _enabled = false;
+            _balanceCheckTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
-
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<BalanceCheckEvent>(this, HandleEvent);
         }
-
         private void HandleEvent(BalanceCheckEvent obj)
         {
-            if (_lobbyStateManager.CurrentState is LobbyState.Game)
-            {
-                _bank = GetBankInfo(_bank, _logger);
-                CheckNegativeBalance(_bank, _logger);
-                var minBalance = _config.GetMinimumBalance();
-                var balance = _bank.QueryBalance();
-                if (balance <= minBalance * 1000)
-                {
-                    _logger.Info($"Insufficient balance.  Balance: {balance}, Minimum Balance: {minBalance * 1000}");
-                    InsertCredit();
-                }
-            }
-            else
+            if (!IsValid())
             {
                 _logger.Info($"BalanceCheck Invalidated due to Game wasn't running.");
             }
+            _bank = GetBankInfo(_bank, _logger);
+            CheckNegativeBalance(_bank, _logger);
+            InsertCredit();
+        }
+        private bool IsValid()
+        {
+            return _sc.IsGame;
         }
         private void InsertCredit()
         {
+            var enoughBlanace = _bank.QueryBalance() > _config.GetMinimumBalance() * 1000;
+            var hasEdgeCase = _config?.Active?.InsertCreditsDuringGameRound == true;
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
-            if (_gamePlayState.CurrentState != PlayState.Idle && _config?.Active?.InsertCreditsDuringGameRound == false)
+            if (enoughBlanace || (!_sc.IsIdle && !hasEdgeCase))
             {
                 return;
             }
+            _logger.Info($"Insufficient balance.");
             _eventBus.Publish(new DebugNoteEvent(_config.GetDollarsInserted()));
         }
-
-        public void Execute()
-        {
-            _balanceCheckTimer = new Timer(
-                                (sender) =>
-                                {
-                                    _eventBus.Publish(new BalanceCheckEvent());
-                                },
-                                null,
-                                _config.Active.IntervalBalanceCheck,
-                                Timeout.Infinite);
-        }
-
-        public void Halt()
-        {
-            _balanceCheckTimer?.Dispose();
-        }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         private void Dispose(bool disposing)
         {
             if (_disposed)
             {
                 return;
             }
-
             if (disposing)
             {
                 _eventBus.UnsubscribeAll(this);
                 _balanceCheckTimer?.Dispose();
             }
-
             _disposed = true;
         }
-
         //Todo: Move these to a static Helper Class
         public static void CheckNegativeBalance(IBank _bank, ILog Logger)
         {

@@ -13,26 +13,59 @@
     internal class ActionPlayer : IRobotOperations, IDisposable
     {
         private readonly Configuration _config;
-        private readonly ILobbyStateManager _lobbyStateManager;
         private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
         private readonly ILog _logger;
         private readonly IEventBus _eventBus;
-        private Automation _automator;
+        private readonly Automation _automator;
+        private readonly StateChecker _sc;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
-
-        public ActionPlayer(Configuration config, ILobbyStateManager lobbyStateManager, ILog logger, Automation automator, IEventBus eventBus)
+        private bool _enabled;
+        private static ActionPlayer instance = null;
+        private static readonly object padlock = new object();
+        public static ActionPlayer Instatiate(RobotInfo robotInfo)
         {
-            _config = config;
-            _lobbyStateManager = lobbyStateManager;
-            _logger = logger;
-            _automator = automator;
-            _eventBus = eventBus;
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new ActionPlayer(robotInfo);
+                }
+                return instance;
+            }
+        }
+        private ActionPlayer(RobotInfo robotInfo)
+        {
+            _config = robotInfo.Config;
+            _sc = robotInfo.StateChecker;
+            _automator = robotInfo.Automator;
+            _logger = robotInfo.Logger;
+            _eventBus = robotInfo.EventBus;
             _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             InitializeActionPlayer();
-            SubscribeToEvents();
         }
-
+        ~ActionPlayer() => Dispose(false);
+        public void Execute()
+        {
+            SubscribeToEvents();
+            _ActionPlayerTimer = new Timer(
+                               (sender) =>
+                               {
+                                   if (!_enabled || !IsValid()) { return; }
+                                   //BalanceCheck();
+                                   _eventBus.Publish(new ActionPlayerEvent());
+                               },
+                               null,
+                               1000,
+                               _config.Active.IntervalAction);
+            _enabled = true;
+        }
+        public void Halt()
+        {
+            _enabled = false;
+            _ActionPlayerTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
+        }
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<ActionPlayerEvent>(this, HandleEvent);
@@ -40,15 +73,20 @@
 
         private void HandleEvent(ActionPlayerEvent obj)
         {
+            if (!IsValid())
+            {
+                //Todo: Log Something
+                return;
+            }
             var Rng = new Random((int)DateTime.Now.Ticks);
             var action =
                 _config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_config.CurrentGameProfile.RobotActions.Count));
             _actionPlayerFunctions[action](Rng);
         }
 
-        ~ActionPlayer()
+        private bool IsValid()
         {
-            Dispose(false);
+            return _sc.IsGame;
         }
 
         private void InitializeActionPlayer()
@@ -109,30 +147,13 @@
             _disposed = true;
         }
 
-        public void Execute()
-        {
-            _ActionPlayerTimer = new Timer(
-                               (sender) =>
-                               {
-                                   if (_lobbyStateManager.CurrentState is LobbyState.Game)
-                                   {
-                                       BalanceCheck();
-                                       _eventBus.Publish(new ActionPlayerEvent());
-                                   }
-                               },
-                               null,
-                               _config.Active.IntervalAction,
-                               Timeout.Infinite);
-        }
+        
 
         private void BalanceCheck()
         {
             _eventBus.Publish(new BalanceCheckEvent());
         }
 
-        public void Halt()
-        {
-            _ActionPlayerTimer?.Dispose();
-        }
+       
     }
 }

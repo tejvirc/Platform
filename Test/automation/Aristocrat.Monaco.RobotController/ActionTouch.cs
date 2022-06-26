@@ -1,7 +1,5 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Gaming.Contracts.Lobby;
-    using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using log4net;
@@ -11,35 +9,89 @@
 
     internal class ActionTouch : IRobotOperations, IDisposable
     {
-        private readonly Configuration _config;
-        private readonly ILobbyStateManager _lobbyStateManager;
-        private readonly ILog _logger;
         private readonly IEventBus _eventBus;
+        private readonly Configuration _config;
         private readonly Automation _automator;
+        private readonly ILog _logger;
+        private readonly StateChecker _sc;
         private Timer _ActionTouchTimer;
         private bool _disposed;
-
-        public ActionTouch(Configuration config, ILobbyStateManager lobbyStateManager, ILog logger, Automation automator, IEventBus eventBus)
+        private bool _enabled;
+        private static ActionTouch instance = null;
+        private static readonly object padlock = new object();
+        public static ActionTouch Instatiate(RobotInfo robotInfo)
         {
-            _config = config;
-            _automator = automator;
-            _lobbyStateManager = lobbyStateManager;
-            _logger = logger;
-            _eventBus = eventBus;
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new ActionTouch(robotInfo);
+                }
+                return instance;
+            }
+        }
+        private ActionTouch(RobotInfo robotInfo)
+        {
+            _config = robotInfo.Config;
+            _sc = robotInfo.StateChecker;
+            _automator = robotInfo.Automator;
+            _logger = robotInfo.Logger;
+            _eventBus = robotInfo.EventBus;
+        }
+        ~ActionTouch() => Dispose(false);
+        public void Execute()
+        {
             SubscribeToEvents();
-        }
+            _ActionTouchTimer = new Timer(
+                                (sender) =>
+                                {
+                                    if (!_enabled || !IsValid()) { return; }
+                                    //BalanceCheck();
+                                    _eventBus.Publish(new ActionTouchEvent());
 
-        ~ActionTouch()
+                                },
+                                null,
+                                1000,
+                                _config.Active.IntervalTouch);
+            _enabled = true;
+        }
+        public void Halt()
         {
-            Dispose(false);
+            _enabled = false;
+            _ActionTouchTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
-
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<ActionTouchEvent>(this, HandleEvent);
+        }
+        private void HandleEvent(ActionTouchEvent obj)
+        {
+            if (!IsValid())
+            {
+                //Todo: Log Something
+                return;
+            }
+            var Rng = new Random((int)DateTime.Now.Ticks);
+            TouchGameScreen(Rng);
+            TouchVbd(Rng);
+            if (_config.CurrentGameProfile != null)
+            {
+                // touch any auxiliary main screen areas configured
+                TouchAnyAuxiliaryMainScreenAreas(Rng);
+                // touch any auxiliary VBD areas configured
+                TouchAnyAuxiliaryVbdAreas(Rng);
+            }
+        }
+        private bool IsValid()
+        {
+            return _sc.IsGame;
+        }
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         private void Dispose(bool disposing)
         {
             if (_disposed)
@@ -55,51 +107,10 @@
 
             _disposed = true;
         }
-
-        private void SubscribeToEvents()
-        {
-            _eventBus.Subscribe<ActionTouchEvent>(this, HandleEvent);
-        }
-
-        public string Name => typeof(ActionTouch).FullName;
-
-        public ICollection<Type> ServiceTypes => new[] { typeof(ActionTouch) };
-
-        public void Execute()
-        {
-            _ActionTouchTimer = new Timer(
-                                (sender) =>
-                                {
-                                   if(_lobbyStateManager.CurrentState is LobbyState.Game)
-                                    {
-                                        BalanceCheck();
-                                        _eventBus.Publish(new ActionTouchEvent());
-                                    }
-                                },
-                                null,
-                                _config.Active.IntervalTouch,
-                                Timeout.Infinite);
-        }
-
         private void BalanceCheck()
         {
             _eventBus.Publish(new BalanceCheckEvent());
         }
-
-        private void HandleEvent(ActionTouchEvent obj)
-        {
-            var Rng = new Random((int)DateTime.Now.Ticks);
-            TouchGameScreen(Rng);
-            TouchVbd(Rng);
-            if (_config.CurrentGameProfile != null)
-            {
-                // touch any auxiliary main screen areas configured
-                TouchAnyAuxiliaryMainScreenAreas(Rng);
-                // touch any auxiliary VBD areas configured
-                TouchAnyAuxiliaryVbdAreas(Rng);
-            }
-        }
-
         private void TouchAnyAuxiliaryVbdAreas(Random Rng)
         {
             int x, y;
@@ -120,7 +131,6 @@
                 }
             }
         }
-
         private void TouchAnyAuxiliaryMainScreenAreas(Random Rng)
         {
             int x, y;
@@ -141,7 +151,6 @@
                 }
             }
         }
-
         private void TouchVbd(Random Rng)
         {
             int x, y;
@@ -152,7 +161,6 @@
                 _automator.TouchVBD(x, y);
             }
         }
-
         private void TouchGameScreen(Random Rng)
         {
             var x = Rng.Next(_config.GameScreen.Width);
@@ -162,7 +170,6 @@
                 _automator.TouchMainScreen(x, y);
             }
         }
-
         private bool CheckDeadZones(List<TouchBoxes> deadZones, int x, int y)
         {
             foreach (TouchBoxes tb in _config.CurrentGameProfile.MainTouchDeadZones)
@@ -175,16 +182,6 @@
             }
 
             return true;
-        }
-
-
-        public void Halt()
-        {
-            _ActionTouchTimer?.Dispose();
-        }
-
-        public void Initialize()
-        {
         }
     }
 }
