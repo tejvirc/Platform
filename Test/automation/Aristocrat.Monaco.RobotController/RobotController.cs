@@ -16,6 +16,7 @@
     using log4net;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.Vouchers;
+    using System.Timers;
 
     internal struct RobotInfo
     {
@@ -33,6 +34,7 @@
         private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly HashSet<IRobotOperations> _operationCollection;
         private readonly Guid _overlayTextGuid = new Guid("2774B299-E8FE-436C-B68C-F6CF8DCDB31B");
+        private readonly Timer _sanityChecker;
         private Automation _automator;
         private IEventBus _eventBus;
         private IPropertiesManager _propertyManager;
@@ -72,6 +74,7 @@
         {
             SuperRobotInitialization();
             SubscribeToEvents();
+            _sanityChecker.Start();
             _automator.SetOverlayText(_config.ActiveType.ToString(), false, _overlayTextGuid, InfoLocation.TopLeft);
             _automator.SetTimeLimitButtons(_config.GetTimeLimitButtons());
             //Todo: we need to Dispose the SuperRobot
@@ -142,6 +145,7 @@
         {
             _automator.SetOverlayText("", true, _overlayTextGuid, InfoLocation.TopLeft);
             _automator.ResetSpeed();
+            _sanityChecker.Stop();
             foreach (var op in _operationCollection)
             {
                 op.Halt();
@@ -159,6 +163,23 @@
         public RobotController()
         {
             _operationCollection = new HashSet<IRobotOperations>();
+            _sanityChecker = new Timer() {
+                Interval = 10000,
+            };
+            _sanityChecker.Elapsed += CheckSanity;
+        }
+
+        private void CheckSanity(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                _idleDuration = _idleDuration + 10000;
+                IdleCheck();
+            }
+            catch (OverflowException)
+            {
+                _idleDuration = 0;
+            }
         }
 
         protected override void OnInitialize()
