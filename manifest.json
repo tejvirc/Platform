@@ -14383,6 +14383,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14467,6 +14470,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -17580,7 +17586,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.BingoClientConnectionState.html",
-          "hash": "NRjfF/w6/5vHJIi82QLk/ngdsU0ZRtABodOXwXmD1y0="
+          "hash": "CcHLnOcY8qDTuF/uT5bgm3J+LAqUuxOhySO6wtOy9LQ="
         }
       },
       "is_incremental": false,
@@ -19788,7 +19794,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.IBingoClientConnectionState.html",
-          "hash": "+DR/IpjYhs2fiuFoLv+6wIntxoubb8KQUGiZVIFMD6Q="
+          "hash": "C8AlOczcgdjMsbHIGMkCWnjRo9T3iBxIHAoLPWPH1sQ="
         }
       },
       "is_incremental": false,
@@ -20328,7 +20334,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.BingoBase.html",
-          "hash": "1fUtN8V+h3RRNiZ8XgWTFJwswN85wcymvTsLofuZXF0="
+          "hash": "oaGehKVwE9GRbifyAXkmdirO/IJKkKBHr2h2XbWV5nA="
         }
       },
       "is_incremental": false,
@@ -23647,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41170,9 +41173,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -52002,7 +52002,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Monitor.ReelControllerMonitor.html",
-          "hash": "HpTPwevxacQyIA3pL+cRIbed+sbrF8pixFZC3VnXbn0="
+          "hash": "eWh8632EWeBrmGENWfziaCQ8NGvGS7YY3f46BHTC88g="
         }
       },
       "is_incremental": false,
