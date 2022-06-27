@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using Accounting.Contracts;
@@ -101,6 +102,10 @@
             var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
 
             var maxVolumeLevel = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
+
+            var volume = File.ReadAllText("MaxVolumeLevel.txt").Trim();
+            var setVolume = float.Parse(volume);
+            maxVolumeLevel = setVolume > 0 ? setVolume : maxVolumeLevel;
 
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
             var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
@@ -209,7 +214,7 @@
                 parameters.Add("/Runtime/PlayOnFromPresentWins", _properties.GetValue(GamingConstants.PlayOnFromPresentWins, false) ? "true" : "false");
             }
 
-            if(_properties.GetValue(GamingConstants.RetainLastRoundResult, false))
+            if (_properties.GetValue(GamingConstants.RetainLastRoundResult, false))
             {
                 parameters.Add("/Runtime/RetainLastRoundResult&optional", "false");
                 parameters.Add("/Runtime/RetainLastRoundResult", "true");
@@ -278,11 +283,11 @@
             parameters["/Runtime/PhysicalButtons/TakeWin&optional"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonTakeWinOptional, false).ToString();
             parameters["/Runtime/StartGame&buttons"] = _properties.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet)
                 switch
-                {
-                    GameStartMethodOption.None => "",
-                    GameStartMethodOption.LineOrReel => "Line, MaxBet",
-                    _ => "Bet, MaxBet"
-                };
+            {
+                GameStartMethodOption.None => "",
+                GameStartMethodOption.LineOrReel => "Line, MaxBet",
+                _ => "Bet, MaxBet"
+            };
 
             var marketParameters = new Dictionary<string, string>
             {

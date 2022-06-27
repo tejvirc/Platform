@@ -98,13 +98,13 @@ as follows:
             <VolumeNode Key="3" Description="Medium" Value="40" />
             <VolumeNode Key="4" Description="Medium High" Value="60" />
             <VolumeNode Key="5" Description="High" Value="80" />
-            <VolumeNode Key="6" Description="Extra High" Value="90" />
+            <VolumeNode Key="6" Description="Extra Extra High" Value="99" />
         </MasterVolumeSettings>
 		<VolumeScalarSettings>
-			<ScalarNode Key="1" Value="0.21" />
-			<ScalarNode Key="2" Value="0.43" />
-			<ScalarNode Key="3" Value="0.64" />
-			<ScalarNode Key="4" Value="0.8" />
-			<ScalarNode Key="5" Value="1" />
+			<Scalar Value="0.21" />
+			<Scalar Value="0.43" />
+			<Scalar Value="0.64" />
+			<Scalar Value="0.8" />
+			<Scalar Value="1" />
 		</VolumeScalarSettings>
 </ApplicationConfiguration>

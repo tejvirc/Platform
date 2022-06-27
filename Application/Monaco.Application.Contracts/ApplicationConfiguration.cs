@@ -27,7 +27,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         
         private ApplicationConfigurationVolumeNode[] masterVolumeSettingsField;
         
-        private ApplicationConfigurationScalarNode[] volumeScalarSettingsField;
+        private ApplicationConfigurationScalar[] volumeScalarSettingsField;
         
         private string[] allowedLocalesField;
         
@@ -163,8 +163,8 @@ namespace Aristocrat.Monaco.Application.Contracts {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("ScalarNode", IsNullable=false)]
-        public ApplicationConfigurationScalarNode[] VolumeScalarSettings {
+        [System.Xml.Serialization.XmlArrayItemAttribute("Scalar", IsNullable=false)]
+        public ApplicationConfigurationScalar[] VolumeScalarSettings {
             get {
                 return this.volumeScalarSettingsField;
             }
@@ -819,22 +819,10 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class iVolumeScalar {
-        
-        private byte keyField;
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationScalar {
         
         private float valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte Key {
-            get {
-                return this.keyField;
-            }
-            set {
-                this.keyField = value;
-            }
-        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -846,15 +834,6 @@ namespace Aristocrat.Monaco.Application.Contracts {
                 this.valueField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class ApplicationConfigurationScalarNode : iVolumeScalar {
     }
     
     /// <remarks/>

@@ -854,18 +854,18 @@
             {
                 result.Add(i.Key, new Tuple<string, float>(i.Description, i.Value));    
             }
-
             return result;
         }
 
-        private Dictionary<VolumeScalar, float> LoadVolumeScalar(ApplicationConfigurationScalarNode[] VolumeScalarSettings)
+        private Dictionary<VolumeScalar, float> LoadVolumeScalar(ApplicationConfigurationScalar[] VolumeScalarSettings)
         {
             var result = new Dictionary<VolumeScalar, float>();
-            foreach (var i in VolumeScalarSettings)
+            var scalars = VolumeScalarSettings.OrderBy(s => s.Value).ToArray();
+            for(var i= 0; i < scalars.Length; i++)
             {
-                result.Add((VolumeScalar)i.Key, i.Value); 
+                result.Add((VolumeScalar)(i+1),scalars[i].Value);
             }
-            return result;
+            return result; 
         }
 
         /// <inheritdoc />
