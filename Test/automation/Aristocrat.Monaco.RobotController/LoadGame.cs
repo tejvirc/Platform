@@ -77,6 +77,10 @@
                             evt =>
                             {
                                 _isTimeLimitDialogVisible = true;
+                                if (evt.IsLastPrompt)
+                                {
+                                    _automator.EnableCashOut(true);
+                                }
                             });
 
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
@@ -85,6 +89,23 @@
                 {
                     _isTimeLimitDialogVisible = false;
                 });
+
+            _eventBus.Subscribe<GameRequestFailedEvent>(
+                           this,
+                           _ =>
+                           {
+                               if ( !_sc.IsAllowSingleGameAutoLaunch)
+                               {
+                                   sanityCounter++;
+                                   _eventBus.Publish(new LoadGameEvent(true));
+                               }
+                           });
+            _eventBus.Subscribe<GameInitializationCompletedEvent>(
+                           this,
+                           _ =>
+                           {
+                               sanityCounter = 0;
+                           });
         }
         private void HandleEvent(LoadGameEvent evt)
         {
@@ -130,7 +151,6 @@
                 var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
                 _logger.Info($"Requesting game {gameInfo.ThemeName} with denom {denom} be loaded.");
                 _automator.RequestGameLoad(gameInfo.Id, denom);
-                sanityCounter = 0;
             }
             else
             {

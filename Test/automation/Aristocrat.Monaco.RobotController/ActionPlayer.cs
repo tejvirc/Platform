@@ -52,7 +52,6 @@
                                (sender) =>
                                {
                                    if (!_enabled || !IsValid()) { return; }
-                                   //BalanceCheck();
                                    _eventBus.Publish(new ActionPlayerEvent());
                                },
                                null,
@@ -146,14 +145,5 @@
 
             _disposed = true;
         }
-
-        
-
-        private void BalanceCheck()
-        {
-            _eventBus.Publish(new BalanceCheckEvent());
-        }
-
-       
     }
 }

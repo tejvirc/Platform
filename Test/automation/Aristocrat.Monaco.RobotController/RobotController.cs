@@ -14,6 +14,8 @@
     using Contracts;
     using Kernel;
     using log4net;
+    using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Accounting.Contracts.Vouchers;
 
     internal struct RobotInfo
     {
@@ -83,7 +85,45 @@
 
         private void SubscribeToEvents()
         {
-            //subscribe events her
+            GameProcessHungEvent();
+            VoucherRejectedEvent();
+            //GameIdleEvent();
+        }
+
+        private void GameIdleEvent()
+        {
+            _eventBus.Subscribe<GameIdleEvent>(
+                                        this,
+                                        _ =>
+                                        {
+                                            _eventBus.Publish(new BalanceCheckEvent());
+                                        });
+        }
+
+        private void VoucherRejectedEvent()
+        {
+            _eventBus.Subscribe<VoucherRejectedEvent>(this, evt =>
+            {
+                if (Enabled)
+                {
+                    if (evt.Transaction.Exception.Equals((int)VoucherInExceptionCode.CreditInLimitExceeded) ||
+                        evt.Transaction.Exception.Equals((int)VoucherInExceptionCode.LaundryLimitExceeded))
+                    {
+                        _eventBus.Publish(new CashOutButtonPressedEvent());
+                    }
+                }
+            });
+        }
+
+        private void GameProcessHungEvent()
+        {
+            // If the runtime process hangs, and the setting to not kill it is active, then stop the robot. 
+            // This will allow someone to attach a debugger to investigate.
+            var doNotKillRuntime = _propertyManager.GetValue("doNotKillRuntime", Common.Constants.False).ToUpperInvariant();
+            if (doNotKillRuntime == Common.Constants.True)
+            {
+                _eventBus.Subscribe<GameProcessHungEvent>(this, _ => { Enabled = false; });
+            }
         }
 
         private void StartSuperRobot()
