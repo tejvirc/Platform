@@ -113,7 +113,7 @@
                 Time = (int)GetTimeUnix()
             };
 
-            ProtoLog.Debug($"[SEND] Add Header: {header.ToJson2()}");
+            ProtoLog.Debug($"[SEND] Add header: {header.ToJson2()}");
 
             return WrapBytesWithMessage(commandData, header);
         }

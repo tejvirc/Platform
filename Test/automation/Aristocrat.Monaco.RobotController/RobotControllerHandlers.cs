@@ -627,7 +627,7 @@
         {
             if (_idleDuration > Constants.IdleTimeout)
             {
-				_idleDuration = 0;
+                _idleDuration = 0;
                 LogInfo("Idle for too long. Disabling.");
                 Enabled = false;
             }

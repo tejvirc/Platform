@@ -22,6 +22,8 @@
     public class CentralManager : ICentralManager, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog ProtoLog = LogManager.GetLogger("Protocol");
+
         private readonly IMessageFlow _messageFlow;
         private readonly Subject<Response> _unsolicitedResponses = new Subject<Response>();
         private readonly List<IDisposable> _subscribersList = new List<IDisposable>();
@@ -76,7 +78,7 @@
             _subscribersList.Add(
                 tcpConnection.ConnectionStatus.Subscribe(
                     OnConnectionStateChanged,
-                    error => { Logger.Info("Error occurred while trying to receive Connection State."); }));
+                    error => Logger.Info($"Error occurred while trying to receive state - {error}.")));
 
             _validRequestResponsePair.Add(Command.CmdParameterGt, Command.CmdParameterRequest);
             _validRequestResponsePair.Add(Command.CmdGameRecoverResponse, Command.CmdGameRecover);
@@ -89,6 +91,10 @@
             where TRequest : Request where TResponse : Response
         {
             double retryInMs = 100;
+            request.SequenceId = _sequenceIdManager.NextSequenceId;
+            var tcs = new TaskCompletionSource<Response>();
+            _waitingForResponseQueue.TryAdd(request.SequenceId, tcs);
+
             try
             {
                 var cts = CancellationTokenSource.CreateLinkedTokenSource(token);
@@ -104,12 +110,14 @@
             }
             catch (UnexpectedResponseException ex)
             {
+                _waitingForResponseQueue.TryRemove(request.SequenceId, out _);
                 _requestResponseSubject.OnNext((request, ex.Response));
                 throw;
             }
             catch (OperationCanceledException)
             {
                 Logger.Warn("[SEND] Operation cancelled when trying to send message");
+                _waitingForResponseQueue.TryRemove(request.SequenceId, out _);
                 var unexpectedResponseException = UnexpectedResponseException(MessageStatus.Cancelled);
                 _requestResponseSubject.OnNext((request, unexpectedResponseException.Response));
                 throw unexpectedResponseException;
@@ -125,10 +133,13 @@
                     .HandleInner<UnexpectedResponseException>(ex => ShouldRetry(ex.Response))
                     .WaitAndRetryAsync(
                         request.RetryCount,
-                        (i, context) => TimeSpan.FromMilliseconds(retryInMs),
-                        (result, span, context) =>
+                        (_, _) => TimeSpan.FromMilliseconds(retryInMs),
+                        (_, _, _) =>
                         {
-                            Logger.Debug($"[SEND] Retrying again to send. - [{request.ToJson()}]");
+                            request.SequenceId = _sequenceIdManager.NextSequenceId;
+                            tcs = new TaskCompletionSource<Response>();
+                            _waitingForResponseQueue.TryAdd(request.SequenceId, tcs);
+                            Logger.Debug($"[SEND] Retrying again to send [{request}]");
                         });
             }
 
@@ -147,7 +158,6 @@
                         try
                         {
                             await _lock.WaitAsync(cancellationToken);
-                            request.SequenceId = _sequenceIdManager.NextSequenceId;
                             RequestModifiedHandler?.Invoke(this, request);
 
                             result = await _messageFlow.Send(request, cancellationToken);
@@ -169,11 +179,11 @@
 
                         if (!result)
                         {
-                            Logger.Warn($"[SEND] Unable to send request - [{request.ToJson()}]");
+                            Logger.Warn($"[SEND] Unable to send [{request}]");
                             throw UnexpectedResponseException(MessageStatus.UnableToSend);
                         }
 
-                        Logger.Debug($"[SEND] Sent [{request.ToJson()}]");
+                        ProtoLog.Debug($"[SEND] Sent [{request.ToJson()}]");
 
                         // Response expected?
                         if (typeof(TResponse) == typeof(Response))
@@ -181,7 +191,7 @@
                             throw UnexpectedResponseException(MessageStatus.NoResponse);
                         }
 
-                        var res = await WaitForResponse(request);
+                        var res = await WaitForResponse(request, tcs);
 
                         if (res is CloseTranErrorResponse closeTranErrorResponse)
                         {
@@ -190,11 +200,11 @@
 
                         if (!(res is TResponse expectedResponse))
                         {
-                            Logger.Error($"[RECV] Unexpected response received for Request [{request.ToJson()}] - res [{res?.MessageData()}");
+                            Logger.Warn($"[RECV] Unexpected response received for Request [{request}] - res [{res?.MessageData()}");
                             throw UnexpectedResponseException(MessageStatus.UnexpectedResponse, res);
                         }
 
-                        Logger.Debug($"[RECV] Received [{res.MessageData()}]");
+                        ProtoLog.Debug($"[RECV] Received [{res.MessageData()}]");
 
                         return expectedResponse;
                     }, token);
@@ -293,8 +303,7 @@
         {
             if (status != _currentConnectionState)
             {
-                Logger.Debug(
-                    $"[CONN] Connection state change - [{_currentConnectionState?.ConnectionState ?? ConnectionState.Disconnected} -> {status?.ConnectionState}]");
+                Logger.Debug($"[CONN] Connection state change - [{_currentConnectionState?.ConnectionState ?? ConnectionState.Disconnected} -> {status?.ConnectionState}]");
             }
 
             _currentConnectionState = status;
@@ -319,18 +328,12 @@
 
             try
             {
-                Logger.Debug("Response received from server");
                 var response = await _messageFlow.Receive(message);
-                Logger.Debug("Response type is " + response.Command);
+                ProtoLog.Debug($"[RECV] Bytes={message.Length}, {response}");
 
                 if (response == null)
                 {
                     return;
-                }
-
-                if (!(response is GameInfoResponse))
-                {
-                    Logger.Debug($"OnMessageReceived : {response.ToJson()}");
                 }
 
                 MatchResponseWithRequest(response);
@@ -390,7 +393,7 @@
 
             void UnsolicitedResponse(Response response)
             {
-                Logger.Debug($"Received an Unsolicited response from Server {response}");
+                Logger.Warn($"[RECV] Received an Unsolicited response from Server {response}");
                 _unsolicitedResponses.OnNext(response);
             }
 
@@ -404,11 +407,10 @@
             }
         }
 
-        private async Task<Response> WaitForResponse(Request request)
+        private async Task<Response> WaitForResponse(Request request, TaskCompletionSource<Response> tcs)
         {
             using (var cts = new CancellationTokenSource())
             {
-                var tcs = new TaskCompletionSource<Response>();
                 cts.Token.Register(
                     () =>
                     {
@@ -419,8 +421,6 @@
                     });
 
                 cts.CancelAfter(TimeSpan.FromMilliseconds(request.TimeoutInMilliseconds));
-
-                _waitingForResponseQueue.TryAdd(request.SequenceId, tcs);
 
                 var response = await tcs.Task;
 

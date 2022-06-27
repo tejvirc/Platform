@@ -85,8 +85,10 @@
         /// <param name="request">The event request</param>
         public void Publish(PublishEventRequest request)
         {
-            Logger.Debug(
-                $"Adding event {request.Event} to queue for {_name} - Current Queue Depth {_messageProcessor.InputCount}");
+            if (_messageProcessor.InputCount > 0)
+            {
+                Logger.Debug($"Adding event {request.Event} to queue for {_name} - Current Queue Depth {_messageProcessor.InputCount}");
+            }
 
             _messageProcessor.Post(request);
         }

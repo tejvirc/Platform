@@ -190,7 +190,7 @@
         ///     (ms) how long the thread will sleep between opportunities for action
         /// </summary>
         [XmlElement]
-        public int IntervalResolution { get; set; } = 5;
+        public int IntervalResolution { get; set; } = 50;
 
         /// <summary>
         ///     (ms) Interval between touches

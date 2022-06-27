@@ -1,6 +1,7 @@
 ﻿// ReSharper disable RedundantTypeSpecificationInDefaultExpression
 namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
 {
+    using System;
     using System.IO;
     using System.Reflection;
     using System.Runtime.InteropServices;
@@ -14,11 +15,13 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
     /// <inheritdoc />
     public class MessageFlow : IMessageFlow
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog ProtoLog = LogManager.GetLogger("Protocol");
+
         private readonly IMessageFactory _messageFactory;
         private readonly ICrcProvider _crcProvider;
         private readonly ICryptoProvider _cryptoProvider;
         private readonly ITcpConnection _tcpConnection;
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private Pipeline<Request, bool> _senderPipeline;
         private Pipeline<byte[], Response> _receiverPipeline;
 
@@ -68,11 +71,11 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
 
                         return MessageUtility.PopulateMessageHeader(request, bytes);
                     },
-                    error => { _logger.Error("[SENDPIPE] Unable to populate MessageHeader.", error); })
+                    error => { Logger.Error("[SEND] Unable to populate MessageHeader.", error); })
                 .AddBlock<byte[], (byte[], ushort)>(
                     data => Task.Run(
                             async () => (await _cryptoProvider.Encrypt(data), _crcProvider.Calculate(data))),
-                    error => { _logger.Error("[SENDPIPE] Failed to Encrypt message data.", error); })
+                    error => { Logger.Error("[SEND] Failed to Encrypt message data.", error); })
                 .AddBlock<(byte[], ushort), byte[]>(
                     tuple =>
                     {
@@ -84,16 +87,18 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
                             Crc = crc
                         };
 
-                        _logger.Debug($"[SENDPIPE] Add EncryptHeader - [Len={header.EncryptionLength},  Crc={header.Crc}]");
-
                         var withHeader = MessageUtility.WrapBytesWithMessage(bytes, header);
 
                         return withHeader;
                     },
-                    error => { _logger.Error("[SENDPIPE] Unable to append Encrypted header into data bytes", error); })
+                    error => { Logger.Error("[SEND] Unable to append Encrypted header into data bytes", error); })
                 .AddBlock<byte[], bool>(
-                    bytes => _tcpConnection.SendBytes(bytes),
-                    error => { _logger.Error("[SENDPIPE] Unable to Send data over TcpConnection.", error); })
+                    bytes =>
+                    {
+                        ProtoLog.Debug("[SEND] " + BitConverter.ToString(bytes));
+                        return _tcpConnection.SendBytes(bytes);
+                    },
+                    error => { Logger.Error("[SEND] Unable to Send data over TcpConnection.", error); })
                 .CreatePipeline();
         }
 
@@ -102,7 +107,7 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
             _receiverPipeline = new Pipeline<byte[], Response>()
                 .AddBlock<byte[], (byte[], byte[])>(
                     bytes => Task.Run(async () => (bytes, await _cryptoProvider.Decrypt(MessageUtility.ExtractEncryptedHeader(bytes)))),
-                    error => { _logger.Error("[RECVPIPE] Unable to Decrypt data.", error); })
+                    error => { Logger.Error("[RECV] Unable to Decrypt data.", error); })
                 .AddBlock<(byte[], byte[]), byte[]>(tuple =>
                 {
                     var (encryptedBytes, decryptedHeader) = tuple;
@@ -113,7 +118,7 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
                         return decryptedHeader;
                     }
 
-                    _logger.Error($"[RECVPIPE] CRC Mismatch - [Expected={MessageUtility.GetMessage<MessageEncryptHeader>(encryptedBytes).Crc}, CalculatedCrc={calculatedCrc}]");
+                    Logger.Error($"[RECV] CRC Mismatch - [Expected={MessageUtility.GetMessage<MessageEncryptHeader>(encryptedBytes).Crc}, CalculatedCrc={calculatedCrc}]");
 
                     throw new InvalidDataException("CRC of incoming packet doesn't match");
 
@@ -125,7 +130,7 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
 
                         return resp;
                     },
-                    error => { _logger.Error("[RECVPIPE] Unable to DeSerialize data.", error); })
+                    error => { Logger.Error("[RECV] Unable to DeSerialize data.", error); })
                 .CreatePipeline();
         }
     }
