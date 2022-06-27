@@ -9,11 +9,11 @@
     using Aristocrat.Bingo.Client;
     using Aristocrat.Bingo.Client.Configuration;
     using Aristocrat.Bingo.Client.Messages;
-    using Aristocrat.Monaco.Bingo.Commands;
-    using Aristocrat.Monaco.Bingo.Common;
-    using Aristocrat.Monaco.Bingo.Common.Events;
-    using Aristocrat.Monaco.Bingo.Common.Exceptions;
-    using Aristocrat.Monaco.Kernel;
+    using Commands;
+    using Common;
+    using Common.Events;
+    using Common.Exceptions;
+    using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
@@ -21,31 +21,23 @@
     public class BingoClientConnectionStateTests
     {
         private BingoClientConnectionState _target;
-        private Mock<IEventBus> _eventBus = new(MockBehavior.Strict);
-        private Mock<IClient> _client = new(MockBehavior.Strict);
-        private Mock<ICommandHandlerFactory> _commandFactory = new(MockBehavior.Strict);
-        private Mock<ICommandService> _commandService = new(MockBehavior.Strict);
-        private Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Strict);
-        private Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Strict);
-
-        // This will point to the HandleEvent function
-        private Func<ProtocolInitialized, CancellationToken, Task> _handleProtocolInitializedEvent = null;
+        private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
+        private readonly Mock<IClient> _client = new(MockBehavior.Default);
+        private readonly Mock<ICommandHandlerFactory> _commandFactory = new(MockBehavior.Default);
+        private readonly Mock<ICommandService> _commandService = new(MockBehavior.Default);
+        private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
+        private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
 
         // This will point to the HandleRestartingEvent function due to reconnection
-        private Func<ForceReconnectionEvent, CancellationToken, Task> _handleForceReconnectionEvent = null;
+        private Func<ForceReconnectionEvent, CancellationToken, Task> _handleForceReconnectionEvent;
 
         [TestInitialize]
         public void Initialize()
         {
-            var uriBuilder = new UriBuilder() { Host = "localhost", Port = 5000 };
+            var uriBuilder = new UriBuilder { Host = "localhost", Port = 5000 };
             _client.Setup(m => m.Start()).Returns(Task.FromResult(true));
             _client.SetupGet(m => m.Configuration).Returns(new ClientConfigurationOptions(uriBuilder.Uri, TimeSpan.FromSeconds(2), Enumerable.Empty<X509Certificate2>()));
 
-            _eventBus.Setup(
-                    x => x.Subscribe(
-                        It.IsAny<object>(),
-                        It.IsAny<Func<ProtocolInitialized, CancellationToken, Task>>()))
-                .Callback<object, Func<ProtocolInitialized, CancellationToken, Task>>((_, func) => _handleProtocolInitializedEvent = func);
             _eventBus.Setup(
                     x => x.Subscribe(
                         It.IsAny<object>(),
@@ -116,9 +108,6 @@
             // this tests going from
             // Idle -> Disconnected -> Connecting -> Registering -> Configuring -> Connected states
 
-            // make sure the event was set up in the RegisterEventListeners method
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
-
             // set up mocks for the OnDisconnected method
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
             _systemDisableManager.Setup(m => m.Disable(
@@ -134,10 +123,7 @@
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
 
-            // this should trigger going from Idle -> Disconnected and
-            // call the OnDisconnected method which triggers going to
-            // Connecting state and calling OnConnecting method
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             // we should now be in state Connecting
 
@@ -174,7 +160,6 @@
         [TestMethod]
         public async Task ReconfigureWhileRegisteringTest()
         {
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
             Assert.IsNotNull(_handleForceReconnectionEvent);
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
@@ -186,7 +171,7 @@
                 It.IsAny<Func<string>>(),
                 null));
 
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostRegistrationFailedKey));
 
@@ -204,13 +189,11 @@
             await _handleForceReconnectionEvent(new ForceReconnectionEvent(), new CancellationToken(false));
 
             _eventBus.Verify(m => m.Publish(It.IsAny<HostDisconnectedEvent>()));
-
         }
 
         [TestMethod]
         public async Task DisconnectedWhileRegisteringTest()
         {
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
             Assert.IsNotNull(_handleForceReconnectionEvent);
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
@@ -222,7 +205,7 @@
                 It.IsAny<Func<string>>(),
                 null));
 
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostRegistrationFailedKey));
 
@@ -245,8 +228,6 @@
         [TestMethod]
         public async Task DisconnectedWhileConnectedTest()
         {
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
-
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
             _systemDisableManager.Setup(m => m.Disable(
                 BingoConstants.BingoHostDisconnectedKey,
@@ -260,7 +241,7 @@
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
 
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             _commandFactory.Setup(m => m.Execute(It.IsAny<RegistrationCommand>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(true));
 
@@ -287,7 +268,6 @@
         [TestMethod]
         public async Task ReconfigureWhileConnectedTest()
         {
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
             Assert.IsNotNull(_handleForceReconnectionEvent);
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
@@ -303,7 +283,7 @@
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
 
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             _commandFactory.Setup(m => m.Execute(It.IsAny<RegistrationCommand>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(true));
 
@@ -330,8 +310,6 @@
         [TestMethod]
         public async Task RegistrationFailureTest()
         {
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
-
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
             _systemDisableManager.Setup(m => m.Disable(
                 BingoConstants.BingoHostDisconnectedKey,
@@ -347,7 +325,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<RegistrationFailedEvent>())).Verifiable();
 
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             _commandFactory.Setup(m => m.Execute(It.IsAny<RegistrationCommand>(), It.IsAny<CancellationToken>()))
                 .Throws(new RegistrationException("registration failed", RegistrationFailureReason.Rejected));
@@ -373,12 +351,10 @@
         }
 
         [DataRow(ConfigurationFailureReason.ConfigurationMismatch, DisplayName = "Configuration Mismatch")]
-        [DataRow(ConfigurationFailureReason.InvalidGameConfiguration, DisplayName = "Invalid Game Configureation")]
+        [DataRow(ConfigurationFailureReason.InvalidGameConfiguration, DisplayName = "Invalid Game Configuration")]
         [DataTestMethod]
         public async Task ConfigurationFailureTest(ConfigurationFailureReason reason)
         {
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
-
             // set up mocks for the OnDisconnected method
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
             _systemDisableManager.Setup(m => m.Disable(
@@ -408,7 +384,7 @@
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostConfigurationInvalidKey));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostConfigurationMismatchKey));
 
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
@@ -431,8 +407,6 @@
         [TestMethod]
         public async Task MessageReceivedTest()
         {
-            Assert.IsNotNull(_handleProtocolInitializedEvent);
-
             _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
             _systemDisableManager.Setup(m => m.Disable(
                 BingoConstants.BingoHostDisconnectedKey,
@@ -446,7 +420,7 @@
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
 
-            await _handleProtocolInitializedEvent(new ProtocolInitialized(), new CancellationToken(false));
+            await _target.Start();
 
             _commandFactory.Setup(m => m.Execute(It.IsAny<RegistrationCommand>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(true));
 
@@ -465,9 +439,32 @@
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
-            _client.Raise(m => m.MessageReceived += null, new EventArgs());
+            _client.Raise(m => m.MessageReceived += null, EventArgs.Empty);
 
             _eventBus.Verify(m => m.Publish(It.IsAny<HostDisconnectedEvent>()));
+        }
+
+        [TestMethod]
+        public async Task ShutdownTest()
+        {
+            _eventBus.Setup(m => m.Publish(It.IsAny<HostDisconnectedEvent>())).Verifiable();
+            _systemDisableManager.Setup(m => m.Disable(
+                BingoConstants.BingoHostDisconnectedKey,
+                SystemDisablePriority.Normal,
+                It.IsAny<Func<string>>(),
+                true,
+                It.IsAny<Func<string>>(),
+                null));
+
+            _client.SetupSequence(m => m.Start())
+                .Returns(Task.FromResult(false))
+                .Returns(Task.FromResult(true));
+
+            await _target.Start();
+
+            _client.Setup(x => x.Stop()).Returns(Task.FromResult(false));
+            await _target.Stop();
+            _client.Verify(x => x.Stop(), Times.Once);
         }
     }
 }
