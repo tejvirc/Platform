@@ -21,7 +21,6 @@
         private Timer _ActionLobbyTimer;
         private bool _isTimeLimitDialogVisible;
         private bool _disposed;
-        private bool _enabled;
         private static ActionLobby instance = null;
         private static readonly object padlock = new object();
         public static ActionLobby Instatiate(RobotInfo robotInfo)
@@ -50,17 +49,15 @@
             _ActionLobbyTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!_enabled || !IsValid()) { return; }
+                                   if (!IsValid()) { return; }
                                    _eventBus.Publish(new ActionLobbyEvent());
                                },
                                null,
                                _config.Active.IntervalLobby,
                                _config.Active.IntervalForceGameExit);
-            _enabled = true;
         }
         public void Halt()
         {
-            _enabled = false;
             _eventBus.UnsubscribeAll(this);
             _ActionLobbyTimer?.Dispose();
         }

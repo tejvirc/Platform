@@ -17,7 +17,6 @@
         private Timer _loadAuditMenuTimer;
         private Timer _exitAuditMenuTimer;
         private bool _disposed;
-        private bool _enabled;
         private static LoadAuditMenu instance = null;
         private static readonly object padlock = new object();
         public static LoadAuditMenu Instatiate(RobotInfo robotInfo)
@@ -47,7 +46,7 @@
             _loadAuditMenuTimer = new Timer(
                 (sender) =>
                 {
-                    if (!_enabled || !IsValid()) { return; }
+                    if (!IsValid()) { return; }
                     {
                         _eventBus.Publish(new LoadAuditMenuEvent());
                     }
@@ -55,11 +54,9 @@
                 null,
                 _config.Active.IntervalLoadAuditMenu,
                 _config.Active.IntervalLoadAuditMenu);
-            _enabled = true;
         }
         public void Halt()
         {
-            _enabled = false;
             _loadAuditMenuTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }
