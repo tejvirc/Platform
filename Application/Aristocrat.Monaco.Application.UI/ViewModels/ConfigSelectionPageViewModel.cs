@@ -544,11 +544,13 @@
                 }
                 else
                 {
-                    if (PropertiesManager.GetValue(HardwareConstants.SerialTouchDisabled, "false") == "true")
+                    if (PropertiesManager.GetValue(HardwareConstants.SerialTouchDisabled, "false") == "true" ||
+                        _serialTouchCalibrationService.IsCalibrating)
                     {
                         return;
                     }
 
+                    _serialTouchCalibrated = false;
                     MvvmHelper.ExecuteOnUI(InvokeCalibration);
                 }
             }
@@ -564,8 +566,8 @@
 
             if (!_serialTouchCalibrated && _cabinetDetectionService.ExpectedDisplayDevicesWithSerialTouch != null)
             {
-                 if (_serialTouchCalibrationService.IsCalibrating)
-                 {
+                if (_serialTouchCalibrationService.IsCalibrating)
+                {
                     _serialTouchCalibrationService.CalibrateNextDevice();
                 }
                 else

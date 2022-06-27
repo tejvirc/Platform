@@ -184,9 +184,7 @@
 
                     if (bytesRead != 0)
                     {
-                        Logger.Debug($"Received {bytesRead} from Server.");
                         OnDataReceived(bytesRead);
-                        Logger.Debug("Waiting for Data from server.");
                         _transport?.GetStream().BeginRead(_readBuffer, 0, ReadBufferSize, ReadCallback, null);
                     }
                     else

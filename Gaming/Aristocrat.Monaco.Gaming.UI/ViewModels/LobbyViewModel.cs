@@ -2139,7 +2139,7 @@
 
         private void OnStateEntry(LobbyState state, object obj)
         {
-            Logger.Debug($"LobbyViewModel OnStateEntry to [{state}]");
+            Logger.Debug($"OnStateEntry to [{state}]");
             switch (state)
             {
                 case LobbyState.Chooser:
@@ -2209,7 +2209,7 @@
 
         private void OnStateExit(LobbyState state, object obj)
         {
-            Logger.Debug($"LobbyViewModel OnStateExit to [{state}]");
+            Logger.Debug($"OnStateExit from [{state}]");
 
             switch (state)
             {

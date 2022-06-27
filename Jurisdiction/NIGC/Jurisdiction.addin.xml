@@ -8,6 +8,7 @@
     <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
     <Addin id="SelectableJurisdiction" version="1.0" />
     <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="LobbyDirectories" version="1.0" />
     <Addin id="SasBase" version="1.0" />
     <Addin id="SasConfiguration" version="1.0" />
     <Addin id="Sas.Client" version="1.0" />
@@ -60,6 +61,9 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Gaming/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCGamingConfig" />
+      </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Browser/Configuration">
+        <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCBrowserConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/TowerLight/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCTowerLightConfig" />
@@ -154,6 +158,9 @@
   </Extension>
   <Extension path="/Gaming/Configuration">
     <FilePath FilePath="..\jurisdiction\NIGC\Gaming.config.xml" filterid="NIGCGamingConfig" />
+  </Extension>
+  <Extension path="/Browser/Configuration">
+    <FilePath FilePath="..\jurisdiction\NIGC\Browser.config.xml" filterid="NIGCBrowserConfig" />
   </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\NIGC\TowerLight.config.xml" filterid="NIGCTowerLightConfig" />

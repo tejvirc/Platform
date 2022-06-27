@@ -110,7 +110,7 @@
             ReserveClickedCommand = new ActionCommand<object>(StartMachineReservation);
             ReserveBackspaceClickedCommand = new ActionCommand<object>(BackspaceOnReservePin);
             StartNewSessionClickedCommand = new ActionCommand<object>(StartNewTrackingSession);
-            MouseDownOnMenuCommand = new ActionCommand<object>(obj => ResetCloseDelay());
+            MouseDownOnMenuCommand = new ActionCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
 
             IsMenuVisible = false;
 
@@ -121,7 +121,6 @@
         {
             if (!_properties.GetValue(GamingConstants.ShowPlayerMenuPopup, true))
             {
-                IsMenuVisible = false;
                 return;
             }
 
@@ -323,7 +322,7 @@
                 }
 
                 SetupMenu();
-                
+
                 _runtimeFlagHandler.SetInPlayerMenu(_isMenuVisible);
                 _keyboardService.DisableKeyboard = _isMenuVisible;
 

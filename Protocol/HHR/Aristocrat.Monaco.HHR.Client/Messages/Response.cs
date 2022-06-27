@@ -11,7 +11,7 @@
     /// </summary>
     public class Response
     {
-        private const int MaxLoggingWidth = 2048;
+        private const int MaxLoggingWidth = 4096;
 
         /// <summary>
         ///     Constructor forces subclasses to provide the command number for this response.
@@ -55,6 +55,12 @@
         public string MessageData()
         {
             string resultString = this.ToJson();
+
+            if (resultString.Length < MaxLoggingWidth)
+            {
+                return resultString;
+            }
+
             StringBuilder resultOutput = new StringBuilder();
             var index = 0;
             while (index < resultString.Length)

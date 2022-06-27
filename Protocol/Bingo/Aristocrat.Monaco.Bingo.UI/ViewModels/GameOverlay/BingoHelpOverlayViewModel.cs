@@ -8,6 +8,7 @@
     using Common.Events;
     using Events;
     using Gaming.Contracts;
+    using Gaming.Contracts.Events;
     using Kernel;
     using MVVM.Model;
     using Protocol.Common.Storage.Entity;
@@ -21,6 +22,7 @@
         private const double MinHelpBoxMarginTop = 0.1;
         private const double MinHelpBoxMarginRight = 0.1;
         private const double MinHelpBoxMarginBottom = 0.24;
+        private const string CloseEvent = "Close";
 
         private readonly SolidColorBrush _blueBrush = new(Colors.Blue);
         private readonly SolidColorBrush _transparentBrush = new(Colors.Transparent);
@@ -183,6 +185,16 @@
         private void SetBorderVisibility(bool visible)
         {
             _dispatcher.ExecuteOnUIThread(() => ColorBrush = visible ? _blueBrush : _transparentBrush);
+        }
+
+        public void ExitHelp(object sender, JavascriptMessageReceivedEventArgs args)
+        {
+            if (args.Message is not CloseEvent)
+            {
+                return;
+            }
+
+            _eventBus.Publish(new ExitHelpEvent());
         }
     }
 }

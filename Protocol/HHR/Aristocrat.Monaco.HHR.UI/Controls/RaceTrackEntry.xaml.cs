@@ -8,7 +8,6 @@
     using System.Windows.Media;
     using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
-    using log4net;
     using MVVM;
     using WpfAnimatedGif;
 
@@ -17,8 +16,6 @@
     /// </summary>
     public partial class RaceTrackEntry
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         private static readonly Dictionary<int, BitmapImage> HorseNumberToImageLookup = new Dictionary<int, BitmapImage>();
 
         private readonly object _lock = new object();
@@ -36,11 +33,6 @@
         ///     Cached image of the galloping horse
         /// </summary>
         public BitmapImage HorseImage => HorseNumberToImageLookup[HorseNumber];
-
-        static RaceTrackEntry()
-        {
-            Logger.Debug($"Horse gif FPS: {HhrUiConstants.AnimationFramesPerSecond}");
-        }
 
         public RaceTrackEntry()
         {

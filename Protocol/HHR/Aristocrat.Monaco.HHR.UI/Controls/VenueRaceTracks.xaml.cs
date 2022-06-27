@@ -18,10 +18,11 @@
     public partial class VenueRaceTracks
     {
         private static readonly Dictionary<string, BitmapImage> ImageLookup = new Dictionary<string, BitmapImage>();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private const string BackgroundTop = "Resources/VenueRaceTrackBackground_Top.PNG";
         private const string BackgroundMiddle = "Resources/VenueRaceTrackBackground_Middle.PNG";
         private const string BackgroundBottom = "Resources/VenueRaceTrackBackground_Bottom.PNG";
+
         private AnimationClock _clock;
 
         public static readonly DependencyProperty IsPausedProperty =
@@ -180,7 +181,6 @@
 
         private void FinishLineStoryboard_OnCompleted(object sender, EventArgs e)
         {
-            Logger.Debug("FinishLineStoryboard_OnCompleted");
             RaceFinished = true;
         }
 

@@ -11,8 +11,9 @@
     using Exceptions;
     using Hardware.Contracts.Button;
     using Kernel;
-    using log4net;
+    using Protocol.Common.Logging;
     using Storage.Helpers;
+    using log4net;
 
     /// <inheritdoc />
     public class GameRecoveryService : IGameRecoveryService
@@ -64,7 +65,10 @@
 
             // We only need four things to request/process recovery message. Populate them from game play request or Race start request
             var (sequenceId, gameId, numberOfCredits, lines) = FetchValues();
+            Logger.Debug($"Recovering with values: seq={sequenceId}, game={gameId}, credits={numberOfCredits}, lines={lines}");
+
             var gamePlayResponse = _gamePlayEntityHelper.GamePlayResponse;
+            Logger.Debug($"Checking game play response: {gamePlayResponse.ToJson()}");
 
             if (gamePlayResponse != null && sequenceId == gamePlayResponse.ReplyId)
             {
@@ -78,11 +82,13 @@
             }
             catch (UnexpectedResponseException e)
             {
-                Logger.Error("Unexpected Response for GameRecovery received.", e);
+                Logger.Error("Unexpected response for GameRecovery received.", e);
                 _gamePlayEntityHelper.GamePlayRequestFailed = true;
                 _eventBus.Publish(new GamePlayRequestFailedEvent());
                 throw;
             }
+
+            Logger.Debug($"Got game recovery response: {gameRecoveryResponse.ToJson()}");
 
             if (gameRecoveryResponse.GameId != 0)
             {
@@ -107,6 +113,9 @@
                         gameId,
                         numberOfCredits,
                         (int)(gameRecoveryResponse.PrizeLoc1 - 1));
+
+                    Logger.Debug($"Got PrizeLoc1 index: {prizeLocationIndex}");
+
                     prize = racePatterns.Pattern[prizeLocationIndex].Prize;
                 }
 
@@ -116,8 +125,13 @@
                         gameId,
                         numberOfCredits,
                         (int)(gameRecoveryResponse.PrizeLoc2 - 1));
+
+                    Logger.Debug($"Got PrizeLoc2 index: {prizeLocationIndex}");
+
                     prize = racePatterns.Pattern[prizeLocationIndex].Prize;
                 }
+
+                Logger.Debug($"Got prize string: {prize}");
 
                 return new GamePlayResponse
                 {

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts
+2.  Enter "xsd ApplicationConfiguration.xsd /c /n:Aristocrat.Monaco.Application.Contracts".  This will generate
+    the corresponding class definition in csharp (ApplicationConfiguration.cs).
+-->
+<ApplicationConfiguration>
+  <Currency Id="AUD"/>
+  <HardMeterMonitor DisableOnError="true"/>
+  <!-- StopAlarmWhenAuditMenuOpened - This flag indicates whether we need to sound alarm when the AuditMenu is opened.
+            True  - Default value if not provided, which means Alarm should be stopped when Audit Menu is opened 
+            False - Alarm should not be stopped when Audit Menu is opened -->
+  <NoteAcceptorMonitor DisableOnError="Immediate" LockupOnDisconnect="true" SoftErrorOnStackerFull="false" StopAlarmWhenAuditMenuOpened="false"/>
+  <PrinterMonitor FormFeedAfterKeyOff="true" StopAlarmWhenAuditMenuOpened="false"/>
+  <FirmwareCrcMonitor Enabled="true" Seed="2000"/>
+  <TicketMode Audit="Inspection"/>
+  <GeneralMessages>
+    <DisabledByOperator Message=""/>
+  </GeneralMessages>
+  <NoteAcceptorErrorMessages>
+    <BillJam Message="Bill Jam"/>
+    <BillStackerError Message="Bill Stacker Error"/>
+    <BillStackerFull Message="Bill Stacker Full"/>
+    <BillStackerJam Message="Bill Stacker Jam"/>
+    <BillUnexpectedError Message="Bill Unexpected Error"/>
+    <BillValidatorFault Message="Bill Validator Fault"/>
+    <InvalidBill Message="Invalid Bill"/>
+    <CashBoxRemoved Message="Cash Box Removed"/>
+    <GeneralFailure Message="Note Acceptor Malfunction"/>
+  </NoteAcceptorErrorMessages>
+  <PrinterErrorMessages>
+    <MalfunctionError Message="Printer Malfunction"/>
+    <PaperOut Message="Printer Paper Out"/>
+    <ErrorWhilePrinting Message="Printer"/>
+    <DrawerOpen Message="Printer Open"/>
+    <PrinterOffline Message="Printer Offline"/>
+    <PaperInChute Message="Printer Paper In Chute"/>
+    <PaperLow Message="Printer Paper Low"/>
+    <PaperJam Message="Printer Paper Jam"/>
+    <PrinterOpen Message="Printer Open"/>
+    <StoppedResponding Message="Printer Stopped Responding"/>
+    <FailedMinimumRequirements Message="Printer Malfunction"/>
+    <MissingSupplyIndex Message="Printer Paper Malfunction"/>
+    <PrinterDfuDownloadInProgress Message="Printer Download In Progress&#13;&#10;Please Do Not Power Off The Gaming Machine"/>
+    <TransferStatusError Message="Printer Malfunction"/>
+    <PrinterFirmwareDownloadInterrupted Message="Rebooted While Printer Download In Progress&#13;&#10;Printer Firmware May Be Corrupted"/>
+  </PrinterErrorMessages>
+  <MeterRollover>
+    <Currency>1000000000000000</Currency> <!-- in millicents. This would roll over at $9,999,999,999.99999 -->
+    <Occurrence>100000000</Occurrence>
+  </MeterRollover>
+  <StackerRemoveBehavior AutoClearPeriodMeters="false" />
+  <AutoClearPeriodMetersBehavior>
+	<AutoClearPeriodMeters>false</AutoClearPeriodMeters>
+	<ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
+  </AutoClearPeriodMetersBehavior>
+  <SoundConfiguration>
+    <DefaultVolumeLevel>2</DefaultVolumeLevel>
+    <AlertVolume Configurable="true" />
+  </SoundConfiguration>
+  <ReadOnlyMedia Required="false" />
+<!--
+    ExcessiveDocumentReject Settings: Applicable to bills/vouchers rejection
+    LockupType:
+        "Soft"/"Hard" - Defaults to "Soft", if not defined.
+    ConsecutiveRejectsBeforeLockup:
+        Disable note acceptor after these many number of rejections. Defaults to "-1", if not defined. "-1" means this lockup is not applicable to this market.
+    ResetMethodKey
+        Reset key for Hard lockups. Default to MainDoor if not defined.
+    SoundFilePath:
+        Path of the sound file to be played when ConsecutiveRejectsBeforeLockup reached.
+-->
+  <ExcessiveDocumentReject LockupType="Hard" ConsecutiveRejectsBeforeLockup="10" ResetMethodKey="JackpotKey" SoundFilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+  <PaperInChuteSound FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" />
+  <PrinterErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+  <PrinterWarningSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+  <NoteAcceptorErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+  <DiskSpaceMonitorErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+  <FirmwareCrcErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+  <TouchSound FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" />
+  <CoinInSound FilePath="..\jurisdiction\DefaultAssets\coinin.ogg" />
+  <CoinOutSound FilePath="..\jurisdiction\DefaultAssets\coinout.ogg" />
+  <FeatureBellSound FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" />
+  <CollectSound FilePath="..\jurisdiction\DefaultAssets\collect.ogg" />
+  <!--
+  Checks the integrity of the critical memory:
+    Enabled: The critical memory will be checked
+    Value: The time interval at which it will be checked (in secs)
+  -->
+  <CriticalMemoryIntegrityCheck Enabled="true" Value="86400" SoundFilePath="..\jurisdiction\DefaultAssets\alarm.ogg"/>
+  <OperatorLockupReset Enabled="true"/>
+  <LogTypesAllowedForDisplay>
+    <string>BillIn</string>
+    <string>Handpay</string>
+    <string>VoucherIn</string>
+    <string>VoucherOut</string>
+    <string>BonusAward</string>
+    <string>TransferIn</string>
+    <string>TransferOut</string>
+    <string>Gameplay</string>
+    <string>Comms</string>
+    <string>Error</string>
+    <string>General</string>
+    <string>Power</string>
+    <string>GameConfigurationChange</string>
+    <string>GPU</string>
+    <string>SoftwareChange</string>
+    <string>Progressive</string>
+  </LogTypesAllowedForDisplay>
+  <MultiGame DefaultBetAfterSwitch="false" />
+  <SoftwareVerification ShowMasterResult="true" />
+  <!--LiveAuthenticationManager
+    RunSignatureVerificationAfterReboot: Flag indicates whether we need to run signature verification on every platform reboot. Default value is false.
+  -->
+  <LiveAuthenticationManager RunSignatureVerificationAfterReboot="true"/>
+</ApplicationConfiguration>

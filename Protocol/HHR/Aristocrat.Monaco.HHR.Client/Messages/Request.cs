@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Client.Messages
 {
     using WorkFlow;
+    using Newtonsoft.Json;
 
     /// <summary>
-    ///     Base message for all aristocrat request messages to central server. Subclasses should populate these fields in
-    ///     their constructors, so that
-    ///     these features can be used by all messages.
+    ///     Base message for all Ainsworth request messages to central server. Subclasses should populate these fields in
+    ///     their constructors, so that these features can be used by all messages.
     /// </summary>
     public class Request
     {
@@ -33,6 +33,7 @@
         /// <summary>
         ///     What happens when this request timeout.
         /// </summary>
+        [JsonIgnore]
         public IRequestTimeout RequestTimeout = new IdleRequestTimeout();
 
         /// <summary>

@@ -56,7 +56,7 @@
         // the menu unexpectedly 
         private void SetInbetweenTouchTimer()
         {
-            if(_inbetweenTouchTimer.Enabled)
+            if (_inbetweenTouchTimer.Enabled)
             {
                 _inbetweenTouchTimer.Stop();
             }
@@ -66,7 +66,7 @@
         }
 
         private void OnClickOutside(object sender, MouseButtonEventArgs e)
-        { 
+        {
             if (_inbetweenTouchs)
             {
                 return;
@@ -99,6 +99,7 @@
 
         private void HandleNonClosingPress(object sender, RoutedEventArgs e)
         {
+            ViewModel.ResetCloseDelay();
             ViewModel.PlayClickSound();
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnClickOutside);
             AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickOutside), true);

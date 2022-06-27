@@ -312,7 +312,7 @@
                        Content="PRESENTATION OVERRIDE"
                        Style="{StaticResource SectionLabel}" />
                 <Border Grid.Row="25" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
-                
+
                 <ListBox Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="2"
                          HorizontalAlignment="Stretch" Margin="0 0 20 0"
                          ItemsSource="{Binding PresentationOverrideMessageFormats}">
@@ -323,6 +323,17 @@
                                           SelectedItem="{Binding OverrideType}"
                                           Width="250"/>
                                 <TextBox Text="{Binding Path=MessageFormat}"
+                                         Style="{StaticResource MessageTextBox}">
+                                    <i:Interaction.Triggers>
+                                        <events:RoutedEventTrigger RoutedEvent="TextBox.LostFocus">
+                                            <events:EventToCommandAction Command="{Binding Path=DataContext.ApplyPresentationOverrideMessageFormatsCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
+                                        </events:RoutedEventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                                <Label 
+                                       Content="Meter Format"
+                                       Style="{StaticResource ItemLabel}"/>
+                                <TextBox Text="{Binding Path=MeterFormat}"
                                          Style="{StaticResource MessageTextBox}">
                                     <i:Interaction.Triggers>
                                         <events:RoutedEventTrigger RoutedEvent="TextBox.LostFocus">

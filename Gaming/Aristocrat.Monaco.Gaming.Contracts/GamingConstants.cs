@@ -401,6 +401,11 @@
         public const string ApplyGameCategorySettings = "ApplyGameCategorySettings";
 
         /// <summary>
+        ///     Property Manager key for whether or not the browser processes are being monitored
+        /// </summary>
+        public const string MonitorBrowserProcess = "Browser.MonitorBrowserProcess";
+
+        /// <summary>
         ///     Property Manager key for maximum CPU usage per browser process
         /// </summary>
         public const string BrowserMaxCpuPerProcess = "Browser.MaxCpuPerProcess";
@@ -1080,7 +1085,7 @@
         /// <summary>
         ///     The minimum open/close time before again opening/closing the player menu popup
         /// </summary>
-        public const int PlayerMenuPopupOpenCloseDelayMilliseconds = 500;
+        public const int PlayerMenuPopupOpenCloseDelayMilliseconds = 1000;
 
         /// <summary>
         ///     Property key for ShowTopPickBanners

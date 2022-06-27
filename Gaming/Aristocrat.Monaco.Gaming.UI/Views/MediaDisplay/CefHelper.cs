@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay
 {
     using System;
+    using System.IO;
     using System.Reflection;
     using System.Windows;
     using CefSharp;
@@ -12,7 +13,7 @@
     {
         private const string CachePath = @"/BrowserCache";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public static void Initialize()
         {
@@ -24,6 +25,17 @@
             Logger.Info("Initializing CEF");
 
             var directory = ServiceManager.GetInstance().GetService<IPathMapper>().GetDirectory(CachePath);
+            try
+            {
+                if (Directory.Exists(directory.FullName))
+                {
+                    Directory.Delete(directory.FullName, true);
+                }
+            }
+            catch (IOException e)
+            {
+                Logger.Error("Failed to delete the cache folder", e);
+            }
 
             Cef.EnableHighDPISupport();
 

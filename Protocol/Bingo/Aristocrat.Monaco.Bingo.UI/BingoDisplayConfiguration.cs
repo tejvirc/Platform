@@ -600,6 +600,8 @@ namespace Aristocrat.Monaco.Bingo.UI {
         
         private string messageFormatField;
         
+        private string meterFormatField;
+        
         /// <remarks/>
         public PresentationOverrideTypes OverrideType {
             get {
@@ -617,6 +619,16 @@ namespace Aristocrat.Monaco.Bingo.UI {
             }
             set {
                 this.messageFormatField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MeterFormat {
+            get {
+                return this.meterFormatField;
+            }
+            set {
+                this.meterFormatField = value;
             }
         }
     }

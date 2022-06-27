@@ -157,12 +157,13 @@
 
             if (ticketSetIndex != InvalidValue)
             {
-                return gameInfoResponse.PrizeLocations[ticketSetIndex][patternIndex];
+                var prizeLoc = gameInfoResponse.PrizeLocations[ticketSetIndex][patternIndex];
+                Logger.Debug($"Got prize location [{ticketSetIndex}][{patternIndex}] as {prizeLoc}");
+                return prizeLoc;
             }
 
             Logger.Error($"Ticket Set doesn't exist for the parameters passed");
             return InvalidValue;
-
         }
 
         /// <summary>

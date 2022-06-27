@@ -67,11 +67,6 @@ jobs:
     - name: Setup VSTest Path
       if: matrix.configuration == 'Debug'
       uses: darenm/setup-vstest@v1
-    - name: Setup dotCover
-      if: matrix.configuration == 'Debug'
-      run: |
-        nuget install JetBrains.dotCover.CommandLineTools -Version 2021.1.2 -OutputDirectory .\packages
-        echo "${{ github.workspace }}\packages\JetBrains.dotCover.CommandLineTools.2021.1.2\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
     - name: Setup Monaco Tools
       uses: Aristocrat-Monaco-Platform/actions/setup-monaco@v1
       env:
@@ -99,19 +94,13 @@ jobs:
         msbuild -p:"Configuration=${{ matrix.configuration }}" -p:"Platform=Any CPU" -t:Rebuild -p:"Deterministic=${{ env.DETERMINISTIC }}" -p:"PathMap=${{ env.ENLISTMENT_ROOT }}=${{ env.SOURCE_PATH }}" .\Monaco.sln
     - name: Test
       if: matrix.configuration == 'Debug'
-      continue-on-error: true
       run: >
-        dotCover cover
-        --LogFile="dotCover.log"
-        --TargetExecutable="$((Get-command vstest.console.exe).Path)"
-        --TargetWorkingDir="$((Get-Location).Path)"
-        --Output="CodeCoverage\coverage.dotcover.xml"
-        --ReportType=DetailedXML
-        --ExcludeFileMasks=Test/**/*.cs
-        -- "**\bin\Debug\*.Tests.dll"
+        vstest.console.exe
+        "**\bin\Debug\*.Tests.dll"
         --platform:x64
         --logger:trx
         --resultsDirectory:TestResults
+        || true
     - name: Test Report
       if: matrix.configuration == 'Debug'
       uses: dorny/test-reporter@v1

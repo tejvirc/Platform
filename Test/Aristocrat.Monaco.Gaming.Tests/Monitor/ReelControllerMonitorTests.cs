@@ -6,9 +6,10 @@
     using System.Threading.Tasks;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Gaming.Runtime;
+    using Common;
     using Contracts;
     using Gaming.Monitor;
+    using Hardware.Contracts;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
@@ -34,11 +35,11 @@
         private Mock<IGameProvider> _gameProvider;
         private Mock<IGamePlayState> _gamePlayState;
         private Mock<IEdgeLightingController> _edgeLightingController;
-        private Mock<IRuntime> _runtime;
+        private Mock<IGameService> _gameService;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
-        private Action<ConnectedEvent> _connectedAction;
-        private Action<DisconnectedEvent> _disconnectedAction;
+        private Func<ConnectedEvent, CancellationToken, Task> _connectedAction;
+        private Func<DisconnectedEvent, CancellationToken, Task> _disconnectedAction;
         private Action<DisabledEvent> _disabledAction;
         private Action<EnabledEvent> _enabledAction;
         private Func<HardwareFaultClearEvent, CancellationToken, Task> _reelControllerClearAction;
@@ -46,8 +47,8 @@
         private Func<HardwareReelFaultClearEvent, CancellationToken, Task> _clearAction;
         private Func<HardwareReelFaultEvent, CancellationToken, Task> _faultedAction;
         private Func<InitializationCompletedEvent, CancellationToken, Task> _initCompleteAction;
-        private Action<InspectedEvent> _inspectedAction;
-        private Action<InspectionFailedEvent> _inspectionFailedAction;
+        private Func<InspectedEvent, CancellationToken, Task> _inspectedAction;
+        private Func<InspectionFailedEvent, CancellationToken, Task> _inspectionFailedAction;
         private Action<OperatorMenuEnteredEvent> _operatorMenuEnteredAction;
         private Func<OperatorMenuExitedEvent, CancellationToken, Task> _operatorMenuExitedAction;
         private Func<SystemDisableAddedEvent, CancellationToken, Task> _systemDisabledAction;
@@ -66,17 +67,24 @@
             _messageDisplay = new Mock<IMessageDisplay>(MockBehavior.Default);
             _disable = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
-            _runtime = new Mock<IRuntime>(MockBehavior.Default);
+            _gameService = new Mock<IGameService>(MockBehavior.Default);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _edgeLightingController = new Mock<IEdgeLightingController>(MockBehavior.Default);
 
-            var games = new List<IGameDetail>();
-            games.Add(new GameDetail() { Id = 100, MechanicalReels = 3, MechanicalReelHomeStops = new int[] { 118, 56, 132 } });
+            var games = new List<IGameDetail>
+            {
+                new GameDetail()
+                {
+                    Id = 100, MechanicalReels = 3, MechanicalReelHomeStops = new int[] { 118, 56, 132 }
+                }
+            };
+
             _gameProvider.Setup(x => x.GetGames()).Returns(games);
             _gameProvider.Setup(x => x.GetMinimumNumberOfMechanicalReels()).Returns(3);
             _gamePlayState.Setup(x => x.Enabled).Returns(true);
 
-            _runtime.Setup(x => x.Shutdown()).Verifiable();
+            _gameService.Setup(x => x.Running).Returns(true);
+            _gameService.Setup(x => x.ShutdownBegin()).Verifiable();
 
             _reelController.Setup(x => x.Enabled).Returns(true);
             _reelController.Setup(x => x.Connected).Returns(false);
@@ -104,24 +112,24 @@
                 .Callback<object, Func<SystemDisableAddedEvent, CancellationToken, Task>>((o, c) => _systemDisabledAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<SystemDisableRemovedEvent, CancellationToken, Task>>()))
                 .Callback<object, Func<SystemDisableRemovedEvent, CancellationToken, Task>>((o, c) => _systemDisableRemovedAction = c);
-            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<ConnectedEvent>>()))
-                .Callback<object, Action<ConnectedEvent>>((o, c) => _connectedAction = c);
-            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<DisconnectedEvent>>()))
-                .Callback<object, Action<DisconnectedEvent>>((o, c) => _disconnectedAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<ConnectedEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<ConnectedEvent, CancellationToken, Task>>((o, c) => _connectedAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<DisconnectedEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<DisconnectedEvent, CancellationToken, Task>>((o, c) => _disconnectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<EnabledEvent>>()))
                 .Callback<object, Action<EnabledEvent>>((o, c) => _enabledAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<DisabledEvent>>()))
                 .Callback<object, Action<DisabledEvent>>((o, c) => _disabledAction = c);
-            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<InspectionFailedEvent>>()))
-                .Callback<object, Action<InspectionFailedEvent>>((o, c) => _inspectionFailedAction = c);
-            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<InspectedEvent>>()))
-                .Callback<object, Action<InspectedEvent>>((o, c) => _inspectedAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<InspectionFailedEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<InspectionFailedEvent, CancellationToken, Task>>((o, c) => _inspectionFailedAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<InspectedEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<InspectedEvent, CancellationToken, Task>>((o, c) => _inspectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuEnteredEvent>>()))
                 .Callback<object, Action<OperatorMenuEnteredEvent>>((o, c) => _operatorMenuEnteredAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<OperatorMenuExitedEvent, CancellationToken, Task>>()))
                 .Callback<object, Func<OperatorMenuExitedEvent, CancellationToken, Task>>((o, c) => _operatorMenuExitedAction = c);
-            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Func<ClosedEvent, CancellationToken, Task>>()))
-                .Callback<object, Func<ClosedEvent, CancellationToken, Task>>((o, c) => _doorClosedAction = c);
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Func<ClosedEvent, CancellationToken, Task>>(), It.IsAny<Predicate<ClosedEvent>>()))
+                .Callback<object, Func<ClosedEvent, CancellationToken, Task>, Predicate<ClosedEvent>>((_, c, _) => _doorClosedAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ReelStoppedEvent>>()))
                 .Callback<object, Action<ReelStoppedEvent>>((o, c) => _reelStoppedEventAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<GameAddedEvent>>()))
@@ -139,8 +147,8 @@
         [DataRow(false, false, true, false, false, false, false, DisplayName = "null Disable manager")]
         [DataRow(false, false, false, true, false, false, false, DisplayName = "null Game play")]
         [DataRow(false, false, false, false, true, false, false, DisplayName = "null GameProvider")]
-        [DataRow(false, false, false, false, false, true, false, DisplayName = "nullEdgeLightController")]
-        [DataRow(false, false, false, false, false, false, true, DisplayName = "null Runtime")]
+        [DataRow(false, false, false, false, false, true, false, DisplayName = "null EdgeLightController")]
+        [DataRow(false, false, false, false, false, false, true, DisplayName = "null GameService")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorArguments(
@@ -150,7 +158,7 @@
             bool nullGamePlay,
             bool nullGameProvider,
             bool nullEdgeLightController,
-            bool nullRuntime)
+            bool nullGameService)
         {
             _target = CreateTarget(
                 nullEvent,
@@ -159,7 +167,7 @@
                 nullGamePlay,
                 nullGameProvider,
                 nullEdgeLightController,
-                nullRuntime);
+                nullGameService);
         }
 
         [TestMethod]
@@ -219,7 +227,7 @@
             _disable.Reset();
             _reelController.Reset();
             _reelController.Setup(x => x.LogicalState).Returns(state);
-            var disableKeys = new List<Guid>();
+            var disableKeys = new List<Guid> { ReelFaults.Disconnected.GetAttribute<ErrorGuidAttribute>().Id };
             _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
 
             Assert.IsNotNull(_doorClosedAction);
@@ -259,38 +267,6 @@
 
             _reelController.Verify();
             _reelController.Verify(x => x.HomeReels(), Times.Never());
-        }
-
-        [DataRow(ReelControllerState.Uninitialized, false, false)]
-        [DataRow(ReelControllerState.Inspecting, false, false)]
-        [DataRow(ReelControllerState.IdleUnknown, true, true)]
-        [DataRow(ReelControllerState.IdleAtStops, true, true)]
-        [DataRow(ReelControllerState.Homing, false, true)]
-        [DataRow(ReelControllerState.Spinning, false, true)]
-        [DataRow(ReelControllerState.Tilted, true, true)]
-        [DataRow(ReelControllerState.Disabled, false, true)]
-        [DataRow(ReelControllerState.Disconnected, false, false)]
-        [DataTestMethod]
-        public async Task HandleMainDoorClosedEventWithMainDoorDisableTest(ReelControllerState state, bool callHomeReels, bool callSelfTest)
-        {
-            InitializeClient(false);
-            _disable.Reset();
-            _reelController.Reset();
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
-                .Returns(Task.FromResult<IList<int>>(new List<int>()));
-            _reelController.Setup(x => x.LogicalState).Returns(state);
-            if (callSelfTest)
-            {
-                _reelController.Setup(x => x.SelfTest(false)).Returns(Task.FromResult(true)).Verifiable();
-            }
-
-            var disableKeys = new List<Guid>() { ApplicationConstants.MainDoorGuid };
-            _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
-
-            Assert.IsNotNull(_doorClosedAction);
-            await _doorClosedAction(new ClosedEvent((int)DoorLogicalId.Main, string.Empty), CancellationToken.None);
-
-            _reelController.Verify(x => x.HomeReels(), callHomeReels ? Times.Once() : Times.Never());
         }
 
         [DataRow(ReelControllerState.Uninitialized, false, false)]
@@ -541,7 +517,7 @@
         public async Task SystemDisableRemovedWithSystemDisableTest()
         {
             InitializeClient(true);
-            var disableKeys = new List<Guid>() { ApplicationConstants.MainDoorGuid };
+            var disableKeys = new List<Guid>() { ApplicationConstants.LiveAuthenticationDisableKey };
             _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
 
             _reelController.Setup(x => x.LogicalState)
@@ -605,14 +581,14 @@
         }
 
         [TestMethod]
-        public void ConnectedNoOtherSystemFaultsTest()
+        public async Task ConnectedNoOtherSystemFaultsTest()
         {
             InitializeClient(false);
 
             CreateTarget();
 
             Assert.IsNotNull(_connectedAction);
-            _connectedAction(new ConnectedEvent());
+            await _connectedAction(new ConnectedEvent(), CancellationToken.None);
 
             _disable.Verify(x => x.Enable(ApplicationConstants.ReelControllerDisconnectedGuid));
         }
@@ -635,24 +611,24 @@
         }
 
         [TestMethod]
-        public void ConnectedOtherSystemFaultsTest()
+        public async Task ConnectedOtherSystemFaultsTest()
         {
             InitializeClient(true);
             Assert.IsNotNull(_connectedAction);
-            _connectedAction(new ConnectedEvent());
+            await _connectedAction(new ConnectedEvent(), CancellationToken.None);
 
             _disable.Verify(x => x.Enable(ApplicationConstants.ReelControllerDisconnectedGuid));
             _reelController.Verify(x => x.HomeReels(), Times.Never);
         }
 
         [TestMethod]
-        public void DisconnectedTest()
+        public async Task DisconnectedTest()
         {
             InitializeClient(false);
             _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.IdleAtStops);
 
             Assert.IsNotNull(_disconnectedAction);
-            _disconnectedAction(new DisconnectedEvent());
+            await _disconnectedAction(new DisconnectedEvent(), CancellationToken.None);
 
             _disable.Verify(
                 x => x.Disable(
@@ -883,7 +859,7 @@
         }
 
         [TestMethod]
-        public void InspectedTest()
+        public async Task InspectedTest()
         {
             InitializeClient(false);
             _disable.Reset();
@@ -894,37 +870,37 @@
 
             // Disable the fault first before having it cleared.
             Assert.IsNotNull(_inspectionFailedAction);
-            _inspectionFailedAction(new InspectionFailedEvent());
+            await _inspectionFailedAction(new InspectionFailedEvent(), CancellationToken.None);
 
             _disable.Setup(x => x.IsDisabled).Returns(false);
 
             Assert.IsNotNull(_inspectedAction);
-            _inspectedAction(new InspectedEvent());
+            await _inspectedAction(new InspectedEvent(), CancellationToken.None);
 
             _disable.Verify(x => x.Enable(ApplicationConstants.ReelControllerDisconnectedGuid));
         }
 
         [TestMethod]
-        public void InspectedWithOtherFaultsTest()
+        public async Task InspectedWithOtherFaultsTest()
         {
             InitializeClient(false);
             _disable.Reset();
             _disable.Setup(x => x.IsDisabled).Returns(true);
 
             Assert.IsNotNull(_inspectedAction);
-            _inspectedAction(new InspectedEvent());
+            await _inspectedAction(new InspectedEvent(), CancellationToken.None);
 
             _disable.Verify(x => x.Enable(ApplicationConstants.ReelControllerDisconnectedGuid));
         }
 
         [TestMethod]
-        public void InspectionFailedTest()
+        public async Task InspectionFailedTest()
         {
             _reelController.Setup(x => x.Connected).Returns(true);
             InitializeClient(false);
             _disable.Reset();
             Assert.IsNotNull(_inspectionFailedAction);
-            _inspectionFailedAction(new InspectionFailedEvent());
+            await _inspectionFailedAction(new InspectionFailedEvent(), CancellationToken.None);
 
             _disable.Verify(x => x.Disable(ApplicationConstants.ReelControllerDisconnectedGuid, SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
         }
@@ -1015,7 +991,7 @@
             bool nullGamePlay = false,
             bool nullGameProvider = false,
             bool nullEdgeLightController = false,
-            bool nullRuntime = false)
+            bool nullGameService = false)
         {
             return new ReelControllerMonitor(
                 nullEvent ? null : _eventBus.Object,
@@ -1024,7 +1000,7 @@
                 nullGamePlay ? null : _gamePlayState.Object,
                 nullGameProvider ? null : _gameProvider.Object,
                 nullEdgeLightController ? null : _edgeLightingController.Object,
-                nullRuntime ? null : _runtime.Object);
+                nullGameService ? null : _gameService.Object);
         }
     }
 }

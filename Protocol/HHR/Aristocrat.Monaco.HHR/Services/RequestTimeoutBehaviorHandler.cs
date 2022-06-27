@@ -122,7 +122,7 @@
             {
                 request.IsFailed = false;
 
-                _logger.Debug($"Marking request as pending - {request.ToJson()} - ResponseType - {responseType}");
+                _logger.Debug($"Marking request as pending - {request} - ResponseType - {responseType}");
 
                 var waitRequired = !_requestsPending.Any();
 
@@ -145,7 +145,7 @@
         {
             var (request, response) = obj;
 
-            _logger.Debug($"Response Received for Request ({request.ToJson()}). Response - ({response.ToJson()})");
+            _logger.Debug($"[RECV] Response ({response}) received for request ({request})");
 
             if (request.RequestTimeout.TimeoutBehaviorType == TimeoutBehaviorType.Idle)
             {
@@ -156,7 +156,7 @@
 
             if (request.IsFailed)
             {
-                _logger.Debug($"Marking request as Failed - Request ({request.ToJson()}). Response - ({response.ToJson()})");   
+                _logger.Error($"[RECV] Marking request ({request}) as failed");
             }
 
             UpdatePendingRequest((request, response.GetType()), !request.IsFailed);
@@ -170,9 +170,6 @@
 
             if (removeRequest)
             {
-                _logger.Debug(
-                    $"Removing pending request - Request ({requestResponse.request.ToJson()}). Response - ({requestResponse.responseType})");
-
                 if (_requestsPending.TryRemove(requestResponse.request, out _) &&
                     IsExitAllowed(requestResponse.request))
                 {
@@ -180,12 +177,12 @@
                 }
                 else
                 {
-                    _logger.Warn("Unable to remove request from pending requests. This request is not Pending.");
+                    _logger.Warn("[RECV] Unable to remove request from pending requests. This request is not pending.");
                 }
 
                 if (_requestsPending.All(x => x.Key.Command != Command.CmdTransaction))
                 {
-                    _logger.Debug("No pending requests. Release game play requests.");
+                    _logger.Debug("[RECV] No pending requests. Release game play requests.");
 
                     ReleasePlayAllowed();
 
@@ -238,7 +235,7 @@
                 {
                     try
                     {
-                        _logger.Debug($"Resending Failed request {x.Key.ToJson()}");
+                        _logger.Debug($"Resending failed request ({x.Key})");
                         // Since this is a failed request, call OnEntry on all the requests.
                         UpdatePendingRequest((x.Key, x.Value), false);
                         await Send((x.Key, x.Value));
@@ -278,7 +275,7 @@
                 {
                     if (x.Key.RequestTimeout is LockupRequestTimeout || x.Key.IsFailed)
                     {
-                        _logger.Debug($"Clear request timeout for :  {x.Key.ToJson()}");
+                        _logger.Debug($"Clear request timeout for ({x.Key})");
                         UpdatePendingRequest((x.Key, x.Value), true);
                     }
                 });
@@ -301,11 +298,8 @@
             return !_requestsPending.Any();
         }
 
-
         private void ReleasePlayAllowed()
         {
-            _logger.Debug("Release play allowed");
-
             try
             {
                 _playAllowed.Release();

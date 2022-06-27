@@ -6,6 +6,7 @@
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
     using Aristocrat.Monaco.Hardware.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,6 +25,7 @@
         private Mock<IReserveService> _reserveService;
         private Mock<ISystemDisableManager> _disableManager;
         private Mock<IOnScreenKeyboardService> _keyboardService;
+        private Mock<IAudio> _audioService;
         private Action<PropertyChangedEvent> _propertyChangedHandler;
 
         [TestInitialize]
@@ -38,6 +40,7 @@
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
             _disableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Default);
             _keyboardService = MoqServiceManager.CreateAndAddService<IOnScreenKeyboardService>(MockBehavior.Default);
+            _audioService = MoqServiceManager.CreateAndAddService<IAudio>(MockBehavior.Loose);
 
             _eventBus.Setup(
                     x => x.Subscribe(
@@ -53,10 +56,17 @@
             _propertiesManager.Setup(x => x.SetProperty(ApplicationConstants.ReserveServiceLockupRemainingSeconds, It.IsAny<int>()));
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupRemainingSeconds, It.IsAny<int>()))
                 .Returns(It.IsAny<int>());
+            _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.TouchSoundKey, It.IsAny<string>()))
+                .Returns(It.IsAny<string>());
+            _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, It.IsAny<byte>()))
+                .Returns(It.IsAny<byte>());
 
             _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, It.IsAny<bool>())).Returns(false);
             _propertiesManager.Setup(x => x.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty));
             _disableManager.Setup(d => d.CurrentDisableKeys).Returns(new List<Guid>());
+
+            _audioService.Setup(a => a.Play(It.IsAny<string>(), It.IsAny<byte>(), It.IsAny<SpeakerMix>(), null));
+            _audioService.Setup(a => a.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), null));
         }
 
         [TestCleanup]
@@ -314,14 +324,16 @@
             bool nullProperties = false,
             bool nullReserve = false,
             bool nullSystemDisable = false,
-            bool nullKeyboard = false)
+            bool nullKeyboard = false,
+            bool nullAudio = false)
         {
             _target = new ReserveOverlayViewModel(
                 nullEvent ? null : _eventBus.Object,
                 nullProperties ? null : _propertiesManager.Object,
                 nullReserve ? null : _reserveService.Object,
                 nullSystemDisable ? null : _disableManager.Object,
-                nullKeyboard ? null : _keyboardService.Object);
+                nullKeyboard ? null : _keyboardService.Object,
+                nullAudio ? null : _audioService.Object);
 
             Assert.IsNotNull(_target.BackspaceButtonClickedCommand);
             Assert.IsNotNull(_target.CancelButtonClickedCommand);

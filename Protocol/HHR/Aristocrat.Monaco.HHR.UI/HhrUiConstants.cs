@@ -30,13 +30,8 @@
         public static Guid WaitingForWinningCombinationInfo = new Guid("F542922F-35F9-48D8-8D5E-68EFBD2B7217");
 
         /// <summary>
-        /// The number of seconds for which the placard(info regarding time for manual handicapping is expire ) flashes
+        /// The number of seconds for which the placard (info regarding time for manual handicapping is expire ) flashes
         /// </summary>
         public const int TimerExpirePlacardTimeout = 5;
-
-        /// <summary>
-        /// Frames per second for gif and timeline animations
-        /// </summary>
-        public const int AnimationFramesPerSecond = 12;
     }
 }

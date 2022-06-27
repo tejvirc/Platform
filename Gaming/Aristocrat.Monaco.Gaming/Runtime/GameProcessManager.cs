@@ -205,6 +205,8 @@
             {
                 process.Exited -= ProcessExited;
             }
+
+            _expectProcessExit = false;
         }
     }
 }

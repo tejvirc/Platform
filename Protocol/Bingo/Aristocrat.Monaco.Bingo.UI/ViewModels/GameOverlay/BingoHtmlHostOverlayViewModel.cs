@@ -9,7 +9,9 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using CefSharp;
     using Common;
     using Common.Events;
     using Common.GameOverlay;
@@ -27,7 +29,7 @@
 
     public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
         private readonly IDispatcher _dispatcher;
         private readonly IEventBus _eventBus;
@@ -35,10 +37,11 @@
         private readonly ILegacyAttractProvider _legacyAttractProvider;
         private readonly IGameProvider _gameProvider;
         private readonly IServer _overlayServer;
+        private readonly IPlayerBank _playerBank;
         private readonly List<BallCallNumber> _ballCallNumbers = new(BingoConstants.MaxBall);
         private readonly List<BingoCardNumber> _bingoCardNumbers = new(BingoConstants.BingoCardSquares);
         private readonly Stopwatch _stopwatch = new();
-        private readonly ConcurrentDictionary<PresentationOverrideTypes, string> _configuredOverrideMessageFormats = new();
+        private readonly ConcurrentDictionary<PresentationOverrideTypes, (string, string)> _configuredOverrideMessageFormats = new();
         private readonly object _locker = new();
         private List<BingoNumber> _lastBallCall = new();
         private BingoCard _lastBingoCard;
@@ -50,7 +53,7 @@
         private bool _disposed;
         private string _address;
         private bool _visible;
-        private bool _connected;
+        private IWebBrowser _webBrowser;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -59,7 +62,8 @@
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
             ILegacyAttractProvider legacyAttractProvider,
             IGameProvider gameProvider,
-            IServer overlayServer)
+            IServer overlayServer,
+            IPlayerBank playerBank)
         {
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
@@ -68,7 +72,7 @@
             _legacyAttractProvider = legacyAttractProvider ?? throw new ArgumentNullException(nameof(legacyAttractProvider));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _overlayServer = overlayServer ?? throw new ArgumentNullException(nameof(overlayServer));
-
+            _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
             _overlayServer.ServerStarted += HandleServerStarted;
             _overlayServer.AttractCompleted += AttractCompleted;
             _overlayServer.ClientConnected += OverlayClientConnected;
@@ -113,6 +117,12 @@
         {
             get => _address;
             set => SetProperty(ref _address, value);
+        }
+
+        public IWebBrowser WebBrowser
+        {
+            get => _webBrowser;
+            set => SetProperty(ref _webBrowser, value);
         }
 
         public void Dispose()
@@ -176,10 +186,8 @@
         private async Task HandleGameLoaded()
         {
             LoadPresentationOverrideMessageFormats();
-
             if (!_overlayServer.IsRunning)
             {
-                _connected = false;
                 var windowName = _bingoConfigurationProvider.CurrentWindow;
                 _currentBingoSettings = _bingoConfigurationProvider.GetSettings(windowName);
                 var attractSettings = _bingoConfigurationProvider.GetAttractSettings();
@@ -405,7 +413,7 @@
             var data = e.PresentationOverrideData;
             if (data == null || data.Count == 0)
             {
-                UpdateOverlay(() => new BingoLiveData { HideDynamicMessage = true });
+                UpdateOverlay(() => new BingoLiveData { HideDynamicMessage = true, HideMeterValue = true });
             }
             else
             {
@@ -416,8 +424,15 @@
                 }
 
                 var messageFormat = _configuredOverrideMessageFormats[overrideType];
-                var message = string.Format(messageFormat, data.First().FormattedAmount ?? string.Empty);
-                UpdateOverlay(() => new BingoLiveData { DynamicMessage = message });
+                var message = string.Format(messageFormat.Item1, data.First().FormattedAmount ?? string.Empty);
+                var subUnitDigits = CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
+                var meterMessage = string.Format(
+                    messageFormat.Item2,
+                    _playerBank.Balance.MillicentsToDollars().ToString(
+                        $"C{subUnitDigits}",
+                        CurrencyExtensions.CurrencyCultureInfo));
+
+                UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, MeterValue = meterMessage });
             }
         }
 
@@ -554,32 +569,47 @@
         private void OverlayClientConnected(object sender, OverlayType overlayType)
         {
             Logger.Debug($"Overlay client connected: {overlayType}");
-            if (_connected || overlayType is not OverlayType.BingoOverlay)
-            {
-                return;
-            }
-
-            UpdateOverlay(
-                () =>
-                {
-                    _connected = true;
-                    return new BingoLiveData
-                    {
-                        BallCallNumbers = _ballCallNumbers,
-                        BingoCardNumbers = _bingoCardNumbers,
-                        BingoPatterns = GetBingoPatternForOverlay(_cyclingPatterns)
-                    };
-                });
-        }
-
-        private void OverlayClientDisconnected(object sender, OverlayType overlayType)
-        {
             if (overlayType is not OverlayType.BingoOverlay)
             {
                 return;
             }
 
-            _connected = false;
+            UpdateOverlay(
+                () => new BingoLiveData
+                {
+                    BallCallNumbers = _ballCallNumbers,
+                    BingoCardNumbers = _bingoCardNumbers,
+                    BingoPatterns = GetBingoPatternForOverlay(_cyclingPatterns)
+                });
+        }
+
+        private void OverlayClientDisconnected(object sender, OverlayType overlayType)
+        {
+            Logger.Debug($"Overlay client disconnected: {overlayType}");
+            if (Address is not null && !Address.Contains(overlayType.GetOverlayRoute()))
+            {
+                return;
+            }
+
+            _dispatcher.Invoke(ReloadPage);
+        }
+
+        private void ReloadPage()
+        {
+            if (!Visible)
+            {
+                return;
+            }
+
+            try
+            {
+                WebBrowser?.Reload();
+            }
+            catch (Exception ex)
+            {
+                // CefSharp throws a general exception for things so we must catch Exception
+                Logger.Warn("Failed to reload the browser", ex);
+            }
         }
 
         private void SetVisibility(bool visible)
@@ -606,7 +636,7 @@
             {
                 _configuredOverrideMessageFormats.TryAdd(
                     (PresentationOverrideTypes)messageFormat.OverrideType,
-                    messageFormat.MessageFormat);
+                    (messageFormat.MessageFormat, messageFormat.MeterFormat ?? string.Empty));
             }
         }
     }

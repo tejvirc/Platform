@@ -300,8 +300,9 @@
             IEnumerable<ProgressiveUpdateEntity> progressiveUpdateEntities = null;
 
             _progressiveUpdateEntityHelper
-                    .SetupSet(x => x.ProgressiveUpdates = It.IsAny<List<ProgressiveUpdateEntity>>())
-                    .Callback<IEnumerable<ProgressiveUpdateEntity>>(progUpdates => progressiveUpdateEntities = progUpdates);
+                .SetupSet(x => x.ProgressiveUpdates = It.IsAny<List<ProgressiveUpdateEntity>>())
+                .Callback<IEnumerable<ProgressiveUpdateEntity>>(
+                    progUpdates => progressiveUpdateEntities = progUpdates);
 
             _outcomeFailedEventHandler?.Invoke(new OutcomeFailedEvent(new CentralTransaction()));
 
@@ -335,24 +336,31 @@
 
         [DataRow("0203", 2, 1, 1, 1, 1000)]
         [DataTestMethod]
-        public void WithSavedProgressivesWithHit_CallLockProgressiveUpdates_ExpectNoUpdates(
+        public void WithSavedProgressivesWithHit_CallLockProgressiveUpdates_ExpectUpdates(
             string progressiveWin, int levelsToCreate, int progId,
             int progLevelId, int linkedLevelId, int linkedProgressiveGroupId)
         {
             SetupPreExistingProgressiveUpdates(progressiveWin, levelsToCreate, progId,
                 progLevelId, linkedLevelId, linkedProgressiveGroupId, ProtocolNames.HHR);
 
-            _progressiveUpdateEntityHelper.VerifySet(
-                p => p.ProgressiveUpdates = It.IsAny<List<ProgressiveUpdateEntity>>(), Times.Never);
+            IEnumerable<ProgressiveUpdateEntity> progressiveUpdateEntities = null;
+
+            _progressiveUpdateEntityHelper
+                .SetupSet(x => x.ProgressiveUpdates = It.IsAny<List<ProgressiveUpdateEntity>>())
+                .Callback<IEnumerable<ProgressiveUpdateEntity>>(
+                    progUpdates => progressiveUpdateEntities = progUpdates);
 
             _outcomeFailedEventHandler?.Invoke(new OutcomeFailedEvent(new CentralTransaction()));
 
             Assert.IsTrue(_progressiveUpdateEntityHelper.Object.ProgressiveUpdates.Count() == 2);
 
             Assert.IsNotNull(_progressiveUpdateService);
+
             _protocolLinkedProgressiveAdapter.Verify(x =>
                 x.UpdateLinkedProgressiveLevels(It.IsAny<IReadOnlyCollection<LinkedProgressiveLevel>>(),
                     It.IsAny<string>()), Times.Exactly(2));
+
+            Assert.AreEqual(2, progressiveUpdateEntities.Count());
         }
 
 

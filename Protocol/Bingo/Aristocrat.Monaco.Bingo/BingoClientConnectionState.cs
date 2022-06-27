@@ -23,7 +23,7 @@
     {
         private const int NoMessagesTimeout = 40_000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IClient _client;
@@ -77,6 +77,16 @@
             GC.SuppressFinalize(this);
         }
 
+        public async Task Start()
+        {
+            await _registrationState.FireAsync(Trigger.Initialized);
+        }
+
+        public async Task Stop()
+        {
+            await _registrationState.FireAsync(Trigger.Shutdown);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -96,6 +106,7 @@
                 var tokenSource = _tokenSource;
                 if (tokenSource != null)
                 {
+                    tokenSource.Cancel();
                     tokenSource.Dispose();
                 }
 
@@ -161,16 +172,22 @@
             _failedConfigurationTrigger =
                 _registrationState.SetTriggerParameters<ConfigurationFailureReason>(Trigger.ConfiguringFailed);
             _registrationState.Configure(State.Idle)
+                .OnEntryAsync(OnIdle)
                 .Permit(Trigger.Initialized, State.Disconnected);
+            _registrationState.Configure(State.Running)
+                .Permit(Trigger.Shutdown, State.Idle);
             _registrationState.Configure(State.Disconnected)
+                .SubstateOf(State.Running)
                 .OnEntryAsync(OnDisconnected)
                 .Permit(Trigger.Connecting, State.Connecting);
             _registrationState.Configure(State.Connecting)
+                .SubstateOf(State.Running)
                 .OnEntry(OnConnecting)
                 .PermitReentry(Trigger.Connecting)
                 .PermitReentry(Trigger.Reconfigure)
                 .Permit(Trigger.Connected, State.Registering);
             _registrationState.Configure(State.Registering)
+                .SubstateOf(State.Running)
                 .OnEntryAsync(OnRegistering)
                 .OnExit(OnRegisteringExit)
                 .PermitDynamic(_failedRegistrationTrigger, HandleRegistrationFailure)
@@ -178,10 +195,12 @@
                 .Permit(Trigger.Disconnected, State.Disconnected)
                 .Permit(Trigger.Registered, State.Configuring);
             _registrationState.Configure(State.InvalidRegistration)
+                .SubstateOf(State.Running)
                 .OnEntry(OnRegisteringFailed)
                 .Permit(Trigger.Disconnected, State.Disconnected)
                 .Permit(Trigger.Reconfigure, State.Disconnected);
             _registrationState.Configure(State.Configuring)
+                .SubstateOf(State.Running)
                 .OnEntryAsync(OnConfiguring)
                 .OnExit(OnConfiguringExit)
                 .PermitDynamic(_failedConfigurationTrigger, HandleConfigurationFailure)
@@ -189,14 +208,17 @@
                 .Permit(Trigger.Disconnected, State.Disconnected)
                 .Permit(Trigger.Configured, State.Connected);
             _registrationState.Configure(State.InvalidConfiguration)
+                .SubstateOf(State.Running)
                 .OnEntry(OnInvalidConfiguration)
                 .Permit(Trigger.Disconnected, State.Disconnected)
                 .Permit(Trigger.Reconfigure, State.Disconnected);
             _registrationState.Configure(State.ConfigurationMismatch)
+                .SubstateOf(State.Running)
                 .OnEntry(OnConfigurationMismatch)
                 .Permit(Trigger.Disconnected, State.Disconnected)
                 .Permit(Trigger.Reconfigure, State.Disconnected);
             _registrationState.Configure(State.Connected)
+                .SubstateOf(State.Running)
                 .OnEntry(OnConnected)
                 .Permit(Trigger.Reconfigure, State.Disconnected)
                 .Permit(Trigger.Disconnected, State.Disconnected);
@@ -214,6 +236,14 @@
                     Logger.Debug(
                         $"Transitioned From : {transition.Source} To : {transition.Destination} Trigger : {transition.Trigger}");
                 });
+        }
+
+        private async Task OnIdle()
+        {
+            _tokenSource?.Cancel();
+            _tokenSource?.Dispose();
+            _tokenSource = null;
+            await _client.Stop();
         }
 
         private void OnRegisteringExit(StateMachine<State, Trigger>.Transition t)
@@ -357,7 +387,6 @@
 
         private void RegisterEventListeners()
         {
-            _eventBus.Subscribe<ProtocolInitialized>(this, HandleEvent);
             _eventBus.Subscribe<PropertyChangedEvent>(
                 this,
                 HandleRestartingEvent,
@@ -376,11 +405,6 @@
             await _registrationState.FireAsync(Trigger.Reconfigure);
         }
 
-        private async Task HandleEvent(ProtocolInitialized evt, CancellationToken token)
-        {
-            await _registrationState.FireAsync(Trigger.Initialized);
-        }
-
         private void CreateTimeoutTimer()
         {
             _timeoutTimer = new System.Timers.Timer(NoMessagesConnectionTimeout);
@@ -391,6 +415,7 @@
         private enum State
         {
             Idle,
+            Running,
             Disconnected,
             Connecting,
             Registering,
@@ -411,7 +436,8 @@
             RegistrationFailed,
             Reconfigure,
             Configured,
-            ConfiguringFailed
+            ConfiguringFailed,
+            Shutdown
         }
     }
 }

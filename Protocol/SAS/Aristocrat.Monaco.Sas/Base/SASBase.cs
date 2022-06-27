@@ -40,7 +40,6 @@
     public sealed class SasBase : BaseRunnable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static bool _isFirstLoad = true;
         private bool _disposed;
         private ManualResetEvent _shutdownEvent = new(false);
         private ManualResetEvent _startupWaiter = new(false);
@@ -70,10 +69,7 @@
 
             // wait for the InitializationCompletedEvent which indicated
             // all the components we will use have been loaded
-            if (_isFirstLoad)
-            {
-                _startupWaiter.WaitOne();
-            }
+            _startupWaiter.WaitOne();
 
             Logger.Debug("OnRun got InitializationCompletedEvent");
             if (RunState == RunnableState.Running)
@@ -82,7 +78,6 @@
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
                 Container = Bootstrapper.ConfigureContainer();
-
                 Container.Verify();
 
                 SubscribeProgressiveEvents();
@@ -137,15 +132,10 @@
 
                 ServiceManager.GetInstance().GetService<IMeterManager>().CreateSnapshot();
 
-                Container.GetInstance<IEventBus>().Subscribe<RestartProtocolEvent>(this,
-                    async _ =>
-                {
-                    OnStop();
-                    await Container?.GetInstance<ISasDisableProvider>().OnSasReconfigured();
-                });
+                Container.GetInstance<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
 
                 Container.GetInstance<IEventBus>().Subscribe<CreditLimitUpdatedEvent>(this,
-                    async _ =>
+                    _ =>
                     {
                         var creditLimit = propertiesManager.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue).MillicentsToDollars();
                         var features = propertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
@@ -154,14 +144,13 @@
                             features.TransferLimit = creditLimit.DollarsToCents();
                             propertiesManager.SetProperty(SasProperties.SasFeatureSettings, features);
                             OnStop();
-                            await Container?.GetInstance<ISasDisableProvider>().OnSasReconfigured();
                         }
                     });
 
                 if (RunState == RunnableState.Running)
                 {
                     // Handle all saved startup events
-                    eventListener.HandleStartupEvents(consumerType => Container.GetAllInstances(consumerType).FirstOrDefault() as dynamic);
+                    eventListener.HandleStartupEvents(consumerType => Container.GetAllInstances(consumerType).FirstOrDefault());
                     Container.GetInstance<ISystemEventHandler>().OnSasStarted();
 
                     Container.GetInstance<ISasTicketPrintedHandler>().ProcessPendingTickets();
@@ -185,10 +174,10 @@
                         gameProvider.EnableGame(game.Id, GameStatus.DisabledByBackend);
                     }
 
-                    _isFirstLoad = false;
                     disableManager.Enable(BaseConstants.ProtocolDisabledKey);
                     _shutdownEvent.WaitOne();
                     _sasHost.StopEventSystem();
+                    _startupWaiter?.Set();
                 }
 
                 ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
@@ -208,10 +197,9 @@
         {
             // Set the Sas property for the Sas shutdown command received
             Container?.GetInstance<IPropertiesManager>().SetProperty(SasProperties.SasShutdownCommandReceivedKey, true);
+            Container?.GetInstance<ISasDisableProvider>().OnSasReconfigured().Wait();
 
             _shutdownEvent?.Set();
-            _startupWaiter?.Set();
-
             Logger.Debug("End of OnStop()!");
         }
 

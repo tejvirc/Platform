@@ -157,10 +157,6 @@
                             IsPaused = true;
                         }
                     }
-                    else
-                    {
-                        Logger.Debug($"IsAnimationVisible: {IsAnimationVisible}, RaceStarted: {RaceStarted}");
-                    }
                     break;
                 }
             }
@@ -168,7 +164,7 @@
 
         private async Task Handler(OperatorMenuEnteredEvent theEvent, CancellationToken token)
         {
-            Logger.Debug("OperatorMenuEnteredEvent");
+            Logger.Debug($"OperatorMenuEnteredEvent RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
 
             await ExecuteOnUI(() =>
             {
@@ -258,7 +254,7 @@
 
         private async Task GameDisabledEventHandler(GamePlayDisabledEvent evt, CancellationToken token)
         {
-            Logger.Debug("GameDisabledEventHandler");
+            Logger.Debug($"GameDisabledEventHandler RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
 
             await ExecuteOnUI(() =>
             {

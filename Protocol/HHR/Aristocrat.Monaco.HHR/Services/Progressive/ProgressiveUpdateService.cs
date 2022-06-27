@@ -110,12 +110,10 @@
                     return false;
                 }
 
-                Logger.Debug($"Update current amount = {linkedLevel.Amount}");
-
-                //since this is called form initialization of progressives, we do not need to
-                //save the update as it will be received again on startup.
-
+                // Since this is called from initialization of progressives, we do not need to
+                // save the update as it will be received again on startup.
                 _progressivesUpdatedValue[linkedLevel.ProgressiveGroupId].CurrentValue = linkedLevel.Amount;
+                Logger.Debug($"Updated pending level current amount: {_progressivesUpdatedValue[linkedLevel.ProgressiveGroupId].ToJson()}");
 
                 return true;
             }
@@ -144,6 +142,7 @@
                     _protocolLinkedProgressiveAdapter,
                     _propertiesManager);
 
+                // TODO: Find the level instead of having nested loops.
                 foreach (var (levelId, count) in evt.PrizeInformation.ProgressiveLevelsHit)
                 foreach (var progressiveLevel in progressiveLevels)
                 {
@@ -199,10 +198,8 @@
                         currentProgressiveAmount);
                 }
 
-                if (UpdateAndRemoveLevelsThatAreNotHit())
-                {
-                    SaveProgressivesUpdatesThatAreStillInProgress();
-                }
+                UpdateAndRemoveLevelsThatAreNotHit();
+                SaveProgressivesUpdatesThatAreStillInProgress();
 
                 _waitingForPrizeInformation = false;
             }
@@ -457,7 +454,7 @@
             _disposed = true;
         }
 
-        private bool UpdateAndRemoveLevelsThatAreNotHit()
+        private void UpdateAndRemoveLevelsThatAreNotHit()
         {
             lock (_sync)
             {
@@ -489,8 +486,6 @@
 
                     _progressivesUpdatedValue.Remove(linkedLevelToBeUpdated.ProgressiveGroupId);
                 }
-
-                return nonHitLevels.Any();
             }
         }
 
@@ -563,10 +558,8 @@
                     return;
                 }
 
-                if (UpdateAndRemoveLevelsThatAreNotHit())
-                {
-                    SaveProgressivesUpdatesThatAreStillInProgress();
-                }
+                UpdateAndRemoveLevelsThatAreNotHit();
+                SaveProgressivesUpdatesThatAreStillInProgress();
             }
         }
     }
