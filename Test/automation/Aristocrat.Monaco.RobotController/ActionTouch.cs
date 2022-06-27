@@ -16,7 +16,6 @@
         private readonly StateChecker _sc;
         private Timer _ActionTouchTimer;
         private bool _disposed;
-        private bool _enabled;
         private static ActionTouch instance = null;
         private static readonly object padlock = new object();
         public static ActionTouch Instatiate(RobotInfo robotInfo)
@@ -45,7 +44,7 @@
             _ActionTouchTimer = new Timer(
                                 (sender) =>
                                 {
-                                    if (!_enabled || !IsValid()) { return; }
+                                    if (!IsValid()) { return; }
                                     //BalanceCheck();
                                     _eventBus.Publish(new ActionTouchEvent());
 
@@ -53,11 +52,9 @@
                                 null,
                                 1000,
                                 _config.Active.IntervalTouch);
-            _enabled = true;
         }
         public void Halt()
         {
-            _enabled = false;
             _ActionTouchTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }

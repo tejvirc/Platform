@@ -19,7 +19,6 @@
         private Timer _balanceCheckTimer;
         private IBank _bank;
         private bool _disposed;
-        private bool _enabled;
         private static BalanceCheck instance = null;
         private static readonly object padlock = new object();
         public static BalanceCheck Instatiate(RobotInfo robotInfo)
@@ -48,17 +47,15 @@
             _balanceCheckTimer = new Timer(
                                 (sender) =>
                                 {
-                                    if (!_enabled || !IsValid()) { return; }
+                                    if (!IsValid()) { return; }
                                     _eventBus.Publish(new BalanceCheckEvent());
                                 },
                                 null,
                                 1000,
                                 _config.Active.IntervalBalanceCheck);
-            _enabled = true;
         }
         public void Halt()
         {
-            _enabled = false;
             _balanceCheckTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }

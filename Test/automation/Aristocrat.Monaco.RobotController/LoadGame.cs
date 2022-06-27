@@ -24,7 +24,6 @@
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int sanityCounter;
-        private bool _enabled;
         private static LoadGame instance = null;
         private static readonly object padlock = new object();
         public static LoadGame Instatiate(RobotInfo robotInfo)
@@ -54,17 +53,15 @@
             _LoadGameTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!_enabled || !IsValid()) { return; }
+                                   if (!IsValid()) { return; }
                                    _eventBus.Publish(new LoadGameEvent(true));
                                },
                                null,
                                1000,
                                _config.Active.IntervalLoadGame);
-            _enabled = true;
         }
         public void Halt()
         {
-            _enabled = false;
             _LoadGameTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
             sanityCounter = 0;

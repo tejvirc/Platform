@@ -20,7 +20,6 @@
         private readonly StateChecker _sc;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
-        private bool _enabled;
         private static ActionPlayer instance = null;
         private static readonly object padlock = new object();
         public static ActionPlayer Instatiate(RobotInfo robotInfo)
@@ -51,17 +50,15 @@
             _ActionPlayerTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!_enabled || !IsValid()) { return; }
+                                   if (!IsValid()) { return; }
                                    _eventBus.Publish(new ActionPlayerEvent());
                                },
                                null,
                                1000,
                                _config.Active.IntervalAction);
-            _enabled = true;
         }
         public void Halt()
         {
-            _enabled = false;
             _ActionPlayerTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }
