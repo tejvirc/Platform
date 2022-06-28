@@ -19,6 +19,7 @@
         internal bool IsGameEnded => _gamePlayState.CurrentState == PlayState.GameEnded;
         internal bool IsPrimaryGameEnded => _gamePlayState.CurrentState == PlayState.PrimaryGameEnded;
         internal bool IsSecondaryGameEnded => _gamePlayState.CurrentState == PlayState.SecondaryGameEnded;
+        internal bool IsPresentationIdle => _gamePlayState.CurrentState == PlayState.PresentationIdle;
         
         #endregion
         #region LobbyStateManager

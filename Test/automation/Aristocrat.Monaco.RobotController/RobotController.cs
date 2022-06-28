@@ -253,6 +253,7 @@
             _operationCollection.Add(ActionPlayer.Instatiate(robotInfo));
             _operationCollection.Add(ActionLobby.Instatiate(robotInfo));
             _operationCollection.Add(LoadAuditMenu.Instatiate(robotInfo));
+            _operationCollection.Add(ActionCashout.Instantiate(robotInfo));
         }
 
         protected override void OnRun()
