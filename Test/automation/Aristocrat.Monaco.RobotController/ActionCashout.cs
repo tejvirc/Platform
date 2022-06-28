@@ -48,18 +48,13 @@
 
         private void HandleEvent(ActionCashoutEvent obj)
         {
-            if (!IsValid())
-            {
-                //TODO: Log something
-                return;
-            }
             _logger.Info("Requesting Cashout");
             _eventBus.Publish(new CashOutButtonPressedEvent());
         }
         
         private bool IsValid()
         {
-            return _sc.IsChooser || _sc.IsGame; // CashOutButtonPressedConsumer::Consume -> Cashout unavailable if gameplay state is not idle
+            return _sc.IsChooser || _sc.IsIdle || _sc.IsPresentationIdle || _sc.IsGame || _sc.IsDisabled; // CashOutButtonPressedConsumer::Consume -> Cashout unavailable if gameplay state is not idle
         }
 
         public void Dispose()
@@ -97,7 +92,7 @@
                                     _eventBus.Publish(new ActionCashoutEvent());
                                 },
                                 null,
-                                1000,
+                                _config.Active.IntervalCashOut,
                                 _config.Active.IntervalCashOut);
         }
 
