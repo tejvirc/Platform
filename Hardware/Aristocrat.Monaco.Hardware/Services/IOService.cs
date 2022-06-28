@@ -833,5 +833,10 @@
                 ServiceManager.GetInstance().GetService<IComponentRegistry>().Register(component);
             }
         }
+
+        public int GetFanSpeed()
+        {
+            return _inputOutput.GetFanSpeed();
+        }
     }
 }

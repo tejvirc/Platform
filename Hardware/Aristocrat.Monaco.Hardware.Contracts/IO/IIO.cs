@@ -219,5 +219,9 @@
         /// <param name="bankOn">State of the bank show on (true) or off (false).</param>
         /// <returns>true if successful, otherwise false</returns>
         bool SetRedScreenFreeSpinBankShow(bool bankOn);
+
+        /// <summary>Gets the fan speed</summary>
+        /// <returns>the fan speed in rpm</returns>
+        int GetFanSpeed();
     }
 }

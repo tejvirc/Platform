@@ -1,15 +1,15 @@
 ﻿namespace Vgt.Client12.Hardware.IO
 {
-    class Gen8PCI
+    public class Gen8PCI
     {
-        const int HWO_LEGACY_DEVICE = 0;
-        const int HWO_FPGA_REGISTERS = 0x00000200;		        // FPGA registers, (0x00000200 - 0x000003ff)
-        const int HWO_INTERRUPT_CONTROLER = 0x00000400;		    // Interrup controler, (0x00000400 - 0x000005ff)
-        const int HWO_UARTS = 0x00000600;		                // UARTS (0x00000600 - 0x000007ff)
-        const int HWO_SMART_CARD = 0x00000800;		            // Smart Card (0x00000800 - 0x000009ff)
-        const int HWO_I2C = 0x00000A00;		                    // I2C master controller
-        const int HWO_ONEWIRE = 0x00000C00;		                // One wire controller
-        const int HWO_BAR2_RESERVED = 0x00000E00;		        // Reserved (0x00000e00 - 0x00000fff)
+        private const int HWO_LEGACY_DEVICE = 0;
+        private const int HWO_FPGA_REGISTERS = 0x00000200;		        // FPGA registers, (0x00000200 - 0x000003ff)
+        private const int HWO_INTERRUPT_CONTROLER = 0x00000400;		    // Interrup controler, (0x00000400 - 0x000005ff)
+        private const int HWO_UARTS = 0x00000600;		                // UARTS (0x00000600 - 0x000007ff)
+        private const int HWO_SMART_CARD = 0x00000800;		            // Smart Card (0x00000800 - 0x000009ff)
+        private const int HWO_I2C = 0x00000A00;		                    // I2C master controller
+        private const int HWO_ONEWIRE = 0x00000C00;		                // One wire controller
+        private const int HWO_BAR2_RESERVED = 0x00000E00;		        // Reserved (0x00000e00 - 0x00000fff)
 
 
         public enum Legacy : int

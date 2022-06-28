@@ -411,8 +411,10 @@
                 ?.DeviceConfiguration
                 .GetDeviceStatus(false);
 
-            BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
+            //BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
+            BiosVersion = ioService.GetFanSpeed().ToString();
             FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
+
             ModelText = ioService.DeviceConfiguration.Model;
 
             var osService = ServiceManager.GetInstance().GetService<IOSService>();

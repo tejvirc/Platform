@@ -789,5 +789,12 @@
 
             return result;
         }
+
+        public int GetFanSpeed()
+        {
+            var speed = DeviceControl.ReadReg32(_deviceHandle, Gen8PCI.Legacy.HWO_FANSPEED) * 100;
+
+            return speed;
+        }
     }
 }
