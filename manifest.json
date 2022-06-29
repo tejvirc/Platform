@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/index.html",
-          "hash": "6Npy1bGS2BLFaBRwz/MHjeUDJSAbyMBtoUgLjFP+DHg="
+          "hash": "Wp7KeIM+iiXPzcRCddv2PnUMTBJWfxxVi+23xtpLGNk="
         }
       },
       "is_incremental": false,
@@ -14383,9 +14383,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14470,9 +14467,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23653,6 +23647,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41173,6 +41170,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -52782,7 +52782,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.GameProcessManager.html",
-          "hash": "a/yjw2e4r9ecbw9BGNKJzMPID3jtXsVH/Y6W4bdbBG8="
+          "hash": "ExBefoNzMDl1SEpX30labaVLPqNqV68+MXc3iK40X8A="
         }
       },
       "is_incremental": false,
@@ -66126,7 +66126,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.EdgeLight.Device.ReelLightDevice.html",
-          "hash": "fZzsIyyngks7Q84GevPA5j3cVYVQ5ITvkeUpVFU/9xI="
+          "hash": "w/l+NU2PKPACt4L+htFGWA3nVQ8j0hZewYET1oiUJNQ="
         }
       },
       "is_incremental": false,
@@ -67938,7 +67938,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.Reel.Harkey.HarkeyProtocol.html",
-          "hash": "chCCaGV7bq2wd9Ra6q5bVR+cslCxCZ4vB8mkTwAjly4="
+          "hash": "wsAozId92PSujDi60OBMYObIBaXGhFMR56U0KmWsj9Q="
         }
       },
       "is_incremental": false,
