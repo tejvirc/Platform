@@ -223,5 +223,9 @@
         /// <summary>Gets the fan speed</summary>
         /// <returns>the fan speed in rpm</returns>
         int GetFanSpeed();
+
+        /// <summary>Gets the fan pwm</summary>
+        /// <returns>value between 0 and 255</returns>
+        int GetFanPwm();
     }
 }

@@ -838,5 +838,10 @@
         {
             return _inputOutput.GetFanSpeed();
         }
+
+        public int GetFanPwm()
+        {
+            return _inputOutput.GetFanPwm();
+        }
     }
 }

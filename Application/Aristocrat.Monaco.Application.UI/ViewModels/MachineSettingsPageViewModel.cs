@@ -413,7 +413,8 @@
 
             //BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
             BiosVersion = ioService.GetFanSpeed().ToString();
-            FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
+            //FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
+            FpgaVersion = ioService.GetFanPwm().ToString();
 
             ModelText = ioService.DeviceConfiguration.Model;
 

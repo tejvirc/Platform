@@ -797,9 +797,11 @@
             return speed;
         }
 
-        public int GetPWN()
+        public int GetFanPwm()
         {
-            return 0;
+            var Pwm = DeviceControl.ReadReg32(_deviceHandle, Gen8PCI.Legacy.HWO_FANPWM);
+
+            return Pwm;
         }
 
         public void SetPWN(int pwn)

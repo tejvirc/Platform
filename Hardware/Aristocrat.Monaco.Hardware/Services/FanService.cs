@@ -35,6 +35,11 @@
             return _io.GetFanSpeed();
         }
 
+        public int GetFanPwm()
+        {
+            return _io.GetFanPwm();
+        }
+
         public int CalculateFanspeed(int Tempreture)
         {
             return 0;
