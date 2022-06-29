@@ -19,7 +19,7 @@
         private bool _disposed;
         private static AuditMenuOperation instance = null;
         private static readonly object padlock = new object();
-        public static AuditMenuOperation Instatiate(RobotInfo robotInfo)
+        public static AuditMenuOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {

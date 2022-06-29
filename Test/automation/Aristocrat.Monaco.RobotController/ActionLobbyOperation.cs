@@ -21,7 +21,7 @@
         private bool _disposed;
         private static ActionLobbyOperation instance = null;
         private static readonly object padlock = new object();
-        public static ActionLobbyOperation Instatiate(RobotInfo robotInfo)
+        public static ActionLobbyOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {

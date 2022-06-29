@@ -27,7 +27,7 @@
         private int sanityCounter;
         private static GameOperation instance = null;
         private static readonly object padlock = new object();
-        public static GameOperation Instatiate(RobotInfo robotInfo)
+        public static GameOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {

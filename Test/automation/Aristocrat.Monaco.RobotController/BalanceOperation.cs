@@ -24,7 +24,7 @@
         private bool _disposed;
         private static BalanceOperation instance = null;
         private static readonly object padlock = new object();
-        public static BalanceOperation Instatiate(RobotInfo robotInfo)
+        public static BalanceOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
