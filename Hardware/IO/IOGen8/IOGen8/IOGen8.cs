@@ -804,9 +804,9 @@
             return Pwm;
         }
 
-        public void SetPWN(int pwn)
+        public bool SetFanPwm(int pwm)
         {
-
+            return DeviceControl.WriteReg32(_deviceHandle, Gen8PCI.Legacy.HWO_FANPWM, pwm);
         }
     }
 }

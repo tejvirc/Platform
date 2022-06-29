@@ -198,5 +198,10 @@
         /// <summary>Gets the fan pwm</summary>
         /// <returns>fan pwm</returns>
         int GetFanPwm();
+
+        /// <summary>Sets the fan pwm</summary>
+        /// <param name="pwm">pwm between 0 and 255</param>
+        /// <summary>Sets the fan pwm</summary>
+        bool SetFanPwm(int pwm);
     }
 }

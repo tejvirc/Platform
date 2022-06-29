@@ -843,5 +843,9 @@
         {
             return _inputOutput.GetFanPwm();
         }
+        public bool SetFanPwm(int pwm)
+        {
+            return _inputOutput.SetFanPwm(pwm);
+        }
     }
 }
