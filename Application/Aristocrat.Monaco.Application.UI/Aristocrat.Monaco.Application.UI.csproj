@@ -127,4 +127,9 @@
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
     <PackageReference Include="XAMLMarkupExtensions" Version="1.5.1" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DiagnosticCpuFanPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
 </Project>

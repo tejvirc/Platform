@@ -1,10 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Fan
 {
+    using System.Reactive.Subjects;
+
     /// <summary>
     ///     IBatteryTestService
     /// </summary>
     public interface IFan
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        Subject<CpuMetriInfo> FanSpeed { get; }
+
         /// <summary>
         ///     Gets fan speed method
         /// </summary>
@@ -24,5 +31,26 @@
         /// </summary>
         /// <returns>Returns fan speed in PWM</returns>
         int CalculatePwm(int fanSpeed);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public struct CpuMetriInfo
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FanPwm { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CpuTemperature { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int FanSpeed { get; set; }
     }
 }

@@ -90,6 +90,7 @@
     <DiagnosticMenu type="Aristocrat.Monaco.Application.UI.Loaders.DiagnosticResourcesPageLoader" order="10"/>
     <DiagnosticMenu type="Aristocrat.Monaco.Application.UI.Loaders.DiagnosticNetworkPageLoader" order="20"/>
     <DiagnosticMenu type="Aristocrat.Monaco.Application.UI.Loaders.IOPageLoader" order="30"/>
+    <DiagnosticMenu type="Aristocrat.Monaco.Application.UI.Loaders.DiagnosticCpuFanPageLoader" order="40"/>
     <DiagnosticMenu type="Aristocrat.Monaco.Sas.UI.Loaders.DiagnosticSasPageLoader" order="110"/>
     <DiagnosticMenu type="Aristocrat.Monaco.G2S.UI.Loaders.HostTranscriptsViewLoader" order="210"/>
     <DiagnosticMenu type="Aristocrat.Monaco.Mgam.UI.Loaders.HostTranscriptsPageLoader" order="310"/>
