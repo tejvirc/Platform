@@ -16,6 +16,6 @@ as follows:
 			Default (Optional): The default max transfer limit (in cents).
 			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
 		-->
-        <TransferLimit Default="10000" MaxAllowed="10000" />
+        <TransferLimit Default="100000" MaxAllowed="100000" />
     </SASHostPage>  
 </SASDefaultConfiguration>
