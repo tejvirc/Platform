@@ -16,6 +16,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.Ticket;
+    using Hardware.Services;
     using Kernel;
     using Kernel.Contracts;
     using MVVM.Command;
@@ -414,10 +415,19 @@
             //BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
             BiosVersion = ioService.GetFanSpeed().ToString();
             //FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
-            FpgaVersion = ioService.GetFanPwm().ToString();
 
-            ModelText = ioService.DeviceConfiguration.Model;
+            var fanPwm = ioService.GetFanPwm();
+            FpgaVersion = fanPwm.ToString();
 
+            fanPwm++;
+            if (fanPwm > 255)
+                fanPwm = 128;
+
+            ioService.SetFanPwm(fanPwm);
+
+            ModelText = FanService.GetCpuTemperature().ToString();
+
+            //ModelText = ioService.DeviceConfiguration.Model;
             var osService = ServiceManager.GetInstance().GetService<IOSService>();
 
             WindowsVersion = Environment.OSVersion.Version.ToString();

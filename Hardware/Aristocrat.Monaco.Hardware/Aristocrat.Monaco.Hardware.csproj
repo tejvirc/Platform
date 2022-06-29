@@ -40,6 +40,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenHardwareMonitorLib">
+      <HintPath>Lib\OpenHardwareMonitorLib.dll</HintPath>
+    </Reference>
     <Reference Include="System.Management" />
   </ItemGroup>
   <ItemGroup>
@@ -153,5 +156,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Stateless" Version="4.0.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lib\" />
   </ItemGroup>
 </Project>
