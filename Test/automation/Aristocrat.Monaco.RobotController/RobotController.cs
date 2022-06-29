@@ -257,12 +257,12 @@
             //_serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
             //_serviceCollection.Add(typeof(ActionTouch).ToString(), new ActionTouch(_config, _lobbyStateManager, _logger, _automator, _eventBus));
             //_serviceCollection.Add(typeof(ActionPlayer).ToString(), new ActionPlayer(_config, _lobbyStateManager, _logger, _automator, _eventBus));
-            _operationCollection.Add(GameOperation.Instatiate(robotInfo));
-            _operationCollection.Add(BalanceOperation.Instatiate(robotInfo));
-            _operationCollection.Add(ActionTouchOperation.Instatiate(robotInfo));
-            _operationCollection.Add(ActionPlayerOperation.Instatiate(robotInfo));
-            _operationCollection.Add(ActionLobbyOperation.Instatiate(robotInfo));
-            _operationCollection.Add(AuditMenuOperation.Instatiate(robotInfo));
+            _operationCollection.Add(GameOperation.Instantiate(robotInfo));
+            _operationCollection.Add(BalanceOperation.Instantiate(robotInfo));
+            _operationCollection.Add(ActionTouchOperation.Instantiate(robotInfo));
+            _operationCollection.Add(ActionPlayerOperation.Instantiate(robotInfo));
+            _operationCollection.Add(ActionLobbyOperation.Instantiate(robotInfo));
+            _operationCollection.Add(AuditMenuOperation.Instantiate(robotInfo));
             //_operationCollection.Add(new LockUpOperation(robotInfo));
             //_operationCollection.Add(new RebootRequestOperation(robotInfo));
             //_operationCollection.Add(new OperatingHoursOperation(robotInfo));
