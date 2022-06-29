@@ -28,7 +28,7 @@
             new() { TemperatureLow = 75, TemperatureHigh = 80, SpeedLow = 4000, SpeedHigh = 4480 },
             new() { TemperatureLow = 65, TemperatureHigh = 75, SpeedLow = 2500, SpeedHigh = 4000 },
             new() { TemperatureLow = 35, TemperatureHigh = 65, SpeedLow = 1000, SpeedHigh = 2500 },
-            new() { TemperatureLow = 0, TemperatureHigh = 34, SpeedLow = 0, SpeedHigh = 0 }
+            new() { TemperatureLow = 0, TemperatureHigh = 35, SpeedLow = 0, SpeedHigh = 1000 }
         };
 
         public FanService()
