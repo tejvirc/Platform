@@ -540,9 +540,9 @@
             // The pin was confirmed, reserve the machine
             if (string.Compare(Pin, storedPin, StringComparison.InvariantCultureIgnoreCase) == 0)
             {
-                RemovePreReserveLockup();
                 _reserveService.ReserveMachine();
                 State = ReserveMachineDisplayState.Countdown;
+                RemovePreReserveLockup();
             }
             // The pin does not match what was entered on the player menu
             else
