@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using log4net;
     using System;
     using System.Threading;
-    using Vgt.Client12.Application.OperatorMenu;
 
-    internal class LoadAuditMenu : IRobotOperations, IDisposable
+    internal class AuditMenuOperation : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -17,20 +17,20 @@
         private Timer _loadAuditMenuTimer;
         private Timer _exitAuditMenuTimer;
         private bool _disposed;
-        private static LoadAuditMenu instance = null;
+        private static AuditMenuOperation instance = null;
         private static readonly object padlock = new object();
-        public static LoadAuditMenu Instatiate(RobotInfo robotInfo)
+        public static AuditMenuOperation Instatiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new LoadAuditMenu(robotInfo);
+                    instance = new AuditMenuOperation(robotInfo);
                 }
                 return instance;
             }
         }
-        public LoadAuditMenu(RobotInfo robotInfo)
+        public AuditMenuOperation(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -39,7 +39,7 @@
             _eventBus = robotInfo.EventBus;
         }
 
-        ~LoadAuditMenu() => Dispose(false);
+        ~AuditMenuOperation() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -64,6 +64,19 @@
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<LoadAuditMenuEvent>(this, HandleEvent);
+            _eventBus.Subscribe<OperatorMenuEnteredEvent>(
+                this,
+                _ =>
+                {
+                    //log
+                });
+
+            _eventBus.Subscribe<OperatorMenuExitedEvent>(
+                this,
+                _ =>
+                {
+                   //log
+                });
         }
 
         private void HandleEvent(LoadAuditMenuEvent obj)
@@ -74,8 +87,8 @@
                 return;
             }
             _logger.Info("Requesting Audit Menu");
-            _automator.LoadAuditMenu();
             _automator.EnableCashOut(true);
+            _automator.LoadAuditMenu();
             _exitAuditMenuTimer = new Timer(
                 (sender) =>
                 {
@@ -84,7 +97,7 @@
                     _exitAuditMenuTimer.Dispose();
                 },
                 null,
-                5000,
+                Constants.AuditMenuDuration,
                 System.Threading.Timeout.Infinite);
         }
 

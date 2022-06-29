@@ -2,15 +2,17 @@
 {
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
-    using Aristocrat.Monaco.Gaming.Contracts.Models;
+    using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Aristocrat.Monaco.Hhr.Events;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using log4net;
     using System;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
 
-    internal class LoadGame : IRobotOperations, IDisposable
+    internal class GameOperation : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -18,26 +20,25 @@
         private readonly IPropertiesManager _pm;
         private readonly ILog _logger;
         private readonly StateChecker _sc;
-        //todo: Handle this
-        //private IOperatingHoursMonitor _operatingHoursMonitor;
+        private Action _idleDurationReset;
         private Timer _LoadGameTimer;
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int sanityCounter;
-        private static LoadGame instance = null;
+        private static GameOperation instance = null;
         private static readonly object padlock = new object();
-        public static LoadGame Instatiate(RobotInfo robotInfo)
+        public static GameOperation Instatiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new LoadGame(robotInfo);
+                    instance = new GameOperation(robotInfo);
                 }
                 return instance;
             }
         }
-        private LoadGame(RobotInfo robotInfo)
+        private GameOperation(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -45,8 +46,9 @@
             _logger = robotInfo.Logger;
             _eventBus = robotInfo.EventBus;
             _pm = robotInfo.PropertiesManager;
+            _idleDurationReset = robotInfo.IdleDurationReset;
         }
-        ~LoadGame() => Dispose(false);
+        ~GameOperation() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -57,7 +59,7 @@
                                    _eventBus.Publish(new LoadGameEvent(true));
                                },
                                null,
-                               1000,
+                               _config.Active.IntervalLoadGame,
                                _config.Active.IntervalLoadGame);
         }
         public void Halt()
@@ -103,6 +105,73 @@
                            {
                                sanityCounter = 0;
                            });
+            _eventBus.Subscribe<PrimaryGameStartedEvent>(this, _ => {
+                _idleDurationReset();
+            });
+
+            _eventBus.Subscribe<SecondaryGameStartedEvent>(this, _ =>
+            {
+                _idleDurationReset();
+            });
+
+            _eventBus.Subscribe<FreeGameStartedEvent>(this, _ => {
+                _idleDurationReset();
+            });
+
+            _eventBus.Subscribe<GamePresentationEndedEvent>(this, _ => {
+                _idleDurationReset();
+            });
+
+            _eventBus.Subscribe<GamePlayRequestFailedEvent>(this, _ =>
+            {
+                _logger.Info("Keying off GamePlayRequestFailed");
+                ToggleJackpotKey(1000);
+            });
+
+            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(this, _ =>
+            {
+                _logger.Info("Keying off UnexpectedOrNoResponseEvent");
+                ToggleJackpotKey(10000);
+            });
+
+            _eventBus.Subscribe<GameExitedNormalEvent>(
+                           this,
+                           _ =>
+                           {
+                               _eventBus.Publish(new LoadGameEvent(true));
+                           });
+            _eventBus.Subscribe<GameIdleEvent>(
+                            this,
+                            _ =>
+                            {
+                                _eventBus.Publish(new BalanceCheckEvent());
+                            });
+            _eventBus.Subscribe<GameSelectedEvent>(
+                            this,
+                            evt =>
+                            {
+                                if (evt?.GameId > 0)
+                                {
+                                    _pm.SetProperty(GamingConstants.SelectedGameId, evt.GameId);
+                                }
+                                //add log
+                            });
+            _eventBus.Subscribe<GameProcessExitedEvent>(
+                            this,
+                            _ =>
+                            {
+                                //add log
+                            });
+            _eventBus.Subscribe<RecoveryStartedEvent>(
+                            this,
+                            _ =>
+                            {
+                               //log
+                            });
+        }
+        private void ToggleJackpotKey(int waitDuration)
+        {
+            Task.Delay(waitDuration).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
         }
         private void HandleEvent(LoadGameEvent evt)
         {
@@ -143,6 +212,7 @@
         {
             var games = _pm.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _config.CurrentGame && g.Enabled);
+            
             if (gameInfo != null)
             {
                 var denom = gameInfo.Denominations.First(d => d.Active == true).Value;

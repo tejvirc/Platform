@@ -14,9 +14,9 @@
     using Contracts;
     using Kernel;
     using log4net;
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts.Vouchers;
     using System.Timers;
+    using SimpleInjector;
+    using Aristocrat.Monaco.Kernel.Contracts;
 
     internal struct RobotInfo
     {
@@ -27,6 +27,8 @@
         public IPropertiesManager PropertiesManager;
         public IContainerService ContainerService;
         public StateChecker StateChecker;
+        public Action IdleDurationReset;
+        public Action DisableRobotController;
     }
     public sealed class RobotController : BaseRunnable, IRobotController
     {
@@ -64,7 +66,27 @@
                 }
             }
         }
-
+        public RobotController()
+        {
+            _operationCollection = new HashSet<IRobotOperations>();
+            _sanityChecker = new Timer()
+            {
+                Interval = 10000,
+            };
+            _sanityChecker.Elapsed += CheckSanity;
+        }
+        protected override void OnInitialize()
+        {
+            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+           // var container = new Container();
+            //RegisterExternalServices(container);
+            WaitForServices();
+            SubscribeToRobotEnabler();
+        }
+        protected override void OnRun()
+        {
+            LoadConfiguration();
+        }
         private void StartingSuperRobot()
         {
             _eventBus.Publish(new LoadGameEvent());
@@ -79,43 +101,22 @@
             _automator.SetTimeLimitButtons(_config.GetTimeLimitButtons());
             //Todo: we need to Dispose the SuperRobot
             _automator.SetSpeed(_config.Speed);
+            StartRobot();
             foreach (var op in _operationCollection)
             {
                 op.Execute();
             }
-            StartSuperRobot();
         }
 
         private void SubscribeToEvents()
         {
             GameProcessHungEvent();
             VoucherRejectedEvent();
-            //GameIdleEvent();
-        }
-
-        private void GameIdleEvent()
-        {
-            _eventBus.Subscribe<GameIdleEvent>(
-                                        this,
-                                        _ =>
-                                        {
-                                            _eventBus.Publish(new BalanceCheckEvent());
-                                        });
         }
 
         private void VoucherRejectedEvent()
         {
-            _eventBus.Subscribe<VoucherRejectedEvent>(this, evt =>
-            {
-                if (Enabled)
-                {
-                    if (evt.Transaction.Exception.Equals((int)VoucherInExceptionCode.CreditInLimitExceeded) ||
-                        evt.Transaction.Exception.Equals((int)VoucherInExceptionCode.LaundryLimitExceeded))
-                    {
-                        _eventBus.Publish(new CashOutButtonPressedEvent());
-                    }
-                }
-            });
+            
         }
 
         private void GameProcessHungEvent()
@@ -129,9 +130,17 @@
             }
         }
 
-        private void StartSuperRobot()
+        private void StartRobot()
         {
-            //_eventBus.Publish(new LoadGameEvent());
+            SetMaxWinLimit();
+        }
+
+        private void SetMaxWinLimit()
+        {
+            if (_config.Active.MaxWinLimitOverrideMilliCents > 0)
+            {
+                _automator.SetMaxWinLimit(_config.Active.MaxWinLimitOverrideMilliCents);
+            }
         }
 
         private void SetupClassProperties()
@@ -160,14 +169,7 @@
             //_eventBus.Unsubscribe<type>(this);
         }
 
-        public RobotController()
-        {
-            _operationCollection = new HashSet<IRobotOperations>();
-            _sanityChecker = new Timer() {
-                Interval = 10000,
-            };
-            _sanityChecker.Elapsed += CheckSanity;
-        }
+       
 
         private void CheckSanity(Object source, System.Timers.ElapsedEventArgs e)
         {
@@ -182,11 +184,11 @@
             }
         }
 
-        protected override void OnInitialize()
+        
+
+        private void RegisterExternalServices(Container container)
         {
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            WaitForServices();
-            SubscribeToRobotEnabler();
+            container.Register<GameOperation>(Lifestyle.Singleton);
         }
 
         private void SubscribeToRobotEnabler()
@@ -194,6 +196,12 @@
             _eventBus.Subscribe<RobotControllerEnableEvent>(this, _ =>
             {
                 Enabled = !Enabled;
+            });
+
+            _eventBus.Subscribe<ExitRequestedEvent>(this, _ =>
+            {
+                _logger.Info("Exit requested. Disabling.");
+                Enabled = false;
             });
         }
 
@@ -242,23 +250,36 @@
                 EventBus = _eventBus,
                 StateChecker = new StateChecker(_lobbyStateManager, _gamePlayState),
                 Logger = _logger,
-                PropertiesManager = _propertyManager
+                PropertiesManager = _propertyManager,
+                IdleDurationReset = IdleDurationReset,
+                DisableRobotController = DisableRobotController
             };
             //_serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
             //_serviceCollection.Add(typeof(ActionTouch).ToString(), new ActionTouch(_config, _lobbyStateManager, _logger, _automator, _eventBus));
             //_serviceCollection.Add(typeof(ActionPlayer).ToString(), new ActionPlayer(_config, _lobbyStateManager, _logger, _automator, _eventBus));
-            _operationCollection.Add(LoadGame.Instatiate(robotInfo));
-            _operationCollection.Add(BalanceCheck.Instatiate(robotInfo));
-            _operationCollection.Add(ActionTouch.Instatiate(robotInfo));
-            _operationCollection.Add(ActionPlayer.Instatiate(robotInfo));
-            _operationCollection.Add(ActionLobby.Instatiate(robotInfo));
-            _operationCollection.Add(LoadAuditMenu.Instatiate(robotInfo));
+            _operationCollection.Add(GameOperation.Instatiate(robotInfo));
+            _operationCollection.Add(BalanceOperation.Instatiate(robotInfo));
+            _operationCollection.Add(ActionTouchOperation.Instatiate(robotInfo));
+            _operationCollection.Add(ActionPlayerOperation.Instatiate(robotInfo));
+            _operationCollection.Add(ActionLobbyOperation.Instatiate(robotInfo));
+            _operationCollection.Add(AuditMenuOperation.Instatiate(robotInfo));
+            //_operationCollection.Add(new LockUpOperation(robotInfo));
+            //_operationCollection.Add(new RebootRequestOperation(robotInfo));
+            //_operationCollection.Add(new OperatingHoursOperation(robotInfo));
+            //_operationCollection.Add(new ServiceRequestOperation(robotInfo));
         }
 
-        protected override void OnRun()
+        private void DisableRobotController()
         {
-            LoadConfiguration();
+            Enabled = false;
         }
+
+        private void IdleDurationReset()
+        {
+            _idleDuration = 0;
+        }
+
+        
 
         protected override void OnStop()
         {

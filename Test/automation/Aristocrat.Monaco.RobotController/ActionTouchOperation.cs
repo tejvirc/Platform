@@ -7,7 +7,7 @@
     using System.Collections.Generic;
     using System.Threading;
 
-    internal class ActionTouch : IRobotOperations, IDisposable
+    internal class ActionTouchOperation : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -16,20 +16,20 @@
         private readonly StateChecker _sc;
         private Timer _ActionTouchTimer;
         private bool _disposed;
-        private static ActionTouch instance = null;
+        private static ActionTouchOperation instance = null;
         private static readonly object padlock = new object();
-        public static ActionTouch Instatiate(RobotInfo robotInfo)
+        public static ActionTouchOperation Instatiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new ActionTouch(robotInfo);
+                    instance = new ActionTouchOperation(robotInfo);
                 }
                 return instance;
             }
         }
-        private ActionTouch(RobotInfo robotInfo)
+        private ActionTouchOperation(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -37,7 +37,7 @@
             _logger = robotInfo.Logger;
             _eventBus = robotInfo.EventBus;
         }
-        ~ActionTouch() => Dispose(false);
+        ~ActionTouchOperation() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -45,12 +45,11 @@
                                 (sender) =>
                                 {
                                     if (!IsValid()) { return; }
-                                    //BalanceCheck();
                                     _eventBus.Publish(new ActionTouchEvent());
 
                                 },
                                 null,
-                                1000,
+                                _config.Active.IntervalTouch,
                                 _config.Active.IntervalTouch);
         }
         public void Halt()
@@ -64,11 +63,7 @@
         }
         private void HandleEvent(ActionTouchEvent obj)
         {
-            if (!IsValid())
-            {
-                //Todo: Log Something
-                return;
-            }
+            if (!IsValid()) { return; }
             var Rng = new Random((int)DateTime.Now.Ticks);
             TouchGameScreen(Rng);
             TouchVbd(Rng);
@@ -103,10 +98,6 @@
             }
 
             _disposed = true;
-        }
-        private void BalanceCheck()
-        {
-            _eventBus.Publish(new BalanceCheckEvent());
         }
         private void TouchAnyAuxiliaryVbdAreas(Random Rng)
         {

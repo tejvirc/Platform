@@ -256,7 +256,7 @@
         ///     (ms) interval between soft reboots
         /// </summary>
         [XmlElement]
-        public int IntervalSoftReboot { get; set; }
+        public int IntervalSoftReboot { get; set; } = 700000;
 
         /// <summary>
         ///     (ms) interval the RG time elapsed will be set on
@@ -293,7 +293,7 @@
         ///     (ms) interval for how often to reboot the machine
         /// </summary>
         [XmlElement]
-        public int IntervalRebootMachine { get; set; }
+        public int IntervalRebootMachine { get; set; } = 80000;
 
         /// <summary>
         ///     which session will be set for RG
@@ -302,7 +302,7 @@
         public int RgSessionCountOverride { get; set; } = 1;
 
         [XmlElement]
-        public int IntervalServiceRequest { get; set; }
+        public int IntervalServiceRequest { get; set; } = 60000;
 
         [XmlElement]
         public int IntervalValidation { get; set; } = 10000;

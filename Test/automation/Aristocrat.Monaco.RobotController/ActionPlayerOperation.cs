@@ -1,7 +1,5 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Gaming.Contracts.Lobby;
-    using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using log4net;
@@ -10,7 +8,7 @@
     using System.Linq;
     using System.Threading;
 
-    internal class ActionPlayer : IRobotOperations, IDisposable
+    internal class ActionPlayerOperation : IRobotOperations, IDisposable
     {
         private readonly Configuration _config;
         private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
@@ -20,20 +18,20 @@
         private readonly StateChecker _sc;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
-        private static ActionPlayer instance = null;
+        private static ActionPlayerOperation instance = null;
         private static readonly object padlock = new object();
-        public static ActionPlayer Instatiate(RobotInfo robotInfo)
+        public static ActionPlayerOperation Instatiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new ActionPlayer(robotInfo);
+                    instance = new ActionPlayerOperation(robotInfo);
                 }
                 return instance;
             }
         }
-        private ActionPlayer(RobotInfo robotInfo)
+        private ActionPlayerOperation(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -43,7 +41,7 @@
             _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             InitializeActionPlayer();
         }
-        ~ActionPlayer() => Dispose(false);
+        ~ActionPlayerOperation() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -54,7 +52,7 @@
                                    _eventBus.Publish(new ActionPlayerEvent());
                                },
                                null,
-                               1000,
+                               _config.Active.IntervalAction,
                                _config.Active.IntervalAction);
         }
         public void Halt()
