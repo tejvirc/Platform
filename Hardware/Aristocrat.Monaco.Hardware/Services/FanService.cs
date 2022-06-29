@@ -34,5 +34,15 @@
         {
             return _io.GetFanSpeed();
         }
+
+        public int CalculateFanspeed(int Tempreture)
+        {
+            return 0;
+        }
+
+        public int CalculatePWN(int Fanspeed)
+        {
+            return 0;
+        }
     }
 }

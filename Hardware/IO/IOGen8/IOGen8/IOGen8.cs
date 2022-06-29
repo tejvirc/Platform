@@ -796,5 +796,15 @@
 
             return speed;
         }
+
+        public int GetPWN()
+        {
+            return 0;
+        }
+
+        public void SetPWN(int pwn)
+        {
+
+        }
     }
 }
