@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
@@ -15,6 +14,7 @@
         private readonly ILog _logger;
         private readonly StateChecker _sc;
         private readonly IPropertiesManager _pm;
+        private readonly Func<long> _idleDuration;
         private Timer _ForceGameExitTimer;
         private Timer _GameExitTimer;
         private bool _isTimeLimitDialogVisible;
@@ -40,6 +40,7 @@
             _logger = robotInfo.Logger;
             _eventBus = robotInfo.EventBus;
             _pm = robotInfo.PropertiesManager;
+            _idleDuration = robotInfo.IdleDuration;
         }
         ~ActionLobbyOperation() => Dispose(false);
         public void Execute()
@@ -48,8 +49,7 @@
             _ForceGameExitTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsForceGameExitValid()) { return; }
-                                   _eventBus.Publish(new RequestForceGameExitEvent());
+                                   RequestForceGameExit();
                                },
                                null,
                                _config.Active.IntervalLobby,
@@ -57,24 +57,37 @@
             _GameExitTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsGameExitValid()) { return; }
-                                   _eventBus.Publish(new RequestGameExitEvent());
+                                   RequestGameExit();
                                },
                                null,
                                _config.Active.IntervalLobby,
                                _config.Active.IntervalLobby);
         }
+        private void RequestForceGameExit()
+        {
+            if (!IsForceGameExitValid()) { return; }
+            _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
+            _automator.EnableExitToLobby(true);
+            _automator.ForceGameExit(Constants.GdkRuntimeHostName);
+        }
+
+        private void RequestGameExit()
+        {
+            if (!IsGameExitValid()) { return; }
+            _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
+            _automator.EnableExitToLobby(true);
+            _automator.RequestGameExit();
+        }
         private bool IsGameExitValid()
         {
-            return _sc.IsGame && !_sc.IsAllowSingleGameAutoLaunch;
+            return _idleDuration() > 8000 && (_sc.IsGame && !_sc.IsAllowSingleGameAutoLaunch);
         }
         private bool IsForceGameExitValid()
         {
-            return _sc.IsGame && !_sc.IsAllowSingleGameAutoLaunch && _config.Active.TestRecovery;
+            return _sc.IsGame && _config.Active.TestRecovery;
         }
         public void Halt()
         {
-            _eventBus.UnsubscribeAll(this);
             _GameExitTimer?.Dispose();
             _ForceGameExitTimer?.Dispose();
         }
@@ -82,6 +95,7 @@
         {
             _eventBus.Subscribe<RequestForceGameExitEvent>(this, HandleEvent);
             _eventBus.Subscribe<RequestGameExitEvent>(this, HandleEvent);
+            _eventBus.Subscribe<LobbyInitializedEvent>(this, _ => _automator.EnableExitToLobby(false));
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
                 this,
                 evt =>
@@ -102,17 +116,11 @@
         }
         private void HandleEvent(RequestGameExitEvent obj)
         {
-            if (!IsGameExitValid()) { return; }
-            //_automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
-            //_automator.EnableExitToLobby(true);
-            //_automator.RequestGameExit();
+            RequestGameExit();
         }
         private void HandleEvent(RequestForceGameExitEvent obj)
         {
-            if (!IsForceGameExitValid()) { return; }
-            _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
-            _automator.EnableExitToLobby(true);
-            _automator.ForceGameExit(Constants.GdkRuntimeHostName);
+            RequestForceGameExit();
         }
         public void Dispose()
         {

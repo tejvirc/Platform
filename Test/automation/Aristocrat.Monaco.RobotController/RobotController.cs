@@ -29,6 +29,7 @@
         public StateChecker StateChecker;
         public Action IdleDurationReset;
         public Action DisableRobotController;
+        public Func<long> IdleDuration;
     }
     public sealed class RobotController : BaseRunnable, IRobotController
     {
@@ -71,7 +72,7 @@
             _operationCollection = new HashSet<IRobotOperations>();
             _sanityChecker = new Timer()
             {
-                Interval = 10000,
+                Interval = 1000,
             };
             _sanityChecker.Elapsed += CheckSanity;
         }
@@ -89,7 +90,7 @@
         }
         private void StartingSuperRobot()
         {
-            _eventBus.Publish(new LoadGameEvent());
+            //_eventBus.Publish(new LoadGameEvent());
         }
 
         private void EnablingRobot()
@@ -175,7 +176,7 @@
         {
             try
             {
-                _idleDuration = _idleDuration + 10000;
+                _idleDuration = _idleDuration + 1000;
                 IdleCheck();
             }
             catch (OverflowException)
@@ -252,21 +253,20 @@
                 Logger = _logger,
                 PropertiesManager = _propertyManager,
                 IdleDurationReset = IdleDurationReset,
-                DisableRobotController = DisableRobotController
+                DisableRobotController = DisableRobotController,
+                IdleDuration = IdleDuration
             };
-            //_serviceCollection.Add(typeof(BalanceCheck).ToString(), new BalanceCheck(_config, _lobbyStateManager, _gamePlayState, _bank, _logger, _eventBus));
-            //_serviceCollection.Add(typeof(ActionTouch).ToString(), new ActionTouch(_config, _lobbyStateManager, _logger, _automator, _eventBus));
-            //_serviceCollection.Add(typeof(ActionPlayer).ToString(), new ActionPlayer(_config, _lobbyStateManager, _logger, _automator, _eventBus));
             _operationCollection.Add(GameOperation.Instatiate(robotInfo));
             _operationCollection.Add(BalanceOperation.Instatiate(robotInfo));
             _operationCollection.Add(ActionTouchOperation.Instatiate(robotInfo));
             _operationCollection.Add(ActionPlayerOperation.Instatiate(robotInfo));
+            _operationCollection.Add(CashoutOperation.Instantiate(robotInfo));
             _operationCollection.Add(ActionLobbyOperation.Instatiate(robotInfo));
-            _operationCollection.Add(AuditMenuOperation.Instatiate(robotInfo));
-            //_operationCollection.Add(new LockUpOperation(robotInfo));
-            //_operationCollection.Add(new RebootRequestOperation(robotInfo));
-            //_operationCollection.Add(new OperatingHoursOperation(robotInfo));
-            //_operationCollection.Add(new ServiceRequestOperation(robotInfo));
+        }
+
+        private long IdleDuration()
+        {
+            return _idleDuration;
         }
 
         private void DisableRobotController()

@@ -55,32 +55,45 @@
             _LoadGameTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsValid()) { return; }
-                                   _eventBus.Publish(new LoadGameEvent(true));
+                                   HandleGameRequest();
                                },
                                null,
                                _config.Active.IntervalLoadGame,
                                _config.Active.IntervalLoadGame);
         }
+        private void HandleGameRequest(LoadGameEvent evt = null)
+        {
+            if (!IsValid())
+            {
+                //Todo: Log Something
+                return;
+            }
+            evt = evt ?? new LoadGameEvent(true);
+            DismissTimeLimitDialog();
+            SelectGame(evt);
+            if (!IsTimeLimitDialogInProgress() && CheckSanity())
+            {
+                RequestGameLoad();
+            }
+        }
         public void Halt()
         {
             _LoadGameTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
             sanityCounter = 0;
         }
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<LoadGameEvent>(this, HandleEvent);
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
-                            this,
-                            evt =>
-                            {
-                                _isTimeLimitDialogVisible = true;
-                                if (evt.IsLastPrompt)
-                                {
-                                    _automator.EnableCashOut(true);
-                                }
-                            });
+                 this,
+                 evt =>
+                 {
+                     _isTimeLimitDialogVisible = true;
+                     if (evt.IsLastPrompt)
+                     {
+                         _automator.EnableCashOut(true);
+                     }
+                 });
 
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
                 this,
@@ -90,84 +103,133 @@
                 });
 
             _eventBus.Subscribe<GameRequestFailedEvent>(
-                           this,
-                           _ =>
-                           {
-                               if ( !_sc.IsAllowSingleGameAutoLaunch)
-                               {
-                                   sanityCounter++;
-                                   _eventBus.Publish(new LoadGameEvent(true));
-                               }
-                           });
+                this,
+                _ =>
+                {
+                    if (!_sc.IsAllowSingleGameAutoLaunch)
+                    {
+                        sanityCounter++;
+                        _eventBus.Publish(new LoadGameEvent(true));
+                    }
+                });
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
-                           this,
-                           _ =>
-                           {
-                               sanityCounter = 0;
-                           });
-            _eventBus.Subscribe<PrimaryGameStartedEvent>(this, _ => {
-                _idleDurationReset();
-            });
+                this,
+                _ =>
+                {//2
+                    sanityCounter = 0;
+                });
+            _eventBus.Subscribe<PrimaryGameStartedEvent>(
+                this, _ =>
+                {//3
+                    _idleDurationReset();
+                });
 
-            _eventBus.Subscribe<SecondaryGameStartedEvent>(this, _ =>
-            {
-                _idleDurationReset();
-            });
+            _eventBus.Subscribe<SecondaryGameStartedEvent>(
+                this, _ =>
+                {
+                    _idleDurationReset();
+                });
+            _eventBus.Subscribe<FreeGameStartedEvent>
+                (this, _ =>
+                {
+                    _idleDurationReset();
+                });
+            _eventBus.Subscribe<GameDenomChangedEvent>
+                            (this, _ =>
+                            {
+                                _idleDurationReset();
+                            });
+            _eventBus.Subscribe<GameDisabledEvent>
+                                        (this, _ =>
+                                        {
+                                        });
+            _eventBus.Subscribe<GameEnabledEvent>
+                                                    (this, _ =>
+                                                    {
+                                                    });
 
-            _eventBus.Subscribe<FreeGameStartedEvent>(this, _ => {
-                _idleDurationReset();
-            });
-
-            _eventBus.Subscribe<GamePresentationEndedEvent>(this, _ => {
-                _idleDurationReset();
-            });
+            _eventBus.Subscribe<GamePresentationEndedEvent>(
+                this, _ =>
+                {//4
+                    _idleDurationReset();
+                });
 
             _eventBus.Subscribe<GamePlayRequestFailedEvent>(this, _ =>
-            {
-                _logger.Info("Keying off GamePlayRequestFailed");
-                ToggleJackpotKey(1000);
-            });
+                {
+                    _logger.Info("Keying off GamePlayRequestFailed");
+                    ToggleJackpotKey(1000);
+                });
 
             _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(this, _ =>
-            {
-                _logger.Info("Keying off UnexpectedOrNoResponseEvent");
-                ToggleJackpotKey(10000);
-            });
+                {
+                    _logger.Info("Keying off UnexpectedOrNoResponseEvent");
+                    ToggleJackpotKey(10000);
+                });
 
             _eventBus.Subscribe<GameExitedNormalEvent>(
                            this,
                            _ =>
                            {
-                               _eventBus.Publish(new LoadGameEvent(true));
+                               
                            });
             _eventBus.Subscribe<GameIdleEvent>(
                             this,
                             _ =>
-                            {
+                            {//5
                                 _eventBus.Publish(new BalanceCheckEvent());
+                                if ((bool)_pm.GetProperty("Automation.HandleExitToLobby", false))
+                                {
+                                    _automator.RequestGameExit();
+                                }
                             });
             _eventBus.Subscribe<GameSelectedEvent>(
                             this,
                             evt =>
                             {
-                                if (evt?.GameId > 0)
-                                {
-                                    _pm.SetProperty(GamingConstants.SelectedGameId, evt.GameId);
-                                }
-                                //add log
-                            });
-            _eventBus.Subscribe<GameProcessExitedEvent>(
-                            this,
-                            _ =>
-                            {
-                                //add log
+                                //add log 1
                             });
             _eventBus.Subscribe<RecoveryStartedEvent>(
                             this,
                             _ =>
                             {
-                               //log
+                                //log
                             });
+            _eventBus.Subscribe<GameProcessExitedEvent>(
+                                        this,
+                                        evt =>
+                                        {
+                                            //log
+                                            if (evt.Unexpected) {
+                                                _automator.EnableExitToLobby(true);
+                                            } else {
+                                                _automator.EnableExitToLobby(false);
+                                            }
+                                            Task.Run(
+                                                                () =>
+                                                                {
+                                                                    Thread.Sleep(2000);
+                                                                    HandleGameRequest();
+                                                                });
+                                        });
+            _eventBus.Subscribe<GameFatalErrorEvent>(
+                                                    this,
+                                                    _ =>
+                                                    {
+                                                        //log
+                                                    });
+            _eventBus.Subscribe<GamePlayStateChangedEvent>(
+                                                                this,
+                                                                _ =>
+                                                                {
+                                                                    //log
+                                                                    _idleDurationReset();
+                                                                });
+            _eventBus.Subscribe<GameRequestFailedEvent>(
+                                                                            this,
+                                                                            _ =>
+                                                                            {
+                                                                                //log
+                                                                            });
         }
         private void ToggleJackpotKey(int waitDuration)
         {
@@ -175,17 +237,7 @@
         }
         private void HandleEvent(LoadGameEvent evt)
         {
-            if (!IsValid())
-            {
-                //Todo: Log Something
-                return;
-            }
-            DismissTimeLimitDialog();
-            SelectGame(evt);
-            if (!IsTimeLimitDialogInProgress() && CheckSanity())
-            {
-                RequestGameLoad();
-            }
+            HandleGameRequest(evt);
         }
         private void DismissTimeLimitDialog()
         {
@@ -212,7 +264,7 @@
         {
             var games = _pm.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _config.CurrentGame && g.Enabled);
-            
+
             if (gameInfo != null)
             {
                 var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
