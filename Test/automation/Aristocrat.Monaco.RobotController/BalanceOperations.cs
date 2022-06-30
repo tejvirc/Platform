@@ -19,8 +19,8 @@
         private readonly StateChecker _sc;
         private readonly ILog _logger;
         private readonly Automation _automator;
-        private Timer _balanceCheckTimer;
         private IBank _bank;
+        private Timer _balanceCheckTimer;
         private bool _disposed;
         private static BalanceOperations instance = null;
         private static readonly object padlock = new object();
@@ -48,6 +48,8 @@
         public void Execute()
         {
             SubscribeToEvents();
+
+            if (_config.Active.IntervalBalanceCheck == 0) { return; }
             _balanceCheckTimer = new Timer(
                                 (sender) =>
                                 {
@@ -91,7 +93,6 @@
                      evt.Handpay == HandpayType.CancelCredit)
                 {
                     _logger.Info("Keying off large win");
-                    HandlerWaitCashOut();
                     Task.Delay(1000).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
                 }
             });
@@ -101,7 +102,6 @@
             });
             _eventBus.Subscribe<VoucherIssuedEvent>(this, evt =>
             {
-                //_lastVoucherIssued = evt.Transaction;
                 //log
             });
             _eventBus.Subscribe<TransferOutFailedEvent>(this, _ =>
@@ -119,41 +119,16 @@
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, evt =>
             {
                 //log
-                //if (_previousVoucherBalance.Amount == evt.CashableAmount &&
-                //    evt.Timestamp.Subtract(_previousVoucherBalance.TimeStamp).TotalSeconds < Constants.DuplicateVoucherWindow)
-                //{
-                //    LogFatal("Possible identical vouchers detected. Disabling.");
-                //    Enabled = false;
-                //}
-
-                //_previousVoucherBalance.TimeStamp = evt.Timestamp;
-                //_previousVoucherBalance.Amount = evt.CashableAmount;
             });
         }
-        private void HandlerWaitCashOut()
-        {
-            //_waitDuration += _config.Active.IntervalResolution;
-
-            //if (TimeTo(_counter, 500))
-            //{
-            //    _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
-            //}
-
-            //if (_waitDuration > Constants.CashOutTimeout)
-            //{
-            //    _waitDuration = 0;
-            //    _automator.EnableCashOut(false);
-            //    _automator.EnableExitToLobby(false);
-            //    ControllerState = (RobotControllerState.Running);
-            //}
-        }
+        
         private void HandleEvent(BalanceCheckEvent obj)
         {
             CheckBalance();
         }
         private bool IsValid()
         {
-            return _sc.IsGame;
+            return _sc.IsGame && !_sc.IsInRecovery;
         }
         private void InsertCredit()
         {
@@ -208,52 +183,6 @@
             }
 
             return _bank;
-        }
-        private void HandlerInsertVoucher()
-        {
-            //if (IsPlatformIdle())
-            //{
-            //    _waitDuration += _config.Active.IntervalResolution;
-
-            //    if (_lastVoucherIssued != null)
-            //    {
-            //        _automator.InsertVoucher(_lastVoucherIssued.Barcode);
-
-            //        _eventBus.Subscribe<VoucherRedeemedEvent>(this, _ =>
-            //        {
-            //            _voucherRedeemed = true;
-            //        });
-
-            //        ControllerState = (RobotControllerState.InsertVoucherComplete);
-            //    }
-            //    else
-            //    {
-            //        ControllerState = (PreviousControllerState);
-            //    }
-            //}
-            //else
-            //{
-            //    _waitDuration = 0;
-
-            //    DriveToIdle();
-            //}
-            //private void HandlerInsertVoucherComplete()
-            //{
-            //    if (_voucherRedeemed)
-            //    {
-            //        _timeoutDuration = 0;
-
-            //        _eventBus.Unsubscribe<VoucherRedeemedEvent>(this);
-
-            //        _lastVoucherIssued = null;
-
-            //        ControllerState = (PreviousControllerState);
-            //    }
-            //    else
-            //    {
-            //        _timeoutDuration += _config.Active.IntervalResolution;
-            //    }
-            //}
         }
     }
 }

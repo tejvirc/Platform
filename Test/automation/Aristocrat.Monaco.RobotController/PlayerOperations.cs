@@ -80,7 +80,7 @@
         }
         private bool IsValid()
         {
-            return _sc.IsGame;
+            return _sc.IsGame && !_sc.IsInRecovery;
         }
         private void InitializeActionPlayer()
         {

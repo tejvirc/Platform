@@ -259,13 +259,14 @@
             };
             _operationCollection.Add(GameOperations.Instantiate(robotInfo));
             _operationCollection.Add(BalanceOperations.Instantiate(robotInfo));
-            _operationCollection.Add(TouchOperation.Instantiate(robotInfo));
+            _operationCollection.Add(TouchOperations.Instantiate(robotInfo));
             _operationCollection.Add(PlayerOperations.Instantiate(robotInfo));
             _operationCollection.Add(CashoutOperations.Instantiate(robotInfo));
             _operationCollection.Add(LobbyOperations.Instantiate(robotInfo));
             _operationCollection.Add(AuditMenuOperations.Instantiate(robotInfo));
             _operationCollection.Add(new LockUpOperations(robotInfo));
             _operationCollection.Add(new OperatingHoursOperations(robotInfo));
+            _operationCollection.Add(new ServiceRequestOperations(robotInfo));
         }
 
         private long IdleDuration()

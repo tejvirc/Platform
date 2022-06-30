@@ -47,6 +47,9 @@
         internal bool IsCashIn => _lobbyStateManager.CurrentState == LobbyState.CashIn;
         internal bool IsMediaPlayerOverlay => _lobbyStateManager.CurrentState == LobbyState.MediaPlayerOverlay;
         internal bool IsMediaPlayerResizing => _lobbyStateManager.CurrentState == LobbyState.MediaPlayerResizing;
+
+
+        internal bool IsInRecovery => IsRecovery || IsRecoveryFromStartup;
 #endregion
     }
 }

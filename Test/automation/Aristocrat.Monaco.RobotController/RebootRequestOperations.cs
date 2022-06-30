@@ -12,7 +12,6 @@
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly StateChecker _sc;
-        private readonly Automation _automator;
         private readonly ILog _logger;
         private Timer _RebootTimer;
         private Timer _SoftRebootTimer;
@@ -23,7 +22,6 @@
             _sc = robotInfo.StateChecker;
             _logger = robotInfo.Logger;
             _eventBus = robotInfo.EventBus;
-            _automator = robotInfo.Automator;
         }
         ~RebootRequestOperations() => Dispose(false);
         public void Dispose()
@@ -52,8 +50,7 @@
             _RebootTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsRebootValid()) { return; }
-                                   _eventBus.Publish(new RebootRequestedEvent());
+                                   RequestHardReboot();
                                },
                                null,
                                _config.Active.IntervalRebootMachine,
@@ -62,12 +59,23 @@
             _SoftRebootTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsSoftRebootValid()) { return; }
-                                   _eventBus.Publish(new SoftRebootRequestedEvent());
+                                   RequestSoftReboot();
                                },
                                null,
                                _config.Active.IntervalSoftReboot,
                                _config.Active.IntervalSoftReboot);
+        }
+
+        private void RequestSoftReboot()
+        {
+            if (!IsSoftRebootValid()) { return; }
+            _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+        }
+
+        private void RequestHardReboot()
+        {
+            if (!IsRebootValid()) { return; }
+            OSManager.ResetComputer();
         }
 
         private bool IsSoftRebootValid()
@@ -77,7 +85,7 @@
 
         private bool IsRebootValid()
         {
-            return _sc.IsChooser || _sc.IsGame;
+            return _sc.IsInRecovery && (_sc.IsChooser || _sc.IsGame);
         }
 
         private void SubscribeToEvents()
@@ -88,19 +96,16 @@
 
         private void HandleEvent(SoftRebootRequestedEvent obj)
         {
-            if (!IsSoftRebootValid()) { return; }
-            _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+            RequestSoftReboot();
         }
 
         private void HandleEvent(RebootRequestedEvent obj)
         {
-            if (!IsRebootValid()) { return; }
-            //OSManager.ResetComputer();
+            RequestHardReboot();
         }
 
         public void Halt()
         {
-            _eventBus.UnsubscribeAll(this);
             _RebootTimer?.Dispose();
             _SoftRebootTimer?.Dispose();
         }

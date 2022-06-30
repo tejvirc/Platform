@@ -50,6 +50,7 @@
         public void Execute()
         {
             SubscribeToEvents();
+            if (_config.Active.IntervalTriggerLockup == 0) { return; }
             _lockupTimer = new Timer(
                                (sender) =>
                                {

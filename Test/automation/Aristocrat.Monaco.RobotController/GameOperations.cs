@@ -177,19 +177,22 @@
                                         this,
                                         evt =>
                                         {
+                                        GameLoadRequestEvent gameReqEvent = null;
                                             //log
                                             if (evt.Unexpected)
                                             {
+                                                gameReqEvent = new GameLoadRequestEvent(false);
                                                 _automator.EnableExitToLobby(true);
                                             }
                                             else
                                             {
+                                                gameReqEvent = new GameLoadRequestEvent(true);
                                                 _automator.EnableExitToLobby(false);
                                             }
                                             Task.Run(() =>
                                             {
                                                 Thread.Sleep(5000);
-                                                HandleGameRequest();
+                                                HandleGameRequest(gameReqEvent);
                                             });
                                         });
             _eventBus.Subscribe<GameFatalErrorEvent>(

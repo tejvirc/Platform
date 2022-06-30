@@ -7,7 +7,7 @@
     using System.Collections.Generic;
     using System.Threading;
 
-    internal class TouchOperation : IRobotOperations, IDisposable
+    internal class TouchOperations : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -16,20 +16,20 @@
         private readonly StateChecker _sc;
         private Timer _ActionTouchTimer;
         private bool _disposed;
-        private static TouchOperation instance = null;
+        private static TouchOperations instance = null;
         private static readonly object padlock = new object();
-        public static TouchOperation Instantiate(RobotInfo robotInfo)
+        public static TouchOperations Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new TouchOperation(robotInfo);
+                    instance = new TouchOperations(robotInfo);
                 }
                 return instance;
             }
         }
-        private TouchOperation(RobotInfo robotInfo)
+        private TouchOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -37,7 +37,7 @@
             _logger = robotInfo.Logger;
             _eventBus = robotInfo.EventBus;
         }
-        ~TouchOperation() => Dispose(false);
+        ~TouchOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -45,7 +45,6 @@
                                 (sender) =>
                                 {
                                     ActionTouch();
-
                                 },
                                 null,
                                 _config.Active.IntervalTouch,

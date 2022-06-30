@@ -76,7 +76,7 @@
         }
         private bool IsValid()
         {
-            return true;
+            return !_sc.IsInRecovery;
         }
         public void Halt()
         {
@@ -85,6 +85,7 @@
         private void SetOperatingHours()
         {
             if (!IsValid()) { return; }
+            
             _logger.Info($"Setting operating hours to timeout in 3 seconds for {_config.Active.OperatingHoursDisabledDuration} milliseconds");
 
             DateTime soon = DateTime.Now.AddSeconds(3);

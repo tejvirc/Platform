@@ -42,7 +42,7 @@
         }
         private bool IsValid()
         {
-            return _sc.IsChooser || _sc.IsIdle || _sc.IsPresentationIdle || _sc.IsGame; 
+            return !_sc.IsInRecovery && (_sc.IsChooser || _sc.IsIdle || _sc.IsPresentationIdle || _sc.IsGame); 
         }
         public void Dispose()
         {
@@ -75,6 +75,7 @@
         public void Execute()
         {
             SubscribeToEvents();
+            if (_config.Active.IntervalCashOut == 0) { return; }
             _actionCashoutTimer = new Timer(
                                 (sender) =>
                                 {

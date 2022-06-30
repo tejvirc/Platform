@@ -43,22 +43,41 @@
         public void Execute()
         {
             SubscribeToEvents();
+            if (_config.Active.IntervalLoadAuditMenu == 0) { return; }
             _loadAuditMenuTimer = new Timer(
                 (sender) =>
                 {
-                    if (!IsValid()) { return; }
-                    {
-                        _eventBus.Publish(new AuditMenuRequestEvent());
-                    }
+                    RequestAuditMenu();
                 },
                 null,
                 _config.Active.IntervalLoadAuditMenu,
                 _config.Active.IntervalLoadAuditMenu);
         }
+
+        private void RequestAuditMenu()
+        {
+            if (!IsValid())
+            {
+                //Todo: Log Something
+                return;
+            }
+            _logger.Info("Requesting Audit Menu");
+            _automator.LoadAuditMenu();
+            _exitAuditMenuTimer = new Timer(
+                (sender) =>
+                {
+                    _automator.ExitAuditMenu();
+                    _eventBus.Publish(new GameLoadRequestEvent());
+                    _exitAuditMenuTimer.Dispose();
+                },
+                null,
+                Constants.AuditMenuDuration,
+                Timeout.Infinite);
+        }
+
         public void Halt()
         {
             _loadAuditMenuTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
         }
 
         private void SubscribeToEvents()
@@ -81,26 +100,10 @@
 
         private void HandleEvent(AuditMenuRequestEvent obj)
         {
-            if (!IsValid())
-            {
-                //Todo: Log Something
-                return;
-            }
-            _logger.Info("Requesting Audit Menu");
-            _automator.LoadAuditMenu();
-            _exitAuditMenuTimer = new Timer(
-                (sender) =>
-                {
-                    _automator.ExitAuditMenu();
-                    _eventBus.Publish(new GameLoadRequestEvent());
-                    _exitAuditMenuTimer.Dispose();
-                },
-                null,
-                Constants.AuditMenuDuration,
-                System.Threading.Timeout.Infinite);
+            RequestAuditMenu();
         }
 
-        private bool IsValid() => _sc.IsChooser || _sc.IsGame;
+        private bool IsValid() => !_sc.IsInRecovery && (_sc.IsChooser || _sc.IsGame);
 
         private void Dispose(bool disposing)
         {
@@ -112,6 +115,7 @@
             if (disposing)
             {
                 _loadAuditMenuTimer?.Dispose();
+                _exitAuditMenuTimer?.Dispose();
                 _eventBus.UnsubscribeAll(this);
             }
             _disposed = true;

@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
@@ -44,6 +45,7 @@
         public void Execute()
         {
             SubscribeToEvents();
+            //Todo
             _ForceGameExitTimer = new Timer(
                                (sender) =>
                                {
@@ -109,6 +111,13 @@
                 evt =>
                 {
                     _isTimeLimitDialogVisible = false;
+                });
+            _eventBus.Subscribe<GameInitializationCompletedEvent>(
+                this,
+                _ =>
+                {
+                    _ForceGameExitTimer?.Change(_config.Active.IntervalLoadGame, _config.Active.IntervalLoadGame);
+                    _GameExitTimer?.Change(_config.Active.IntervalLobby, _config.Active.IntervalLobby);
                 });
         }
         private void HandleEvent(LobbyGameExitRequestEvent obj)

@@ -6,7 +6,7 @@
     using System;
     using System.Threading;
 
-    internal class ServiceRequestOperation : IRobotOperations, IDisposable
+    internal class ServiceRequestOperations : IRobotOperations, IDisposable
     {
         private IEventBus _eventBus;
         private readonly Configuration _config;
@@ -17,7 +17,7 @@
         private Timer _handlerTimer;
         private bool _disposed;
 
-        public ServiceRequestOperation(RobotInfo robotInfo)
+        public ServiceRequestOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -25,32 +25,22 @@
             _eventBus = robotInfo.EventBus;
             _automator = robotInfo.Automator;
         }
-        ~ServiceRequestOperation() => Dispose(false);
+        ~ServiceRequestOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
+            if (_config.Active.IntervalServiceRequest == 0) { return; }
             _ServiceRequestTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsValid()) { return; }
-                                   _eventBus.Publish(new ServiceRequestedEvent());
+                                   RequestService();
                                },
                                null,
                                _config.Active.IntervalServiceRequest,
                                _config.Active.IntervalServiceRequest);
         }
 
-        private bool IsValid()
-        {
-            return _sc.IsGame;
-        }
-
-        private void SubscribeToEvents()
-        {
-            _eventBus.Subscribe<ServiceRequestedEvent>(this, HandleEvent);
-        }
-
-        private void HandleEvent(ServiceRequestedEvent obj)
+        private void RequestService()
         {
             if (!IsValid()) { return; }
             _automator.ServiceButton(true);
@@ -65,9 +55,24 @@
                 System.Threading.Timeout.Infinite);
         }
 
+        private bool IsValid()
+        {
+            return _sc.IsGame;
+        }
+
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<ServiceRequestedEvent>(this, HandleEvent);
+        }
+
+        private void HandleEvent(ServiceRequestedEvent obj)
+        {
+            RequestService();
+        }
+
         public void Halt()
         {
-            throw new NotImplementedException();
+            _ServiceRequestTimer?.Dispose();
         }
 
         public void Dispose()
