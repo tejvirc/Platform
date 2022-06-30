@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reactive.Subjects;
     using System.Threading;
     using Contracts.Fan;
     using Contracts.IO;
     using Kernel;
     using OpenHardwareMonitor.Hardware;
 
-    public class FanService : IFan, IService, IDisposable
+    public partial class FanService : IFan, IService, IDisposable
     {
         private readonly IIO _io;
         private readonly object _lockObject = new();
@@ -164,11 +165,19 @@
         protected virtual void Dispose(bool isNative)
         {
             mUpdateTimer.Dispose();
+            _fanSpeed.Dispose();
         }
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+    }
+
+    public partial class FanService
+    {
+        private readonly Subject<CpuMetriInfo> _fanSpeed = new();
+
+        public Subject<CpuMetriInfo> FanSpeed => _fanSpeed;
     }
 }
