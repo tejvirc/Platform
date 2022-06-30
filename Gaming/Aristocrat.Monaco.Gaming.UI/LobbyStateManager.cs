@@ -9,8 +9,8 @@
     using Contracts.Models;
     using Hardware.Contracts.Bell;
     using Kernel;
-    using log4net;
     using Models;
+    using log4net;
     using Stateless;
 
     /// <summary>
@@ -485,10 +485,10 @@
                 .InternalTransition(LobbyTrigger.IdleTextTimer, IdleTextTimer) // should not happen--in here to protect us from unexpected event
                 .OnExit(() => CallStateExit(LobbyState.Disabled));
 
-            _state.Configure(LobbyState.Recovery) //for states with substates CallStateEntry has to specify specific LobbyState
+            _state.Configure(LobbyState.Recovery) // for states with sub states CallStateEntry has to specify specific LobbyState
                 .OnEntryFrom(_initiateRecoveryTrigger, RecoveryInitiated)
-                .OnEntryFrom(LobbyTrigger.GameNormalExit, () => RecoveryInitiated(false)) //these game exits only happen during game load
-                .OnEntryFrom(LobbyTrigger.GameUnexpectedExit, () => RecoveryInitiated(false)) //in which case we always want to recover without asking runtime for permission.
+                .OnEntryFrom(LobbyTrigger.GameNormalExit, () => RecoveryInitiated(false)) // these game exits only happen during game load
+                .OnEntryFrom(LobbyTrigger.GameUnexpectedExit, () => RecoveryInitiated(false)) // in which case we always want to recover without asking runtime for permission.
                 .Permit(LobbyTrigger.LaunchGame, LobbyState.GameLoading)
                 .PermitDynamic(LobbyTrigger.LobbyEnter, GetDefaultChooserState);
 

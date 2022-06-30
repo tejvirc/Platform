@@ -18,7 +18,7 @@
     /// </summary>
     public class GameProcessManager : IProcessManager
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IClientEndpointProvider<IRuntime> _serviceProvider;
@@ -26,7 +26,7 @@
         private readonly string _gamesPath;
         private readonly string _runtimeRoot;
 
-        private readonly ConcurrentDictionary<int, bool> _processes = new ConcurrentDictionary<int, bool>();
+        private readonly ConcurrentDictionary<int, bool> _processes = new();
 
         private bool _expectProcessExit;
 
@@ -105,18 +105,6 @@
                 });
         }
 
-        private Process GetProcessFromId(int processId)
-        {
-            var process = Process.GetProcesses().FirstOrDefault(p => p.Id == processId);
-            if (process == null ||
-                !string.Equals(process.ProcessName, GamingConstants.RuntimeHostName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                throw new InvalidOperationException($"The specified process id ({processId}) is not valid.");
-            }
-
-            return process;
-        }
-
         public void CreateMiniDump(int processId)
         {
             var processToKill = GetProcessFromId(processId);
@@ -133,10 +121,7 @@
         /// <inheritdoc />
         public void EndProcess(int processId, bool notifyExited = true)
         {
-            _expectProcessExit = true;
-
             var processToKill = GetProcessFromId(processId);
-
             if (processToKill.HasExited)
             {
                 Logger.Debug($"Process Id ({processId}) has already exited.");
@@ -145,6 +130,7 @@
 
             try
             {
+                _expectProcessExit = true;
                 _processes.TryAdd(processToKill.Id, notifyExited);
 
                 processToKill.Kill();
@@ -176,6 +162,18 @@
                 .Select(x => x.Id);
         }
 
+        private static Process GetProcessFromId(int processId)
+        {
+            var process = Process.GetProcesses().FirstOrDefault(p => p.Id == processId);
+            if (process == null ||
+                !string.Equals(process.ProcessName, GamingConstants.RuntimeHostName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new InvalidOperationException($"The specified process id ({processId}) is not valid.");
+            }
+
+            return process;
+        }
+
         private void ProcessExited(object sender, EventArgs e)
         {
             var process = sender as Process;
@@ -205,6 +203,8 @@
             {
                 process.Exited -= ProcessExited;
             }
+
+            _expectProcessExit = false;
         }
     }
 }

@@ -36,7 +36,8 @@
     <Grid Visibility="{Binding Visible, Converter={StaticResource BoolToVisConverter}}">
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
-            <cefsharp:ChromiumWebBrowser x:Name="BingoHtmlHost" Address="{Binding Address, Mode=OneWay}"/>
+            <cefsharp:ChromiumWebBrowser x:Name="BingoHtmlHost" Address="{Binding Address, Mode=OneWay}"
+                                         WebBrowser="{Binding WebBrowser, Mode=OneWayToSource}"/>
         </Border>
     </Grid>
 </metro:MetroWindow>

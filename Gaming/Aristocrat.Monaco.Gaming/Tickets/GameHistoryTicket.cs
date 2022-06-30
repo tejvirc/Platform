@@ -20,6 +20,7 @@
     public class GameHistoryTicket : TextTicket
     {
         public const string SequenceDelimiter = "/";
+        public const string EmptyEntry = " ";
 
         private readonly ICollection<GameRoundHistoryItem> _items;
         private readonly IList<string> _lines;
@@ -67,7 +68,7 @@
                 endIndex = Math.Min(startIndex + ItemsPerPage, _items.Count) - 1;
             }
 
-            AddLine(null, Dashes, null);
+            AddLine(EmptyEntry, Dashes, EmptyEntry);
             var lineLength = ServiceManager.GetService<IPrinter>().GetCharactersPerLine(false, 0);
 
             for (var i = startIndex; i <= endIndex; i++)
@@ -219,7 +220,7 @@
                     }
                 }
 
-                AddLine(null, Dashes, null);
+                AddLine(EmptyEntry, Dashes, EmptyEntry);
             }
 
             if (endIndex == _items.Count - 1)

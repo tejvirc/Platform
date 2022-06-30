@@ -82,6 +82,11 @@
         {
             if (downEvent.LogicalId == (int)ButtonLogicalId.Play && downEvent.Enabled == false)
             {
+                if (_serialTouchCalibrationService.IsCalibrating)
+                {
+                    return;
+                }
+
                 _serialTouchCalibrated = false;
                 MvvmHelper.ExecuteOnUI(InvokeCalibration);
             }

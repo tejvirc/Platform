@@ -19,6 +19,7 @@
         private readonly ILegacyAttractProvider _attractProvider;
         private readonly IGameProvider _gameProvider;
         private readonly IServer _server;
+        private readonly IPlayerBank _playerBank;
 
         private BingoHtmlHostOverlayViewModel _viewModel;
         private BingoHtmlHostOverlayWindow _overlayWindow;
@@ -31,7 +32,8 @@
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
             ILegacyAttractProvider attractProvider,
             IGameProvider gameProvider,
-            IServer server)
+            IServer server,
+            IPlayerBank playerBank)
         {
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
@@ -40,6 +42,7 @@
             _attractProvider = attractProvider ?? throw new ArgumentNullException(nameof(attractProvider));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _server = server ?? throw new ArgumentNullException(nameof(server));
+            _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
         }
 
         public void LoadPresentation()
@@ -95,7 +98,8 @@
                 _bingoConfigurationProvider,
                 _attractProvider,
                 _gameProvider,
-                _server);
+                _server,
+                _playerBank);
             _overlayWindow = new BingoHtmlHostOverlayWindow(_bingoConfigurationProvider, BingoWindow.Main, _viewModel);
             _overlayWindow.Show();
         }

@@ -1329,9 +1329,8 @@
         /// <summary>
         ///     Controls whether the machine can be put into reserve
         /// </summary>
-        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && _gameState.Idle && !_transferOutHandler.InProgress &&
-                                             !_gameHistory.IsRecoveryNeeded && !_gameHistory
-                                                 .HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
+        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress
+                                             && !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
 
         /// <summary>
         ///     Gets or sets the VBD video state while in the lobby.
@@ -2139,7 +2138,7 @@
 
         private void OnStateEntry(LobbyState state, object obj)
         {
-            Logger.Debug($"LobbyViewModel OnStateEntry to [{state}]");
+            Logger.Debug($"OnStateEntry to [{state}]");
             switch (state)
             {
                 case LobbyState.Chooser:
@@ -2209,7 +2208,7 @@
 
         private void OnStateExit(LobbyState state, object obj)
         {
-            Logger.Debug($"LobbyViewModel OnStateExit to [{state}]");
+            Logger.Debug($"OnStateExit from [{state}]");
 
             switch (state)
             {

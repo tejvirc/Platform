@@ -105,11 +105,9 @@
                 return;
             }
 
-            // NOTE:  Not all properties are persisted
+            // NOTE: Not all properties are persisted
             if (value.IsPersistent)
             {
-                Logger.Debug($"Setting property {propertyName} to {propertyValue}");
-
                 var accessor = GetAccessor();
                 accessor[propertyName] = propertyValue;
             }

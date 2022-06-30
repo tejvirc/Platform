@@ -101,21 +101,24 @@
 
             void MatchPatterns(IReadOnlyList<int> patterns)
             {
-                //Evaluate achieved Pattern vs. gameopen prize Patterns.
-                //Store winning prizes in PrizeRaceSet1 and PrizeRaceSet2
-                //Get individual prize amounts from Race Set 1 and Race Set 2
+                Logger.Debug("Matching patterns " + string.Join(" ", patterns.Select(x => x.ToString("X2"))));
+
+                // Evaluate achieved Pattern vs. GameOpen prize Patterns.
+                // Store winning prizes in PrizeRaceSet1 and PrizeRaceSet2
+                // Get individual prize amounts from Race Set 1 and Race Set 2
                 racePatterns.Pattern.ForAll(
                     pattern =>
                     {
                         switch (pattern.RaceGroup)
                         {
                             case 1:
-
+                                // TODO: Why not just get this once from the first pattern we find?
                                 if (szWagerR1 == string.Empty)
                                 {
                                     szWagerR1 = pattern.Prize;
                                 }
 
+                                // TODO: How about breaking out of the loop once we've found a prize?
                                 if (!gamePlayResponse.RaceInfo.PrizeRaceSet1.Equals(prizeZero) ||
                                     !PatternMatch(patterns, pattern))
                                 {
@@ -124,6 +127,7 @@
 
                                 prizeWinner = prizeRaceSet1 = gamePlayResponse.RaceInfo.PrizeRaceSet1 = pattern.Prize;
                                 break;
+
                             case 2:
                                 if (szWagerR2 == string.Empty)
                                 {

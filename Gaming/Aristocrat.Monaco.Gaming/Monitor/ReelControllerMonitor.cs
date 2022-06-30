@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Monitor
+namespace Aristocrat.Monaco.Gaming.Monitor
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,6 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using Runtime;
     using ConnectedEvent = Hardware.Contracts.Reel.ConnectedEvent;
     using DisabledEvent = Hardware.Contracts.Reel.DisabledEvent;
     using DisconnectedEvent = Hardware.Contracts.Reel.DisconnectedEvent;
@@ -34,7 +33,7 @@
 
     public class ReelControllerMonitor : GenericBaseMonitor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string ReelsTiltedKey = "ReelsTilted";
         private const string MismatchedKey = "ReelMismatched";
         private const string ReelDeviceName = "ReelController";
@@ -71,7 +70,7 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly IGamePlayState _gamePlayState;
         private readonly IGameProvider _gameProvider;
-        private readonly IRuntime _runtime;
+        private readonly IGameService _gameService;
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
 
@@ -86,14 +85,14 @@
             IGamePlayState gamePlayState,
             IGameProvider gameProvider,
             IEdgeLightingController edgeLightingController,
-            IRuntime runtime)
+            IGameService gameService)
             : base(message, disable)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _disableManager = disable ?? throw new ArgumentNullException(nameof(disable));
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
-            _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
+            _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
@@ -106,18 +105,18 @@
         {
             get
             {
-                var opKeyNotRemoved = _disableManager.CurrentDisableKeys.Contains(ApplicationConstants.OperatorKeyNotRemovedDisableKey);
                 var playEnabled = _gamePlayState.Enabled;
 
                 // If in a game round we only want to review the immediate disables
-                var disableKeys = _gamePlayState.InGameRound
+                var inGameRound = _gamePlayState.InGameRound;
+                var disableKeys = inGameRound
                     ? _disableManager.CurrentImmediateDisableKeys
                     : _disableManager.CurrentDisableKeys;
 
                 var isDisabled = disableKeys.Except(AllowedTiltingDisables).Any();
-                var shouldTilt = !opKeyNotRemoved && !playEnabled && isDisabled;
+                var shouldTilt = !playEnabled && isDisabled;
 
-                Logger.Debug($"ReelsShouldTilt: {shouldTilt} --> playEnabled={playEnabled}, inGameRound={_gamePlayState.InGameRound}, opKeyNotRemoved={opKeyNotRemoved}, isDisabled={isDisabled}");
+                Logger.Debug($"ReelsShouldTilt: {shouldTilt} --> playEnabled={playEnabled}, inGameRound={inGameRound}, isDisabled={isDisabled}");
 
                 return shouldTilt;
             }
@@ -194,9 +193,9 @@
                 FailedHomingGuid,
                 true);
 
-            await TiltReels(TiltReason.Initializing);
+            await TiltReels();
             SubscribeToEvents();
-            CheckDeviceStatus();
+            await CheckDeviceStatus();
             ValidateReelMismatch();
             GetReelHomeStops();
             await HandleGameInitializationCompleted();
@@ -256,22 +255,21 @@
             _eventBus.Subscribe<SystemDisableRemovedEvent>(this, (_, _) => SystemDisableRemoved());
             _eventBus.Subscribe<GamePlayEnabledEvent>(this, (_, _) => SystemDisableRemoved());
 
-            _eventBus.Subscribe<ConnectedEvent>(this, _ => Disconnected(false));
+            _eventBus.Subscribe<ConnectedEvent>(this, (_, _) => Disconnected(false));
             _eventBus.Subscribe<ReelConnectedEvent>(this, ReelsConnected);
-            _eventBus.Subscribe<DisconnectedEvent>(this, _ => Disconnected(true));
+            _eventBus.Subscribe<DisconnectedEvent>(this, (_, _) => Disconnected(true));
             _eventBus.Subscribe<EnabledEvent>(this, _ => SetBinary(DisabledKey, false));
             _eventBus.Subscribe<DisabledEvent>(this, _ => HandleDisableEvent());
             _eventBus.Subscribe<HardwareFaultClearEvent>(this, HandleControllerFault);
             _eventBus.Subscribe<HardwareFaultEvent>(this, HandleControllerFault);
             _eventBus.Subscribe<HardwareReelFaultClearEvent>(this, HandleReelFault);
             _eventBus.Subscribe<HardwareReelFaultEvent>(this, HandleReelFault);
-            _eventBus.Subscribe<InspectionFailedEvent>(this, _ => Disconnected(true));
-            _eventBus.Subscribe<InspectedEvent>(this, _ => Disconnected(false));
+            _eventBus.Subscribe<InspectionFailedEvent>(this, (_, _) => Disconnected(true));
+            _eventBus.Subscribe<InspectedEvent>(this, (_, _) => Disconnected(false));
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearDisableState());
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, _ => DisableReelLights());
-            _eventBus.Subscribe<OperatorMenuExitedEvent>(this, (_, _) => ExitOperatorMenu());
-            _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose);
+            _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
         }
@@ -283,17 +281,21 @@
 
         private async Task HandleSystemDisableAddedEvent(SystemDisableAddedEvent evt, CancellationToken token)
         {
-            if (ReelsShouldTilt)
+            if (_reelController is not null &&
+                _reelController.LogicalState is not ReelControllerState.Tilted &&
+                ReelsShouldTilt)
             {
-                await TiltReels(TiltReason.SystemDisabled);
+                await TiltReels();
             }
         }
 
         private async Task HandleGamePlayDisabledEvent(GamePlayDisabledEvent evt, CancellationToken token)
         {
-            if (ReelsShouldTilt)
+            if (_reelController is not null &&
+                _reelController.LogicalState is not ReelControllerState.Tilted &&
+                ReelsShouldTilt)
             {
-                await TiltReels(TiltReason.GamePlayDisabled);
+                await TiltReels();
             }
         }
 
@@ -326,7 +328,7 @@
             else
             {
                 Logger.Debug("HandleGameInitializationCompleted tilt reels for pending tilt");
-                await TiltReels(TiltReason.Initializing);
+                await TiltReels();
             }
         }
 
@@ -337,7 +339,7 @@
 
         private async Task ReelsConnected(ReelConnectedEvent connectedEvent, CancellationToken token)
         {
-            await TiltReels(TiltReason.Initializing);
+            await TiltReels();
             ValidateReelMismatch();
         }
 
@@ -385,82 +387,34 @@
 
         private async Task HandleDoorClose(DoorBaseEvent doorBaseEvent, CancellationToken token)
         {
-            if (doorBaseEvent.LogicalId != (int)DoorLogicalId.Main)
+            SetBinary(FailedHoming, false);
+            if (_reelController is null or { LogicalState: ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected })
             {
                 return;
             }
 
-            if (_reelController is not null &&
-                _reelController is not { LogicalState: ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected })
-            {
-                // Perform a self test to attempt to clear any hardware faults
-                await _reelController.SelfTest(false);
-            }
-
-            SetBinary(FailedHoming, false);
-            if (!AreNonReelFaultsActive())
+            // Perform a self test to attempt to clear any hardware faults
+            await _reelController.SelfTest(false);
+            if (HasReelFaults())
             {
                 // Clear all reel controller faults
                 await HomeReels();
             }
         }
 
-        private bool AreNonReelFaultsActive()
+        private bool HasReelFaults()
         {
-            foreach (var guid in _disableManager.CurrentDisableKeys)
-            {
-                // Ignore guid that can be active during door close processing
-                if (guid != ApplicationConstants.MainDoorGuid &&
-                    guid != ApplicationConstants.LiveAuthenticationDisableKey &&
-                    guid != ReelsTiltedGuid &&
-                    !IsReelFault(guid))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return _disableManager.CurrentDisableKeys.All(
+                guid => IsReelFault(guid) || guid == ApplicationConstants.LiveAuthenticationDisableKey ||
+                        guid == ReelsTiltedGuid);
         }
 
-        private async Task ExitOperatorMenu()
-        {
-            Logger.Debug("ExitOperatorMenu");
-            Logger.Debug($"_disableManager.IsDisabled={_disableManager.IsDisabled}");
-
-            var tiltReels = false;
-            if (_disableManager.IsDisabled)
-            {
-                foreach (var guid in _disableManager.CurrentDisableKeys)
-                {
-                    Logger.Debug($"checking disable guid = {guid}");
-                    // Ignore these faults that can be active during exit operator menu
-                    if (guid == ApplicationConstants.LiveAuthenticationDisableKey || guid == ReelsTiltedGuid)
-                    {
-                        continue;
-                    }
-
-                    tiltReels = true;
-                    break;
-                }
-            }
-
-            // If exiting the operator menu and there are any faults then slow spin the reels
-            if (tiltReels)
-            {
-                await TiltReels(TiltReason.SystemDisabled);
-            }
-            else
-            {
-                await HomeReels();
-            }
-        }
-
-        private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys)
+        private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys, bool allowMainDoor)
         {
             var homeReels = disableKeys.All(guid =>
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                  guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
-                 guid == ApplicationConstants.MainDoorGuid ||
+                 guid == ApplicationConstants.MainDoorGuid && allowMainDoor ||
                  guid == ReelsTiltedGuid);
 
             return homeReels;
@@ -470,29 +424,32 @@
         {
             // On removal of any disable check, if the only remaining fault is the reelsTilted fault
             // then home the reels to attempt to clear any reel faults.
-            var disableKeys = _gamePlayState.InGameRound
+            var inGameRound = _gamePlayState.InGameRound;
+            var disableKeys = inGameRound
                 ? _disableManager.CurrentImmediateDisableKeys
                 : _disableManager.CurrentDisableKeys;
 
             var logicalState = _reelController.LogicalState;
-            if (IsHomeReelsCondition(disableKeys) && logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
+            if (IsHomeReelsCondition(disableKeys, inGameRound) &&
+                logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
             {
                 await HomeReels();
             }
         }
 
-        private void Disconnected(bool disconnected, string behavioralDelayKey = null)
+        private async Task Disconnected(bool disconnected, string behavioralDelayKey = null)
         {
             Logger.Debug($"Disconnected, disconnected={disconnected}");
             if (!disconnected)
             {
                 ValidateReelMismatch();
+                await TiltReels();
             }
 
             SetBinary(DisconnectedKey, disconnected, behavioralDelayKey);
         }
 
-        private void CheckDeviceStatus()
+        private async Task CheckDeviceStatus()
         {
             Logger.Debug("CheckDeviceStatus");
             if (_reelController == null)
@@ -507,7 +464,7 @@
 
             if (!_reelController.Connected)
             {
-                Disconnected(true);
+                await Disconnected(true);
             }
         }
 
@@ -544,7 +501,7 @@
             SetBinary(ReelsTiltedKey, true);
             if (tiltReels && _disableManager.IsDisabled)
             {
-                await TiltReels(TiltReason.SystemDisabled);
+                await TiltReels();
             }
         }
 
@@ -587,7 +544,7 @@
 
             if (tiltReels && _disableManager.IsDisabled)
             {
-                await TiltReels(TiltReason.SystemDisabled);
+                await TiltReels();
             }
         }
 
@@ -597,7 +554,7 @@
             _disableToken = null;
         }
 
-        private async Task TiltReels(TiltReason reason)
+        private async Task TiltReels()
         {
             try
             {
@@ -610,17 +567,13 @@
                     return;
                 }
 
-                // Set a fault for reels tilted and slow spinning which will only clear once a home is complete. This
-                // will prevent game play from enabling before reels have finished homing. This tilt should not have
-                // an associated displayable message.
-                if (reason is TiltReason.Initializing or TiltReason.Faulted)
-                {
-                    SetBinary(ReelsTiltedKey, true);
-                }
+                SetBinary(ReelsTiltedKey, true);
                 DisableReelLights();
 
-                // kill the runtime so it can recover cleanly after the reel tilt is over
-                _runtime.Shutdown();
+                if (_gameService.Running)
+                {
+                    _gameService.ShutdownBegin();
+                }
 
                 await _reelController.TiltReels();
             }
@@ -661,17 +614,8 @@
             if (!homed)
             {
                 SetBinary(FailedHoming, true);
-                await TiltReels(TiltReason.Faulted);
+                await TiltReels();
             }
-        }
-
-
-        private enum TiltReason
-        {
-            Initializing,
-            SystemDisabled,
-            GamePlayDisabled,
-            Faulted
         }
     }
 }

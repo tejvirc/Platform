@@ -93,7 +93,7 @@
                 return Task.FromResult(true);
             }
 
-            //Filtering Game levels based on Level Id and wager amount from server level.
+            // Filtering Game levels based on Level Id and wager amount from server level.
             // Game progressive level Ids are indexed from 0, whereas the ones from server are index from 1.
             var gameLevel = gameLevels.FirstOrDefault(
                 level => level.WagerCredits == serverDefinedLevel.ProgCreditsBet
@@ -188,7 +188,6 @@
             _protocolLinkedProgressiveAdapter.UpdateLinkedProgressiveLevels(
                 new[] { linkedLevel },
                 ProtocolNames.HHR);
-
         }
     }
 }

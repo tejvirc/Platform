@@ -252,7 +252,7 @@
                         break;
                 }
             }
-            var win = new NonSasProgressiveWinData(controllerType, controllerId, levelId, jackpotTransaction.WinAmount.MillicentsToCents(), level.ResetValue.MillicentsToCents(), level.Overflow.MillicentsToCents());
+            var win = new NonSasProgressiveWinData(controllerType, controllerId, levelId, jackpotTransaction.ValueAmount.MillicentsToCents(), level.ResetValue.MillicentsToCents(), level.Overflow.MillicentsToCents());
             lock (_nonSasProgressiveLock)
             {
                 if (_host1NonSasReporting)

@@ -12,7 +12,7 @@
     /// </summary>
     public static class MessageUtility
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog ProtoLog = LogManager.GetLogger("Protocol");
 
         private static readonly int MsgEncHdrSize = Marshal.SizeOf<MessageEncryptHeader>();
         private static readonly int MsgHdrSize = Marshal.SizeOf<MessageHeader>();
@@ -113,7 +113,7 @@
                 Time = (int)GetTimeUnix()
             };
 
-            Logger.Debug($"Add Header : {header.ToJson2()}");
+            ProtoLog.Debug($"[SEND] Add header: {header.ToJson2()}");
 
             return WrapBytesWithMessage(commandData, header);
         }

@@ -19,6 +19,7 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using Localization.Properties;
+    using Monaco.Common;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
 
@@ -45,10 +46,11 @@
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledDuringInitialization),
                 false);
             var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            eventBus.Subscribe<BingoDisplayConfigurationStartedEvent>(this, _ =>
+            eventBus.Subscribe<BingoDisplayConfigurationStartedEvent>(this, async (_, _) =>
             {
-                disableManager.Enable(Initializing);
                 eventBus.Unsubscribe<BingoDisplayConfigurationStartedEvent>(this);
+                await _container.GetInstance<IBingoClientConnectionState>().Start();
+                disableManager.Enable(Initializing);
             });
 
             _serviceWaiter?.Dispose();
@@ -94,6 +96,7 @@
 
             _shutdownEvent.WaitOne();
 
+            _container.GetInstance<IBingoClientConnectionState>().Stop().WaitForCompletion();
             ServiceManager.GetInstance().RemoveService(_container.GetInstance<IGameRoundDetailsDisplayProvider>());
             ServiceManager.GetInstance().RemoveService(_container.GetInstance<IGameRoundPrintFormatter>());
             eventBus.UnsubscribeAll(this);

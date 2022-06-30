@@ -146,20 +146,20 @@
         </overlay:SelectionPayMode>
 
         <overlay:PlayerMenuPopupView Opacity="0" IsHitTestVisible="{Binding PlayerMenuPopupViewModel.IsMenuVisible}">
-	        <overlay:PlayerMenuPopupView.Style>
-		        <Style>
-			        <Style.Triggers>
-				        <DataTrigger Value="True" Binding="{Binding PlayerMenuPopupViewModel.IsMenuVisible}">
-					        <DataTrigger.EnterActions>
-						        <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
-					        </DataTrigger.EnterActions>
-					        <DataTrigger.ExitActions>
-						        <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
-					        </DataTrigger.ExitActions>
-				        </DataTrigger>
-			        </Style.Triggers>
-		        </Style>
-	        </overlay:PlayerMenuPopupView.Style>
+            <overlay:PlayerMenuPopupView.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Value="True" Binding="{Binding PlayerMenuPopupViewModel.IsMenuVisible}">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </overlay:PlayerMenuPopupView.Style>
         </overlay:PlayerMenuPopupView>
 
         <overlay:PlayerInfoDisplayMenuView DataContext="{Binding Path=PlayerInfoDisplayMenuViewModel}" Opacity="0" IsHitTestVisible="{Binding IsVisible}">

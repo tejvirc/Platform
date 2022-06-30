@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Input;
     using CefSharp;
     using Models;
     using MVVM;
@@ -12,6 +13,9 @@
     {
         private readonly IBingoDisplayConfigurationProvider _bingoConfigurationProvider;
         private readonly BingoWindow _targetWindow;
+#if DEBUG
+        private bool _devToolsVisible;
+#endif
 
         public BingoHelpOverlayWindow(
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
@@ -25,9 +29,13 @@
             InitializeComponent();
             DataContext = viewModel;
             BingoHelp.FrameLoadEnd += BingoHelp_OnFrameLoadEnd;
+            BingoHelp.JavascriptMessageReceived += ViewModel.ExitHelp;
 
             // MetroApps issue--need to set in code behind after InitializeComponent.
             AllowsTransparency = true;
+#if DEBUG
+            KeyDown += OnKeyDown;
+#endif
         }
 
         private BingoHelpOverlayViewModel ViewModel => DataContext as BingoHelpOverlayViewModel;
@@ -42,12 +50,40 @@
                     document.addEventListener('click', function(e) {
                         CefSharp.PostMessage(e.target.id);
                     }, false);
+                    window.addEventListener('onClose', function(e) {
+                        CefSharp.PostMessage('Close');
+                    }, false);
                 ");
             }
         }
 
+#if DEBUG
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.F12)
+            {
+                return;
+            }
+
+            if (_devToolsVisible)
+            {
+                BingoHelp.CloseDevTools();
+                _devToolsVisible = false;
+            }
+            else
+            {
+                BingoHelp.ShowDevTools();
+                _devToolsVisible = true;
+            }
+        }
+#endif
+
         protected override void OnClosing(CancelEventArgs e)
         {
+#if DEBUG
+            KeyDown -= OnKeyDown;
+#endif
+            BingoHelp.JavascriptMessageReceived -= ViewModel.ExitHelp;
             BingoHelp?.Dispose();
             base.OnClosing(e);
         }

@@ -27,8 +27,8 @@
     /// <remarks>Supports the 3M MicroTouch serial protocol.  Currently assumes serial touch device is connected to COM16 (LS cabinet).</remarks>
     public class SerialTouchService : ISerialTouchService, IService, IDisposable
     {
-        private const int CheckDisconnectTimeoutMilliSeconds = 5000;
-        private const int MaxCheckDisconnectAttempts = 5;
+        private const int CheckDisconnectTimeoutMs = SerialPort.InfiniteTimeout; 
+        private const int MaxCheckDisconnectAttempts = 3;
 
         private const string CabinetTypeRegexLs = "^LS";
 
@@ -147,7 +147,8 @@
                 if (match.Success)
                 {
                     var port = _serialPortsService.LogicalToPhysicalName(SerialTouchComPort);
-                    Logger.Debug($"Initialize -  Match LS cabinet, configuring: {port}");
+                    var keepAlive = CheckDisconnectTimeoutMs;
+                    Logger.Debug($"Initialize -  Match LS cabinet, configuring {port} with KeepAliveTimeoutMs {keepAlive}");
 
                     _serialPortController.Configure(
                         new ComConfiguration
@@ -163,7 +164,7 @@
                             WriteBufferSize = MaxBufferLength,
                             ReadTimeoutMs = SerialPort.InfiniteTimeout,
                             WriteTimeoutMs = CommunicationTimeoutMs,
-                            KeepAliveTimeoutMs = CheckDisconnectTimeoutMilliSeconds
+                            KeepAliveTimeoutMs = keepAlive
                         });
 
                     _serialPortController.IsEnabled = true; // This will open the COM port
@@ -216,7 +217,7 @@
         /// <inheritdoc />
         public void Reconnect(bool calibrating)
         {
-            Logger.Debug($"Reconnect calibrating {calibrating}");
+            Logger.Debug($"Reconnect - calibrating {calibrating}");
             _checkDisconnect = false;
             _checkDisconnectAttempts = 0;
             PendingCalibration = calibrating;
@@ -985,13 +986,14 @@
                 if (_checkDisconnectAttempts > MaxCheckDisconnectAttempts)
                 {
                     Logger.Warn($"OnCheckDisconnectTimeout - check disconnect exceeded max, attempting reconnect...");
+                    if (!IsDisconnected)
+                    {
+                        Logger.Warn($"OnCheckDisconnectTimeout - Disconnected");
+                        Disconnected();
+                    }
+
                     Reconnect(PendingCalibration);
                     return;
-                }
-
-                if (_checkDisconnectAttempts > 0 && !IsDisconnected)
-                {
-                    Disconnected();
                 }
 
                 _checkDisconnectAttempts++;
@@ -1013,6 +1015,7 @@
 
             if (IsDisconnected)
             {
+                Logger.Debug($"OnDataReceived - Connected");
                 Connected();
             }
 

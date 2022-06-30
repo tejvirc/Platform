@@ -57,7 +57,7 @@
         [TestMethod]
         public void NameTest()
         {
-            Assert.AreEqual("WpfWindowLauncher", _target.Name);
+            Assert.AreEqual(nameof(WpfWindowLauncher), _target.Name);
         }
 
         [TestMethod]

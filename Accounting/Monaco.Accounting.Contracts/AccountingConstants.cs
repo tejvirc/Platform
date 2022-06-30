@@ -319,7 +319,7 @@
         /// <summary>
         ///     The default maximum maximum bet limit in millicents
         /// </summary>
-        public const long DefaultMaxBetLimit= 100_000_00_000L;
+        public const long DefaultMaxBetLimit = 100_000_00_000L;
 
         /// <summary>
         ///     The default ticket line

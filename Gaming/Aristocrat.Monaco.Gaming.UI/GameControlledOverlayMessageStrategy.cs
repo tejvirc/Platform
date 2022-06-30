@@ -131,8 +131,7 @@
 
                 Logger.Debug("Sending PresentOverriddenPresentation with message: " + message);
                 
-                var amount = OverlayMessageUtils.ToCredits(HandpayAmount).FormattedCurrencyString();
-                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, amount, presentation)).ToList();
+                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, presentation)).ToList();
 
                 _presentationService.PresentOverriddenPresentation(presentations);
             }
@@ -183,8 +182,9 @@
                     gameDrivenData.SubText2);
 
                 Logger.Debug("Sending PresentOverriddenPresentation with message: " + message);
-
-                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, presentation)).ToList();
+                
+                var amount = OverlayMessageUtils.ToCredits(HandpayAmount).FormattedCurrencyString();
+                var presentations = overriddenPresentations.Select(presentation => new PresentationOverrideData(message, amount, presentation)).ToList();
 
                 _presentationService.PresentOverriddenPresentation(presentations);
             }
