@@ -2,7 +2,7 @@
 {
     using Kernel;
 
-    class ActionTouchEvent : BaseEvent
+    internal class RequestCashoutEvent : BaseEvent
     {
     }
 }

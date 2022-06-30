@@ -48,7 +48,7 @@
                 {
                     if (!IsValid()) { return; }
                     {
-                        _eventBus.Publish(new LoadAuditMenuEvent());
+                        _eventBus.Publish(new RequestAuditMenuEvent());
                     }
                 },
                 null,
@@ -63,7 +63,7 @@
 
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<LoadAuditMenuEvent>(this, HandleEvent);
+            _eventBus.Subscribe<RequestAuditMenuEvent>(this, HandleEvent);
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(
                 this,
                 _ =>
@@ -79,7 +79,7 @@
                 });
         }
 
-        private void HandleEvent(LoadAuditMenuEvent obj)
+        private void HandleEvent(RequestAuditMenuEvent obj)
         {
             if (!IsValid())
             {
@@ -87,7 +87,6 @@
                 return;
             }
             _logger.Info("Requesting Audit Menu");
-            _automator.EnableCashOut(true);
             _automator.LoadAuditMenu();
             _exitAuditMenuTimer = new Timer(
                 (sender) =>

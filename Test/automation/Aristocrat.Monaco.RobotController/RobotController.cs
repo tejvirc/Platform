@@ -90,7 +90,7 @@
         }
         private void StartingSuperRobot()
         {
-            //_eventBus.Publish(new LoadGameEvent());
+            _eventBus.Publish(new LoadGameEvent());
         }
 
         private void EnablingRobot()
@@ -256,12 +256,13 @@
                 DisableRobotController = DisableRobotController,
                 IdleDuration = IdleDuration
             };
-            _operationCollection.Add(GameOperation.Instatiate(robotInfo));
-            _operationCollection.Add(BalanceOperation.Instatiate(robotInfo));
-            _operationCollection.Add(ActionTouchOperation.Instatiate(robotInfo));
-            _operationCollection.Add(ActionPlayerOperation.Instatiate(robotInfo));
+            _operationCollection.Add(GameOperation.Instantiate(robotInfo));
+            _operationCollection.Add(BalanceOperation.Instantiate(robotInfo));
+            _operationCollection.Add(TouchOperation.Instantiate(robotInfo));
+            _operationCollection.Add(PlayerOperation.Instantiate(robotInfo));
             _operationCollection.Add(CashoutOperation.Instantiate(robotInfo));
-            _operationCollection.Add(ActionLobbyOperation.Instatiate(robotInfo));
+            _operationCollection.Add(LobbyOperation.Instantiate(robotInfo));
+            _operationCollection.Add(AuditMenuOperation.Instantiate(robotInfo));
         }
 
         private long IdleDuration()

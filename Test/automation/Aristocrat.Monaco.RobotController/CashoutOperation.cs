@@ -6,7 +6,6 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-
     internal class CashoutOperation : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
@@ -17,7 +16,6 @@
         private Timer _actionCashoutTimer;
         private bool _disposed;
         private static readonly object padlock = new object();
-
         public static CashoutOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
@@ -37,7 +35,7 @@
             _sc = robotInfo.StateChecker;
         }
         ~CashoutOperation() => Dispose(false);
-        private void HandleEvent(ActionCashoutEvent obj)
+        private void HandleEvent(RequestCashoutEvent obj)
         {
             RequestCashOut();
         }
@@ -66,7 +64,7 @@
         }
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<ActionCashoutEvent>(this, HandleEvent);
+            _eventBus.Subscribe<RequestCashoutEvent>(this, HandleEvent);
         }
         public void Execute()
         {
@@ -87,7 +85,6 @@
             _eventBus.Publish(new CashOutButtonPressedEvent());
             RequestBalance();
         }
-
         private void RequestBalance()
         {
             Task.Run(
@@ -97,7 +94,6 @@
                               _eventBus.Publish(new BalanceCheckEvent());
                           });
         }
-
         public void Halt()
         {
             _actionCashoutTimer?.Dispose();

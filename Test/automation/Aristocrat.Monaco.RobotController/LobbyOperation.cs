@@ -6,43 +6,41 @@
     using log4net;
     using System;
     using System.Threading;
-    internal class ActionLobbyOperation : IRobotOperations, IDisposable
+    internal class LobbyOperation : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly Automation _automator;
         private readonly ILog _logger;
         private readonly StateChecker _sc;
-        private readonly IPropertiesManager _pm;
         private readonly Func<long> _idleDuration;
         private Timer _ForceGameExitTimer;
         private Timer _GameExitTimer;
         private bool _isTimeLimitDialogVisible;
         private bool _disposed;
-        private static ActionLobbyOperation instance = null;
+        private static LobbyOperation instance = null;
         private static readonly object padlock = new object();
-        public static ActionLobbyOperation Instantiate(RobotInfo robotInfo)
+        public static LobbyOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new ActionLobbyOperation(robotInfo);
+                    instance = new LobbyOperation(robotInfo);
                 }
                 return instance;
             }
         }
-        private ActionLobbyOperation(RobotInfo robotInfo)
+        private LobbyOperation(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
             _automator = robotInfo.Automator;
             _logger = robotInfo.Logger;
             _eventBus = robotInfo.EventBus;
-            _pm = robotInfo.PropertiesManager;
             _idleDuration = robotInfo.IdleDuration;
         }
-        ~ActionLobbyOperation() => Dispose(false);
+        ~LobbyOperation() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -95,7 +93,6 @@
         {
             _eventBus.Subscribe<RequestForceGameExitEvent>(this, HandleEvent);
             _eventBus.Subscribe<RequestGameExitEvent>(this, HandleEvent);
-            _eventBus.Subscribe<LobbyInitializedEvent>(this, _ => _automator.EnableExitToLobby(false));
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
                 this,
                 evt =>

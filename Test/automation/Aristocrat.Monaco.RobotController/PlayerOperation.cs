@@ -8,7 +8,7 @@
     using System.Linq;
     using System.Threading;
 
-    internal class ActionPlayerOperation : IRobotOperations, IDisposable
+    internal class PlayerOperation : IRobotOperations, IDisposable
     {
         private readonly Configuration _config;
         private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
@@ -18,20 +18,20 @@
         private readonly StateChecker _sc;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
-        private static ActionPlayerOperation instance = null;
+        private static PlayerOperation instance = null;
         private static readonly object padlock = new object();
-        public static ActionPlayerOperation Instantiate(RobotInfo robotInfo)
+        public static PlayerOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new ActionPlayerOperation(robotInfo);
+                    instance = new PlayerOperation(robotInfo);
                 }
                 return instance;
             }
         }
-        private ActionPlayerOperation(RobotInfo robotInfo)
+        private PlayerOperation(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -41,31 +41,20 @@
             _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             InitializeActionPlayer();
         }
-        ~ActionPlayerOperation() => Dispose(false);
+        ~PlayerOperation() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
             _ActionPlayerTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsValid()) { return; }
-                                   _eventBus.Publish(new ActionPlayerEvent());
+                                   RequestPlay();
                                },
                                null,
                                _config.Active.IntervalAction,
                                _config.Active.IntervalAction);
         }
-        public void Halt()
-        {
-            _ActionPlayerTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
-        }
-        private void SubscribeToEvents()
-        {
-            _eventBus.Subscribe<ActionPlayerEvent>(this, HandleEvent);
-        }
-
-        private void HandleEvent(ActionPlayerEvent obj)
+        private void RequestPlay()
         {
             if (!IsValid())
             {
@@ -77,12 +66,22 @@
                 _config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_config.CurrentGameProfile.RobotActions.Count));
             _actionPlayerFunctions[action](Rng);
         }
-
+        public void Halt()
+        {
+            _ActionPlayerTimer?.Dispose();
+        }
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<RequestPlayerEvent>(this, HandleEvent);
+        }
+        private void HandleEvent(RequestPlayerEvent obj)
+        {
+            RequestPlay();
+        }
         private bool IsValid()
         {
             return _sc.IsGame;
         }
-
         private void InitializeActionPlayer()
         {
             _actionPlayerFunctions.Add(Actions.SpinRequest,
@@ -118,13 +117,11 @@
                 _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
             });
         }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         private void Dispose(bool disposing)
         {
             if (_disposed)

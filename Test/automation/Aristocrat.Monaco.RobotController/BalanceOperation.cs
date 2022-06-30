@@ -51,17 +51,27 @@
             _balanceCheckTimer = new Timer(
                                 (sender) =>
                                 {
-                                    if (!IsValid()) { return; }
-                                    _eventBus.Publish(new BalanceCheckEvent());
+                                    CheckBalance();
                                 },
                                 null,
                                 _config.Active.IntervalBalanceCheck,
                                 _config.Active.IntervalBalanceCheck);
         }
+
+        private void CheckBalance()
+        {
+            if (!IsValid())
+            {
+                _logger.Info($"BalanceCheck Invalidated due to Game wasn't running.");
+            }
+            _bank = GetBankInfo(_bank, _logger);
+            CheckNegativeBalance(_bank, _logger);
+            InsertCredit();
+        }
+
         public void Halt()
         {
             _balanceCheckTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
         }
         private void SubscribeToEvents()
         {
@@ -139,13 +149,7 @@
         }
         private void HandleEvent(BalanceCheckEvent obj)
         {
-            if (!IsValid())
-            {
-                _logger.Info($"BalanceCheck Invalidated due to Game wasn't running.");
-            }
-            _bank = GetBankInfo(_bank, _logger);
-            CheckNegativeBalance(_bank, _logger);
-            InsertCredit();
+            CheckBalance();
         }
         private bool IsValid()
         {

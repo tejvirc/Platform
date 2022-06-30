@@ -109,36 +109,16 @@
                     if (!_sc.IsAllowSingleGameAutoLaunch)
                     {
                         sanityCounter++;
-                        _eventBus.Publish(new LoadGameEvent(true));
+                        HandleGameRequest();
                     }
                 });
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
                 this,
                 _ =>
                 {//2
+                    _eventBus.Publish(new BalanceCheckEvent());
                     sanityCounter = 0;
                 });
-            _eventBus.Subscribe<PrimaryGameStartedEvent>(
-                this, _ =>
-                {//3
-                    _idleDurationReset();
-                });
-
-            _eventBus.Subscribe<SecondaryGameStartedEvent>(
-                this, _ =>
-                {
-                    _idleDurationReset();
-                });
-            _eventBus.Subscribe<FreeGameStartedEvent>
-                (this, _ =>
-                {
-                    _idleDurationReset();
-                });
-            _eventBus.Subscribe<GameDenomChangedEvent>
-                            (this, _ =>
-                            {
-                                _idleDurationReset();
-                            });
             _eventBus.Subscribe<GameDisabledEvent>
                                         (this, _ =>
                                         {
@@ -147,12 +127,6 @@
                                                     (this, _ =>
                                                     {
                                                     });
-
-            _eventBus.Subscribe<GamePresentationEndedEvent>(
-                this, _ =>
-                {//4
-                    _idleDurationReset();
-                });
 
             _eventBus.Subscribe<GamePlayRequestFailedEvent>(this, _ =>
                 {
@@ -179,7 +153,7 @@
                                 _eventBus.Publish(new BalanceCheckEvent());
                                 if ((bool)_pm.GetProperty("Automation.HandleExitToLobby", false))
                                 {
-                                    _automator.RequestGameExit();
+                                    //_automator.RequestGameExit();
                                 }
                             });
             _eventBus.Subscribe<GameSelectedEvent>(
@@ -204,12 +178,11 @@
                                             } else {
                                                 _automator.EnableExitToLobby(false);
                                             }
-                                            Task.Run(
-                                                                () =>
-                                                                {
-                                                                    Thread.Sleep(2000);
-                                                                    HandleGameRequest();
-                                                                });
+                                            Task.Run(() =>
+                                            {
+                                                Thread.Sleep(2000);
+                                                HandleGameRequest();
+                                            });
                                         });
             _eventBus.Subscribe<GameFatalErrorEvent>(
                                                     this,
