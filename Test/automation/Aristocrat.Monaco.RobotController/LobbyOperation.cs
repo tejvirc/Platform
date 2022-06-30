@@ -50,8 +50,8 @@
                                    RequestForceGameExit();
                                },
                                null,
-                               _config.Active.IntervalLobby,
-                               _config.Active.IntervalLobby);
+                               _config.Active.IntervalLoadGame,
+                               _config.Active.IntervalLoadGame);
             _GameExitTimer = new Timer(
                                (sender) =>
                                {

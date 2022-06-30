@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Kernel;
     using log4net;
@@ -65,6 +66,11 @@
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<RequestCashoutEvent>(this, HandleEvent);
+            _eventBus.Subscribe<TransferOutCompletedEvent>(this, HandleEvent);
+        }
+        private void HandleEvent(TransferOutCompletedEvent obj)
+        {
+            RequestBalance();
         }
         public void Execute()
         {
@@ -83,7 +89,6 @@
             if (!IsValid()) { return; }
             _logger.Info("Requesting Cashout");
             _eventBus.Publish(new CashOutButtonPressedEvent());
-            RequestBalance();
         }
         private void RequestBalance()
         {

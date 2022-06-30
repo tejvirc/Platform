@@ -20,6 +20,7 @@
         private readonly IPropertiesManager _pm;
         private readonly ILog _logger;
         private readonly StateChecker _sc;
+        private readonly Func<long> _idleDuration;
         private Action _idleDurationReset;
         private Timer _LoadGameTimer;
         private bool _disposed;
@@ -47,6 +48,7 @@
             _eventBus = robotInfo.EventBus;
             _pm = robotInfo.PropertiesManager;
             _idleDurationReset = robotInfo.IdleDurationReset;
+            _idleDuration = robotInfo.IdleDuration;
         }
         ~GameOperation() => Dispose(false);
         public void Execute()
@@ -144,16 +146,19 @@
                            this,
                            _ =>
                            {
-                               
+
                            });
             _eventBus.Subscribe<GameIdleEvent>(
                             this,
                             _ =>
                             {//5
-                                _eventBus.Publish(new BalanceCheckEvent());
+                                if (_idleDuration() > 3000)
+                                {
+                                    _eventBus.Publish(new BalanceCheckEvent());
+                                }
                                 if ((bool)_pm.GetProperty("Automation.HandleExitToLobby", false))
                                 {
-                                    //_automator.RequestGameExit();
+                                    _automator.RequestGameExit();
                                 }
                             });
             _eventBus.Subscribe<GameSelectedEvent>(
@@ -173,9 +178,12 @@
                                         evt =>
                                         {
                                             //log
-                                            if (evt.Unexpected) {
+                                            if (evt.Unexpected)
+                                            {
                                                 _automator.EnableExitToLobby(true);
-                                            } else {
+                                            }
+                                            else
+                                            {
                                                 _automator.EnableExitToLobby(false);
                                             }
                                             Task.Run(() =>
