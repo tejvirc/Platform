@@ -20,7 +20,7 @@
         private bool _disposed;
         private static ActionPlayerOperation instance = null;
         private static readonly object padlock = new object();
-        public static ActionPlayerOperation Instatiate(RobotInfo robotInfo)
+        public static ActionPlayerOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {

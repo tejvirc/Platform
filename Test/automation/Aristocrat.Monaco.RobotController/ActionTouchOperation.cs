@@ -18,7 +18,7 @@
         private bool _disposed;
         private static ActionTouchOperation instance = null;
         private static readonly object padlock = new object();
-        public static ActionTouchOperation Instatiate(RobotInfo robotInfo)
+        public static ActionTouchOperation Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
