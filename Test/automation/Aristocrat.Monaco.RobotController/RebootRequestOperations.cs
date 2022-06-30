@@ -7,7 +7,7 @@
     using System;
     using System.Threading;
 
-    internal class RebootRequestOperation : IRobotOperations, IDisposable
+    internal class RebootRequestOperations : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -17,7 +17,7 @@
         private Timer _RebootTimer;
         private Timer _SoftRebootTimer;
         private bool _disposed;
-        public RebootRequestOperation(RobotInfo robotInfo)
+        public RebootRequestOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -25,7 +25,7 @@
             _eventBus = robotInfo.EventBus;
             _automator = robotInfo.Automator;
         }
-        ~RebootRequestOperation() => Dispose(false);
+        ~RebootRequestOperations() => Dispose(false);
         public void Dispose()
         {
             Dispose(true);

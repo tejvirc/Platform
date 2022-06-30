@@ -2,13 +2,13 @@
 {
     using Aristocrat.Monaco.Kernel;
 
-    internal class LoadGameEvent : BaseEvent
+    internal class GameLoadRequestEvent : BaseEvent
     {
         public bool GoToNextGame{ get; private set; }
-        public LoadGameEvent()
+        public GameLoadRequestEvent()
         {
         }
-        public LoadGameEvent(bool nextGame)
+        public GameLoadRequestEvent(bool nextGame)
         {
             GoToNextGame = nextGame;
         }

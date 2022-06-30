@@ -2,7 +2,7 @@
 {
     using Kernel;
 
-    internal class RequestPlayerEvent : BaseEvent
+    internal class AuditMenuRequestEvent : BaseEvent
     {
     }
 }

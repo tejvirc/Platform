@@ -2,7 +2,7 @@
 {
     using Kernel;
 
-    internal class RequestAuditMenuEvent : BaseEvent
+    class TouchRequestEvent : BaseEvent
     {
     }
 }

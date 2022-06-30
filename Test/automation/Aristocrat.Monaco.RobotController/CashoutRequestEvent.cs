@@ -2,7 +2,7 @@
 {
     using Kernel;
 
-    class RequestTouchEvent : BaseEvent
+    internal class CashoutRequestEvent : BaseEvent
     {
     }
 }

@@ -2,7 +2,7 @@
 {
     using Kernel;
 
-    internal class RequestCashoutEvent : BaseEvent
+    internal class PlayRequestEvent : BaseEvent
     {
     }
 }

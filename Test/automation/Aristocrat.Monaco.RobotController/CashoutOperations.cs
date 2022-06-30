@@ -7,36 +7,36 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    internal class CashoutOperation : IRobotOperations, IDisposable
+    internal class CashoutOperations : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly ILog _logger;
         private readonly StateChecker _sc;
-        private static CashoutOperation _instance = null;
+        private static CashoutOperations _instance = null;
         private Timer _actionCashoutTimer;
         private bool _disposed;
         private static readonly object padlock = new object();
-        public static CashoutOperation Instantiate(RobotInfo robotInfo)
+        public static CashoutOperations Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (_instance is null)
                 {
-                    _instance = new CashoutOperation(robotInfo);
+                    _instance = new CashoutOperations(robotInfo);
                 }
                 return _instance;
             }
         }
-        private CashoutOperation(RobotInfo robotInfo)
+        private CashoutOperations(RobotInfo robotInfo)
         {
             _eventBus = robotInfo.EventBus;
             _config = robotInfo.Config;
             _logger = robotInfo.Logger;
             _sc = robotInfo.StateChecker;
         }
-        ~CashoutOperation() => Dispose(false);
-        private void HandleEvent(RequestCashoutEvent obj)
+        ~CashoutOperations() => Dispose(false);
+        private void HandleEvent(CashoutRequestEvent obj)
         {
             RequestCashOut();
         }
@@ -65,7 +65,7 @@
         }
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<RequestCashoutEvent>(this, HandleEvent);
+            _eventBus.Subscribe<CashoutRequestEvent>(this, HandleEvent);
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, HandleEvent);
         }
         private void HandleEvent(TransferOutCompletedEvent obj)

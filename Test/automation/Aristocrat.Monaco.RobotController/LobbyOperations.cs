@@ -6,7 +6,7 @@
     using log4net;
     using System;
     using System.Threading;
-    internal class LobbyOperation : IRobotOperations, IDisposable
+    internal class LobbyOperations : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -18,20 +18,20 @@
         private Timer _GameExitTimer;
         private bool _isTimeLimitDialogVisible;
         private bool _disposed;
-        private static LobbyOperation instance = null;
+        private static LobbyOperations instance = null;
         private static readonly object padlock = new object();
-        public static LobbyOperation Instantiate(RobotInfo robotInfo)
+        public static LobbyOperations Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new LobbyOperation(robotInfo);
+                    instance = new LobbyOperations(robotInfo);
                 }
                 return instance;
             }
         }
-        private LobbyOperation(RobotInfo robotInfo)
+        private LobbyOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -40,7 +40,7 @@
             _eventBus = robotInfo.EventBus;
             _idleDuration = robotInfo.IdleDuration;
         }
-        ~LobbyOperation() => Dispose(false);
+        ~LobbyOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -91,8 +91,8 @@
         }
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<RequestForceGameExitEvent>(this, HandleEvent);
-            _eventBus.Subscribe<RequestGameExitEvent>(this, HandleEvent);
+            _eventBus.Subscribe<LobbyForceGameExitRequestEvent>(this, HandleEvent);
+            _eventBus.Subscribe<LobbyGameExitRequestEvent>(this, HandleEvent);
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
                 this,
                 evt =>
@@ -111,11 +111,11 @@
                     _isTimeLimitDialogVisible = false;
                 });
         }
-        private void HandleEvent(RequestGameExitEvent obj)
+        private void HandleEvent(LobbyGameExitRequestEvent obj)
         {
             RequestGameExit();
         }
-        private void HandleEvent(RequestForceGameExitEvent obj)
+        private void HandleEvent(LobbyForceGameExitRequestEvent obj)
         {
             RequestForceGameExit();
         }

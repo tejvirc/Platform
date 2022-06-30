@@ -90,7 +90,8 @@
         }
         private void StartingSuperRobot()
         {
-            _eventBus.Publish(new LoadGameEvent());
+            _automator.ExitLockup();
+            _eventBus.Publish(new GameLoadRequestEvent());
         }
 
         private void EnablingRobot()
@@ -189,7 +190,7 @@
 
         private void RegisterExternalServices(Container container)
         {
-            container.Register<GameOperation>(Lifestyle.Singleton);
+            container.Register<GameOperations>(Lifestyle.Singleton);
         }
 
         private void SubscribeToRobotEnabler()
@@ -256,13 +257,15 @@
                 DisableRobotController = DisableRobotController,
                 IdleDuration = IdleDuration
             };
-            _operationCollection.Add(GameOperation.Instantiate(robotInfo));
-            _operationCollection.Add(BalanceOperation.Instantiate(robotInfo));
+            _operationCollection.Add(GameOperations.Instantiate(robotInfo));
+            _operationCollection.Add(BalanceOperations.Instantiate(robotInfo));
             _operationCollection.Add(TouchOperation.Instantiate(robotInfo));
-            _operationCollection.Add(PlayerOperation.Instantiate(robotInfo));
-            _operationCollection.Add(CashoutOperation.Instantiate(robotInfo));
-            _operationCollection.Add(LobbyOperation.Instantiate(robotInfo));
-            _operationCollection.Add(AuditMenuOperation.Instantiate(robotInfo));
+            _operationCollection.Add(PlayerOperations.Instantiate(robotInfo));
+            _operationCollection.Add(CashoutOperations.Instantiate(robotInfo));
+            _operationCollection.Add(LobbyOperations.Instantiate(robotInfo));
+            _operationCollection.Add(AuditMenuOperations.Instantiate(robotInfo));
+            _operationCollection.Add(new LockUpOperations(robotInfo));
+            _operationCollection.Add(new OperatingHoursOperations(robotInfo));
         }
 
         private long IdleDuration()

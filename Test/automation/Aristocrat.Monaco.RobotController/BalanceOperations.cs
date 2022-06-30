@@ -12,7 +12,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    internal class BalanceOperation : IRobotOperations, IDisposable
+    internal class BalanceOperations : IRobotOperations, IDisposable
     {
         private IEventBus _eventBus;
         private readonly Configuration _config;
@@ -22,20 +22,20 @@
         private Timer _balanceCheckTimer;
         private IBank _bank;
         private bool _disposed;
-        private static BalanceOperation instance = null;
+        private static BalanceOperations instance = null;
         private static readonly object padlock = new object();
-        public static BalanceOperation Instantiate(RobotInfo robotInfo)
+        public static BalanceOperations Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new BalanceOperation(robotInfo);
+                    instance = new BalanceOperations(robotInfo);
                 }
                 return instance;
             }
         }
-        private BalanceOperation(RobotInfo robotInfo)
+        private BalanceOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -44,7 +44,7 @@
             _eventBus = robotInfo.EventBus;
             _automator = robotInfo.Automator;
         }
-        ~BalanceOperation() => Dispose(false);
+        ~BalanceOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();

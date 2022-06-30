@@ -8,7 +8,7 @@
     using System.Linq;
     using System.Threading;
 
-    internal class PlayerOperation : IRobotOperations, IDisposable
+    internal class PlayerOperations : IRobotOperations, IDisposable
     {
         private readonly Configuration _config;
         private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
@@ -18,20 +18,20 @@
         private readonly StateChecker _sc;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
-        private static PlayerOperation instance = null;
+        private static PlayerOperations instance = null;
         private static readonly object padlock = new object();
-        public static PlayerOperation Instantiate(RobotInfo robotInfo)
+        public static PlayerOperations Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new PlayerOperation(robotInfo);
+                    instance = new PlayerOperations(robotInfo);
                 }
                 return instance;
             }
         }
-        private PlayerOperation(RobotInfo robotInfo)
+        private PlayerOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -41,7 +41,7 @@
             _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             InitializeActionPlayer();
         }
-        ~PlayerOperation() => Dispose(false);
+        ~PlayerOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -72,9 +72,9 @@
         }
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<RequestPlayerEvent>(this, HandleEvent);
+            _eventBus.Subscribe<PlayRequestEvent>(this, HandleEvent);
         }
-        private void HandleEvent(RequestPlayerEvent obj)
+        private void HandleEvent(PlayRequestEvent obj)
         {
             RequestPlay();
         }

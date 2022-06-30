@@ -7,7 +7,7 @@
     using System;
     using System.Threading;
 
-    internal class AuditMenuOperation : IRobotOperations, IDisposable
+    internal class AuditMenuOperations : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -17,20 +17,20 @@
         private Timer _loadAuditMenuTimer;
         private Timer _exitAuditMenuTimer;
         private bool _disposed;
-        private static AuditMenuOperation instance = null;
+        private static AuditMenuOperations instance = null;
         private static readonly object padlock = new object();
-        public static AuditMenuOperation Instantiate(RobotInfo robotInfo)
+        public static AuditMenuOperations Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new AuditMenuOperation(robotInfo);
+                    instance = new AuditMenuOperations(robotInfo);
                 }
                 return instance;
             }
         }
-        public AuditMenuOperation(RobotInfo robotInfo)
+        public AuditMenuOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -39,7 +39,7 @@
             _eventBus = robotInfo.EventBus;
         }
 
-        ~AuditMenuOperation() => Dispose(false);
+        ~AuditMenuOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -48,7 +48,7 @@
                 {
                     if (!IsValid()) { return; }
                     {
-                        _eventBus.Publish(new RequestAuditMenuEvent());
+                        _eventBus.Publish(new AuditMenuRequestEvent());
                     }
                 },
                 null,
@@ -63,7 +63,7 @@
 
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<RequestAuditMenuEvent>(this, HandleEvent);
+            _eventBus.Subscribe<AuditMenuRequestEvent>(this, HandleEvent);
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(
                 this,
                 _ =>
@@ -79,7 +79,7 @@
                 });
         }
 
-        private void HandleEvent(RequestAuditMenuEvent obj)
+        private void HandleEvent(AuditMenuRequestEvent obj)
         {
             if (!IsValid())
             {
@@ -92,7 +92,7 @@
                 (sender) =>
                 {
                     _automator.ExitAuditMenu();
-                    _eventBus.Publish(new LoadGameEvent());
+                    _eventBus.Publish(new GameLoadRequestEvent());
                     _exitAuditMenuTimer.Dispose();
                 },
                 null,

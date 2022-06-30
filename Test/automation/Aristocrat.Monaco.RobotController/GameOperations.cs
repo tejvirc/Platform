@@ -12,7 +12,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    internal class GameOperation : IRobotOperations, IDisposable
+    internal class GameOperations : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -26,20 +26,20 @@
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int sanityCounter;
-        private static GameOperation instance = null;
+        private static GameOperations instance = null;
         private static readonly object padlock = new object();
-        public static GameOperation Instantiate(RobotInfo robotInfo)
+        public static GameOperations Instantiate(RobotInfo robotInfo)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new GameOperation(robotInfo);
+                    instance = new GameOperations(robotInfo);
                 }
                 return instance;
             }
         }
-        private GameOperation(RobotInfo robotInfo)
+        private GameOperations(RobotInfo robotInfo)
         {
             _config = robotInfo.Config;
             _sc = robotInfo.StateChecker;
@@ -50,7 +50,7 @@
             _idleDurationReset = robotInfo.IdleDurationReset;
             _idleDuration = robotInfo.IdleDuration;
         }
-        ~GameOperation() => Dispose(false);
+        ~GameOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
@@ -63,14 +63,14 @@
                                _config.Active.IntervalLoadGame,
                                _config.Active.IntervalLoadGame);
         }
-        private void HandleGameRequest(LoadGameEvent evt = null)
+        private void HandleGameRequest(GameLoadRequestEvent evt = null)
         {
             if (!IsValid())
             {
                 //Todo: Log Something
                 return;
             }
-            evt = evt ?? new LoadGameEvent(true);
+            evt = evt ?? new GameLoadRequestEvent(true);
             DismissTimeLimitDialog();
             SelectGame(evt);
             if (!IsTimeLimitDialogInProgress() && CheckSanity())
@@ -85,7 +85,7 @@
         }
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<LoadGameEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameLoadRequestEvent>(this, HandleEvent);
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
                  this,
                  evt =>
@@ -188,7 +188,7 @@
                                             }
                                             Task.Run(() =>
                                             {
-                                                Thread.Sleep(2000);
+                                                Thread.Sleep(5000);
                                                 HandleGameRequest();
                                             });
                                         });
@@ -216,7 +216,7 @@
         {
             Task.Delay(waitDuration).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
         }
-        private void HandleEvent(LoadGameEvent evt)
+        private void HandleEvent(GameLoadRequestEvent evt)
         {
             HandleGameRequest(evt);
         }
@@ -224,7 +224,7 @@
         {
             _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
         }
-        private void SelectGame(LoadGameEvent evt)
+        private void SelectGame(GameLoadRequestEvent evt)
         {
             if (evt.GoToNextGame)
             {
@@ -256,7 +256,7 @@
             {
                 sanityCounter++;
                 _logger.Info($"Did not find game, {_config.CurrentGame}");
-                _eventBus.Publish(new LoadGameEvent(true));
+                _eventBus.Publish(new GameLoadRequestEvent(true));
             }
         }
         private bool CheckSanity()

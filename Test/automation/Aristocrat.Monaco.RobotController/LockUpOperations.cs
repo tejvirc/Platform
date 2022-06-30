@@ -7,7 +7,7 @@
     using System;
     using System.Threading;
 
-    internal class LockUpOperation : IRobotOperations, IDisposable
+    internal class LockUpOperations : IRobotOperations, IDisposable
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
@@ -18,7 +18,7 @@
         private bool _disposed;
         private Timer _RebootTimer;
         private Timer _lockupTimer;
-        public LockUpOperation(RobotInfo robotInfo)
+        public LockUpOperations(RobotInfo robotInfo)
         {
             _eventBus = robotInfo.EventBus;
             _config = robotInfo.Config;
@@ -27,7 +27,7 @@
             _automator = robotInfo.Automator;
             _disableRobotController = robotInfo.DisableRobotController;
         }
-        ~LockUpOperation() => Dispose(false);
+        ~LockUpOperations() => Dispose(false);
         public void Dispose()
         {
             Dispose(true);
@@ -53,13 +53,25 @@
             _lockupTimer = new Timer(
                                (sender) =>
                                {
-                                   if (!IsValid()) { return; }
-                                   _eventBus.Publish(new LockUpRequestEvent());
+                                   RequestLockUp();
                                },
                                null,
                                _config.Active.IntervalTriggerLockup,
                                _config.Active.IntervalTriggerLockup);
         }
+
+        private void RequestLockUp()
+        {
+            if (!IsValid()) { return; }
+            _automator.EnterLockup();
+            _lockupTimer = new Timer(
+            (sender) =>
+            {
+                _automator.ExitLockup();
+                _lockupTimer.Dispose();
+            }, null, Constants.LockupDuration, System.Threading.Timeout.Infinite);
+        }
+
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<LockUpRequestEvent>(this, HandleEvent);
@@ -108,20 +120,12 @@
                                if (_config.Active.DisableOnLockup)
                                {
                                    _logger.Info($"Disabling for system disable {evt.DisableId}, reason: {evt.DisableReasons}");
-                                   _disableRobotController();
                                }
                            });
         }
         private void HandleEvent(LockUpRequestEvent obj)
         {
-            if (!IsValid()) { return; }
-            _automator.EnterLockup();
-            _lockupTimer = new Timer(
-            (sender) =>
-            {
-                _automator.ExitLockup();
-                _lockupTimer.Dispose();
-            }, null, Constants.LockupDuration, System.Threading.Timeout.Infinite);
+            RequestLockUp();
         }
         private bool IsValid()
         {
@@ -131,7 +135,6 @@
         {
             _RebootTimer?.Dispose();
             _lockupTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
         }
     }
 }

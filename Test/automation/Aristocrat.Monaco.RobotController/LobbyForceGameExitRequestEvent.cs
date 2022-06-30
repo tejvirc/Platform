@@ -2,7 +2,7 @@
 {
     using Aristocrat.Monaco.Kernel;
 
-    internal class RequestGameExitEvent: BaseEvent
+    internal class LobbyForceGameExitRequestEvent :BaseEvent
     {
     }
 }

@@ -71,9 +71,9 @@
         }
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<RequestTouchEvent>(this, HandleEvent);
+            _eventBus.Subscribe<TouchRequestEvent>(this, HandleEvent);
         }
-        private void HandleEvent(RequestTouchEvent obj)
+        private void HandleEvent(TouchRequestEvent obj)
         {
             ActionTouch();
         }
