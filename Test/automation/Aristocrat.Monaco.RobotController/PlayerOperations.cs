@@ -2,7 +2,6 @@
 {
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,32 +11,19 @@
     {
         private readonly Configuration _config;
         private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
         private readonly StateChecker _sc;
         private Timer _ActionPlayerTimer;
         private bool _disposed;
-        private static PlayerOperations instance = null;
-        private static readonly object padlock = new object();
-        public static PlayerOperations Instantiate(RobotInfo robotInfo)
+        public PlayerOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new PlayerOperations(robotInfo);
-                }
-                return instance;
-            }
-        }
-        private PlayerOperations(RobotInfo robotInfo)
-        {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _automator = robotInfo.Automator;
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
             _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             InitializeActionPlayer();
         }
@@ -58,9 +44,10 @@
         {
             if (!IsValid())
             {
-                //Todo: Log Something
+                _logger.Error("RequestPlay Validation Failed", GetType().Name);
                 return;
             }
+            _logger.Info("RequestPlay Received!", GetType().Name);
             var Rng = new Random((int)DateTime.Now.Ticks);
             var action =
                 _config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_config.CurrentGameProfile.RobotActions.Count));
@@ -68,6 +55,7 @@
         }
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _ActionPlayerTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }
@@ -88,15 +76,14 @@
             _actionPlayerFunctions.Add(Actions.SpinRequest,
             (Rng) =>
             {
-                _logger.Info("Spin Request");
+                _logger.Info("Spin Request", GetType().Name);
                 _automator.SpinRequest();
             });
 
             _actionPlayerFunctions.Add(Actions.BetLevel,
             (Rng) =>
             {
-                _logger.Info("Changing bet level");
-                //increment/decrement bet level - physical id: 23 - 27
+                _logger.Info("Changing bet level", GetType().Name);
                 var betIndices = _config.GetBetIndices();
                 var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
                 _automator.SetBetLevel(index);
@@ -105,15 +92,14 @@
             _actionPlayerFunctions.Add(Actions.BetMax,
             (Rng) =>
             {
-                _logger.Info("Bet Max");
+                _logger.Info("Bet Max", GetType().Name);
                 _automator.SetBetMax();
             });
 
             _actionPlayerFunctions.Add(Actions.LineLevel,
             (Rng) =>
             {
-                _logger.Info("Change Line Level");
-                // increment/decrement line level - physical id: 30 - 34
+                _logger.Info("Change Line Level", GetType().Name);
                 var lineIndices = _config.GetLineIndices();
                 _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
             });

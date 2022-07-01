@@ -12,40 +12,26 @@
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly Automation _automator;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly StateChecker _sc;
-        private readonly Func<long> _idleDuration;
+        private readonly RobotController _robotController;
         private Timer _ForceGameExitTimer;
         private Timer _GameExitTimer;
         private bool _isTimeLimitDialogVisible;
         private bool _disposed;
-        private static LobbyOperations instance = null;
-        private static readonly object padlock = new object();
-        public static LobbyOperations Instantiate(RobotInfo robotInfo)
+        public LobbyOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc, RobotController controller)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new LobbyOperations(robotInfo);
-                }
-                return instance;
-            }
-        }
-        private LobbyOperations(RobotInfo robotInfo)
-        {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _automator = robotInfo.Automator;
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
-            _idleDuration = robotInfo.IdleDuration;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
+            _robotController = controller;
         }
         ~LobbyOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
-            //Todo
             _ForceGameExitTimer = new Timer(
                                (sender) =>
                                {
@@ -65,20 +51,30 @@
         }
         private void RequestForceGameExit()
         {
-            if (!IsForceGameExitValid()) { return; }
+            if (!IsForceGameExitValid())
+            {
+                _logger.Error("ForceGameExit Validation Failed", GetType().Name);
+                return;
+            }
+            _logger.Info("ForceGameExit Requested Received!", GetType().Name);
             _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
 
         private void RequestGameExit()
         {
-            if (!IsGameExitValid()) { return; }
+            if (!IsGameExitValid())
+            {
+                _logger.Error("RequestGameExit Validation Failed", GetType().Name);
+                return;
+            }
+            _logger.Info("RequestGameExit Requested Received!", GetType().Name);
             _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
             _automator.RequestGameExit();
         }
         private bool IsGameExitValid()
         {
-            return _idleDuration() > 5000 && (_sc.IsGame && !_sc.IsAllowSingleGameAutoLaunch);
+            return _robotController.IdleDuration > 5000 && (_sc.IsGame && !_sc.IsAllowSingleGameAutoLaunch);
         }
         private bool IsForceGameExitValid()
         {
@@ -86,6 +82,7 @@
         }
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _GameExitTimer?.Dispose();
             _ForceGameExitTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
@@ -98,6 +95,7 @@
                 this,
                 evt =>
                 {
+                    _logger.Info("TimeLimitDialogVisibleEvent Got Triggered!", GetType().Name);
                     _isTimeLimitDialogVisible = true;
                     if (evt.IsLastPrompt)
                     {
@@ -109,12 +107,14 @@
                 this,
                 evt =>
                 {
+                    _logger.Info("TimeLimitDialogHiddenEvent Got Triggered!", GetType().Name);
                     _isTimeLimitDialogVisible = false;
                 });
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
                 this,
                 _ =>
                 {
+                    _logger.Info("GameInitializationCompletedEvent Got Triggered!", GetType().Name);
                     _ForceGameExitTimer?.Change(_config.Active.IntervalLoadGame, _config.Active.IntervalLoadGame);
                     _GameExitTimer?.Change(_config.Active.IntervalLobby, _config.Active.IntervalLobby);
                 });

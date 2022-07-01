@@ -14,41 +14,26 @@
 
     internal class BalanceOperations : IRobotOperations, IDisposable
     {
-        private IEventBus _eventBus;
+        private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly StateChecker _sc;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private IBank _bank;
         private Timer _balanceCheckTimer;
         private bool _disposed;
-        private static BalanceOperations instance = null;
-        private static readonly object padlock = new object();
-        public static BalanceOperations Instantiate(RobotInfo robotInfo)
+        public BalanceOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new BalanceOperations(robotInfo);
-                }
-                return instance;
-            }
-        }
-        private BalanceOperations(RobotInfo robotInfo)
-        {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _bank = robotInfo.ContainerService.Container.GetInstance<IBank>();
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
-            _automator = robotInfo.Automator;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
         }
         ~BalanceOperations() => Dispose(false);
         public void Execute()
         {
             SubscribeToEvents();
-
             if (_config.Active.IntervalBalanceCheck == 0) { return; }
             _balanceCheckTimer = new Timer(
                                 (sender) =>
@@ -59,20 +44,20 @@
                                 _config.Active.IntervalBalanceCheck,
                                 _config.Active.IntervalBalanceCheck);
         }
-
         private void CheckBalance()
         {
             if (!IsValid())
             {
-                _logger.Info($"BalanceCheck Invalidated due to Game wasn't running.");
+                _logger.Error($"BalanceCheck Invalidated due to Game wasn't running.", GetType().Name);
             }
+            _logger.Info($"BalanceCheck Requested.", GetType().Name);
             _bank = GetBankInfo(_bank, _logger);
             CheckNegativeBalance(_bank, _logger);
             InsertCredit();
         }
-
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _balanceCheckTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }
@@ -90,46 +75,45 @@
 
             _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
             {
-                if   (evt.Handpay == HandpayType.GameWin ||
+                if (evt.Handpay == HandpayType.GameWin ||
                      evt.Handpay == HandpayType.CancelCredit)
                 {
-                    _logger.Info("Keying off large win");
+                    _logger.Info("Keying off large win", GetType().Name);
                     Task.Delay(1000).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
                 }
             });
             _eventBus.Subscribe<CashOutStartedEvent>(this, _ =>
             {
-               //log
+                _logger.Info("CashOutStartedEvent Got Triggered!", GetType().Name);
             });
             _eventBus.Subscribe<VoucherIssuedEvent>(this, evt =>
             {
-                //log
+                _logger.Info("VoucherIssuedEvent Got Triggered!", GetType().Name);
             });
             _eventBus.Subscribe<TransferOutFailedEvent>(this, _ =>
             {
-                //log
+                _logger.Info("TransferOutFailedEvent Got Triggered!", GetType().Name);
             });
             _eventBus.Subscribe<CashOutAbortedEvent>(this, _ =>
             {
-                //log
+                _logger.Info("CashOutAbortedEvent Got Triggered!", GetType().Name);
             });
             _eventBus.Subscribe<HandpayKeyedOffEvent>(this, _ =>
             {
-               //log
+                _logger.Info("CashOutAbortedEvent Got Triggered!", GetType().Name);
             });
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, evt =>
             {
-                //log
+                _logger.Info("TransferOutCompletedEvent Got Triggered!", GetType().Name);
             });
         }
-        
         private void HandleEvent(BalanceCheckEvent obj)
         {
             CheckBalance();
         }
         private bool IsValid()
         {
-            return _sc.IsGame && !_sc.IsInRecovery;
+            return _sc.IsGame;
         }
         private void InsertCredit()
         {
@@ -141,7 +125,7 @@
             {
                 return;
             }
-            _logger.Info($"Insufficient balance.");
+            _logger.Info($"Insufficient balance.", GetType().Name);
             _automator.InsertDollars(_config.GetDollarsInserted());
         }
         public void Dispose()
@@ -157,22 +141,22 @@
             }
             if (disposing)
             {
+                _bank = null;
                 _eventBus.UnsubscribeAll(this);
                 _balanceCheckTimer?.Dispose();
             }
             _disposed = true;
         }
-        //Todo: Move these to a static Helper Class
-        public static void CheckNegativeBalance(IBank _bank, ILog Logger)
+        public void CheckNegativeBalance(IBank _bank, RobotLogger Logger)
         {
-            Logger.Info($"Platform balance: {_bank.QueryBalance()}");
+            Logger.Info($"Platform balance: {_bank.QueryBalance()}", GetType().Name);
             if (_bank.QueryBalance() < 0)
             {
-                Logger.Fatal("NEGATIVE BALANCE DETECTED");
+                Logger.Fatal("NEGATIVE BALANCE DETECTED", GetType().Name);
                 throw new Exception($"NEGATIVE BALANCE DETECTED");
             }
         }
-        public static IBank GetBankInfo(IBank _bank, ILog Logger)
+        public IBank GetBankInfo(IBank _bank, RobotLogger Logger)
         {
             if (_bank == null)
             {
@@ -180,7 +164,7 @@
             }
             if (_bank == null)
             {
-                Logger.Info("_bank is null);");
+                Logger.Info("_bank is null);", GetType().Name);
             }
 
             return _bank;

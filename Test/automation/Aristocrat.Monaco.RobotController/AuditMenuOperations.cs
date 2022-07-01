@@ -12,31 +12,19 @@
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly Automation _automator;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly StateChecker _sc;
         private Timer _loadAuditMenuTimer;
         private Timer _exitAuditMenuTimer;
         private bool _disposed;
-        private static AuditMenuOperations instance = null;
-        private static readonly object padlock = new object();
-        public static AuditMenuOperations Instantiate(RobotInfo robotInfo)
+        
+        public AuditMenuOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new AuditMenuOperations(robotInfo);
-                }
-                return instance;
-            }
-        }
-        public AuditMenuOperations(RobotInfo robotInfo)
-        {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _automator = robotInfo.Automator;
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
         }
 
         ~AuditMenuOperations() => Dispose(false);
@@ -58,10 +46,10 @@
         {
             if (!IsValid())
             {
-                //Todo: Log Something
+                _logger.Error("Requesting Audit Menu - Failed", GetType().Name);
                 return;
             }
-            _logger.Info("Requesting Audit Menu");
+            _logger.Info("Requesting Audit Menu", GetType().Name);
             _automator.LoadAuditMenu();
             _exitAuditMenuTimer = new Timer(
                 (sender) =>
@@ -77,6 +65,7 @@
 
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _automator.ExitAuditMenu();
             _loadAuditMenuTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
@@ -89,14 +78,14 @@
                 this,
                 _ =>
                 {
-                    //log
+                    _logger.Info("Operator Menu Entered Succeeded!", GetType().Name);
                 });
 
             _eventBus.Subscribe<OperatorMenuExitedEvent>(
                 this,
                 _ =>
                 {
-                   //log
+                    _logger.Info("Operator Menu Exited Successfully!", GetType().Name);
                 });
         }
 
@@ -105,7 +94,7 @@
             RequestAuditMenu();
         }
 
-        private bool IsValid() => !_sc.IsInRecovery && !_sc.IsInTheMiddleOfPlaying && (_sc.IsChooser || _sc.IsGame);
+        private bool IsValid() =>  (_sc.IsChooser || _sc.IsGame);
 
         private void Dispose(bool disposing)
         {

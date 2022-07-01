@@ -6,8 +6,8 @@
 
     internal class StateChecker
     {
-        private readonly ILobbyStateManager _lobbyStateManager;
-        public IGamePlayState _gamePlayState;
+        public readonly ILobbyStateManager _lobbyStateManager;
+        public readonly IGamePlayState _gamePlayState;
 
         public StateChecker(ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState)
         {
@@ -36,6 +36,7 @@
                                                 IsSecondaryGameStarted ||
                                                 IsPayGameResults ||
                                                 IsGameEnded;
+        internal bool IsAbleToCashOut => IsIdle || IsPrimaryGameEnded || IsSecondaryGameEnded || IsPresentationIdle;
         #endregion
         #region LobbyStateManager
         internal bool IsAllowSingleGameAutoLaunch => _lobbyStateManager.AllowSingleGameAutoLaunch;

@@ -2,28 +2,27 @@
 {
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
-    using log4net;
     using System;
     using System.Threading;
 
     internal class ServiceRequestOperations : IRobotOperations, IDisposable
     {
-        private IEventBus _eventBus;
+        private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly StateChecker _sc;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private Timer _ServiceRequestTimer;
         private Timer _handlerTimer;
         private bool _disposed;
 
-        public ServiceRequestOperations(RobotInfo robotInfo)
+        public ServiceRequestOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc)
         {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
-            _automator = robotInfo.Automator;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
         }
         ~ServiceRequestOperations() => Dispose(false);
         public void Execute()
@@ -42,7 +41,12 @@
 
         private void RequestService()
         {
-            if (!IsValid()) { return; }
+            if (!IsValid())
+{
+                _logger.Error("RequestService Validation Failed", GetType().Name);
+                return;
+}
+            _logger.Info("RequestService Received!", GetType().Name);
             _automator.ServiceButton(true);
             _handlerTimer = new Timer(
                 (sender) =>
@@ -72,6 +76,7 @@
 
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _automator.ServiceButton(false);
             _ServiceRequestTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);

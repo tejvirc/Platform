@@ -2,7 +2,6 @@
 {
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Threading;
@@ -12,30 +11,17 @@
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly Automation _automator;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly StateChecker _sc;
         private Timer _ActionTouchTimer;
         private bool _disposed;
-        private static TouchOperations instance = null;
-        private static readonly object padlock = new object();
-        public static TouchOperations Instantiate(RobotInfo robotInfo)
+        public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new TouchOperations(robotInfo);
-                }
-                return instance;
-            }
-        }
-        private TouchOperations(RobotInfo robotInfo)
-        {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _automator = robotInfo.Automator;
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
         }
         ~TouchOperations() => Dispose(false);
         public void Execute()
@@ -66,6 +52,7 @@
         }
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _ActionTouchTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }
@@ -117,7 +104,7 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.Info("Error while using Extra Touch VBD Areas: " + ex);
+                    _logger.Info("Error while using Extra Touch VBD Areas: " + ex, GetType().Name);
                 }
             }
         }
@@ -137,7 +124,7 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.Info("Error while using Extra Touch Areas: " + ex);
+                    _logger.Info("Error while using Extra Touch Areas: " + ex, GetType().Name);
                 }
             }
         }
@@ -166,7 +153,7 @@
             {
                 if (x >= tb.TopLeftX && x <= tb.BottomRightX && y >= tb.TopLeftY && y <= tb.BottomRightY)
                 {
-                    _logger.Info($"NOT touching ({x}, {y}) as it is in a deadzone");
+                    _logger.Info($"NOT touching ({x}, {y}) as it is in a deadzone", GetType().Name);
                     return false;
                 }
             }

@@ -12,16 +12,16 @@
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly StateChecker _sc;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private Timer _RebootTimer;
         private Timer _SoftRebootTimer;
         private bool _disposed;
-        public RebootRequestOperations(RobotInfo robotInfo)
+        public RebootRequestOperations(IEventBus eventBus, RobotLogger logger, Configuration config, StateChecker sc)
         {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
+            _config = config;
+            _sc = sc;
+            _logger = logger;
+            _eventBus = eventBus;
         }
         ~RebootRequestOperations() => Dispose(false);
         public void Dispose()
@@ -68,13 +68,23 @@
 
         private void RequestSoftReboot()
         {
-            if (!IsSoftRebootValid()) { return; }
+            if (!IsSoftRebootValid())
+            {
+                _logger.Error("RequestSoftReboot Validation Failed", GetType().Name);
+                return;
+            }
+            _logger.Info("RequestSoftReboot Received!", GetType().Name);
             _eventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
         }
 
         private void RequestHardReboot()
         {
-            if (!IsRebootValid()) { return; }
+            if (!IsRebootValid())
+            {
+                _logger.Error("RequestHardReboot Validation Failed", GetType().Name);
+                return;
+            }
+            _logger.Info("RequestHardReboot Received!", GetType().Name);
             OSManager.ResetComputer();
         }
 
@@ -106,6 +116,7 @@
 
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _RebootTimer?.Dispose();
             _SoftRebootTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);

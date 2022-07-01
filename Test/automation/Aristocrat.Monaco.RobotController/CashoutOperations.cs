@@ -11,29 +11,16 @@
     {
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly StateChecker _sc;
-        private static CashoutOperations _instance = null;
         private Timer _actionCashoutTimer;
         private bool _disposed;
-        private static readonly object padlock = new object();
-        public static CashoutOperations Instantiate(RobotInfo robotInfo)
+        public CashoutOperations(IEventBus eventBus, Configuration config, RobotLogger logger, StateChecker sc)
         {
-            lock (padlock)
-            {
-                if (_instance is null)
-                {
-                    _instance = new CashoutOperations(robotInfo);
-                }
-                return _instance;
-            }
-        }
-        private CashoutOperations(RobotInfo robotInfo)
-        {
-            _eventBus = robotInfo.EventBus;
-            _config = robotInfo.Config;
-            _logger = robotInfo.Logger;
-            _sc = robotInfo.StateChecker;
+            _config = config;
+            _sc = sc;
+            _logger = logger;
+            _eventBus = eventBus;
         }
         ~CashoutOperations() => Dispose(false);
         private void HandleEvent(CashoutRequestEvent obj)
@@ -42,7 +29,7 @@
         }
         private bool IsValid()
         {
-            return !_sc.IsInRecovery && (_sc.IsChooser || _sc.IsIdle || _sc.IsPresentationIdle || _sc.IsGame); 
+            return _sc.IsChooser || (_sc.IsGame && _sc.IsAbleToCashOut); 
         }
         public void Dispose()
         {
@@ -88,7 +75,7 @@
         private void RequestCashOut()
         {
             if (!IsValid()) { return; }
-            _logger.Info("Requesting Cashout");
+            _logger.Info("Requesting Cashout", GetType().Name);
             _eventBus.Publish(new CashOutButtonPressedEvent());
         }
         private void RequestBalance()
@@ -102,6 +89,7 @@
         }
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             RequestCashOut();
             _actionCashoutTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);

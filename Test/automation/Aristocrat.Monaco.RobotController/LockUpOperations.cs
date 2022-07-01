@@ -12,20 +12,19 @@
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly StateChecker _sc;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly Automation _automator;
-        private readonly Action _disableRobotController;
+        private readonly RobotController _robotController;
         private bool _disposed;
-        private Timer _RebootTimer;
         private Timer _lockupTimer;
-        public LockUpOperations(RobotInfo robotInfo)
+        public LockUpOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc, RobotController controller)
         {
-            _eventBus = robotInfo.EventBus;
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _logger = robotInfo.Logger;
-            _automator = robotInfo.Automator;
-            _disableRobotController = robotInfo.DisableRobotController;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
+            _robotController = controller;
         }
         ~LockUpOperations() => Dispose(false);
         public void Dispose()
@@ -42,7 +41,6 @@
             if (disposing)
             {
                 _eventBus.UnsubscribeAll(this);
-                _RebootTimer?.Dispose();
                 _lockupTimer?.Dispose();
             }
             _disposed = true;
@@ -63,11 +61,17 @@
 
         private void RequestLockUp()
         {
-            if (!IsValid()) { return; }
+            if (!IsValid())
+            {
+                _logger.Error("RequestLockUp Validation Failed", GetType().Name);
+                return;
+            }
+            _logger.Info("RequestLockUp Received!", GetType().Name);
             _automator.EnterLockup();
             _lockupTimer = new Timer(
             (sender) =>
             {
+                _logger.Info("RequestExitLockup Received!", GetType().Name);
                 _automator.ExitLockup();
                 _lockupTimer.Dispose();
             }, null, Constants.LockupDuration, System.Threading.Timeout.Infinite);
@@ -85,42 +89,42 @@
                                //inspect the previous controller state which should be set in the BalanceCheck call
                                if (evt.DisableReasons == "Outside Hours of Operation")
                                {
-                                   _logger.Info("Not disabling because disable for Operating Hours is expected.");
+                                   _logger.Info("Not disabling because disable for Operating Hours is expected.", GetType().Name);
                                    return;
                                }
 
                                if (evt.DisableReasons.Contains("Disabled by the voucher"))
                                {
-                                   _logger.Info("Not disabling for voucher device");
+                                   _logger.Info("Not disabling for voucher device", GetType().Name);
                                    return;
                                }
 
                                if (evt.DisableReasons.Contains("Game Play Request Failed"))
                                {
-                                   _logger.Info("Not disabling for game play request failed");
+                                   _logger.Info("Not disabling for game play request failed", GetType().Name);
                                    return;
                                }
 
                                if (evt.DisableReasons.Contains("Central Server Offline"))
                                {
-                                   _logger.Info("Not disabling for central server offline");
+                                   _logger.Info("Not disabling for central server offline", GetType().Name);
                                    return;
                                }
 
                                if (evt.DisableReasons.Contains("Protocol Initialization In Progress"))
                                {
-                                   _logger.Info("Not disabling for protocol initialization");
+                                   _logger.Info("Not disabling for protocol initialization", GetType().Name);
                                    return;
                                }
 
                                if (evt.DisableId == ApplicationConstants.LiveAuthenticationDisableKey)
                                {
-                                   _logger.Info("Not disabling for signature verification");
+                                   _logger.Info("Not disabling for signature verification", GetType().Name);
                                    return;
                                }
                                if (_config.Active.DisableOnLockup)
                                {
-                                   _logger.Info($"Disabling for system disable {evt.DisableId}, reason: {evt.DisableReasons}");
+                                   _logger.Info($"Disabling for system disable {evt.DisableId}, reason: {evt.DisableReasons}", GetType().Name);
                                }
                            });
         }
@@ -134,8 +138,8 @@
         }
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _automator.ExitLockup();
-            _RebootTimer?.Dispose();
             _lockupTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }

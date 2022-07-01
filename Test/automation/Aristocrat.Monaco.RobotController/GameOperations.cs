@@ -6,7 +6,6 @@
     using Aristocrat.Monaco.Hhr.Events;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
-    using log4net;
     using System;
     using System.Linq;
     using System.Threading;
@@ -18,38 +17,23 @@
         private readonly Configuration _config;
         private readonly Automation _automator;
         private readonly IPropertiesManager _pm;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly StateChecker _sc;
-        private readonly Func<long> _idleDuration;
-        private Action _idleDurationReset;
+        private readonly RobotController _robotController;
         private Timer _LoadGameTimer;
         private Timer _RgTimer;
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int sanityCounter;
-        private static GameOperations instance = null;
-        private static readonly object padlock = new object();
-        public static GameOperations Instantiate(RobotInfo robotInfo)
+        public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc, IPropertiesManager pm, RobotController robotController)
         {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new GameOperations(robotInfo);
-                }
-                return instance;
-            }
-        }
-        private GameOperations(RobotInfo robotInfo)
-        {
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _automator = robotInfo.Automator;
-            _logger = robotInfo.Logger;
-            _eventBus = robotInfo.EventBus;
-            _pm = robotInfo.PropertiesManager;
-            _idleDurationReset = robotInfo.IdleDurationReset;
-            _idleDuration = robotInfo.IdleDuration;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
+            _pm = pm;
+            _robotController = robotController;
         }
         ~GameOperations() => Dispose(false);
         public void Execute()
@@ -75,6 +59,7 @@
         }
         private void HandleRgRequest()
         {
+            _logger.Info("Performing Responsible Gaming Request", GetType().Name);
             _automator.SetResponsibleGamingTimeElapsed(_config.GetTimeElapsedOverride());
             if (_config.GetSessionCountOverride() != 0)
             {
@@ -85,9 +70,10 @@
         {
             if (!IsValid())
             {
-                //Todo: Log Something
+                _logger.Error("Game Request Validation Failed", GetType().Name);
                 return;
             }
+            _logger.Info("Game Requested Received!", GetType().Name);
             if (_sc.IsGame)
             {
                 _automator.EnableExitToLobby(true);
@@ -95,7 +81,7 @@
             else
             {
                 LoadGame();
-            }           
+            }
         }
 
         private void LoadGame()
@@ -109,6 +95,7 @@
 
         private void LoadGameWithDelay(int milliseconds)
         {
+            _logger.Info("LoadGameWithDelay Request is Received!", GetType().Name);
             Task.Delay(milliseconds).ContinueWith(
                 _ =>
                 {
@@ -118,6 +105,7 @@
 
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _automator.EnableExitToLobby(true);
             _automator.RequestGameExit();
             _automator.EnableExitToLobby(false);
@@ -133,6 +121,7 @@
                  this,
                  evt =>
                  {
+                     _logger.Info("TimeLimitDialogVisibleEvent Got Triggered!", GetType().Name);
                      _isTimeLimitDialogVisible = true;
                      if (evt.IsLastPrompt)
                      {
@@ -143,12 +132,14 @@
                 this,
                 evt =>
                 {
+                    _logger.Info("TimeLimitDialogHiddenEvent Got Triggered!", GetType().Name);
                     _isTimeLimitDialogVisible = false;
                 });
             _eventBus.Subscribe<GameRequestFailedEvent>(
                 this,
                 _ =>
                 {
+                    _logger.Info("GameRequestFailedEvent Got Triggered!", GetType().Name);
                     sanityCounter++;
                     if (!_sc.IsAllowSingleGameAutoLaunch)
                     {
@@ -160,6 +151,7 @@
                 this,
                 _ =>
                 {
+                    _logger.Info("GameInitializationCompletedEvent Got Triggered!", GetType().Name);
                     BalanceCheck();
                     ResetTimer();
                     sanityCounter = 0;
@@ -169,21 +161,22 @@
                 this,
                 _ =>
                 {
-                    _logger.Info("Keying off GamePlayRequestFailed");
+                    _logger.Info("Keying off GamePlayRequestFailed", GetType().Name);
                     ToggleJackpotKey(1000);
                 });
             _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
                 this,
                 _ =>
                 {
-                    _logger.Info("Keying off UnexpectedOrNoResponseEvent");
+                    _logger.Info("Keying off UnexpectedOrNoResponseEvent", GetType().Name);
                     ToggleJackpotKey(10000);
                 });
             _eventBus.Subscribe<GameIdleEvent>(
                  this,
                  _ =>
                  {
-                     BalanceCheckWithDelay();
+                     _logger.Info("GameIdleEvent Got Triggered!", GetType().Name);
+                     BalanceCheckWithDelay(3000);
                      HandleExitToLobbyRequest();
                  });
             _eventBus.Subscribe<GameProcessExitedEvent>(
@@ -194,12 +187,14 @@
                      //log
                      if (evt.Unexpected)
                      {
-                         sanityCounter ++;
+                         _logger.Info("GameProcessExitedEvent-Unexpected Got Triggered!", GetType().Name);
+                         sanityCounter++;
                          goToNextGame = false;
                          _automator.EnableExitToLobby(true);
                      }
                      else
                      {
+                         _logger.Info("GameProcessExitedEvent-Normal Got Triggered!", GetType().Name);
                          goToNextGame = true;
                          _automator.EnableExitToLobby(false);
                      }
@@ -210,20 +205,33 @@
                  this,
                  _ =>
                  {
+                     _logger.Info("GameFatalErrorEvent Got Triggered!", GetType().Name);
                      AnotherChance();
-                     //log
                  });
             _eventBus.Subscribe<GamePlayStateChangedEvent>(
                  this,
                  _ =>
                  {
-                     //log
-                     _idleDurationReset();
+                     _logger.Info("GamePlayStateChangedEvent Got Triggered!", GetType().Name);
+                     _robotController.IdleDuration = 0;
                  });
+            InitGameProcessHungEvent();
+        }
+
+        private void InitGameProcessHungEvent()
+        {
+            // If the runtime process hangs, and the setting to not kill it is active, then stop the robot. 
+            // This will allow someone to attach a debugger to investigate.
+            var doNotKillRuntime = _pm.GetValue("doNotKillRuntime", Common.Constants.False).ToUpperInvariant();
+            if (doNotKillRuntime == Common.Constants.True)
+            {
+                _eventBus.Subscribe<GameProcessHungEvent>(this, _ => { _robotController.Enabled = false; });
+            };
         }
 
         private void AnotherChance()
         {
+            _logger.Info("AnotherChance Request Is Received!", GetType().Name);
             sanityCounter += 2;
             _automator.EnableExitToLobby(false);
             SelectNextGame(true);
@@ -232,27 +240,28 @@
 
         private void ResetTimer()
         {
+            _logger.Info("ResetTimer Request Is Received!", GetType().Name);
             _LoadGameTimer.Change(_config.Active.IntervalLoadGame, _config.Active.IntervalLoadGame);
         }
 
         private void SelectNextGame(bool goToNextGame)
         {
             if (!goToNextGame) { return; }
+            _logger.Info("SelectNextGame Request Is Received!", GetType().Name);
             _config.SelectNextGame();
         }
         private void HandleExitToLobbyRequest()
         {
             if ((bool)_pm.GetProperty(Constants.HandleExitToLobby, false))
             {
+                _logger.Info("ExitToLobby Request Is Received!", GetType().Name);
                 _automator.RequestGameExit();
             }
         }
-        private void BalanceCheckWithDelay()
+        private void BalanceCheckWithDelay(int milliseconds)
         {
-            if (_idleDuration() > 3000)
-            {
-                BalanceCheck();
-            }
+            _logger.Info("BalanceCheckWithDelay Request Is Received!", GetType().Name);
+            Task.Delay(milliseconds).ContinueWith(_ => BalanceCheck());
         }
         private void BalanceCheck()
         {
@@ -260,6 +269,7 @@
         }
         private void ToggleJackpotKey(int waitDuration)
         {
+            _logger.Info("ToggleJackpotKey Request Is Received!", GetType().Name);
             Task.Delay(waitDuration).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
         }
         private void HandleEvent(GameLoadRequestEvent evt)
@@ -287,12 +297,12 @@
             if (gameInfo != null)
             {
                 var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
-                _logger.Info($"Requesting game {gameInfo.ThemeName} with denom {denom} be loaded.");
+                _logger.Info($"Requesting game {gameInfo.ThemeName} with denom {denom} be loaded.", GetType().Name);
                 _automator.RequestGameLoad(gameInfo.Id, denom);
             }
             else
             {
-                _logger.Info($"Did not find game, {_config.CurrentGame}");
+                _logger.Error($"Did not find game, {_config.CurrentGame}", GetType().Name);
                 AnotherChance();
             }
         }
@@ -303,7 +313,7 @@
                 AnotherChance();
             }
             if (sanityCounter < 10) { return true; }
-            Halt();
+            _robotController.Enabled = false;
             return false;
         }
         public void Dispose()

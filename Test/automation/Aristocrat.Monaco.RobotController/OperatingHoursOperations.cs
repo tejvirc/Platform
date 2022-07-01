@@ -14,19 +14,19 @@
         private readonly IEventBus _eventBus;
         private readonly Configuration _config;
         private readonly StateChecker _sc;
-        private readonly ILog _logger;
+        private readonly RobotLogger _logger;
         private readonly Automation _automator;
-        private IPropertiesManager _pm;
+        private readonly IPropertiesManager _pm;
         private Timer _OperatingHoursTimer;
         private bool _disposed;
-        public OperatingHoursOperations(RobotInfo robotInfo)
+        public OperatingHoursOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc, IPropertiesManager pm)
         {
-            _eventBus = robotInfo.EventBus;
-            _config = robotInfo.Config;
-            _sc = robotInfo.StateChecker;
-            _logger = robotInfo.Logger;
-            _automator = robotInfo.Automator;
-            _pm = robotInfo.PropertiesManager;
+            _config = config;
+            _sc = sc;
+            _automator = automator;
+            _logger = logger;
+            _eventBus = eventBus;
+            _pm = pm;
         }
         ~OperatingHoursOperations() => Dispose(false);
         public void Dispose()
@@ -66,7 +66,7 @@
             _eventBus.Subscribe<OperatingHoursEvent>(this, HandleEvent);
             _eventBus.Subscribe<OperatingHoursEnabledEvent>(this, _ =>
             {
-                //log
+                _logger.Info("OperatingHoursEnabledEvent Got Triggered!", GetType().Name);
                 _eventBus.Publish(new GameLoadRequestEvent());
             });
         }
@@ -80,6 +80,7 @@
         }
         public void Halt()
         {
+            _logger.Info("Halt Request is Received!", GetType().Name);
             _OperatingHoursTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
         }
@@ -87,7 +88,7 @@
         {
             if (!IsValid()) { return; }
             
-            _logger.Info($"Setting operating hours to timeout in 3 seconds for {_config.Active.OperatingHoursDisabledDuration} milliseconds");
+            _logger.Info($"Setting operating hours to timeout in 3 seconds for {_config.Active.OperatingHoursDisabledDuration} milliseconds", GetType().Name);
 
             DateTime soon = DateTime.Now.AddSeconds(3);
 
