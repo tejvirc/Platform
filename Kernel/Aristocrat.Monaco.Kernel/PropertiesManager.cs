@@ -15,8 +15,8 @@
 
         private readonly DefaultPropertyProvider _defaultProvider = new DefaultPropertyProvider();
 
-        private readonly ConcurrentDictionary<string, IPropertyProvider> _propertyProvider =
-            new ConcurrentDictionary<string, IPropertyProvider>();
+        private readonly Dictionary<string, IPropertyProvider> _propertyProvider =
+            new Dictionary<string, IPropertyProvider>();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="PropertiesManager" /> class.
@@ -135,7 +135,7 @@
                 _defaultProvider.SetProperty(propertyName, propertyValue);
 
                 // Also add it to our dictionary
-                _propertyProvider.TryAdd(propertyName, _defaultProvider);
+                _propertyProvider.Add(propertyName, _defaultProvider);
 
                 eventBus.Publish(new PropertyChangedEvent(propertyName));
             }
