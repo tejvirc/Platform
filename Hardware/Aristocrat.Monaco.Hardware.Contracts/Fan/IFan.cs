@@ -10,7 +10,7 @@
         /// <summary>
         /// 
         /// </summary>
-        Subject<CpuMetriInfo> FanSpeed { get; }
+        Subject<CpuMetricsInfo> CpuMetrics { get; }
 
         /// <summary>
         ///     Gets fan speed method
@@ -36,7 +36,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public struct CpuMetriInfo
+    public class CpuMetricsInfo
     {
         /// <summary>
         /// 
@@ -46,7 +46,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public int CpuTemperature { get; set; }
+        public float CpuTemperature { get; set; }
 
         /// <summary>
         /// 

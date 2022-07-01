@@ -62,7 +62,7 @@
 
         public void Initialize()
         {
-            currentPwm=GetFanPwm();
+            currentPwm = GetFanPwm();
 
             startUpdate();
         }
@@ -85,10 +85,12 @@
             var fanSpeed = CalculateFanSpeed(temperature);
             var fanPwm = CalculatePwm(fanSpeed);
 
+            CpuMetrics.OnNext(new CpuMetricsInfo { CpuTemperature = temperature, FanPwm = fanPwm, FanSpeed = fanSpeed });
+
             if (currentPwm != fanPwm)
             {
-                if(SetFanPwm(fanPwm))
-                    currentPwm=fanPwm;
+                if (SetFanPwm(fanPwm))
+                    currentPwm = fanPwm;
             }
         }
 
@@ -109,10 +111,10 @@
 
         public int CalculateFanSpeed(float temperature)
         {
-            return (int) (from m in TempToSpeedTableGen8
-                where m.TemperatureLow <= temperature && m.TemperatureHigh >= temperature
-                    let r = (m.SpeedHigh - m.SpeedLow) / (m.TemperatureHigh - m.TemperatureLow)
-                select m.SpeedLow + Convert.ToUInt32(r * (temperature - m.TemperatureLow))).FirstOrDefault();
+            return (int)(from m in TempToSpeedTableGen8
+                         where m.TemperatureLow <= temperature && m.TemperatureHigh >= temperature
+                         let r = (m.SpeedHigh - m.SpeedLow) / (m.TemperatureHigh - m.TemperatureLow)
+                         select m.SpeedLow + Convert.ToUInt32(r * (temperature - m.TemperatureLow))).FirstOrDefault();
         }
 
         public int CalculatePwm(int fanSpeed)
@@ -165,7 +167,7 @@
         protected virtual void Dispose(bool isNative)
         {
             mUpdateTimer.Dispose();
-            _fanSpeed.Dispose();
+            _cpuMetrics.Dispose();
         }
         public void Dispose()
         {
@@ -176,8 +178,8 @@
 
     public partial class FanService
     {
-        private readonly Subject<CpuMetriInfo> _fanSpeed = new();
+        private readonly Subject<CpuMetricsInfo> _cpuMetrics = new();
 
-        public Subject<CpuMetriInfo> FanSpeed => _fanSpeed;
+        public Subject<CpuMetricsInfo> CpuMetrics => _cpuMetrics;
     }
 }

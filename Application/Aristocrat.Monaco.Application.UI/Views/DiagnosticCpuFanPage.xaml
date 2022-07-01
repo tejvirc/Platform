@@ -32,7 +32,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
-        <oxy:PlotView Name="MonacoPlotView" Model="{Binding MonacoPlotModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Grid.ZIndex="1"/>
+        <oxy:PlotView Height="500" Name="MonacoPlotView" Model="{Binding MonacoPlotModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Grid.ZIndex="1"/>
     </StackPanel>
 </operatorMenu:OperatorMenuPage>
 

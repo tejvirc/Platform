@@ -16,7 +16,9 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new DiagnosticCpuFanPageViewModel(new FanService());
+            var fanService = new FanService();
+            fanService.Initialize();
+            return new DiagnosticCpuFanPageViewModel(fanService);
         }
     }
 }
