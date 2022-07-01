@@ -3,13 +3,16 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using System.Text;
     using System.Windows.Media;
     using Application.Contracts;
+    using Application.Contracts.Localization;
+    using Client.Messages;
+    using Localization.Properties;
     using Cabinet.Contracts;
     using Controls;
     using Gaming.Contracts;
     using Hardware.Contracts.Cabinet;
-    using Hhr.Events;
     using Kernel;
     using log4net;
     using MVVM;
@@ -30,23 +33,23 @@
         private readonly IPropertiesManager _propertiesManager;
         private readonly IGameStartConditionProvider _gameStartConditions;
         private readonly IGamePlayState _gamePlayState;
+        private readonly ISystemDisableManager _disableManager;
 
         private VenueRaceCollection _venueRaceCollection;
         private VenueRaceCollectionViewModel _venueRaceCollectionViewModel;
-        private DisplayRole _currentDisplay;
+        private readonly DisplayRole _currentDisplay;
         private readonly DisplayRole _expectedTopMostDisplay;
         private DateTime _lastAllowedGameStart;
         private bool _disposed;
-
 
         public HorseAnimationLauncher(
             IEventBus eventBus,
             ICabinetDetectionService cabinetDetectionService,
             IPrizeInformationEntityHelper prizeEntityHelper,
-            ISystemDisableManager systemDisableManager,
             IGameStartConditionProvider gameStartConditions,
             IPropertiesManager properties,
-            IGamePlayState gamePlayState)
+            IGamePlayState gamePlayState,
+            ISystemDisableManager disableManager)
         {
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
@@ -60,8 +63,10 @@
                 ?? throw new ArgumentNullException(nameof(properties));
             _gamePlayState = gamePlayState
                 ?? throw new ArgumentNullException(nameof(gamePlayState));
+            _disableManager = disableManager
+                ?? throw new ArgumentNullException(nameof(disableManager));
 
-            _eventBus.Subscribe<DisplayMonitorStatusChangeEvent>(this, HandleEvent);
+            _eventBus.Subscribe<DisplayConnectionChangedEvent>(this, HandleEvent);
 
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -70,16 +75,23 @@
                     RaceTrackEntry.SetupHorseImages();
                 });
 
-            // The cabinet must be configured with its intended topmost display connected
+            // The cabinet must be first configured with its intended topmost display connected
+            LogDisplayInfo();
             _expectedTopMostDisplay = cabinetDetectionService.GetTopmostDisplay();
             _currentDisplay = GetTargetDisplay();
             Logger.Debug($"RedirectAllowed: {RedirectAllowed}, Expected top most display: {_expectedTopMostDisplay}, currentDisplay: {_currentDisplay}");
 
+            if (_currentDisplay != DisplayRole.Topper)
+            {
+                _propertiesManager.SetProperty(ApplicationConstants.IsTopperOverlayRedirecting, true);
+            }
+
             // If we are now booting up after a restart to clear the disconnect lockup, we need to remove the
-            // Display Disconnect lockup that will be present
+            // Display Disconnect lockup that will be present. Do this only if all the other displays are connected as expected.
             if (RedirectAllowed &&
+                IsCabinetValid() &&
                 _currentDisplay != DisplayRole.Unknown &&
-                systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.DisplayDisconnectedLockupKey))
+                _disableManager.CurrentDisableKeys.Contains(ApplicationConstants.DisplayDisconnectedLockupKey))
             {
                 Logger.Debug($"Rebooted after disconnecting Topper, clearing disconnect lockup");
                 _eventBus.Publish(new ClearDisplayDisconnectedLockupEvent());
@@ -87,7 +99,15 @@
 
             _gameStartConditions.AddGameStartCondition(this);
 
-            SetupAnimationWindow(_currentDisplay);
+            // If cabinet is in such a condition that it couldn't get a target display, don't setup the animation window
+            if (_currentDisplay != DisplayRole.Unknown)
+            {
+                SetupAnimationWindow();
+            }
+            else
+            {
+                Logger.Debug("Can't setup VenueRaceCollection, top most display is unknown");
+            }
         }
 
         public bool CanGameStart()
@@ -125,44 +145,55 @@
             // to put the horse animation window on. Otherwise just return the top most display
             if (!RedirectAllowed || !TopperExpected)
             {
-                Logger.Debug($"TopperExpected: {TopperExpected}");
+                Logger.Debug($"Redirecting to top most: {_expectedTopMostDisplay}");
                 return _expectedTopMostDisplay;
             }
 
-            // Is the Topper connected(or got reconnected)? No need to redirect anything if so
+            // Is the Topper connected (or got reconnected)?
             if (TopperConnected)
             {
-                Logger.Debug($"Topper is connected");
-                return _expectedTopMostDisplay;
+                Logger.Debug($"Redirecting to: {DisplayRole.Topper}");
+                return DisplayRole.Topper;
             }
 
-            // The Topper is disconnected, handle case for cabinet with Topper+Top+Main, where Main is landscape
-            if (_cabinetDetectionService.IsDisplayExpectedAndConnected(DisplayRole.Top) &&
-                _cabinetDetectionService.IsDisplayExpectedAndConnected(DisplayRole.Main) &&
-                !_cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main).IsPortrait())
-            {
-                Logger.Debug($"Redirecting to: {DisplayRole.Top}");
-                return DisplayRole.Top;
-            }
-
-            // The Topper is disconnected, handle case for cabinet with Topper+Main, where Main is portrait
-            if (_cabinetDetectionService.IsDisplayExpectedAndConnected(DisplayRole.Main) &&
-                _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main).IsPortrait())
+            // The Topper is now disconnected. Handle case for cabinet with Topper+Top+Main, where Main is landscape
+            if (_cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main).IsPortrait())
             {
                 Logger.Debug($"Redirecting to: {DisplayRole.Main}");
                 return DisplayRole.Main;
             }
 
-            Logger.Debug($"Unable to redirect animation window");
-            LogDisplayInfo();
-
-            return DisplayRole.Unknown;
+            Logger.Debug($"Redirecting to: {DisplayRole.Top}");
+            return DisplayRole.Top;
         }
 
-        private void SetupAnimationWindow(DisplayRole targetDisplay)
+        private bool IsCabinetValid()
         {
-            _currentDisplay = targetDisplay;
+            // If redirect is allowed, the cabinet is fine whether the Topper is connected or not
+            var topperOk = RedirectAllowed
+                ? true
+                : _cabinetDetectionService.IsDisplayExpected(DisplayRole.Topper)
+                    ? _cabinetDetectionService.IsDisplayConnected(DisplayRole.Topper)
+                    : true;
 
+            // Is the display expected? If so, it should be connected, otherwise its of no concern
+            var topOk = _cabinetDetectionService.IsDisplayExpected(DisplayRole.Top)
+                ? _cabinetDetectionService.IsDisplayConnected(DisplayRole.Top)
+                : true;
+            var mainOk = _cabinetDetectionService.IsDisplayExpected(DisplayRole.Main)
+                ? _cabinetDetectionService.IsDisplayConnected(DisplayRole.Main)
+                : true;
+            var vbdOk = _cabinetDetectionService.IsDisplayExpected(DisplayRole.VBD)
+                ? _cabinetDetectionService.IsDisplayConnected(DisplayRole.VBD)
+                : true;
+
+            Logger.Debug($"IsCabinetValid Topper: {topperOk}, Top: {topOk}, Main: {mainOk}, VBD: {vbdOk}");
+
+            return topperOk && topOk && mainOk && vbdOk;
+        }
+
+        private void SetupAnimationWindow()
+        {
             Logger.Debug($"Adding the horse animation on {_currentDisplay}");
 
             _venueRaceCollectionViewModel = new VenueRaceCollectionViewModel(
@@ -183,54 +214,82 @@
                 });
         }
 
-        private void HandleEvent(DisplayMonitorStatusChangeEvent evt)
+        private void HandleEvent(DisplayConnectionChangedEvent evt)
         {
-            Logger.Debug($"DisplayMonitorStatusChangeEvent TopperExpected: {TopperExpected}, TopperConnected: {TopperConnected}, currentDisplay: {_currentDisplay}");
-
-            if (!RedirectAllowed)
+            if (!RedirectAllowed || !TopperExpected)
             {
                 return;
             }
 
-            // If the topper is expected and its now disconnected, and its the current targeted display, then attempt to redirect
-            if (TopperExpected && !TopperConnected && _currentDisplay == DisplayRole.Topper)
+            Logger.Debug($"DisplayMonitorStatusChangeEvent currentDisplay: {_currentDisplay}");
+            LogDisplayInfo();
+
+            // If the Topper is disconnected, the DisplayMonitor will cause the Display Disconnected lockup to appear. If then the Top and/or VBD are disconnected
+            // no new lockup will appear since the Display Disconnected lockup is already set, that lockup can represent multiple display disconnects. If then the
+            // Top and VBD are reconnected, that leaves just the Topper disconnected, we need to clear that lockup, and put our own lockup (Topper Disconnected...)
+            if (IsCabinetValid())
             {
-                var newTargetDisplay = GetTargetDisplay();
-                // If we get a valid display role, then _currentDisplay will have a valid role, which will allow the
-                // lockup to be cleared when the JP key is toggled
-                if (newTargetDisplay != DisplayRole.Unknown)
-                {
-                    // This event will cause a lockup that can only be cleared by restarting the machine
-                    _eventBus.Publish(new DisplayConnectionChangedEvent(DisplayRole.Topper, false));
-                    // Clear the generic Display Disconnected lockup so that there arent two disconnected lockups on the screen
-                    _eventBus.Publish(new ClearDisplayDisconnectedLockupEvent());
-                }
+                // We are using events that will get consumed by the DisplayMonitor class. This way the Display Monitor and this class won't get
+                // mixed up with enabled and disabling.
+                _eventBus.Publish(new ClearDisplayDisconnectedLockupEvent());
+            }
+            else
+            {
+                _eventBus.Publish(new SetDisplayDisconnectedLockupEvent());
             }
 
-            // If the topper is expected and its now connected, and the current targeted display is NOT the Topper,
-            // then redirect back to the Topper
-            else if (TopperExpected && TopperConnected && _currentDisplay != DisplayRole.Topper)
+            if (evt.Display != DisplayRole.Topper)
+                return;
+
+            if ((_currentDisplay == DisplayRole.Topper && evt.IsConnected) ||
+                (_currentDisplay != DisplayRole.Topper && !evt.IsConnected))
             {
-                var newTargetDisplay = GetTargetDisplay();
-                // This should be the Topper
-                if (newTargetDisplay == DisplayRole.Topper)
-                {
-                    // This event will cause a lockup that can only be cleared by restarting the machine
-                    _eventBus.Publish(new DisplayConnectionChangedEvent(DisplayRole.Topper, true));
-                }
+                _disableManager.Enable(HhrConstants.DisplayConnectionChangedRestartRequiredKey);
+                return;
             }
+
+            var connectedString = evt.IsConnected
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText)
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
+
+            var connectString = evt.IsConnected
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnect)
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Reconnect);
+
+            var helpText = Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.RestartRequired, connectString, evt.Display);
+
+            var disableReason = new StringBuilder();
+            disableReason.Append(evt.Display);
+            disableReason.Append(" ");
+            disableReason.Append(connectedString);
+            disableReason.Append(" - ");
+            disableReason.Append(helpText);
+
+            _disableManager.Disable(
+                HhrConstants.DisplayConnectionChangedRestartRequiredKey,
+                SystemDisablePriority.Immediate,
+                () => disableReason.ToString(),
+                true,
+                () => helpText);
         }
 
         private void LogDisplayInfo()
         {
             // Log statuses for any troubleshooting
-            foreach (DisplayRole role in Enum.GetValues(typeof(DisplayRole)).Cast<DisplayRole>().Where(d => d != DisplayRole.Unknown))
-            {
-                Logger.Debug(
-                    $"{role}: Expected: {_cabinetDetectionService.IsDisplayExpected(role)}, Connected: {_cabinetDetectionService.IsDisplayConnected(role)}, IsPortrait: {_cabinetDetectionService.GetDisplayDeviceByItsRole(role)?.IsPortrait()}");
-            }
+            var topperExpected = _cabinetDetectionService.IsDisplayExpected(DisplayRole.Topper);
+            var topperConnected = _cabinetDetectionService.IsDisplayConnected(DisplayRole.Topper);
+            var topExpected = _cabinetDetectionService.IsDisplayExpected(DisplayRole.Top);
+            var topConnected = _cabinetDetectionService.IsDisplayConnected(DisplayRole.Top);
+            var mainExpected = _cabinetDetectionService.IsDisplayExpected(DisplayRole.Main);
+            var mainConnected = _cabinetDetectionService.IsDisplayConnected(DisplayRole.Main);
+            var mainOrientation = _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main).IsPortrait() ? "P" : "L";
+            var vbdExpected = _cabinetDetectionService.IsDisplayExpected(DisplayRole.VBD);
+            var vbdConnected = _cabinetDetectionService.IsDisplayConnected(DisplayRole.VBD);
+
+            Logger.Debug($"Expected/Connected: Topper: {topperExpected}/{topperConnected}, Top: {topExpected}/{topConnected}, Main: {mainExpected}/{mainConnected}/{mainOrientation}, VBD: {vbdExpected}/{vbdConnected}");
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
@@ -257,9 +316,6 @@
 
     public static class DisplayDeviceExtensions
     {
-        public static bool IsPortrait(this IDisplayDevice device)
-        {
-            return device.WorkingArea.Width < device.WorkingArea.Height;
-        }
+        public static bool IsPortrait(this IDisplayDevice device) => device.WorkingArea.Width < device.WorkingArea.Height;
     }
 }

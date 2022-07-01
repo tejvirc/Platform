@@ -760,6 +760,7 @@
             _overlayWindow.IsVisibleChanged += OnChildWindowIsVisibleChanged;
             SetStylusSettings(_overlayWindow);
         }
+
         private bool HostMachineIsNotAnEGM()
         {
             var ioService = ServiceManager.GetInstance().TryGetService<IIO>();  // used to check for laptop usage
@@ -992,7 +993,6 @@
             {
                 _windowToScreenMapper.MapWindow(_responsibleGamingWindow);
             }
-
         }
 
         private void GameLayout_OnSizeChanged(object sender, SizeChangedEventArgs e)
