@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Reflection;
     using log4net;
