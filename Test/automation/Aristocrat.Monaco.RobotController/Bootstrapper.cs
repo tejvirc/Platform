@@ -32,7 +32,6 @@
             container.RegisterInstance(Configuration.Load(configPath));
             container.Register<RobotLogger>(Lifestyle.Singleton);
             container.Register<Automation>(Lifestyle.Singleton);
-            container.Register<RobotController>(Lifestyle.Singleton);
             container.Register<StateChecker>(Lifestyle.Singleton);
             container.Register<CashoutOperations>(Lifestyle.Singleton);
             container.Register<GameOperations>(Lifestyle.Singleton);

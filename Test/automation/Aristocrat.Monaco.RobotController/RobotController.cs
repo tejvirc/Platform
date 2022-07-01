@@ -183,6 +183,7 @@
                     if (serviceWaiter.WaitForServices())
                     {
                         _container = Bootstrapper.InitializeContainer();
+                        _container.RegisterInstance(this);
                         SetupClassProperties();
                     }
                 }

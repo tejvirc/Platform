@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Bootstrap": {
+      "commandName": "Project",
+      "commandLineArgs": "display=windowed showTestTool=true showMouseCursor=true ignoreTouchCalibration DisplayFakePrinterTickets=true readonlymediaoptional=true\r\n\r\n",
+      "nativeDebugging": true
+    }
+  }
+}
