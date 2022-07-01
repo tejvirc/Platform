@@ -10,13 +10,16 @@
     using Kernel;
     using OpenHardwareMonitor.Hardware;
 
-    public partial class FanService : IFan, IService, IDisposable
+    public class FanService : IFan, IService, IDisposable
     {
         private readonly IIO _io;
         private readonly object _lockObject = new();
         private const int MaxPwm = 255;
         private const int MaxRpm = 4400;
 
+        private readonly Subject<CpuMetricsInfo> _cpuMetrics = new();
+
+        public Subject<CpuMetricsInfo> CpuMetrics => _cpuMetrics;
 
         // lock
         private object mLock = new object();
@@ -36,7 +39,8 @@
         };
 
         // temperature vs fan-speed threshold map for gen8 cabinet
-        public TempToSpeed[] TempToSpeedTableGen8 = {
+        public TempToSpeed[] TempToSpeedTableGen8 =
+        {
             new() { TemperatureLow = 80, TemperatureHigh = 100, SpeedLow = 4400, SpeedHigh = 4400 },
             new() { TemperatureLow = 75, TemperatureHigh = 80, SpeedLow = 4000, SpeedHigh = 4480 },
             new() { TemperatureLow = 65, TemperatureHigh = 75, SpeedLow = 2500, SpeedHigh = 4000 },
@@ -81,16 +85,20 @@
 
         private void onUpdateTimer(object sender, EventArgs e)
         {
-            var temperature = GetCpuTemperature();
-            var fanSpeed = CalculateFanSpeed(temperature);
-            var fanPwm = CalculatePwm(fanSpeed);
-
-            CpuMetrics.OnNext(new CpuMetricsInfo { CpuTemperature = temperature, FanPwm = fanPwm, FanSpeed = fanSpeed });
-
-            if (currentPwm != fanPwm)
+            lock (mLock)
             {
-                if (SetFanPwm(fanPwm))
-                    currentPwm = fanPwm;
+                var temperature = GetCpuTemperature();
+                var fanSpeed = CalculateFanSpeed(temperature);
+                var fanPwm = CalculatePwm(fanSpeed);
+
+                if (currentPwm != fanPwm)
+                {
+                    if (SetFanPwm(fanPwm))
+                        currentPwm = fanPwm;
+                }
+
+                var currentFanSpeed = GetFanSpeed();
+                CpuMetrics.OnNext(new CpuMetricsInfo { CpuTemperature = temperature, FanPwm = currentPwm, FanSpeed = currentFanSpeed });
             }
         }
 
@@ -112,9 +120,9 @@
         public int CalculateFanSpeed(float temperature)
         {
             return (int)(from m in TempToSpeedTableGen8
-                         where m.TemperatureLow <= temperature && m.TemperatureHigh >= temperature
-                         let r = (m.SpeedHigh - m.SpeedLow) / (m.TemperatureHigh - m.TemperatureLow)
-                         select m.SpeedLow + Convert.ToUInt32(r * (temperature - m.TemperatureLow))).FirstOrDefault();
+                where m.TemperatureLow <= temperature && m.TemperatureHigh >= temperature
+                let r = (m.SpeedHigh - m.SpeedLow) / (m.TemperatureHigh - m.TemperatureLow)
+                select m.SpeedLow + Convert.ToUInt32(r * (temperature - m.TemperatureLow))).FirstOrDefault();
         }
 
         public int CalculatePwm(int fanSpeed)
@@ -128,15 +136,23 @@
             {
                 computer.Traverse(this);
             }
+
             public void VisitHardware(IHardware hardware)
             {
                 hardware.Update();
                 foreach (IHardware subHardware in hardware.SubHardware) subHardware.Accept(this);
             }
-            public void VisitSensor(ISensor sensor) { }
-            public void VisitParameter(IParameter parameter) { }
+
+            public void VisitSensor(ISensor sensor)
+            {
+            }
+
+            public void VisitParameter(IParameter parameter)
+            {
+            }
         }
-        public static float GetCpuTemperature()
+
+        public float GetCpuTemperature()
         {
             float result = 0;
 
@@ -145,20 +161,25 @@
             computer.Open();
             computer.CPUEnabled = true;
             computer.Accept(updateVisitor);
-            for (int i = 0; i < computer.Hardware.Length; i++)
+            foreach (var h in computer.Hardware)
             {
-                if (computer.Hardware[i].HardwareType == HardwareType.CPU)
+                if (h.HardwareType != HardwareType.CPU)
                 {
-                    for (int j = 0; j < computer.Hardware[i].Sensors.Length; j++)
+                    continue;
+                }
+
+                foreach (var s in h.Sensors)
+                {
+                    if (s.SensorType != SensorType.Temperature)
                     {
-                        if (computer.Hardware[i].Sensors[j].SensorType == SensorType.Temperature)
-                        {
-                            if (computer.Hardware[i].Sensors[j].Value > result)
-                                result = computer.Hardware[i].Sensors[j].Value.Value;
-                        }
+                        continue;
                     }
+
+                    if (s.Value > result)
+                        result = s.Value.Value;
                 }
             }
+
             computer.Close();
 
             return result;
@@ -169,17 +190,12 @@
             mUpdateTimer.Dispose();
             _cpuMetrics.Dispose();
         }
+
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
     }
-
-    public partial class FanService
-    {
-        private readonly Subject<CpuMetricsInfo> _cpuMetrics = new();
-
-        public Subject<CpuMetricsInfo> CpuMetrics => _cpuMetrics;
-    }
 }
+    

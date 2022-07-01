@@ -31,6 +31,13 @@
         /// </summary>
         /// <returns>Returns fan speed in PWM</returns>
         int CalculatePwm(int fanSpeed);
+
+        /// <summary>
+        ///     get cpu temperature
+        /// <returns>Returns temperature in celsius </returns>
+        /// </summary>
+        public float GetCpuTemperature();
+
     }
 
     /// <summary>

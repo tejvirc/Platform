@@ -11,6 +11,7 @@
     using Contracts.Tickets;
     using Hardware.Contracts;
     using Hardware.Contracts.Display;
+    using Hardware.Contracts.Fan;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Printer;
@@ -387,6 +388,8 @@
             var ioService = ServiceManager.GetInstance().GetService<IIO>();
             Electronics = ioService.GetElectronics();
 
+            var fanService=ServiceManager.GetInstance().GetService<IFan>();
+
             GraphicsCard = ServiceManager.GetInstance()
                 .GetService<IDisplayService>()
                 .GraphicsCard;
@@ -425,7 +428,7 @@
 
             ioService.SetFanPwm(fanPwm);
 
-            ModelText = FanService.GetCpuTemperature().ToString();
+            ModelText = fanService.GetCpuTemperature().ToString();
 
             //ModelText = ioService.DeviceConfiguration.Model;
             var osService = ServiceManager.GetInstance().GetService<IOSService>();

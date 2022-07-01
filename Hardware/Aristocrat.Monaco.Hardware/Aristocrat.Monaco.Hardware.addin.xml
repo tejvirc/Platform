@@ -53,6 +53,7 @@
 
     <Service type="Aristocrat.Monaco.Hardware.Services.CabinetDetectionService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.IOService" />
+    <Service type="Aristocrat.Monaco.Hardware.Services.FanService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.KeySwitchService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.HardMeterService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DoorService" />

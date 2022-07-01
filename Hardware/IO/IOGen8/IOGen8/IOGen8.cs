@@ -806,6 +806,12 @@
 
         public bool SetFanPwm(int pwm)
         {
+            if (pwm < 100)
+                pwm = 100;
+            else
+            if (pwm > 255)
+                pwm = 255;
+
             return DeviceControl.WriteReg32(_deviceHandle, Gen8PCI.Legacy.HWO_FANPWM, pwm);
         }
     }
