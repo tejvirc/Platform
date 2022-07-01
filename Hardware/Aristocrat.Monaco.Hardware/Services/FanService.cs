@@ -32,8 +32,8 @@
 
         public struct TempToSpeed
         {
-            public uint TemperatureLow;
-            public uint TemperatureHigh;
+            public float TemperatureLow;
+            public float TemperatureHigh;
             public uint SpeedLow;
             public uint SpeedHigh;
         };
