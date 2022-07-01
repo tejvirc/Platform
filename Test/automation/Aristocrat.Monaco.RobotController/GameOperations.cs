@@ -23,6 +23,7 @@
         private readonly Func<long> _idleDuration;
         private Action _idleDurationReset;
         private Timer _LoadGameTimer;
+        private Timer _RgTimer;
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int sanityCounter;
@@ -62,26 +63,68 @@
                                null,
                                _config.Active.IntervalLoadGame,
                                _config.Active.IntervalLoadGame);
+            if (_config.Active.IntervalRgSet == 0) { return; }
+            _RgTimer = new Timer(
+                               (sender) =>
+                               {
+                                   HandleRgRequest();
+                               },
+                               null,
+                               _config.Active.IntervalRgSet,
+                               _config.Active.IntervalRgSet);
         }
-        private void HandleGameRequest(GameLoadRequestEvent evt = null)
+        private void HandleRgRequest()
+        {
+            _automator.SetResponsibleGamingTimeElapsed(_config.GetTimeElapsedOverride());
+            if (_config.GetSessionCountOverride() != 0)
+            {
+                _automator.SetRgSessionCountOverride(_config.GetSessionCountOverride());
+            }
+        }
+        private void HandleGameRequest()
         {
             if (!IsValid())
             {
                 //Todo: Log Something
                 return;
             }
-            evt = evt ?? new GameLoadRequestEvent(true);
-            DismissTimeLimitDialog();
-            SelectGame(evt);
+            if (_sc.IsGame)
+            {
+                _automator.EnableExitToLobby(true);
+            }
+            else
+            {
+                LoadGame();
+            }           
+        }
+
+        private void LoadGame()
+        {
             if (!IsTimeLimitDialogInProgress() && CheckSanity())
             {
+                DismissTimeLimitDialog();
                 RequestGameLoad();
             }
         }
+
+        private void LoadGameWithDelay(int milliseconds)
+        {
+            Task.Delay(milliseconds).ContinueWith(
+                _ =>
+                {
+                    LoadGame();
+                });
+        }
+
         public void Halt()
         {
+            _automator.EnableExitToLobby(true);
+            _automator.RequestGameExit();
+            _automator.EnableExitToLobby(false);
             _LoadGameTimer?.Dispose();
+            _RgTimer?.Dispose();
             sanityCounter = 0;
+            _eventBus.UnsubscribeAll(this);
         }
         private void SubscribeToEvents()
         {
@@ -96,124 +139,124 @@
                          _automator.EnableCashOut(true);
                      }
                  });
-
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
                 this,
                 evt =>
                 {
                     _isTimeLimitDialogVisible = false;
                 });
-
             _eventBus.Subscribe<GameRequestFailedEvent>(
                 this,
                 _ =>
                 {
+                    sanityCounter++;
                     if (!_sc.IsAllowSingleGameAutoLaunch)
                     {
-                        sanityCounter++;
+                        SelectNextGame(true);
                         HandleGameRequest();
                     }
                 });
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
                 this,
                 _ =>
-                {//2
-                    _eventBus.Publish(new BalanceCheckEvent());
+                {
+                    BalanceCheck();
+                    ResetTimer();
                     sanityCounter = 0;
                 });
-            _eventBus.Subscribe<GameDisabledEvent>
-                                        (this, _ =>
-                                        {
-                                        });
-            _eventBus.Subscribe<GameEnabledEvent>
-                                                    (this, _ =>
-                                                    {
-                                                    });
 
-            _eventBus.Subscribe<GamePlayRequestFailedEvent>(this, _ =>
+            _eventBus.Subscribe<GamePlayRequestFailedEvent>(
+                this,
+                _ =>
                 {
                     _logger.Info("Keying off GamePlayRequestFailed");
                     ToggleJackpotKey(1000);
                 });
-
-            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(this, _ =>
+            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
+                this,
+                _ =>
                 {
                     _logger.Info("Keying off UnexpectedOrNoResponseEvent");
                     ToggleJackpotKey(10000);
                 });
-
-            _eventBus.Subscribe<GameExitedNormalEvent>(
-                           this,
-                           _ =>
-                           {
-
-                           });
             _eventBus.Subscribe<GameIdleEvent>(
-                            this,
-                            _ =>
-                            {//5
-                                if (_idleDuration() > 3000)
-                                {
-                                    _eventBus.Publish(new BalanceCheckEvent());
-                                }
-                                if ((bool)_pm.GetProperty("Automation.HandleExitToLobby", false))
-                                {
-                                    _automator.RequestGameExit();
-                                }
-                            });
-            _eventBus.Subscribe<GameSelectedEvent>(
-                            this,
-                            evt =>
-                            {
-                                //add log 1
-                            });
-            _eventBus.Subscribe<RecoveryStartedEvent>(
-                            this,
-                            _ =>
-                            {
-                                //log
-                            });
+                 this,
+                 _ =>
+                 {
+                     BalanceCheckWithDelay();
+                     HandleExitToLobbyRequest();
+                 });
             _eventBus.Subscribe<GameProcessExitedEvent>(
-                                        this,
-                                        evt =>
-                                        {
-                                        GameLoadRequestEvent gameReqEvent = null;
-                                            //log
-                                            if (evt.Unexpected)
-                                            {
-                                                gameReqEvent = new GameLoadRequestEvent(false);
-                                                _automator.EnableExitToLobby(true);
-                                            }
-                                            else
-                                            {
-                                                gameReqEvent = new GameLoadRequestEvent(true);
-                                                _automator.EnableExitToLobby(false);
-                                            }
-                                            Task.Run(() =>
-                                            {
-                                                Thread.Sleep(5000);
-                                                HandleGameRequest(gameReqEvent);
-                                            });
-                                        });
+                 this,
+                 evt =>
+                 {
+                     bool goToNextGame = false;
+                     //log
+                     if (evt.Unexpected)
+                     {
+                         sanityCounter ++;
+                         goToNextGame = false;
+                         _automator.EnableExitToLobby(true);
+                     }
+                     else
+                     {
+                         goToNextGame = true;
+                         _automator.EnableExitToLobby(false);
+                     }
+                     SelectNextGame(goToNextGame);
+                     LoadGameWithDelay(1000);
+                 });
             _eventBus.Subscribe<GameFatalErrorEvent>(
-                                                    this,
-                                                    _ =>
-                                                    {
-                                                        //log
-                                                    });
+                 this,
+                 _ =>
+                 {
+                     AnotherChance();
+                     //log
+                 });
             _eventBus.Subscribe<GamePlayStateChangedEvent>(
-                                                                this,
-                                                                _ =>
-                                                                {
-                                                                    //log
-                                                                    _idleDurationReset();
-                                                                });
-            _eventBus.Subscribe<GameRequestFailedEvent>(
-                                                                            this,
-                                                                            _ =>
-                                                                            {
-                                                                                //log
-                                                                            });
+                 this,
+                 _ =>
+                 {
+                     //log
+                     _idleDurationReset();
+                 });
+        }
+
+        private void AnotherChance()
+        {
+            sanityCounter += 2;
+            _automator.EnableExitToLobby(false);
+            SelectNextGame(true);
+            RequestGameLoad();
+        }
+
+        private void ResetTimer()
+        {
+            _LoadGameTimer.Change(_config.Active.IntervalLoadGame, _config.Active.IntervalLoadGame);
+        }
+
+        private void SelectNextGame(bool goToNextGame)
+        {
+            if (!goToNextGame) { return; }
+            _config.SelectNextGame();
+        }
+        private void HandleExitToLobbyRequest()
+        {
+            if ((bool)_pm.GetProperty(Constants.HandleExitToLobby, false))
+            {
+                _automator.RequestGameExit();
+            }
+        }
+        private void BalanceCheckWithDelay()
+        {
+            if (_idleDuration() > 3000)
+            {
+                BalanceCheck();
+            }
+        }
+        private void BalanceCheck()
+        {
+            _eventBus.Publish(new BalanceCheckEvent());
         }
         private void ToggleJackpotKey(int waitDuration)
         {
@@ -221,18 +264,11 @@
         }
         private void HandleEvent(GameLoadRequestEvent evt)
         {
-            HandleGameRequest(evt);
+            HandleGameRequest();
         }
         private void DismissTimeLimitDialog()
         {
             _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
-        }
-        private void SelectGame(GameLoadRequestEvent evt)
-        {
-            if (evt.GoToNextGame)
-            {
-                _config.SelectNextGame();
-            }
         }
         private bool IsTimeLimitDialogInProgress()
         {
@@ -242,13 +278,12 @@
         }
         private bool IsValid()
         {
-            return _sc.IsChooser;
+            return _sc.IsChooser || _sc.IsGame;
         }
         private void RequestGameLoad()
         {
             var games = _pm.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _config.CurrentGame && g.Enabled);
-
             if (gameInfo != null)
             {
                 var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
@@ -257,13 +292,16 @@
             }
             else
             {
-                sanityCounter++;
                 _logger.Info($"Did not find game, {_config.CurrentGame}");
-                _eventBus.Publish(new GameLoadRequestEvent(true));
+                AnotherChance();
             }
         }
         private bool CheckSanity()
         {
+            if (sanityCounter > 1)
+            {
+                AnotherChance();
+            }
             if (sanityCounter < 10) { return true; }
             Halt();
             return false;
@@ -283,6 +321,7 @@
             if (disposing)
             {
                 _LoadGameTimer?.Dispose();
+                _RgTimer?.Dispose();
                 _eventBus.UnsubscribeAll(this);
             }
             _disposed = true;

@@ -67,6 +67,7 @@
         public void Halt()
         {
             _ActionTouchTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
         private void SubscribeToEvents()
         {

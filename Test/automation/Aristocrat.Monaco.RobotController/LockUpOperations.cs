@@ -134,8 +134,10 @@
         }
         public void Halt()
         {
+            _automator.ExitLockup();
             _RebootTimer?.Dispose();
             _lockupTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
     }
 }

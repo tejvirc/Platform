@@ -52,8 +52,8 @@
                                    RequestForceGameExit();
                                },
                                null,
-                               _config.Active.IntervalLoadGame,
-                               _config.Active.IntervalLoadGame);
+                               _config.Active.IntervalLobby,
+                               _config.Active.IntervalLobby);
             _GameExitTimer = new Timer(
                                (sender) =>
                                {
@@ -67,7 +67,6 @@
         {
             if (!IsForceGameExitValid()) { return; }
             _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
-            _automator.EnableExitToLobby(true);
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
 
@@ -75,12 +74,11 @@
         {
             if (!IsGameExitValid()) { return; }
             _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
-            _automator.EnableExitToLobby(true);
             _automator.RequestGameExit();
         }
         private bool IsGameExitValid()
         {
-            return _idleDuration() > 8000 && (_sc.IsGame && !_sc.IsAllowSingleGameAutoLaunch);
+            return _idleDuration() > 5000 && (_sc.IsGame && !_sc.IsAllowSingleGameAutoLaunch);
         }
         private bool IsForceGameExitValid()
         {
@@ -90,6 +88,7 @@
         {
             _GameExitTimer?.Dispose();
             _ForceGameExitTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
         private void SubscribeToEvents()
         {

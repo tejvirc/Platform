@@ -77,7 +77,9 @@
 
         public void Halt()
         {
+            _automator.ExitAuditMenu();
             _loadAuditMenuTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
 
         private void SubscribeToEvents()
@@ -103,7 +105,7 @@
             RequestAuditMenu();
         }
 
-        private bool IsValid() => !_sc.IsInRecovery && (_sc.IsChooser || _sc.IsGame);
+        private bool IsValid() => !_sc.IsInRecovery && !_sc.IsInTheMiddleOfPlaying && (_sc.IsChooser || _sc.IsGame);
 
         private void Dispose(bool disposing)
         {

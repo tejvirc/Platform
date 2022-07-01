@@ -26,5 +26,7 @@ namespace Aristocrat.Monaco.RobotController
 
         public const string GdkRuntimeHostName = "GDKRuntimeHost";
 
+        public const string HandleExitToLobby = "Automation.HandleExitToLobby";
+
     }
 }

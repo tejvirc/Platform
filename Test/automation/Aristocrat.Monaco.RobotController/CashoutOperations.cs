@@ -102,7 +102,9 @@
         }
         public void Halt()
         {
+            RequestCashOut();
             _actionCashoutTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
     }
 }

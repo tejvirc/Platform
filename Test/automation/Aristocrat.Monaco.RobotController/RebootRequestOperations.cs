@@ -108,6 +108,7 @@
         {
             _RebootTimer?.Dispose();
             _SoftRebootTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
     }
 }

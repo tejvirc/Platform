@@ -81,6 +81,7 @@
         public void Halt()
         {
             _OperatingHoursTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
         private void SetOperatingHours()
         {

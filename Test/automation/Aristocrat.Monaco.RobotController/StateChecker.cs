@@ -16,11 +16,26 @@
         }
         #region GamePlayState
         internal bool IsIdle => _gamePlayState.CurrentState == PlayState.Idle;
-        internal bool IsGameEnded => _gamePlayState.CurrentState == PlayState.GameEnded;
+        internal bool IsInitiated => _gamePlayState.CurrentState == PlayState.Initiated;
+        internal bool IsPrimaryGameEscrow => _gamePlayState.CurrentState == PlayState.PrimaryGameEscrow;
+        internal bool IsPrimaryGameStarted => _gamePlayState.CurrentState == PlayState.PrimaryGameStarted;
         internal bool IsPrimaryGameEnded => _gamePlayState.CurrentState == PlayState.PrimaryGameEnded;
+        internal bool IsProgressivePending => _gamePlayState.CurrentState == PlayState.ProgressivePending;
+        internal bool IsSecondaryGameChoice => _gamePlayState.CurrentState == PlayState.SecondaryGameChoice;
+        internal bool IsSecondaryGameEscrow => _gamePlayState.CurrentState == PlayState.SecondaryGameEscrow;
+        internal bool IsSecondaryGameStarted => _gamePlayState.CurrentState == PlayState.SecondaryGameStarted;
         internal bool IsSecondaryGameEnded => _gamePlayState.CurrentState == PlayState.SecondaryGameEnded;
+        internal bool IsPayGameResults => _gamePlayState.CurrentState == PlayState.PayGameResults;
+        internal bool IsFatalError => _gamePlayState.CurrentState == PlayState.FatalError;
+        internal bool IsGameEnded => _gamePlayState.CurrentState == PlayState.GameEnded;
         internal bool IsPresentationIdle => _gamePlayState.CurrentState == PlayState.PresentationIdle;
-        
+        internal bool IsInTheMiddleOfPlaying => IsPrimaryGameEscrow ||
+                                                IsSecondaryGameEscrow ||
+                                                IsPrimaryGameStarted ||
+                                                IsProgressivePending ||
+                                                IsSecondaryGameStarted ||
+                                                IsPayGameResults ||
+                                                IsGameEnded;
         #endregion
         #region LobbyStateManager
         internal bool IsAllowSingleGameAutoLaunch => _lobbyStateManager.AllowSingleGameAutoLaunch;
@@ -50,6 +65,7 @@
 
 
         internal bool IsInRecovery => IsRecovery || IsRecoveryFromStartup;
+
 #endregion
     }
 }

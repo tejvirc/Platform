@@ -72,7 +72,9 @@
 
         public void Halt()
         {
+            _automator.ServiceButton(false);
             _ServiceRequestTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
 
         public void Dispose()

@@ -74,6 +74,7 @@
         public void Halt()
         {
             _balanceCheckTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
         private void SubscribeToEvents()
         {

@@ -38,6 +38,7 @@
         private readonly HashSet<IRobotOperations> _operationCollection;
         private readonly Guid _overlayTextGuid = new Guid("2774B299-E8FE-436C-B68C-F6CF8DCDB31B");
         private readonly Timer _sanityChecker;
+        private System.Threading.Timer _coolDownTimer;
         private Automation _automator;
         private IEventBus _eventBus;
         private IPropertiesManager _propertyManager;
@@ -57,16 +58,23 @@
                     if (!value)
                     {
                         DisablingRobot();
+                        DisposeCoolDownTimer();
                     }
                     else
                     {
-                        EnablingRobot();
-                        StartingSuperRobot();
+                        CoolDownTimerInitialization();
+                        EnablingRobot();                        
                     }
                     _logger.Info($"RobotController is now [{_enabled}]");
                 }
             }
         }
+
+        private void DisposeCoolDownTimer()
+        {
+            _coolDownTimer?.Dispose();
+        }
+
         public RobotController()
         {
             _operationCollection = new HashSet<IRobotOperations>();
@@ -74,8 +82,17 @@
             {
                 Interval = 1000,
             };
-            _sanityChecker.Elapsed += CheckSanity;
+            _sanityChecker.Elapsed += CheckSanity;           
         }
+
+        private void CoolDown(int milliseconds)
+        {
+            _automator.EnableExitToLobby(true);
+            DisablingRobot("Cool Down");
+            _eventBus.Publish(new CashoutRequestEvent());
+            Task.Delay(milliseconds).ContinueWith(_ => EnablingRobot());
+        }
+
         protected override void OnInitialize()
         {
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
@@ -91,9 +108,10 @@
         private void StartingSuperRobot()
         {
             _automator.ExitLockup();
+            _config.SelectNextGame();
             _eventBus.Publish(new GameLoadRequestEvent());
+            BalanceCheckWithDelay(1000);
         }
-
         private void EnablingRobot()
         {
             SuperRobotInitialization();
@@ -108,6 +126,25 @@
             {
                 op.Execute();
             }
+            StartingSuperRobot();
+        }
+
+        private void CoolDownTimerInitialization()
+        {
+            var twoHours = 2 * 3600 * 1000;
+            var tenMinutes = 10 * 60 * 1000;
+            _coolDownTimer = new System.Threading.Timer((s) =>
+            {
+                CoolDown(tenMinutes);
+            }, null, twoHours, twoHours);
+        }
+
+        private void BalanceCheckWithDelay(int milliseconds)
+        {
+            Task.Delay(milliseconds).ContinueWith(_ =>
+                                                  {
+                                                      _eventBus.Publish(new BalanceCheckEvent());
+                                                  });
         }
 
         private void SubscribeToEvents()
@@ -152,9 +189,9 @@
             _automator = _automator ?? new Automation(_propertyManager, _eventBus);
         }
 
-        private void DisablingRobot()
+        private void DisablingRobot(string reason = "")
         {
-            _automator.SetOverlayText("", true, _overlayTextGuid, InfoLocation.TopLeft);
+            _automator.SetOverlayText(reason, false, _overlayTextGuid, InfoLocation.TopLeft);
             _automator.ResetSpeed();
             _sanityChecker.Stop();
             foreach (var op in _operationCollection)

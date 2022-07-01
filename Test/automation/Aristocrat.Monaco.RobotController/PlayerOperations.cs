@@ -69,6 +69,7 @@
         public void Halt()
         {
             _ActionPlayerTimer?.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
         private void SubscribeToEvents()
         {
@@ -80,7 +81,7 @@
         }
         private bool IsValid()
         {
-            return _sc.IsGame && !_sc.IsInRecovery;
+            return _sc.IsGame;
         }
         private void InitializeActionPlayer()
         {
