@@ -43,7 +43,7 @@
         /// </summary>
         public void SetupMediaDisplayWindow()
         {
-            _topMediaDisplayWindow = new LayoutOverlayWindow(ScreenType.Glass) { Title = "Glass Overlay" };
+            _topMediaDisplayWindow = new LayoutOverlayWindow(ScreenType.Glass) { Title = "Top Glass Overlay" };
             _topMediaDisplayWindow.Loaded += TopLayoutOverlayWindow_OnLoaded;
 
             var topWidthBinding = new Binding("Width") { Source = this, Mode = BindingMode.OneWay };

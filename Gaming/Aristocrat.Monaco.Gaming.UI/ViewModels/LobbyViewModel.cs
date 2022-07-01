@@ -1329,9 +1329,8 @@
         /// <summary>
         ///     Controls whether the machine can be put into reserve
         /// </summary>
-        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && _gameState.Idle && !_transferOutHandler.InProgress &&
-                                             !_gameHistory.IsRecoveryNeeded && !_gameHistory
-                                                 .HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
+        public bool ReserveMachineAllowed => RedeemableCredits > 0.0 && (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress
+                                             && !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
 
         /// <summary>
         ///     Gets or sets the VBD video state while in the lobby.

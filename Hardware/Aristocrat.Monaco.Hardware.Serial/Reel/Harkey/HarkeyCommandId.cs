@@ -57,17 +57,10 @@
         None = 0x00,
         RmConnected = 0x01,
         RmsConnected = 0x02,
-        ReelSlowSpin = 0x03,
-        BadValue = 0x04,
-        Stalled = 0x05,
-        ReelInError = 0x06,
-        ReelAlreadySpinning = 0x07,
-        BadState = 0x08,
-        ReelOutOfSync = 0x09,
-        ReelNotAvailable = 0x10,
-        ReelVoltageLow = 0x11,
-        GameChecksum = 0x12,
-        FaultChecksum = 0x13
+        Stalled = 0x10,
+        ReelOutOfSync = 0x20,
+        ReelSlowSpin = 0x40,
+        ReelInError = 0x80
     }
 
     public enum HomeReelResponseCodes : byte

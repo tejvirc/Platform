@@ -12,7 +12,6 @@
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Display;
-    using Hardware.Contracts.KeySwitch;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.Touch;
     using Kernel;
@@ -74,8 +73,7 @@
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
-                ServiceManager.GetInstance().GetService<IButtonDeckDisplay>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>())
+                ServiceManager.GetInstance().GetService<IButtonDeckDisplay>())
         {
         }
 
@@ -85,8 +83,7 @@
             IMeterManager meterManager,
             IPersistentStorageManager persistentStorage,
             ICabinetDetectionService cabinetDetectionService,
-            IButtonDeckDisplay buttonDeckDisplay,
-            IPropertiesManager properties)
+            IButtonDeckDisplay buttonDeckDisplay)
         {
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
@@ -138,7 +135,18 @@
                     FilterDeviceEvent);
 
                 _eventBus.Subscribe<ClearDisplayDisconnectedLockupEvent>(this,
-                    evt => _disableManager.Enable(ApplicationConstants.DisplayDisconnectedLockupKey));
+                    _ =>
+                    {
+                        _disableManager.Enable(ApplicationConstants.DisplayDisconnectedLockupKey);
+                        SetGraphicsSafeMode(false);
+                    });
+
+                _eventBus.Subscribe<SetDisplayDisconnectedLockupEvent>(this,
+                    _ => _disableManager.Disable(
+                        ApplicationConstants.DisplayDisconnectedLockupKey,
+                        SystemDisablePriority.Immediate,
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisplayDisconnected))
+                );
 
                 CheckDevicesCount();
             }
@@ -412,6 +420,8 @@
 
         private void HandleStatusChange(bool oldStatus, bool newStatus, Guid disableKey, string resource)
         {
+            _eventBus.Publish(new DisplayMonitorStatusChangeEvent());
+
             if (oldStatus == newStatus)
             {
                 return;
@@ -430,8 +440,6 @@
                     SystemDisablePriority.Immediate,
                     () => Localizer.For(CultureFor.Operator).GetString(resource));
             }
-
-            _eventBus.Publish(new DisplayMonitorStatusChangeEvent());
         }
 
         private void CheckLcdButtonDeck()

@@ -191,8 +191,14 @@
         }
 
         [TestMethod]
-        public void CheckForConnectionTest()
+        public async Task CheckForConnectionTest()
         {
+            Assert.IsNotNull(_connectedAction);
+            await _reelConnectedAction(new ReelConnectedEvent(1), CancellationToken.None);
+            Assert.IsFalse(_connectionChangedCallbackCalled);
+            Assert.IsTrue(_stripsChangedCallbackCalled);
+            Assert.AreEqual(5, _device.PhysicalStrips.Count);
+
             Assert.IsTrue(_device.CheckForConnection());
         }
 
@@ -216,8 +222,14 @@
         }
 
         [TestMethod]
-        public void SetSystemBrightness100Test()
+        public async Task SetSystemBrightness100Test()
         {
+            Assert.IsNotNull(_connectedAction);
+            await _reelConnectedAction(new ReelConnectedEvent(1), CancellationToken.None);
+            Assert.IsFalse(_connectionChangedCallbackCalled);
+            Assert.IsTrue(_stripsChangedCallbackCalled);
+            Assert.AreEqual(5, _device.PhysicalStrips.Count);
+
             // Brightness defaults to -1
             int brightness = 100;
 
@@ -228,8 +240,14 @@
         }
 
         [TestMethod]
-        public void SetSystemBrightnessTwiceSameValueTest()
+        public async Task SetSystemBrightnessTwiceSameValueTest()
         {
+            Assert.IsNotNull(_connectedAction);
+            await _reelConnectedAction(new ReelConnectedEvent(1), CancellationToken.None);
+            Assert.IsFalse(_connectionChangedCallbackCalled);
+            Assert.IsTrue(_stripsChangedCallbackCalled);
+            Assert.AreEqual(5, _device.PhysicalStrips.Count);
+
             int brightness = 100;
 
             // Method being tested
@@ -240,8 +258,14 @@
         }
 
         [TestMethod]
-        public void SetSystemBrightnessTwiceDifferentValueTest()
+        public async Task SetSystemBrightnessTwiceDifferentValueTest()
         {
+            Assert.IsNotNull(_connectedAction);
+            await _reelConnectedAction(new ReelConnectedEvent(1), CancellationToken.None);
+            Assert.IsFalse(_connectionChangedCallbackCalled);
+            Assert.IsTrue(_stripsChangedCallbackCalled);
+            Assert.AreEqual(5, _device.PhysicalStrips.Count);
+
             // Method being tested
             _device.SetSystemBrightness(100);
             _device.SetSystemBrightness(50);
