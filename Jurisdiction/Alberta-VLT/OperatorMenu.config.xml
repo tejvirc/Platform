@@ -111,16 +111,6 @@ as follows:
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
 	</Menu>
 	<Menu Type="GamesMainPageLoader">
-		<Page Type="GameConfigurationViewModel">
-			<Setting Name="ShowProgressiveRTPs" Value="false" />
-			<Setting Name="EnableAdvancedConfig" Value="false" />
-			<Setting Name="EnableQuickConfig" Value="false" />
-			<Setting Name="DisableConfigAfterGameplay" Value="false" />
-			<Setting Name="ShowSelectedButton" Value="false" />
-			<Setting Name="ShowLayoutButton" Value="false" />
-			<Setting Name="ShowSummaryButton" Value="false" />
-			<Setting Name="ShowMaxBetLimit" Value="false" />
-		</Page>
 		<Page Type="AdvancedGameSetupViewModel" Access="Technician">
 			<Setting Name="AllowImportExport" Value="false" />
 			<Setting Name="ShowGlobalOptions" Value="false" />

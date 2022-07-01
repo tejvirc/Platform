@@ -197,10 +197,6 @@
     <value>SAS Advanced Funds Transfer</value>
     <comment>Aristocrat.Monaco.Sas.UI</comment>
   </data>
-  <data name="AdvancedGameSetup" xml:space="preserve">
-    <value>Advanced Game Setup</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
   <data name="AftBonusingEnabledLabel" xml:space="preserve">
     <value>AFT Bonusing Allowed</value>
     <comment>Aristocrat.Monaco.Sas.UI</comment>
@@ -3306,10 +3302,6 @@ Max: Should be less than the Large Win Limit</value>
     <value>Hit</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-  <data name="HoldPercentage" xml:space="preserve">
-    <value>Hold Percentage</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
   <data name="Host0Label" xml:space="preserve">
     <value>Host 0</value>
     <comment>Aristocrat.Monaco.Sas.UI</comment>
@@ -5271,10 +5263,6 @@ Do you really want to do partial reset?</value>
     <value>Play Count</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-  <data name="PlaywayOption" xml:space="preserve">
-    <value>Playway Option</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
   <data name="PleaseDoNotPowerOff" xml:space="preserve">
     <value>Please Do Not Power Off The Gaming Machine</value>
     <comment>Aristocrat.Monaco.Application</comment>
@@ -5706,10 +5694,6 @@ Do you really want to do partial reset?</value>
     <value>Some protocol checkboxes are disabled because they share exclusive capabilities with the selected protocols.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="QuickGameSetup" xml:space="preserve">
-    <value>Quick Game Setup</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
   <data name="ReadErrorText" xml:space="preserve">
     <value>Read Error </value>
     <comment>Aristocrat.Monaco.Application</comment>
@@ -6010,10 +5994,6 @@ Do you really want to do partial reset?</value>
   <data name="SaveDeviceChangesPrompt" xml:space="preserve">
     <value>The current valid device configuration has not been applied. Save changes?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
-  </data>
-  <data name="SavePrompt" xml:space="preserve">
-    <value>Save modifications?</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="SaveText" xml:space="preserve">
     <value>Save</value>

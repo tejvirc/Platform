@@ -21,10 +21,8 @@
                            typeName="Aristocrat.Monaco.Application.UI.Loaders.SoftwareVerificationPageLoader" order="3" />
         <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
                            typeName="Aristocrat.Monaco.Application.UI.Loaders.SerialGatPageLoader" order="4" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.GameConfigurationViewLoader" order="5" />
         <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Application.UI.Loaders.LicensePageLoader" order="6" />
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.LicensePageLoader" order="5" />
       </ExtensionPointConfiguration>
 
     </AddinConfigurationGroup>
