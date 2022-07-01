@@ -57,7 +57,6 @@
                     container.GetInstance<CashoutOperations>(),
                     container.GetInstance<PlayerOperations>(),
                     container.GetInstance<TouchOperations>(),
-                    container.GetInstance<AuditMenuOperations>(),
                     container.GetInstance<BalanceOperations>(),
                     container.GetInstance<GameOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),

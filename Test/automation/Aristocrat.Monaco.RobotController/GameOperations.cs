@@ -25,8 +25,8 @@
         private Timer _RgTimer;
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
-        private int sanityCounter;
-        private int unexpectedExitCounter;
+        private int _sanityCounter;
+        private int _unexpectedExitCounter;
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc, IPropertiesManager pm, RobotController robotController)
         {
             _config = config;
@@ -110,7 +110,8 @@
             _automator.EnableExitToLobby(false);
             _LoadGameTimer?.Dispose();
             _RgTimer?.Dispose();
-            sanityCounter = 0;
+            _sanityCounter = 0;
+            _unexpectedExitCounter = 0;
             _eventBus.UnsubscribeAll(this);
         }
         private void SubscribeToEvents()
@@ -139,7 +140,7 @@
                 _ =>
                 {
                     _logger.Info("GameRequestFailedEvent Got Triggered!", GetType().Name);
-                    sanityCounter++;
+                    _sanityCounter++;
                     if (!_sc.IsAllowSingleGameAutoLaunch)
                     {
                         SelectNextGame(true);
@@ -153,8 +154,8 @@
                     _logger.Info("GameInitializationCompletedEvent Got Triggered!", GetType().Name);
                     BalanceCheck();
                     ResetTimer();
-                    sanityCounter = 0;
-                    unexpectedExitCounter = 0;
+                    _unexpectedExitCounter = 0;
+
                 });
 
             _eventBus.Subscribe<GamePlayRequestFailedEvent>(
@@ -187,7 +188,7 @@
                      if (evt.Unexpected)
                      {
                          _logger.Info("GameProcessExitedEvent-Unexpected Got Triggered!", GetType().Name);
-                         unexpectedExitCounter++;
+                         _unexpectedExitCounter++;
                          goToNextGame = false;
                          _automator.EnableExitToLobby(true);
                      }
@@ -213,6 +214,8 @@
                  {
                      _logger.Info("GamePlayStateChangedEvent Got Triggered!", GetType().Name);
                      _robotController.IdleDuration = 0;
+                     _sanityCounter = 0;
+                     _unexpectedExitCounter = 0;
                  });
             _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
             {
@@ -238,7 +241,7 @@
         private void AnotherChance()
         {
             _logger.Info("AnotherChance Request Is Received!", GetType().Name);
-            sanityCounter ++;
+            _sanityCounter ++;
             _automator.EnableExitToLobby(false);
             SelectNextGame(true);
             LoadGame();
@@ -312,12 +315,12 @@
         }
         private bool CheckSanity()
         {
-            if (unexpectedExitCounter > 1)
+            if (_unexpectedExitCounter > 1)
             {
-                unexpectedExitCounter = 0;
+                _unexpectedExitCounter = 0;
                 AnotherChance();
             }
-            if (sanityCounter < 10) { return true; }
+            if (_sanityCounter < 10) { return true; }
             _robotController.Enabled = false;
             return false;
         }

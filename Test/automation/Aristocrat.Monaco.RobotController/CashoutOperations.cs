@@ -54,7 +54,19 @@
         {
             _eventBus.Subscribe<CashoutRequestEvent>(this, HandleEvent);
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameInitializationCompletedEvent>(
+                            this,
+                            _ =>
+                            {
+                                ResetTimer();
+                            });
         }
+
+        private void ResetTimer()
+        {
+            _actionCashoutTimer.Change(_config.Active.IntervalCashOut, _config.Active.IntervalCashOut);
+        }
+
         private void HandleEvent(TransferOutCompletedEvent obj)
         {
             RequestBalance();
