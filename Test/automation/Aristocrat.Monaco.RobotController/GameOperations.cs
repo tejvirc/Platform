@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
@@ -215,6 +216,15 @@
                      _logger.Info("GamePlayStateChangedEvent Got Triggered!", GetType().Name);
                      _robotController.IdleDuration = 0;
                  });
+            _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
+            {
+                if (evt.Handpay == HandpayType.GameWin ||
+                     evt.Handpay == HandpayType.CancelCredit)
+                {
+                    _logger.Info("Keying off large win", GetType().Name);
+                    ToggleJackpotKey(1000);
+                }
+            });
             InitGameProcessHungEvent();
         }
 
