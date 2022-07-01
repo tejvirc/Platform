@@ -11,8 +11,9 @@
     ///     A game history log.
     /// </summary>
     /// <seealso cref="T:Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog" />
-    public class GameHistoryLog : IGameHistoryLog
+    public class GameHistoryLog : IGameHistoryLog,IDisposable
     {
+        private bool _disposed;
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Gaming.GameHistoryLog class.
         /// </summary>
@@ -21,7 +22,23 @@
         {
             StorageIndex = index;
         }
-
+        ~GameHistoryLog() => Dispose(false);
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        private void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            if (disposing)
+            {
+            }
+            _disposed = true;
+        }
         /// <summary>
         ///     Gets or sets the recovery BLOB.
         /// </summary>
