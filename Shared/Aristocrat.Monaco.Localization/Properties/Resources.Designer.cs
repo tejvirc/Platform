@@ -8651,6 +8651,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Disconnect.
+		/// </summary>
+		public static string Disconnect {
+			get {
+				return ResourceManager.GetString("Disconnect", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Disconnected.
 		/// </summary>
         /// <remarks>
@@ -25616,6 +25625,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Reconnect.
+		/// </summary>
+		public static string Reconnect {
+			get {
+				return ResourceManager.GetString("Reconnect", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Reconnected.
 		/// </summary>
 		public static string Reconnected {
@@ -26585,7 +26603,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Restart Required.
+		///   Looks up a localized string similar to {0} the {1} or powercycle.
 		/// </summary>
 		public static string RestartRequired {
 			get {
@@ -43107,6 +43125,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DisclaimerReelsAre {
 			get {
 				return "DisclaimerReelsAre";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Disconnect.
+		/// </summary>
+		public static string Disconnect {
+			get {
+				return "Disconnect";
 			}
 		}
 
@@ -60076,6 +60103,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Reconnect.
+		/// </summary>
+		public static string Reconnect {
+			get {
+				return "Reconnect";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Reconnected.
 		/// </summary>
 		public static string Reconnected {
@@ -61045,7 +61081,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Restart Required.
+		///		Looks up a localized string similar to {0} the {1} or powercycle.
 		/// </summary>
 		public static string RestartRequired {
 			get {
@@ -73878,6 +73914,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisclaimerReelsAre,
 		/// <summary>
+		///   Looks up a localized string similar to Disconnect.
+		/// </summary>
+		Disconnect,
+		/// <summary>
 		///   Looks up a localized string similar to Disconnected.
 		/// </summary>
         /// <remarks>
@@ -83558,6 +83598,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ReconfigureSelected,
 		/// <summary>
+		///   Looks up a localized string similar to Reconnect.
+		/// </summary>
+		Reconnect,
+		/// <summary>
 		///   Looks up a localized string similar to Reconnected.
 		/// </summary>
 		Reconnected,
@@ -84107,7 +84151,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ResponseFromEgm,
 		/// <summary>
-		///   Looks up a localized string similar to Restart Required.
+		///   Looks up a localized string similar to {0} the {1} or powercycle.
 		/// </summary>
 		RestartRequired,
 		/// <summary>

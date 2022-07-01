@@ -102,12 +102,17 @@
                     }
 
                     var runningProtocol = (IRunnable)x.CreateInstance();
-                    Logger.Debug($"Starting protocol: {x.ProtocolId}");
-                    runningProtocol.Initialize();
                     _runningProtocols[x.ProtocolId] = runningProtocol;
-                    protocolsLaunched.Add(x.ProtocolId);
 
-                    _runningProtocolTasks.Add(Task.Run(() => runningProtocol.Run()));
+                    _runningProtocolTasks.Add(Task.Run(() =>
+                    {
+                        Logger.Debug($"Starting protocol: {x.ProtocolId}");
+                        runningProtocol.Initialize();
+
+                        protocolsLaunched.Add(x.ProtocolId);
+
+                        runningProtocol.Run();
+                    }));
                 }
             );
 

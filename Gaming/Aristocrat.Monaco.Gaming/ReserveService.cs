@@ -62,7 +62,7 @@
         private bool IsReserveCondition =>
             (_gamePlay.CurrentState == PlayState.Idle || _isGambleFeatureActive) &&
         _bank.Balance > 0 &&
-            !_systemDisableManager.CurrentDisableKeys.Any();
+            (!_systemDisableManager.CurrentDisableKeys.Any() || _systemDisableManager.CurrentDisableKeys.Count == 1 && _systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.WaitingForInputDisableKey));
 
         /// <inheritdoc />
         public void Dispose()

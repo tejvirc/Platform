@@ -447,8 +447,15 @@
 
         private void Handle(GameProcessExitedEvent e)
         {
+            if (Address is not null && !Address.Contains(OverlayType.Attract.GetOverlayRoute()))
+            {
+                return;
+            }
+
             _configuredOverrideMessageFormats.Clear();
             SetVisibility(false);
+
+            HandleServerStarted(this, null);
         }
 
         private void HandleNoPlayersFound()

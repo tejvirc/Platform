@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.Events
+﻿namespace Aristocrat.Monaco.Application.Contracts
 {
     using Cabinet.Contracts;
     using Kernel;
@@ -18,6 +18,11 @@
         /// </summary>
         public bool IsConnected { get; set; }
 
+        /// <summary>
+        ///     Creates a DisplayConnectionChangedEvent instance
+        /// </summary>
+        /// <param name="display">Specifies which <see cref="DisplayRole"/> has changed</param>
+        /// <param name="isConnected">Specifies whether the display was connected or disconnected</param>
         public DisplayConnectionChangedEvent(DisplayRole display, bool isConnected)
         {
             Display = display;

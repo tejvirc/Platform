@@ -599,7 +599,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                         or ReelControllerState.Disabled
                     || (_reelController.LogicalState != ReelControllerState.Tilted && _reelController.LogicalState != ReelControllerState.IdleUnknown && _reelController.LogicalState != ReelControllerState.IdleAtStops))
                 {
-                    ClearDisableState();
                     Logger.Debug($"HomeReels not able to be executed at this time. State is {_reelController?.LogicalState}");
                     return;
                 }
