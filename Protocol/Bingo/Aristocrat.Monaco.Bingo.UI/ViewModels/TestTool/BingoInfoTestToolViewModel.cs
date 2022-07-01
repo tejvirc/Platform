@@ -436,23 +436,27 @@
         private void RaiseAllPropertiesChanged()
         {
             RaisePropertyChanged(nameof(CardTitle));
-            RaisePropertyChanged(nameof(Allow0PaddingBingoCard));
             RaisePropertyChanged(nameof(PatternCyclePeriod));
+            RaisePropertyChanged(nameof(FreeSpaceCharacter));
+            RaisePropertyChanged(nameof(Allow0PaddingBingoCard));
+            RaisePropertyChanged(nameof(PatternDaubTime));
+            
             RaisePropertyChanged(nameof(BallCallTitle));
             RaisePropertyChanged(nameof(Allow0PaddingBallCall));
-            RaisePropertyChanged(nameof(FreeSpaceCharacter));
-            RaisePropertyChanged(nameof(CssPath));
-            RaisePropertyChanged(nameof(InitialScene));
-            RaisePropertyChanged(nameof(WaitingForGameMessage));
-            RaisePropertyChanged(nameof(WaitingForGameTimeoutMessage));
-            RaisePropertyChanged(nameof(WaitingForGameDelaySeconds));
-            RaisePropertyChanged(nameof(WaitingForGameTimeoutDisplaySeconds));
 
             UpdateObservableListToWindowSettingsDisclaimerList(_currentBingoSettings);
             RaisePropertyChanged(nameof(DisclaimerText));
 
+            RaisePropertyChanged(nameof(CssPath));
+            RaisePropertyChanged(nameof(InitialScene));
+
             RaisePropertyChanged(nameof(AttractOverlayScene));
             RaisePropertyChanged(nameof(AttractPatternCycleTimeMs));
+
+            RaisePropertyChanged(nameof(WaitingForGameMessage));
+            RaisePropertyChanged(nameof(WaitingForGameTimeoutMessage));
+            RaisePropertyChanged(nameof(WaitingForGameDelaySeconds));
+            RaisePropertyChanged(nameof(WaitingForGameTimeoutDisplaySeconds));
             
             RaisePropertyChanged(nameof(PresentationOverrideMessageFormats));
         }
