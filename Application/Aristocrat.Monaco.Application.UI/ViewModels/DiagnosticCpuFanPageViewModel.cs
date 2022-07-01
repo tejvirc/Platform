@@ -7,6 +7,7 @@
     using Hardware.Contracts.Fan;
     using OperatorMenu;
     using OxyPlot;
+    using OxyPlot.Axes;
     using OxyPlot.Wpf;
 
     /// <summary>
@@ -30,8 +31,10 @@
                         s.Points.RemoveAt(0);
                     }
 
-                    s.Points.Add(new DataPoint(x, _latestData.FanSpeed % 100));
+                    s.Points.Add(new DataPoint(x, _latestData.FanSpeed));
                 }
+
+                MonacoPlotModel?.InvalidatePlot(true);
             }
         }
 
@@ -67,6 +70,7 @@
                 MonacoPlotModel.Series.Add(metric.LineSeries);
             }
 
+            MonacoPlotModel.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = AxisPosition.Left, Minimum = 0, Maximum = 7200 });
             MonacoPlotModel?.InvalidatePlot(true);
         }
 
