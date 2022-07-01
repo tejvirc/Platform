@@ -26,6 +26,7 @@
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int sanityCounter;
+        private int unexpectedExitCounter;
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, Configuration config, StateChecker sc, IPropertiesManager pm, RobotController robotController)
         {
             _config = config;
@@ -84,7 +85,6 @@
                 LoadGame();
             }
         }
-
         private void LoadGame()
         {
             if (!IsTimeLimitDialogInProgress() && CheckSanity())
@@ -93,7 +93,6 @@
                 RequestGameLoad();
             }
         }
-
         private void LoadGameWithDelay(int milliseconds)
         {
             _logger.Info("LoadGameWithDelay Request is Received!", GetType().Name);
@@ -103,7 +102,6 @@
                     LoadGame();
                 });
         }
-
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
@@ -156,6 +154,7 @@
                     BalanceCheck();
                     ResetTimer();
                     sanityCounter = 0;
+                    unexpectedExitCounter = 0;
                 });
 
             _eventBus.Subscribe<GamePlayRequestFailedEvent>(
@@ -185,11 +184,10 @@
                  evt =>
                  {
                      bool goToNextGame = false;
-                     //log
                      if (evt.Unexpected)
                      {
                          _logger.Info("GameProcessExitedEvent-Unexpected Got Triggered!", GetType().Name);
-                         sanityCounter++;
+                         unexpectedExitCounter++;
                          goToNextGame = false;
                          _automator.EnableExitToLobby(true);
                      }
@@ -227,7 +225,6 @@
             });
             InitGameProcessHungEvent();
         }
-
         private void InitGameProcessHungEvent()
         {
             // If the runtime process hangs, and the setting to not kill it is active, then stop the robot. 
@@ -238,22 +235,19 @@
                 _eventBus.Subscribe<GameProcessHungEvent>(this, _ => { _robotController.Enabled = false; });
             };
         }
-
         private void AnotherChance()
         {
             _logger.Info("AnotherChance Request Is Received!", GetType().Name);
-            sanityCounter += 2;
+            sanityCounter ++;
             _automator.EnableExitToLobby(false);
             SelectNextGame(true);
-            RequestGameLoad();
+            LoadGame();
         }
-
         private void ResetTimer()
         {
             _logger.Info("ResetTimer Request Is Received!", GetType().Name);
             _LoadGameTimer.Change(_config.Active.IntervalLoadGame, _config.Active.IntervalLoadGame);
         }
-
         private void SelectNextGame(bool goToNextGame)
         {
             if (!goToNextGame) { return; }
@@ -318,8 +312,9 @@
         }
         private bool CheckSanity()
         {
-            if (sanityCounter > 1)
+            if (unexpectedExitCounter > 1)
             {
+                unexpectedExitCounter = 0;
                 AnotherChance();
             }
             if (sanityCounter < 10) { return true; }
