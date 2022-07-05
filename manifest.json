@@ -14407,9 +14407,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -39918,7 +39915,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Services.HandpayService.html",
-          "hash": "KwNJUCbRkdInsYJCfTqr2ylnFQb5VKBsACKqvZMOn68="
+          "hash": "cVZSiwfOItWXAaxFRLSbwjWeWY1pDdlA7P3mu3Grugo="
         }
       },
       "is_incremental": false,
@@ -41197,6 +41194,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
