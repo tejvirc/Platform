@@ -167,8 +167,9 @@
         {
             if (evt.Visible)
             {
-                _previouslyVisible = Visible;
+                var currentVisibility = Visible;
                 SetVisibility(false);
+                _previouslyVisible = currentVisibility;
             }
             else
             {
@@ -637,6 +638,7 @@
         private void SetVisibility(bool visible)
         {
             _dispatcher.ExecuteOnUIThread(() => Visible = visible);
+            _previouslyVisible = visible;
         }
 
         private bool IsNewBallCall(IReadOnlyCollection<BingoNumber> incomingBallCall)
