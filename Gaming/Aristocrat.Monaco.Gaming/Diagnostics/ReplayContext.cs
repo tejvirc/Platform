@@ -4,12 +4,13 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Text;
+    using Application.Contracts.Extensions;
     using Contracts;
     using log4net;
 
     public class ReplayContext : IDiagnosticContext<IGameHistoryLog>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public ReplayContext(IGameHistoryLog log, int gameIndex)
         {
@@ -28,7 +29,7 @@
                 { "/Runtime/ReplayMode", "true" },
                 { "/Runtime/ReplayMode&realtime", "true" },
                 { "/Runtime/ReplayMode&replaypause", "true" },
-                { "/Runtime/Account&balance", Arguments.StartCredits.ToString() }
+                { "/Runtime/Account&balance", Arguments.StartCredits.MillicentsToCents().ToString() }
             };
 
             if (GameIndex != -1)
@@ -41,7 +42,7 @@
                 parameters.Add("/Runtime/Multigame&ActivePack", Arguments.GameConfiguration);
             }
 
-            if (Arguments.RecoveryBlob != null && Arguments.RecoveryBlob.Length > 0)
+            if (Arguments.RecoveryBlob is { Length: > 0 })
             {
                 parameters.Add("/Runtime/Recovery/BinaryData", Encoding.ASCII.GetString(Arguments.RecoveryBlob));
 

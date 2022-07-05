@@ -83,7 +83,7 @@
             InitializeModels();
         }
 
-        public CRaceInfo CurrentRaceInfo => _prizeEntityHelper.PrizeInformation.RaceInfo;
+        public CRaceInfo? CurrentRaceInfo => _prizeEntityHelper.PrizeInformation?.RaceInfo;
 
         private void InitializeModels()
         {
@@ -207,7 +207,10 @@
                 // If race hasn't started, then we are loading from a power-cycle, so show the entire race again
                 else
                 {
-                    Task.Run(() => ShowHorseAnimation(CurrentRaceInfo), token);
+                    if (CurrentRaceInfo.HasValue)
+                    {
+                        Task.Run(() => ShowHorseAnimation(CurrentRaceInfo.Value), token);
+                    }
                 }
             });
 

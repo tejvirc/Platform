@@ -269,8 +269,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearDisableState());
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, _ => DisableReelLights());
-            _eventBus.Subscribe<OperatorMenuExitedEvent>(this, (_, _) => ExitOperatorMenu());
-            _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId != (int)DoorLogicalId.Main);
+            _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
         }
@@ -388,14 +387,14 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private async Task HandleDoorClose(DoorBaseEvent doorBaseEvent, CancellationToken token)
         {
-            if (_reelController is not null &&
-                _reelController is not { LogicalState: ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected })
+            SetBinary(FailedHoming, false);
+            if (_reelController is null or { LogicalState: ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected })
             {
-                // Perform a self test to attempt to clear any hardware faults
-                await _reelController.SelfTest(false);
+                return;
             }
 
-            SetBinary(FailedHoming, false);
+            // Perform a self test to attempt to clear any hardware faults
+            await _reelController.SelfTest(false);
             if (HasReelFaults())
             {
                 // Clear all reel controller faults
@@ -408,39 +407,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             return _disableManager.CurrentDisableKeys.All(
                 guid => IsReelFault(guid) || guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                         guid == ReelsTiltedGuid);
-        }
-
-        private async Task ExitOperatorMenu()
-        {
-            Logger.Debug("ExitOperatorMenu");
-            Logger.Debug($"_disableManager.IsDisabled={_disableManager.IsDisabled}");
-
-            var tiltReels = false;
-            if (_disableManager.IsDisabled)
-            {
-                foreach (var guid in _disableManager.CurrentDisableKeys)
-                {
-                    Logger.Debug($"checking disable guid = {guid}");
-                    // Ignore these faults that can be active during exit operator menu
-                    if (guid == ApplicationConstants.LiveAuthenticationDisableKey || guid == ReelsTiltedGuid)
-                    {
-                        continue;
-                    }
-
-                    tiltReels = true;
-                    break;
-                }
-            }
-
-            // If exiting the operator menu and there are any faults then slow spin the reels
-            if (tiltReels)
-            {
-                await TiltReels();
-            }
-            else
-            {
-                await HomeReels();
-            }
         }
 
         private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys, bool allowMainDoor)
@@ -633,7 +599,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                         or ReelControllerState.Disabled
                     || (_reelController.LogicalState != ReelControllerState.Tilted && _reelController.LogicalState != ReelControllerState.IdleUnknown && _reelController.LogicalState != ReelControllerState.IdleAtStops))
                 {
-                    ClearDisableState();
                     Logger.Debug($"HomeReels not able to be executed at this time. State is {_reelController?.LogicalState}");
                     return;
                 }

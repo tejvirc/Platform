@@ -158,7 +158,7 @@
             {
                 // Ensure all events and properties are reset before staring a new manual handicap
                 ManualHandicapRemainingTime = ClientProperties.ManualHandicapTimeOut;
-                
+
                 Cleanup();
 
                 // Game Play would be allowed if got the Normal lockup in Manual Handicapping page 

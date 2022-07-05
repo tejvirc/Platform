@@ -49,6 +49,7 @@
         private List<BingoPattern> _cyclingPatterns = new();
         private BingoDisplayConfigurationBingoWindowSettings _currentBingoSettings;
         private bool _multipleSpins;
+        private bool _previouslyVisible;
 
         private bool _disposed;
         private string _address;
@@ -105,6 +106,7 @@
             _eventBus.Subscribe<PlayersFoundEvent>(this, _ => CancelWaitingForPlayers());
             _eventBus.Subscribe<GamePlayDisabledEvent>(this, _ => CancelWaitingForPlayers());
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
+            _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, Handle);
         }
 
         public bool Visible
@@ -159,6 +161,19 @@
             }
 
             HandleServerStarted(this, null);
+        }
+
+        private void Handle(GameRequestedPlatformHelpEvent evt)
+        {
+            if (evt.Visible)
+            {
+                _previouslyVisible = Visible;
+                SetVisibility(false);
+            }
+            else
+            {
+                SetVisibility(_previouslyVisible);
+            }
         }
 
         private void Handle(AttractModeEntered evt)
@@ -447,8 +462,15 @@
 
         private void Handle(GameProcessExitedEvent e)
         {
+            if (Address is not null && !Address.Contains(OverlayType.Attract.GetOverlayRoute()))
+            {
+                return;
+            }
+
             _configuredOverrideMessageFormats.Clear();
             SetVisibility(false);
+
+            HandleServerStarted(this, null);
         }
 
         private void HandleNoPlayersFound()

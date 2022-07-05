@@ -4,7 +4,7 @@
     using Contracts;
 
     /// <summary>
-    ///     Handles the EndGameProcessEvent, which terminates the current game process
+    ///     Handles the GameConnectedEvent, which connects the game service process
     /// </summary>
     public class GameConnectedConsumer : Consumes<GameConnectedEvent>
     {

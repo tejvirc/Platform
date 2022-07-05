@@ -103,12 +103,6 @@
                     var ex = t.Exception == null ? new InvalidOperationException() : (Exception)t.Exception.Flatten();
                     Logger.Error("Error retrying to send handpay commands", ex);
                 });
-
-            if (!_properties.GetValue(ApplicationConstants.HandpayReceiptPrintingEnabled, true))
-            {
-                _properties.SetProperty(AccountingConstants.EnableReceipts, false);
-                _properties.SetProperty(AccountingConstants.ValidateHandpays, false);
-            }
         }
 
         /// <inheritdoc />
@@ -691,10 +685,7 @@
 
         public async Task RequestHandpay(HandpayTransaction transaction)
         {
-            if (!string.IsNullOrWhiteSpace(transaction.Barcode))
-            {
-                transaction.PrintTicket = true;
-            }
+            transaction.PrintTicket = !string.IsNullOrWhiteSpace(transaction.Barcode) || _properties.GetValue(ApplicationConstants.HandpayReceiptPrintingEnabled, true);
 
             var handpay = _egm.GetDevice<IHandpayDevice>();
             if (handpay == null)

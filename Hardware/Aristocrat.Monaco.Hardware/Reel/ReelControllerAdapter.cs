@@ -683,8 +683,11 @@
             _stateLock.EnterWriteLock();
             try
             {
-                var fireAll = ConnectedReels.All(reel => CanFire(trigger, reel)) &&
-                              ConnectedReels.All(reel => Fire(trigger, reel));
+                var reels = ConnectedReels;
+                var fireAll = reels.All(reel => CanFire(trigger, reel)) &&
+                              reels.All(reel => Fire(trigger, reel)) &&
+                              (reels.Any() || Fire(trigger)); // If we have reels don't transition the state it is handled above
+
                 if (!fireAll)
                 {
                     Logger.Debug($"FireAll - FAILED for trigger {trigger}");
@@ -818,7 +821,7 @@
             }
         }
 
-        private bool FireReelStopped(ReelControllerTrigger trigger, int reelId, ReelEventArgs args, bool updateControllerState = true)
+        private bool FireReelStopped(ReelControllerTrigger trigger, int reelId, ReelEventArgs args)
         {
             Logger.Debug($"FireReelStopped with trigger {trigger} for reel {reelId}");
             _stateLock.EnterWriteLock();
@@ -832,27 +835,17 @@
                 }
                 else
                 {
-                    canFire = CanFire(trigger, reelId, updateControllerState);
+                    canFire = CanFire(trigger, reelId);
                     if (!canFire)
                     {
                         Logger.Debug($"FireReelStopped - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
                         return false;
                     }
-                    else if (updateControllerState)
-                    {
-                        canFire = CanFire(trigger);
-                        if (!canFire)
-                        {
-                            Logger.Debug($"FireReelStopped - FAILED CanFire for trigger {trigger} with reelState {reelState.StateMachine} in state {_state.State}");
-                            return false;
-                        }
-                    }
                 }
-
 
                 Logger.Debug($"Stopping with trigger {reelState.StoppingTrigger} from state {reelState.StateMachine.State}");
                 reelState.StateMachine.Fire(reelState.StoppingTrigger, reelState.StateMachine.State, args);
-                return !updateControllerState || Fire(trigger);
+                return Fire(trigger);
             }
             finally
             {
@@ -1069,16 +1062,13 @@
             _stateLock.EnterWriteLock();
             try
             {
-                if (!_reelStates.TryGetValue(e.ReelId, out var reelState))
+                if (!_reelStates.TryGetValue(e.ReelId, out _))
                 {
                     Logger.Warn($"ReelControllerSlowSpinning Ignoring event for invalid reel: {e.ReelId}");
                     return;
                 }
 
-                if (!reelState.StateMachine.IsInState(ReelLogicalState.Homing))
-                {
-                    Fire(ReelControllerTrigger.TiltReels, e.ReelId);
-                }
+                Fire(ReelControllerTrigger.TiltReels, e.ReelId);
             }
             finally
             {
@@ -1088,31 +1078,35 @@
 
         private void ReelControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)
         {
-            if (e.Faults != ReelControllerFaults.None)
+            if (e.Faults == ReelControllerFaults.None)
             {
-                AddError(e.Faults);
-
-                Logger.Info($"ReelControllerFaultOccurred - ADDED {e.Faults} from the error list");
-                Disable(DisabledReasons.Error);
-
-                PostEvent(new HardwareFaultEvent(e.Faults));
+                return;
             }
+
+            AddError(e.Faults);
+
+            Logger.Info($"ReelControllerFaultOccurred - ADDED {e.Faults} from the error list");
+            Disable(DisabledReasons.Error);
+
+            PostEvent(new HardwareFaultEvent(e.Faults));
         }
 
         private void ReelControllerFaultCleared(object sender, ReelControllerFaultedEventArgs e)
         {
-            if (e.Faults != ReelControllerFaults.None)
+            if (e.Faults == ReelControllerFaults.None)
             {
-                ClearError(e.Faults);
-
-                Logger.Info($"ReelControllerFaultCleared - REMOVED {e.Faults} from the error list");
-                if (!AnyErrors)
-                {
-                    Enable(EnabledReasons.Reset);
-                }
-
-                PostEvent(new HardwareFaultClearEvent(ReelControllerId, e.Faults));
+                return;
             }
+
+            ClearError(e.Faults);
+
+            Logger.Info($"ReelControllerFaultCleared - REMOVED {e.Faults} from the error list");
+            if (!AnyErrors)
+            {
+                Enable(EnabledReasons.Reset);
+            }
+
+            PostEvent(new HardwareFaultClearEvent(ReelControllerId, e.Faults));
         }
 
         private void ReelControllerFaultOccurred(object sender, ReelFaultedEventArgs e)
@@ -1135,14 +1129,10 @@
                 Logger.Info($"ReelControllerFaultOccurred - ADDED {value} to the error list for reel {e.ReelId}");
                 Disable(DisabledReasons.Error);
 
-                if (e.Faults == ReelFaults.ReelStall || e.Faults == ReelFaults.ReelTamper)
-                {
-                    PostEvent(new HardwareReelFaultEvent(ReelControllerId, value, e.ReelId));
-                }
-                else
-                {
-                    PostEvent(new HardwareReelFaultEvent(ReelControllerId, value));
-                }
+                PostEvent(
+                    e.Faults is ReelFaults.ReelStall or ReelFaults.ReelTamper
+                        ? new HardwareReelFaultEvent(ReelControllerId, value, e.ReelId)
+                        : new HardwareReelFaultEvent(ReelControllerId, value));
             }
         }
 

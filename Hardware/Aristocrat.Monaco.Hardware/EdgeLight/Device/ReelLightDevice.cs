@@ -17,16 +17,15 @@
 
     public sealed class ReelLightDevice : IEdgeLightDevice
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
         private bool _disposed;
         private int _lightsPerReel;
         private int _lastReelCount;
         private int _lastLightIdentifiersCount;
-        private List<LightData> LastLightData { get; set; } = new List<LightData>();
+        private List<LightData> _lastLightData;
         private int _lastReelBrightness = -1;
-        private IReelController _reelController;
 
         internal class LightData
         {
@@ -43,7 +42,7 @@
             public int Brightness { get; set; }
         }
 
-        public IReadOnlyList<IStrip> PhysicalStrips { get; private set; } = new List<IStrip>();
+        public IReadOnlyList<IStrip> PhysicalStrips { get; private set; }
 
         public BoardIds BoardId => BoardIds.InvalidBoardId;
 
@@ -58,8 +57,7 @@
 
         public event EventHandler<EventArgs> ConnectionChanged;
 
-        private IReelController Controller =>
-            _reelController ?? (_reelController = ServiceManager.GetInstance().TryGetService<IReelController>());
+        private IReelController Controller { get; set; }
 
         public ReelLightDevice()
             : this(ServiceManager.GetInstance().GetService<IEventBus>())
@@ -68,6 +66,12 @@
 
         public ReelLightDevice(IEventBus eventBus)
         {
+            _lightsPerReel = 0;
+            PhysicalStrips = new List<IStrip>();
+            _lastLightData = new List<LightData>();
+            _lastReelCount = 0;
+            _lastLightIdentifiersCount = 0;
+
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _eventBus.Subscribe<ReelConnectedEvent>(this, HandledStripChanged);
             _eventBus.Subscribe<ReelDisconnectedEvent>(this, HandledStripChanged);
@@ -77,7 +81,7 @@
 
         private async Task HandleConnectionChanged(ReelControllerBaseEvent evt, CancellationToken token)
         {
-            LastLightData = new List<LightData>();
+            _lastLightData = new List<LightData>();
             _lastReelCount = 0;
             _lastLightIdentifiersCount = 0;
             ConnectionChanged?.Invoke(this, EventArgs.Empty);
@@ -86,54 +90,54 @@
 
         private async Task HandledStripChanged(ReelControllerBaseEvent evt, CancellationToken token)
         {
-            var reelController = Controller;
-            if (reelController is null)
+            Controller ??= ServiceManager.GetInstance().GetService<IReelController>();
+            if (Controller is null)
             {
                 lock (_lock)
                 {
                     _lightsPerReel = 0;
                     PhysicalStrips = new List<IStrip>();
-                    LastLightData = new List<LightData>();
+                    _lastLightData = new List<LightData>();
                     _lastReelCount = 0;
                     _lastLightIdentifiersCount = 0;
                 }
+
+                return;
             }
-            else
+
+            IList<int> lightIdentifiers = null;
+            try
             {
-                IList<int> lightIdentifiers = null;
-                try
-                {
-                    lightIdentifiers = await reelController.GetReelLightIdentifiers();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error($"GetReelLightIdentifiers failed : {ex.Message}");
-                }
+                lightIdentifiers = await Controller.GetReelLightIdentifiers();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"GetReelLightIdentifiers failed : {ex.Message}");
+            }
 
-                if (lightIdentifiers != null)
+            if (lightIdentifiers != null)
+            {
+                var reels = Controller.ConnectedReels;
+                if (reels.Count > 0 && lightIdentifiers.Count > 0)
                 {
-                    var reels = reelController.ConnectedReels;
-                    if (reels.Count > 0 && lightIdentifiers.Count > 0)
+                    lock (_lock)
                     {
-                        lock (_lock)
+                        _lightsPerReel = lightIdentifiers.Count / reels.Count;
+
+                        PhysicalStrips = reels.Select(
+                            x => new PhysicalStrip((int)StripIDs.StepperReel1 + x - 1, _lightsPerReel)).ToList();
+
+                        if (_lastReelCount != reels.Count && _lastLightIdentifiersCount != lightIdentifiers.Count)
                         {
-                            _lightsPerReel = lightIdentifiers.Count / reels.Count;
-
-                            PhysicalStrips = reels.Select(
-                                x => new PhysicalStrip((int)StripIDs.StepperReel1 + x - 1, _lightsPerReel)).ToList();
-
-                            if (_lastReelCount != reels.Count && _lastLightIdentifiersCount != lightIdentifiers.Count)
-                            {
-                                _lastReelCount = reels.Count;
-                                _lastLightIdentifiersCount = lightIdentifiers.Count;
-                                LastLightData = new List<LightData>();
-                            }
+                            _lastReelCount = reels.Count;
+                            _lastLightIdentifiersCount = lightIdentifiers.Count;
+                            _lastLightData = new List<LightData>();
                         }
                     }
-                    else
-                    {
-                        Logger.Debug($"ReelLightDevice invalid reel light data, reels.Count={reels.Count}, lightIdentifiers.Count={lightIdentifiers.Count}");
-                    }
+                }
+                else
+                {
+                    Logger.Debug($"ReelLightDevice invalid reel light data, reels.Count={reels.Count}, lightIdentifiers.Count={lightIdentifiers.Count}");
                 }
             }
 
@@ -177,38 +181,38 @@
                         reelLampBrightness.Add(lightId, strip.Brightness);
                         var lastDataIndex = lightId - 1;
 
-                        if (LastLightData.Count <= lastDataIndex)
+                        if (_lastLightData.Count <= lastDataIndex)
                         {
-                            LastLightData.Add(new LightData { IsLampOn = isLampOn, ArgbColor = ledColorBuffer.ToArgb(), Brightness = strip.Brightness });
+                            _lastLightData.Add(new LightData { IsLampOn = isLampOn, ArgbColor = ledColorBuffer.ToArgb(), Brightness = strip.Brightness });
                             lampStateMatch = false;
                             colorsMatch = false;
                             brightnessMatch = false;
                         }
                         else
                         {
-                            if (isLampOn != LastLightData[lastDataIndex].IsLampOn)
+                            if (isLampOn != _lastLightData[lastDataIndex].IsLampOn)
                             {
                                 lampStateMatch = false;
-                                LastLightData[lastDataIndex].IsLampOn = isLampOn;
+                                _lastLightData[lastDataIndex].IsLampOn = isLampOn;
                             }
 
                             var isBlackColor = ledColorBuffer.R == 0 && ledColorBuffer.G == 0 && ledColorBuffer.B == 0;
-                            if (!isBlackColor && ledColorBuffer.ToArgb() != LastLightData[lastDataIndex].ArgbColor)
+                            if (!isBlackColor && ledColorBuffer.ToArgb() != _lastLightData[lastDataIndex].ArgbColor)
                             {
                                 colorsMatch = false;
-                                LastLightData[lastDataIndex].ArgbColor = ledColorBuffer.ToArgb();
+                                _lastLightData[lastDataIndex].ArgbColor = ledColorBuffer.ToArgb();
                             }
 
-                            if (strip.Brightness != LastLightData[lastDataIndex].Brightness)
+                            if (strip.Brightness != _lastLightData[lastDataIndex].Brightness)
                             {
                                 brightnessMatch = false;
-                                LastLightData[lastDataIndex].Brightness = strip.Brightness;
+                                _lastLightData[lastDataIndex].Brightness = strip.Brightness;
                             }
                         }
 
                         reelLampData.Add(new ReelLampData(
-                            Color.FromArgb(LastLightData[lastDataIndex].ArgbColor),
-                            LastLightData[lastDataIndex].IsLampOn,
+                            Color.FromArgb(_lastLightData[lastDataIndex].ArgbColor),
+                            _lastLightData[lastDataIndex].IsLampOn,
                             lightId));
                     }
                 }

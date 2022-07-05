@@ -50,7 +50,6 @@
         private Func<InspectedEvent, CancellationToken, Task> _inspectedAction;
         private Func<InspectionFailedEvent, CancellationToken, Task> _inspectionFailedAction;
         private Action<OperatorMenuEnteredEvent> _operatorMenuEnteredAction;
-        private Func<OperatorMenuExitedEvent, CancellationToken, Task> _operatorMenuExitedAction;
         private Func<SystemDisableAddedEvent, CancellationToken, Task> _systemDisabledAction;
         private Func<SystemDisableRemovedEvent, CancellationToken, Task> _systemDisableRemovedAction;
         private Action<ReelStoppedEvent> _reelStoppedEventAction;
@@ -126,8 +125,6 @@
                 .Callback<object, Func<InspectedEvent, CancellationToken, Task>>((o, c) => _inspectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuEnteredEvent>>()))
                 .Callback<object, Action<OperatorMenuEnteredEvent>>((o, c) => _operatorMenuEnteredAction = c);
-            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<OperatorMenuExitedEvent, CancellationToken, Task>>()))
-                .Callback<object, Func<OperatorMenuExitedEvent, CancellationToken, Task>>((o, c) => _operatorMenuExitedAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Func<ClosedEvent, CancellationToken, Task>>(), It.IsAny<Predicate<ClosedEvent>>()))
                 .Callback<object, Func<ClosedEvent, CancellationToken, Task>, Predicate<ClosedEvent>>((_, c, _) => _doorClosedAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ReelStoppedEvent>>()))
@@ -330,104 +327,6 @@
             await _doorClosedAction(new ClosedEvent((int)DoorLogicalId.Main, string.Empty), CancellationToken.None);
 
             _reelController.Verify(x => x.HomeReels(), callHomeReels ? Times.Once() : Times.Never());
-        }
-
-        [DataRow(ReelControllerState.Uninitialized, false)]
-        [DataRow(ReelControllerState.Inspecting, false)]
-        [DataRow(ReelControllerState.IdleUnknown, true)]
-        [DataRow(ReelControllerState.IdleAtStops, true)]
-        [DataRow(ReelControllerState.Homing, false)]
-        [DataRow(ReelControllerState.Spinning, false)]
-        [DataRow(ReelControllerState.Tilted, true)]
-        [DataRow(ReelControllerState.Disabled, false)]
-        [DataRow(ReelControllerState.Disconnected, false)]
-        [DataTestMethod]
-        public async Task HandleOperatorMenuExitedNoSystemDisabledTest(ReelControllerState state, bool callHomeReels)
-        {
-            InitializeClient(false);
-            _disable.Reset();
-            _reelController.Reset();
-            _reelController.Setup(x => x.LogicalState).Returns(state);
-            _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid>());
-            _disable.Setup(x => x.IsDisabled).Returns(false);
-
-            Assert.IsNotNull(_operatorMenuExitedAction);
-            await _operatorMenuExitedAction(new OperatorMenuExitedEvent(), CancellationToken.None);
-
-            _reelController.Verify(x => x.HomeReels(), callHomeReels ? Times.Exactly(1) : Times.Never());
-        }
-
-        [DataRow(ReelControllerState.Uninitialized, false)]
-        [DataRow(ReelControllerState.Inspecting, false)]
-        [DataRow(ReelControllerState.IdleUnknown, true)]
-        [DataRow(ReelControllerState.IdleAtStops, true)]
-        [DataRow(ReelControllerState.Homing, true)]
-        [DataRow(ReelControllerState.Spinning, true)]
-        [DataRow(ReelControllerState.Tilted, true)]
-        [DataRow(ReelControllerState.Disabled, true)]
-        [DataRow(ReelControllerState.Disconnected, false)]
-        [DataTestMethod]
-        public async Task HandleOperatorMenuExitedSystemDisabledTest(ReelControllerState state, bool callTiltReels)
-        {
-            InitializeClient(false);
-            _disable.Reset();
-            _reelController.Reset();
-            _reelController.Setup(x => x.LogicalState).Returns(state);
-            var disableKeys = new List<Guid>() { ApplicationConstants.MainDoorGuid };
-            _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
-            _disable.Setup(x => x.IsDisabled).Returns(true);
-
-            Assert.IsNotNull(_operatorMenuExitedAction);
-            await _operatorMenuExitedAction(new OperatorMenuExitedEvent(), CancellationToken.None);
-
-            _reelController.Verify(x => x.TiltReels(), callTiltReels ? Times.Exactly(1) : Times.Never());
-        }
-
-        [DataRow(ReelControllerState.Uninitialized, false)]
-        [DataRow(ReelControllerState.Inspecting, false)]
-        [DataRow(ReelControllerState.IdleUnknown, true)]
-        [DataRow(ReelControllerState.IdleAtStops, true)]
-        [DataRow(ReelControllerState.Homing, false)]
-        [DataRow(ReelControllerState.Spinning, false)]
-        [DataRow(ReelControllerState.Tilted, true)]
-        [DataRow(ReelControllerState.Disabled, false)]
-        [DataRow(ReelControllerState.Disconnected, false)]
-        [DataTestMethod]
-        public async Task HandleOperatorMenuExitedSystemDisabledLiveAuthenticationTest(ReelControllerState state, bool callTiltReels)
-        {
-            InitializeClient(false);
-            _disable.Reset();
-            _reelController.Reset();
-            _reelController.Setup(x => x.LogicalState).Returns(state);
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
-                .Returns(Task.FromResult<IList<int>>(new List<int>()));
-            var disableKeys = new List<Guid>() { ApplicationConstants.LiveAuthenticationDisableKey };
-            _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
-            _disable.Setup(x => x.IsDisabled).Returns(true);
-
-            Assert.IsNotNull(_operatorMenuExitedAction);
-            await _operatorMenuExitedAction(new OperatorMenuExitedEvent(), CancellationToken.None);
-
-            _reelController.Verify(x => x.TiltReels(), callTiltReels ? Times.Once() : Times.Never());
-        }
-
-        [TestMethod]
-        public async Task HandleOperatorMenuExitedSystemDisabledReelTiltTest()
-        {
-            InitializeClient(false);
-            _disable.Reset();
-            _reelController.Reset();
-
-            _reelController.Setup(x => x.GetReelLightIdentifiers())
-                .Returns(Task.FromResult<IList<int>>(new List<int>()));
-            var disableKeys = new List<Guid>() { new Guid("{AD46A871-616A-4034-9FB5-962F8DE15E79}") };
-            _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
-            _disable.Setup(x => x.IsDisabled).Returns(true);
-
-            Assert.IsNotNull(_operatorMenuExitedAction);
-            await _operatorMenuExitedAction(new OperatorMenuExitedEvent(), CancellationToken.None);
-
-            _reelController.Verify(x => x.TiltReels(), Times.Never());
         }
 
         [TestMethod]
