@@ -6,23 +6,22 @@
 
     public class CurrencyViewModel
     {
-#pragma warning disable CS3008 // Identifier is not CLS-compliant
-        protected readonly Currency _currency;
-#pragma warning restore CS3008 // Identifier is not CLS-compliant
+        protected readonly Currency Currency;
+
 
         public CurrencyViewModel(Currency currency)
         {
-            _currency = currency ?? throw new ArgumentNullException(nameof(currency));
+            Currency = currency ?? throw new ArgumentNullException(nameof(currency));
         }
 
-        public string IsoCode => _currency.IsoCode;
+        public string IsoCode => Currency.IsoCode;
 
-        public string Description => _currency.Description;
+        public string Description => Currency.Description;
 
         /// <summary>
         /// Currency display value
         /// </summary>
-        public virtual string DisplayText => _currency.DescriptionWithMinorSymbol;
+        public virtual string DisplayText => Currency.DescriptionWithMinorSymbol;
         
     }
 }

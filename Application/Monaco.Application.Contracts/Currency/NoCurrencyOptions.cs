@@ -8,55 +8,59 @@
     /// </summary>
     public static class NoCurrencyOptions
     {
+        private const string SeparatorComma = ",";
+        private const string SeparatorDot = ".";
+        private const string SeparatorSpace = " ";
+
         private static readonly NoCurrencyFormat[] NoCurrencyDefinitions = new NoCurrencyFormat[]
             {
                 // 1,000.00 0.10
                 new ()
                 {
                     Id = 1,
-                    GroupSeparator = ",",
-                    DecimalSeparator = ".",
+                    GroupSeparator = SeparatorComma,
+                    DecimalSeparator = SeparatorDot,
                 },
                 // 1,000 (no sub-unit)
                 new ()
                 {
                     Id = 2,
-                    GroupSeparator = ",",
+                    GroupSeparator = SeparatorComma,
                     DecimalSeparator = string.Empty,
                 },
                 // 1.000,00 0,10
                 new ()
                 {
                     Id = 3,
-                    GroupSeparator = ".",
-                    DecimalSeparator = ",",
+                    GroupSeparator = SeparatorDot,
+                    DecimalSeparator = SeparatorComma,
                 },
                 // 1.000 (no sub-unit)
                 new ()
                 {
                     Id = 4,
-                    GroupSeparator = ".",
+                    GroupSeparator = SeparatorDot,
                     DecimalSeparator = string.Empty
                 },
                 // 1 000.00 0.10
                 new ()
                 {
                     Id = 5,
-                    GroupSeparator = " ",
-                    DecimalSeparator = "."
+                    GroupSeparator = SeparatorSpace,
+                    DecimalSeparator = SeparatorDot
                 },
                 // 1 000,00 0,10
                 new ()
                 {
                     Id = 6,
-                    GroupSeparator = " ",
-                    DecimalSeparator = ","
+                    GroupSeparator = SeparatorSpace,
+                    DecimalSeparator = SeparatorComma
                 },
                 // 1 000 (no sub-unit)
                 new ()
                 {
                     Id = 7,
-                    GroupSeparator = " ",
+                    GroupSeparator = SeparatorSpace,
                     DecimalSeparator = string.Empty
                 },
                 // 1000.00 0,10
@@ -64,14 +68,14 @@
                 {
                     Id = 8,
                     GroupSeparator = string.Empty,
-                    DecimalSeparator = ","
+                    DecimalSeparator = SeparatorComma
                 },
                 // 1000.00 0.10
                 new ()
                 {
                     Id = 9,
                     GroupSeparator = string.Empty,
-                    DecimalSeparator = "."
+                    DecimalSeparator = SeparatorDot
                 },
                 // 1000 (no sub-unit)
                 new ()

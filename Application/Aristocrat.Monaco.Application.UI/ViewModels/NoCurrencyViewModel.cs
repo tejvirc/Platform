@@ -12,12 +12,12 @@
         
         private string GetNoCurrencyDisplayText()
         {
-            string decimalText = _currency.Culture.NumberFormat.CurrencyDecimalDigits > 0 ?
-                $"0{_currency.Culture.NumberFormat.CurrencyDecimalSeparator}10" :
+            string decimalText = Currency.Culture.NumberFormat.CurrencyDecimalDigits > 0 ?
+                $"0{Currency.Culture.NumberFormat.CurrencyDecimalSeparator}10" :
                 "(no sub-unit)";
 
             const decimal defaultDescriptionAmount = 1000.00M;
-            string amountText = defaultDescriptionAmount.ToString($"C{_currency.Culture.NumberFormat.CurrencyDecimalDigits}", _currency.Culture);
+            string amountText = defaultDescriptionAmount.ToString($"C{Currency.Culture.NumberFormat.CurrencyDecimalDigits}", Currency.Culture);
 
             string displayText = $"{NoCurrency.NoCurrencyName} {amountText} {decimalText}".Trim();
             return displayText;

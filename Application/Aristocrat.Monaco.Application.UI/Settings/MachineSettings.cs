@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Windows.Navigation;
-    using Application.Helpers;
+
     using Contracts.Extensions;
     using Contracts.Localization;
     using Contracts.Protocol;

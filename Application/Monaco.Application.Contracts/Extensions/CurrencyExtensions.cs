@@ -2,11 +2,14 @@
 {
     using System;
     using System.Globalization;
+
     using Common;
+    using Currency;
     using Localization;
-    using log4net;
     using Monaco.Localization.Properties;
-    using Aristocrat.Monaco.Application.Contracts.Currency;
+
+    using log4net;
+
 
     /// <summary>
     ///     CurrencyExtensions
@@ -400,13 +403,6 @@
                 region = new RegionInfo(CurrencyCultureInfo.Name);
             }
 
-            //CurrencySymbol = cultureInfo.NumberFormat.CurrencySymbol;
-
-            //Description = GetFormattedDescription(cultureInfo, currencyCode, region);
-            //DescriptionWithMinorSymbol = GetDescriptionWithMinorSymbol(Description, MinorUnitSymbol);
-
-            //Logger.Debug($"SetCultureInfo: {cultureInfo.Name} - {DescriptionWithMinorSymbol}");
-
             if (region != null)
             {
                 if (Currency == null)
@@ -470,19 +466,6 @@
                 $"{textualAmount.Replace(And, Space)} {Localizer.For(CultureFor.Player).GetString(CurrencyCultureInfo, ResourceKeys.And)} {minorUnits.NumberToWords(CurrencyCultureInfo)} {minorUnitsText}";
             return toUpper ? textualAmount.ToUpper(CurrencyCultureInfo) : textualAmount;
         }
-
-        ///// <summary>
-        ///// Gets the description with the minor unit symbol.
-        ///// </summary>
-        ///// <param name="description">The description.</param>
-        ///// <param name="minorUnitSymbol">The minor unit symbol.</param>
-        ///// <returns>The description with minor symbol.</returns>
-        //public static string GetDescriptionWithMinorSymbol(string description, string minorUnitSymbol)
-        //{
-        //    return string.IsNullOrEmpty(minorUnitSymbol)
-        //        ? $"{description}"
-        //        : $"{description} 10{minorUnitSymbol}";
-        //}
 
         /// <summary>
         /// Gets the formatted currency description for the specified region.

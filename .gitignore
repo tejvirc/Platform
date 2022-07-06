@@ -394,3 +394,4 @@ FodyWeavers.xsd
 # Nuke Build files
 .nuke/temp
 ./Kernel/Bootstrap/Bootstrap/Properties/launchSettings.json
+Kernel/Bootstrap/Bootstrap/Properties/launchSettings.json

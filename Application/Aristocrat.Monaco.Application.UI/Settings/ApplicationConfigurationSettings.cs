@@ -16,9 +16,6 @@
     using Kernel.Contracts;
     using MVVM;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Application.Helpers;
-    using Aristocrat.Monaco.Application.UI.ViewModels;
-    using Aristocrat.Monaco.Application.Localization;
 
     /// <summary>
     ///     Implements the <see cref="IConfigurationSettings"/> interface.

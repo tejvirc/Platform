@@ -117,7 +117,6 @@
                 }
 
                 if (currencyAdded ||
-                    //currencyCode == null ||
                     set.Any(c => c.IsoCode.Equals(currency.IsoCode, StringComparison.OrdinalIgnoreCase)) ||
                     !currencyChangeAllowed && currency.IsoCode != defaultCurrencyCode ||
                     currencyChangeAllowed && noteAcceptor != null && !(noteAcceptor.GetSupportedNotes(currencyInfo.Key).Count > 0))
