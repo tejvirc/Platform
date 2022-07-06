@@ -12,78 +12,30 @@
         private const string SeparatorDot = ".";
         private const string SeparatorSpace = " ";
 
+        private static int _id = 1;
+
         private static readonly NoCurrencyFormat[] NoCurrencyDefinitions = new NoCurrencyFormat[]
             {
                 // 1,000.00 0.10
-                new ()
-                {
-                    Id = 1,
-                    GroupSeparator = SeparatorComma,
-                    DecimalSeparator = SeparatorDot,
-                },
+                new (_id++, SeparatorComma, SeparatorDot),
                 // 1,000 (no sub-unit)
-                new ()
-                {
-                    Id = 2,
-                    GroupSeparator = SeparatorComma,
-                    DecimalSeparator = string.Empty,
-                },
+                new (_id++, SeparatorComma, string.Empty),
                 // 1.000,00 0,10
-                new ()
-                {
-                    Id = 3,
-                    GroupSeparator = SeparatorDot,
-                    DecimalSeparator = SeparatorComma,
-                },
+                new (_id++, SeparatorDot, SeparatorComma),
                 // 1.000 (no sub-unit)
-                new ()
-                {
-                    Id = 4,
-                    GroupSeparator = SeparatorDot,
-                    DecimalSeparator = string.Empty
-                },
+                new (_id++, SeparatorDot, string.Empty),
                 // 1 000.00 0.10
-                new ()
-                {
-                    Id = 5,
-                    GroupSeparator = SeparatorSpace,
-                    DecimalSeparator = SeparatorDot
-                },
+                new (_id++, SeparatorSpace, SeparatorDot),
                 // 1 000,00 0,10
-                new ()
-                {
-                    Id = 6,
-                    GroupSeparator = SeparatorSpace,
-                    DecimalSeparator = SeparatorComma
-                },
+                new (_id++, SeparatorSpace, SeparatorComma),
                 // 1 000 (no sub-unit)
-                new ()
-                {
-                    Id = 7,
-                    GroupSeparator = SeparatorSpace,
-                    DecimalSeparator = string.Empty
-                },
+                new (_id++, SeparatorSpace, string.Empty),
                 // 1000.00 0,10
-                new ()
-                {
-                    Id = 8,
-                    GroupSeparator = string.Empty,
-                    DecimalSeparator = SeparatorComma
-                },
+                new (_id++, string.Empty, SeparatorComma),
                 // 1000.00 0.10
-                new ()
-                {
-                    Id = 9,
-                    GroupSeparator = string.Empty,
-                    DecimalSeparator = SeparatorDot
-                },
+                new (_id++, string.Empty, SeparatorDot),
                 // 1000 (no sub-unit)
-                new ()
-                {
-                    Id = 10,
-                    GroupSeparator = string.Empty,
-                    DecimalSeparator = string.Empty
-                },
+                new (_id, string.Empty, string.Empty)
             };
 
         /// <summary>
