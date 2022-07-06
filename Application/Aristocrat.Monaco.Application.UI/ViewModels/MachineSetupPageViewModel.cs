@@ -24,8 +24,9 @@
 
         private INoteAcceptor _noteAcceptor;
         private bool _requireZeroCredit;
-        private Currency _selectedCurrency;
-        private List<Currency> _currencies;
+        private CurrencyViewModel _selectedCurrency;
+        private List<CurrencyViewModel> _currencies;
+
 
         public MachineSetupPageViewModel()
             : base(true)
@@ -56,7 +57,7 @@
             CurrencyChangeAllowed = configuration.Currency.Configurable;
         }
 
-        public List<Currency> Currencies
+        public List<CurrencyViewModel> Currencies
         {
             get => _currencies;
             set
@@ -66,7 +67,7 @@
             }
         }
 
-        public Currency SelectedCurrency
+        public CurrencyViewModel SelectedCurrency
         {
             get => _selectedCurrency;
             set
@@ -100,7 +101,7 @@
         {
             _noteAcceptor = _serviceManager.TryGetService<INoteAcceptor>();
 
-            _currencies = new List<Currency>();
+            _currencies = new List<CurrencyViewModel>();
             var currencyCode = PropertiesManager.GetValue(
                 ApplicationConstants.CurrencyId,
                 string.Empty);
@@ -111,12 +112,12 @@
 
             Logger.Info($"CultureInfo.CurrentCulture.Name {CultureInfo.CurrentCulture.Name} - currencyCode {currencyCode}");
 
-            _currencyDefaults = CurrencyCultureHelper.GetCurrencyDefaults();
+           
 
             var currencyDescription = (string)PropertiesManager.GetProperty(
                 ApplicationConstants.CurrencyDescription,
                 string.Empty);
-            _currencies.AddRange(CurrencyCultureHelper.GetSupportedCurrencies(currencyCode, _currencyDefaults, Logger, _noteAcceptor, CurrencyChangeAllowed).OrderBy(a => a.Description));
+            _currencies = GetSupportedCurrencies(currencyCode).ToList<CurrencyViewModel>();
 
             Currencies = _currencies;
 
@@ -126,7 +127,6 @@
             SelectedCurrency = currency;
         }
 
-        
 
         protected override void SaveChanges()
         {
@@ -164,6 +164,24 @@
             }
 
             base.LoadAutoConfiguration();
+        }
+
+        private IEnumerable<CurrencyViewModel> GetSupportedCurrencies(string currencyCode)
+        {
+            var currencies = CurrencyCultureHelper.GetSupportedCurrencies(
+                currencyCode,
+                _currencyDefaults,
+                Logger,
+                _noteAcceptor,
+                CurrencyChangeAllowed);
+
+            var orderedSet = currencies.OrderBy(a => a.Description).ToList();
+            var currencyVMs = orderedSet.Select(s => new CurrencyViewModel(s));
+
+            // Append No Currency options
+            currencyVMs = currencyVMs.Concat(CurrencyCultureHelper.GetNoCurrencies().Select(s => new NoCurrencyViewModel(s)));
+
+            return currencyVMs;
         }
     }
 }

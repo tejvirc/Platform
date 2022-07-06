@@ -105,7 +105,7 @@
             }
 
             // Currency name
-            AddLabeledLine(ResourceKeys.Currency, CurrencyExtensions.CurrencyName);
+            AddLabeledLine(ResourceKeys.Currency, CurrencyExtensions.Currency.CurrencyName);
 
             AddLine(null, null, null);
         }

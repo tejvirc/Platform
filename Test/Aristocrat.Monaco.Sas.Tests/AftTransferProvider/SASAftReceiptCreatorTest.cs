@@ -75,7 +75,9 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationPlayerTicketDateFormat, It.IsAny<string>())).Returns(TestDateFormat);
             _serviceManager.Setup(m => m.GetService<IPropertiesManager>()).Returns(_propertiesManager.Object);
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture, null, null, true, true, "c");
+
 
             _aftData = new AftData();
         }

@@ -70,7 +70,10 @@
             var factory = new Mock<ILocalizerFactory>();
             MoqServiceManager.Instance.Setup(m => m.GetService<ILocalizerFactory>()).Returns(factory.Object);
             factory.Setup(x => x.For(It.IsAny<string>())).Returns(new Mock<ILocalizer>().Object);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+
+            RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture, null, null, true, true, "c");
+
             _logger = new Mock<ILogger<VoucherValidator>>();
 
             _eventBus = new Mock<IEventBus>();

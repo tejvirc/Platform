@@ -230,6 +230,9 @@ namespace Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor
         /// <returns>Supported notes.</returns>
         Collection<int> GetSupportedNotes(string isoCode = null);
 
+        /// <summary>Supported ISO codes by BNA</summary>
+        List<ISOCurrencyCode> GetSupportedCurrencies();
+
         /// <summary>
         ///     Gets whether the note for the given denomination is disabled.
         /// </summary>

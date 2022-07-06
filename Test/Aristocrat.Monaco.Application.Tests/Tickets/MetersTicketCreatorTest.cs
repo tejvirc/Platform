@@ -7,6 +7,7 @@
     using System.Globalization;
     using System.Linq;
     using Application.Tickets;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
     using Aristocrat.Monaco.Hardware.Contracts.Printer;
     using Contracts;
     using Contracts.Extensions;
@@ -32,7 +33,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
 
         // Test target
-        MetersTicketCreator _target;
+        private MetersTicketCreator _target;
         private Mock<ITime> _time;
         private Mock<IPrinter> _printerMock;
 
@@ -59,7 +60,15 @@
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Strict);
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict);
             _time.Setup(t => t.GetLocationTime(It.IsAny<DateTime>())).Returns(DateTime.Now);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
 
             _printerMock = MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Strict);
             _printerMock.Setup(mock => mock.PaperState).Returns(PaperStates.Full);

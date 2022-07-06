@@ -7,6 +7,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.MeterPage;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Tickets;
@@ -39,7 +40,14 @@
             _target = new GameMetersTicketCreator();
 
             MockLocalization.Setup(MockBehavior.Strict);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
         }
 
         [TestCleanup]

@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Windows.Navigation;
+    using Application.Helpers;
     using Contracts.Extensions;
     using Contracts.Localization;
     using Contracts.Protocol;
@@ -11,6 +13,10 @@
     using MVVM.Model;
     using Newtonsoft.Json;
     using Contracts;
+    using Contracts.Currency;
+    using Kernel;
+    using Localization;
+    using ViewModels;
 
     /// <summary>
     ///     Application machine settings.
@@ -112,6 +118,29 @@
             get => _currencyDescription;
 
             set => SetProperty(ref _currencyDescription, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the currency display text.
+        /// </summary>
+        public string CurrencyDisplayText
+        {
+            get
+            {
+                string currencyDisplayText = CurrencyDescription;
+                
+                var localization =
+                    ServiceManager.GetInstance().GetService<ILocalization>();
+                var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
+                if (currencyProvider?.ConfiguredCurrency != null)
+                {
+                    currencyDisplayText = (currencyProvider.ConfiguredCurrency is NoCurrency noCurrency) ?
+                        new NoCurrencyViewModel(noCurrency).DisplayText :
+                        new CurrencyViewModel(currencyProvider.ConfiguredCurrency).DisplayText;
+                }
+
+                return currencyDisplayText;
+            }
         }
 
         /// <summary>

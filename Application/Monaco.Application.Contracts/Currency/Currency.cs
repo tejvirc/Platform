@@ -11,6 +11,11 @@
     public class Currency
     {
         /// <summary>
+        /// The default value of currency multiplier
+        /// </summary>
+        public static readonly long DefaultCurrencyMultiplier = 1M.DollarsToMillicents();
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="isoCurrencyCode">Currency code</param>
@@ -20,23 +25,61 @@
         public Currency(string isoCurrencyCode, RegionInfo region, CultureInfo culture, string minorUnitSymbol = null)
         {
             IsoCode = isoCurrencyCode;
-            Description = culture.GetFormattedDescription(region);
-            DescriptionWithMinorSymbol = CurrencyExtensions.GetDescriptionWithMinorSymbol(Description, minorUnitSymbol);
+            MinorUnitSymbol = minorUnitSymbol;
+            Description = culture.GetFormattedDescription(isoCurrencyCode, region);
+
+            Culture = culture;
         }
 
         /// <summary>
         /// Currency ISO code
         /// </summary>
-        public string IsoCode { get; }
+        public string IsoCode { get; protected set; }
 
         /// <summary>
         /// Description of currency
         /// </summary>
-        public string Description { get; }
+        public string Description { get; protected set; }
 
         /// <summary>
-        /// Description with minor symbol
+        /// The currency symbol
         /// </summary>
-        public string DescriptionWithMinorSymbol { get; }
+        public virtual string CurrencySymbol => Culture.NumberFormat.CurrencySymbol;
+
+        /// <summary>
+        /// Minor unit symbol
+        /// </summary>
+        public virtual string MinorUnitSymbol { get; }
+
+        /// <summary>
+        /// Culture used for the currency format
+        /// </summary>
+        public CultureInfo Culture { get; protected set; }
+
+        /// <summary>
+        /// The currency's english name
+        /// </summary>
+        public virtual string CurrencyName
+        {
+            get
+            {
+                RegionInfo region = new RegionInfo(Culture.Name);
+                var currencyNameArray = region.CurrencyEnglishName.Split(' ');
+                if (currencyNameArray.Length > 0)
+                {
+                    return currencyNameArray[currencyNameArray.Length - 1];
+                }
+
+                return IsoCode;
+            }
+        }
+
+        /// <summary>
+        ///     Gets Description with minor currency symbol of the current currency.
+        /// </summary>
+        public virtual string DescriptionWithMinorSymbol =>
+            string.IsNullOrEmpty(MinorUnitSymbol)
+                ? $"{Description}"
+                : $"{Description} 10{MinorUnitSymbol}";
     }
 }

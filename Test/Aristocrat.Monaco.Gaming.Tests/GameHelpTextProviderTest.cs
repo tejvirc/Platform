@@ -6,6 +6,7 @@
     using System.Linq;
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Aristocrat.Monaco.Gaming.Progressives;
@@ -30,7 +31,10 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Strict);
             MockLocalization.Setup(MockBehavior.Strict);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture);
+
+            RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, CultureInfo.CurrentCulture, "c");
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture);
 
             _runtime = new Mock<IRuntime>();
             _properties = new Mock<IPropertiesManager>(MockBehavior.Loose);

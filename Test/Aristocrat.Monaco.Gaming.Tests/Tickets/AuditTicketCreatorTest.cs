@@ -19,6 +19,7 @@
     using System.Linq;
     using Application.Contracts.Extensions;
     using Test.Common;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
 
     #endregion
 
@@ -44,7 +45,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
 
         // Test target
-        AuditTicketCreator _target;
+        private AuditTicketCreator _target;
         private Mock<ITime> _time;
         private Mock<IGamePlayState> _gameState;
         private Mock<IGameHistory> _gameHistory;
@@ -141,7 +142,11 @@
         [TestMethod]
         public void CreateAuditTicketTest()
         {
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            string minorUnitSymbol = "c";
+            RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, CultureInfo.CurrentCulture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture, null, null, true, true, minorUnitSymbol);
+
             // Mock properties
             string retailerName = "Test Retailer";
             string retailerId = "Test Retailer ID";

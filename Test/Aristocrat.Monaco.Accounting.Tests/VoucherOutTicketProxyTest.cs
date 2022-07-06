@@ -4,6 +4,7 @@
     using System.Globalization;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
     using Contracts;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
@@ -58,18 +59,25 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.CurrencyMultiplierKey, It.IsAny<object>()))
                 .Returns(CurrencyMultiplier);
             _time.Setup(mock => mock.GetLocationTime(_ticketTimestamp)).Returns(_ticketTimestamp);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
 
-            TicketCurrencyExtensions.PlayerTicketLocale = CultureInfo.CurrentCulture.Name;
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+
+            TicketCurrencyExtensions.PlayerTicketLocale = cultureName;
             TicketCurrencyExtensions.SetCultureInfo(
-                CultureInfo.CurrentCulture.Name,
-                CultureInfo.CurrentCulture,
-                CultureInfo.CurrentCulture,
+                cultureName,
+                new CultureInfo(cultureName),
+                new CultureInfo(cultureName),
                 null,
                 null,
                 true,
                 true,
-                "c"
+                minorUnitSymbol
             );
         }
 

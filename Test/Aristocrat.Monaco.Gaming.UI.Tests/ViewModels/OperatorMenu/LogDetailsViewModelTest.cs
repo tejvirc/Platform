@@ -13,6 +13,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.TiltLogger;
     using Application.UI.Models;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
     using Aristocrat.Monaco.Hardware.Contracts.Ticket;
     using Castle.Core.Internal;
     using Common;
@@ -90,7 +91,9 @@
             _levelProvider.Setup(p => p.GetProgressiveLevels())
                 .Returns(_levels);
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture);
+            RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, CultureInfo.CurrentCulture, "c");
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture);
         }
 
         [TestCleanup]

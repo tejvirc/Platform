@@ -2,9 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Accounting.Tickets;
     using Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Tickets;
     using Hardware.Contracts.IO;
@@ -116,6 +119,14 @@
             _printerMock.Setup(mock => mock.GetCharactersPerLine(false, 0)).Returns(36);
 
             _target = new BillEventLogTicketCreator();
+
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
         }
 
         /// <summary>

@@ -289,7 +289,6 @@
                             {
                                 if (!supportedNotes.Contains(denom))
                                 {
-                                    Logger.Info($"Added supported note {denom} for ISO {isoCode}");
                                     supportedNotes.Add(denom);
                                 }
                             }
@@ -301,6 +300,14 @@
             }
 
             return _supportedNotes;
+        }
+
+        /// <inheritdoc />
+        public List<ISOCurrencyCode> GetSupportedCurrencies()
+        {
+            var currencies = Implementation?.SupportedNotes?.Select(n => n.CurrencyCode).Distinct();
+
+            return currencies?.ToList();
         }
 
         /// <inheritdoc />

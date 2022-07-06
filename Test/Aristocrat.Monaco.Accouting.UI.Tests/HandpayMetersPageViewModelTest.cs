@@ -17,6 +17,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Tickets;
     using Application.UI.Events;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Aristocrat.Monaco.Hardware.Contracts.IO;
     using Aristocrat.Monaco.UI.Common.Events;
@@ -111,7 +112,13 @@
             var doors = new Mock<IDoorService>(MockBehavior.Default);
             MoqServiceManager.AddService<IDoorService>(doors.As<IService>().Object);
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
 
             MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Loose);
 

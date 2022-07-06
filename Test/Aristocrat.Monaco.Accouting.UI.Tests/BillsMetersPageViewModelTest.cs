@@ -15,6 +15,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Tickets;
     using Application.UI.Events;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Aristocrat.Monaco.Hardware.Contracts.IO;
@@ -94,17 +95,24 @@
             _meterManager.Setup(m => m.GetPeriodMetersClearanceDate(It.IsAny<string>())).Returns(clearDateTime);
             MoqServiceManager.Instance.Setup(m => m.GetService<IMeterManager>()).Returns(_meterManager.Object);
 
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
             _localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Default);
             _localizerFactory.Setup(m => m.For(It.IsAny<string>())).Returns<string>(
             name =>
             {
                 var localizer = new Mock<ILocalizer>();
-                localizer.Setup(m => m.CurrentCulture).Returns(new CultureInfo("en-US"));
+                localizer.Setup(m => m.CurrentCulture).Returns(culture);
                 localizer.Setup(m => m.GetString(It.IsAny<string>())).Returns<string>(s => s);
                 return localizer.Object;
             });
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            string minorUnitSymbol = "c";
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
 
             var monitor = MoqServiceManager.CreateAndAddService<IOperatorMenuGamePlayMonitor>(MockBehavior.Strict);
             monitor.Setup(m => m.InGameRound).Returns(false);

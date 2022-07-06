@@ -18,6 +18,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
 
     /// <summary>
     ///     Unit Tests for PeriodicResetTicketCreator
@@ -111,7 +112,16 @@
             _serviceManager = MoqServiceManager.CreateInstance(MockBehavior.Strict);
             MockLocalization.Setup(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+
             // Don't care about millisecond precision, makes time verifications easier
             // Mocked interfaces return UTC values
             var now = DateTime.UtcNow;

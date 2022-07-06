@@ -113,15 +113,27 @@
                         _ => "play"
                     });
 
+            // get the currency code
+            var currencyCode = _properties.GetValue(ApplicationConstants.CurrencyId, string.Empty);
+
+            string denom = denomination.Value.MillicentsToCents().ToString();
+            string activeDenoms = string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToCents()));
+
+            //if (CurrencyCultureHelper.IsNoCurrency(currencyCode))
+            //{
+            //    denom = denomination.Value.MillicentsToDollars().ToString();
+            //    activeDenoms = string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToDollars()));
+            //}
+
             var parameters = new Dictionary<string, string>
             {
                 { "/Runtime/Variation/SelectedID", currentGame.VariationId },
-                { "/Runtime/Denomination", denomination.Value.MillicentsToCents().ToString() },
-                { "/Runtime/ActiveDenominations", string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToCents())) },
+                { "/Runtime/Denomination", denom },
+                { "/Runtime/ActiveDenominations", activeDenoms },
                 { "/Runtime/Flags&RequireGameStartPermission", "true" },
                 { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us") },
-                { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencySymbol },
-                { "/Runtime/Localization/Currency&minorSymbol", CurrencyExtensions.MinorUnitSymbol },
+                { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.Currency.CurrencySymbol },
+                { "/Runtime/Localization/Currency&minorSymbol", CurrencyExtensions.Currency.MinorUnitSymbol },
                 { "/Runtime/Localization/Currency&positivePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyPositivePattern.ToString() },
                 { "/Runtime/Localization/Currency&negativePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyNegativePattern.ToString() },
                 { "/Runtime/Localization/Currency&decimalDigits", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits.ToString() },

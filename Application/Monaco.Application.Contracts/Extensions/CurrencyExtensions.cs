@@ -6,6 +6,7 @@
     using Localization;
     using log4net;
     using Monaco.Localization.Properties;
+    using Aristocrat.Monaco.Application.Contracts.Currency;
 
     /// <summary>
     ///     CurrencyExtensions
@@ -25,34 +26,44 @@
         private static string _minorUnitsPlural;
 
         /// <summary>
-        ///     Gets currency symbol.
+        /// The default amount used to generate currency description
         /// </summary>
-        public static string CurrencySymbol { get; private set; } = string.Empty;
+        public const decimal DefaultDescriptionAmount = 1000.00M;
+
+        ///// <summary>
+        /////     Gets currency symbol.
+        ///// </summary>
+        //public static string CurrencySymbol { get; private set; } = string.Empty;
+
+        ///// <summary>
+        /////     Gets currency minor symbol.
+        ///// </summary>
+        //public static string MinorUnitSymbol { get; private set; } = string.Empty;
+
+        ///// <summary>
+        /////     Gets currency symbol.
+        ///// </summary>
+        //public static string CurrencyName { get; private set; } = string.Empty;
 
         /// <summary>
-        ///     Gets currency minor symbol.
+        /// The configured currency
         /// </summary>
-        public static string MinorUnitSymbol { get; private set; } = string.Empty;
-
-        /// <summary>
-        ///     Gets currency symbol.
-        /// </summary>
-        public static string CurrencyName { get; private set; } = string.Empty;
+        public static Currency Currency { get; set; }
 
         /// <summary>
         ///     Gets the currency minor Units per major.
         /// </summary>
         public static decimal CurrencyMinorUnitsPerMajorUnit { get; private set; } = 100M;
 
-        /// <summary>
-        ///     Gets Description of the current currency.
-        /// </summary>
-        public static string Description { get; private set; } = string.Empty;
+        ///// <summary>
+        /////     Gets Description of the current currency.
+        ///// </summary>
+        //public static string Description { get; private set; } = string.Empty;
 
-        /// <summary>
-        ///     Gets Description with minor currency symbol of the current currency.
-        /// </summary>
-        public static string DescriptionWithMinorSymbol { get; private set; } = string.Empty;
+        ///// <summary>
+        /////     Gets Description with minor currency symbol of the current currency.
+        ///// </summary>
+        //public static string DescriptionWithMinorSymbol { get; private set; } = string.Empty;
 
         /// <summary>
         ///     Gets the currency culture info.
@@ -338,14 +349,28 @@
         /// <returns>Formatted denom string.</returns>
         public static string FormattedDenomString(this long amount)
         {
+            // check if the currency has symbols
+            bool isNoCurrency = string.IsNullOrEmpty(CurrencyCultureInfo.NumberFormat.CurrencySymbol) &&
+                                string.IsNullOrEmpty(Currency.MinorUnitSymbol);
+            if (isNoCurrency)
+            {
+                // for No Currency with subunits, we will show two digits in subunits
+                // eg. No Currency 1,000.00 10c, we display denoms as 0.01, 0.02, 0.05, 0.10, 1, 2, 5, etc
+                //     No Currency 1,000, we display denoms as 1, 2, 5, 10, 100, 200, 500, etc
+                return amount.CentsToDollars().ToString(
+                    $"C{CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits}",
+                    CurrencyCultureInfo);
+            }
+
             return amount >= CurrencyMinorUnitsPerMajorUnit
                 ? amount.CentsToDollars().ToString("C0", CurrencyCultureInfo)
-                : $"{amount}{MinorUnitSymbol}";
+                : $"{amount}{Currency.MinorUnitSymbol}";
         }
 
         /// <summary>
         ///     Set culture information for the currency string.
         /// </summary>
+        /// <param name="currencyCode">currency code</param>
         /// <param name="cultureInfo">CultureInfo.</param>
         /// <param name="minorUnits">Minor currency units.</param>
         /// <param name="minorUnitsPlural">Minor currency units plural form.</param>
@@ -354,6 +379,7 @@
         /// <param name="minorUnitSymbol">Minor Unit Symbol</param>
         /// <returns>Dollars to millicents conversion</returns>
         public static long SetCultureInfo(
+            string currencyCode,
             CultureInfo cultureInfo,
             string minorUnits = null,
             string minorUnitsPlural = null,
@@ -367,38 +393,45 @@
                     cultureInfo.NumberFormat.NativeDigits.Length,
                     cultureInfo.NumberFormat.CurrencyDecimalDigits));
 
-            var region = new RegionInfo(CurrencyCultureInfo.Name);
+            RegionInfo region = null;
 
-            CurrencySymbol = cultureInfo.NumberFormat.CurrencySymbol;
-            MinorUnitSymbol = minorUnitSymbol ?? string.Empty;
-            Description = GetFormattedDescription(cultureInfo, region);
-            DescriptionWithMinorSymbol = GetDescriptionWithMinorSymbol(Description, MinorUnitSymbol);
-
-            Logger.Debug($"SetCultureInfo: {cultureInfo.Name} - {DescriptionWithMinorSymbol}");
-
-            var currencyNameArray = region.CurrencyEnglishName.Split(' ');
-            if (currencyNameArray.Length > 0)
+            if (!string.IsNullOrEmpty(CurrencyCultureInfo.Name))
             {
-                CurrencyName = currencyNameArray[currencyNameArray.Length - 1];
+                region = new RegionInfo(CurrencyCultureInfo.Name);
+            }
+
+            //CurrencySymbol = cultureInfo.NumberFormat.CurrencySymbol;
+
+            //Description = GetFormattedDescription(cultureInfo, currencyCode, region);
+            //DescriptionWithMinorSymbol = GetDescriptionWithMinorSymbol(Description, MinorUnitSymbol);
+
+            //Logger.Debug($"SetCultureInfo: {cultureInfo.Name} - {DescriptionWithMinorSymbol}");
+
+            if (region != null)
+            {
+                if (Currency == null)
+                {
+                    throw new ArgumentException("Currency is not configured");
+                }
                 _majorUnitsPlural = pluralizeMajorUnits
-                    ? CurrencyName.PluralizeWord()
-                    : CurrencyName;
-            }
+                    ? Currency.CurrencyName.PluralizeWord()
+                    : Currency.CurrencyName;
 
-            if (!string.IsNullOrEmpty(minorUnits))
-            {
-                _minorUnits = minorUnits;
-            }
+                if (!string.IsNullOrEmpty(minorUnits))
+                {
+                    _minorUnits = minorUnits;
+                }
 
-            if (!string.IsNullOrEmpty(minorUnitsPlural))
-            {
-                _minorUnitsPlural = minorUnitsPlural;
-            }
-            else
-            {
-                _minorUnitsPlural = pluralizeMinorUnits
-                    ? _minorUnits.PluralizeWord()
-                    : _minorUnits;
+                if (!string.IsNullOrEmpty(minorUnitsPlural))
+                {
+                    _minorUnitsPlural = minorUnitsPlural;
+                }
+                else
+                {
+                    _minorUnitsPlural = pluralizeMinorUnits
+                        ? _minorUnits.PluralizeWord()
+                        : _minorUnits;
+                }
             }
 
             return 1M.DollarsToMillicents();
@@ -424,7 +457,7 @@
             var majorUnits = (long)amount;
             var minorUnits = (int)((amount - majorUnits) * 100);
             var textualAmount = majorUnits == 1
-                ? $"{majorUnits.NumberToWords(CurrencyCultureInfo)} {CurrencyName}"
+                ? $"{majorUnits.NumberToWords(CurrencyCultureInfo)} {Currency.CurrencyName}"
                 : $"{majorUnits.NumberToWords(CurrencyCultureInfo)} {_majorUnitsPlural}";
 
             if (CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits == 0)
@@ -438,33 +471,52 @@
             return toUpper ? textualAmount.ToUpper(CurrencyCultureInfo) : textualAmount;
         }
 
-        /// <summary>
-        /// Gets the description with the minor unit symbol.
-        /// </summary>
-        /// <param name="description">The description.</param>
-        /// <param name="minorUnitSymbol">The minor unit symbol.</param>
-        /// <returns>The description with minor symbol.</returns>
-        public static string GetDescriptionWithMinorSymbol(string description, string minorUnitSymbol)
-        {
-            return string.IsNullOrEmpty(minorUnitSymbol)
-                ? $"{description}"
-                : $"{description} 10{minorUnitSymbol}";
-        }
+        ///// <summary>
+        ///// Gets the description with the minor unit symbol.
+        ///// </summary>
+        ///// <param name="description">The description.</param>
+        ///// <param name="minorUnitSymbol">The minor unit symbol.</param>
+        ///// <returns>The description with minor symbol.</returns>
+        //public static string GetDescriptionWithMinorSymbol(string description, string minorUnitSymbol)
+        //{
+        //    return string.IsNullOrEmpty(minorUnitSymbol)
+        //        ? $"{description}"
+        //        : $"{description} 10{minorUnitSymbol}";
+        //}
 
         /// <summary>
         /// Gets the formatted currency description for the specified region.
         /// </summary>
         /// <param name="culture">The culture.</param>
+        /// <param name="isoCurrencyCode">currency code</param>
         /// <param name="region">The region.</param>
         /// <returns>The formatted description, which includes the currency's English name, ISO symbol, and formatted currency value.</returns>
-        public static string GetFormattedDescription(this CultureInfo culture, RegionInfo region = null)
+        public static string GetFormattedDescription(this CultureInfo culture, string isoCurrencyCode, RegionInfo region = null)
         {
-            const decimal defaultDescriptionAmount = 1000.00M;
-
-            region ??= new RegionInfo(culture.Name);
+            region ??= !string.IsNullOrEmpty(culture.Name) ? new RegionInfo(culture.Name) : null;
 
             return
-                $"{region.CurrencyEnglishName} {region.ISOCurrencySymbol} {FormattedCurrencyString(defaultDescriptionAmount, false, culture)}";
+                $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyString(DefaultDescriptionAmount, false, culture)}".Trim();
+        }
+
+        /// <summary>
+        /// Apply no currency format on the culture
+        /// </summary>
+        /// <param name="currencyCulture"></param>
+        /// <param name="format"></param>
+        public static void ApplyNoCurrencyFormat(this CultureInfo currencyCulture, NoCurrencyFormat format)
+        {
+            currencyCulture.NumberFormat.CurrencySymbol = string.Empty;
+            currencyCulture.NumberFormat.CurrencyGroupSeparator = format.GroupSeparator;
+            if (!string.IsNullOrEmpty(format.DecimalSeparator))
+            {
+                currencyCulture.NumberFormat.CurrencyDecimalSeparator = format.DecimalSeparator;
+                currencyCulture.NumberFormat.CurrencyDecimalDigits = 2;
+            }
+            else
+            {
+                currencyCulture.NumberFormat.CurrencyDecimalDigits = 0;
+            }
         }
     }
 }

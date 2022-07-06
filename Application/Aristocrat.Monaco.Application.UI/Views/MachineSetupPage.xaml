@@ -41,7 +41,7 @@
         <ComboBox Grid.Column="0" Grid.Row="1" MinWidth="300" Width="Auto"
                   HorizontalAlignment="Left"
                   ItemsSource="{Binding Currencies}" 
-                  DisplayMemberPath="DescriptionWithMinorSymbol"
+                  DisplayMemberPath="DisplayText"
                   SelectedItem="{Binding SelectedCurrency}"
                   IsEnabled="{Binding CurrencyChangeAllowed}"/>
         <Label Grid.Column="0" Grid.Row="2" Margin="0 20 0 0"

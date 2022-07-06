@@ -144,7 +144,7 @@
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc {x:Static loc:ResourceKeys.Currency}}" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding CurrencyDescription}" />
+                               Text="{Binding CurrencyDisplayText}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
