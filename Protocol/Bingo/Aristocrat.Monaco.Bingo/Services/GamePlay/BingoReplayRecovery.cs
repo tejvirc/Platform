@@ -27,7 +27,7 @@
     public class BingoReplayRecovery : IBingoReplayRecovery, IDisposable
     {
         private static readonly Guid RecoveryGameEndWinMessageKey = new("{13fc85f5-8146-4049-8589-83ff711607a0}");
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
         private readonly ICentralProvider _centralProvider;
@@ -65,7 +65,9 @@
 
         public Task RecoverDisplay(CancellationToken token)
         {
-            RecoverBingoDisplay(GetLastTransaction(), false, true);
+            var isDaubed = _unitOfWork.Invoke(x => x.Repository<BingoDaubsModel>().Queryable().SingleOrDefault())
+                ?.CardIsDaubed ?? true;
+            RecoverBingoDisplay(GetLastTransaction(), false, isDaubed, true);
             return Task.CompletedTask;
         }
 
@@ -77,7 +79,7 @@
         public Task Replay(IGameHistoryLog log, bool finalizeReplay, CancellationToken token)
         {
             var transaction = _centralProvider.Transactions.FirstOrDefault(x => x.AssociatedTransactions.Contains(log.TransactionId));
-            RecoverBingoDisplay(transaction, !finalizeReplay, false);
+            RecoverBingoDisplay(transaction, !finalizeReplay,  true, false);
             return Task.CompletedTask;
         }
 
@@ -118,6 +120,7 @@
         private void RecoverBingoDisplay(
             CentralTransaction transaction,
             bool initialBallCall,
+            bool showDaubs,
             bool isRecovery)
         {
             if (transaction?.Descriptions?.FirstOrDefault() is not BingoGameDescription bingoGame)
@@ -131,13 +134,17 @@
                 _bus.Publish(new BingoGameNewCardEvent(card));
             }
 
+            var cardDaubs = showDaubs ? bingoGame.Cards.First().DaubedBits : 0;
             var bingoNumbers = (initialBallCall ? bingoGame.GetJoiningBalls() : bingoGame.BallCallNumbers).ToList();
             Logger.Debug($"Recovering the ball call: {string.Join(", ", bingoNumbers)}");
-            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), bingoGame.Cards.First().DaubedBits, isRecovery));
+            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), cardDaubs, isRecovery));
 
-            var bingoPatterns = bingoGame.Patterns.ToList();
-            Logger.Debug($"Recovering the bingo patterns: {string.Join(Environment.NewLine, bingoPatterns)}");
-            _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded));
+            if (showDaubs)
+            {
+                var bingoPatterns = bingoGame.Patterns.ToList();
+                Logger.Debug($"Recovering the bingo patterns: {string.Join(Environment.NewLine, bingoPatterns)}");
+                _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded));
+            }
 
             // Recover GEW message, if any
             if (isRecovery)

@@ -31,7 +31,7 @@
 
     public class CentralHandler : ICentralHandler, IBingoGameOutcomeHandler, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0);
 
         private static readonly IReadOnlyCollection<Guid> AllowedGameDisables = new[]
@@ -57,6 +57,8 @@
         private bool _disposed;
         private Task _currentGamePlayTask;
         private TaskCompletionSource<bool> _waitingForPlayersTask;
+        private long _lastDenom;
+        private BetDetails _lastBetDetail;
 
         public CentralHandler(
             IEventBus eventBus,
@@ -231,6 +233,14 @@
             0,
             0,
             string.Empty);
+
+        private static bool ShouldHandleWatTransferCompleted(WatTransferCommittedEvent evt)
+        {
+            var transferredAmount = evt.Transaction.TransferredCashableAmount +
+                                    evt.Transaction.TransferredNonCashAmount +
+                                    evt.Transaction.TransferredPromoAmount;
+            return transferredAmount > 0;
+        }
 
         private async Task HandleBingoOutcomes(GameOutcome outcome, CancellationToken token)
         {
@@ -409,6 +419,7 @@
                 if (CheckForOutcomeResponseFailure(centralTransaction, OutcomeException.TimedOut))
                 {
                     _eventBus.Publish(new NoPlayersFoundEvent());
+                    _waitingForPlayersTask.TrySetResult(false);
                 }
             }
             finally
@@ -421,29 +432,50 @@
         {
             // Events for ending the bingo game round, and GEW eligibility
             _eventBus.Subscribe<OutcomeFailedEvent>(this, _ => EndCurrentGame());
-            _eventBus.Subscribe<SystemDisableAddedEvent>(
-                this,
-                _ => EndCurrentGame(),
-                _ => _systemDisable.CurrentImmediateDisableKeys.Except(AllowedGameDisables).Any());
-            _eventBus.Subscribe<CashOutStartedEvent>(
-                this,
-                _ => EndCurrentGame(),
-                evt => evt.ZeroRemaining);
+            _eventBus.Subscribe<SystemDisableAddedEvent>(this, HandleSystemDisabledAddedEvent);
+            _eventBus.Subscribe<CashOutStartedEvent>(this, _ => EndCurrentGame(), evt => evt.ZeroRemaining);
             _eventBus.Subscribe<WatTransferCommittedEvent>(
                 this,
-                _ => EndCurrentGame(),
-                evt =>
-                {
-                    var transferredAmount = evt.Transaction.TransferredCashableAmount +
-                                            evt.Transaction.TransferredNonCashAmount +
-                                            evt.Transaction.TransferredPromoAmount;
-                    return transferredAmount > 0 && _bank.Credits == 0;
-                });
+                HandleWatTransferCompleted,
+                ShouldHandleWatTransferCompleted);
             _eventBus.Subscribe<PropertyChangedEvent>(
                 this,
-                _ => EndCurrentGame(),
-                evt => evt.PropertyName == GamingConstants.SelectedDenom);
+                HandleGamePropertiesChanged,
+                evt => evt.PropertyName is GamingConstants.SelectedDenom or GamingConstants.SelectedBetDetails);
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, _ => EndCurrentGame());
+        }
+
+        private void HandleSystemDisabledAddedEvent(SystemDisableAddedEvent evt)
+        {
+            if (!_systemDisable.CurrentImmediateDisableKeys.Except(AllowedGameDisables).Any())
+            {
+                return;
+            }
+
+            EndCurrentGame();
+        }
+
+        private void HandleWatTransferCompleted(WatTransferCommittedEvent evt)
+        {
+            if (_bank.Credits != 0)
+            {
+                return;
+            }
+
+            EndCurrentGame();
+        }
+
+        private void HandleGamePropertiesChanged(PropertyChangedEvent evt)
+        {
+            EndCurrentGame();
+            if (_lastDenom == 0 || _lastBetDetail is null)
+            {
+                _lastDenom = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
+                _lastBetDetail = _properties.GetValue<BetDetails>(GamingConstants.SelectedBetDetails, null);
+                return;
+            }
+
+            _eventBus.Publish(new ClearBingoDaubsEvent());
         }
 
         private bool CheckForOutcomeResponseFailure(
