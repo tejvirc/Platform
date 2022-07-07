@@ -21,6 +21,7 @@
         {
             StorageIndex = index;
         }
+        
         /// <summary>
         ///     Gets or sets the recovery BLOB.
         /// </summary>
