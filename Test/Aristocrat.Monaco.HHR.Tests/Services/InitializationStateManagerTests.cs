@@ -277,12 +277,12 @@
 
             if (playerIdRequestFails)
             {
-                _playerSessionService.Setup(x => x.GetCurrentPlayerId())
+                _playerSessionService.Setup(x => x.GetCurrentPlayerId(It.IsAny<int>()))
                     .Throws(new UnexpectedResponseException(new Response()));
             }
             else
             {
-                _playerSessionService.Setup(x => x.GetCurrentPlayerId()).Returns(Task.FromResult("xyz")).Verifiable();
+                _playerSessionService.Setup(x => x.GetCurrentPlayerId(It.IsAny<int>())).Returns(Task.FromResult("xyz")).Verifiable();
             }
 
             if (progressiveInfoFails)

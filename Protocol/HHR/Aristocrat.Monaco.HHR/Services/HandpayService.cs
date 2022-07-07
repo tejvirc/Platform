@@ -91,7 +91,10 @@
         /// </returns>
         private void HandleHandpayCompleted(HandpayCompletedEvent handpayEvent)
         {
-            LargeWinCheck(handpayEvent.Transaction.TraceId, 0);
+            if (_gamePlayState.InGameRound)
+            {
+                LargeWinCheck(handpayEvent.Transaction.TraceId, 0);
+            }
         }
 
         /// <summary>

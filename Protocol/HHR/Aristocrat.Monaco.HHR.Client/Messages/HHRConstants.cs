@@ -58,6 +58,12 @@
         /// <summary>Timeout after which protocol initialization attempt will be made.</summary>
         public static double ReInitializationTimeInMilliseconds = 5000.0;
 
+        /// <summary>The default timeout we use when trying to get a new Player ID.</summary>
+        public const int PlayerIdFetchTimeoutMilliseconds = 5000;
+
+        /// <summary>The timeout at startup we use when trying to get a new Player ID.</summary>
+        public const int StartupPlayerIdFetchTimeoutMilliseconds = 45000;
+
         /// <summary> The default server TCP IP address.</summary>
         public static string DefaultServerTcpIp => "10.0.3.108";
 

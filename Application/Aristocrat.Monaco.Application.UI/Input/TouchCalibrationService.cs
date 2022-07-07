@@ -17,16 +17,17 @@
     public sealed class TouchCalibrationService : ITouchCalibration, IService
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IEventBus _eventBus;
         private readonly ICabinetDetectionService _cabinetDetection;
-        private readonly List<TouchCalibrationWindow> _calibrationWindows = new List<TouchCalibrationWindow>();
+        private readonly List<TouchCalibrationWindow> _calibrationWindows = new();
+
         private TouchCalibrationWindow _activeWindow;
         private TouchCalibrationOverlayWindow _overlay;
 
-        public TouchCalibrationService()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
+        public TouchCalibrationService() : this(
+            ServiceManager.GetInstance().GetService<IEventBus>(),
+            ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
         {
         }
 

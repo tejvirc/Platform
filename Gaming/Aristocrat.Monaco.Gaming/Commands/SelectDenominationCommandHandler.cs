@@ -45,12 +45,6 @@
 
             var selectedDenom = command.Denomination.CentsToMillicents();
 
-            if (currentDenom.Id == selectedDenom)
-            {
-                Logger.Debug($"In-game denom selection ignored.  The active denom is {currentDenom.Id}");
-                return;
-            }
-
             // While the theme will be the same the underlying Id may change based on the denomination
             var selectedGame = _gameProvider.GetEnabledGames().FirstOrDefault(
                 g => g.ThemeId == currentGame.ThemeId && g.ActiveDenominations.Contains(selectedDenom));
@@ -61,8 +55,17 @@
                 return;
             }
 
-            var betOption = selectedGame.Denominations.First(d => d.Value == selectedDenom).BetOption;
+            // Even if we haven't technically "changed" denomination, we still need to publish this
+            // event so we can report coming out of the "game selection screen".
             _eventBus.Publish(new DenominationSelectedEvent(selectedGame.Id, selectedDenom));
+
+            if (currentDenom.Id == selectedDenom)
+            {
+                Logger.Debug($"In-game denom selection ignored.  The active denom is {currentDenom.Id}");
+                return;
+            }
+
+            var betOption = selectedGame.Denominations.First(d => d.Value == selectedDenom).BetOption;
 
             _gameService.ReInitialize(
                 new GameInitRequest

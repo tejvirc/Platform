@@ -81,7 +81,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<string> GetCurrentPlayerId()
+        public async Task<string> GetCurrentPlayerId(int timeoutMs = HhrConstants.PlayerIdFetchTimeoutMilliseconds)
         {
             // Indicate that we're already getting an ID, in case some other thread tries to get one at the same time.
             await _messageLock.WaitAsync();
@@ -90,7 +90,7 @@
             {
                 if (string.IsNullOrEmpty(_currentPlayerId))
                 {
-                    await GetNewPlayerId();
+                    await GetNewPlayerId(timeoutMs);
                     if (string.IsNullOrEmpty(_currentPlayerId))
                     {
                         Logger.Error($"PlayerId Empty");
@@ -171,7 +171,7 @@
             _timerLock.Release();
         }
 
-        private async Task GetNewPlayerId()
+        private async Task GetNewPlayerId(int timeoutMs)
         {
             // Protect against any event trying to fire this after we are disposed. Our timer code should already protect us.
             if (_disposed)
@@ -180,7 +180,7 @@
             }
 
             // Set up a request for a new player ID. We do not retry, unless the server responds telling us to do so.
-            var request = new PlayerIdRequest();
+            var request = new PlayerIdRequest() { TimeoutInMilliseconds = timeoutMs };
 
             try
             {

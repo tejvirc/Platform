@@ -329,7 +329,9 @@
 
             try
             {
-                _ = await _playerSessionService.GetCurrentPlayerId();
+                // In the field after a server restart we see very long delays here, so we give an
+                // extra long timeout to avoid getting stuck on this repeatedly.
+                _ = await _playerSessionService.GetCurrentPlayerId(HhrConstants.StartupPlayerIdFetchTimeoutMilliseconds);
             }
             catch (Exception)
             {
