@@ -10,6 +10,7 @@
     using Gaming.Contracts;
     using Gaming.Contracts.Events;
     using Kernel;
+    using Models;
     using MVVM.Model;
     using Protocol.Common.Storage.Entity;
 
@@ -43,18 +44,21 @@
         private double _height;
         private double _width;
         private IWebBrowser _webBrowser;
+        private BingoWindow _targetWindow;
 
         public BingoHelpOverlayViewModel(
             IDispatcher dispatcher,
             IEventBus eventBus,
             IPropertiesManager propertiesManager,
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
-            IUnitOfWorkFactory unitOfWorkFactory)
+            IUnitOfWorkFactory unitOfWorkFactory,
+            BingoWindow targetWindow)
         {
             _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _bingoConfigurationProvider = bingoConfigurationProvider ?? throw new ArgumentNullException(nameof(bingoConfigurationProvider));
+            _targetWindow = targetWindow;
             _unitOfWorkFactory = unitOfWorkFactory;
             _colorBrush = _transparentBrush;
 
@@ -148,19 +152,21 @@
 
         private void UpdateAppearance(BingoDisplayConfigurationHelpAppearance appearance)
         {
+            Window window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             _dispatcher.ExecuteOnUIThread(
                 () =>
                 {
                     _helpAppearance = appearance;
 
                     HelpBoxMargin = new Thickness(
-                        (_helpAppearance.HelpBox.Left > MinHelpBoxMarginLeft ? MinHelpBoxMarginLeft : _helpAppearance.HelpBox.Left) * Width,
-                        (_helpAppearance.HelpBox.Top > MinHelpBoxMarginTop ? MinHelpBoxMarginTop : _helpAppearance.HelpBox.Top) * Height,
-                        (_helpAppearance.HelpBox.Right > MinHelpBoxMarginRight ? MinHelpBoxMarginRight : _helpAppearance.HelpBox.Right) * Width,
-                        (_helpAppearance.HelpBox.Bottom > MinHelpBoxMarginBottom ? MinHelpBoxMarginBottom : _helpAppearance.HelpBox.Bottom) * Height);
+                        (_helpAppearance.HelpBox.Left) * window.Width,
+                        (_helpAppearance.HelpBox.Top) * window.Height,
+                        (_helpAppearance.HelpBox.Right) * window.Width,
+                        (_helpAppearance.HelpBox.Bottom) * window.Height);
 
                     Address = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
                 });
+            
         }
 
         private void HandleEvent(HostConnectedEvent evt)
