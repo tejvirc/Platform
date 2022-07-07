@@ -223,6 +223,12 @@
         public int IntervalLobby { get; set; } = 10000;
 
         /// <summary>
+        ///     (ms) how long between any lobby action is possible
+        /// </summary>
+        [XmlElement]
+        public int IntervalForceGameExit { get; set; } = 600000;
+
+        /// <summary>
         ///     (ms) interval between a game loaded or reloaded
         /// </summary>
         [XmlElement]
@@ -232,7 +238,7 @@
         ///     (ms) interval between Audit Menu loads
         /// </summary>
         [XmlElement]
-        public int IntervalLoadAuditMenu { get; set; }
+        public int IntervalLoadAuditMenu { get; set; } = 600000;
 
         /// <summary>
         ///     (ms) interval between lockups
@@ -250,7 +256,7 @@
         ///     (ms) interval between soft reboots
         /// </summary>
         [XmlElement]
-        public int IntervalSoftReboot { get; set; }
+        public int IntervalSoftReboot { get; set; } = 700000;
 
         /// <summary>
         ///     (ms) interval the RG time elapsed will be set on
@@ -287,7 +293,7 @@
         ///     (ms) interval for how often to reboot the machine
         /// </summary>
         [XmlElement]
-        public int IntervalRebootMachine { get; set; }
+        public int IntervalRebootMachine { get; set; } = 80000;
 
         /// <summary>
         ///     which session will be set for RG
@@ -296,7 +302,7 @@
         public int RgSessionCountOverride { get; set; } = 1;
 
         [XmlElement]
-        public int IntervalServiceRequest { get; set; }
+        public int IntervalServiceRequest { get; set; } = 60000;
 
         [XmlElement]
         public int IntervalValidation { get; set; } = 10000;
@@ -640,6 +646,12 @@
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
             CurrentGameProfile = new GameProfile();
             CurrentGame = "";
+        }
+
+        internal void SetCurrentActiveGame(string currentGame)
+        {
+            CurrentGame = currentGame;
+            CurrentGameProfile = GameProfiles.FirstOrDefault(g => g.GameName == currentGame) ?? new GameProfile();
         }
     }
 }
