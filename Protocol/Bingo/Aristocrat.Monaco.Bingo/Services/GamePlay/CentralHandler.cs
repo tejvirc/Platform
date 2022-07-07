@@ -468,14 +468,25 @@
         private void HandleGamePropertiesChanged(PropertyChangedEvent evt)
         {
             EndCurrentGame();
-            if (_lastDenom == 0 || _lastBetDetail is null)
+            var selectedDenom = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
+            var selectedBet = _properties.GetValue<BetDetails>(GamingConstants.SelectedBetDetails, null);
+            var shouldClearDaubs = ShouldClearDaubs(selectedDenom, selectedBet);
+            _lastDenom = selectedDenom;
+            _lastBetDetail = selectedBet;
+            if (!shouldClearDaubs)
             {
-                _lastDenom = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
-                _lastBetDetail = _properties.GetValue<BetDetails>(GamingConstants.SelectedBetDetails, null);
                 return;
             }
 
             _eventBus.Publish(new ClearBingoDaubsEvent());
+        }
+
+        private bool ShouldClearDaubs(long selectedDenom, BetDetails selectedBet)
+        {
+            return _lastDenom != 0 &&
+                   _lastBetDetail is not null &&
+                   selectedDenom != _lastDenom &&
+                   !Equals(selectedBet, _lastBetDetail);
         }
 
         private bool CheckForOutcomeResponseFailure(

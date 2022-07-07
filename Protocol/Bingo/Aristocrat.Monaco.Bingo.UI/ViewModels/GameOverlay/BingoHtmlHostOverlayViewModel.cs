@@ -433,6 +433,7 @@
             }
 
             _bingoPatterns = new List<BingoPattern>();
+            _cyclingPatterns = new List<BingoPattern>();
             _bingoCardNumbers = _bingoCardNumbers.Select(
                 x => new BingoCardNumber(x.Position, x.Value, BingoCardNumber.DaubState.NoDaub)).ToList();
             await UpdateOverlay(
