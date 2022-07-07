@@ -35,6 +35,22 @@ namespace Aristocrat.PackageManifest.Extension.v100
 
         private long maxWinAmountField;
 
+        private decimal minBaseRtpPctField;
+
+        private decimal maxBaseRtpPctField;
+
+        private decimal minSapStartupRtpPctField;
+
+        private decimal maxSapStartupRtpPctField;
+
+        private decimal sapIncrementRtpPctField;
+
+        private decimal minLinkStartupRtpPctField;
+
+        private decimal maxLinkStartupRtpPctField;
+
+        private decimal linkIncrementRtpPctField;
+
         public c_wagerCategoryItem() {
             this.minWagerCreditsField = 1;
             this.maxWagerCreditsField = 1;
@@ -60,6 +76,118 @@ namespace Aristocrat.PackageManifest.Extension.v100
             }
             set {
                 this.theoPaybackPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal minBaseRtpPct
+        {
+            get
+            {
+                return this.minBaseRtpPctField;
+            }
+            set
+            {
+                this.minBaseRtpPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal maxBaseRtpPct
+        {
+            get
+            {
+                return this.maxBaseRtpPctField;
+            }
+            set
+            {
+                this.maxBaseRtpPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal minSapStartupRtpPct
+        {
+            get
+            {
+                return this.minSapStartupRtpPctField;
+            }
+            set
+            {
+                this.minSapStartupRtpPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal maxSapStartupRtpPct
+        {
+            get
+            {
+                return this.maxSapStartupRtpPctField;
+            }
+            set
+            {
+                this.maxSapStartupRtpPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal sapIncrementRtpPct
+        {
+            get
+            {
+                return this.sapIncrementRtpPctField;
+            }
+            set
+            {
+                this.sapIncrementRtpPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal minLinkStartupRtpPct
+        {
+            get
+            {
+                return this.minLinkStartupRtpPctField;
+            }
+            set
+            {
+                this.minLinkStartupRtpPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal maxLinkStartupRtpPct
+        {
+            get
+            {
+                return this.maxLinkStartupRtpPctField;
+            }
+            set
+            {
+                this.maxLinkStartupRtpPctField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public decimal linkIncrementRtpPct
+        {
+            get
+            {
+                return this.linkIncrementRtpPctField;
+            }
+            set
+            {
+                this.linkIncrementRtpPctField = value;
             }
         }
 

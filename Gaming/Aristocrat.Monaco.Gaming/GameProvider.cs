@@ -1,4 +1,5 @@
-﻿namespace Aristocrat.Monaco.Gaming
+﻿#define TEMP
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -861,7 +862,11 @@
                         continue;
                     }
 
-                    if (!IsValidRtp(game, progressiveDetails))
+                    if (!IsValidRtp(game
+#if TEMP
+                            , progressiveDetails
+#endif
+                            ))
                     {
                         Logger.Info($"{game.ThemeId}:{game.PaytableId}'s RTP is not allowed in Jurisdiction");
                         continue;
@@ -1530,12 +1535,23 @@
             return game.Denominations.Where(d => MaximumWagerCredits(game) * d <= maxBetLimit && d <= denomLimit);
         }
 
-        private bool IsValidRtp(GameAttributes game, IReadOnlyCollection<ProgressiveDetail> progressiveDetails)
+        private bool IsValidRtp(GameAttributes game
+#if TEMP
+            , IReadOnlyCollection<ProgressiveDetail> progressiveDetails
+#endif
+        )
         {
             string includeLinkIncrementKey;
             string includeStandaloneIncrementKey;
             string minRtpKey;
             string maxRtpKey;
+
+#if ! TEMP
+            if (!game.WagerCategories.ToList().Any())
+            {
+                return false;
+            }
+#endif
 
             // Default to slot for games that are not tagged
             switch (game.GameType)
@@ -1573,7 +1589,10 @@
             }
 
             return IsValidRtp(
+#if TEMP
                 progressiveDetails,
+#endif
+                game.WagerCategories,
                 includeLinkIncrementKey,
                 includeStandaloneIncrementKey,
                 minRtpKey,
@@ -1583,7 +1602,10 @@
         }
 
         private bool IsValidRtp(
+#if TEMP
             IReadOnlyCollection<ProgressiveDetail> progressiveDetails,
+#endif
+            IEnumerable<PackageManifest.Models.WagerCategory> wagerCategories,
             string includeLinkProgressiveIncrementRtpKey,
             string includeStandaloneProgressiveIncrementKey,
             string minRtpKey,
@@ -1594,18 +1616,40 @@
             var includeIncrement = _properties.GetValue(includeLinkProgressiveIncrementRtpKey, false) ||
                                     _properties.GetValue(includeStandaloneProgressiveIncrementKey, false);
 
-            var returnToPlayer = progressiveDetails?.FirstOrDefault()?.ReturnToPlayer;
+            var categories = wagerCategories.ToList();
+            var minBaseRtp = categories.Select(w => w.MinBaseRtpPercent).Min();
+            var maxBaseRtp = categories.Select(w => w.MaxBaseRtpPercent).Max();
+            var minProgStartupRtp = categories.Select(w => w.MinSapStartupRtpPercent)
+                .Union(categories.Select(w => w.MinLinkStartupRtpPercent)).Min();
+            var maxProgStartupRtp = categories.Select(w => w.MaxSapStartupRtpPercent)
+                .Union(categories.Select(w => w.MaxLinkStartupRtpPercent)).Max();
+            var progIncrementRtps = categories.Select(w => w.SapIncrementRtpPercent)
+                .Union(categories.Select(w => w.LinkIncrementRtpPercent)).ToList();
+            var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
+            var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
 
-            var totalRtpMin = (includeIncrement
-                ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMin
-                : returnToPlayer?.BaseRtpAndResetRtpMin) ?? minPayback;
-            var totalRtpMax = (includeIncrement
-                ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMax
-                : returnToPlayer?.BaseRtpAndResetRtpMax) ?? maxPayback;
+            var totalRtpMin = minBaseRtp + minProgStartupRtp + minProgIncrementRtp;
+            var totalRtpMax = maxBaseRtp + maxProgStartupRtp + maxProgIncrementRtp;
+
+#if TEMP
+            if (minBaseRtp == 0)
+            {
+                var returnToPlayer = progressiveDetails?.FirstOrDefault()?.ReturnToPlayer;
+
+                totalRtpMin = (includeIncrement
+                    ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMin
+                    : returnToPlayer?.BaseRtpAndResetRtpMin) ?? minPayback;
+                totalRtpMax = (includeIncrement
+                    ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMax
+                    : returnToPlayer?.BaseRtpAndResetRtpMax) ?? maxPayback;
+            }
+#endif
 
             return totalRtpMax >= totalRtpMin
                    && totalRtpMax > 0
                    && totalRtpMin >= 0
+                   && totalRtpMax <= maxPayback
+                   && totalRtpMin >= minPayback
                    && IsValidMinimumRtp(minRtpKey, totalRtpMin)
                    && IsValidMaximumRtp(maxRtpKey, totalRtpMax);
         }

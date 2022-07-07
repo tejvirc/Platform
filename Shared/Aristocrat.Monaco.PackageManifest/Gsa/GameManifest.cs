@@ -222,6 +222,14 @@
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
                 TheoPaybackPercent = wagerCategory.theoPaybackPct,
+                MinBaseRtpPercent = wagerCategory.minBaseRtpPct,
+                MaxBaseRtpPercent = wagerCategory.maxBaseRtpPct,
+                MinSapStartupRtpPercent = wagerCategory.minSapStartupRtpPct,
+                MaxSapStartupRtpPercent = wagerCategory.maxSapStartupRtpPct,
+                SapIncrementRtpPercent = wagerCategory.sapIncrementRtpPct,
+                MinLinkStartupRtpPercent = wagerCategory.minLinkStartupRtpPct,
+                MaxLinkStartupRtpPercent = wagerCategory.maxLinkStartupRtpPct,
+                LinkIncrementRtpPercent = wagerCategory.linkIncrementRtpPct
             };
         }
 

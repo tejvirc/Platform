@@ -80,7 +80,7 @@
         /// <returns></returns>
         public static string GetRtpString(this decimal value)
         {
-            return (value / 100).ToString("P3");
+            return (value / 100).ToString("P2");
         }
 
         /// <summary>
