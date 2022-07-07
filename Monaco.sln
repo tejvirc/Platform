@@ -194,7 +194,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Accountin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Accounting.Tests", "Test\Aristocrat.Monaco.Accounting.Tests\Aristocrat.Monaco.Accounting.Tests.csproj", "{1601628C-9592-41F3-8E78-4E88044BEFDC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Accounting.UI.Tests", "Test\Aristocrat.Monaco.Accouting.UI.Tests\Aristocrat.Monaco.Accounting.UI.Tests.csproj", "{54F267D5-06D5-4307-B482-9AFFEC6D4D08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Accounting.UI.Tests", "Test\Aristocrat.Monaco.Accounting.UI.Tests\Aristocrat.Monaco.Accounting.UI.Tests.csproj", "{54F267D5-06D5-4307-B482-9AFFEC6D4D08}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Application.Contracts.Tests", "Test\Aristocrat.Monaco.Application.Contracts.Tests\Aristocrat.Monaco.Application.Contracts.Tests.csproj", "{B6ADC986-CF45-4D84-B990-53BF7EB255EE}"
 EndProject
