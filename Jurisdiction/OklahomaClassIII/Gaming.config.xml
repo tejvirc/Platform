@@ -41,7 +41,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="75000" />
+			<ReturnToPlayer GameType="Any" Minimum="75.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 	<OverridenGameTypeText SlotGameTypeText="Video" />

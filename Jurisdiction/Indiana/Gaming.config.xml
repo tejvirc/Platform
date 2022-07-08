@@ -42,7 +42,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="80000" Maximum="100000" />
+			<ReturnToPlayer GameType="Any" Minimum="80.0" Maximum="100.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

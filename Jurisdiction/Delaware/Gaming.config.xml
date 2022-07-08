@@ -40,8 +40,8 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="87000" Maximum="95000" IncludeLinkProgressiveIncrementRTP="true" />
-			<ReturnToPlayer GameType="Keno" Minimum="75000" />
+			<ReturnToPlayer GameType="Any" Minimum="87.0" Maximum="95.0" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Keno" Minimum="75.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

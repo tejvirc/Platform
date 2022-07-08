@@ -42,11 +42,11 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="85000" IncludeLinkProgressiveIncrementRTP="true" />
-			<ReturnToPlayer GameType="Slot" Minimum="85000" IncludeLinkProgressiveIncrementRTP="true" />
-			<ReturnToPlayer GameType="Poker" Minimum="85000" IncludeLinkProgressiveIncrementRTP="true" />
-			<ReturnToPlayer GameType="Blackjack" Minimum="85000" IncludeLinkProgressiveIncrementRTP="true" />
-			<ReturnToPlayer GameType="Keno" Minimum="85000" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Any" Minimum="85.0" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Slot" Minimum="85.0" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Poker" Minimum="85.0" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Blackjack" Minimum="85.0" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Keno" Minimum="85.0" IncludeLinkProgressiveIncrementRTP="true" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

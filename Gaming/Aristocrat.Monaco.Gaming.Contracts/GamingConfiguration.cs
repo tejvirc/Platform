@@ -2240,11 +2240,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts{
         
         private bool gameTypeFieldSpecified;
         
-        private int minimumField;
+        private decimal minimumField;
         
         private bool minimumFieldSpecified;
         
-        private int maximumField;
+        private decimal maximumField;
         
         private bool maximumFieldSpecified;
         
@@ -2281,7 +2281,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts{
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int Minimum {
+        public decimal Minimum {
             get {
                 return this.minimumField;
             }
@@ -2303,7 +2303,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts{
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int Maximum {
+        public decimal Maximum {
             get {
                 return this.maximumField;
             }

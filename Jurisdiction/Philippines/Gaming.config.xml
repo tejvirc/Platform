@@ -44,7 +44,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="75000" Maximum="98000" />
+			<ReturnToPlayer GameType="Any" Minimum="75.0" Maximum="98.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 	<AutoPlay Allowed="true" />

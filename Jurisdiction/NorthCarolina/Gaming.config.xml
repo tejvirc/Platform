@@ -40,7 +40,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="83000" Maximum="100000" />
+			<ReturnToPlayer GameType="Any" Minimum="83.0" Maximum="100.0" />
 		</ReturnToPlayerLimits>
 		<RestrictedGameTypes>
 			<!-- <Type GameType="Skill" /> -->

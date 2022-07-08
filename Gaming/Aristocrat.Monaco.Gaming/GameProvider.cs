@@ -1690,12 +1690,12 @@ namespace Aristocrat.Monaco.Gaming
 
         private bool IsValidMinimumRtp(string key, decimal rtp)
         {
-            return rtp >= _properties.GetValue(key, int.MinValue);
+            return rtp >= _properties.GetValue(key, decimal.MinValue);
         }
 
         private bool IsValidMaximumRtp(string key, decimal rtp)
         {
-            return rtp <= _properties.GetValue(key, int.MaxValue);
+            return rtp <= _properties.GetValue(key, decimal.MaxValue);
         }
     }
 }

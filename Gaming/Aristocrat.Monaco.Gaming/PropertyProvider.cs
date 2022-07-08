@@ -87,8 +87,8 @@
             var pokerRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Poker);
             var rouletteRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Roulette);
 
-            var anyGameMinRtp = anyRtpLimits?.MinimumSpecified ?? false ? anyRtpLimits.Minimum : int.MinValue;
-            var anyGameMaxRtp = anyRtpLimits?.MaximumSpecified ?? false ? anyRtpLimits.Maximum : int.MaxValue;
+            var anyGameMinRtp = anyRtpLimits?.MinimumSpecified ?? false ? anyRtpLimits.Minimum : decimal.MinValue;
+            var anyGameMaxRtp = anyRtpLimits?.MaximumSpecified ?? false ? anyRtpLimits.Maximum : decimal.MaxValue;
             var anyGameIncludeLinkProgressiveIncrementRtp = anyRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? false;
             var anyGameIncludeStandaloneProgressiveIncrementRtp = anyRtpLimits?.IncludeStandaloneProgressiveIncrementRTP ?? true;
             var playerInformationDisplayOptions = configuration.PlayerInformationDisplay;
@@ -365,7 +365,7 @@
             return _persistentStorageAccessor[propertyName];
         }
 
-        private int GetRtpValue(int configRtp, int defaultRtp)
+        private decimal GetRtpValue(decimal configRtp, decimal defaultRtp)
         {
             return configRtp == 0 ? defaultRtp : configRtp;
         }

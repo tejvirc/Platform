@@ -41,9 +41,9 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="83000" Maximum="100000" />
-			<ReturnToPlayer GameType="Slot" Minimum="80000" Maximum="100000" />
-			<ReturnToPlayer GameType="Keno" Minimum="80000" Maximum="100000" />
+			<ReturnToPlayer GameType="Any" Minimum="83.0" Maximum="100.0" />
+			<ReturnToPlayer GameType="Slot" Minimum="80.0" Maximum="100.0" />
+			<ReturnToPlayer GameType="Keno" Minimum="80.0" Maximum="100.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

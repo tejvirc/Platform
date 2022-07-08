@@ -47,7 +47,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="84000" />
+			<ReturnToPlayer GameType="Any" Minimum="84.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 	<GameRoundDurationMs Minimum="3000" Maximum="10000" />

@@ -40,9 +40,9 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="87000" Maximum="95000" IncludeLinkProgressiveIncrementRTP="true" />
-			<ReturnToPlayer GameType="Poker" Minimum="87000" Maximum="100000" IncludeLinkProgressiveIncrementRTP="true" />
-			<ReturnToPlayer GameType="Blackjack" Minimum="87000" Maximum="100000" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Any" Minimum="87.0" Maximum="95.0" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Poker" Minimum="87.0" Maximum="100.0" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Blackjack" Minimum="87.0" Maximum="100.0" IncludeLinkProgressiveIncrementRTP="true" />
 		</ReturnToPlayerLimits>
 		<RestrictedGameTypes>
 			<!-- <Type GameType="Skill" /> -->

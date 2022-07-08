@@ -43,7 +43,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="85000" />
+			<ReturnToPlayer GameType="Any" Minimum="85.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 	<AttendantServiceTimeoutSupport Enabled="true" />

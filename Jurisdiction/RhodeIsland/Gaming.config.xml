@@ -40,12 +40,12 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="80000" Maximum="98000" />
-			<ReturnToPlayer GameType="Slot" Minimum="80000" Maximum="98000" />
-			<ReturnToPlayer GameType="Poker" Minimum="80000" Maximum="98000" />
-			<ReturnToPlayer GameType="Blackjack" Minimum="80000" Maximum="99100" />
-			<ReturnToPlayer GameType="Keno" Minimum="80000" Maximum="96000" />
-			<ReturnToPlayer GameType="Roulette" Minimum="80000" Maximum="95000" />
+			<ReturnToPlayer GameType="Any" Minimum="80.0" Maximum="98.0" />
+			<ReturnToPlayer GameType="Slot" Minimum="80.0" Maximum="98.0" />
+			<ReturnToPlayer GameType="Poker" Minimum="80.0" Maximum="98.0" />
+			<ReturnToPlayer GameType="Blackjack" Minimum="80.0" Maximum="99.1" />
+			<ReturnToPlayer GameType="Keno" Minimum="80.0" Maximum="96.0" />
+			<ReturnToPlayer GameType="Roulette" Minimum="80.0" Maximum="95.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

@@ -40,7 +40,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="85000" IncludeLinkProgressiveIncrementRTP="true" />
+			<ReturnToPlayer GameType="Any" Minimum="85.0" IncludeLinkProgressiveIncrementRTP="true" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

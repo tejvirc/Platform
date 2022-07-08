@@ -39,8 +39,8 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="80000" />
-			<ReturnToPlayer GameType="Keno" Minimum="75000" />
+			<ReturnToPlayer GameType="Any" Minimum="80.0" />
+			<ReturnToPlayer GameType="Keno" Minimum="75.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

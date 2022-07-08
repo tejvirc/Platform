@@ -47,8 +47,8 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="90000" />
-			<ReturnToPlayer GameType="Slot" Minimum="90000" />
+			<ReturnToPlayer GameType="Any" Minimum="90.0" />
+			<ReturnToPlayer GameType="Slot" Minimum="90.0" />
 		</ReturnToPlayerLimits>
 		<RestrictedGameTypes>
 			<Type GameType="Poker" />
