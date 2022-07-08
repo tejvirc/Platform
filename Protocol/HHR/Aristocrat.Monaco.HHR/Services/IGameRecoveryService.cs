@@ -14,6 +14,6 @@
         ///     Sends Recovery request to server and adapts recovery response to game play response.
         /// </summary>
         /// <returns>Returns GamePlayResponse which is converted from GameRecoveryResponse.</returns>
-        Task<GamePlayResponse> Recover(CancellationToken token = default);
+        Task<GamePlayResponse> Recover(uint requestSequenceId, CancellationToken token = default);
     }
 }

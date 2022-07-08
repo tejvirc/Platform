@@ -53,7 +53,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<GamePlayResponse> Recover(CancellationToken token = default)
+        public async Task<GamePlayResponse> Recover(uint requestSequenceId, CancellationToken token = default)
         {
             var gamePlayRequest = _gamePlayEntityHelper.GamePlayRequest;
             var raceStartRequest = _gamePlayEntityHelper.RaceStartRequest;
@@ -61,6 +61,19 @@
             if (gamePlayRequest == null && raceStartRequest == null)
             {
                 throw new GameRecoveryFailedException("Game request not found");
+            }
+
+            if (requestSequenceId != 0 // Special case if we force recovery by game state.
+                && gamePlayRequest?.SequenceId != requestSequenceId
+                && raceStartRequest?.SequenceId != requestSequenceId)
+            {
+                // If this happens, we've ended up in a situation where an old lingering request has
+                // finally failed after we have moved on to a new game round. I *believe* this can
+                // only happen if game recovery has occurred somewhere in between us sending the original
+                // request and that request finally failing, otherwise we'd still be waiting for the
+                // original reply. But there may be other ways it could happen. So what we need to do
+                // is fail here without sending any outcomes to the game or disturbing any other state.
+                throw new IgnoreOutcomesException($"Ignoring recovery attempt as request {requestSequenceId} is stale");
             }
 
             // We only need four things to request/process recovery message. Populate them from game play request or Race start request

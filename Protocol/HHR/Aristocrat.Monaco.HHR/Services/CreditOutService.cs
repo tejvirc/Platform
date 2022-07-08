@@ -87,7 +87,7 @@
 
         private async Task<TransactionRequest> CreateTransactionRequest(CommandTransactionType aftOutType, long amount, uint handPayType)
         {
-            var (_, denomination) = _propertiesManager.GetActiveGame();
+            var selectedDenom = _propertiesManager.GetValue(GamingConstants.SelectedDenom, 0L);
 
             return new TransactionRequest
             {
@@ -105,7 +105,7 @@
                 LastGamePlayTime = _propertiesManager.GetValue(HHRPropertyNames.LastGamePlayTime, 0u),
                 GameMapId = await _gameDataService.GetDefaultGameMapIdAsync(),
                 Flags = 0,
-                Denomination = (uint)denomination.Value.MillicentsToCents(),
+                Denomination = (uint)selectedDenom.MillicentsToCents(),
                 HandpayType = handPayType,
                 TimeoutInMilliseconds = HhrConstants.MsgTransactionTimeoutMs,
                 RetryCount = HhrConstants.RetryCount,

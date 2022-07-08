@@ -127,15 +127,16 @@
             var idReaderEnabled = _propertiesManager.GetValue(ApplicationConstants.IdReaderEnabled, false);
             var reelControllerEnabled = _propertiesManager.GetValue(ApplicationConstants.ReelControllerEnabled, false);
             var notAvailable = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+
             return await Task.FromResult(
                 new MachineSettings
                 {
                     NoteAcceptorEnabled =noteAcceptorEnabled,
-                    NoteAcceptorManufacturer =
-                        noteAcceptorEnabled ? _propertiesManager.GetValue(ApplicationConstants.NoteAcceptorManufacturer, string.Empty) : notAvailable,
+                    NoteAcceptorManufacturer = noteAcceptorEnabled ?
+                        _propertiesManager.GetValue(ApplicationConstants.NoteAcceptorManufacturer, string.Empty) : notAvailable,
                     PrinterEnabled = printerEnabled,
-                    PrinterManufacturer =
-                        printerEnabled?_propertiesManager.GetValue(ApplicationConstants.PrinterManufacturer, string.Empty): notAvailable,
+                    PrinterManufacturer = printerEnabled ?
+                        _propertiesManager.GetValue(ApplicationConstants.PrinterManufacturer, string.Empty): notAvailable,
                     CurrencyId =
                         _propertiesManager.GetValue(ApplicationConstants.CurrencyId, ApplicationConstants.DefaultCurrencyId),
                     CurrencyDescription =
@@ -182,12 +183,12 @@
                     VoucherIn =
                         _propertiesManager.GetValue(PropertyKey.VoucherIn, false),
                     IdReaderEnabled = idReaderEnabled,
-                    IdReaderManufacturer =
-                        idReaderEnabled?_propertiesManager.GetValue(ApplicationConstants.IdReaderManufacturer, string.Empty): notAvailable,
+                    IdReaderManufacturer = idReaderEnabled ?
+                        _propertiesManager.GetValue(ApplicationConstants.IdReaderManufacturer, string.Empty): notAvailable,
                     ReelControllerEnabled =
                         reelControllerEnabled,
-                    ReelControllerManufacturer =
-                        reelControllerEnabled?_propertiesManager.GetValue(ApplicationConstants.ReelControllerManufacturer, string.Empty): notAvailable,
+                    ReelControllerManufacturer = reelControllerEnabled ?
+                        _propertiesManager.GetValue(ApplicationConstants.ReelControllerManufacturer, string.Empty): notAvailable,
                     DoorOpticSensorEnabled =
                         _propertiesManager.GetValue(ApplicationConstants.ConfigWizardDoorOpticsEnabled, false),
                     RequireZeroCreditsForOutOfService =

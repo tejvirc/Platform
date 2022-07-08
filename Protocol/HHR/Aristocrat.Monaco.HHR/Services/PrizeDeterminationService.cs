@@ -26,6 +26,7 @@
     /// </summary>
     public class PrizeDeterminationService : IPrizeDeterminationService, IDisposable
     {
+        private const int ForceRecovery = 0;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly ICentralManager _centralManager;
         private readonly IEventBus _eventBus;
@@ -121,7 +122,7 @@
             {
                 if (isRecovering)
                 {
-                    _gamePlayResponse = await _gameRecoveryService.Recover(token);
+                    _gamePlayResponse = await _gameRecoveryService.Recover(ForceRecovery, token);
                 }
                 else
                 {
@@ -253,29 +254,27 @@
 
             async Task<GamePlayResponse> SendRaceStart()
             {
+                var raceStartRequest = new RaceStartRequest
+                {
+                    GameId = gameId,
+                    PlayerId = await _playerSession.GetCurrentPlayerId(),
+                    CreditsPlayed = (ushort)numberOfCredits,
+                    LinesPlayed = (ushort)_totalLinesPlayed,
+                    RaceInfo = _gamePlayResponse.RaceInfo,
+                    RaceTicketId = _gamePlayResponse.ScratchTicketId,
+                    RaceTicketSetId = _gamePlayResponse.ScratchTicketSetId,
+                    TimeoutInMilliseconds = HhrConstants.GamePlayRequestTimeout
+                };
+
                 try
                 {
-                    return await _centralManager.Send<RaceStartRequest, GamePlayResponse>(
-                        new RaceStartRequest
-                        {
-                            GameId = gameId,
-                            PlayerId = await _playerSession.GetCurrentPlayerId(),
-                            CreditsPlayed = (ushort)numberOfCredits,
-                            LinesPlayed = (ushort)_totalLinesPlayed,
-                            RaceInfo = _gamePlayResponse.RaceInfo,
-                            RaceTicketId = _gamePlayResponse.ScratchTicketId,
-                            RaceTicketSetId = _gamePlayResponse.ScratchTicketSetId,
-                            TimeoutInMilliseconds = HhrConstants.GamePlayRequestTimeout
-                        },
-                        token);
+                    return await _centralManager.Send<RaceStartRequest, GamePlayResponse>(raceStartRequest, token);
                 }
                 catch (UnexpectedResponseException e)
                 {
-                    Logger.Debug(
-                        $"Got incorrect response, to GamePlay request, of type {e.Response.GetType()} with status {e.Response.MessageStatus} : {e.Message}",
-                        e);
-                    Logger.Debug("Attempting Recovery from server");
-                    return await _gameRecoveryService.Recover(token);
+                    Logger.Debug($"Got incorrect response to RaceStartRequest, of type {e.Response.GetType()} with status {e.Response.MessageStatus} : {e.Message}");
+                    Logger.Debug($"Attempting recovery from server for failed request {raceStartRequest.SequenceId}");
+                    return await _gameRecoveryService.Recover(raceStartRequest.SequenceId, token);
                 }
             }
         }
@@ -413,32 +412,30 @@
             bool manualHandicap,
             CancellationToken token = default)
         {
+            var gamePlayRequest = new GamePlayRequest
+            {
+                PlayerId = await _playerSession.GetCurrentPlayerId(),
+                GameId = gameId,
+                CreditsPlayed = (ushort)_racePatterns.Credits,
+                ForceCheck = manualHandicap, // 0,false = regular(auto) game | 1,true=Handicap Game
+                LinesPlayed = (ushort)_totalLinesPlayed,
+                GameMode = HhrConstants.GameMode,
+                RaceTicketSetId = _racePatterns.RaceTicketSetId,
+                TimeoutInMilliseconds = HhrConstants.GamePlayRequestTimeout
+            };
+
             try
             {
-                return await _centralManager.Send<GamePlayRequest, GamePlayResponse>(
-                    new GamePlayRequest
-                    {
-                        PlayerId = await _playerSession.GetCurrentPlayerId(),
-                        GameId = gameId,
-                        CreditsPlayed = (ushort)_racePatterns.Credits,
-                        ForceCheck = manualHandicap, // 0,false = regular(auto) game | 1,true=Handicap Game
-                        LinesPlayed = (ushort)_totalLinesPlayed,
-                        GameMode = HhrConstants.GameMode,
-                        RaceTicketSetId = _racePatterns.RaceTicketSetId,
-                        TimeoutInMilliseconds = HhrConstants.GamePlayRequestTimeout
-                    },
-                    token);
+                return await _centralManager.Send<GamePlayRequest, GamePlayResponse>(gamePlayRequest, token);
             }
             catch (UnexpectedResponseException e)
             {
-                Logger.Debug(
-                    $"Got incorrect response, to GamePlay request, of type {e.Response.GetType()} with status {e.Response.MessageStatus} : {e.Message}",
-                    e);
-                Logger.Debug("Attempting Recovery from server");
-                return await _gameRecoveryService.Recover(token);
+                Logger.Debug($"Got incorrect response to GamePlayRequest, of type {e.Response.GetType()} with status {e.Response.MessageStatus} : {e.Message}");
+                Logger.Debug($"Attempting recovery from server for failed request {gamePlayRequest.SequenceId}");
+                return await _gameRecoveryService.Recover(gamePlayRequest.SequenceId, token);
             }
         }
-        
+
         private void ManualHandicapWinDisable()
         {
             if (_gamePlayEntityHelper.ManualHandicapWin)
