@@ -821,8 +821,8 @@
 
         private void SetAvailableGamesAndDenom()
         {
-            AvailablePaytables = FilteredAvailableGames.OrderBy(g => g.MinimumPaybackPercent)
-                .ThenBy(g => g.MaximumPaybackPercent)
+            AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
+                .ThenBy(g => Convert.ToInt32(g.VariationId))
                 .Select(g => new PaytableDisplay(g, BaseDenom)).ToList();
         }
     }
