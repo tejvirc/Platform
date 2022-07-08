@@ -35,10 +35,6 @@
         public void Execute()
         {
             _logger.Info("ServiceRequestOperations Has Been Initiated!", GetType().Name);
-            if (_robotController.Config.Active.IntervalServiceRequest == 0)
-            {
-                return;
-            }
             _serviceRequestTimer = new Timer(
                                (sender) =>
                                {

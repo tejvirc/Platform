@@ -69,10 +69,6 @@
                                null,
                                _robotController.Config.Active.IntervalLoadGame,
                                _robotController.Config.Active.IntervalLoadGame);
-            if (_robotController.Config.Active.IntervalRgSet == 0)
-            {
-                return;
-            }
             _RgTimer = new Timer(
                                (sender) =>
                                {
