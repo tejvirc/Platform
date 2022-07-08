@@ -28,7 +28,8 @@
     {
         [XmlEnum("Reel")] Reel,
         [XmlEnum("Poker")] Poker,
-        [XmlEnum("Keno")] Keno
+        [XmlEnum("Keno")] Keno,
+        [XmlEnum("Blackjack")] Blackjack,
     }
 
     public enum Actions

@@ -26,7 +26,6 @@
 
                 [nameof(ModeType.Super)] = new HashSet<IRobotOperations>
                 {
-                    container.GetInstance<LobbyOperations>(),
                     container.GetInstance<CashoutOperations>(),
                     container.GetInstance<PlayerOperations>(),
                     container.GetInstance<TouchOperations>(),
@@ -41,7 +40,6 @@
                 [nameof(ModeType.Uber)] = new HashSet<IRobotOperations>
                 {
                     container.GetInstance<RebootRequestOperations>(),
-                    container.GetInstance<LobbyOperations>(),
                     container.GetInstance<CashoutOperations>(),
                     container.GetInstance<PlayerOperations>(),
                     container.GetInstance<TouchOperations>(),

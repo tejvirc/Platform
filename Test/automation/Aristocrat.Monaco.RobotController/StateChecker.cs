@@ -8,13 +8,11 @@
     {
         public readonly ILobbyStateManager _lobbyStateManager;
         public readonly IGamePlayState _gamePlayState;
-        private readonly IGameService _gameService;
 
-        public StateChecker(ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState, IGameService gameService)
+        public StateChecker(ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState)
         {
             _lobbyStateManager = lobbyStateManager;
             _gamePlayState = gamePlayState;
-            _gameService = gameService;
         }
         internal bool IsIdle => _gamePlayState.CurrentState == PlayState.Idle;
         internal bool IsInitiated => _gamePlayState.CurrentState == PlayState.Initiated;
@@ -40,7 +38,7 @@
 
         internal bool IsAllowSingleGameAutoLaunch => _lobbyStateManager.AllowSingleGameAutoLaunch;
         internal bool IsStartup => _lobbyStateManager.CurrentState == LobbyState.Startup;
-        internal bool IsChooser => _lobbyStateManager.CurrentState == LobbyState.Chooser && !_gameService.Running;
+        internal bool IsChooser => _lobbyStateManager.CurrentState == LobbyState.Chooser;
         internal bool IsChooserScrollingIdleText => _lobbyStateManager.CurrentState == LobbyState.ChooserScrollingIdleText;
         internal bool IsChooserIdleTextTimer => _lobbyStateManager.CurrentState == LobbyState.ChooserIdleTextTimer;
         internal bool IsAttract => _lobbyStateManager.CurrentState == LobbyState.Attract;

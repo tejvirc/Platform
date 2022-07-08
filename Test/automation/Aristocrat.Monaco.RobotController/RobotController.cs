@@ -194,7 +194,6 @@
             _sanityChecker.Start();
             _automator.SetOverlayText(Config.ActiveType.ToString(), false, _overlayTextGuid, InfoLocation.TopLeft);
             _automator.SetTimeLimitButtons(Config.GetTimeLimitButtons());
-            _automator.SetSpeed(Config.Speed);
             foreach (var action in _warmUpActions[Config.ActiveType.ToString()])
             {
                 action();
@@ -338,7 +337,6 @@
         private void DisablingRobot(string reason = "")
         {
             _automator.SetOverlayText(reason, false, _overlayTextGuid, InfoLocation.TopLeft);
-            _automator.ResetSpeed();
             _sanityChecker.Stop();
             foreach (var op in _modeOperations[Config.ActiveType.ToString()])
             {
@@ -435,7 +433,6 @@
             container.Register<StateChecker>(Lifestyle.Singleton);
             container.Register<CashoutOperations>(Lifestyle.Singleton);
             container.Register<GameOperations>(Lifestyle.Singleton);
-            container.Register<LobbyOperations>(Lifestyle.Singleton);
             container.Register<PlayerOperations>(Lifestyle.Singleton);
             container.Register<TouchOperations>(Lifestyle.Singleton);
             container.Register<LockUpOperations>(Lifestyle.Singleton);
