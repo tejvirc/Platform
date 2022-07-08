@@ -71,6 +71,7 @@
             void PopulatePrizeInformation()
             {
                 prizeInformation.RaceInfo = gamePlayResponse.RaceInfo;
+                prizeInformation.ReplyId = gamePlayResponse.ReplyId;
 
                 // Set IDs
                 prizeInformation.ScratchTicketSetId = gamePlayResponse.ScratchTicketSetId;
@@ -163,17 +164,17 @@
                 {
                     var progressiveLevel = prizeInformation
                         .GetActiveProgressiveLevelsForWager(_protocolLinkedProgressiveAdapter)
-                        .First(
-                            x => x.LevelId ==
-                                 levelId); // We are getting GameProgressiveLevel corresponding to Server level Id (and not LinkedProgressiveLevel), so both are indexed from 0
+                        .First(x => x.LevelId == levelId); // We are getting GameProgressiveLevel
+                            // corresponding to Server level Id (and not LinkedProgressiveLevel),
+                            // so both are indexed from 0
 
                     var currentAmount = prizeInformation.ProgressiveWin.ElementAt(levelId) +
-                        progressiveLevel?.ResetValue.MillicentsToCents() * (count - 1) ?? 0;
+                        progressiveLevel.ResetValue.MillicentsToCents() * (count - 1);
                     prizeInformation.TotalProgressiveAmountWon += currentAmount;
 
                     progressiveLevelAmountHit.Add((levelId, currentAmount));
 
-                    totalProgressiveResetValue += progressiveLevel?.ResetValue.MillicentsToCents() * count ?? 0;
+                    totalProgressiveResetValue += progressiveLevel.ResetValue.MillicentsToCents() * count;
                 }
 
                 //Subtract ProgReset from AmountWon

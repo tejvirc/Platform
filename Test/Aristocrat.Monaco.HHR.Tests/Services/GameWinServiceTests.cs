@@ -1,26 +1,27 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Tests.Services
 {
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Gaming;
-    using Aristocrat.Monaco.Gaming.Contracts;
-    using Aristocrat.Monaco.Hhr.Client.WorkFlow;
-    using Aristocrat.Monaco.Hhr.Services;
-    using Aristocrat.Monaco.Kernel;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
+    using System.Threading;
     using System;
     using System.Collections.Generic;
-    using Hhr.Client.Messages;
-    using System.Threading;
-    using Aristocrat.Monaco.Hhr;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Test.Common;
     using System.Globalization;
+    using Accounting.Contracts;
+    using Accounting.Contracts.Handpay;
+    using Accounting.Contracts.Wat;
+    using Application.Contracts.Extensions;
+    using Application.Contracts.Localization;
+    using Gaming;
+    using Gaming.Contracts;
+    using Hhr;
+    using Hhr.Client.Messages;
+    using Hhr.Client.WorkFlow;
+    using Hhr.Services;
+    using Hhr.Storage.Helpers;
+    using Kernel;
+    using Test.Common;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
     using HandpayType = Accounting.Contracts.Handpay.HandpayType;
-    using HHRHandpayType = Client.Messages.HandpayType;
-    using System.Linq;
-    using Aristocrat.Monaco.Accounting.Contracts.Handpay;
-    using Aristocrat.Monaco.Accounting.Contracts.Wat;
+    using HhrHandpayType = Client.Messages.HandpayType;
 
     [TestClass]
     public class GameWinServiceTests
@@ -30,7 +31,8 @@
         private readonly Mock<IPlayerSessionService> _playerSessionService = new Mock<IPlayerSessionService>(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Strict);
         private readonly Mock<IBank> _bank = new Mock<IBank>(MockBehavior.Strict);
-        private readonly Mock<IGameDataService> _gameDataService = new Mock<IGameDataService>(MockBehavior.Default);
+        private readonly Mock<IPrizeInformationEntityHelper> _prizeInfo = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
+        private readonly Mock<ITransactionIdProvider> _transactionIds = new Mock<ITransactionIdProvider>(MockBehavior.Default);
         private Mock<ILocalizerFactory> _localizerFactory;
 
         private GameWinService _gameWinService;
@@ -70,7 +72,10 @@
             _centralManager.Setup(
                 m => m.Send<TransactionRequest, CloseTranResponse>(
                     It.IsAny<TransactionRequest>(), It.IsAny<CancellationToken>()))
-                    .Callback<TransactionRequest, CancellationToken>((msg, tok) => _transactionRequests.Add(msg))
+                    .Callback<TransactionRequest, CancellationToken>((msg, tok) =>
+                    {
+                        _transactionRequests.Add(msg);
+                    })
                     .ReturnsAsync(new CloseTranResponse());
 
             _transactionRequests = new List<TransactionRequest>();
@@ -82,7 +87,8 @@
                 _playerSessionService.Object,
                 _propertiesManager.Object,
                 _bank.Object,
-                _gameDataService.Object);
+                _prizeInfo.Object,
+                _transactionIds.Object);
         }
 
         [TestMethod]
@@ -93,80 +99,130 @@
 
         [DataTestMethod]
         [DataRow(
-            typeof(HandpayTransaction),
-            HandpayType.CancelCredit,
-            1,
-            CommandTransactionType.GameWinToHandpayNoReceipt,
-            HHRHandpayType.HandpayTypeNonProgressive,
+            typeof(HandpayTransaction), HandpayType.CancelCredit, 1, 0, 0,
+            new CommandTransactionType[]
+            {
+                CommandTransactionType.GameWinToHandpayNoReceipt
+            },
+            new HhrHandpayType[]
+            {
+                HhrHandpayType.HandpayTypeCancelledCredits
+            },
             DisplayName = "HandpayTransaction")]
         [DataRow(
-            typeof(HandpayTransaction),
-            HandpayType.GameWin,
-            1,
-            CommandTransactionType.Unknown,
-            HHRHandpayType.HandpayTypeNone,
+            typeof(HandpayTransaction), HandpayType.GameWin, 1, 0, 0,
+            new CommandTransactionType[]
+            {
+            },
+            new HhrHandpayType[]
+            {
+            },
             DisplayName = "HandpayTransaction GameWin")]
         [DataRow(
-            typeof(HandpayTransaction),
-            null,
-            0,
-            CommandTransactionType.Unknown,
-            HHRHandpayType.HandpayTypeNone,
+            typeof(HandpayTransaction), null, 0, 0, 0,
+            new CommandTransactionType[]
+            {
+            },
+            new HhrHandpayType[]
+            {
+            },
             DisplayName = "HandpayTransaction 0 amount")]
         [DataRow(
-            typeof(VoucherOutTransaction),
-            null,
-            1,
-            CommandTransactionType.GameWinToCashableOutTicket,
-            HHRHandpayType.HandpayTypeNone,
-            DisplayName = "VoucherOutTransaction")]
+            typeof(VoucherOutTransaction), null, 5, 5, 0,
+            new CommandTransactionType[]
+            {
+                CommandTransactionType.GameWinToCashableOutTicket
+            },
+            new HhrHandpayType[]
+            {
+                HhrHandpayType.HandpayTypeProgressive
+            },
+            DisplayName = "VoucherOutTransaction Progressive")]
         [DataRow(
-            typeof(VoucherOutTransaction),
-            null,
-            0,
-            CommandTransactionType.Unknown,
-            HHRHandpayType.HandpayTypeNone,
+            typeof(VoucherOutTransaction), null, 5, 0, 5,
+            new CommandTransactionType[]
+            {
+                CommandTransactionType.GameWinToCashableOutTicket
+            },
+            new HhrHandpayType[]
+            {
+                HhrHandpayType.HandpayTypeNonProgressive
+            },
+            DisplayName = "VoucherOutTransaction Non-Prog")]
+        [DataRow(
+            typeof(VoucherOutTransaction), null, 5, 2, 3,
+            new CommandTransactionType[]
+            {
+                CommandTransactionType.GameWinToCashableOutTicket,
+                CommandTransactionType.GameWinToCashableOutTicket
+            },
+            new HhrHandpayType[]
+            {
+                HhrHandpayType.HandpayTypeProgressive,
+                HhrHandpayType.HandpayTypeNonProgressive
+            },
+            DisplayName = "VoucherOutTransaction Mixed")]
+        [DataRow(
+            typeof(VoucherOutTransaction), null, 0, 0, 0,
+            new CommandTransactionType[]
+            {
+            },
+            new HhrHandpayType[]
+            {
+            },
             DisplayName = "VoucherOutTransaction 0 amount")]
         [DataRow(
-            typeof(WatTransaction),
-            null,
-            1,
-            CommandTransactionType.GameWinToAftHost,
-            HHRHandpayType.HandpayTypeNone,
+            typeof(WatTransaction), null, 1, 0, 0,
+            new CommandTransactionType[]
+            {
+                CommandTransactionType.GameWinToAftHost
+            },
+            new HhrHandpayType[]
+            {
+                HhrHandpayType.HandpayTypeNone
+            },
             DisplayName = "WatTransaction")]
         [DataRow(
-            typeof(WatTransaction),
-            null,
-            0,
-            CommandTransactionType.Unknown,
-            HHRHandpayType.HandpayTypeNone,
+            typeof(WatTransaction), null, 0, 0, 0,
+            new CommandTransactionType[]
+            {
+            },
+            new HhrHandpayType[]
+            {
+            },
             DisplayName = "WatTransaction 0 amount")]
         public void GameWinService_WhenHandlingGameResults_ShouldSendHhrServerCorrectTransaction(
-            Type transactionType,
-            HandpayType? handpayType,
-            long amount,
-            CommandTransactionType commandTransactionType,
-            HHRHandpayType hhrHandpayType)
+            Type transactionType, HandpayType? handpayType, long amount, long progAmount, long lineAmount,
+            CommandTransactionType[] commands, HhrHandpayType[] handpays)
         {
             _gameHistoryLog.Transactions = new List<TransactionInfo>()
             {
                 new TransactionInfo()
                 {
-                    Amount = amount,
+                    Amount = amount.CentsToMillicents(),
                     HandpayType = handpayType,
                     TransactionType = transactionType
                 }
             };
 
+            if (progAmount != 0 || lineAmount != 0)
+            {
+                _prizeInfo.SetupGet(m => m.PrizeInformation).Returns(new PrizeInformation()
+                {
+                    TotalProgressiveAmountWon = progAmount,
+                    RaceSet1AmountWon = lineAmount
+                });
+            }
+
             _sendGameResultEvent(new GameResultEvent(0, 0, "", _gameHistoryLog));
 
-            Assert.AreEqual(commandTransactionType == CommandTransactionType.Unknown ? 0  : 1, _transactionRequests.Count);
+            Assert.AreEqual(commands.Length, _transactionRequests.Count);
 
-            var tansactionRequest = _transactionRequests.FirstOrDefault();
-            if (tansactionRequest != null)
+            for (int x = 0; x < commands.Length; x++)
             {
-                Assert.AreEqual(commandTransactionType, tansactionRequest.TransactionType);
-                Assert.AreEqual((uint)hhrHandpayType, tansactionRequest.HandpayType);
+                var transactionRequest = _transactionRequests[x];
+                Assert.AreEqual(commands[x], transactionRequest.TransactionType);
+                Assert.AreEqual(handpays[x], (HhrHandpayType)transactionRequest.HandpayType);
             }
         }
     }

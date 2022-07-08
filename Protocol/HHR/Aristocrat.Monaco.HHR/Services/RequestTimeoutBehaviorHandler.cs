@@ -33,17 +33,16 @@
 
         private readonly ICentralManager _centralManager;
         private readonly Container _container;
-
         private readonly Dictionary<(Type, Type), MethodInfo> _sendMethods = new Dictionary<(Type, Type), MethodInfo>();
         private readonly Dictionary<TimeoutBehaviorType, object> _timeoutBehaviors = new Dictionary<TimeoutBehaviorType, object>();
         private readonly IPendingRequestEntityHelper _entityHelper;
         private readonly IEventBus _eventBus;
-        private readonly ConcurrentDictionary<Request, Type> _requestsPending =
-            new ConcurrentDictionary<Request, Type>();
-        private readonly List<IDisposable> _disposables = new List<IDisposable>();
+        private readonly ConcurrentDictionary<Request, Type> _requestsPending = new();
+        private readonly List<IDisposable> _disposables = new();
+        private readonly SemaphoreSlim _playAllowed = new(1, 1);
+        private readonly object _requestLock = new();
+
         private bool _disposed;
-        private readonly SemaphoreSlim _playAllowed = new SemaphoreSlim(1, 1);
-        private readonly object _requestLock = new object();
 
         public RequestTimeoutBehaviorHandler(
             ICentralManager centralManager,
@@ -296,7 +295,15 @@
                 ReleasePlayAllowed();
             }
 
-            return !_requestsPending.Any();
+            if (_requestsPending.Any())
+            {
+                string pendingRequests = "Pending requests: ";
+                pendingRequests += string.Join(", ", _requestsPending.Select(s => s.Key.SequenceId));
+                ProtoLog.Warn(pendingRequests);
+                return false;
+            }
+
+            return true;
         }
 
         private void ReleasePlayAllowed()

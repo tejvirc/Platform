@@ -86,8 +86,8 @@
         ///     Helper function to get the Game map Id
         /// </summary>
         /// <param name="gameDataService"> Game data service</param>
-        /// <returns> Game map id for the game if it exists, else default value</returns>
-        public static async Task<uint> GetGameMapIdAsync(this IGameDataService gameDataService)
+        /// <returns>Game map id for the game if it exists, else default value</returns>
+        public static async Task<uint> GetDefaultGameMapIdAsync(this IGameDataService gameDataService)
         {
             var gameInfo = (await gameDataService.GetGameInfo()).ToList();
             return gameInfo.FirstOrDefault()?.GameId ?? 0u;
@@ -151,7 +151,7 @@
             {
                 outcomes.Add(
                     new Outcome(
-                        prizeInformation.SeqNo,
+                        prizeInformation.ReplyId,
                         (long)prizeInformation.ScratchTicketSetId,
                         (long)prizeInformation.ScratchTicketId,
                         OutcomeReference.Direct,
@@ -176,8 +176,8 @@
                         var progressiveLevel = progressiveLevels.First(x => x.LevelId == levelId);
                         outcomes.AddRange(
                             Enumerable.Range(1, count).Select(
-                                x => new Outcome(
-                                    prizeInformation.SeqNo,
+                                _ => new Outcome(
+                                    prizeInformation.ReplyId,
                                     (long)prizeInformation.ScratchTicketSetId,
                                     (long)prizeInformation.ScratchTicketId,
                                     OutcomeReference.Direct,
@@ -197,7 +197,7 @@
                 {
                     outcomes.Add(
                         new Outcome(
-                            prizeInformation.SeqNo,
+                            prizeInformation.ReplyId,
                             (long)prizeInformation.ScratchTicketSetId,
                             (long)prizeInformation.ScratchTicketId,
                             OutcomeReference.Direct,

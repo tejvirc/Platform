@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Services
 {
     using System;
+    using System.Diagnostics;
     using System.Reflection;
+    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
@@ -12,6 +14,7 @@
     using Gaming.Contracts;
     using Kernel;
     using Localization.Properties;
+    using Storage.Helpers;
     using log4net;
     using HandpayType = Accounting.Contracts.Handpay.HandpayType;
     using HHRHandpayType = Client.Messages.HandpayType;
@@ -30,7 +33,9 @@
         private readonly IPlayerSessionService _playerSessionService;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IBank _bank;
-        private readonly IGameDataService _gameDataService;
+        private readonly IPrizeInformationEntityHelper _prizeInfoHelper;
+        private readonly ITransactionIdProvider _transactionIdProvider;
+
         private bool _disposed;
 
         /// <summary>
@@ -42,22 +47,31 @@
         /// <param name="playerSessionService">The Player Session Service</param>
         /// <param name="propertiesManager">The Properties Manager Service</param>
         /// <param name="bank">The Bank service</param>
-        /// <param name="gameDataService">The game data service</param>
+        /// <param name="prizeInfoHelper">The prize information entity helper</param>
+        /// <param name="transactionIdProvider">Provides with next transaction Id</param>
         public GameWinService(
             IEventBus eventBus,
             ICentralManager centralManager,
             IPlayerSessionService playerSessionService,
             IPropertiesManager propertiesManager,
             IBank bank,
-            IGameDataService gameDataService)
+            IPrizeInformationEntityHelper prizeInfoHelper,
+            ITransactionIdProvider transactionIdProvider)
         {
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _centralManager = centralManager ?? throw new ArgumentNullException(nameof(centralManager));
-            _playerSessionService =
-                playerSessionService ?? throw new ArgumentNullException(nameof(playerSessionService));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
-            _bank = bank ?? throw new ArgumentNullException(nameof(bank));
-            _gameDataService = gameDataService ?? throw new ArgumentNullException(nameof(gameDataService));
+            _eventBus = eventBus
+                ?? throw new ArgumentNullException(nameof(eventBus));
+            _centralManager = centralManager
+                ?? throw new ArgumentNullException(nameof(centralManager));
+            _playerSessionService = playerSessionService
+                ?? throw new ArgumentNullException(nameof(playerSessionService));
+            _propertiesManager = propertiesManager
+                ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _bank = bank
+                ?? throw new ArgumentNullException(nameof(bank));
+            _prizeInfoHelper = prizeInfoHelper
+                ?? throw new ArgumentNullException(nameof(prizeInfoHelper));
+            _transactionIdProvider = transactionIdProvider
+                ?? throw new ArgumentNullException(nameof(transactionIdProvider));
 
             _eventBus.Subscribe<GameResultEvent>(this, Handle);
         }
@@ -93,30 +107,68 @@
 
         private async void SendTransactionRequest(TransactionInfo transactionInfo, uint denomination)
         {
-            var type = CommandTransactionType.Unknown;
-            var handpayType = HHRHandpayType.HandpayTypeNone;
-            var amount = transactionInfo.Amount;
+            var prizeInfo = _prizeInfoHelper.PrizeInformation;
+            uint gameId = prizeInfo?.GameMapId ?? 0;
+            long amountInCents = transactionInfo.Amount.MillicentsToCents();
 
             if (transactionInfo.TransactionType == typeof(HandpayTransaction) &&
-                transactionInfo.HandpayType == HandpayType.CancelCredit)
+                transactionInfo.HandpayType == HandpayType.CancelCredit && amountInCents > 0)
             {
-                type = CommandTransactionType.GameWinToHandpayNoReceipt;
-                handpayType = HHRHandpayType.HandpayTypeNonProgressive;
+                await SendMessage(
+                    denomination,
+                    gameId,
+                    CommandTransactionType.GameWinToHandpayNoReceipt,
+                    amountInCents,
+                    HHRHandpayType.HandpayTypeCancelledCredits);
+            }
+            else if (transactionInfo.TransactionType == typeof(WatTransaction) && amountInCents > 0)
+            {
+                await SendMessage(
+                    denomination,
+                    gameId,
+                    CommandTransactionType.GameWinToAftHost,
+                    amountInCents,
+                    HHRHandpayType.HandpayTypeNone);
             }
             else if (transactionInfo.TransactionType == typeof(VoucherOutTransaction))
             {
-                type = CommandTransactionType.GameWinToCashableOutTicket;
-            }
-            else if (transactionInfo.TransactionType == typeof(WatTransaction))
-            {
-                type = CommandTransactionType.GameWinToAftHost;
-            }
+                var totalProgressiveWin = prizeInfo.TotalProgressiveAmountWon;
+                var totalNonProgressiveWin = prizeInfo.RaceSet1AmountWon
+                                             + prizeInfo.RaceSet1ExtraWinnings
+                                             + prizeInfo.RaceSet2AmountWonWithoutProgressives
+                                             + prizeInfo.RaceSet2ExtraWinnings;
 
-            if (type == CommandTransactionType.Unknown || amount == 0)
-            {
-                return;
-            }
+                Debug.Assert(totalProgressiveWin + totalNonProgressiveWin == amountInCents);
 
+                if (totalProgressiveWin > 0)
+                {
+                    await SendMessage(
+                        denomination,
+                        gameId,
+                        CommandTransactionType.GameWinToCashableOutTicket,
+                        totalProgressiveWin,
+                        HHRHandpayType.HandpayTypeProgressive);
+                }
+
+                if (totalNonProgressiveWin > 0)
+                {
+                    await SendMessage(
+                        denomination,
+                        gameId,
+                        CommandTransactionType.GameWinToCashableOutTicket,
+                        totalNonProgressiveWin,
+                        HHRHandpayType.HandpayTypeNonProgressive);
+                }
+            }
+        }
+
+        private async Task SendMessage(
+            uint denomination,
+            uint gameId,
+            CommandTransactionType type,
+            long amountInCents,
+            HHRHandpayType handpayType)
+        {
             try
             {
                 await _centralManager.Send<TransactionRequest, CloseTranResponse>(
@@ -132,13 +184,13 @@
                                 LockupHelpText = Localizer.For(CultureFor.Operator)
                                     .GetString(ResourceKeys.CreditOutCmdFailedHelpMsg)
                             },
-                        TransactionId = (uint)transactionInfo.TransactionId,
+                        TransactionId = (uint)_transactionIdProvider.GetNextTransactionId(),
                         TransactionType = type,
                         PlayerId = await _playerSessionService.GetCurrentPlayerId(),
-                        Credit = (uint)amount.MillicentsToCents(),
+                        Credit = (uint)amountInCents,
                         Debit = 0,
                         LastGamePlayTime = _propertiesManager.GetValue(HHRPropertyNames.LastGamePlayTime, 0u),
-                        GameMapId = await _gameDataService.GetGameMapIdAsync(),
+                        GameMapId = gameId,
                         Flags = 0,
                         Denomination = denomination,
                         HandpayType = (uint)handpayType,
@@ -152,20 +204,20 @@
             }
             catch (UnexpectedResponseException respEx)
             {
-                Logger.Error($"Failed to send game win message for (Type={type}, Amount={amount})", respEx);
+                Logger.Error($"Failed to send game win message for (Type={type}, Amount={amountInCents})", respEx);
 
-                if (respEx?.Response is CloseTranErrorResponse transErrorResponse)
+                if (respEx.Response is CloseTranErrorResponse transErrorResponse)
                 {
                     Logger.Error($"Error Response : ({transErrorResponse.ErrorCode} - {transErrorResponse.ErrorText})");
                 }
             }
             catch (InvalidOperationException ex)
             {
-                Logger.Error($"No player ID available for game win message for (Type={type}, Amount={amount})", ex);
+                Logger.Error($"No player ID available for game win message for (Type={type}, Amount={amountInCents})", ex);
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to send game win message for (Type={type}, Amount={amount})", ex);
+                Logger.Error($"Failed to send game win message for (Type={type}, Amount={amountInCents})", ex);
             }
         }
     }

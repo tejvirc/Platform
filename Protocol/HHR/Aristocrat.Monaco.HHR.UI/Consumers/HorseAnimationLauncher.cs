@@ -34,6 +34,7 @@
         private readonly IGameStartConditionProvider _gameStartConditions;
         private readonly IGamePlayState _gamePlayState;
         private readonly ISystemDisableManager _disableManager;
+        private readonly IGamePlayEntityHelper _gamePlayEntity;
 
         private VenueRaceCollection _venueRaceCollection;
         private VenueRaceCollectionViewModel _venueRaceCollectionViewModel;
@@ -49,7 +50,8 @@
             IGameStartConditionProvider gameStartConditions,
             IPropertiesManager properties,
             IGamePlayState gamePlayState,
-            ISystemDisableManager disableManager)
+            ISystemDisableManager disableManager,
+            IGamePlayEntityHelper gamePlayEntity)
         {
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
@@ -65,6 +67,8 @@
                 ?? throw new ArgumentNullException(nameof(gamePlayState));
             _disableManager = disableManager
                 ?? throw new ArgumentNullException(nameof(disableManager));
+            _gamePlayEntity = gamePlayEntity
+                ?? throw new ArgumentNullException(nameof(gamePlayEntity));
 
             _eventBus.Subscribe<DisplayConnectionChangedEvent>(this, HandleEvent);
 
@@ -200,7 +204,8 @@
                 _eventBus,
                 _prizeEntityHelper,
                 _propertiesManager,
-                _gamePlayState);
+                _gamePlayState,
+                _gamePlayEntity);
 
             MvvmHelper.ExecuteOnUI(
                 () =>

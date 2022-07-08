@@ -139,7 +139,10 @@
                     RaceInfo = gameRecoveryResponse.RaceInfo,
                     LastGamePlayTime = gameRecoveryResponse.LastGamePlayTime,
                     ScratchTicketId = gameRecoveryResponse.RaceTicketId,
-                    ScratchTicketSetId = gameRecoveryResponse.RaceTicketSetId
+                    ScratchTicketSetId = gameRecoveryResponse.RaceTicketSetId,
+                    // NOTE: Don't set the ReplyId here as having zero is how we detect recovery
+                    // messages in other logic and you'll break that.
+                    ReplyId = 0
                 };
             }
 

@@ -284,13 +284,13 @@
             new uint[] { 70003 }, new uint[] { 1 },
             DisplayName = "Ratio too low")
             ]
-        [DataRow(10u, 500000u, 0u, 30u, 59997u, 2u, 0u,
-            new long[] { 10, 59999 }, new long[] { 499990, 0 },
+        [DataRow(10u, 90000u, 0u, 30u, 59997u, 2u, 0u,
+            new long[] { 10, 59999 }, new long[] { 89990, 0 },
             new uint[] { 59999 }, new uint[] { 1 },
             DisplayName = "Handpay set 1, small win set 2")
             ]
-        [DataRow(10u, 500000u, 0u, 30u, 0u, 2u, 400u,
-            new long[] { 10, 402 }, new long[] { 499990, 0 },
+        [DataRow(10u, 80000u, 0u, 30u, 0u, 2u, 400u,
+            new long[] { 10, 402 }, new long[] { 79990, 0 },
             new uint[] { 2, 400 }, new uint[] { 1, 0 },
             DisplayName = "Handpay set 1, mixed win set 2")
             ]
@@ -299,8 +299,8 @@
             new uint[] { }, new uint[] { },
             DisplayName = "Handpay set 2")
             ]
-        [DataRow(10u, 14u, 17u, 30u, 600000u, 2u, 0u,
-            new long[] { 31, 30 }, new long[] { 0, 599972 },
+        [DataRow(10u, 14u, 17u, 30u, 91000u, 2u, 0u,
+            new long[] { 31, 30 }, new long[] { 0, 90972 },
             new uint[] { 31 }, new uint[] { 1 },
             DisplayName = "Handpay set 2, small win set 1")
             ]
@@ -331,13 +331,13 @@
             ]
         [DataRow(10u, 50u, 3u, 30u, 100u, 2u, 0u,
             new long[] { 53, 102 }, new long[] { 0, 0 },
-            new uint[] { 53, 102 }, new uint[] { 1, 1 },
+            new uint[] { }, new uint[] { },
             499999000L,
             DisplayName = "Small win, no handpay, over credit limit")
             ]
         [DataRow(10u, 50u, 3u, 30u, 100u, 2u, 800u,
             new long[] { 53, 902 }, new long[] { 0, 0 },
-            new uint[] { 53, 102, 800 }, new uint[] { 1, 1, 0 },
+            new uint[] { }, new uint[] { },
             499999000L,
             DisplayName = "Mixed win, no handpay, over credit limit")
             ]

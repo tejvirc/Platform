@@ -55,7 +55,7 @@
 
         /// <summary>
         /// </summary>
-        public uint SeqNo { get; set; }
+        public uint ReplyId { get; set; }
 
         /// <summary>
         ///     The amount won from progressive prizes on race set 2.

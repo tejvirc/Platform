@@ -115,12 +115,12 @@
         {
             _currentRaceInfo = null;
             SetRacePatterns(gameId, numberOfCredits);
+            _recoveryInProgress = isRecovering;
 
             try
             {
                 if (isRecovering)
                 {
-                    _recoveryInProgress = true;
                     _gamePlayResponse = await _gameRecoveryService.Recover(token);
                 }
                 else
@@ -143,7 +143,7 @@
                         // this message, then throw the response away and wait for recovery to finish.
                         if (_recoveryInProgress)
                         {
-                            throw new IgnoreOutcomesException();
+                            throw new IgnoreOutcomesException("Ignoring response as recovery has started (manual handicap)");
                         }
 
                         _gamePlayResponse.BOverride = isOverriden;
@@ -161,7 +161,7 @@
                         // this message, then throw the response away and wait for recovery to finish.
                         if (_recoveryInProgress)
                         {
-                            throw new IgnoreOutcomesException();
+                            throw new IgnoreOutcomesException("Ignoring response as recovery has started (auto handicap)");
                         }
 
                         Logger.Debug($"Non-Manual handicap race data : {_gamePlayResponse.RaceInfo.RaceData.ToJson()}");
@@ -189,7 +189,11 @@
                 {
                     if (!gamePlaySequenceMatch && !raceStartSequenceMatch && !isRecoveryResponse)
                     {
-                        throw new IgnoreOutcomesException();
+                        throw new IgnoreOutcomesException(
+                            "Ignoring response as it did not match nor was it a recovery:"
+                            + $" {_gamePlayResponse.ReplyId}"
+                            + $" {_gamePlayEntityHelper.GamePlayRequest?.SequenceId}"
+                            + $" {_gamePlayEntityHelper.RaceStartRequest?.SequenceId}");
                     }
                 }
 
