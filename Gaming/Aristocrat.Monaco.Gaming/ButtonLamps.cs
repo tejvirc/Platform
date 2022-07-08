@@ -22,6 +22,7 @@
         private readonly ConcurrentDictionary<int, Lamp> _lamps = new();
         private readonly List<int> _invalidLamps = new();
         private readonly Timer _blinkTimer = new(BlinkInterval);
+        private readonly object _lockObject = new object();
 
         private bool _disposed;
 
@@ -60,6 +61,17 @@
             if (!lamp.Disabled)
             {
                 SetLampLight(buttonId, lightOn);
+            }
+        }
+
+        public void SetLampState(IList<ButtonLampState> buttonLampsState)
+        {
+            lock (_lockObject)
+            {
+                foreach (var buttonState in buttonLampsState.Where(buttonState => buttonState != null))
+                {
+                    SetLampState(buttonState.ButtonId, buttonState.State);
+                }
             }
         }
 

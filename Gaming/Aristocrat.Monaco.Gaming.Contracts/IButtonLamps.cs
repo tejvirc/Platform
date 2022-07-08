@@ -1,4 +1,6 @@
 ﻿// ReSharper disable UnusedMember.Global
+using System.Collections.Generic;
+
 namespace Aristocrat.Monaco.Gaming.Contracts
 {
     /// <summary> LampState </summary>
@@ -69,6 +71,13 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         void SetLampState(int buttonId, LampState state);
 
         /// <summary>
+        ///     Sets the lamp state.
+        /// </summary>
+        /// <param name="buttonsLampState">list of button ids</param>
+
+        void SetLampState(IList<ButtonLampState> buttonsLampState);
+
+        /// <summary>
         ///     Disables all the lamps
         /// </summary>
         void DisableLamps();
@@ -77,5 +86,21 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         ///     Enables all the lamps
         /// </summary>
         void EnableLamps();
+    }
+
+    /// <summary> Button and correspondeing state of lamp for static button deck </summary>
+    public class ButtonLampState
+    {
+        /// <summary> Id of button</summary>
+        public int ButtonId;
+        /// <summary> State Of Button</summary>
+        public LampState State;
+
+        /// <summary> ButtonState </summary>
+        public ButtonLampState(int buttonId, LampState state)
+        {
+            ButtonId = buttonId;
+            State = state;
+        }
     }
 }
