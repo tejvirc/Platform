@@ -28,7 +28,7 @@
         ///     available; otherwise, it MUST be set to the maximum payback percentage of the game, which MUST be greater than 0
         ///     (zero). For example, a value of 96371 represents a maximum payback percentage of 96.371%.
         /// </value>
-        public long MaxPaybackPercent { get; set; }
+        public decimal MaxPaybackPercent { get; set; }
 
         /// <summary>
         ///     Gets or sets the minimum payback pct.
@@ -39,7 +39,7 @@
         ///     (zero) and less than or equal to maxPaybackPct. For example, a value of 82451 represents a minimum payback
         ///     percentage of 82.451%.
         /// </value>
-        public long MinPaybackPercent { get; set; }
+        public decimal MinPaybackPercent { get; set; }
 
         /// <summary>
         ///     Gets or sets the meter name used to retrieve and display the current bonus or progressive value in the lobby or

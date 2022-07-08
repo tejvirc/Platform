@@ -758,13 +758,6 @@ namespace Aristocrat.Monaco.Gaming
             return path;
         }
 
-        private static decimal ConvertToRtp(long value)
-        {
-            // Older versions of the manifest contained a truncated Rtp (precision of 2), represented as 9821 or 98.21%
-            // Newer manifests have a precision of 3, represented as 98212 or 98.212%
-            return value > 10000 ? new decimal(value / 1000.0) : new decimal(value / 100.0);
-        }
-
         private void Scan()
         {
             Logger.Debug("Initiating game discovery");
@@ -885,6 +878,29 @@ namespace Aristocrat.Monaco.Gaming
                     {
                         centralAllowed = true;
                         _properties.SetProperty(ApplicationConstants.CentralAllowed, true);
+                        // IMPORTANT: For central determinant games the wager categories are comprised of the cds info templates instead of the
+                        // actual WagerCategory information from the GSA Manifest.
+                        wagerCategories = game.CentralInfo.GroupBy(c => c.Id, c => c.Bet,
+                            (id, bet) =>
+                            {
+                                var betList = bet.ToList();
+                                return new WagerCategory(
+                                    id.ToString(),
+                                    game.MaxPaybackPercent,
+                                    betList.Min(),
+                                    betList.Max(),
+                                    0);
+                            }).ToList();
+                    }
+                    else
+                    {
+                        wagerCategories = game.WagerCategories.Select(
+                            w => new WagerCategory(
+                                w.Id,
+                                w.TheoPaybackPercent,
+                                w.MinWagerCredits,
+                                w.MaxWagerCredits,
+                                w.MaxWinAmount)).ToList();
                     }
 
                     var cdsGameInfos = game.CentralInfo?.GroupBy(c => c.Id, c => c.Bet,
@@ -963,8 +979,8 @@ namespace Aristocrat.Monaco.Gaming
 
                     gameDetail.PaytableName = GetPaytableName(game.PaytableId);
                     gameDetail.VariationId = game.VariationId;
-                    gameDetail.MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent);
-                    gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
+                    gameDetail.MaximumPaybackPercent = game.MaxPaybackPercent;
+                    gameDetail.MinimumPaybackPercent = game.MinPaybackPercent;
                     gameDetail.CentralAllowed = centralAllowed;
                     gameDetail.CdsThemeId = game.CdsThemeId;
                     gameDetail.CdsTitleId = game.CdsTitleId;
@@ -1591,27 +1607,27 @@ namespace Aristocrat.Monaco.Gaming
             return IsValidRtp(
 #if TEMP
                 progressiveDetails,
+                game.MinPaybackPercent,
+                game.MaxPaybackPercent,
 #endif
                 game.WagerCategories,
                 includeLinkIncrementKey,
                 includeStandaloneIncrementKey,
                 minRtpKey,
-                maxRtpKey,
-                ConvertToRtp(game.MinPaybackPercent),
-                ConvertToRtp(game.MaxPaybackPercent));
+                maxRtpKey);
         }
 
         private bool IsValidRtp(
 #if TEMP
             IReadOnlyCollection<ProgressiveDetail> progressiveDetails,
+            decimal minPayback,
+            decimal maxPayback,
 #endif
             IEnumerable<PackageManifest.Models.WagerCategory> wagerCategories,
             string includeLinkProgressiveIncrementRtpKey,
             string includeStandaloneProgressiveIncrementKey,
             string minRtpKey,
-            string maxRtpKey,
-            decimal minPayback,
-            decimal maxPayback)
+            string maxRtpKey)
         {
             var includeIncrement = _properties.GetValue(includeLinkProgressiveIncrementRtpKey, false) ||
                                     _properties.GetValue(includeStandaloneProgressiveIncrementKey, false);
@@ -1627,9 +1643,11 @@ namespace Aristocrat.Monaco.Gaming
                 .Union(categories.Select(w => w.LinkIncrementRtpPercent)).ToList();
             var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
             var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
+            Logger.Debug($"minBase={minBaseRtp}% maxBase={maxBaseRtp}% minProgStart={minProgStartupRtp}% maxProgStart={maxProgStartupRtp}% minProgIncr={minProgIncrementRtp}% maxProgIncr={maxProgIncrementRtp}%");
 
             var totalRtpMin = minBaseRtp + minProgStartupRtp + minProgIncrementRtp;
             var totalRtpMax = maxBaseRtp + maxProgStartupRtp + maxProgIncrementRtp;
+            Logger.Debug($"minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
 
 #if TEMP
             if (minBaseRtp == 0)
@@ -1642,14 +1660,13 @@ namespace Aristocrat.Monaco.Gaming
                 totalRtpMax = (includeIncrement
                     ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMax
                     : returnToPlayer?.BaseRtpAndResetRtpMax) ?? maxPayback;
+                Logger.Debug($"Alt minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
             }
 #endif
 
             return totalRtpMax >= totalRtpMin
                    && totalRtpMax > 0
                    && totalRtpMin >= 0
-                   && totalRtpMax <= maxPayback
-                   && totalRtpMin >= minPayback
                    && IsValidMinimumRtp(minRtpKey, totalRtpMin)
                    && IsValidMaximumRtp(maxRtpKey, totalRtpMax);
         }
@@ -1673,12 +1690,12 @@ namespace Aristocrat.Monaco.Gaming
 
         private bool IsValidMinimumRtp(string key, decimal rtp)
         {
-            return rtp >= ConvertToRtp(_properties.GetValue(key, int.MinValue));
+            return rtp >= _properties.GetValue(key, int.MinValue);
         }
 
         private bool IsValidMaximumRtp(string key, decimal rtp)
         {
-            return rtp <= ConvertToRtp(_properties.GetValue(key, int.MaxValue));
+            return rtp <= _properties.GetValue(key, int.MaxValue);
         }
     }
 }

@@ -127,8 +127,8 @@
             {
                 ThemeId = gameInfo.themeId,
                 PaytableId = gameInfo.paytableId,
-                MaxPaybackPercent = gameInfo.maxPaybackPct,
-                MinPaybackPercent = gameInfo.minPaybackPct,
+                MaxPaybackPercent = ConvertToRtp(gameInfo.maxPaybackPct),
+                MinPaybackPercent = ConvertToRtp(gameInfo.minPaybackPct),
                 DisplayMeterName = gameInfo.displayMeterName,
                 AssociatedSapDisplayMeterName = gameInfo.associatedSapDisplayMeterName,
                 InitialValue = gameInfo.initialValue,
@@ -221,15 +221,15 @@
                 MaxWagerCredits = wagerCategory.maxWagerCredits,
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
-                TheoPaybackPercent = wagerCategory.theoPaybackPct,
-                MinBaseRtpPercent = wagerCategory.minBaseRtpPct,
-                MaxBaseRtpPercent = wagerCategory.maxBaseRtpPct,
-                MinSapStartupRtpPercent = wagerCategory.minSapStartupRtpPct,
-                MaxSapStartupRtpPercent = wagerCategory.maxSapStartupRtpPct,
-                SapIncrementRtpPercent = wagerCategory.sapIncrementRtpPct,
-                MinLinkStartupRtpPercent = wagerCategory.minLinkStartupRtpPct,
-                MaxLinkStartupRtpPercent = wagerCategory.maxLinkStartupRtpPct,
-                LinkIncrementRtpPercent = wagerCategory.linkIncrementRtpPct
+                TheoPaybackPercent = ConvertToRtp(wagerCategory.theoPaybackPct),
+                MinBaseRtpPercent = ConvertToRtp(wagerCategory.minBaseRtpPct),
+                MaxBaseRtpPercent = ConvertToRtp(wagerCategory.maxBaseRtpPct),
+                MinSapStartupRtpPercent = ConvertToRtp(wagerCategory.minSapStartupRtpPct),
+                MaxSapStartupRtpPercent = ConvertToRtp(wagerCategory.maxSapStartupRtpPct),
+                SapIncrementRtpPercent = ConvertToRtp(wagerCategory.sapIncrementRtpPct),
+                MinLinkStartupRtpPercent = ConvertToRtp(wagerCategory.minLinkStartupRtpPct),
+                MaxLinkStartupRtpPercent = ConvertToRtp(wagerCategory.maxLinkStartupRtpPct),
+                LinkIncrementRtpPercent = ConvertToRtp(wagerCategory.linkIncrementRtpPct)
             };
         }
 
@@ -339,8 +339,8 @@
             {
                 Id = gameConfiguration.id,
                 Name = gameConfiguration.name,
-                MaxPaybackPercent = gameConfiguration.maxPaybackPct,
-                MinPaybackPercent = gameConfiguration.minPaybackPct,
+                MaxPaybackPercent = ConvertToRtp(gameConfiguration.maxPaybackPct),
+                MinPaybackPercent = ConvertToRtp(gameConfiguration.minPaybackPct),
                 MinDenomsEnabled = gameConfiguration.minDenomsEnabled,
                 MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?) null,
                 Editable = gameConfiguration.editable,
@@ -370,6 +370,19 @@
             var index = paytableId.LastIndexOf(delimiter, StringComparison.InvariantCultureIgnoreCase);
 
             return index == -1 ? paytableId : paytableId.Substring(index + 1);
+        }
+
+        private static decimal ConvertToRtp(decimal value)
+        {
+            // Older versions of the manifest contained a truncated Rtp (precision of 2), represented as 9821 or 98.21%.
+            // Newer manifests have a precision of 3, represented as 98212 or 98.212%.
+            // Newest manifests have true percentages already.
+            if (value < 1000)
+            {
+                return value;
+            }
+
+            return value > 10000 ? value / 1000 : value / 100;
         }
     }
 }

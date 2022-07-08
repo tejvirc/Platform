@@ -13,7 +13,7 @@
         /// <summary>
         ///     Gets or sets the theoretical payback percentage associated with the wager category
         /// </summary>
-        public long TheoPaybackPercent { get; set; }
+        public decimal TheoPaybackPercent { get; set; }
 
         /// <summary>
         ///     Gets or sets the minimum wager, in credits, associated with the wager category
