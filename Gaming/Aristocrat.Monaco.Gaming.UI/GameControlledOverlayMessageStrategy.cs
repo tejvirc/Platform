@@ -62,10 +62,10 @@
                 case LobbyCashOutState.Voucher when registeredPresentations.Contains(PresentationOverrideTypes.PrintingCashwinTicket) && lastCashOutForcedByMaxBank:
                     overriddenPresentations.Add(PresentationOverrideTypes.PrintingCashwinTicket);
                     break;
-                case LobbyCashOutState.Voucher when registeredPresentations.Contains(PresentationOverrideTypes.PrintingCashoutTicket):
+                case LobbyCashOutState.Voucher when registeredPresentations.Contains(PresentationOverrideTypes.PrintingCashoutTicket) && !lastCashOutForcedByMaxBank:
                     overriddenPresentations.Add(PresentationOverrideTypes.PrintingCashoutTicket);
                     break;
-                case LobbyCashOutState.Wat when registeredPresentations.Contains(PresentationOverrideTypes.TransferingOutCredits):
+                case LobbyCashOutState.Wat when registeredPresentations.Contains(PresentationOverrideTypes.TransferingOutCredits) && !lastCashOutForcedByMaxBank:
                     overriddenPresentations.Add(PresentationOverrideTypes.TransferingOutCredits);
                     break;
                 case LobbyCashOutState.HandPay when registeredPresentations.Contains(PresentationOverrideTypes.JackpotHandpay):

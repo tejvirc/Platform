@@ -28,6 +28,7 @@
     using Monaco.UI.Common.Models;
     using MVVM;
     using Utils;
+    using PayMethod = Contracts.Bonus.PayMethod;
 #if !(RETAIL)
     using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
@@ -105,7 +106,7 @@
             _eventBus.Subscribe<TimeUpdatedEvent>(this, HandleEvent);
             _eventBus.Subscribe<ShowServiceConfirmationEvent>(this, HandleEvent);
             _eventBus.Subscribe<MissedStartupEvent>(this, HandleEvent);
-            _eventBus.Subscribe<BonusStartedEvent>(this, HandleEvent, evt => evt.Transaction.Mode != BonusMode.GameWin);
+            _eventBus.Subscribe<BonusStartedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PartialBonusPaidEvent>(this, HandleEvent, evt => evt.Transaction.Mode != BonusMode.GameWin);
             _eventBus.Subscribe<BonusAwardedEvent>(this, HandleEvent, evt => evt.Transaction.Mode != BonusMode.GameWin);
             _eventBus.Subscribe<BonusFailedEvent>(this, HandleEvent, evt => evt.Transaction.Mode != BonusMode.GameWin);
@@ -516,9 +517,16 @@
         private void HandleEvent(BonusStartedEvent bonusEvent)
         {
             Logger.Debug("Detected BonusStartedEvent.");
-            if (CurrentState != LobbyState.Disabled)
+            if (CurrentState != LobbyState.Disabled &&
+                bonusEvent.Transaction.Mode != BonusMode.GameWin)
             {
                 CashInStarted(CashInType.Wat);
+            }
+            
+            if (bonusEvent.Transaction.Mode == BonusMode.GameWin &&
+                bonusEvent.Transaction.PayMethod == PayMethod.Voucher)
+            {
+                _forcedCashOutData.Enqueue(true);
             }
         }
 

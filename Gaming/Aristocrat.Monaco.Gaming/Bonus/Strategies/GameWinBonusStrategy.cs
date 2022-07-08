@@ -115,11 +115,13 @@
                 return null;
             }
 
-            _bus.Publish(new BonusStartedEvent(transaction));
             using var scope = _storage.ScopedTransaction();
             var total = transaction.CashableAmount + transaction.NonCashAmount + transaction.PromoAmount;
 
             transaction.PayMethod = GetPayMethod(transaction, total);
+
+            _bus.Publish(new BonusStartedEvent(transaction));
+
             var (success, pending) = Pay(
                 transaction,
                 transactionId,
