@@ -57,7 +57,7 @@
 
             if (_progressiveWinDetailsProvider.HasNonSasProgressiveWinData(clientNumber))
             {
-                _hitExceptionProvider.ReportNonSasProgressiveHit();
+                _hitExceptionProvider.ReportNonSasProgressiveHit(clientNumber);
             }
         }
     }
