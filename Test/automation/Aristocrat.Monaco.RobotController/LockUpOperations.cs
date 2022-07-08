@@ -3,6 +3,7 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
 
     internal class LockUpOperations : IRobotOperations
@@ -101,13 +102,8 @@
 
         private bool IsValid()
         {
-            var IsForceGameExitInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LobbyOperation_ForceGameExit);
-            var isCashoutOperationInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.CashoutOperation);
-            var isLoadGameInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.GameOperation_LoadGame);
-            var isAuditMenuInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.AuditMenuOperation);
-            var isLockUpInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LockUpOperation);
-            var isOutOfOperatingHoursInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.OperatingHoursOperation);
-            return !IsForceGameExitInProgress && !isCashoutOperationInProgress && !isLoadGameInProgress && !isAuditMenuInProgress && !isLockUpInProgress && !isOutOfOperatingHoursInProgress && _sc.IsChooser;
+            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
+            return isBlocked && _sc.IsChooser;
         }
     }
 }

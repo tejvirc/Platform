@@ -5,6 +5,7 @@
     using System;
     using System.Threading;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using System.Collections.Generic;
 
     internal class AuditMenuOperations : IRobotOperations
     {
@@ -112,26 +113,21 @@
                 this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.AuditMenuOperation);
+                    Helper.BlockOtherOperations(_robotController, RobotStateAndOperations.AuditMenuOperation);
                 });
 
             _eventBus.Subscribe<OperatorMenuExitedEvent>(
                 this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.AuditMenuOperation);
+                    Helper.UnBlockOtherOperations(_robotController, RobotStateAndOperations.AuditMenuOperation);
                 });
         }
 
         private bool IsValid()
         {
-            var IsForceGameExitInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LobbyOperation_ForceGameExit);
-            var isCashoutOperationInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.CashoutOperation);
-            var isLoadGameInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.GameOperation_LoadGame);
-            var isAuditMenuInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.AuditMenuOperation);
-            var isLockUpInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LockUpOperation);
-            var isOutOfOperatingHoursInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.OperatingHoursOperation);
-            return !IsForceGameExitInProgress && !isCashoutOperationInProgress && !isLoadGameInProgress && !isAuditMenuInProgress && !isLockUpInProgress && !isOutOfOperatingHoursInProgress && _sc.AuditMenuOperationValid;
+            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
+            return isBlocked && _sc.AuditMenuOperationValid;
         }
     }
 }

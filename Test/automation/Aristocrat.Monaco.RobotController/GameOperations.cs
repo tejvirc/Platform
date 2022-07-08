@@ -9,6 +9,7 @@
     using Aristocrat.Monaco.RobotController.Contracts;
     using Aristocrat.Monaco.Test.Automation;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -30,7 +31,9 @@
         private bool _isTimeLimitDialogVisible;
         private int _sanityCounter;
         private bool _exitWhenIdle;
-        private bool _forceGameExit;
+        private bool _forceGameExitIsInProgress;
+        private bool _requestGameIsInProgress;
+        private bool _gameIsRunning;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
         {
@@ -92,6 +95,7 @@
             _disposed = false;
             _sanityCounter = 0;
             _exitWhenIdle = false;
+            _gameIsRunning = _gameService.Running;
         }
 
         public void Halt()
@@ -134,34 +138,27 @@
             _disposed = true;
         }
 
-        private void RequestForceGameExit()
+        private void RequestForceGameExit(bool forced = false)
         {
-            if (!IsForceGameExitValid())
+            if (!IsForceGameExitValid(forced))
             {
                 return;
             }
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
-            _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.LobbyOperation_ForceGameExit);
-            _forceGameExit = true;
+            _forceGameExitIsInProgress = true;
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
 
-        private bool IsForceGameExitValid()
+        private bool IsForceGameExitValid(bool forced)
         {
-            var isLoadGameInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.GameOperation_LoadGame);
-            var IsForceGameExitInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LobbyOperation_ForceGameExit);
-            var isAuditMenuInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.AuditMenuOperation);
-            var isLockUpInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LockUpOperation);
-            var isOutOfOperatingHoursInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.OperatingHoursOperation);
-            var isCashoutOperationInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.CashoutOperation);
-            var GeneralRule = (_sc.IsGame && _gameService.Running && !_sc.IsGameLoading && _robotController.Config.Active.TestRecovery);
-            return !isCashoutOperationInProgress && !isLoadGameInProgress && !IsForceGameExitInProgress && !isAuditMenuInProgress && !isLockUpInProgress && !isOutOfOperatingHoursInProgress && GeneralRule;
+            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
+            var GeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || forced));
+            return !isBlocked && GeneralRule;
         }
 
         private void HandleRgRequest()
         {
-            var isInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.GameOperation_LoadGame);
-            if ( isInProgress)
+            if (!_gameIsRunning)
             {
                 return;
             }
@@ -178,24 +175,21 @@
             if (!IsValid())
             {
                 return;
-            }            
-            _logger.Info($"Game Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            }
             _sanityCounter++;
-            if (_sc.IsGame)
+            if (_sc.IsGame && _gameIsRunning)
             {
+                _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 _exitWhenIdle = true;
             }
-            else if(_gameService.Running)
+            else if (_gameIsRunning)
             {
-                //lobby is saying that it is in the chooser state but the gameservice says that the game is still running and gameservice is not wrong all the time
-                _logger.Info($"ForceGameExit! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.LobbyOperation_ForceGameExit);
-                _forceGameExit = true;
-                _automator.ForceGameExit(Constants.GdkRuntimeHostName);
-                Task.Delay(100).ContinueWith(_ => _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.LobbyOperation_ForceGameExit));
+                _logger.Info($"lobby is saying that it is in the chooser state but the game is still running, this syncs the lobbystatemanager state Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                RequestForceGameExit(true);
             }
             else
             {
+                _logger.Info($"LoadGame Requested Received! Sanity Counter = {_sanityCounter}", GetType().Name);
                 LoadGame();
             }
         }
@@ -215,6 +209,7 @@
             Task.Delay(milliseconds).ContinueWith(
                 _ =>
                 {
+                     _requestGameIsInProgress = false;
                     HandleGameRequest();
                 });
         }
@@ -226,7 +221,8 @@
                 this,
                  evt =>
                  {
-                     _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.GameOperation_LoadGame);
+                    _logger.Info($"GameLoadRequestedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     _requestGameIsInProgress = true;
                  });
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
                  this,
@@ -252,7 +248,7 @@
                 _ =>
                 {
                     _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.GameOperation_LoadGame);
+                     _requestGameIsInProgress = false;
                     if (!_sc.IsAllowSingleGameAutoLaunch)
                     {
                         HandleGameRequest();
@@ -262,9 +258,10 @@
                 this,
                 _ =>
                 {
-                    _sanityCounter = 0;
                     _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.GameOperation_LoadGame);
+                    _gameIsRunning = true;
+                    _sanityCounter = 0;
+                     _requestGameIsInProgress = false;
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                     _automator.EnableExitToLobby(false);
                 });
@@ -296,17 +293,16 @@
                  this,
                  evt =>
                  {
+                     _gameIsRunning = false;
                      if (evt.Unexpected)
                      {
-                         var isCausedByForceGameExit = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LobbyOperation_ForceGameExit) || _forceGameExit;
-                         if (!isCausedByForceGameExit)
+                         if (!_forceGameExitIsInProgress)
                          {
                              _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                              _robotController.Enabled = false;
                          }
-                         _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                         _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.LobbyOperation_ForceGameExit);
-                         _forceGameExit = false;
+                         _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);                        
+                         _forceGameExitIsInProgress = false;
                          _goToNextGame = false;
                          _exitWhenIdle = true;
                      }
@@ -314,7 +310,6 @@
                      {
                          _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                          _goToNextGame = true;
-                         Reset();
                      }
                      _automator.EnableExitToLobby(false);
                      LoadGameWithDelay(Constants.loadGameDelayDuration);
@@ -347,12 +342,12 @@
                 this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.GameOperation_LoadGame);
+                    _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     LoadGameWithDelay(Constants.loadGameDelayDuration);
                 });
             InitGameProcessHungEvent();
         }
-        
+
         private void InitGameProcessHungEvent()
         {
             // If the runtime process hangs, and the setting to not kill it is active, then stop the robot. 
@@ -425,12 +420,9 @@
 
         private bool IsValid()
         {
-            var isLoadGameInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.GameOperation_LoadGame);
-            var isAuditMenuInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.AuditMenuOperation);
-            var isLockUpInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.LockUpOperation);
-            var isOutOfOperatingHoursInProgress = _robotController.InProgressRequests.Contains(RobotStateAndOperations.OperatingHoursOperation);
-            var GeneralRule = _sc.GameOperationValid;
-            return !isLoadGameInProgress && !isAuditMenuInProgress && !isLockUpInProgress && !isOutOfOperatingHoursInProgress && GeneralRule;
+            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
+            var GeneralRule = _sc.IsChooser || (_gameIsRunning && !_sc.IsGameLoading);
+            return !isBlocked && GeneralRule && !_requestGameIsInProgress;
         }
 
         private void ExecuteGameLoad()
@@ -442,7 +434,7 @@
             {
                 var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
                 _logger.Info($"Requesting game {gameInfo.ThemeName} with denom {denom} be loaded.", GetType().Name);
-                if(gameInfo.GameType is not (Gaming.Contracts.Models.GameType)GameType.Reel)
+                if (gameInfo.GameType is not (Gaming.Contracts.Models.GameType)GameType.Reel)
                 {
                     _automator.ResetSpeed();
                 }
