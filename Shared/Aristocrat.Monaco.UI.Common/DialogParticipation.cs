@@ -73,6 +73,11 @@
                 throw new ArgumentNullException(nameof(context));
             }
 
+            if (!IsRegistered(context))
+            {
+                return null;
+            }
+
             return !ContextRegistrationIndex[context.GetType()].TryGetTarget(out var dependencyObject) ? null : dependencyObject;
         }
 

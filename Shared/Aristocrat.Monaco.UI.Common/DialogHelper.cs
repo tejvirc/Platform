@@ -68,7 +68,7 @@
 
             if (view == null)
             {
-                Logger.Error("Context is not registered. Consider using DialogParticipation.Register in XAML to bind in the DataContext.");
+                Logger.Error("Context is not registered. Consider using DialogParticipation. Register in XAML to bind in the DataContext.");
                 return null;
             }
 
