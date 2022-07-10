@@ -103,7 +103,7 @@
         private bool IsValid()
         {
             var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
-            return isBlocked && _sc.IsChooser;
+            return !isBlocked && _sc.IsChooser;
         }
     }
 }

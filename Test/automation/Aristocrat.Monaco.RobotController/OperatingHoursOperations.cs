@@ -101,7 +101,7 @@
         private bool IsValid()
         {
             var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
-            return isBlocked && (_sc.IsChooser || (_sc.IsGame && !_sc.IsGameLoading));
+            return !isBlocked && (_sc.IsChooser || (_sc.IsGame && !_sc.IsGameLoading));
         }
 
         private void SetOperatingHours()

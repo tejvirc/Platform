@@ -176,7 +176,6 @@
             {
                 return;
             }
-            _sanityCounter++;
             if (_sc.IsGame && _gameIsRunning)
             {
                 _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
@@ -190,6 +189,7 @@
             else
             {
                 _logger.Info($"LoadGame Requested Received! Sanity Counter = {_sanityCounter}", GetType().Name);
+                _sanityCounter++;
                 LoadGame();
             }
         }

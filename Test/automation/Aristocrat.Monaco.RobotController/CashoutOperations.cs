@@ -89,7 +89,7 @@
         private bool IsValid()
         {
             var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
-            return isBlocked && _sc.CashoutOperationValid;
+            return !isBlocked && _sc.CashoutOperationValid;
         }
 
         private void SubscribeToEvents()
