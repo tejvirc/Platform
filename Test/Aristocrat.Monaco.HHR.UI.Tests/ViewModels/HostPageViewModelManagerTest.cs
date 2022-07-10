@@ -99,6 +99,7 @@
             _manualHandicapHelpPageViewModel = new ManualHandicapHelpPageViewModel(
                 _eventBus.Object,
                 _bank.Object,
+                _gameProvider.Object,
                 _properties.Object);
 
             _raceStatsPageViewModel = new RaceStatsPageViewModel(

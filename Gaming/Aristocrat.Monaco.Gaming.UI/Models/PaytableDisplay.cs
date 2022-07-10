@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using Contracts;
-    using Contracts.Progressives;
 
     public class PaytableDisplay
     {

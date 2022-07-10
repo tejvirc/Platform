@@ -89,13 +89,14 @@
             _requestSent = false;
         }
 
-        [DataRow(true, false, false, false, false, false, false, DisplayName = "Null EventBus throws exception")]
-        [DataRow(false, true, false, false, false, false, false, DisplayName = "Null CentralManager throws exception")]
-        [DataRow(false, false, true, false, false, false, false, DisplayName = "Null PlayerSessionService throws exception")]
-        [DataRow(false, false, false, true, false, false, false, DisplayName = "Null Properties throws exception")]
-        [DataRow(false, false, false, false, true, false, false, DisplayName = "Null IdProvier throws exception")]
-        [DataRow(false, false, false, false, false, true, false, DisplayName = "Null Bank throws exception")]
-        [DataRow(false, false, false, false, false, false, true, DisplayName = "Null game data service throws exception")]
+        [DataRow(true, false, false, false, false, false, false, false, DisplayName = "Null EventBus throws exception")]
+        [DataRow(false, true, false, false, false, false, false, false, DisplayName = "Null CentralManager throws exception")]
+        [DataRow(false, false, true, false, false, false, false, false, DisplayName = "Null PlayerSessionService throws exception")]
+        [DataRow(false, false, false, true, false, false, false, false, DisplayName = "Null Properties throws exception")]
+        [DataRow(false, false, false, false, true, false, false, false, DisplayName = "Null IdProvier throws exception")]
+        [DataRow(false, false, false, false, false, true, false, false, DisplayName = "Null Bank throws exception")]
+        [DataRow(false, false, false, false, false, false, true, false, DisplayName = "Null GameProvider throws exception")]
+        [DataRow(false, false, false, false, false, false, false, true, DisplayName = "Null GameDataService throws exception")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_InvalidParamas_ThrowsException(
@@ -104,12 +105,13 @@
             bool nullPlayerService,
             bool nullProperties,
             bool nullIdProvider,
-            bool nullbank,
+            bool nullBank,
+            bool nullGameProvider,
             bool nullGameDataService)
         {
             _ = CreateCreditInService(
                 nullEventBus, nullCentralManager, nullPlayerService, nullProperties, nullIdProvider,
-                nullbank, nullGameDataService);
+                nullBank, nullGameProvider, nullGameDataService);
         }
 
 
@@ -276,7 +278,8 @@
             bool nullPlayerService = false,
             bool nullProperties = false,
             bool nullIdProvider = false,
-            bool nullbank = false,
+            bool nullBank = false,
+            bool nullGameProvider = false,
             bool nullGameDataService = false)
         {
             _sut = new CreditInService(
@@ -285,7 +288,8 @@
                 nullPlayerService ? null : _playerSession.Object,
                 nullProperties ? null : _properties.Object,
                 nullIdProvider ? null : _idProvider.Object,
-                nullbank ? null : _bank.Object,
+                nullBank ? null : _bank.Object,
+                nullGameProvider ? null : _gameProvider.Object,
                 nullGameDataService ? null : _gameDataService.Object);
 
             return _sut;

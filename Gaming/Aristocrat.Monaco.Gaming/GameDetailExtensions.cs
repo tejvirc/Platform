@@ -55,7 +55,7 @@
             }
 
             var includeIncrementRtp = ServiceManager.GetInstance().GetService<IContainerService>().Container
-                .GetInstance<IPropertiesManager>()
+                .GetInstance<IGameRtpService>()
                 .CanIncludeIncrementRtp(@this.GameType);
 
             return (

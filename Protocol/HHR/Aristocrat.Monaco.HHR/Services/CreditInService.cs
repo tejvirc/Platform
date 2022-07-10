@@ -19,7 +19,7 @@
     /// </summary>
     public class CreditInService : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly ICentralManager _centralManager;
@@ -27,6 +27,7 @@
         private readonly IBank _bank;
         private readonly ITransactionIdProvider _transactionIdProvider;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
         private readonly IGameDataService _gameDataService;
 
         private bool _disposed;
@@ -41,6 +42,7 @@
         /// <param name="propertiesManager">The property manager</param>
         /// <param name="transactionIdProvider">The transaction ID provider history</param>
         /// <param name="bank">The bank</param>
+        /// <param name="gameProvider">The game provider service</param>
         /// <param name="gameDataService">The game data service</param>
         public CreditInService(
             IEventBus eventBus,
@@ -49,6 +51,7 @@
             IPropertiesManager propertiesManager,
             ITransactionIdProvider transactionIdProvider,
             IBank bank,
+            IGameProvider gameProvider,
             IGameDataService gameDataService)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -58,6 +61,7 @@
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactionIdProvider = transactionIdProvider ?? throw new ArgumentNullException(nameof(transactionIdProvider));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameDataService = gameDataService ?? throw new ArgumentNullException(nameof(gameDataService));
 
             SubscribeEvents();
@@ -207,7 +211,7 @@
 
         private async Task<TransactionRequest> CreateTransactionRequest(CommandTransactionType aftInType, long amount)
         {
-            var gameDetail = _propertiesManager.GetActiveGame();
+            var gameDetail = _gameProvider.GetActiveGame();
 
             return new TransactionRequest
             {

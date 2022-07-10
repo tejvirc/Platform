@@ -33,6 +33,7 @@
         private readonly IBank _bank;
         private readonly ICurrencyInContainer _currencyHandler;
         private readonly IGameDiagnostics _gameDiagnostics;
+        private readonly IGameProvider _gameProvider;
         private readonly IIdProvider _idProvider;
         private readonly IPersistentBlock _persistentBlock;
         private readonly List<GameHistoryLog> _logs;
@@ -52,6 +53,7 @@
         /// <param name="properties">An <see cref="IPropertiesManager" /> instance.</param>
         /// <param name="bank">An <see cref="IBank" /> instance.</param>
         /// <param name="gameDiagnostics">An <see cref="IGameDiagnostics" /> instance.</param>
+        /// <param name="gameProvider">An <see cref="IGameProvider" /> instance.</param>
         /// <param name="idProvider">An <see cref="IIdProvider" /> instance.</param>
         /// <param name="systemDisable">An <see cref="ISystemDisableManager" /> instance.</param>
         /// <param name="currencyHandler">The currency handler.</param>
@@ -64,6 +66,7 @@
             IPropertiesManager properties,
             IBank bank,
             IGameDiagnostics gameDiagnostics,
+            IGameProvider gameProvider,
             IIdProvider idProvider,
             ISystemDisableManager systemDisable,
             ICurrencyInContainer currencyHandler,
@@ -76,6 +79,7 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             var provider = persistenceProvider ?? throw new ArgumentNullException(nameof(persistenceProvider));
             _persistentBlock = provider.GetOrCreateBlock(GameHistoryKey, PersistenceLevel.Critical);

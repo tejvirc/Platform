@@ -1,5 +1,4 @@
-﻿#define TEMP
-namespace Aristocrat.Monaco.Gaming
+﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -73,6 +72,7 @@ namespace Aristocrat.Monaco.Gaming
         private readonly IProgressiveLevelProvider _progressiveProvider;
         private readonly IIdProvider _idProvider;
         private readonly IPropertiesManager _properties;
+        private readonly IGameRtpService _gameRtpService;
         private readonly IRuntimeProvider _runtimeProvider;
         private readonly IPersistentStorageManager _storageManager;
         private readonly IDigitalRights _digitalRights;
@@ -93,6 +93,7 @@ namespace Aristocrat.Monaco.Gaming
             IGameOrderSettings gameOrder,
             IEventBus bus,
             IPropertiesManager properties,
+            IGameRtpService gameRtpService,
             IRuntimeProvider runtimeProvider,
             IManifest<IEnumerable<ProgressiveDetail>> progressiveManifest,
             IProgressiveLevelProvider progressiveProvider,
@@ -109,6 +110,7 @@ namespace Aristocrat.Monaco.Gaming
             _gameOrder = gameOrder ?? throw new ArgumentNullException(nameof(gameOrder));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameRtpService = gameRtpService ?? throw new ArgumentNullException(nameof(gameRtpService));
             _runtimeProvider = runtimeProvider ?? throw new ArgumentNullException(nameof(runtimeProvider));
             _progressiveManifest = progressiveManifest ?? throw new ArgumentNullException(nameof(progressiveManifest));
             _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
@@ -189,6 +191,22 @@ namespace Aristocrat.Monaco.Gaming
                         denom.Value,
                         denom.BetOption)).ToList();
             }
+        }
+
+        public (IGameDetail game, IDenomination denomination) GetActiveGame()
+        {
+            if (!_properties.GetValue(GamingConstants.IsGameRunning, false))
+            {
+                return (null, null);
+            }
+
+            var selectedGame = _properties.GetValue(GamingConstants.SelectedGameId, 0);
+            var game = _properties.GetValues<IGameDetail>(GamingConstants.Games)
+                .FirstOrDefault(game => game.Id == selectedGame);
+
+            var denom = game?.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
+
+            return (game, denom);
         }
 
         /// <inheritdoc />
@@ -855,11 +873,9 @@ namespace Aristocrat.Monaco.Gaming
                         continue;
                     }
 
-                    if (!IsValidRtp(game
-#if TEMP
-                            , progressiveDetails
-#endif
-                            ))
+                    var rtpRange = _gameRtpService.GetTotalRtp(game, progressiveDetails);
+                    var gameType = _gameRtpService.ToGameType(game.GameType);
+                    if (!_gameRtpService.IsValidRtp(gameType, rtpRange))
                     {
                         Logger.Info($"{game.ThemeId}:{game.PaytableId}'s RTP is not allowed in Jurisdiction");
                         continue;
@@ -1551,126 +1567,6 @@ namespace Aristocrat.Monaco.Gaming
             return game.Denominations.Where(d => MaximumWagerCredits(game) * d <= maxBetLimit && d <= denomLimit);
         }
 
-        private bool IsValidRtp(GameAttributes game
-#if TEMP
-            , IReadOnlyCollection<ProgressiveDetail> progressiveDetails
-#endif
-        )
-        {
-            string includeLinkIncrementKey;
-            string includeStandaloneIncrementKey;
-            string minRtpKey;
-            string maxRtpKey;
-
-#if ! TEMP
-            if (!game.WagerCategories.ToList().Any())
-            {
-                return false;
-            }
-#endif
-
-            // Default to slot for games that are not tagged
-            switch (game.GameType)
-            {
-                case t_gameType.Blackjack:
-                    includeLinkIncrementKey = GamingConstants.BlackjackIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.BlackjackIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.BlackjackMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.BlackjackMaximumReturnToPlayer;
-                    break;
-                case t_gameType.Poker:
-                    includeLinkIncrementKey = GamingConstants.PokerIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.PokerIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.PokerMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.PokerMaximumReturnToPlayer;
-                    break;
-                case t_gameType.Keno:
-                    includeLinkIncrementKey = GamingConstants.KenoIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.KenoIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.KenoMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.KenoMaximumReturnToPlayer;
-                    break;
-                case t_gameType.Roulette:
-                    includeLinkIncrementKey = GamingConstants.RouletteIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.RouletteIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.RouletteMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.RouletteMaximumReturnToPlayer;
-                    break;
-                default:
-                    includeLinkIncrementKey = GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.SlotsIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.SlotMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.SlotMaximumReturnToPlayer;
-                    break;
-            }
-
-            return IsValidRtp(
-#if TEMP
-                progressiveDetails,
-                game.MinPaybackPercent,
-                game.MaxPaybackPercent,
-#endif
-                game.WagerCategories,
-                includeLinkIncrementKey,
-                includeStandaloneIncrementKey,
-                minRtpKey,
-                maxRtpKey);
-        }
-
-        private bool IsValidRtp(
-#if TEMP
-            IReadOnlyCollection<ProgressiveDetail> progressiveDetails,
-            decimal minPayback,
-            decimal maxPayback,
-#endif
-            IEnumerable<PackageManifest.Models.WagerCategory> wagerCategories,
-            string includeLinkProgressiveIncrementRtpKey,
-            string includeStandaloneProgressiveIncrementKey,
-            string minRtpKey,
-            string maxRtpKey)
-        {
-            var includeIncrement = _properties.GetValue(includeLinkProgressiveIncrementRtpKey, false) ||
-                                    _properties.GetValue(includeStandaloneProgressiveIncrementKey, false);
-
-            var categories = wagerCategories.ToList();
-            var minBaseRtp = categories.Select(w => w.MinBaseRtpPercent).Min();
-            var maxBaseRtp = categories.Select(w => w.MaxBaseRtpPercent).Max();
-            var minProgStartupRtp = categories.Select(w => w.MinSapStartupRtpPercent)
-                .Union(categories.Select(w => w.MinLinkStartupRtpPercent)).Min();
-            var maxProgStartupRtp = categories.Select(w => w.MaxSapStartupRtpPercent)
-                .Union(categories.Select(w => w.MaxLinkStartupRtpPercent)).Max();
-            var progIncrementRtps = categories.Select(w => w.SapIncrementRtpPercent)
-                .Union(categories.Select(w => w.LinkIncrementRtpPercent)).ToList();
-            var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
-            var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
-            Logger.Debug($"minBase={minBaseRtp}% maxBase={maxBaseRtp}% minProgStart={minProgStartupRtp}% maxProgStart={maxProgStartupRtp}% minProgIncr={minProgIncrementRtp}% maxProgIncr={maxProgIncrementRtp}%");
-
-            var totalRtpMin = minBaseRtp + minProgStartupRtp + minProgIncrementRtp;
-            var totalRtpMax = maxBaseRtp + maxProgStartupRtp + maxProgIncrementRtp;
-            Logger.Debug($"minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
-
-#if TEMP
-            if (minBaseRtp == 0)
-            {
-                var returnToPlayer = progressiveDetails?.FirstOrDefault()?.ReturnToPlayer;
-
-                totalRtpMin = (includeIncrement
-                    ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMin
-                    : returnToPlayer?.BaseRtpAndResetRtpMin) ?? minPayback;
-                totalRtpMax = (includeIncrement
-                    ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMax
-                    : returnToPlayer?.BaseRtpAndResetRtpMax) ?? maxPayback;
-                Logger.Debug($"Alt minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
-            }
-#endif
-
-            return totalRtpMax >= totalRtpMin
-                   && totalRtpMax > 0
-                   && totalRtpMin >= 0
-                   && IsValidMinimumRtp(minRtpKey, totalRtpMin)
-                   && IsValidMaximumRtp(maxRtpKey, totalRtpMax);
-        }
-
         private bool IsTypeAllowed(GameAttributes game)
         {
             switch (game.GameType)
@@ -1686,16 +1582,6 @@ namespace Aristocrat.Monaco.Gaming
                 default:
                     return _properties.GetValue(GamingConstants.AllowSlotGames, true);
             }
-        }
-
-        private bool IsValidMinimumRtp(string key, decimal rtp)
-        {
-            return rtp >= _properties.GetValue(key, decimal.MinValue);
-        }
-
-        private bool IsValidMaximumRtp(string key, decimal rtp)
-        {
-            return rtp <= _properties.GetValue(key, decimal.MaxValue);
         }
     }
 }

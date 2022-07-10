@@ -5,34 +5,32 @@
     using Contracts;
     using Contracts.Central;
     using Hardware.Contracts.Persistence;
-    using Kernel;
 
     public class PrimaryGameEscrowCommandHandler : ICommandHandler<PrimaryGameEscrow>
     {
         private readonly ICentralProvider _central;
         private readonly IGameHistory _gameHistory;
         private readonly IGameRecovery _recovery;
-        private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IPersistentStorageManager _storage;
 
         public PrimaryGameEscrowCommandHandler(
             ICentralProvider central,
             IGameHistory gameHistory,
             IGameRecovery recovery,
-            IPropertiesManager properties,
+            IGameProvider gameProvider,
             IPersistentStorageManager storage)
         {
             _central = central ?? throw new ArgumentNullException(nameof(central));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _recovery = recovery ?? throw new ArgumentNullException(nameof(recovery));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
         }
 
         public void Handle(PrimaryGameEscrow command)
         {
-            var (game, denomination) = _properties.GetActiveGame();
-            var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
+            var (game, denomination) = _gameProvider.GetActiveGame();
 
             using var scope = _storage.ScopedTransaction();
             // When recovering we can't update/create the log, but we need to ensure that the outcome request has been processed

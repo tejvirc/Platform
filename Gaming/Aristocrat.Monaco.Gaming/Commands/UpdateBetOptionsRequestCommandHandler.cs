@@ -17,15 +17,18 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IRuntime _runtime;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
 
         public UpdateBetOptionsRequestCommandHandler(
             IPropertiesManager properties,
+            IGameProvider gameProvider,
             IRuntime runtime,
             IProgressiveGameProvider progressiveGameProvider)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _progressiveGameProvider = progressiveGameProvider ??
                                        throw new ArgumentNullException(nameof(progressiveGameProvider));
@@ -34,7 +37,7 @@
         /// <inheritdoc />
         public void Handle(UpdateBetOptions command)
         {
-            var (currentGame, currentDenom) = _properties.GetActiveGame();
+            var (currentGame, currentDenom) = _gameProvider.GetActiveGame();
             Logger.Debug($"UpdateBetOptions for GameId {currentGame} and Denom {currentDenom}");
 
             if (currentGame == null || currentDenom == null)

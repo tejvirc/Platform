@@ -62,6 +62,7 @@
         private Mock<IGameHistory> _gameHistory;
         private ProgressiveUpdateService _progressiveUpdateService;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IGameProvider> _gameProvider;
         private Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter;
         private Mock<IUnitOfWork> _unitOfWork;
         private Mock<IUnitOfWorkFactory> _unitOfWorkFactory;
@@ -83,6 +84,7 @@
             _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
             _gameHistoryLog = new Mock<IGameHistoryLog>(MockBehavior.Default);
             _gameHistory = new Mock<IGameHistory>(MockBehavior.Default);
+            _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
             _transactions = new Mock<ITransactionHistory>(MockBehavior.Strict);
             _progressiveUpdateEntityHelper = new Mock<IProgressiveUpdateEntityHelper>(MockBehavior.Strict);
 
@@ -170,13 +172,14 @@
             AddinManager.Shutdown();
         }
 
-        [DataRow(true, false, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false, false)]
-        [DataRow(false, false, false, true, false, false, false)]
-        [DataRow(false, false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false, false, false)]
+        [DataRow(false, false, false, true, false, false, false, false)]
+        [DataRow(false, false, false, false, true, false, false, false)]
+        [DataRow(false, false, false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, false, false, true)]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenNullExpectException(
@@ -186,10 +189,11 @@
             bool nullTransactionHistory = false,
             bool nullProgressiveUpdateEntityHelper = false,
             bool nullPropertiesManager = false,
+            bool nullGameProvider = false,
             bool nullGameHistory = false)
         {
             SetupProgressiveUpdateService(nullProtocolLinkedProgressiveAdapter, nullEvent, nullProgressiveService,
-                nullTransactionHistory, nullProgressiveUpdateEntityHelper, nullPropertiesManager, nullGameHistory);
+                nullTransactionHistory, nullProgressiveUpdateEntityHelper, nullPropertiesManager, nullGameProvider, nullGameHistory);
 
             Assert.IsNull(_progressiveUpdateService);
         }
@@ -201,6 +205,7 @@
             bool nullTransactionHistory = false,
             bool nullProgressiveUpdateEntityHelper = false,
             bool nullPropertiesManager = false,
+            bool nullGameProvider = false,
             bool nullGameHistory = false)
         {
             _progressiveUpdateService = new ProgressiveUpdateService(
@@ -210,6 +215,7 @@
                 nullTransactionHistory ? null : _transactions.Object,
                 nullProgressiveUpdateEntityHelper ? null : _progressiveUpdateEntityHelper.Object,
                 nullPropertiesManager ? null : _propertiesManager.Object,
+                nullGameProvider ? null : _gameProvider.Object,
                 nullGameHistory ? null : _gameHistory.Object);
         }
 

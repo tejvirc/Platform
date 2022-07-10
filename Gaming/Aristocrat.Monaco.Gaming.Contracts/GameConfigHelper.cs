@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using Localization.Properties;
-    using Progressives;
 
     /// <summary>
     /// Utility class for creating RTP strings
@@ -33,15 +32,15 @@
 
             string rtpString;
 
-            if(max == int.MaxValue && min == int.MinValue)
+            if(max == decimal.MaxValue && min == decimal.MinValue)
             {
                 rtpString = Resources.NoLimit;
             }
-            else if (max == int.MaxValue)
+            else if (max == decimal.MaxValue)
             {
                 rtpString = $"{Resources.AtLeast} {min.Value.GetRtpString()}";
             }
-            else if (min == int.MinValue)
+            else if (min == decimal.MinValue)
             {
                 rtpString = $"{Resources.AtMost} {max.Value.GetRtpString()}";
             }

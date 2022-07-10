@@ -28,6 +28,7 @@
         private readonly Mock<IRuntime> _runtime = new Mock<IRuntime>(MockBehavior.Default);
         private readonly Mock<IGamePlayState> _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
         private readonly Mock<IGameHistory> _gameHistory = new Mock<IGameHistory>(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
 
         private readonly Mock<IPersistentStorageManager> _persistentStorage =
             new Mock<IPersistentStorageManager>(MockBehavior.Default);
@@ -55,18 +56,19 @@
         }
 
         [DataTestMethod]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true)]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorTest(
             bool nullProperties,
@@ -74,6 +76,7 @@
             bool nullRuntime,
             bool nullGamePlayState,
             bool nullGameHistory,
+            bool nullGameProvider,
             bool nullPersistence,
             bool nullMeters,
             bool nullBank,
@@ -88,6 +91,7 @@
                 nullRuntime,
                 nullGamePlayState,
                 nullGameHistory,
+                nullGameProvider,
                 nullPersistence,
                 nullMeters,
                 nullBank,
@@ -209,6 +213,7 @@
             bool nullRuntime = false,
             bool nullGamePlayState = false,
             bool nullGameHistory = false,
+            bool nullGameProvider = false,
             bool nullPersistence = false,
             bool nullMeters = false,
             bool nullBank = false,
@@ -223,6 +228,7 @@
                 nullRuntime ? null : _runtime.Object,
                 nullGamePlayState ? null : _gamePlayState.Object,
                 nullGameHistory ? null : _gameHistory.Object,
+                nullGameProvider ? null : _gameProvider.Object,
                 nullPersistence ? null : _persistentStorage.Object,
                 nullMeters ? null : _gameMeterManager.Object,
                 nullBank ? null : _bank.Object,

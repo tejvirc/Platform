@@ -22,11 +22,12 @@
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
     public class BeginGameRoundAsyncCommandHandler : ICommandHandler<BeginGameRoundAsync>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IGamePlayState _gamePlayState;
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly IGameHistory _gameHistory;
         private readonly IRuntime _runtime;
@@ -42,6 +43,7 @@
             IGameRecovery recovery,
             IGamePlayState gamePlayState,
             IPropertiesManager properties,
+            IGameProvider gameProvider,
             IGameDiagnostics diagnostics,
             IGameHistory gameHistory,
             IEventBus eventBus,
@@ -76,7 +78,7 @@
                 }
             }
 
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
 
             if (command.Request is not null)
             {

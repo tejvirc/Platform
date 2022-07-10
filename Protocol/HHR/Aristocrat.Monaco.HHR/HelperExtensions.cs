@@ -98,12 +98,12 @@
         /// </summary>
         /// <param name="prizeInformation">Prize Information</param>
         /// <param name="protocolLinkedProgressiveAdapter"> Protocol Adapter</param>
-        /// <param name="propertiesManager">Properties Manager</param>
+        /// <param name="gameProvider">Game Provider</param>
         /// <returns></returns>
         public static IList<IViewableProgressiveLevel> GetActiveProgressiveLevelsForWager(
             this PrizeInformation prizeInformation,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter = null,
-            IPropertiesManager propertiesManager = null)
+            IGameProvider gameProvider = null)
         {
             if (protocolLinkedProgressiveAdapter == null)
             {
@@ -111,13 +111,13 @@
                     ServiceManager.GetInstance().GetService<IProtocolLinkedProgressiveAdapter>();
             }
 
-            if (propertiesManager == null)
+            if (gameProvider == null)
             {
-                propertiesManager =
-                    ServiceManager.GetInstance().GetService<IPropertiesManager>();
+                gameProvider =
+                    ServiceManager.GetInstance().GetService<IGameProvider>();
             }
 
-            var (_, currentDenom) = propertiesManager.GetActiveGame();
+            var (_, currentDenom) = gameProvider.GetActiveGame();
 
             return protocolLinkedProgressiveAdapter
                 .GetActiveProgressiveLevels().Where(

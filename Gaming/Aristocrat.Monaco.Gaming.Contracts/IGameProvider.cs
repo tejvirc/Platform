@@ -47,6 +47,12 @@
         IReadOnlyCollection<IGameCombo> GetGameCombos();
 
         /// <summary>
+        ///     Get the active game and denomination
+        /// </summary>
+        /// <returns>Active game and denomination</returns>
+        (IGameDetail game, IDenomination denomination) GetActiveGame();
+
+        /// <summary>
         ///     Gets the minimum number of mechanical reels needed to run a game
         /// </summary>
         /// <returns>The minimum number of mechanical reels</returns>
