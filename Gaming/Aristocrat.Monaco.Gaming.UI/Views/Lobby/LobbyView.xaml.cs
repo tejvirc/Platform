@@ -47,6 +47,7 @@
         private readonly ICabinetDetectionService _cabinetDetectionService =
             ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
         private readonly IEventBus _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+        private readonly IPropertiesManager _properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
         private readonly List<Window> _lobbyWindows = new List<Window>();
         private readonly List<ResourceDictionary> _skins = new List<ResourceDictionary>();
 
@@ -117,7 +118,8 @@
                 _topView = new LobbyTopView();
             }
 
-            if (_cabinetDetectionService.Family == HardwareFamily.Unknown ||
+            if (_cabinetDetectionService.Family == HardwareFamily.Unknown &&
+                _properties.GetValue("display", string.Empty) == "windowed" ||
                 _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Topper) != null)
             {
                 Logger.Debug("Creating topper view");

@@ -31,6 +31,7 @@
         private readonly IEventBus _eventBus;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
         private readonly IGamePlayState _gamePlayState;
+        private readonly IGamePlayEntityHelper _gamePlayEntity;
 
         private bool _isPaused;
         private bool _isAnimationVisible;
@@ -40,16 +41,19 @@
 
         public VenueRaceCollectionViewModel(
             IEventBus eventBus,
-            IPrizeInformationEntityHelper entityHelper,
+            IPrizeInformationEntityHelper prizeEntityHelper,
             IPropertiesManager properties,
-            IGamePlayState gamePlayState)
+            IGamePlayState gamePlayState,
+            IGamePlayEntityHelper gamePlayEntity)
         {
-            _prizeEntityHelper = entityHelper
-                ?? throw new ArgumentNullException(nameof(entityHelper));
+            _prizeEntityHelper = prizeEntityHelper
+                ?? throw new ArgumentNullException(nameof(prizeEntityHelper));
             _eventBus = eventBus
                 ?? throw new ArgumentNullException(nameof(eventBus));
             _gamePlayState = gamePlayState
                 ?? throw new ArgumentNullException(nameof(gamePlayState));
+            _gamePlayEntity = gamePlayEntity
+                ?? throw new ArgumentNullException(nameof(gamePlayEntity));
 
             if (properties == null)
             {
@@ -61,13 +65,11 @@
             {
                 _eventBus.Subscribe<GamePlayDisabledEvent>(this, GameDisabledEventHandler);
                 _eventBus.Subscribe<GamePlayEnabledEvent>(this, GameEnabledEventHandler);
-                _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, Handler);
-                _eventBus.Subscribe<GameInitializationCompletedEvent>(this, Handler);
-                _eventBus.Subscribe<RecoveryStartedEvent>(this, Handler);
+                _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, OperatorMenuEnteredEventHandler);
+                _eventBus.Subscribe<GameInitializationCompletedEvent>(this, GameInitializationCompletedEventHandler);
+                _eventBus.Subscribe<RecoveryStartedEvent>(this, RecoveryStartedEventHandler);
                 // Setup and show the animation as soon as we get the needed data from the server
-                _eventBus.Subscribe<PrizeInformationEvent>(
-                    this,
-                    (evt, ct) => ShowHorseAnimation(evt.PrizeInformation.RaceInfo));
+                _eventBus.Subscribe<PrizeInformationEvent>(this, PrizeInformationEventHandler);
             }
 
             if (int.TryParse(
@@ -162,7 +164,13 @@
             }
         }
 
-        private async Task Handler(OperatorMenuEnteredEvent theEvent, CancellationToken token)
+        private Task PrizeInformationEventHandler(PrizeInformationEvent evt, CancellationToken ct)
+        {
+            Logger.Debug($"PrizeInformationEvent RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
+            return ShowHorseAnimation(evt.PrizeInformation.RaceInfo);
+        }
+
+        private async Task OperatorMenuEnteredEventHandler(OperatorMenuEnteredEvent theEvent, CancellationToken token)
         {
             Logger.Debug($"OperatorMenuEnteredEvent RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
 
@@ -180,13 +188,13 @@
             });
         }
 
-        private void Handler(RecoveryStartedEvent evt)
+        private void RecoveryStartedEventHandler(RecoveryStartedEvent evt)
         {
             _willRecover = true;
             Logger.Debug($"RecoveryStartedEvent RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
         }
 
-        private async Task Handler(GameInitializationCompletedEvent evt, CancellationToken token)
+        private async Task GameInitializationCompletedEventHandler(GameInitializationCompletedEvent evt, CancellationToken token)
         {
             Logger.Debug($"GameInitializationCompletedEvent RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
 
@@ -207,14 +215,52 @@
                 // If race hasn't started, then we are loading from a power-cycle, so show the entire race again
                 else
                 {
+                    // First though, let's check if we had the results for the game already. If not, then
+                    // it will arrive shortly as a PrizeInformationEvent, and we don't want to show the
+                    // current PrizeInformation because that's the horses from the previous game.
                     if (CurrentRaceInfo.HasValue)
                     {
-                        Task.Run(() => ShowHorseAnimation(CurrentRaceInfo.Value), token);
+                        var gamePlayPending = _gamePlayEntity.GamePlayRequest != null;
+                        var raceStartPending = _gamePlayEntity.RaceStartRequest != null;
+
+                        if (!gamePlayPending && !raceStartPending)
+                        {
+                            Task.Run(() => ShowHorseAnimation(CurrentRaceInfo.Value), token);
+                        }
                     }
                 }
             });
 
             _willRecover = false;
+        }
+
+        private async Task GameDisabledEventHandler(GamePlayDisabledEvent evt, CancellationToken token)
+        {
+            Logger.Debug($"GameDisabledEventHandler RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
+
+            await ExecuteOnUI(() =>
+            {
+                // Pause any currently running horses, but don't clean them up.
+                IsPaused = true;
+            });
+        }
+
+        private async Task GameEnabledEventHandler(GamePlayEnabledEvent evt, CancellationToken token)
+        {
+            Logger.Debug($"GameEnabledEventHandler RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
+
+            await ExecuteOnUI(() =>
+            {
+                if (_willRecover || !RaceStarted)
+                {
+                    // Do not resume the horses yet, once the game is loaded another event will let them
+                    // reappear and continue on. This is to prevent any glitches that can happen by
+                    // letting them continue while the game is loading for recovery
+                    return;
+                }
+
+                ContinueRaces();
+            });
         }
 
         private static async Task ExecuteOnUI(Action action)
@@ -252,35 +298,6 @@
                     Logger.Debug("System is disabled, pausing horses right after start");
                     IsPaused = true;
                 }
-            });
-        }
-
-        private async Task GameDisabledEventHandler(GamePlayDisabledEvent evt, CancellationToken token)
-        {
-            Logger.Debug($"GameDisabledEventHandler RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
-
-            await ExecuteOnUI(() =>
-            {
-                // Pause any currently running horses, but don't clean them up.
-                IsPaused = true;
-            });
-        }
-
-        private async Task GameEnabledEventHandler(GamePlayEnabledEvent evt, CancellationToken token)
-        {
-            Logger.Debug($"GameEnabledEventHandler RaceStarted: {RaceStarted}, willRecover: {_willRecover}");
-
-            await ExecuteOnUI(() =>
-            {
-                if (_willRecover || !RaceStarted)
-                {
-                    // Do not resume the horses yet, once the game is loaded another event will let them
-                    // reappear and continue on. This is to prevent any glitches that can happen by
-                    // letting them continue while the game is loading for recovery
-                    return;
-                }
-
-                ContinueRaces();
             });
         }
 

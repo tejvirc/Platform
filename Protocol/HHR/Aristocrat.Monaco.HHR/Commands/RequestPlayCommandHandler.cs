@@ -80,9 +80,9 @@
                 Logger.Debug($"Unexpected response for transaction ({command.TransactionId})", ex);
                 ProduceOutcome(OutcomeException.TimedOut, Enumerable.Empty<Outcome>());
             }
-            catch (IgnoreOutcomesException)
+            catch (IgnoreOutcomesException ex)
             {
-                Logger.Debug($"Invalid GameResponse or GameRecovery message received, ignoring.");
+                Logger.Debug($"Invalid GameResponse or GameRecovery message received, ignoring. {ex.Message}");
                 // NOTE: We don't call ProduceOutcome so we will not clear the request information.
             }
 

@@ -107,7 +107,7 @@
                 progressiveLevelsHitAmount.Add((jpId, alterWin ? 110L : 100L));
             }
 
-            _prizeInformationEntityHelper.Setup(m => m.PrizeInformation).Returns(new PrizeInformation
+            _prizeInformationEntityHelper.SetupGet(m => m.PrizeInformation).Returns(new PrizeInformation
             {
                 ProgressiveLevelsHit = progressiveLevelsHit,
                 ProgressiveLevelAmountHit = progressiveLevelsHitAmount

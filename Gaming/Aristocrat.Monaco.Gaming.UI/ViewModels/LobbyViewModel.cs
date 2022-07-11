@@ -713,6 +713,7 @@
 
                     RaisePropertyChanged(nameof(GameList));
                     RaisePropertyChanged(nameof(MarginInputs));
+                    RaisePropertyChanged(nameof(IsSingleTabView));
                 }
             }
         }
@@ -1043,6 +1044,11 @@
             get => _isBottomAttractFeaturePlaying;
             set => SetProperty(ref _isBottomAttractFeaturePlaying, value);
         }
+
+        /// <summary>
+        ///     Gets a value indicating whether only one Tab is present
+        /// </summary>
+        public bool IsSingleTabView => GameTabInfo?.TabCount == 1;
 
         /// <summary>
         ///     Gets or sets a value indicating whether the bottom attract feature is visible or not
@@ -3936,15 +3942,16 @@
 
         }
 
-        private void SetLampState(LampName lampName, bool? on)
+        private ButtonLampState SetLampState(LampName lampName, bool? on)
         {
             Logger.Debug($"Set {lampName} {on}");
             var lampState = on.HasValue ? on.Value ? LampState.On : LampState.Off : (LampState?)null;
 
             if (lampState.HasValue)
             {
-                _buttonLamps?.SetLampState((int)lampName, lampState.Value);
+                return new ButtonLampState((int)lampName, lampState.Value);
             }
+            return null;
         }
 
         private string GetProgressiveOrBonusValue(int gameId, long denomId)
@@ -4475,7 +4482,7 @@
             }
         }
 
-        private void DetermineBashLampState()
+        private void DetermineBashLampState(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
             if (ContainsAnyState(LobbyState.GameLoadingForDiagnostics, LobbyState.GameDiagnostics))
@@ -4494,11 +4501,10 @@
             {
                 state = true;
             }
-
-            SetLampState(LampName.Bash, state);
+            buttonsLampState.Add(SetLampState(LampName.Bash, state));
         }
 
-        private void DetermineCollectLampState()
+        private void DetermineCollectLampState(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
             if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
@@ -4513,11 +4519,10 @@
             {
                 state = CashOutEnabled;
             }
-
-            SetLampState(LampName.Collect, state);
+            buttonsLampState.Add(SetLampState(LampName.Collect, state));
         }
 
-        private void DetermineNavLampStates()
+        private void DetermineNavLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
             if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
@@ -4533,14 +4538,14 @@
                 state = true;
             }
 
-            SetLampState(LampName.Bet3, state); // prev game
-            SetLampState(LampName.Bet4, state); // prev tab
-            SetLampState(LampName.Bet5, state); // inc denom 
-            SetLampState(LampName.Playline5, state); //next tab
-            SetLampState(LampName.Playline4, state); //next game
+            buttonsLampState.Add(SetLampState(LampName.Bet3, state)); // prev game
+            buttonsLampState.Add(SetLampState(LampName.Bet4, state)); // prev tab
+            buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom 
+            buttonsLampState.Add(SetLampState(LampName.Playline5, state)); //next tab
+            buttonsLampState.Add(SetLampState(LampName.Playline4, state)); //next game
         }
 
-        private void DetermineUnusedLampStates()
+        private void DetermineUnusedLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state = false;
             if (BaseState == LobbyState.Game && !ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
@@ -4548,16 +4553,18 @@
                 state = null;
             }
 
-            SetLampState(LampName.Bet1, state);
-            SetLampState(LampName.Bet2, state);
+            buttonsLampState.Add(SetLampState(LampName.Bet1, state));
+            buttonsLampState.Add(SetLampState(LampName.Bet2, state));
         }
 
         private void UpdateLamps()
         {
-            DetermineUnusedLampStates();
-            DetermineNavLampStates();
-            DetermineBashLampState();
-            DetermineCollectLampState();
+            IList<ButtonLampState> buttonsLampState = new List<ButtonLampState>();
+            DetermineUnusedLampStates(ref buttonsLampState);
+            DetermineNavLampStates(ref buttonsLampState);
+            DetermineBashLampState(ref buttonsLampState);
+            DetermineCollectLampState(ref buttonsLampState);
+            _buttonLamps?.SetLampState(buttonsLampState);
         }
 
         private void SendLanguageChangedEvent(bool initializing = false)

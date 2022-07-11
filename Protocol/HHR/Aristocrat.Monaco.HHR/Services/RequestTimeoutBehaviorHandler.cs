@@ -22,27 +22,27 @@
     using Storage.Helpers;
 
     /// <summary>
-    ///     Handles what should happen on request timeout and calls appropriate behavior of RequestTimeout defined within the
-    ///     request.
-    ///     This will attempt to send these messages, until success.
-    ///     This will retry only Failed requests, requests which are pending will not be attempted.
+    ///     Handles what should happen on request timeout and calls appropriate behavior of
+    ///     RequestTimeout defined within the request. This will attempt to send these messages,
+    ///     until success. This will retry only Failed requests, requests which are pending will
+    ///     not be attempted.
     /// </summary>
     public class RequestTimeoutBehaviorHandler : IDisposable, IRequestTimeoutBehaviorService
     {
+        private static readonly ILog ProtoLog = LogManager.GetLogger("Protocol");
+
         private readonly ICentralManager _centralManager;
         private readonly Container _container;
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly Dictionary<(Type, Type), MethodInfo> _sendMethods = new Dictionary<(Type, Type), MethodInfo>();
         private readonly Dictionary<TimeoutBehaviorType, object> _timeoutBehaviors = new Dictionary<TimeoutBehaviorType, object>();
         private readonly IPendingRequestEntityHelper _entityHelper;
         private readonly IEventBus _eventBus;
-        private readonly ConcurrentDictionary<Request, Type> _requestsPending =
-            new ConcurrentDictionary<Request, Type>();
-        private readonly List<IDisposable> _disposables = new List<IDisposable>();
+        private readonly ConcurrentDictionary<Request, Type> _requestsPending = new();
+        private readonly List<IDisposable> _disposables = new();
+        private readonly SemaphoreSlim _playAllowed = new(1, 1);
+        private readonly object _requestLock = new();
+
         private bool _disposed;
-        private readonly SemaphoreSlim _playAllowed = new SemaphoreSlim(1, 1);
-        private readonly object _requestLock = new object();
 
         public RequestTimeoutBehaviorHandler(
             ICentralManager centralManager,
@@ -71,18 +71,18 @@
             _eventBus.Subscribe<DownEvent>(this, _ => ClearFailedRequests(), evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
             _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(this, _ =>
                 {
-                    _logger.Debug("Got unexpected response. Release game play request");
+                    ProtoLog.Debug("Got unexpected response. Release game play request");
                     ReleasePlayAllowed();
                 });
             _disposables.Add(
                 _centralManager.RequestObservable.Subscribe(
                     OnRequestSent,
-                    error => { _logger.Warn("Unable to subscribe to Sent requests.", error); }));
+                    error => { ProtoLog.Warn("Unable to subscribe to Sent requests.", error); }));
 
             _disposables.Add(
                 _centralManager.RequestResponseObservable.Subscribe(
                     OnResponseReceived,
-                    error => { _logger.Warn("Unable to subscribe to Sent requests.", error); }));
+                    error => { ProtoLog.Warn("Unable to subscribe to Sent requests.", error); }));
         }
 
         public void Dispose()
@@ -122,7 +122,7 @@
             {
                 request.IsFailed = false;
 
-                _logger.Debug($"Marking request as pending - {request} - ResponseType - {responseType}");
+                ProtoLog.Debug($"Marking request as pending - {request} - ResponseType - {responseType}");
 
                 var waitRequired = !_requestsPending.Any();
 
@@ -136,7 +136,7 @@
                 }
             }
 
-            _logger.Debug("Got pending request. Game play not allowed");
+            ProtoLog.Debug("Got pending request. Game play not allowed");
 
             _playAllowed.Wait();
         }
@@ -145,7 +145,7 @@
         {
             var (request, response) = obj;
 
-            _logger.Debug($"[RECV] Response ({response}) received for request ({request})");
+            ProtoLog.Debug($"[RECV] Response ({response}) received for request ({request})");
 
             if (request.RequestTimeout.TimeoutBehaviorType == TimeoutBehaviorType.Idle)
             {
@@ -156,7 +156,7 @@
 
             if (request.IsFailed)
             {
-                _logger.Error($"[RECV] Marking request ({request}) as failed");
+                ProtoLog.Error($"[RECV] Marking request ({request}) as failed");
             }
 
             UpdatePendingRequest((request, response.GetType()), !request.IsFailed);
@@ -177,12 +177,12 @@
                 }
                 else
                 {
-                    _logger.Warn("[RECV] Unable to remove request from pending requests. This request is not pending.");
+                    ProtoLog.Warn("[RECV] Unable to remove request from pending requests. This request is not pending.");
                 }
 
                 if (_requestsPending.All(x => x.Key.Command != Command.CmdTransaction))
                 {
-                    _logger.Debug("[RECV] No pending requests. Release game play requests.");
+                    ProtoLog.Debug("[RECV] No pending requests. Release game play requests.");
 
                     ReleasePlayAllowed();
 
@@ -235,21 +235,21 @@
                 {
                     try
                     {
-                        _logger.Debug($"Resending failed request ({x.Key})");
+                        ProtoLog.Debug($"Resending failed request ({x.Key})");
                         // Since this is a failed request, call OnEntry on all the requests.
                         UpdatePendingRequest((x.Key, x.Value), false);
                         await Send((x.Key, x.Value));
                     }
                     catch (Exception exception)
                     {
-                        _logger.Error("Failed to send request to CentralServer.", exception);
+                        ProtoLog.Error("Failed to send request to CentralServer.", exception);
                     }
                 });
         }
 
         private async Task Send((Request request, Type responseType) request)
         {
-            _logger.Debug($"Attempting to send Failed Request to server - {request.ToJson2()}");
+            ProtoLog.Debug($"Attempting to send Failed Request to server - {request.ToJson2()}");
             var requestResponsePair = (request.request.GetType(), request.responseType);
 
             if (!_sendMethods.TryGetValue(requestResponsePair, out var send))
@@ -268,14 +268,14 @@
 
         private void ClearFailedRequests()
         {
-            _logger.Debug($"Pending requests : {_requestsPending}, Failed requests : {_requestsPending.Where(tuple => tuple.Key.IsFailed).ToArray().Length}");
+            ProtoLog.Debug($"Pending requests : {_requestsPending}, Failed requests : {_requestsPending.Where(tuple => tuple.Key.IsFailed).ToArray().Length}");
 
             _requestsPending.ForAll(
                 x =>
                 {
                     if (x.Key.RequestTimeout is LockupRequestTimeout || x.Key.IsFailed)
                     {
-                        _logger.Debug($"Clear request timeout for ({x.Key})");
+                        ProtoLog.Debug($"Clear request timeout for ({x.Key})");
                         UpdatePendingRequest((x.Key, x.Value), true);
                     }
                 });
@@ -287,7 +287,7 @@
         {
             try
             {
-                _logger.Debug("Wait for play");
+                ProtoLog.Debug("Wait for play");
                 await _playAllowed.WaitAsync(HhrConstants.MsgTransactionTimeoutMs * HhrConstants.RetryCount);
             }
             finally
@@ -295,7 +295,15 @@
                 ReleasePlayAllowed();
             }
 
-            return !_requestsPending.Any();
+            if (_requestsPending.Any())
+            {
+                string pendingRequests = "Pending requests: ";
+                pendingRequests += string.Join(", ", _requestsPending.Select(s => s.Key.SequenceId));
+                ProtoLog.Warn(pendingRequests);
+                return false;
+            }
+
+            return true;
         }
 
         private void ReleasePlayAllowed()
@@ -306,11 +314,11 @@
             }
             catch(SemaphoreFullException ex)
             {
-                _logger.Debug("Semaphore max count exceeded", ex);
+                ProtoLog.Debug("Semaphore max count exceeded", ex);
             }
             catch(Exception ex)
             {
-                _logger.Debug("Exception : ", ex);
+                ProtoLog.Debug("Exception : ", ex);
             }
         }
     }

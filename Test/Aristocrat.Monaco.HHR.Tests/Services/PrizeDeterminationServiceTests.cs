@@ -304,7 +304,7 @@
 
             _centralManager.Verify(x => x.Send<GamePlayRequest, GamePlayResponse>(It.IsAny<GamePlayRequest>(), It.IsAny<CancellationToken>()), Times.Once);
 
-            _gameRecoveryService.Verify(x => x.Recover(It.IsAny<CancellationToken>()), Times.Once);
+            _gameRecoveryService.Verify(x => x.Recover(It.IsAny<uint>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [DataRow(1, 1U, false, DisplayName = "Game Play Request with SequenceId non zero")]
@@ -377,7 +377,7 @@
             SetupGameData(GameId, MaxLines, 0xff);
             await SetupManualHandicapProperty(manualhandicap);
 
-            _gameRecoveryService.Setup(x => x.Recover(It.IsAny<CancellationToken>())).Throws(new UnexpectedResponseException(new Response()));
+            _gameRecoveryService.Setup(x => x.Recover(It.IsAny<uint>(), It.IsAny<CancellationToken>())).Throws(new UnexpectedResponseException(new Response()));
 
             _centralManager.Setup(x => x.Send<RaceStartRequest, GamePlayResponse>(It.IsAny<RaceStartRequest>(), It.IsAny<CancellationToken>())).Throws(new UnexpectedResponseException(new Response()));
 
@@ -392,7 +392,7 @@
 
             _centralManager.Verify(x => x.Send<GamePlayRequest, GamePlayResponse>(It.IsAny<GamePlayRequest>(), It.IsAny<CancellationToken>()), Times.Once);
 
-            _gameRecoveryService.Verify(x => x.Recover(It.IsAny<CancellationToken>()), Times.Once);
+            _gameRecoveryService.Verify(x => x.Recover(It.IsAny<uint>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [DataRow(true, DisplayName = "Manual Handicap or Quick Pick")]
@@ -408,7 +408,7 @@
             SetupGameData(GameId, MaxLines, 0xff);
             await SetupManualHandicapProperty(manualhandicap);
 
-            _gameRecoveryService.Setup(x => x.Recover(It.IsAny<CancellationToken>())).Throws(new GameRecoveryFailedException());
+            _gameRecoveryService.Setup(x => x.Recover(It.IsAny<uint>(), It.IsAny<CancellationToken>())).Throws(new GameRecoveryFailedException());
 
             _centralManager.Setup(x => x.Send<RaceStartRequest, GamePlayResponse>(It.IsAny<RaceStartRequest>(), It.IsAny<CancellationToken>())).Throws(new UnexpectedResponseException(new Response()));
 
@@ -423,7 +423,7 @@
 
             _centralManager.Verify(x => x.Send<GamePlayRequest, GamePlayResponse>(It.IsAny<GamePlayRequest>(), It.IsAny<CancellationToken>()), Times.Once);
 
-            _gameRecoveryService.Verify(x => x.Recover(It.IsAny<CancellationToken>()), Times.Once);
+            _gameRecoveryService.Verify(x => x.Recover(It.IsAny<uint>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [DataTestMethod]
@@ -569,7 +569,7 @@
                         It.IsAny<CancellationToken>()))
                 .Returns(() => Task.FromResult(gamePlayRequest));
 
-            _gameRecoveryService.Setup(x => x.Recover(It.IsAny<CancellationToken>())).Returns(Task.FromResult(gamePlayRequest));
+            _gameRecoveryService.Setup(x => x.Recover(It.IsAny<uint>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(gamePlayRequest));
 
             if (manualHandicap)
             {

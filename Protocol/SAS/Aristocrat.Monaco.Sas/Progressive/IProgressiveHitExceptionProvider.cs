@@ -18,6 +18,7 @@
         /// <summary>
         ///     Report a non sas progressive hit once
         /// </summary>
-        void ReportNonSasProgressiveHit();
+        /// <param name="clientNumber">The client number</param>
+        void ReportNonSasProgressiveHit(byte? clientNumber = null);
     }
 }

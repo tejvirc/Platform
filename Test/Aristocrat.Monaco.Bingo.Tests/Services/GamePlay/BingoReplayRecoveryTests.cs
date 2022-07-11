@@ -69,7 +69,7 @@
                 }
             },
             123,
-            0,
+            54321,
             false);
 
         private BingoReplayRecovery _target;
@@ -131,6 +131,9 @@
         [DataTestMethod]
         public async Task RecoveryAcknowledgedTransactionTest(bool playPatterns)
         {
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoDaubsModel>>()))
+                .Returns((BingoDaubsModel)null);
+
             _gameLoadedConsumer?.Invoke(null);
             var description = new BingoGameDescription
             {
@@ -157,17 +160,65 @@
                 _eventBus.Verify(x => x.Publish(It.Is<BingoGameNewCardEvent>(e => e.BingoCard == card)));
             }
 
-            _eventBus.Setup(
+            _eventBus.Verify(
                 x => x.Publish(
                     It.Is<BingoGamePatternEvent>(
                         e => description.Patterns.SequenceEqual(e.Patterns) && e.StartPatternCycle == playPatterns)));
-            _eventBus.Setup(
+            _eventBus.Verify(
                 x => x.Publish(It.Is<BingoGameBallCallEvent>(e => description.BallCallNumbers.SequenceEqual(e.BallCall.Numbers))));
+        }
+
+        [DataRow(false)]
+        [DataRow(true)]
+        [DataTestMethod]
+        public async Task RecoveryDaubStates(bool bingoCardDaubed)
+        {
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoDaubsModel>>()))
+                .Returns(new BingoDaubsModel { CardIsDaubed = bingoCardDaubed });
+
+            _gameLoadedConsumer?.Invoke(null);
+            var description = new BingoGameDescription
+            {
+                BallCallNumbers = Enumerable.Repeat(new BingoNumber(123, BingoNumberState.BallCallInitial), 40),
+                Cards = new List<BingoCard> { _mockCard },
+                Patterns = new List<BingoPattern> { new("Test Pattern", 123, 123, 100, 25, 4, false, 0x40, 1) },
+                GameEndWinClaimAccepted = false
+            };
+
+            var transactions = new List<CentralTransaction>
+            {
+                new(1, DateTime.UtcNow, 123, 1000, string.Empty, 100, 1)
+                {
+                    Descriptions = new List<IOutcomeDescription> { description },
+                    OutcomeState = OutcomeState.Acknowledged
+                }
+            };
+
+            _history.Setup(x => x.IsRecoveryNeeded).Returns(false);
+            _centralProvider.Setup(x => x.Transactions).Returns(transactions);
+            await _target.RecoverDisplay(CancellationToken.None);
+            foreach (var card in description.Cards)
+            {
+                _eventBus.Verify(x => x.Publish(It.Is<BingoGameNewCardEvent>(e => e.BingoCard == card)));
+            }
+
+            _eventBus.Verify(
+                x => x.Publish(It.Is<BingoGamePatternEvent>(e => description.Patterns.SequenceEqual(e.Patterns))),
+                bingoCardDaubed ? Times.Once() : Times.Never());
+            _eventBus.Verify(
+                x => x.Publish(
+                    It.Is<BingoGameBallCallEvent>(
+                        e => description.BallCallNumbers.SequenceEqual(e.BallCall.Numbers) &&
+                             (bingoCardDaubed && e.Daubs == _mockCard.DaubedBits ||
+                              !bingoCardDaubed && e.Daubs == 0))));
         }
 
         [TestMethod]
         public async Task RecoveryGameLoadedTimeoutTest()
         {
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoDaubsModel>>()))
+                .Returns((BingoDaubsModel)null);
+
             _gameExitedConsumer?.Invoke(null);
             var description = new BingoGameDescription
             {
@@ -205,6 +256,9 @@
         [TestMethod]
         public async Task RecoveryUnacknowledgedTransactionTest()
         {
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoDaubsModel>>()))
+                .Returns((BingoDaubsModel)null);
+
             _gameLoadedConsumer?.Invoke(null);
             var description = new BingoGameDescription
             {
@@ -240,6 +294,9 @@
         [TestMethod]
         public async Task RecoveryHasGameEndWinMessage()
         {
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoDaubsModel>>()))
+                .Returns((BingoDaubsModel)null);
+
             const long cdsId = 5;
             const long gameId = 1235;
             _gameLoadedConsumer?.Invoke(null);
@@ -300,6 +357,9 @@
             bool handledGameEndCommand,
             bool transactionUpdate)
         {
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoDaubsModel>>()))
+                .Returns((BingoDaubsModel)null);
+
             const long gameId = 1234;
             const long cdsTransactionId = 5;
             const string machineId = "ABC123";

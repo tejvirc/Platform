@@ -27,6 +27,7 @@
             modelBuilder.Configurations.Add(new ReportEventModelConfiguration());
             modelBuilder.Configurations.Add(new WinResultModelConfiguration());
             modelBuilder.Configurations.Add(new CertificateConfiguration());
+            modelBuilder.Configurations.Add(new BingoDaubsModelConfiguration());
             Database.SetInitializer(new BingoContextInitializer(modelBuilder));
         }
     }

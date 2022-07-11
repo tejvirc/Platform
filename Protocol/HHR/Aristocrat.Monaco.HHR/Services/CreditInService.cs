@@ -226,7 +226,7 @@
                 Credit = (uint)amount.MillicentsToCents(),
                 Debit = 0,
                 LastGamePlayTime = _propertiesManager.GetValue(HHRPropertyNames.LastGamePlayTime, 0u),
-                GameMapId = await _gameDataService.GetGameMapIdAsync(),
+                GameMapId = await _gameDataService.GetDefaultGameMapIdAsync(),
                 Flags = 0,
                 Denomination = (uint)gameDetail.denomination.Value.MillicentsToCents(),
                 HandpayType = (uint)HandpayType.HandpayTypeNone,

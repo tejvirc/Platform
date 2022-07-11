@@ -85,7 +85,8 @@
                 _eventBus,
                 _propertiesManager,
                 _bingoConfigurationProvider,
-                _unitOfWorkFactory);
+                _unitOfWorkFactory,
+                BingoWindow.Main);
             _overlayWindow = new BingoHelpOverlayWindow(
                 _bingoConfigurationProvider,
                 BingoWindow.Main,

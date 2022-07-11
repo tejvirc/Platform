@@ -6,6 +6,7 @@
     using Kernel;
     using Models;
     using OverlayServer;
+    using Protocol.Common.Storage.Entity;
     using Services;
     using ViewModels.GameOverlay;
     using Views.GameOverlay;
@@ -20,6 +21,7 @@
         private readonly IGameProvider _gameProvider;
         private readonly IServer _server;
         private readonly IPlayerBank _playerBank;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
         private BingoHtmlHostOverlayViewModel _viewModel;
         private BingoHtmlHostOverlayWindow _overlayWindow;
@@ -33,7 +35,8 @@
             ILegacyAttractProvider attractProvider,
             IGameProvider gameProvider,
             IServer server,
-            IPlayerBank playerBank)
+            IPlayerBank playerBank,
+            IUnitOfWorkFactory unitOfWorkFactory)
         {
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
@@ -43,6 +46,7 @@
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _server = server ?? throw new ArgumentNullException(nameof(server));
             _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
         }
 
         public void LoadPresentation()
@@ -99,7 +103,8 @@
                 _attractProvider,
                 _gameProvider,
                 _server,
-                _playerBank);
+                _playerBank,
+                _unitOfWorkFactory);
             _overlayWindow = new BingoHtmlHostOverlayWindow(_bingoConfigurationProvider, BingoWindow.Main, _viewModel);
             _overlayWindow.Show();
         }

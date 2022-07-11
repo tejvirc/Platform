@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
+    using System.Collections.Generic;
     using Contracts;
     using Runtime.Client;
 
@@ -23,6 +24,7 @@
         /// <inheritdoc />
         public void Handle(ButtonStateChanged command)
         {
+            IList<ButtonLampState> buttonsLampState = new List<ButtonLampState>();
             foreach (var buttonChanged in command.States)
             {
                 var value = buttonChanged.Value;
@@ -40,9 +42,9 @@
                 {
                     lampState = LampState.On;
                 }
-
-                _buttonLamps.SetLampState((int)buttonChanged.Key, lampState);
+                buttonsLampState.Add(new ButtonLampState((int)buttonChanged.Key, lampState));
             }
+            _buttonLamps.SetLampState(buttonsLampState);
         }
     }
 }

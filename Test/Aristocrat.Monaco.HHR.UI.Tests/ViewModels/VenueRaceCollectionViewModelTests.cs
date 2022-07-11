@@ -21,6 +21,7 @@
         private readonly Mock<IPrizeInformationEntityHelper> _prizeEntityHelper = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);
         private readonly Mock<IGamePlayState> _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
+        private readonly Mock<IGamePlayEntityHelper> _gamePlayEntity = new Mock<IGamePlayEntityHelper>(MockBehavior.Default);
 
         [TestInitialize]
         public void TestInitialization()
@@ -32,7 +33,8 @@
                 _eventBus.Object,
                 _prizeEntityHelper.Object,
                 _propertiesManager.Object,
-                _gamePlayState.Object);
+                _gamePlayState.Object,
+                _gamePlayEntity.Object);
 
             _target.SetupRaces(GetRaceInfo());
         }

@@ -106,7 +106,7 @@
                         _outcomeException = exception;
                     });
 
-            _playerSessionService.Setup(p => p.GetCurrentPlayerId()).ReturnsAsync(It.IsAny<string>());
+            _playerSessionService.Setup(p => p.GetCurrentPlayerId(It.IsAny<int>())).ReturnsAsync(It.IsAny<string>());
 
             _serviceManager.Setup(s => s.GetService<IProtocolLinkedProgressiveAdapter>())
                 .Returns(_protocolLinkedProgressiveAdapter.Object);

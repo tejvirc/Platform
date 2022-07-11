@@ -52,6 +52,15 @@
     <Compile Update="Storage\Model\ReportEventModel.Configuration.cs">
       <DependentUpon>ReportEventModel.cs</DependentUpon>
     </Compile>
+    <Compile Update="Storage\Model\WinResultModel.Configuration.cs">
+      <DependentUpon>WinResultModel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Model\Certificate.Configuration.cs">
+      <DependentUpon>Certificate.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Model\BingoDaubsModelConfiguration.cs">
+      <DependentUpon>BingoDaubsModel.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />

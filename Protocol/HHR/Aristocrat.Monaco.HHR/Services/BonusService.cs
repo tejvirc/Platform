@@ -191,7 +191,7 @@
                               (uint) _bank.QueryBalance(AccountType.Promo).MillicentsToCents(),
                 NonCashBalance = (uint)_bank.QueryBalance(AccountType.NonCash).MillicentsToCents(),
                 LastGamePlayTime = _propertiesManager.GetValue(HHRPropertyNames.LastGamePlayTime, 0u),
-                GameMapId = await _gameDataService.GetGameMapIdAsync(),
+                GameMapId = await _gameDataService.GetDefaultGameMapIdAsync(),
                 TimeoutInMilliseconds = HhrConstants.MsgTransactionTimeoutMs,
                 RetryCount = HhrConstants.RetryCount,
                 HandpayType = (uint)handPayType,

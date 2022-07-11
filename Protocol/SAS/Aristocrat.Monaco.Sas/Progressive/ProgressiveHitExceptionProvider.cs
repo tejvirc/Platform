@@ -43,13 +43,22 @@
         }
 
         /// <inheritdoc />
-        public void ReportNonSasProgressiveHit()
+        public void ReportNonSasProgressiveHit(byte? clientNumber = null)
         {
             if (_propertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).NonSasProgressiveHitReporting)
             {
-                // This is a 6.03 Exception
-                _exceptionHandler.ReportException(
-                    new GenericExceptionBuilder(GeneralExceptionCode.NonSasProgressiveLevelHit));
+                if (clientNumber.HasValue)
+                {
+                    // This is a 6.03 Exception
+                    _exceptionHandler.ReportException(
+                        new GenericExceptionBuilder(GeneralExceptionCode.NonSasProgressiveLevelHit), clientNumber.Value);
+                }
+                else
+                {
+                    // This is a 6.03 Exception
+                    _exceptionHandler.ReportException(
+                        new GenericExceptionBuilder(GeneralExceptionCode.NonSasProgressiveLevelHit));
+                }
             }
         }
 

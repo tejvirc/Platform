@@ -47,6 +47,9 @@
     <Compile Remove="Views\TestTool\**" />
     <Page Remove="Views\TestTool\**" />
     <Compile Remove="ViewModels\TestTool\**" />
+    <Compile Update="BingoDisplayConfiguration.cs">
+      <DependentUpon>BingoDisplayConfiguration.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
@@ -65,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.0.24" />
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.0.25" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="CefSharp.Wpf" Version="92.0.260" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />

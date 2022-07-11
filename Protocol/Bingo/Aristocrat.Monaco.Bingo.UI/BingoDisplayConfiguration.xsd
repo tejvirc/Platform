@@ -30,6 +30,7 @@
 										<xs:element name="WaitingForGameDelaySeconds" type="xs:double" minOccurs="0" />
 										<xs:element name="WaitingForGameTimeoutDisplaySeconds" type="xs:double" minOccurs="0" />
 										<xs:element name="PatternDaubTime" type="BingoDaubTime" minOccurs="0" />
+										<xs:element name="ClearDaubsOnBetChange" type="xs:boolean" minOccurs="0" default="false" />
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
