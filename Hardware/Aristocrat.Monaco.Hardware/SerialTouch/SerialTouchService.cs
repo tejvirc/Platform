@@ -27,8 +27,8 @@
     /// <remarks>Supports the 3M MicroTouch serial protocol.  Currently assumes serial touch device is connected to COM16 (LS cabinet).</remarks>
     public class SerialTouchService : ISerialTouchService, IService, IDisposable
     {
-        private const int CheckDisconnectTimeoutMs = SerialPort.InfiniteTimeout; 
-        private const int MaxCheckDisconnectAttempts = 3;
+        private const int CheckDisconnectTimeoutMs = 10000;
+        private const int MaxCheckDisconnectAttempts = 2;
 
         private const string CabinetTypeRegexLs = "^LS";
 
@@ -65,7 +65,6 @@
         private bool _touchDown;
         private bool _injectUpdate;
         private bool _resetForRecovery;
-        private bool _checkDisconnect;
         private int _checkDisconnectAttempts;
         private bool _disposed;
 
@@ -189,8 +188,8 @@
                 CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
                 CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
 
-                // *NOTE* Serial touch will be initialized when the OutputIdentity is handled during the start-up sequence that will begin with this null command.
-                SendNullCommand();
+                // *NOTE* Serial touch will be initialized when the OutputIdentity is handled during the start-up sequence that will begin with this Name command.
+                SendNameCommand();
             }
             else if (!IsDisconnected)
             {
@@ -206,6 +205,9 @@
         public bool IsDisconnected { get; private set; }
 
         /// <inheritdoc />
+        public string FirmwareVersion { get; private set; }
+
+        /// <inheritdoc />
         public string Model { get; private set; }
 
         /// <inheritdoc />
@@ -218,7 +220,6 @@
         public void Reconnect(bool calibrating)
         {
             Logger.Debug($"Reconnect - calibrating {calibrating}");
-            _checkDisconnect = false;
             _checkDisconnectAttempts = 0;
             PendingCalibration = calibrating;
             CloseSerialPort();
@@ -226,51 +227,6 @@
             _eventBus.UnsubscribeAll(this);
             Initialized = false;
             Initialize();
-        }
-
-        /// <inheritdoc />
-        public void SendCalibrateExtendedCommand()
-        {
-            if (Fire(SerialTouchTrigger.CalibrateExtended))
-            {
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.CalibrationCommand);
-            }
-        }
-
-        /// <inheritdoc />
-        public void SendDiagnosticCommand()
-        {
-            if (Fire(SerialTouchTrigger.Diagnostic))
-            {
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.DiagnosticCommand);
-            }
-        }
-
-        /// <inheritdoc />
-        public void SendNameCommand()
-        {
-            if (Fire(SerialTouchTrigger.Name))
-            {
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.NameCommand);
-            }
-        }
-
-        /// <inheritdoc />
-        public void SendNullCommand()
-        {
-            if (Fire(SerialTouchTrigger.Initialized))
-            {
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.NullCommand);
-            }
-        }
-
-        /// <inheritdoc />
-        public void SendOutputIdentityCommand()
-        {
-            if (Fire(SerialTouchTrigger.OutputIdentity))
-            {
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.OutputIdentityCommand);
-            }
         }
 
         /// <inheritdoc />
@@ -283,27 +239,11 @@
                 {
                     CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
-                    if (!_skipCalibrationPrompts)
-                    {
-                        _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
-                    }
-                    else
-                    {
-                        _eventBus.Publish(new SerialTouchCalibrationStatusEvent(Model, ResourceKeys.TouchCalibrateModel, CrosshairColorLowerLeft, CrosshairColorUpperRight));
-                    }
+                    _eventBus.Publish(new SerialTouchCalibrationStatusEvent(Model + " " + FirmwareVersion, ResourceKeys.TouchCalibrateModel, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 }
 
+                _serialPortController.FlushInputAndOutput();
                 _serialPortController.WriteBuffer(M3SerialTouchConstants.ResetCommand);
-            }
-        }
-
-        /// <inheritdoc />
-        public void SendRestoreDefaultsCommand(bool calibrating = false)
-        {
-            if (Fire(SerialTouchTrigger.RestoreDefaults))
-            {
-                PendingCalibration = calibrating;
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.RestoreDefaultsCommand);
             }
         }
 
@@ -426,28 +366,24 @@
         {
             var stateMachine = new StateMachine<SerialTouchState, SerialTouchTrigger>(SerialTouchState.Uninitialized);
             stateMachine.Configure(SerialTouchState.Uninitialized)
-                .Permit(SerialTouchTrigger.Initialized, SerialTouchState.Null);
-            stateMachine.Configure(SerialTouchState.Null)
-                .PermitReentry(SerialTouchTrigger.Initialized)
-                .Permit(SerialTouchTrigger.Name, SerialTouchState.Name)
-                .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
-                .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
+                .Permit(SerialTouchTrigger.Name, SerialTouchState.Name);
             stateMachine.Configure(SerialTouchState.Name)
+                .PermitReentry(SerialTouchTrigger.Name)
                 .Permit(SerialTouchTrigger.OutputIdentity, SerialTouchState.OutputIdentity)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch);
-            stateMachine.Configure(SerialTouchState.OutputIdentity)
-                .Permit(SerialTouchTrigger.RestoreDefaults, SerialTouchState.RestoreDefaults)
-                .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch);
-            stateMachine.Configure(SerialTouchState.RestoreDefaults)
-                .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
+            stateMachine.Configure(SerialTouchState.Null)
+                .PermitReentry(SerialTouchTrigger.Null)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
+            stateMachine.Configure(SerialTouchState.OutputIdentity)
+                .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
+                .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch);
             stateMachine.Configure(SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.Uninitialized, SerialTouchState.Uninitialized)
-                .Permit(SerialTouchTrigger.Diagnostic, SerialTouchState.Diagnostic)
+                .Permit(SerialTouchTrigger.RestoreDefaults, SerialTouchState.RestoreDefaults)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
-                .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
-            stateMachine.Configure(SerialTouchState.Diagnostic)
+                .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);            
+            stateMachine.Configure(SerialTouchState.RestoreDefaults)
                 .Permit(SerialTouchTrigger.CalibrateExtended, SerialTouchState.CalibrateExtended)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
@@ -461,11 +397,12 @@
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.InterpretTouch)
-                .Permit(SerialTouchTrigger.Initialized, SerialTouchState.Null)
-                .Permit(SerialTouchTrigger.RestoreDefaults, SerialTouchState.RestoreDefaults)
+                .Permit(SerialTouchTrigger.Null, SerialTouchState.Null)
+                .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.Error)
-                .Permit(SerialTouchTrigger.Initialized, SerialTouchState.Null)
+                .Permit(SerialTouchTrigger.Name, SerialTouchState.Name)
+                .Permit(SerialTouchTrigger.Null, SerialTouchState.Null)
                 .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch);
 
@@ -540,33 +477,12 @@
                 Fire(SerialTouchTrigger.Error);
                 var error = status.ToString("X2");
                 Status = $"ERROR - Calibrate Extended (CX) command failed with code {error}";
+                Logger.Error($"HandleCalibrateExtended - {Status}");
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedCommandFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
                 ClearResponse();
-                SendResetCommand();
+                SendResetCommand(PendingCalibration);
                 Thread.Sleep(CalibrationDelayMs);
-            }
-        }
-
-        private void HandleDiagnostic(byte status)
-        {
-            if (status == M3SerialTouchConstants.StatusGood)
-            {
-                Status = "DIAGNOSTIC COMMAND OK";
-                if (_state.State > SerialTouchState.Diagnostic || PendingCalibration)
-                {
-                    SendCalibrateExtendedCommand();
-                }
-                else
-                {
-                    Fire(SerialTouchTrigger.InterpretTouch);
-                }
-            }
-            else
-            {
-                Fire(SerialTouchTrigger.Error);
-                Status = $"ERROR - Diagnostic (DX) command failed with code {status}";
-                Reconnect(PendingCalibration);
             }
         }
 
@@ -611,20 +527,45 @@
             else
             {
                 Fire(SerialTouchTrigger.Error);
-                CrosshairColorLowerLeft = CalibrationCrosshairColors.Error;
                 var error = status.ToString("X2");
                 Status = $"ERROR - Calibrate Extended (CX) lower left target failed with code {error}";
+                Logger.Error($"HandleLowerLeftTarget - {Status}");
+                CrosshairColorLowerLeft = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedLowerLeftTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
                 ClearResponse();
-                SendResetCommand();
+                SendResetCommand(PendingCalibration);
                 Thread.Sleep(CalibrationDelayMs);
+            }
+        }
+
+        private void HandleNull(byte status)
+        {
+            if (status == M3SerialTouchConstants.StatusGood)
+            {
+                Status = "NULL COMMAND OK";
+                Fire(SerialTouchTrigger.InterpretTouch);
+            }
+            else
+            {
+                Fire(SerialTouchTrigger.Error);
+                Status = $"ERROR - Null (Z) command failed with code {status}";
+                Logger.Error($"HandleNull - {Status}");
+                Reconnect(PendingCalibration);
             }
         }
 
         private void HandleName(byte[] response)
         {
             Model = GetModel(response);
+            if (string.IsNullOrEmpty(Model) && !Initialized)
+            {
+                Logger.Warn($"HandleName - Name null or empty, re-sending...");
+                SendNameCommand();
+                return;
+            }
+
+            Logger.Debug($"HandleName - {Model}");
             if (Model.Contains("Kortek"))
             {
                 _skipCalibrationPrompts = true;
@@ -641,46 +582,20 @@
             }
         }
 
-        private void HandleNull(byte status)
-        {
-            if (status == M3SerialTouchConstants.StatusGood)
-            {
-                Status = "NULL COMMAND OK";
-                if (!Initialized)
-                {
-                    SendNameCommand();
-                }
-                else
-                {
-                    Fire(SerialTouchTrigger.InterpretTouch);
-                }
-            }
-            else
-            {
-                Fire(SerialTouchTrigger.Error);
-                Status = $"ERROR - Null (Z) command failed with code {status}";
-                Reconnect(PendingCalibration);
-            }
-        }
-
         private void HandleOutputIdentity(byte[] response)
         {
             OutputIdentity = Encoding.Default.GetString(response).TrimEnd();
             var controllerType = OutputIdentity.Substring(0, 2);
-            var firmwareVersion = OutputIdentity.Substring(2, 4);
-            Logger.Debug($"OutputIdentity - {controllerType} {firmwareVersion}");
+            FirmwareVersion = OutputIdentity.Substring(2, 4);
+            Logger.Debug($"HandleOutputIdentity - {controllerType} {FirmwareVersion}");
             if (!Initialized)
             {
                 Initialized = true;
                 // *NOTE* We need to remap the touch screens so that the firmware information is updated for the mapped serial touch device.
                 _cabinetDetectionService.MapTouchscreens();
-                Logger.Info($"{Name} initialized");
-
-                if (PendingCalibration)
-                {
-                    SendRestoreDefaultsCommand(true);
-                    return;
-                }
+                Logger.Info($"HandleOutputIdentity - {Name} {FirmwareVersion} initialized");
+                SendResetCommand(false);
+                return;
             }
 
             Fire(SerialTouchTrigger.InterpretTouch);
@@ -698,7 +613,7 @@
                 }
                 else if (PendingCalibration)
                 {
-                    SendDiagnosticCommand();
+                    SendRestoreDefaultsCommand();
                 }
                 else
                 {
@@ -715,6 +630,7 @@
                     {
                         var error = status.ToString("X2");
                         Status = $"ERROR - Reset (R) command failed with code {error}";
+                        Logger.Error($"HandleReset - {Status}");
                         _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateResetCommandFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                         Thread.Sleep(CalibrationDelayMs);
                     }
@@ -725,6 +641,7 @@
                 {
                     Fire(SerialTouchTrigger.Error);
                     Status = $"ERROR - Reset (R) command failed with code {status}";
+                    Logger.Error($"HandleReset - {Status}");
                     Reconnect(PendingCalibration);
                 }
             }
@@ -743,14 +660,11 @@
                 case SerialTouchState.OutputIdentity:
                     HandleOutputIdentity(response);
                     break;
-                case SerialTouchState.RestoreDefaults:
-                    HandleRestoreDefaults(response[0]);
-                    break;
                 case SerialTouchState.Reset:
                     HandleReset(response[0]);
                     break;
-                case SerialTouchState.Diagnostic:
-                    HandleDiagnostic(response[0]);
+                case SerialTouchState.RestoreDefaults:
+                    HandleRestoreDefaults(response[0]);
                     break;
                 case SerialTouchState.CalibrateExtended:
                     HandleCalibrateExtended(response[0]);
@@ -784,7 +698,7 @@
                 Status = "RESTORE DEFAULTS COMMAND OK";
                 if (PendingCalibration)
                 {
-                    SendResetCommand(PendingCalibration);
+                    SendCalibrateExtendedCommand();
                 }
                 else
                 {
@@ -795,6 +709,7 @@
             {
                 Fire(SerialTouchTrigger.Error);
                 Status = $"ERROR - Restore Defaults (RD) command failed with code {status}";
+                Logger.Error($"HandleRestoreDefaults - {Status}");
                 Reconnect(PendingCalibration);
             }
         }
@@ -803,7 +718,7 @@
         {
             if (status == M3SerialTouchConstants.TargetAcknowledged)
             {
-                PendingCalibration = false;
+                PendingCalibration = false; // Done calibrating
                 if (!_skipCalibrationPrompts)
                 {
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Acknowledged;
@@ -826,13 +741,14 @@
             else
             {
                 Fire(SerialTouchTrigger.Error);
-                CrosshairColorUpperRight = CalibrationCrosshairColors.Error;
                 var error = status.ToString("X2");
                 Status = $"ERROR - Calibrate Extended (CX) upper right target failed with code {error}";
+                Logger.Error($"HandleUpperRightTarget - {Status}");
+                CrosshairColorUpperRight = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedUpperRightTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
                 ClearResponse();
-                SendResetCommand();
+                SendResetCommand(PendingCalibration);
                 Thread.Sleep(CalibrationDelayMs);
             }
         }
@@ -981,28 +897,39 @@
 
         private void OnCheckDisconnectTimeout(object sender, EventArgs e)
         {
-            if (_checkDisconnect && (_state.State == SerialTouchState.InterpretTouch || _state.State == SerialTouchState.Null))
+            if (!Initialized)
             {
-                if (_checkDisconnectAttempts > MaxCheckDisconnectAttempts)
-                {
-                    Logger.Warn($"OnCheckDisconnectTimeout - check disconnect exceeded max, attempting reconnect...");
-                    if (!IsDisconnected)
-                    {
-                        Logger.Warn($"OnCheckDisconnectTimeout - Disconnected");
-                        Disconnected();
-                    }
+                Logger.Warn("OnCheckDisconnectTimeout - Not initialized, returning...");
+                return;
+            }
 
-                    Reconnect(PendingCalibration);
-                    return;
+            if (PendingCalibration)
+            {
+                Logger.Warn("OnCheckDisconnectTimeout - pending calibration, returning...");
+                return;
+            }
+
+            if (_state.State != SerialTouchState.InterpretTouch && _state.State != SerialTouchState.Null)
+            {
+                Logger.Warn($"OnCheckDisconnectTimeout - Skiped while in state {_state.State}, returning...");
+                return;
+            }
+
+            if (_checkDisconnectAttempts > MaxCheckDisconnectAttempts)
+            {
+                Logger.Warn($"OnCheckDisconnectTimeout - check disconnect exceeded max, attempting reconnect...");
+                if (!IsDisconnected)
+                {
+                    Logger.Warn("OnCheckDisconnectTimeout - Disconnected, attempting re-connect...");
+                    Disconnected();
                 }
 
-                _checkDisconnectAttempts++;
-                SendNullCommand();
+                Reconnect(false);
+                return;
             }
-            else
-            {
-                _checkDisconnect = true;
-            }
+
+            _checkDisconnectAttempts++;
+            SendNullCommand();
         }
 
         private void OnDataReceived(object sender, EventArgs e)
@@ -1019,7 +946,6 @@
                 Connected();
             }
 
-            _checkDisconnect = false;
             _checkDisconnectAttempts = 0;
 
             foreach (var b in bytes)
@@ -1038,6 +964,12 @@
                         break;
                 }
             }
+        }
+
+        private void OnErrorReceived(object sender, EventArgs e)
+        {
+            Logger.Error("OnErrorReceived");
+            Reconnect(PendingCalibration);
         }
 
         private void ProcessTouchData(byte b)
@@ -1059,10 +991,49 @@
             }
         }
 
-        private void OnErrorReceived(object sender, EventArgs e)
+        private void SendCalibrateExtendedCommand()
         {
-            Logger.Error("OnErrorReceived");
-            Reconnect(PendingCalibration);
+            if (Fire(SerialTouchTrigger.CalibrateExtended))
+            {
+                _serialPortController.FlushInputAndOutput();
+                _serialPortController.WriteBuffer(M3SerialTouchConstants.CalibrateExtendedCommand);
+            }
+        }
+
+        private void SendNameCommand()
+        {
+            if (Fire(SerialTouchTrigger.Name))
+            {
+                _serialPortController.FlushInputAndOutput();
+                _serialPortController.WriteBuffer(M3SerialTouchConstants.NameCommand);
+            }
+        }
+
+        private void SendNullCommand()
+        {
+            if (Fire(SerialTouchTrigger.Null))
+            {
+                _serialPortController.FlushInputAndOutput();
+                _serialPortController.WriteBuffer(M3SerialTouchConstants.NullCommand);
+            }
+        }
+
+        private void SendOutputIdentityCommand()
+        {
+            if (Fire(SerialTouchTrigger.OutputIdentity))
+            {
+                _serialPortController.FlushInputAndOutput();
+                _serialPortController.WriteBuffer(M3SerialTouchConstants.OutputIdentityCommand);
+            }
+        }
+
+        private void SendRestoreDefaultsCommand()
+        {
+            if (Fire(SerialTouchTrigger.RestoreDefaults))
+            {
+                _serialPortController.FlushInputAndOutput();
+                _serialPortController.WriteBuffer(M3SerialTouchConstants.RestoreDefaultsCommand);
+            }
         }
 
         private void UpdateContactArea(int x, int y, uint id)

@@ -11,7 +11,7 @@
         Uninitialized = 0,
 
         /// <summary>
-        ///     The state used to initially comunicate with the serial touch device
+        ///     The state used to query the controller and wait for a response
         /// </summary>
         Null,
 
@@ -34,11 +34,6 @@
         ///     The state used to instruct the serial device to restore default settings
         /// </summary>
         RestoreDefaults,
-
-        /// <summary>
-        ///     The state used to request diagnostics from the serial touch device
-        /// </summary>
-        Diagnostic,
 
         /// <summary>
         ///     The state used to initiate calibration of the serial touch device

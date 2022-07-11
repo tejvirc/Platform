@@ -34,7 +34,7 @@
             SetLowerLeftCrosshair(CalibrationCrosshairColors.Inactive);
             SetUpperRightCrosshair(CalibrationCrosshairColors.Inactive);
 
-            serialTouchService.SendRestoreDefaultsCommand(true);
+            serialTouchService.SendResetCommand(true);
         }
 
         public event SerialTouchCalibrationCompleteHandler CalibrationComplete;
