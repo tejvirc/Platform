@@ -41,8 +41,8 @@
         // temperature vs fan-speed threshold map for gen8 cabinet
         public TempToSpeed[] TempToSpeedTableGen8 =
         {
-            new() { TemperatureLow = 80, TemperatureHigh = 100, SpeedLow = 4400, SpeedHigh = 4400 },
-            new() { TemperatureLow = 75, TemperatureHigh = 80, SpeedLow = 4000, SpeedHigh = 4480 },
+            new() { TemperatureLow = 80, TemperatureHigh = 100, SpeedLow = MaxRpm, SpeedHigh = MaxRpm },
+            new() { TemperatureLow = 75, TemperatureHigh = 80, SpeedLow = 4000, SpeedHigh = MaxRpm },
             new() { TemperatureLow = 65, TemperatureHigh = 75, SpeedLow = 2500, SpeedHigh = 4000 },
             new() { TemperatureLow = 35, TemperatureHigh = 65, SpeedLow = 1000, SpeedHigh = 2500 },
             new() { TemperatureLow = 0, TemperatureHigh = 35, SpeedLow = 0, SpeedHigh = 1000 }
