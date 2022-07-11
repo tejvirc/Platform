@@ -713,6 +713,7 @@
 
                     RaisePropertyChanged(nameof(GameList));
                     RaisePropertyChanged(nameof(MarginInputs));
+                    RaisePropertyChanged(nameof(IsSingleTabView));
                 }
             }
         }
@@ -1043,6 +1044,11 @@
             get => _isBottomAttractFeaturePlaying;
             set => SetProperty(ref _isBottomAttractFeaturePlaying, value);
         }
+
+        /// <summary>
+        ///     Gets a value indicating whether only one Tab is present
+        /// </summary>
+        public bool IsSingleTabView => GameTabInfo?.TabCount == 1;
 
         /// <summary>
         ///     Gets or sets a value indicating whether the bottom attract feature is visible or not
