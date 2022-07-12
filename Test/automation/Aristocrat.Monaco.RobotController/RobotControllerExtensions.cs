@@ -7,11 +7,12 @@
 
     internal static class RobotControllerExtensions
     {
-        private const int _wait = 200;
+        private static TimeSpan _syncWaitTime = TimeSpan.FromMilliseconds(200);
         internal static void BlockOtherOperations(this RobotController robotController, RobotStateAndOperations robotStateAndOperations)
         {
             robotController.InProgressRequests.TryAdd(robotStateAndOperations);
-            Thread.Sleep(_wait);//this is needed since there are some on going robot's threads executing operations and state managers need a bit time to get synced
+            //This is needed since there are some on going robot's threads executing operations and state managers need a more time to get synced
+            Thread.Sleep(_syncWaitTime);
         }
 
         internal static void UnBlockOtherOperations(this RobotController robotController, RobotStateAndOperations robotStateAndOperations)

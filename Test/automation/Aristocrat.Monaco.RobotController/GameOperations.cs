@@ -83,7 +83,7 @@
             _forceGameExitTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestExitToLobby();
+                                   RequestForceExitToLobby();
                                },
                                null,
                                _robotController.Config.Active.IntervalLobby,
@@ -138,9 +138,9 @@
             _disposed = true;
         }
 
-        private void RequestExitToLobby(bool forced = false)
+        private void RequestForceExitToLobby(bool skipTestRecovery = false)
         {
-            if (!IsRequestExitToLobbyValid(forced))
+            if (!IsRequestExitToLobbyValid(skipTestRecovery))
             {
                 return;
             }
@@ -150,10 +150,10 @@
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
 
-        private bool IsRequestExitToLobbyValid(bool forced)
+        private bool IsRequestExitToLobbyValid(bool skipTestRecovery)
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
-            var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || forced));
+            var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
             return !isBlocked && isGeneralRule;
         }
 
@@ -185,7 +185,7 @@
             else if (_gameIsRunning)
             {
                 _logger.Info($"lobby is saying that it is in the chooser state but the game is still running, this reset the lobbystatemanager state ,Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                RequestExitToLobby(true);
+                RequestForceExitToLobby(true);
             }
             else
             {
@@ -395,7 +395,7 @@
 
         private bool IsExitToLobbyValid()
         {
-            return _sc.IsIdle || _sc.IsPresentationIdle;
+            return _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle);
         }
 
         private void BalanceCheckWithDelay(int milliseconds)
