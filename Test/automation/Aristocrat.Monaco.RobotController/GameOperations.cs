@@ -380,7 +380,7 @@
             if (_exitWhenIdle)
             {
                 _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
-                if (!(_sc.IsIdle || _sc.IsPresentationIdle))
+                if (!IsExitToLobbyValid())
                 {
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                     return;
@@ -391,6 +391,11 @@
                 _exitWhenIdle = false;
                 //GameProcessExitedEvent gets trigered
             }
+        }
+
+        private bool IsExitToLobbyValid()
+        {
+            return _sc.IsIdle || _sc.IsPresentationIdle;
         }
 
         private void BalanceCheckWithDelay(int milliseconds)
