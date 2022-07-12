@@ -13,7 +13,6 @@
     public class FanService : IFan, IService, IDisposable
     {
         private readonly IIO _io;
-        private readonly object _lockObject = new();
         private const int MaxPwm = 255;
         private const int MaxRpm = 4400;
 
