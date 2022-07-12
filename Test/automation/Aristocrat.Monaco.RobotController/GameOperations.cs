@@ -380,6 +380,11 @@
             if (_exitWhenIdle)
             {
                 _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
+                if (!(_sc.IsIdle || _sc.IsPresentationIdle))
+                {
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
+                    return;
+                }
                 _logger.Info($"ExitToLobby Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 _automator.EnableExitToLobby(true);
                 _automator.RequestGameExit();
