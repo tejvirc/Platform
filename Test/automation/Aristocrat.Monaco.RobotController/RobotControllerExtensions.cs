@@ -11,7 +11,7 @@
         internal static void BlockOtherOperations(this RobotController robotController, RobotStateAndOperations robotStateAndOperations)
         {
             robotController.InProgressRequests.TryAdd(robotStateAndOperations);
-            //This is needed since there are some on going robot's threads executing operations and state managers need a more time to get synced
+            // This is needed since there are some on going robot's threads executing operations and state managers need a more time to get synced
             Thread.Sleep(_syncWaitTime);
         }
 

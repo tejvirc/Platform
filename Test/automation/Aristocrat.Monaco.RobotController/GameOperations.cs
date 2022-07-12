@@ -140,7 +140,7 @@
 
         private void RequestForceExitToLobby(bool skipTestRecovery = false)
         {
-            if (!IsRequestExitToLobbyValid(skipTestRecovery))
+            if (!IsRequestForceExitToLobbyValid(skipTestRecovery))
             {
                 return;
             }
@@ -150,7 +150,7 @@
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
 
-        private bool IsRequestExitToLobbyValid(bool skipTestRecovery)
+        private bool IsRequestForceExitToLobbyValid(bool skipTestRecovery)
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
             var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
