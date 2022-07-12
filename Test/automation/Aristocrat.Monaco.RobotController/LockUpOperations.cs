@@ -87,23 +87,23 @@
             {
                 return;
             }
+            _robotController.BlockOtherOperations(RobotStateAndOperations.LockUpOperation);
             _logger.Info("RequestLockUp Received!", GetType().Name);
             _automator.EnterLockup();
-            _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.LockUpOperation);
             _lockupTimer = new Timer(
             (sender) =>
             {
                 _logger.Info("RequestExitLockup Received!", GetType().Name);
                 _automator.ExitLockup();
                 _lockupTimer.Dispose();
-                _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.LockUpOperation);
+                _robotController.UnBlockOtherOperations(RobotStateAndOperations.LockUpOperation);
             }, null, Constants.LockupDuration, Timeout.Infinite);
         }
 
         private bool IsValid()
         {
-            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
-            return !isBlocked && _sc.IsChooser;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return isBlocked && _sc.IsChooser;
         }
     }
 }

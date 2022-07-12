@@ -203,8 +203,8 @@
         private void RefreshRobotConfiguration()
         {
             _logger.Info($"RefreshRobotConfiguration Is Initiated", GetType().Name);
-            Config = Helper.LoadConfiguration(_configPath);
-            _modeOperations = Helper.InitializeModeDictionary(_container);
+            Config = RobotControllerHelper.LoadConfiguration(_configPath);
+            _modeOperations = RobotControllerHelper.InitializeModeDictionary(_container);
             _warmUpActions = new Dictionary<string, IList<Action>>()
             {
                 { nameof(ModeType.Regular) ,

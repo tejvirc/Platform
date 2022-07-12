@@ -16,7 +16,7 @@
         private Timer _actionTouchTimer;
         private bool _disposed;
 
-        public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator,  StateChecker sc, RobotController robotController)
+        public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
             _sc = sc;
             _automator = automator;
@@ -98,7 +98,8 @@
 
         private bool IsValid()
         {
-            return _sc.IsGame && !_sc.IsGameLoading;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return !isBlocked && _sc.IsGame && !_sc.IsGameLoading;
         }
 
         private void TouchAnyAuxiliaryVbdAreas(Random Rng)

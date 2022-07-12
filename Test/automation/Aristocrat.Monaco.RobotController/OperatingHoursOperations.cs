@@ -88,20 +88,22 @@
                 this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.OperatingHoursOperation);
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.OperatingHoursOperation);
+                    _logger.Info($"OperatingHoursEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
             _eventBus.Subscribe<OperatingHoursExpiredEvent>(
                 this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.OperatingHoursOperation);
+                    _robotController.BlockOtherOperations(RobotStateAndOperations.OperatingHoursOperation);
+                    _logger.Info($"OperatingHoursExpiredEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
         }
 
         private bool IsValid()
         {
-            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
-            return !isBlocked && (_sc.IsChooser || (_sc.IsGame && !_sc.IsGameLoading));
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return isBlocked && (_sc.IsChooser || (_sc.IsGame && !_sc.IsGameLoading));
         }
 
         private void SetOperatingHours()

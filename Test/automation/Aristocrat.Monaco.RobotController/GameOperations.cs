@@ -67,7 +67,7 @@
             _loadGameTimer = new Timer(
                                (sender) =>
                                {
-                                   HandleGameRequest();
+                                   RequestGame();
                                },
                                null,
                                _robotController.Config.Active.IntervalLoadGame,
@@ -75,7 +75,7 @@
             _RgTimer = new Timer(
                                (sender) =>
                                {
-                                   HandleRgRequest();
+                                   RequestRg();
                                },
                                null,
                                _robotController.Config.Active.IntervalRgSet,
@@ -83,7 +83,7 @@
             _forceGameExitTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestForceGameExit();
+                                   RequestExitToLobby();
                                },
                                null,
                                _robotController.Config.Active.IntervalLobby,
@@ -138,25 +138,26 @@
             _disposed = true;
         }
 
-        private void RequestForceGameExit(bool forced = false)
+        private void RequestExitToLobby(bool forced = false)
         {
-            if (!IsForceGameExitValid(forced))
+            if (!IsRequestExitToLobbyValid(forced))
             {
                 return;
             }
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
+            _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
             _forceGameExitIsInProgress = true;
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
 
-        private bool IsForceGameExitValid(bool forced)
+        private bool IsRequestExitToLobbyValid(bool forced)
         {
-            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
-            var GeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || forced));
-            return !isBlocked && GeneralRule;
+            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
+            var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || forced));
+            return !isBlocked && isGeneralRule;
         }
 
-        private void HandleRgRequest()
+        private void RequestRg()
         {
             if (!_gameIsRunning)
             {
@@ -170,9 +171,9 @@
             }
         }
 
-        private void HandleGameRequest()
+        private void RequestGame()
         {
-            if (!IsValid())
+            if (!IsRequestGameValid())
             {
                 return;
             }
@@ -183,8 +184,8 @@
             }
             else if (_gameIsRunning)
             {
-                _logger.Info($"lobby is saying that it is in the chooser state but the game is still running, this syncs the lobbystatemanager state Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                RequestForceGameExit(true);
+                _logger.Info($"lobby is saying that it is in the chooser state but the game is still running, this reset the lobbystatemanager state ,Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                RequestExitToLobby(true);
             }
             else
             {
@@ -199,6 +200,7 @@
             if (!IsTimeLimitDialogInProgress() && CheckSanity())
             {
                 DismissTimeLimitDialog();
+                _requestGameIsInProgress = true;
                 ExecuteGameLoad();
             }
         }
@@ -210,7 +212,7 @@
                 _ =>
                 {
                      _requestGameIsInProgress = false;
-                    HandleGameRequest();
+                    RequestGame();
                 });
         }
 
@@ -251,7 +253,7 @@
                      _requestGameIsInProgress = false;
                     if (!_sc.IsAllowSingleGameAutoLaunch)
                     {
-                        HandleGameRequest();
+                        RequestGame();
                     }
                 });
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
@@ -294,6 +296,7 @@
                  evt =>
                  {
                      _gameIsRunning = false;
+                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                      if (evt.Unexpected)
                      {
                          if (!_forceGameExitIsInProgress)
@@ -376,6 +379,7 @@
         {
             if (_exitWhenIdle)
             {
+                _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
                 _logger.Info($"ExitToLobby Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 _automator.EnableExitToLobby(true);
                 _automator.RequestGameExit();
@@ -403,7 +407,7 @@
 
         private void HandleEvent(GameLoadRequestEvent evt)
         {
-            HandleGameRequest();
+            RequestGame();
         }
 
         private void DismissTimeLimitDialog()
@@ -418,11 +422,11 @@
             return timeLimitDialogVisible && timeLimitDialogPending;
         }
 
-        private bool IsValid()
+        private bool IsRequestGameValid()
         {
-            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
-            var GeneralRule = _sc.IsChooser || (_gameIsRunning && !_sc.IsGameLoading);
-            return !isBlocked && GeneralRule && !_requestGameIsInProgress;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            var isGeneralRule = _sc.IsChooser || (_gameIsRunning && !_sc.IsGameLoading);
+            return !isBlocked && isGeneralRule && !_requestGameIsInProgress;
         }
 
         private void ExecuteGameLoad()
