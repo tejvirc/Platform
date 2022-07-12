@@ -9,6 +9,7 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -131,7 +132,8 @@
 
         private bool IsValid()
         {
-            return _sc.BalanceOperationValid;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return !isBlocked && _sc.BalanceOperationValid;
         }
 
         private void InsertCredit()

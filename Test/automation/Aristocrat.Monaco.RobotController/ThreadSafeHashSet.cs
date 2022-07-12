@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -12,71 +13,59 @@
 
         public IEnumerator<T> GetEnumerator()
         {
-            _lock.EnterWriteLock();
-
-            try
-            {
-                return _hashSet.GetEnumerator();
-            }
-            finally
-            {
-                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
-            }
+            var snapShot = new HashSet<T>(_hashSet);
+            return snapShot.GetEnumerator();
         }
 
         public bool TryAdd(T item)
         {
             _lock.EnterWriteLock();
-
             try
             {
                 return _hashSet.Add(item);
             }
             finally
             {
-                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+                _lock.ExitWriteLock();
             }
         }
 
         public void Clear()
         {
             _lock.EnterWriteLock();
-
             try
             {
                 _hashSet.Clear();
             }
             finally
             {
-                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+                _lock.ExitWriteLock();
             }
         }
 
         public bool Contains(T item)
         {
             _lock.EnterReadLock();
-
             try
             {
                 return _hashSet.Contains(item);
             }
             finally
             {
-                if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+                _lock.ExitReadLock();
             }
         }
 
         public bool TryRemove(T item)
         {
             _lock.EnterWriteLock();
-
             try
             {
                 return _hashSet.Remove(item);
             }
             finally
             {
-                if (_lock.IsWriteLockHeld) _lock.ExitWriteLock();
+                _lock.ExitWriteLock();
             }
         }
 
@@ -85,14 +74,13 @@
             get
             {
                 _lock.EnterReadLock();
-
                 try
                 {
                     return _hashSet.Count;
                 }
                 finally
                 {
-                    if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+                    _lock.ExitReadLock();
                 }
             }
         }
@@ -100,14 +88,13 @@
         public T FirstOrDefault(Func<T, bool> predicate)
         {
             _lock.EnterReadLock();
-
             try
             {
                 return _hashSet.FirstOrDefault(predicate);
             }
             finally
             {
-                if (_lock.IsReadLockHeld) _lock.ExitReadLock();
+                _lock.ExitReadLock();
             }
         }
 
@@ -121,14 +108,14 @@
         {
             if (disposing)
             {
-                if(_lock is not null)
+                if (_lock is not null)
                 {
                     _lock.Dispose();
                 }
             }
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
