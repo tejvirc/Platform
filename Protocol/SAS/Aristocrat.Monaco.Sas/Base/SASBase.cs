@@ -67,15 +67,21 @@
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
             disableManager.Disable(BaseConstants.ProtocolDisabledKey, SystemDisablePriority.Immediate, () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasProtocolInitializing));
 
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
             // wait for the InitializationCompletedEvent which indicated
             // all the components we will use have been loaded
-            _startupWaiter.WaitOne();
+            if (!propertiesManager.GetValue(SasProperties.SasShutdownCommandReceivedKey, false))
+            {
+                _startupWaiter.WaitOne();
+            }
+
+            propertiesManager.SetProperty(SasProperties.SasShutdownCommandReceivedKey, false);
 
             Logger.Debug("OnRun got InitializationCompletedEvent");
             if (RunState == RunnableState.Running)
             {
                 Bootstrapper.OnAddingService(new SharedConsumerContext());
-                var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
                 Container = Bootstrapper.ConfigureContainer();
                 Container.Verify();
