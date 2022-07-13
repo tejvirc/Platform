@@ -16,6 +16,7 @@
     using Common.Events;
     using Common.GameOverlay;
     using Common.Storage.Model;
+    using Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Events;
     using Kernel;
@@ -113,6 +114,7 @@
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
             _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, Handle);
             _eventBus.Subscribe<ClearBingoDaubsEvent>(this, Handle);
+            _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, Handle);
         }
 
         public bool Visible
@@ -236,6 +238,18 @@
             }
 
             SetVisibility(true);
+        }
+
+        private async Task Handle(BingoDisplayConfigurationChangedEvent evt, CancellationToken token)
+        {
+            if (!_overlayServer.IsRunning)
+            {
+                return;
+            }
+
+            Logger.Debug("Restarting the bingo overlay server as the settings have changed");
+            await _overlayServer.StopAsync();
+            await HandleGameLoaded();
         }
 
         private async Task Handle(BingoGameBallCallEvent e, CancellationToken token)

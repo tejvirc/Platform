@@ -9,7 +9,6 @@
     using System.Xml.Serialization;
     using Application.Contracts.Localization;
     using Common;
-    using Common.Events;
     using Events;
     using Gaming.Contracts;
     using Kernel;
@@ -21,7 +20,15 @@
     {
         private const string DisplayConfigurationFile = @"BingoDisplayConfiguration.xml";
 
-        private readonly BingoDisplayConfigurationHelpAppearance _defaultHelpAppearance = new() { HelpBox = new(){ Left=0.2, Top=0.2, Right=0.2, Bottom=0.3 }};
+        private readonly BingoDisplayConfigurationHelpAppearance _defaultHelpAppearance =
+            new()
+            {
+                HelpBox = new BingoDisplayConfigurationHelpAppearanceHelpBox
+                {
+                    Left = 0.2, Top = 0.2, Right = 0.2, Bottom = 0.3
+                }
+            };
+
         private readonly object _sync = new();
 
         private readonly ConcurrentDictionary<string, BingoDisplayConfiguration> _displayConfigurations =
@@ -29,9 +36,7 @@
 
         private readonly IDispatcher _dispatcher;
         private readonly IEventBus _eventBus;
-        private readonly IPropertiesManager _propertiesManager;
         private readonly IGameProvider _gameProvider;
-
         private readonly Dictionary<BingoWindow, Window> _windowMap = new();
 
         private readonly Dictionary<BingoWindow, BingoDisplayConfigurationBingoWindowSettings> _windowSettings =
@@ -43,22 +48,20 @@
         private BingoWindow _currentWindow;
         private bool _disposed;
         private int _version;
+        private int _selectedGameId;
 
         public BingoDisplayConfigurationProvider(
             IDispatcher dispatcher,
             IEventBus eventBus,
-            IPropertiesManager propertiesManager,
             IGameProvider gameProvider)
         {
             _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
 
             Initialize();
 
-            _eventBus.Subscribe<GameConnectedEvent>(this, Handle);
-            _eventBus.Subscribe<HostConnectedEvent>(this, Handle);
+            _eventBus.Subscribe<GameSelectedEvent>(this, Handle);
             _eventBus.Subscribe<GameAddedEvent>(this, Handle);
         }
 
@@ -112,8 +115,12 @@
             get => _currentWindow;
             set
             {
-                _currentWindow = value;
+                if (value == _currentWindow)
+                {
+                    return;
+                }
 
+                _currentWindow = value;
                 RaiseChangeEvent(_currentWindow);
             }
         }
@@ -128,22 +135,24 @@
 #if !RETAIL
         public void OverrideHelpAppearance(BingoDisplayConfigurationHelpAppearance helpAppearance)
         {
-            if (helpAppearance is not null)
+            if (helpAppearance is null)
             {
-                _helpAppearance = helpAppearance;
-
-                RaiseChangeEvent(_currentWindow);
+                return;
             }
+
+            _helpAppearance = helpAppearance;
+            RaiseChangeEvent(_currentWindow);
         }
 
         public void OverrideSettings(BingoWindow window, BingoDisplayConfigurationBingoWindowSettings settings)
         {
-            if (settings is not null && _windowSettings.ContainsKey(window))
+            if (settings is null || !_windowSettings.ContainsKey(window))
             {
-                _windowSettings[window] = settings;
-
-                RaiseChangeEvent(window);
+                return;
             }
+
+            _windowSettings[window] = settings;
+            RaiseChangeEvent(window);
         }
 
         public void RestoreSettings(BingoWindow window)
@@ -278,45 +287,36 @@
 
         private BingoDisplayConfiguration CreateSettingsFromFile(string path)
         {
-            var config = ConfigurationUtilities.SafeDeserialize<BingoDisplayConfiguration>(path);
-            _version = config?.Version ?? 1;
+            var config = ConfigurationUtilities.SafeDeserialize<BingoDisplayConfiguration>(path) ??
+                         new BingoDisplayConfiguration();
 
+            _version = config.Version;
             foreach (var windowSettings in config.BingoInfoWindowSettings)
             {
-                windowSettings.DisclaimerText ??= new List<string>()
+                windowSettings.DisclaimerText ??= new List<string>
                 {
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.MalfunctionVoids).ToUpper(),
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerAllPrizes).ToUpper(),
                     Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisclaimerReelsAre).ToUpper()
                 }.ToArray();
-                
             }
 
             config.PresentationOverrideMessageFormats ??= Array.Empty<PresentationOverrideMessageFormat>();
-
-            LoadFromSettings(config);
-
             return config;
         }
 
         private void LoadFromSettings(BingoDisplayConfiguration config)
         {
-            _windowSettings[BingoWindow.Main] = config.BingoInfoWindowSettings[0];
-
-            _helpAppearance = config.HelpAppearance;
-            _attractSettings = config.BingoAttractSettings ?? _attractSettings;
-            _presentationOverrideMessageFormats = config.PresentationOverrideMessageFormats?.ToList();
-            _version = config.Version;
-
-            RaiseChangeEvent(BingoWindow.Main);
-        }
-
-        private void RestoreSettings()
-        {
-            var windowArray = _windowSettings.Keys.ToArray();
-            foreach (var window in windowArray)
+            lock (_sync)
             {
-                RestoreSettingsForWindow(window);
+                _windowSettings[BingoWindow.Main] = config.BingoInfoWindowSettings.First();
+
+                _helpAppearance = config.HelpAppearance;
+                _attractSettings = config.BingoAttractSettings ?? _attractSettings;
+                _presentationOverrideMessageFormats = config.PresentationOverrideMessageFormats?.ToList();
+                _version = config.Version;
+
+                RaiseChangeEvent(BingoWindow.Main);
             }
         }
 
@@ -327,28 +327,24 @@
             RaiseChangeEvent(window);
         }
 
-        private void Handle(GameConnectedEvent evt)
+        private void Handle(GameSelectedEvent evt)
         {
-            lock (_sync)
+            if (evt.GameId == _selectedGameId)
             {
-                RestoreSettings();
+                return;
+            }
 
-                var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
-                if (currentGame != null && _displayConfigurations.TryGetValue(currentGame.Folder, out var configuration))
-                {
-                    LoadFromSettings(configuration);
-                }
+            _selectedGameId = evt.GameId;
+            var currentGame = _gameProvider.GetGame(_selectedGameId);
+            if (currentGame != null && _displayConfigurations.TryGetValue(currentGame.Folder, out var configuration))
+            {
+                LoadFromSettings(configuration);
             }
         }
 
         private void Handle(GameAddedEvent evt)
         {
             ScanForGameFiles();
-        }
-
-        private void Handle(HostConnectedEvent evt)
-        {
-            RestoreSettings();
         }
 
         private void RaiseChangeEvent(BingoWindow changedWindow)
