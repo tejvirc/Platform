@@ -43,7 +43,7 @@
         private readonly IPlayerBank _playerBank;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly Stopwatch _stopwatch = new();
-        private readonly ConcurrentDictionary<PresentationOverrideTypes, (string, string)> _configuredOverrideMessageFormats = new();
+        private readonly ConcurrentDictionary<PresentationOverrideTypes, BingoDisplayConfigurationPresentationOverrideMessageFormat> _configuredOverrideMessageFormats = new();
         private BingoCard _lastBingoCard;
         private IReadOnlyList<BingoNumber> _lastBallCall = new List<BingoNumber>();
         private IReadOnlyList<BingoPattern> _bingoPatterns = new List<BingoPattern>();
@@ -475,16 +475,16 @@
                     return;
                 }
 
-                var messageFormat = _configuredOverrideMessageFormats[overrideType];
-                var message = string.Format(messageFormat.Item1, data.First().FormattedAmount ?? string.Empty);
+                var configuration = _configuredOverrideMessageFormats[overrideType];
+                var message = string.Format(configuration.MessageFormat, data.First().FormattedAmount ?? string.Empty);
                 var subUnitDigits = CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
                 var meterMessage = string.Format(
-                    messageFormat.Item2,
+                    configuration.MeterFormat,
                     _playerBank.Balance.MillicentsToDollars().ToString(
                         $"C{subUnitDigits}",
                         CurrencyExtensions.CurrencyCultureInfo));
 
-                await UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, MeterValue = meterMessage }, token);
+                await UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, DynamicMessageScene = configuration.MessageScene, MeterValue = meterMessage }, token);
             }
         }
 
@@ -682,18 +682,22 @@
 
         private void LoadPresentationOverrideMessageFormats()
         {
-            var messageFormats = _bingoConfigurationProvider.GetPresentationOverrideMessageFormats();
-            if (messageFormats == null)
+            var configurations = _bingoConfigurationProvider.GetPresentationOverrideMessageFormats();
+            if (configurations == null)
             {
                 return;
             }
 
-            foreach (var messageFormat in messageFormats.Where(
-                         messageFormat => !string.IsNullOrEmpty(messageFormat.MessageFormat)))
+            foreach (var configuration in configurations.Where(x => !string.IsNullOrEmpty(x.MessageFormat)))
             {
                 _configuredOverrideMessageFormats.TryAdd(
-                    (PresentationOverrideTypes)messageFormat.OverrideType,
-                    (messageFormat.MessageFormat, messageFormat.MeterFormat ?? string.Empty));
+                    (PresentationOverrideTypes)configuration.OverrideType,
+                    new BingoDisplayConfigurationPresentationOverrideMessageFormat
+                    {
+                        MessageFormat = configuration.MessageFormat,
+                        MeterFormat = configuration.MeterFormat ?? string.Empty,
+                        MessageScene = configuration.MessageScene ?? string.Empty
+                    });
             }
         }
     }

@@ -239,18 +239,13 @@
                          $"CashOutState={_lobbyStateManager.CashOutState}, " +
                          $"DialogVisible={MessageOverlayData.IsDialogVisible}");
 
-            if (_overlayMessageStrategyController.GameRegistered)
-            {
-                Logger.Debug("Sending PresentOverriddenPresentation Clear");
-                _overlayMessageStrategyController.ClearGameDrivenPresentation();
-            }
-            
             _messageOverlayState = GetMessageOverlayState();
 
             HandleOverlayWindowDialogVisibility();
 
             MessageOverlayData.DisplayImageResourceKey = GetDisplayImageKey();
 
+            bool messageSent = false;
             switch (_messageOverlayState)
             {
                 case MessageOverlayState.VoucherNotification:
@@ -264,6 +259,7 @@
                     }
 
                     MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                    messageSent = true;
                     break;
                 case MessageOverlayState.PrintHelpline:
                     MessageOverlayData.Text = Localizer.For(CultureFor.Player).GetString(ResourceKeys.PrintingTicket);
@@ -281,6 +277,7 @@
                 case MessageOverlayState.CashIn:
                     var stateContainsCashOut = _lobbyStateManager.ContainsAnyState(LobbyState.CashOut);
                     MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashIn(MessageOverlayData, CashInType, stateContainsCashOut, _lobbyStateManager.CashOutState);
+                    messageSent = true;
                     break;
                 case MessageOverlayState.Diagnostics:
                     MessageOverlayData.ReplayText = _gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog>
@@ -295,6 +292,7 @@
                     else
                     {
                         MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayHandPay(MessageOverlayData, message);
+                        messageSent = true;
                     }
                     break;
                 case MessageOverlayState.Disabled:
@@ -317,6 +315,7 @@
                         // otherwise the printing message may be delayed until after printing is finished
                         var cashOutData = new MessageOverlayData();
                         _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                        messageSent = true;
 
                         if (!MessageOverlayData.Text.Contains(cashOutData.Text))
                         {
@@ -338,6 +337,12 @@
                     MessageOverlayData.Text = Localizer.For(CultureFor.Player).GetString(ResourceKeys.GameDisabledProgressiveError)
                         .Replace("\\r\\n", Environment.NewLine);
                     break;
+            }
+
+            if (!messageSent && _overlayMessageStrategyController.GameRegistered)
+            {
+                Logger.Debug("Sending PresentOverriddenPresentation Clear");
+                _overlayMessageStrategyController.ClearGameDrivenPresentation();
             }
 
             Logger.Debug(MessageOverlayData.GenerateLogText());
