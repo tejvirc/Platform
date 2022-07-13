@@ -30,6 +30,7 @@
         private readonly IGameProvider _gameProvider;
         private readonly IPropertiesManager _propertiesManager;
         private readonly object _disclaimerTextLock = new object();
+        private readonly object _presentationOverrideMessageFormatLock = new object();
 
         public BingoInfoTestToolViewModel(
             IEventBus eventBus,
@@ -57,6 +58,7 @@
             ApplyDisclaimerListChangesCommand = new ActionCommand<object>(_ => ApplyDisclaimerListChanges());
 
             BindingOperations.EnableCollectionSynchronization(DisclaimerText, _disclaimerTextLock);
+            BindingOperations.EnableCollectionSynchronization(PresentationOverrideMessageFormats, _presentationOverrideMessageFormatLock);
             UpdateObservableListToWindowSettingsDisclaimerList(BingoConfigProvider.GetSettings(WindowName));
 
             AddPresentationOverrideMessageFormatCommand = new ActionCommand<object>(_ => AddPresentationOverrideMessageFormat());
@@ -293,7 +295,6 @@
         public void Handle(BingoDisplayConfigurationChangedEvent displayConfigChangedEvent)
         {
             SetDefaults();
-            UpdateObservableListToWindowSettingsDisclaimerList(displayConfigChangedEvent.Settings);
         }
 
         public void Handle(BingoDisplayAttractSettingsChangedEvent attractSettingsChangedEvent)
@@ -370,6 +371,13 @@
             _presentationOverrideMessageFormats = BingoConfigProvider.GetPresentationOverrideMessageFormats();
 
             UpdateObservableListToWindowSettingsDisclaimerList(_currentBingoSettings);
+
+            lock (_presentationOverrideMessageFormatLock)
+            {
+                PresentationOverrideMessageFormats.Clear();
+                PresentationOverrideMessageFormats.AddRange(
+                    _presentationOverrideMessageFormats.Select(messageFormat => messageFormat).Where(m=>!m.MessageFormat.IsNullOrWhiteSpace()));
+            }
 
             IsInitializing = false;
         }
