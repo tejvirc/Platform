@@ -30,7 +30,8 @@
         InPlayerInfoDisplayMenu = 23,
         InOverlayLockup = 24,
         RequestExitGame = 25,
-        GambleFeatureActive = 26
+        GambleFeatureActive = 26,
+        InPlatformHelp = 27
     }
 
     public enum RuntimeRequestState
@@ -57,7 +58,7 @@
         Pause = 10,
         RenderOnly = 11,
         Running = 12,
-        Normal = 12, 
+        Normal = 12,
         Reconfigure = 13,
         Shutdown = 100,
         Restart = 101,
