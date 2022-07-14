@@ -410,7 +410,7 @@
         {
             var overlayMsg = new StringBuilder();
 
-            var messages = HardErrorMessages.ToList();
+            var messages = HardErrorMessages.ToArray();
 
             foreach (var message in messages.Select(o => o.Value.Message).Distinct())
             {
