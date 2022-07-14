@@ -139,7 +139,7 @@
         private void InsertCredit()
         {
             var bankBalanceInDollars = CurrencyExtensions.MillicentsToDollars(_bank.QueryBalance());
-            var minBalanceInDollars = CurrencyExtensions.DollarsToMillicents(_robotController.Config.GetMinimumBalance());
+            var minBalanceInDollars = CurrencyExtensions.CentsToMillicents(_robotController.Config.GetMinimumBalance());
             var enoughBlanace = !CurrencyExtensions.IsBelowMinimum(bankBalanceInDollars, minBalanceInDollars);
             var hasEdgeCase = _robotController.Config?.Active?.InsertCreditsDuringGameRound == true;
             //inserting credits can lead to race conditions that make the platform not update the runtime balance

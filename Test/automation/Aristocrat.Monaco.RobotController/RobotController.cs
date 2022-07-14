@@ -28,7 +28,6 @@
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
         private Dictionary<string, IList<Action>> _executionActions;
         private Dictionary<string, IList<Action>> _warmUpActions;
-        private Timer _coolDownTimer;
         private Automation _automator;
         private IEventBus _eventBus;
         private Container _container;
@@ -62,7 +61,6 @@
                     {
                         PrintCurrentlyInProgressRequests();
                         DisablingRobot();
-                        DisposeCoolDownTimer();
                     }
                     else
                     {
@@ -130,11 +128,6 @@
                 {
                     _warmUpActions.Clear();
                 }
-                if (_coolDownTimer is not null)
-                {
-                    _coolDownTimer.Dispose();
-                }
-                _coolDownTimer = null;
                 _automator = null;
                 _eventBus = null;
                 if (_container is not null)
@@ -162,11 +155,6 @@
             DisablingRobot($"Cooling Down for {milliseconds}");
             Task.Delay(Constants.CashOutDelayDuration).ContinueWith(_ => _eventBus.Publish(new CashOutButtonPressedEvent()));
             Task.Delay(milliseconds).ContinueWith(_ => EnablingRobot());
-        }
-
-        private void DisposeCoolDownTimer()
-        {
-            _coolDownTimer?.Dispose();
         }
 
         private void EnablingRobot()
@@ -223,7 +211,6 @@
                         () =>
                         {
                             InProgressRequests.TryAdd(RobotStateAndOperations.SuperMode);
-                            CoolDownTimerInitialization();
                             SetCurrentlyActiveGameIfAny();
                         }
                     }
@@ -234,7 +221,6 @@
                         () =>
                         {
                             InProgressRequests.TryAdd(RobotStateAndOperations.UberMode);
-                            CoolDownTimerInitialization();
                             SetCurrentlyActiveGameIfAny();
                         }
                     }
@@ -283,16 +269,6 @@
                     }
                 }
             };
-        }
-
-        private void CoolDownTimerInitialization()
-        {
-            var twoHours = 2 * 3600 * 1000;
-            var fiveMinutes = 5 * 60 * 1000;
-            _coolDownTimer = new System.Threading.Timer((s) =>
-            {
-                CoolDown(fiveMinutes);
-            }, null, twoHours, twoHours);
         }
 
         private void StartRobot()
