@@ -485,8 +485,7 @@
         {
             return _lastDenom != 0 &&
                    _lastBetDetail is not null &&
-                   selectedDenom != _lastDenom &&
-                   !Equals(selectedBet, _lastBetDetail);
+                   (selectedDenom != _lastDenom || !Equals(selectedBet, _lastBetDetail));
         }
 
         private bool CheckForOutcomeResponseFailure(
