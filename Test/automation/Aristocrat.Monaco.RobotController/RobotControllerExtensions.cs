@@ -25,8 +25,8 @@
             Func<RobotStateAndOperations, bool> predicate =
                 (i) =>
                 i != RobotStateAndOperations.SuperMode
-                && i != RobotStateAndOperations.SuperMode
-                && i != RobotStateAndOperations.SuperMode
+                && i != RobotStateAndOperations.RegularMode
+                && i != RobotStateAndOperations.UberMode
                 && !excluded.Contains(i);
             var isBlocked = robotController.InProgressRequests.Where(predicate).Any();
             return isBlocked;
