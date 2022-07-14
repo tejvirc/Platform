@@ -581,7 +581,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="55"
-                           Text="{Binding TicketTitleNonCash}" />
+                           Text="{Binding TicketTitleNonCashDisplay}" />
 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -617,7 +617,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="59"
-                           Text="{Binding TitleCancelReceipt}" />
+                           Text="{Binding TitleCancelReceiptDisplay}" />
 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -626,7 +626,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="60"
-                           Text="{Binding TitleJackpotReceipt}" />
+                           Text="{Binding TitleJackpotReceiptDisplay}" />
 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
