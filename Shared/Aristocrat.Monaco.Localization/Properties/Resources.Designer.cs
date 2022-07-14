@@ -14261,6 +14261,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Hash.
+		/// </summary>
+		public static string Hash {
+			get {
+				return ResourceManager.GetString("Hash", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Hash Result.
 		/// </summary>
         /// <remarks>
@@ -48679,6 +48688,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Hash.
+		/// </summary>
+		public static string Hash {
+			get {
+				return "Hash";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Hash Result.
 		/// </summary>
         /// <remarks>
@@ -76983,6 +77001,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI - Changed from "HardwareSelectionTitle"
         /// </remarks>
 		HardwareSelectionTitle2,
+		/// <summary>
+		///   Looks up a localized string similar to Hash.
+		/// </summary>
+		Hash,
 		/// <summary>
 		///   Looks up a localized string similar to Hash Result.
 		/// </summary>
