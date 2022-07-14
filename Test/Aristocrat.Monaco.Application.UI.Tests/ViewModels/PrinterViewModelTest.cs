@@ -154,11 +154,13 @@
         [TestMethod]
         public void UpdateScreenShowDiagnosticsTest()
         {
+            var eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
             var printer = MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Strict);
             var device = new Mock<IDevice>(MockBehavior.Strict);
             device.Setup(m => m.Protocol).Returns("GDS").Verifiable();
             printer.Setup(m => m.DeviceConfiguration).Returns(device.Object).Verifiable();
             printer.Setup(m => m.LogicalState).Returns(PrinterLogicalState.Idle);
+            eventBus.Setup(m => m.Publish(It.IsAny<BaseEvent>()));
 
             _target2.TestEventHandlerStop(false);
             _target2.DiagnosticsEnabled = true;
