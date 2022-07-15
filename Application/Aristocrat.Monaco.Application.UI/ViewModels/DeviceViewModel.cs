@@ -15,6 +15,7 @@
     using System.Windows.Threading;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
+    using Hardware.Contracts.SerialPorts;
 
     /// <summary>
     ///     A DeviceViewModel contains the base logic for device config page view models
@@ -70,6 +71,8 @@
         }
 
         protected IInformationTicketCreator TicketCreator => ServiceManager.GetInstance().TryGetService<IInformationTicketCreator>();
+
+        protected ISerialPortsService SerialPortsService => ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
         
         public ICommand SelfTestButtonCommand { get; set; }
 
@@ -370,10 +373,20 @@
             FirmwareCrcText = device.FirmwareCyclicRedundancyCheck;
             SerialNumberText = device.SerialNumber;
             ProtocolText = device.Protocol;
-            PortText = string.IsNullOrEmpty(device.Protocol)
-                       || device.Protocol.Contains(ApplicationConstants.Fake)
-                ? ApplicationConstants.Fake
-                : device.PortName;
+            PortText = SetPortText();
+
+            string SetPortText()
+            {
+                if (string.IsNullOrEmpty(device.Protocol) || device.Protocol.Contains(ApplicationConstants.Fake))
+                {
+                    return ApplicationConstants.Fake;
+                }
+                if (device.PortName.Contains(ApplicationConstants.SerialPortPrefix))
+                {
+                    return SerialPortsService?.PhysicalToLogicalName(device.PortName) ?? device.PortName;
+                }
+                return device.PortName;
+            }
         }
 
         internal virtual void SetDeviceInformationUnknown()
