@@ -22,7 +22,7 @@
         /// <inheritdoc />
         public override void Consume(TransferOutCompletedEvent theEvent)
         {
-            if (_aftOffTransferProvider.TransferOutPending)
+            if (_aftOffTransferProvider != null && _aftOffTransferProvider.TransferOutPending)
             {
                 _aftOffTransferProvider.ResetCashOutRequestState();
 

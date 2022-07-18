@@ -30,11 +30,11 @@
                 return false;
             }
 
-            return x.IsDualHost == y.IsDualHost && x.AftPort == y.AftPort &&
+            return x.IsDualHost == y.IsDualHost && x.FundTransferPort == y.FundTransferPort && 
                    x.GeneralControlPort == y.GeneralControlPort && x.LegacyBonusPort == y.LegacyBonusPort &&
                    x.ProgressivePort == y.ProgressivePort && x.ValidationPort == y.ValidationPort &&
                    x.GameStartEndHosts == y.GameStartEndHosts && x.Host1NonSasProgressiveHitReporting == y.Host1NonSasProgressiveHitReporting &&
-                   x.Host2NonSasProgressiveHitReporting == y.Host2NonSasProgressiveHitReporting;
+                   x.Host2NonSasProgressiveHitReporting == y.Host2NonSasProgressiveHitReporting && x.FundTransferType == y.FundTransferType;
         }
 
         /// <inheritdoc />
@@ -43,7 +43,8 @@
             unchecked
             {
                 var hashCode = obj.IsDualHost.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int)obj.AftPort;
+                hashCode = (hashCode * 397) ^ (int)obj.FundTransferType;
+                hashCode = (hashCode * 397) ^ (int)obj.FundTransferPort;
                 hashCode = (hashCode * 397) ^ (int)obj.GeneralControlPort;
                 hashCode = (hashCode * 397) ^ (int)obj.LegacyBonusPort;
                 hashCode = (hashCode * 397) ^ (int)obj.ProgressivePort;

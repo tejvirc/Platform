@@ -24,7 +24,7 @@
     {
         private readonly IAftLockHandler _aftLockHandler;
         private readonly IBank _bank;
-        private readonly IHostCashOutProvider _hostCashOutProvider;
+        private readonly IAftHostCashOutProvider _aftHostCashOutProvider;
         private readonly ITicketingCoordinator _ticketingCoordinator;
         private readonly IStorageDataProvider<AftTransferOptions> _aftOptionsProvider;
         private readonly IPropertiesManager _propertiesManager;
@@ -35,7 +35,7 @@
         /// </summary>
         /// <param name="aftLockHandler">a reference to the <see cref="IAftLockHandler" /></param>
         /// <param name="bank">a reference to the <see cref="IBank" /></param>
-        /// <param name="hostCashOutProvider">a reference to the <see cref="IHostCashOutProvider" /></param>
+        /// <param name="aftHostCashOutProvider">a reference to the <see cref="IAftHostCashOutProvider" /></param>
         /// <param name="ticketingCoordinator">a reference to the <see cref="ITicketingCoordinator" /></param>
         /// <param name="aftOptionsProvider"></param>
         /// <param name="propertiesManager">a reference to the <see cref="IPropertiesManager" /></param>
@@ -43,7 +43,7 @@
         public LP74AftGameLockAndStatusRequestHandler(
             IAftLockHandler aftLockHandler,
             IBank bank,
-            IHostCashOutProvider hostCashOutProvider,
+            IAftHostCashOutProvider aftHostCashOutProvider,
             ITicketingCoordinator ticketingCoordinator,
             IStorageDataProvider<AftTransferOptions> aftOptionsProvider,
             IPropertiesManager propertiesManager,
@@ -51,7 +51,7 @@
         {
             _aftLockHandler = aftLockHandler ?? throw new ArgumentNullException(nameof(aftLockHandler));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
-            _hostCashOutProvider = hostCashOutProvider ?? throw new ArgumentNullException(nameof(hostCashOutProvider));
+            _aftHostCashOutProvider = aftHostCashOutProvider ?? throw new ArgumentNullException(nameof(aftHostCashOutProvider));
             _ticketingCoordinator =
                 ticketingCoordinator ?? throw new ArgumentNullException(nameof(ticketingCoordinator));
             _aftOptionsProvider = aftOptionsProvider ?? throw new ArgumentNullException(nameof(aftOptionsProvider));
@@ -67,7 +67,7 @@
         public AftGameLockAndStatusResponseData Handle(AftGameLockAndStatusData data)
         {
             DoLockAction(data);
-            _hostCashOutProvider.ResetCashOutExceptionTimer();
+            _aftHostCashOutProvider.ResetCashOutExceptionTimer();
             return GenerateResponse();
         }
 

@@ -31,7 +31,7 @@
         private readonly Mock<IFundsTransferDisable> _fundsTransferDisable = new Mock<IFundsTransferDisable>(MockBehavior.Strict);
         private readonly Mock<IAutoPlayStatusProvider> _autoPlayStatusProvider = new Mock<IAutoPlayStatusProvider>(MockBehavior.Strict);
         private readonly Mock<ITicketingCoordinator> _ticketingCoordinator = new Mock<ITicketingCoordinator>(MockBehavior.Default);
-        private Mock<IHostCashOutProvider> _hostCashoutProvider;
+        private Mock<IAftHostCashOutProvider> _hostCashoutProvider;
         private Mock<ISasBonusCallback> _bonus;
 
         private Mock<IAftTransferProvider> _aftProvider;
@@ -47,7 +47,7 @@
             _bonus = new Mock<ISasBonusCallback>(MockBehavior.Default);
 
             _aftProvider = new Mock<IAftTransferProvider>();
-            _hostCashoutProvider = new Mock<IHostCashOutProvider>(MockBehavior.Default);
+            _hostCashoutProvider = new Mock<IAftHostCashOutProvider>(MockBehavior.Default);
             _aftProvider.Setup(x => x.TransferLimitAmount).Returns(AftOffLimit);
 
             var aftTransferBonusCoinOutWinFromHostToGamingMachine = new AftTransferBonusCoinOutWinFromHostToGamingMachine(_aftProvider.Object, _bonus.Object, _propertiesManager.Object);

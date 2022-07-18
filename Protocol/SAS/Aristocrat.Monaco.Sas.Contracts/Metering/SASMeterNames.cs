@@ -162,5 +162,10 @@
         ///     The bonus amount for non deductible mode
         /// </summary>
         public const string BonusNonDeductibleAmount = "BonusNonDeductibleAmount";
+
+        /// <summary>
+        ///     Player Last Cashout Amount
+        /// </summary>
+        public const string EftPlayerLastCashoutAmount = "Sas.EftPlayerLastCashoutAmount";
     }
 }

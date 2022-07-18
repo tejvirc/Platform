@@ -19,7 +19,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IHostCashOutProvider _hostCashOutProvider;
+        private readonly IAftHostCashOutProvider _aftHostCashOutProvider;
         private readonly IPropertiesManager _propertiesManager;
         private readonly Dictionary<Func<bool>, (AftTransferStatusCode code, string message)> _errorConditions;
         private readonly IAftTransferProvider _aftProvider;
@@ -28,15 +28,15 @@
         ///     Instantiates a new instance of the AftTransferInHouseFromGameMachineToHost class
         /// </summary>
         /// <param name="aftProvider">reference to the AftTransferProvider class</param>
-        /// <param name="hostCashOutProvider">The host cashout provider</param>
+        /// <param name="aftHostCashOutProvider">The host cashout provider</param>
         /// <param name="propertiesManager">A reference to the PropertiesManager</param>
         public AftTransferInHouseFromGameMachineToHost(
             IAftTransferProvider aftProvider,
-            IHostCashOutProvider hostCashOutProvider,
+            IAftHostCashOutProvider aftHostCashOutProvider,
             IPropertiesManager propertiesManager)
         {
             _aftProvider = aftProvider ?? throw new ArgumentNullException(nameof(aftProvider));
-            _hostCashOutProvider = hostCashOutProvider ?? throw new ArgumentNullException(nameof(hostCashOutProvider));
+            _aftHostCashOutProvider = aftHostCashOutProvider ?? throw new ArgumentNullException(nameof(aftHostCashOutProvider));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _errorConditions = InitializeErrorConditions();
         }
@@ -98,7 +98,7 @@
                     (AftTransferStatusCode.NotAValidTransferFunction, "not enough promo money to do a full transfer off")
                 },
                 {
-                    () => _hostCashOutProvider.CashOutWinPending,
+                    () => _aftHostCashOutProvider.CashOutWinPending,
                     (AftTransferStatusCode.GamingMachineUnableToPerformTransfer, "currently pending a host cashout to win we need to cashout using Cashout Win from host")
                 }
             };

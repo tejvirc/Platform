@@ -61,6 +61,10 @@
             {
                 // Add Aft On / Off into ServiceManager
                 OnAddingService(container.GetInstance<IAftLockHandler>() as IService);
+            }
+
+            if (settings.EftAllowed || settings.AftAllowed)
+            {
                 var fundTransferProvider = ServiceManager.GetInstance().GetService<IFundTransferProvider>();
                 var watTransferOffProvider = container.GetInstance<IWatTransferOffProvider>();
                 OnAddProtocolService(

@@ -26,7 +26,10 @@
         PerClientLoad,
 
         /// <summary>A progressive consumer or handler</summary>
-        Progressives
+        Progressives,
+
+        /// <summary>An Eft consumer or handler</summary>
+        Eft
     }
 
     /// <summary>

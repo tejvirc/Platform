@@ -29,10 +29,18 @@
         /// <inheritdoc />
         public override void Consume(HandpayStartedEvent theEvent)
         {
-            _aftOffTransferProvider.AftState |= AftDisableConditions.CanceledCreditsPending;
-            _aftOnTransferProvider.AftState |= AftDisableConditions.CanceledCreditsPending;
-            _aftOffTransferProvider.OnStateChanged();
-            _aftOnTransferProvider.OnStateChanged();
+            if (_aftOffTransferProvider != null)
+            {
+                _aftOffTransferProvider.AftState |= AftDisableConditions.CanceledCreditsPending;
+            }
+
+            if (_aftOnTransferProvider != null)
+            {
+                _aftOnTransferProvider.AftState |= AftDisableConditions.CanceledCreditsPending;
+            }
+
+            _aftOffTransferProvider?.OnStateChanged();
+            _aftOnTransferProvider?.OnStateChanged();
         }
     }
 }

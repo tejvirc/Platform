@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Sas.UI.Settings
 {
+    using Contracts.SASProperties;
     using MVVM.Model;
     using Storage.Models;
 
@@ -8,7 +9,7 @@
     /// </summary>
     public class PortAssignmentSetting : BaseNotify
     {
-        private HostId _aftPort;
+        private HostId _fundTransferPort;
         private HostId _validationPort;
         private HostId _progressivePort;
         private HostId _generalControlPort;
@@ -19,13 +20,18 @@
         private bool _host2NonSasProgressiveHitReporting;
 
         /// <summary>
-        ///     Gets or sets the Aft Port
+        ///     Gets or sets the Fund Transfer(AFT or EFT) Port
         /// </summary>
-        public HostId AftPort
+        public HostId FundTransferPort
         {
-            get => _aftPort;
-            set => SetProperty(ref _aftPort, value);
+            get => _fundTransferPort;
+            set => SetProperty(ref _fundTransferPort, value);
         }
+
+        /// <summary>
+        ///     Gets or sets the fund transfer type which can be Aft or Eft.
+        /// </summary>
+        public FundTransferType FundTransferType { get; set; }
 
         /// <summary>
         ///     Gets or sets the validation port
@@ -105,7 +111,8 @@
         /// <param name="setting">The <see cref="PortAssignmentSetting"/> setting</param>
         public static explicit operator PortAssignment(PortAssignmentSetting setting) => new PortAssignment
         {
-            AftPort = setting.AftPort,
+            FundTransferType = setting.FundTransferType,
+            FundTransferPort = setting.FundTransferPort,
             ValidationPort = setting.ValidationPort,
             ProgressivePort = setting.ProgressivePort,
             GameStartEndHosts = setting.GameStartEndHosts,
@@ -123,7 +130,8 @@
         public static explicit operator PortAssignmentSetting(PortAssignment assignment) =>
             new PortAssignmentSetting
             {
-                AftPort = assignment.AftPort,
+                FundTransferType = assignment.FundTransferType,
+                FundTransferPort = assignment.FundTransferPort,
                 ValidationPort = assignment.ValidationPort,
                 ProgressivePort = assignment.ProgressivePort,
                 GameStartEndHosts = assignment.GameStartEndHosts,

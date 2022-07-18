@@ -463,7 +463,7 @@
 
             _state.Configure(LobbyState.Disabled)
                 .OnEntry(CallStateEntry)
-                .InternalTransitionIf(LobbyTrigger.GameLoaded, () => !AllowSingleGameAutoLaunch, GameLoadedWhileDisabled)
+                .InternalTransitionIf(LobbyTrigger.GameLoaded, (_) => !AllowSingleGameAutoLaunch, GameLoadedWhileDisabled)
                 .InternalTransition(LobbyTrigger.GameNormalExit, () => GameExited(false))
                 .InternalTransition(LobbyTrigger.GameUnexpectedExit, () => GameExited(true))
                 .InternalTransition(

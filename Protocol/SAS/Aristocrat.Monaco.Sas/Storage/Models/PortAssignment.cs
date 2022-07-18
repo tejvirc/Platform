@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
     using Common.Storage;
+    using Contracts.SASProperties;
 
     /// <summary>
     ///     The port assignment entity
@@ -14,9 +15,14 @@
 
         /// <summary>
         /// Gets or sets the port used for Aft including 
-        /// long polls (72, 73, 74, 75, and 76). 
+        /// long polls (72, 73, 74, 75, and 76) or Eft(1D, 27, 28, 62, 63, 63, 64, 65, 66, 69, 6A, 6B). 
         /// </summary>
-        public HostId AftPort { get; set; }
+        public HostId FundTransferPort { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fund transfer type which can be Aft or Eft.
+        /// </summary>
+        public FundTransferType FundTransferType { get; set; }
 
         /// <summary>
         /// Gets or sets the port used for general system control including

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
@@ -45,7 +45,7 @@
 		<PackageReference Include="log4net" Version="2.0.8" />
 		<PackageReference Include="Polly" Version="7.2.1" />
 		<PackageReference Include="SimpleInjector" Version="4.9.2" />
-		<PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="Stateless" Version="5.11.0" />
 		<PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
 		<PackageReference Include="Google.Protobuf" Version="3.15.8" />
 		<PackageReference Include="Grpc" Version="2.37.1" />

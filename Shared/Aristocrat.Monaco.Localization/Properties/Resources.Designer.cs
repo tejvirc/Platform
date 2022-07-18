@@ -571,18 +571,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to AFT Transfer Limit.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas.UI
-        /// </remarks>
-		public static string AftTransferLimitLabel {
-			get {
-				return ResourceManager.GetString("AftTransferLimitLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to AFT Win To Host Allowed.
 		/// </summary>
         /// <remarks>
@@ -6629,7 +6617,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to CRÉDITS DE.
+		///   Looks up a localized string similar to CRÃ‰DITS DE.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -9304,6 +9292,81 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EditSelected {
 			get {
 				return ResourceManager.GetString("EditSelected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to EFT In.
+		/// </summary>
+		public static string EftInLabel {
+			get {
+				return ResourceManager.GetString("EftInLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to EFT Out.
+		/// </summary>
+		public static string EftOutLabel {
+			get {
+				return ResourceManager.GetString("EftOutLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Partial Transfers Allowed.
+		/// </summary>
+		public static string EftPartialTransfersAllowedLabel {
+			get {
+				return ResourceManager.GetString("EftPartialTransfersAllowedLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to EFT Port.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+		public static string EftPortLabel {
+			get {
+				return ResourceManager.GetString("EftPortLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to SAS EFT Configuration.
+		/// </summary>
+		public static string EFTTitleLabel {
+			get {
+				return ResourceManager.GetString("EFTTitleLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to EFT Credit Transfer In is in progress..
+		/// </summary>
+		public static string EftTransferInInProgress {
+			get {
+				return ResourceManager.GetString("EftTransferInInProgress", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Transfer Limit.
+		/// </summary>
+		public static string EftTransferLimitLabel {
+			get {
+				return ResourceManager.GetString("EftTransferLimitLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to EFT Credit Transfer Out is in progress..
+		/// </summary>
+		public static string EftTransferOutInProgress {
+			get {
+				return ResourceManager.GetString("EftTransferOutInProgress", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -14474,7 +14537,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problèmeatique.
+		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n ProblÃ¨meatique.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming
@@ -31865,6 +31928,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Transfer Limit.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+		public static string TransferLimitLabel {
+			get {
+				return ResourceManager.GetString("TransferLimitLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Transfer Out.
 		/// </summary>
         /// <remarks>
@@ -34995,18 +35070,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string AFTTitleLabel {
 			get {
 				return "AFTTitleLabel";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to AFT Transfer Limit.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas.UI
-        /// </remarks>
-		public static string AftTransferLimitLabel {
-			get {
-				return "AftTransferLimitLabel";
 			}
 		}
 
@@ -41056,7 +41119,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to CRÉDITS DE.
+		///		Looks up a localized string similar to CRÃ‰DITS DE.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -43731,6 +43794,81 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EditSelected {
 			get {
 				return "EditSelected";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to EFT In.
+		/// </summary>
+		public static string EftInLabel {
+			get {
+				return "EftInLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to EFT Out.
+		/// </summary>
+		public static string EftOutLabel {
+			get {
+				return "EftOutLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Partial Transfers Allowed.
+		/// </summary>
+		public static string EftPartialTransfersAllowedLabel {
+			get {
+				return "EftPartialTransfersAllowedLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to EFT Port.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+		public static string EftPortLabel {
+			get {
+				return "EftPortLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to SAS EFT Configuration.
+		/// </summary>
+		public static string EFTTitleLabel {
+			get {
+				return "EFTTitleLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to EFT Credit Transfer In is in progress..
+		/// </summary>
+		public static string EftTransferInInProgress {
+			get {
+				return "EftTransferInInProgress";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Transfer Limit.
+		/// </summary>
+		public static string EftTransferLimitLabel {
+			get {
+				return "EftTransferLimitLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to EFT Credit Transfer Out is in progress..
+		/// </summary>
+		public static string EftTransferOutInProgress {
+			get {
+				return "EftTransferOutInProgress";
 			}
 		}
 
@@ -48901,7 +49039,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problèmeatique.
+		///		Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n ProblÃ¨meatique.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming
@@ -66292,6 +66430,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Transfer Limit.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+		public static string TransferLimitLabel {
+			get {
+				return "TransferLimitLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Transfer Out.
 		/// </summary>
         /// <remarks>
@@ -69206,13 +69356,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
 		AFTTitleLabel,
-		/// <summary>
-		///   Looks up a localized string similar to AFT Transfer Limit.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Sas.UI
-        /// </remarks>
-		AftTransferLimitLabel,
 		/// <summary>
 		///   Looks up a localized string similar to AFT Win To Host Allowed.
 		/// </summary>
@@ -72660,7 +72803,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		CreditOutCmdFailedMsg,
 		/// <summary>
-		///   Looks up a localized string similar to CRÉDITS DE.
+		///   Looks up a localized string similar to CRÃ‰DITS DE.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -74188,6 +74331,41 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.UI
         /// </remarks>
 		EditSelected,
+		/// <summary>
+		///   Looks up a localized string similar to EFT In.
+		/// </summary>
+		EftInLabel,
+		/// <summary>
+		///   Looks up a localized string similar to EFT Out.
+		/// </summary>
+		EftOutLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Partial Transfers Allowed.
+		/// </summary>
+		EftPartialTransfersAllowedLabel,
+		/// <summary>
+		///   Looks up a localized string similar to EFT Port.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+		EftPortLabel,
+		/// <summary>
+		///   Looks up a localized string similar to SAS EFT Configuration.
+		/// </summary>
+		EFTTitleLabel,
+		/// <summary>
+		///   Looks up a localized string similar to EFT Credit Transfer In is in progress..
+		/// </summary>
+		EftTransferInInProgress,
+		/// <summary>
+		///   Looks up a localized string similar to Transfer Limit.
+		/// </summary>
+		EftTransferLimitLabel,
+		/// <summary>
+		///   Looks up a localized string similar to EFT Credit Transfer Out is in progress..
+		/// </summary>
+		EftTransferOutInProgress,
 		/// <summary>
 		///   Looks up a localized string similar to EGM Disabled on Host Offline.
 		/// </summary>
@@ -77125,7 +77303,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HelplineTicketTitle,
 		/// <summary>
-		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problèmeatique.
+		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n ProblÃ¨meatique.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming
@@ -87040,6 +87218,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		TransferIn,
+		/// <summary>
+		///   Looks up a localized string similar to Transfer Limit.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+		TransferLimitLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Transfer Out.
 		/// </summary>

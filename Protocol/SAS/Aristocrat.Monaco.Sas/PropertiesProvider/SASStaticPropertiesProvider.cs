@@ -141,7 +141,7 @@
 
             var ports = (PortAssignment)GetProperty(SasProperties.SasPortAssignments);
             ports.IsDualHost = configuration.SASHostPage?.MustHaveDualHost?.Enabled ?? false;
-            ports.AftPort = configuration.SASHostPage?.Aft?.HostId ?? HostId.Host1;
+            ports.FundTransferPort = configuration.SASHostPage?.FundTransferHost?.HostId ?? HostId.Host1;
             ports.ValidationPort = configuration.SASHostPage?.Validation?.HostId ?? HostId.Host1;
             ports.GameStartEndHosts = configuration.SASHostPage?.GameStartEnd?.HostId ?? GameStartEndHost.Host1;
             SetProperty(SasProperties.SasPortAssignments, ports);

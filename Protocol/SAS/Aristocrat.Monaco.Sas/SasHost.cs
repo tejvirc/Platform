@@ -156,28 +156,30 @@
 
             var hostConfiguration = configuration.SasHostConfiguration[clientNumber];
             clientConfiguration.ClientNumber = (byte)clientNumber;
-            clientConfiguration.HandlesAft = configuration.SasConfiguration.System.ControlPorts.AftPort == clientNumber;
+            var controlPortsElement = configuration.SasConfiguration.System.ControlPorts;
+            clientConfiguration.HandlesAft = controlPortsElement.FundTransferType == FundTransferType.Aft && controlPortsElement.FundTransferPort == clientNumber;
+            clientConfiguration.HandlesEft = controlPortsElement.FundTransferType == FundTransferType.Eft && controlPortsElement.FundTransferPort == clientNumber;
             clientConfiguration.DiscardOldestException =
                 hostConfiguration.OverflowBehavior == ExceptionOverflowBehavior.DiscardOldExceptions;
             clientConfiguration.HandlesGeneralControl =
-                configuration.SasConfiguration.System.ControlPorts.GeneralControlPort == clientNumber;
+                controlPortsElement.GeneralControlPort == clientNumber;
             clientConfiguration.HandlesLegacyBonusing =
-                configuration.SasConfiguration.System.ControlPorts.LegacyBonusPort == clientNumber;
+                controlPortsElement.LegacyBonusPort == clientNumber;
             clientConfiguration.HandlesValidation =
-                configuration.SasConfiguration.System.ControlPorts.ValidationPort == clientNumber;
+                controlPortsElement.ValidationPort == clientNumber;
             clientConfiguration.LegacyHandpayReporting =
                 configuration.SasConfiguration.HandPay.HandpayReportingType == SasHandpayReportingType.LegacyHandpayReporting;
             clientConfiguration.AccountingDenom = hostConfiguration.AccountingDenom;
             clientConfiguration.HandlesGameStartEnd =
-                configuration.SasConfiguration.System.ControlPorts.GameStartEndHosts == (GameStartEndHost)(clientNumber + 1) ||
-                configuration.SasConfiguration.System.ControlPorts.GameStartEndHosts == GameStartEndHost.Both;
+                controlPortsElement.GameStartEndHosts == (GameStartEndHost)(clientNumber + 1) ||
+                controlPortsElement.GameStartEndHosts == GameStartEndHost.Both;
             clientConfiguration.IsNoneValidation =
                 configuration.SasConfiguration.System.ValidationType == SasValidationType.None;
             clientConfiguration.ComPort = _serialPortService.LogicalToPhysicalName(hostConfiguration.PortName);
             clientConfiguration.SasAddress = hostConfiguration.SasAddress;
 
             clientConfiguration.HandlesProgressives =
-                configuration.SasConfiguration.System.ControlPorts.ProgressivePort == clientNumber;
+                controlPortsElement.ProgressivePort == clientNumber;
 
             Logger.Debug($"Host {clientNumber} - Aft:{clientConfiguration.HandlesAft}, General:{clientConfiguration.HandlesGeneralControl}, " +
                 $"Bonusing:{clientConfiguration.HandlesLegacyBonusing}, Validation:{clientConfiguration.HandlesValidation}, " +

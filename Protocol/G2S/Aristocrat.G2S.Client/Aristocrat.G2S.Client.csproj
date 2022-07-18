@@ -54,6 +54,6 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.G2S" Version="4.1.35" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="Stateless" Version="5.11.0" />
   </ItemGroup>
 </Project>

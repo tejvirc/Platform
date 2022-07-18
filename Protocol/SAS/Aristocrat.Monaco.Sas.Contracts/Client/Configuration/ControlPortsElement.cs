@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Sas.Contracts.Client.Configuration
 {
+    using SASProperties;
+
     /// <summary>
     /// Definition of the ControlPortsElement class.
     /// </summary>
@@ -11,7 +13,7 @@
         /// </summary>
         public ControlPortsElement()
         {
-            AftPort = 1;
+            FundTransferPort = 1;
             GeneralControlPort = 1;
             LegacyBonusPort = 1;
             ProgressivePort = 1;
@@ -21,9 +23,14 @@
 
         /// <summary>
         /// Gets or sets the port used for Aft including 
-        /// long polls (72, 73, 74, 75, and 76). 
+        /// long polls (72, 73, 74, 75, and 76) or Eft(1D, 27, 28, 62, 63, 63, 64, 65, 66, 69, 6A, 6B). 
         /// </summary>
-        public int AftPort { get; set; }
+        public int FundTransferPort { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fund transfer type which can be Aft or Eft.
+        /// </summary>
+        public FundTransferType FundTransferType { get; set; }
 
         /// <summary>
         /// Gets or sets the port used for general system control including

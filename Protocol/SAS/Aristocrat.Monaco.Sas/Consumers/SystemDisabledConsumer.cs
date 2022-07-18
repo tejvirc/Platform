@@ -28,18 +28,22 @@
         {
             _systemEventHandler = systemEventHandler ?? throw new ArgumentNullException(nameof(systemEventHandler));
             _hostValidationProvider = hostValidationProvider ?? throw new ArgumentNullException(nameof(hostValidationProvider));
-            _aftOffTransferProvider = aftOffTransferProvider as AftTransferProviderBase ?? throw new ArgumentNullException(nameof(aftOffTransferProvider));
-            _aftOnTransferProvider = aftOnTransferProvider as AftTransferProviderBase ?? throw new ArgumentNullException(nameof(aftOnTransferProvider));
+            _aftOffTransferProvider = aftOffTransferProvider as AftTransferProviderBase;
+            _aftOnTransferProvider = aftOnTransferProvider as AftTransferProviderBase;
         }
 
         /// <inheritdoc />
         public override void Consume(SystemDisabledEvent theEvent)
         {
             _systemEventHandler.OnSystemDisabled();
-            _aftOnTransferProvider.AftState |= AftDisableConditions.SystemDisabled;
-            _aftOffTransferProvider.OnSystemDisabled();
-            _aftOffTransferProvider.OnStateChanged();
-            _aftOnTransferProvider.OnStateChanged();
+            if (_aftOnTransferProvider != null)
+            {
+                _aftOnTransferProvider.AftState |= AftDisableConditions.SystemDisabled;
+            }
+
+            _aftOffTransferProvider?.OnSystemDisabled();
+            _aftOffTransferProvider?.OnStateChanged();
+            _aftOnTransferProvider?.OnStateChanged();
             _hostValidationProvider.OnSystemDisabled();
         }
     }

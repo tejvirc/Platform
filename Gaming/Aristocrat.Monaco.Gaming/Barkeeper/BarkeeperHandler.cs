@@ -595,7 +595,7 @@
                     () => !_enabled || !_coinInRewardLevels.Any(x => x.Enabled))
                 .InternalTransitionIf(
                     BarkeeperCoinInTrigger.BarkeeperButtonPressed,
-                    () => _lastAward?.ThresholdInCents != _maxAwardLevel?.ThresholdInCents,
+                    (_) => _lastAward?.ThresholdInCents != _maxAwardLevel?.ThresholdInCents,
                     HandleBarKeeperButtonPressed)
                 .PermitIf(
                     BarkeeperCoinInTrigger.BarkeeperButtonPressed,

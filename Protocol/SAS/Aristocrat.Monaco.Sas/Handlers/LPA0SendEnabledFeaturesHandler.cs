@@ -53,7 +53,7 @@
                 featuresGotten |= LongPollSendEnabledFeaturesResponse.Features1.JackpotMultiplier;
             }
 
-            if (portAssignment.AftPort != HostId.None && features.AftBonusAllowed)
+            if (portAssignment.FundTransferPort != HostId.None && features.AftBonusAllowed)
             {
                 featuresGotten |= LongPollSendEnabledFeaturesResponse.Features1.AftBonusAwards;
             }
@@ -122,7 +122,7 @@
                 featuresGotten |= LongPollSendEnabledFeaturesResponse.Features2.JackpotKeyoffToMachinePayException;
             }
 
-            if (portAssignment.AftPort != HostId.None && features.AftAllowed)
+            if (portAssignment.FundTransferPort != HostId.None && features.AftAllowed)
             {
                 featuresGotten |= LongPollSendEnabledFeaturesResponse.Features2.AdvancedFundTransfer;
             }

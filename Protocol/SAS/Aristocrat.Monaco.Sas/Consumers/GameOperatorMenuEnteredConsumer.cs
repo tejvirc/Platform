@@ -36,11 +36,18 @@
         public override void Consume(GameOperatorMenuEnteredEvent theEvent)
         {
             _exceptionHandler.ReportException(new GenericExceptionBuilder(GeneralExceptionCode.OperatorMenuEntered));
-            _aftOffTransferProvider.AftState |= AftDisableConditions.GameOperatorMenuEntered;
-            _aftOnTransferProvider.AftState |= AftDisableConditions.GameOperatorMenuEntered;
+            if (_aftOffTransferProvider != null)
+            {
+                _aftOffTransferProvider.AftState |= AftDisableConditions.GameOperatorMenuEntered;
+            }
 
-            _aftOffTransferProvider.OnStateChanged();
-            _aftOnTransferProvider.OnStateChanged();
+            if (_aftOnTransferProvider != null)
+            {
+                _aftOnTransferProvider.AftState |= AftDisableConditions.GameOperatorMenuEntered;
+            }
+
+            _aftOffTransferProvider?.OnStateChanged();
+            _aftOnTransferProvider?.OnStateChanged();
         }
     }
 }

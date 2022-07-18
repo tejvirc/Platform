@@ -9,11 +9,13 @@
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Protocol;
     using Application.UI.ConfigWizard;
+    using Common;
     using Contracts;
     using Contracts.Events;
     using Contracts.SASProperties;
     using Kernel;
     using Localization.Properties;
+    using MVVM.Markup;
     using Storage.Models;
 
     /// <summary>
@@ -53,6 +55,9 @@
         private bool _host2GameStartEndEnabled;
         private bool _host2NonSasProgressiveHitReporting;
 
+        private bool _host1EftEnabled;
+        private bool _host2EftEnabled;
+
         private readonly bool _gameStartEndHostAutoSelection;
 
         private bool _dualHostSetup;
@@ -67,6 +72,7 @@
         private int _accountingDenom2Index;
 
         private ProtocolConfiguration _sasProtocolConfiguration;
+        private FundTransferType _fundTransferType;
 
         /// <summary>
         ///     ctor
@@ -88,8 +94,7 @@
                 GeneralControlEditable = sasSettings.GeneralControlEditable;
                 ValidationOnHost1 = portConfiguration.ValidationPort == HostId.Host1;
                 ValidationOnHost2 = portConfiguration.ValidationPort == HostId.Host2;
-                AftOnHost1 = portConfiguration.AftPort == HostId.Host1;
-                AftOnHost2 = portConfiguration.AftPort == HostId.Host2;
+                ConfigFundTransfer(portConfiguration);
 
                 var host1 = new List<GameStartEndHost> { GameStartEndHost.Host1, GameStartEndHost.Both };
                 var host2 = new List<GameStartEndHost> { GameStartEndHost.Host2, GameStartEndHost.Both };
@@ -130,6 +135,21 @@
         }
 
         /// <summary>
+        ///     Gets a value indicating if fund transfer type setting is enabled.
+        /// </summary>
+        public bool IsFundTransferTypeEnabled => IsWizardPage && SasProtocolConfiguration.IsFundTransferHandled;
+
+        /// <summary>
+        ///     Gets a value indicating if Aft settings UI is visible to the operator.
+        /// </summary>
+        public bool IsAftSettingsVisible => FundTransferType == FundTransferType.Aft && SasProtocolConfiguration.IsFundTransferHandled;
+
+        /// <summary>
+        ///     Gets a value indicating if Eft settings UI is visible to the operator.
+        /// </summary>
+        public bool IsEftSettingsVisible => FundTransferType == FundTransferType.Eft && SasProtocolConfiguration.IsFundTransferHandled;
+
+        /// <summary>
         ///     Dual Host Setup on or off
         /// </summary>
         public bool DualHostSetup
@@ -144,6 +164,15 @@
                 {
                     GameStartEndOnHost1 = true;
                     GameStartEndOnHost2 = false;
+                }
+
+                if (!_dualHostSetup && EftOnHost2)
+                {
+                    EftOnHost1 = true;
+                }
+                else if (!_dualHostSetup && AftOnHost2)
+                {
+                    AftOnHost1 = true;
                 }
 
                 RaisePropertyChanged(nameof(DualHostSetup));
@@ -174,6 +203,67 @@
             {
                 _host2AftEnabled = value;
                 RaisePropertyChanged(nameof(AftOnHost2));
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the value indicating if EFT on host1 is enabled.
+        /// </summary>
+        public bool EftOnHost1
+        {
+            get => _host1EftEnabled;
+            set
+            {
+                _host1EftEnabled = value;
+                RaisePropertyChanged(nameof(EftOnHost1));
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the value indicating if EFT on host2 is enabled.
+        /// </summary>
+        public bool EftOnHost2
+        {
+            get => _host2EftEnabled;
+            set
+            {
+                _host2EftEnabled = value;
+                RaisePropertyChanged(nameof(EftOnHost2));
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the fund transfer type which can be Aft or Eft.
+        /// </summary>
+        public FundTransferType FundTransferType
+        {
+            get => _fundTransferType;
+            set
+            {
+                _fundTransferType = value;
+                if (Environment.UserInteractive && IsWizardPage)
+                {
+                    if (_fundTransferType == FundTransferType.Aft)
+                    {
+                        EftOnHost1 = false;
+                        EftOnHost2 = false;
+                        if (!AftOnHost1 && (!DualHostSetup || !AftOnHost2))
+                        {
+                            AftOnHost1 = true;
+                        }
+                    }
+                    else 
+                    {
+                        AftOnHost1 = false;
+                        AftOnHost2 = false;
+                        if (!EftOnHost1 && (!DualHostSetup || !EftOnHost2))
+                        {
+                            EftOnHost1 = true;
+                        }
+                    }
+                }
+
+                RaisePropertyChanged(nameof(FundTransferType), nameof(IsAftSettingsVisible), nameof(IsEftSettingsVisible));
             }
         }
 
@@ -430,6 +520,14 @@
         };
 
         /// <summary>
+        ///     List of fund transfer types to choose from
+        /// </summary>
+        public IList<EnumerationExtension.EnumerationMember> FundTransferTypes => new List<EnumerationExtension.EnumerationMember>
+        (
+            from e in new[] { FundTransferType.Aft, FundTransferType.Eft } select new EnumerationExtension.EnumerationMember { Value = e, Description = e.GetDescription(typeof(FundTransferType)) }
+        );
+
+        /// <summary>
         ///     Host 1 accounting denomination
         /// </summary>
         public decimal AccountingDenom1
@@ -558,6 +656,16 @@
                 return hostId == 0 || hostId == host1Id || hostId == host2Id;
             }
 
+            bool ValidDenomination(decimal denom)
+            {
+                return AccountingDenoms.Contains(denom);
+            }
+
+            bool ValidateFundType(string fundType)
+            {
+                return fundType.ToUpper() == "EFT" || fundType.ToUpper() == "AFT";
+            }
+
             var boolValue = false;
             var stringValue = string.Empty;
             var autoConfigured = true;
@@ -565,6 +673,23 @@
             if (AutoConfigurator.GetValue("SasDualHost", ref boolValue))
             {
                 DualHostSetup = boolValue;
+            }
+
+            if (AutoConfigurator.GetValue("FundTransferType", ref stringValue))
+            {
+                autoConfigured &= ValidateFundType(stringValue);
+                if (autoConfigured)
+                {
+                    switch (stringValue.ToUpper())
+                    {
+                        case "EFT":
+                            FundTransferType = FundTransferType.Eft;
+                            break;
+                        case "AFT":
+                            FundTransferType = FundTransferType.Aft;
+                            break;
+                    }
+                }
             }
 
             if (AutoConfigurator.GetValue("SasAddressHost1", ref stringValue) && AddressHost1Editable)
@@ -595,14 +720,22 @@
                 }
             }
 
-            if (AutoConfigurator.GetValue("SasAftHost", ref stringValue))
+            if (AutoConfigurator.GetValue("SasFundTransferHost", ref stringValue))
             {
                 autoConfigured &= byte.TryParse(stringValue, out var hostId) && ValidHost(hostId);
                 if (autoConfigured)
                 {
+                    if (FundTransferType == FundTransferType.Eft)
+                    {
+                        EftOnHost1 = hostId == host1Id;
+                        EftOnHost2 = hostId == host2Id;
+                    }
+                    else if (FundTransferType == FundTransferType.Aft)
+                    {
                     AftOnHost1 = hostId == host1Id;
                     AftOnHost2 = hostId == host2Id;
                 }
+            }
             }
 
             if (AutoConfigurator.GetValue("SasLegacyBonusHost", ref stringValue))
@@ -622,6 +755,24 @@
                 {
                     GeneralControlOnHost1 = hostId == host1Id;
                     GeneralControlOnHost2 = hostId == host2Id;
+                }
+            }
+
+            if (AutoConfigurator.GetValue("SasAccountingDenomHost1", ref stringValue))
+            {
+                autoConfigured &= decimal.TryParse(stringValue, out var denom) && ValidDenomination(denom);
+                if (autoConfigured)
+                {
+                    AccountingDenom1 = denom;
+                }
+            }
+
+            if (AutoConfigurator.GetValue("SasAccountingDenomHost2", ref stringValue))
+            {
+                autoConfigured &= decimal.TryParse(stringValue, out var denom) && ValidDenomination(denom);
+                if (autoConfigured)
+                {
+                    AccountingDenom2 = denom;
                 }
             }
 
@@ -648,8 +799,10 @@
             if (AutoConfigurator.GetValue("Host1NonSasProgressiveHitReporting", ref stringValue))
             {
                 autoConfigured &= bool.TryParse(stringValue, out var nonSasProgressiveHit);
+
                 if (autoConfigured)
                 {
+
                     NonSasProgressiveHitReportingHost1 = nonSasProgressiveHit;
                 }
             }
@@ -663,6 +816,15 @@
                 }
             }
 
+            if (AutoConfigurator.GetValue("SasProgressiveGroupId", ref stringValue))
+            {
+                autoConfigured &= sbyte.TryParse(stringValue, out var address) &&
+                                  (address == 0 || string.IsNullOrEmpty(CheckError(address, MaxAddress)));
+                if (autoConfigured)
+                {
+                    ProgressiveGroupId = address;
+                }
+            }
             if (autoConfigured)
             {
                 base.LoadAutoConfiguration();
@@ -672,7 +834,8 @@
         private void Commit()
         {
             var restartProtocol = IsWizardPage;
-            var aftComPort = AftOnHost1 ? Host1ComPort : (AftOnHost2 && DualHostSetup) ? Host2ComPort : 0;
+            var fundTransferPort = AftOnHost1 ? Host1ComPort : AftOnHost2 && DualHostSetup ? Host2ComPort :
+                EftOnHost1 ? Host1ComPort : (EftOnHost2 && DualHostSetup) ? Host2ComPort : 0;
             var legacyBonusComPort = LegacyBonusOnHost1 ? Host1ComPort : (LegacyBonusOnHost2 && DualHostSetup) ? Host2ComPort : 0;
             var validationComPort = ValidationOnHost1 ? Host1ComPort : (ValidationOnHost2 && DualHostSetup) ? Host2ComPort : 0;
             var progressiveComPort = ProgressiveOnHost1 ? Host1ComPort : (ProgressiveOnHost2 && DualHostSetup) ? Host2ComPort : 0;
@@ -706,7 +869,8 @@
                 hosts,
                 new HostEqualityComparer());
 
-            ports.AftPort = GetHostId(aftComPort);
+            ports.FundTransferType = FundTransferType;
+            ports.FundTransferPort = GetHostId(fundTransferPort);
             ports.ProgressivePort = GetHostId(progressiveComPort);
             ports.LegacyBonusPort = GetHostId(legacyBonusComPort);
             ports.GameStartEndHosts = gameStartEndHosts;
@@ -724,6 +888,14 @@
             var settings = (SasFeatures)PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).Clone();
             settings.ProgressiveGroupId = progHostId;
             settings.NonSasProgressiveHitReporting = NonSasProgressiveHitReportingHost1 || NonSasProgressiveHitReportingHost2;
+
+            if ((FundTransferType == FundTransferType.Aft && !AftOnHost1 && (!DualHostSetup || !AftOnHost2)) || (FundTransferType == FundTransferType.Eft && !EftOnHost1 && (!DualHostSetup || !EftOnHost2)))
+            {
+                settings.TransferInAllowed = false;
+                settings.TransferOutAllowed = false;
+                settings.PartialTransferAllowed = false;
+            }
+
             restartProtocol |= PropertiesManager.UpdateProperty(
                 SasProperties.SasFeatureSettings,
                 settings,
@@ -789,9 +961,8 @@
             AccountingDenom1 = AccountingDenoms[AccountingDenom1Index];
             AccountingDenom2 = AccountingDenoms[AccountingDenom2Index];
             DualHostSetup = portAssignments.IsDualHost;
+            ConfigFundTransfer(portAssignments);
 
-            AftOnHost1 = portAssignments.AftPort == HostId.Host1;
-            AftOnHost2 = portAssignments.AftPort == HostId.Host2;
             LegacyBonusOnHost1 = portAssignments.LegacyBonusPort == HostId.Host1;
             LegacyBonusOnHost2 = portAssignments.LegacyBonusPort == HostId.Host2;
             ValidationOnHost1 = portAssignments.ValidationPort == HostId.Host1;
@@ -829,6 +1000,15 @@
                 RaisePropertyChanged(nameof(AddressHost1Editable));
                 RaisePropertyChanged(nameof(AddressHost2Editable));
             }
+        }
+
+        private void ConfigFundTransfer(PortAssignment portAssignments)
+        {
+            FundTransferType = portAssignments.FundTransferType;
+            AftOnHost1 = FundTransferType == FundTransferType.Aft && portAssignments.FundTransferPort == HostId.Host1;
+            AftOnHost2 = FundTransferType == FundTransferType.Aft && portAssignments.FundTransferPort == HostId.Host2;
+            EftOnHost1 = FundTransferType == FundTransferType.Eft && portAssignments.FundTransferPort == HostId.Host1;
+            EftOnHost2 = FundTransferType == FundTransferType.Eft && portAssignments.FundTransferPort == HostId.Host2;
         }
 
         private string CheckError(int value, int maximum)

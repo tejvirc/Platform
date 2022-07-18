@@ -2,60 +2,60 @@
 
 <Addin id="SasBase" namespace="Client12Addins" version="1.0">
 
-  <Runtime>
-    <Import assembly="Aristocrat.Monaco.Sas.dll" />
-  </Runtime>
+	<Runtime>
+		<Import assembly="Aristocrat.Monaco.Sas.dll" />
+	</Runtime>
 
-  <Dependencies>
-    <Addin id="Bootstrap" version="1.0" />
-    <Addin id="HardwareRunnable" version="1.0" />
-    <Addin id="Monaco.Application" version="1.0" />
-    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
-  </Dependencies>
+	<Dependencies>
+		<Addin id="Bootstrap" version="1.0" />
+		<Addin id="HardwareRunnable" version="1.0" />
+		<Addin id="Monaco.Application" version="1.0" />
+		<Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+	</Dependencies>
 
-  <Extension path="/Protocol/Runnables">
-    <ProtocolInterface type="Aristocrat.Monaco.Sas.Base.SasBase" protocolId="SAS"
-                       serverProtocolId="4"/>
-  </Extension>
+	<Extension path="/Protocol/Runnables">
+		<ProtocolInterface type="Aristocrat.Monaco.Sas.Base.SasBase" protocolId="SAS"
+						   serverProtocolId="4"/>
+	</Extension>
 
-  <Extension path = "/Application/Metering/Providers">
-    <MeterProvider type="Aristocrat.Monaco.Sas.AftTransferProvider.AftTransferMetersProvider" />
-  </Extension>
+	<Extension path = "/Application/Metering/Providers">
+		<MeterProvider type="Aristocrat.Monaco.Sas.AftTransferProvider.AftTransferMetersProvider" />
+	</Extension>
 
-  <ExtensionPoint path ="/Protocol/Sas/Services/Host">
-    <ExtensionNode objectType="Aristocrat.Monaco.Kernel.IService"/>
-  </ExtensionPoint>
+	<ExtensionPoint path ="/Protocol/Sas/Services/Host">
+		<ExtensionNode objectType="Aristocrat.Monaco.Kernel.IService"/>
+	</ExtensionPoint>
 
-  <ExtensionPoint path ="/Protocol/Sasquatch/Services/Client">
-    <ExtensionNode objectType="Aristocrat.Monaco.Kernel.IService"/>
-  </ExtensionPoint>
+	<ExtensionPoint path ="/Protocol/Sasquatch/Services/Client">
+		<ExtensionNode objectType="Aristocrat.Monaco.Kernel.IService"/>
+	</ExtensionPoint>
 
-  <Extension path="/Kernel/Services">
-    <Service type="Aristocrat.Monaco.Sas.Storage.SasDataFactory" />
-  </Extension>
+	<Extension path="/Kernel/Services">
+		<Service type="Aristocrat.Monaco.Sas.Storage.SasDataFactory" />
+	</Extension>
 
-  <Extension path = "/Application/Metering/CompositeMeters">
-    <!--<CompositeMeter name="TotalCanceledCredits" classification="Currency"
+	<Extension path = "/Application/Metering/CompositeMeters">
+		<!--<CompositeMeter name="TotalCanceledCredits" classification="Currency"
                     expression="TotalVouchersOut + TotalWatOff + HandpaidCancelAmount + HandpaidProgressiveWonAmount + HandpaidGameWonAmount + HandpaidBonusWonAmount + HandpaidBonusNonWonAmount "/>-->
-    <CompositeMeter name="Sas.TotalCanceledCredits" classification="Currency"
-                    expression="TotalOut - HandpaidGameWinReceiptAmount - HandpaidGameWinNoReceiptAmount - HandpaidBonusPayReceiptAmount - HandpaidBonusPayNoReceiptAmount"/>
-    <CompositeMeter name="Sas.ValidatedJackpotHandPayReceiptCents" classification="Currency"
-                    expression="HandpaidValidatedGameWinReceiptAmount + HandpaidValidatedBonusPayReceiptAmount"/>
-    <CompositeMeter name="Sas.ValidatedJackpotHandPayNoReceiptCents" classification="Currency"
-                    expression="HandpaidValidatedGameWinNoReceiptAmount + HandpaidValidatedBonusPayNoReceiptAmount"/>
-    <CompositeMeter name="Sas.ValidatedJackpotHandPayReceiptCount" classification="Occurrence"
-                    expression="HandpaidValidatedGameWinReceiptCount + HandpaidValidatedBonusPayReceiptCount"/>
-    <CompositeMeter name="Sas.ValidatedJackpotHandPayNoReceiptCount" classification="Occurrence"
-                    expression="HandpaidValidatedGameWinNoReceiptCount + HandpaidValidatedBonusPayNoReceiptCount"/>
-  </Extension>
+		<CompositeMeter name="Sas.TotalCanceledCredits" classification="Currency"
+						expression="TotalOut - HandpaidGameWinReceiptAmount - HandpaidGameWinNoReceiptAmount - HandpaidBonusPayReceiptAmount - HandpaidBonusPayNoReceiptAmount"/>
+		<CompositeMeter name="Sas.ValidatedJackpotHandPayReceiptCents" classification="Currency"
+						expression="HandpaidValidatedGameWinReceiptAmount + HandpaidValidatedBonusPayReceiptAmount"/>
+		<CompositeMeter name="Sas.ValidatedJackpotHandPayNoReceiptCents" classification="Currency"
+						expression="HandpaidValidatedGameWinNoReceiptAmount + HandpaidValidatedBonusPayNoReceiptAmount"/>
+		<CompositeMeter name="Sas.ValidatedJackpotHandPayReceiptCount" classification="Occurrence"
+						expression="HandpaidValidatedGameWinReceiptCount + HandpaidValidatedBonusPayReceiptCount"/>
+		<CompositeMeter name="Sas.ValidatedJackpotHandPayNoReceiptCount" classification="Occurrence"
+						expression="HandpaidValidatedGameWinNoReceiptCount + HandpaidValidatedBonusPayNoReceiptCount"/>
+	</Extension>
 
-  <Extension path="/Hardware/Service/StartupEventListener">
-    <StartupEventListenerImpl type="Aristocrat.Monaco.Sas.Base.StartupEventListener" ProtocolName="SAS" />
-  </Extension>
+	<Extension path="/Hardware/Service/StartupEventListener">
+		<StartupEventListenerImpl type="Aristocrat.Monaco.Sas.Base.StartupEventListener" ProtocolName="SAS" />
+	</Extension>
 
-  <Extension path="/Gaming/Metering/GameMeterProvider">
-    <GameCompositeMeter name="BonusDeductibleAmount" expression="EgmPaidBonusDeductibleAmount + AttendantPaidBonusDeductibleAmount" classification="Currency" group="denomination" />
-    <GameCompositeMeter name="BonusNonDeductibleAmount" expression="EgmPaidBonusNonDeductibleAmount + AttendantPaidBonusNonDeductibleAmount" classification="Currency" group="denomination" />
-  </Extension>
+	<Extension path="/Gaming/Metering/GameMeterProvider">
+		<GameCompositeMeter name="BonusDeductibleAmount" expression="EgmPaidBonusDeductibleAmount + AttendantPaidBonusDeductibleAmount" classification="Currency" group="denomination" />
+		<GameCompositeMeter name="BonusNonDeductibleAmount" expression="EgmPaidBonusNonDeductibleAmount + AttendantPaidBonusNonDeductibleAmount" classification="Currency" group="denomination" />
+	</Extension>
 
 </Addin>

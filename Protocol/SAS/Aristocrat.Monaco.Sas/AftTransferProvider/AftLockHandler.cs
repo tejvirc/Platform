@@ -29,7 +29,7 @@
         private readonly object _lock = new object();
         private readonly ISasHost _sasHost;
         private readonly IEventBus _bus;
-        private readonly IHostCashOutProvider _hostCashOutProvider;
+        private readonly IAftHostCashOutProvider _aftHostCashOutProvider;
         private readonly ITransactionCoordinator _transactionCoordinator;
         private readonly IMessageDisplay _messageDisplay;
         private readonly ISystemDisableManager _systemDisableManager;
@@ -44,7 +44,7 @@
             ISasHost sasHost,
             IEventBus bus,
             ISasExceptionHandler exceptionHandler,
-            IHostCashOutProvider hostCashOutProvider,
+            IAftHostCashOutProvider aftHostCashOutProvider,
             ITransactionCoordinator transactionCoordinator,
             IMessageDisplay messageDisplay,
             ISystemDisableManager systemDisableManager,
@@ -55,7 +55,7 @@
             _sasHost = sasHost ?? throw new ArgumentNullException(nameof(sasHost));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             exceptionHandler = exceptionHandler ?? throw new ArgumentNullException(nameof(exceptionHandler));
-            _hostCashOutProvider = hostCashOutProvider ?? throw new ArgumentNullException(nameof(hostCashOutProvider));
+            _aftHostCashOutProvider = aftHostCashOutProvider ?? throw new ArgumentNullException(nameof(aftHostCashOutProvider));
             _transactionCoordinator =
                 transactionCoordinator ?? throw new ArgumentNullException(nameof(transactionCoordinator));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
@@ -84,7 +84,7 @@
             _bus.Subscribe<SystemDisableAddedEvent>(
                 this,
                 async (_, _) => await HandleAftUnlock(),
-                _ => CurrentTransactionId != Guid.Empty && !_hostCashOutProvider.CanCashOut);
+                _ => CurrentTransactionId != Guid.Empty && !_aftHostCashOutProvider.CanCashOut);
         }
 
         /// <inheritdoc />
@@ -106,7 +106,7 @@
             (!_systemDisableManager.DisableImmediately &&
              (_gamePlay.UncommittedState == PlayState.Idle ||
               (AftLockTransferConditions & AftTransferConditions.BonusAwardToGamingMachineOk) != 0)) ||
-            _hostCashOutProvider.CanCashOut;
+            _aftHostCashOutProvider.CanCashOut;
 
         /// <inheritdoc />
         public void Initialize()
@@ -234,7 +234,7 @@
                     case AftGameLockStatus.GameLockPending:
                         var lockAllowed = true;
                         // if any transfer conditions used to request lock are false, set lockAllowed = false
-                        if (!_hostCashOutProvider.HostCashOutPending && CurrentTransactionId == Guid.Empty)
+                        if (!_aftHostCashOutProvider.HostCashOutPending && CurrentTransactionId == Guid.Empty)
                         {
                             Logger.Debug("HandleAftLockRequest(): Requesting transaction...");
 

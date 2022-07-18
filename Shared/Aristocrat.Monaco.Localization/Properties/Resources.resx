@@ -233,6 +233,10 @@
     <value>AFT Port</value>
     <comment>Aristocrat.Monaco.Sas.UI</comment>
   </data>
+  <data name="EftPortLabel" xml:space="preserve">
+    <value>EFT Port</value>
+    <comment>Aristocrat.Monaco.Sas.UI</comment>
+  </data>
   <data name="AftPromotionalBonusLabel" xml:space="preserve">
     <value>Promotional Bonus</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
@@ -241,8 +245,8 @@
     <value>SAS AFT Configuration</value>
     <comment>Aristocrat.Monaco.Sas.UI</comment>
   </data>
-  <data name="AftTransferLimitLabel" xml:space="preserve">
-    <value>AFT Transfer Limit</value>
+  <data name="TransferLimitLabel" xml:space="preserve">
+    <value>Transfer Limit</value>
     <comment>Aristocrat.Monaco.Sas.UI</comment>
   </data>
   <data name="AftWinAmountToHostTransfersEnabledLabel" xml:space="preserve">
@@ -11634,5 +11638,26 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="Hash" xml:space="preserve">
     <value>Hash</value>
+  </data>
+  <data name="EFTTitleLabel" xml:space="preserve">
+    <value>SAS EFT Configuration</value>
+  </data>
+  <data name="EftInLabel" xml:space="preserve">
+    <value>EFT In</value>
+  </data>
+  <data name="EftOutLabel" xml:space="preserve">
+    <value>EFT Out</value>
+  </data>
+  <data name="EftPartialTransfersAllowedLabel" xml:space="preserve">
+    <value>Partial Transfers Allowed</value>
+  </data>
+  <data name="EftTransferLimitLabel" xml:space="preserve">
+    <value>Transfer Limit</value>
+  </data>
+  <data name="EftTransferOutInProgress" xml:space="preserve">
+    <value>EFT Credit Transfer Out is in progress.</value>
+  </data>
+  <data name="EftTransferInInProgress" xml:space="preserve">
+    <value>EFT Credit Transfer In is in progress.</value>
   </data>
 </root>

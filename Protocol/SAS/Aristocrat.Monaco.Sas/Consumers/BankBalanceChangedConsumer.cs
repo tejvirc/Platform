@@ -43,8 +43,8 @@
                 _ticketingCoordinator.RestrictedCreditsZeroed();
             }
 
-            _aftOffTransferProvider.OnStateChanged();
-            _aftOnTransferProvider.OnStateChanged();
+            _aftOffTransferProvider?.OnStateChanged();
+            _aftOnTransferProvider?.OnStateChanged();
         }
     }
 }

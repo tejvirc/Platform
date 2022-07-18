@@ -18,6 +18,8 @@
 
             Property(x => x.HandpayReportingType)
                 .IsRequired();
+            Property(x => x.FundTransferType)
+                .IsRequired();
             Property(x => x.TransferLimit)
                 .IsRequired();
             Property(x => x.MaxAllowedTransferLimits)

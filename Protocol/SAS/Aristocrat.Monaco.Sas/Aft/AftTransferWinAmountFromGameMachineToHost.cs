@@ -21,22 +21,22 @@
 
         private readonly IPropertiesManager _propertiesManager;
         private readonly IAftTransferProvider _aftProvider;
-        private readonly IHostCashOutProvider _hostCashOutProvider;
+        private readonly IAftHostCashOutProvider _aftHostCashOutProvider;
         private readonly Dictionary<Func<bool>, (AftTransferStatusCode code, string message)> _errorConditions;
 
         /// <summary>
         ///     Instantiates a new instance of the AftTransferWinAmountFromGameMachineToHost class
         /// </summary>
         /// <param name="aftProvider">reference to the aft transfer provider</param>
-        /// <param name="hostCashOutProvider">the host cashout provider</param>
+        /// <param name="aftHostCashOutProvider">the host cashout provider</param>
         /// <param name="propertiesManager">a reference to properties manager</param>
         public AftTransferWinAmountFromGameMachineToHost(
             IAftTransferProvider aftProvider,
-            IHostCashOutProvider hostCashOutProvider,
+            IAftHostCashOutProvider aftHostCashOutProvider,
             IPropertiesManager propertiesManager)
         {
             _aftProvider = aftProvider ?? throw new ArgumentNullException(nameof(aftProvider));
-            _hostCashOutProvider = hostCashOutProvider ?? throw new ArgumentNullException(nameof(hostCashOutProvider));
+            _aftHostCashOutProvider = aftHostCashOutProvider ?? throw new ArgumentNullException(nameof(aftHostCashOutProvider));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
             _errorConditions = InitializeErrorConditions();
@@ -76,7 +76,7 @@
                         "configuration doesn't support win amount to host transfers")
                 },
                 {
-                    () => !_hostCashOutProvider.CanCashOut || !_hostCashOutProvider.CashOutWinPending,
+                    () => !_aftHostCashOutProvider.CanCashOut || !_aftHostCashOutProvider.CashOutWinPending,
                     (AftTransferStatusCode.NoWonCreditsAvailableForCashOut,
                         "no win credits available for host cash out")
                 },
@@ -90,7 +90,7 @@
                 {
                     () => _aftProvider.FullTransferRequested &&
                           (long)_aftProvider.CurrentTransfer.CashableAmount >
-                          _hostCashOutProvider.CashOutTransaction?.CashableAmount.MillicentsToCents(),
+                          _aftHostCashOutProvider.CashOutTransaction?.CashableAmount.MillicentsToCents(),
                     (AftTransferStatusCode.NotAValidTransferFunction,
                         "not enough cashable money to do a full transfer off")
                 },
@@ -98,7 +98,7 @@
                     // not enough restricted money to do a full transfer off
                     () => _aftProvider.FullTransferRequested &&
                           (long)_aftProvider.CurrentTransfer.RestrictedAmount >
-                          _hostCashOutProvider.CashOutTransaction?.NonCashAmount.MillicentsToCents(),
+                          _aftHostCashOutProvider.CashOutTransaction?.NonCashAmount.MillicentsToCents(),
                     (AftTransferStatusCode.NotAValidTransferFunction,
                         "not enough restricted money to do a full transfer off")
                 },
@@ -106,7 +106,7 @@
                     // not enough promo money to do a full transfer off
                     () => _aftProvider.FullTransferRequested &&
                           (long)_aftProvider.CurrentTransfer.NonRestrictedAmount >
-                          _hostCashOutProvider.CashOutTransaction?.PromoAmount.MillicentsToCents(),
+                          _aftHostCashOutProvider.CashOutTransaction?.PromoAmount.MillicentsToCents(),
                     (AftTransferStatusCode.NotAValidTransferFunction,
                         "not enough promo money to do a full transfer off")
                 }

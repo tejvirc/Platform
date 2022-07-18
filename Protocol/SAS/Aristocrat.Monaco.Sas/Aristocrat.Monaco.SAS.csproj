@@ -37,6 +37,13 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="AftTransferProvider\NullAftOffTransferProvider.cs" />
+    <Compile Remove="AftTransferProvider\NullAftOnTransferProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Aristocrat.Monaco.SAS.Eft.PlayerInitiatedCashoutProvider.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Storage\Models\AftRegistration.Configuration.cs">
       <DependentUpon>AftRegistration.cs</DependentUpon>
     </Compile>
@@ -84,6 +91,9 @@
     <ProjectReference Include="..\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Aristocrat.Monaco.SAS.Eft.PlayerInitiatedCashoutProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Aristocrat.Monaco.Sas.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -116,6 +126,6 @@
     <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
-    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="Stateless" Version="5.11.0" />
   </ItemGroup>
 </Project>

@@ -21,8 +21,8 @@
         /// <inheritdoc />
         public override void Consume(SystemDisableRemovedEvent theEvent)
         {
-            _aftOffTransferProvider.OnSystemDisabled();
-            _aftOffTransferProvider.OnStateChanged();
+            _aftOffTransferProvider?.OnSystemDisabled();
+            _aftOffTransferProvider?.OnStateChanged();
         }
     }
 }

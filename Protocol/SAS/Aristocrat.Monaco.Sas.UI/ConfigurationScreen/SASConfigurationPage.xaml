@@ -83,6 +83,16 @@
                   Header="{lex:BLoc Key={x:Static loc:ResourceKeys.PortAssignmentGroupHeader}}" 
                   Margin="0 20 0 0"
                   IsEnabled="{Binding InputEnabled}">
+            <StackPanel>
+                <StackPanel Visibility="{Binding IsFundTransferTypeEnabled,  Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal" Margin="0 10 0 30">
+                    <Label VerticalAlignment="Center" Content="Fund Transfer Type"/>
+                    <ComboBox MinWidth="90" Margin="88 0 0 0" 
+                              VerticalAlignment="Center" 
+                              ItemsSource="{Binding FundTransferTypes}" 
+                              SelectedValue="{Binding FundTransferType}" 
+                              DisplayMemberPath="Description" 
+                              SelectedValuePath="Value"/>
+                </StackPanel>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -107,16 +117,30 @@
                         <RowDefinition.Style>
                             <Style TargetType="RowDefinition">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsFundTransferHandled}" Value="True">
+                                        <DataTrigger Binding="{Binding IsAftSettingsVisible}" Value="True">
                                         <Setter Property="Height" Value="Auto"/>
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsFundTransferHandled}" Value="False">
+                                        <DataTrigger Binding="{Binding IsAftSettingsVisible}" Value="False">
                                         <Setter Property="Height" Value="0"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </RowDefinition.Style>
                     </RowDefinition>
+                        <RowDefinition>
+                            <RowDefinition.Style>
+                                <Style TargetType="RowDefinition">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEftSettingsVisible}" Value="True">
+                                            <Setter Property="Height" Value="Auto"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsEftSettingsVisible}" Value="False">
+                                            <Setter Property="Height" Value="0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RowDefinition.Style>
+                        </RowDefinition>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition>
@@ -294,33 +318,54 @@
                 <cs:OptionalRadioButton x:Name="Host1AftCheck" 
                           Grid.Row="5" 
                           Grid.Column ="1"
-                          GroupName="Aft"
+                          GroupName="FundTransferProtocol"
                           VerticalAlignment="Center"
                           IsChecked="{Binding AftOnHost1, Mode=TwoWay}"/>
 
                 <cs:OptionalRadioButton x:Name="Host2AftCheck" 
                           Grid.Row="5" 
                           Grid.Column ="2"
-                          GroupName="Aft"
+                          GroupName="FundTransferProtocol"
                           VerticalAlignment="Center"
                           IsChecked="{Binding AftOnHost2, Mode=TwoWay}"
                           Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <Label x:Name="LegacyBonusingPortLabel" 
+                    <Label x:Name="EftPortLabel" 
                        Grid.Row="6" 
+                       Grid.Column="0" 
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.EftPortLabel}}"/>
+
+                    <cs:OptionalRadioButton x:Name="Host1EftCheck" 
+                                        Grid.Row="6" 
+                                        Grid.Column ="1"
+                                        GroupName="FundTransferProtocol"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding EftOnHost1, Mode=TwoWay}"/>
+
+                    <cs:OptionalRadioButton x:Name="Host2EftCheck" 
+                                        Grid.Row="6" 
+                                        Grid.Column ="2"
+                                        GroupName="FundTransferProtocol"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding EftOnHost2, Mode=TwoWay}"
+                                        Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label x:Name="LegacyBonusingPortLabel" 
+                       Grid.Row="7" 
                        Grid.Column="0" 
                        VerticalAlignment="Center"
                        Content="{lex:BLoc Key={x:Static loc:ResourceKeys.LegacyBonusPortLabel}}"/>
 
                 <cs:OptionalRadioButton x:Name="Host1LegacyBonusCheck" 
-                          Grid.Row="6" 
+                          Grid.Row="7" 
                           Grid.Column ="1"
                           GroupName="Bonus"
                           VerticalAlignment="Center"
                           IsChecked="{Binding LegacyBonusOnHost1, Mode=TwoWay}"/>
 
                 <cs:OptionalRadioButton x:Name="Host2LegacyBonusCheck" 
-                          Grid.Row="6" 
+                          Grid.Row="7" 
                           Grid.Column ="2"
                           GroupName="Bonus"
                           VerticalAlignment="Center"
@@ -328,39 +373,39 @@
                           Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="GameStartEndPortLabel" 
-                       Grid.Row="7" 
+                       Grid.Row="8" 
                        Grid.Column ="0"
                        VerticalAlignment="Center"
                        Content="{lex:BLoc Key={x:Static loc:ResourceKeys.GameStartEndPortLabel}}"/>
 
                 <CheckBox x:Name="Host1GameStartEndCheck" 
-                                        Grid.Row="7" 
+                                        Grid.Row="8" 
                                         Grid.Column="1" 
                                         VerticalAlignment="Center"
                                         IsChecked="{Binding GameStartEndOnHost1, Mode=TwoWay}" />
 
                 <CheckBox x:Name="Host2GameStartEndCheck" 
-                                        Grid.Row="7" 
+                                        Grid.Row="8" 
                                         Grid.Column="2"
                                         VerticalAlignment="Center"
                                         IsChecked="{Binding GameStartEndOnHost2, Mode=TwoWay}" 
                                         Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="ProgressivePortLabel" 
-                       Grid.Row="8" 
+                       Grid.Row="9" 
                        Grid.Column ="0" 
                        VerticalAlignment="Center"
                        Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ProgressivePortLabel}}"/>
 
                 <cs:OptionalRadioButton x:Name="Host1ProgressiveCheck" 
-                                        Grid.Row="8" 
+                                        Grid.Row="9" 
                                         Grid.Column="1" 
                                         GroupName="ProgHost"
                                         VerticalAlignment="Center"
                                         IsChecked="{Binding ProgressiveOnHost1, Mode=TwoWay}" />
 
                 <cs:OptionalRadioButton x:Name="Host2ProgressiveCheck" 
-                                        Grid.Row="8" 
+                                        Grid.Row="9" 
                                         Grid.Column="2"
                                         GroupName="ProgHost"
                                         VerticalAlignment="Center"
@@ -368,7 +413,7 @@
                                         Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label x:Name="NonSasProgressiveHitReportingLabel" 
-                       Grid.Row="9" 
+                       Grid.Row="10" 
                        Grid.Column ="0"
                        VerticalAlignment="Center"
                        Content="{lex:BLoc Key={x:Static loc:ResourceKeys.NonSasProgressiveHitReportingLabel}}"/>
@@ -386,6 +431,7 @@
                           IsChecked="{Binding NonSasProgressiveHitReportingHost2, Mode=TwoWay}" 
                           Visibility="{Binding DualHostSetup, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
+            </StackPanel>
         </GroupBox>
 
         <Grid Grid.Column="2" 

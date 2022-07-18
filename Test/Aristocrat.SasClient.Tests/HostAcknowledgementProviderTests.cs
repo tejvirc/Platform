@@ -73,6 +73,52 @@
         }
 
         [TestMethod]
+        public void CheckEftCommandIsNacked()
+        {
+            var lastSentBytes = new byte[] { 0x01, 0x63, 0x01, 0x01, 0x00, 0x00, 0x10, 0xFF, 0xFF };
+            var currentBytes = new byte[] { 0x01, 0x63, 0x01, 0x01, 0x00, 0x00, 0x10, 0xFF, 0xFF };
+            SynchronizeTarget(_target);
+            var callback = new HostAcknowledgementHandler {};
+            _target.SetPendingImpliedAck(lastSentBytes, callback);//This is for first response sent
+
+            for (int i = 0; i < 7; i++)
+            {
+                Assert.IsTrue(_target.CheckImpliedAck(false, false, currentBytes)); //7 retries will occur
+            }
+            Assert.IsFalse(_target.CheckImpliedAck(false, false, currentBytes)); //9th one is considered NACKed
+        }
+
+        [TestMethod]
+        public void CheckEftCommandImpliedAckNewCommand()
+        {
+            var lastSentBytes = new byte[] { 0x01, 0x63, 0x01, 0x01, 0x00, 0x00, 0x10, 0xFF, 0xFF };
+            var currentBytes = new byte[] { 0x01, 0x69, 0x02, 0x00, 0x00, 0x00, 0x10, 0xFF, 0xFF };
+            SynchronizeTarget(_target);
+            var callback = new HostAcknowledgementHandler { ImpliedAckHandler = _messageQueue.Object.MessageAcknowledged };
+            _target.SetPendingImpliedAck(lastSentBytes, callback);
+            _messageQueue.Setup(x => x.MessageAcknowledged()).Verifiable();
+
+            Assert.IsTrue(_target.CheckImpliedAck(false, false, currentBytes));
+
+            _messageQueue.Verify();
+        }
+
+        [TestMethod]
+        public void CheckEftCommandImpliedAckGlobalBroadcast()
+        {
+            var lastSentBytes = new byte[] { 0x01, 0x63, 0x01, 0x01, 0x00, 0x00, 0x10, 0xFF, 0xFF };
+            var currentBytes = new byte[] { 0x81 };
+            SynchronizeTarget(_target);
+            var callback = new HostAcknowledgementHandler { ImpliedAckHandler = _messageQueue.Object.MessageAcknowledged };
+            _target.SetPendingImpliedAck(lastSentBytes, callback);
+            _messageQueue.Setup(x => x.MessageAcknowledged()).Verifiable();
+
+            Assert.IsTrue(_target.CheckImpliedAck(true, false, currentBytes));
+
+            _messageQueue.Verify();
+        }
+
+        [TestMethod]
         public void CheckImpliedAckFailedFinalNackTest()
         {
             var currentBytes = new List<byte> { 0x01, 0x21, 0x31, 0x51, 0x22 };
@@ -134,6 +180,20 @@
             Assert.IsFalse(_target.Synchronized);
         }
 
+        [TestMethod]
+        public void HandleLongPoll66Test()
+        {
+            var callbacks = new HostAcknowledgementHandler
+            {
+                ImpliedAckHandler = _messageQueue.Object.MessageAcknowledged,
+                ImpliedNackHandler = _exceptionQueue.Object.ClearPendingException,
+            };
+
+            SynchronizeTarget(_target);
+            _target.SetPendingImpliedAck(new List<byte> { 0x01, 0x66, 0x01 }, callbacks);
+            Assert.IsTrue(_target.CheckImpliedAck(false, false, new List<byte> { 0x01, 0x66, 0x01 }));
+        }
+
         private void HandleLinkDown(object source, EventArgs e)
         {
             _waiter.Set();
@@ -145,5 +205,7 @@
             target.CheckImpliedAck(false, false, new List<byte>());
             Assert.IsTrue(target.Synchronized);
         }
+
+
     }
 }

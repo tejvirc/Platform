@@ -5,9 +5,13 @@
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using AftTransferProvider;
+    using Aristocrat.Monaco.Sas.Base;
+    using Aristocrat.Monaco.Sas.Contracts.Eft;
     using BonusProvider;
     using Contracts.Client;
     using Contracts.SASProperties;
+    using Eft;
+    using EftTransferProvider;
     using HandPay;
     using Kernel;
     using Progressive;
@@ -53,21 +57,59 @@
             }
 
             // Register Aft Off Provider
-            var registration = settings.TransferOutAllowed
-                ? Lifestyle.Singleton.CreateRegistration<AftOffTransferProvider>(container)
-                : Lifestyle.Singleton.CreateRegistration<NullAftOffTransferProvider>(container);
+            var aftOffTransferProvider = Lifestyle.Singleton.CreateRegistration<AftOffTransferProvider>(container);
+            var nullOffTransferProvider = Lifestyle.Singleton.CreateRegistration<NullOffTransferProvider>(container);
+            var eftOffTransferProvider = Lifestyle.Singleton.CreateRegistration<EftOffTransferProvider>(container);
 
-            container.AddRegistration(typeof(IWatTransferOffProvider), registration);
-            container.AddRegistration(typeof(IAftOffTransferProvider), registration);
-            container.Register<IHostCashOutProvider, HostCashOutProvider>(Lifestyle.Singleton);
+            if (settings.EftAllowed)
+            {
+                container.AddRegistration(typeof(IWatTransferOffProvider), settings.TransferOutAllowed ? (eftOffTransferProvider) : nullOffTransferProvider);
+                container.AddRegistration(typeof(IEftOffTransferProvider), settings.TransferOutAllowed ? eftOffTransferProvider : nullOffTransferProvider);
+                container.AddRegistration(typeof(IAftOffTransferProvider), nullOffTransferProvider);
+                
+            }
+            else if (settings.AftAllowed)
+            {
+                container.AddRegistration(typeof(IWatTransferOffProvider), settings.TransferOutAllowed ? aftOffTransferProvider : nullOffTransferProvider);
+                container.AddRegistration(typeof(IAftOffTransferProvider), settings.TransferOutAllowed ? aftOffTransferProvider : nullOffTransferProvider);
+                container.AddRegistration(typeof(IEftOffTransferProvider), nullOffTransferProvider);
+            }
+            else
+            {
+                container.AddRegistration(typeof(IWatTransferOffProvider), nullOffTransferProvider);
+                container.AddRegistration(typeof(IAftOffTransferProvider), nullOffTransferProvider);
+                container.AddRegistration(typeof(IEftOffTransferProvider), nullOffTransferProvider);
+            }
 
-            // Register Aft On Provider
-            registration = settings.TransferInAllowed
-                ? Lifestyle.Singleton.CreateRegistration<AftOnTransferProvider>(container)
-                : Lifestyle.Singleton.CreateRegistration<NullAftOnTransferProvider>(container);
+            container.Register<IEftHostCashOutProvider, EftHostCashoutProvider>(Lifestyle.Singleton); 
+            container.Register<IAftHostCashOutProvider, AftHostCashOutProvider>(Lifestyle.Singleton);
 
-            container.AddRegistration(typeof(IWatTransferOnProvider), registration);
-            container.AddRegistration(typeof(IAftOnTransferProvider), registration);
+            var nullOnTransferProvider = Lifestyle.Singleton.CreateRegistration<NullOnTransferProvider>(container);
+            var aftOnTransferProvider = Lifestyle.Singleton.CreateRegistration<AftOnTransferProvider>(container);
+            var eftOnTransferProvider = Lifestyle.Singleton.CreateRegistration<EftOnTransferProvider>(container);
+
+
+            if (settings.EftAllowed)
+            {
+                container.AddRegistration(typeof(IWatTransferOnProvider), settings.TransferInAllowed ? eftOnTransferProvider : nullOnTransferProvider);
+                container.AddRegistration(typeof(IAftOnTransferProvider), nullOnTransferProvider);
+                container.AddRegistration(typeof(IEftOnTransferProvider), settings.TransferInAllowed ? eftOnTransferProvider : nullOnTransferProvider);
+            }
+            else if (settings.AftAllowed)
+            {
+                container.AddRegistration(typeof(IWatTransferOnProvider), settings.TransferInAllowed ? aftOnTransferProvider : nullOnTransferProvider);
+                container.AddRegistration(typeof(IAftOnTransferProvider), settings.TransferInAllowed ? aftOnTransferProvider : nullOnTransferProvider);
+                container.AddRegistration(typeof(IEftOnTransferProvider), nullOnTransferProvider);
+            }
+            else
+            {
+                container.AddRegistration(typeof(IWatTransferOnProvider), nullOnTransferProvider);
+                container.AddRegistration(typeof(IAftOnTransferProvider), nullOnTransferProvider);
+                container.AddRegistration(typeof(IEftOnTransferProvider), nullOnTransferProvider);
+            }
+
+            container.Register<IEftStateController, EftStateController>(Lifestyle.Singleton);
+
             return container;
         }
 

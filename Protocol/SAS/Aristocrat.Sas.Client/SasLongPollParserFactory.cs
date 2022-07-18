@@ -83,6 +83,7 @@
         {
             return attribute.Group == SasGroup.PerClientLoad ||
                    configuration.HandlesAft && attribute.Group == SasGroup.Aft ||
+                   configuration.HandlesEft && attribute.Group == SasGroup.Eft ||
                    configuration.HandlesLegacyBonusing && attribute.Group == SasGroup.LegacyBonus ||
                    configuration.HandlesValidation && attribute.Group == SasGroup.Validation ||
                    configuration.HandlesGeneralControl && attribute.Group == SasGroup.GeneralControl ||

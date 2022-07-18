@@ -91,7 +91,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
-    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="Stateless" Version="5.11.0" />
     <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
   </ItemGroup>

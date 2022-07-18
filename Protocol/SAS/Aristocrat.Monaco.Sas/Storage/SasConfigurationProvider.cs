@@ -104,7 +104,8 @@
                 portAssignment,
                 x =>
                 {
-                    x.AftPort = portAssignment.AftPort;
+                    x.FundTransferPort = portAssignment.FundTransferPort;
+                    x.FundTransferType = portAssignment.FundTransferType;
                     x.GameStartEndHosts = portAssignment.GameStartEndHosts;
                     x.GeneralControlPort = portAssignment.GeneralControlPort;
                     x.IsDualHost = portAssignment.IsDualHost;
@@ -159,6 +160,7 @@
                     x.PartialTransferAllowed = features.PartialTransferAllowed;
                     x.TransferInAllowed = features.TransferInAllowed;
                     x.TransferOutAllowed = features.TransferOutAllowed;
+                    x.FundTransferType = features.FundTransferType;
                 });
         }
 

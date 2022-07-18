@@ -29,7 +29,7 @@
         private readonly IAftRequestProcessor _aftTransferInHouseFromHostToTicket;
         private readonly IAftRequestProcessor _aftTransferWinAmountFromGameMachineToHost;
         private readonly IAftTransferProvider _aftProvider;
-        private readonly IHostCashOutProvider _hostCashOutProvider;
+        private readonly IAftHostCashOutProvider _aftHostCashOutProvider;
         private readonly IFundsTransferDisable _fundsTransferDisable;
         private readonly IAutoPlayStatusProvider _autoPlayStatusProvider;
         private readonly IAftRegistrationProvider _registrationProvider;
@@ -39,21 +39,21 @@
         ///     Instantiate an instance of the AftTransferFullPartial class.
         /// </summary>
         /// <param name="aftProvider">reference to the AftTransferProvider class</param>
-        /// <param name="hostCashOutProvider">reference to the host cashout provider</param>
+        /// <param name="aftHostCashOutProvider">reference to the host cashout provider</param>
         /// <param name="fundsTransferDisable">reference to the FundsTransferDisable class</param>
         /// <param name="autoPlayStatusProvider">reference to the AutoPlayStatusProvider class</param>
         /// <param name="registrationProvider">An instance of <see cref="IAftRegistrationProvider"/></param>
         /// <param name="aftRequestProcessors">reference to the list of request processors</param>
         public AftTransferFullPartial(
             IAftTransferProvider aftProvider,
-            IHostCashOutProvider hostCashOutProvider,
+            IAftHostCashOutProvider aftHostCashOutProvider,
             IFundsTransferDisable fundsTransferDisable,
             IAutoPlayStatusProvider autoPlayStatusProvider,
             IAftRegistrationProvider registrationProvider,
             IEnumerable<IAftRequestProcessor> aftRequestProcessors)
         {
             _aftProvider = aftProvider ?? throw new ArgumentNullException(nameof(aftProvider));
-            _hostCashOutProvider = hostCashOutProvider ?? throw new ArgumentNullException(nameof(hostCashOutProvider));
+            _aftHostCashOutProvider = aftHostCashOutProvider ?? throw new ArgumentNullException(nameof(aftHostCashOutProvider));
             _fundsTransferDisable = fundsTransferDisable ?? throw new ArgumentNullException(nameof(fundsTransferDisable));
             _autoPlayStatusProvider = autoPlayStatusProvider ?? throw new ArgumentNullException(nameof(autoPlayStatusProvider));
             _registrationProvider = registrationProvider ?? throw new ArgumentNullException(nameof(registrationProvider));
@@ -173,7 +173,7 @@
                     (AftTransferStatusCode.RegistrationKeyDoesNotMatch, "registration key is non zero and does not match")
                 },
                 {   // can't transfer on when in host cashout pending state
-                    () => _hostCashOutProvider.HostCashOutPending && !_aftProvider.TransferOff,
+                    () => _aftHostCashOutProvider.HostCashOutPending && !_aftProvider.TransferOff,
                     (AftTransferStatusCode.GamingMachineUnableToPerformTransfer, "only aft off transfers can be accepted during a host cashout scenario")
                 },
                 {   // disabled when trying to transfer on due to tilt
@@ -191,7 +191,7 @@
                     (AftTransferStatusCode.GamingMachineUnableToPerformTransfer, "can't transfer on while in a game")
                 },
                 {   // disabled when trying to transfer off due to tilts
-                    () => _aftProvider.TransferOff && _fundsTransferDisable.TransferOffDisabled && !_hostCashOutProvider.CanCashOut,
+                    () => _aftProvider.TransferOff && _fundsTransferDisable.TransferOffDisabled && !_aftHostCashOutProvider.CanCashOut,
                     (AftTransferStatusCode.GamingMachineUnableToPerformTransfer, "can't transfer off while tilts present or in a game")
                 },
             };

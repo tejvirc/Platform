@@ -39,7 +39,7 @@
                 _hardCashOutLock.OnKeyedOff();
             }
 
-            if (_aftOffTransferProvider.WaitingForKeyOff)
+            if (_aftOffTransferProvider != null && _aftOffTransferProvider.WaitingForKeyOff)
             {
                 _aftOffTransferProvider.OnKeyedOff();
             }

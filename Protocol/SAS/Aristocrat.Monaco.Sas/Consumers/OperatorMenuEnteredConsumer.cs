@@ -38,10 +38,18 @@
         public override void Consume(OperatorMenuEnteredEvent theEvent)
         {
             _exceptionHandler.ReportException(new GenericExceptionBuilder(GeneralExceptionCode.OperatorMenuEntered));
-            _aftOffTransferProvider.AftState |= AftDisableConditions.OperatorMenuEntered;
-            _aftOnTransferProvider.AftState |= AftDisableConditions.OperatorMenuEntered;
-            _aftOffTransferProvider.OnStateChanged();
-            _aftOnTransferProvider.OnStateChanged();
+            if(_aftOffTransferProvider!=null)
+            {
+                _aftOffTransferProvider.AftState |= AftDisableConditions.OperatorMenuEntered;
+            }
+
+            if(_aftOnTransferProvider!=null)
+            {
+                _aftOnTransferProvider.AftState |= AftDisableConditions.OperatorMenuEntered;
+            }
+
+            _aftOffTransferProvider?.OnStateChanged();
+            _aftOnTransferProvider?.OnStateChanged();
             _voucherValidation.InOperatorMenu = true;
         }
     }

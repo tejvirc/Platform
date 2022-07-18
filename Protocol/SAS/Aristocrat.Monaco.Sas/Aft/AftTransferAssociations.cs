@@ -17,7 +17,7 @@
         private readonly IAftTransferProvider _aftProvider;
         private readonly IAftOffTransferProvider _aftOff;
         private readonly IAftOnTransferProvider _aftOn;
-        private readonly IHostCashOutProvider _hostCashOutProvider;
+        private readonly IAftHostCashOutProvider _aftHostCashOutProvider;
         private readonly IFundsTransferDisable _fundsTransferDisable;
         private readonly IAftRegistrationProvider _aftRegistrationProvider;
         private readonly IPropertiesManager _propertiesManager;
@@ -28,7 +28,7 @@
         /// <param name="aftProvider">reference to the AFT transfer provider class</param>
         /// <param name="aftOff">reference to the AFT Off transfer provider class</param>
         /// <param name="aftOn">reference to the AFT On transfer provider class</param>
-        /// <param name="hostCashOutProvider">reference to the host cashout provider</param>
+        /// <param name="aftHostCashOutProvider">reference to the host cashout provider</param>
         /// <param name="fundsTransferDisable">reference to the funds transfer disable class</param>
         /// <param name="aftRegistrationProvider">reference to the AFT registration provider class</param>
         /// <param name="propertiesManager">reference to the properties manager class</param>
@@ -36,7 +36,7 @@
             IAftTransferProvider aftProvider,
             IAftOffTransferProvider aftOff,
             IAftOnTransferProvider aftOn,
-            IHostCashOutProvider hostCashOutProvider,
+            IAftHostCashOutProvider aftHostCashOutProvider,
             IFundsTransferDisable fundsTransferDisable,
             IAftRegistrationProvider aftRegistrationProvider,
             IPropertiesManager propertiesManager)
@@ -44,7 +44,7 @@
             _aftProvider = aftProvider ?? throw new ArgumentNullException(nameof(aftProvider));
             _aftOff = aftOff ?? throw new ArgumentNullException(nameof(aftOff));
             _aftOn = aftOn ?? throw new ArgumentNullException(nameof(aftOn));
-            _hostCashOutProvider = hostCashOutProvider ?? throw new ArgumentNullException(nameof(hostCashOutProvider));
+            _aftHostCashOutProvider = aftHostCashOutProvider ?? throw new ArgumentNullException(nameof(aftHostCashOutProvider));
             _fundsTransferDisable = fundsTransferDisable ?? throw new ArgumentNullException(nameof(fundsTransferDisable));
             _aftRegistrationProvider = aftRegistrationProvider ?? throw new ArgumentNullException(nameof(aftRegistrationProvider));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
@@ -72,7 +72,7 @@
 
             if (settings.TransferOutAllowed && _aftOff.IsAftOffAvailable)
             {
-                if (!_hostCashOutProvider.CashOutWinPending)
+                if (!_aftHostCashOutProvider.CashOutWinPending)
                 {
                     availableTransfers |= AftAvailableTransfers.TransferFromGamingMachineOk;
                 }
@@ -89,7 +89,7 @@
             }
 
 
-            if (settings.TransferOutAllowed && _hostCashOutProvider.CanCashOut && _hostCashOutProvider.CashOutWinPending)
+            if (settings.TransferOutAllowed && _aftHostCashOutProvider.CanCashOut && _aftHostCashOutProvider.CashOutWinPending)
             {
                 availableTransfers |= AftAvailableTransfers.WinAmountPendingCashoutToHost;
             }

@@ -31,7 +31,7 @@
         /// <inheritdoc />
         public override void Consume(TransactionCompletedEvent theEvent)
         {
-            if (_aftOffTransferProvider.TransactionPending)
+            if (_aftOffTransferProvider != null && _aftOffTransferProvider.TransactionPending)
             {
                 if (MoneyToCashOff)
                 {

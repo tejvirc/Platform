@@ -44,21 +44,21 @@
         private string _selectedHandpayModeItem;
         private string _selectedHostDisableCashoutActionItem;
 
-        private bool _isAftSettingsConfigurable;
+        private bool _isFundTransferSettingsConfigurable;
         private bool _isLegacyBonusingConfigurable;
         private bool _isAftBonusingEnabled;
-        private bool _isAftPartialTransfersEnabled;
-        private bool _isAftInEnabled;
-        private bool _isAftOutEnabled;
-        private bool _aftInOutInitialEnabled;
+        private bool _isPartialTransfersEnabled;
+        private bool _isTransferInEnabled;
+        private bool _isTransferOutEnabled;
+        private bool _transferInOutInitialEnabled;
         private bool _isAftWinAmountToHostTransfersEnabled;
-        private bool _aftTransferLimitEnabled;
-        private bool _aftTransferLimitCheckboxEnabled;
+        private bool _transferLimitEnabled;
+        private bool _transferLimitCheckboxEnabled;
         private bool _isLegacyBonusEnabled;
         private bool _bonusTransferStatusEditable;
         private bool _isRequireLP02OnPowerUpEnabled;
 
-        private decimal _aftTransferLimit;
+        private decimal _transferLimit;
         private decimal _creditLimit;
         private decimal _maxCreditLimit;
 
@@ -68,6 +68,7 @@
         private ConfigNotificationTypes _configChangeNotification;
 
         private (bool enabled, bool configurable) _egmDisabledOnHostOffline;
+        private bool _isAft;
 
         private static bool _wizardPageInitialized;
 
@@ -104,6 +105,19 @@
             var multiProtocolConfigurationProvider = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>();
             SasProtocolConfiguration = multiProtocolConfigurationProvider.MultiProtocolConfiguration
                 .FirstOrDefault(x => x.Protocol == CommsProtocol.SAS);
+        }
+
+        /// <summary>
+        /// 	Check if Aft is enabled for fund transfer.
+        /// </summary>
+        public bool IsAft
+        {
+            get => _isAft;
+            set
+            {
+                _isAft = value;
+                RaisePropertyChanged(nameof(TransferInLabelResourceKey), nameof(TransferOutLabelResourceKey), nameof(FundTransferTitleLabelResourceKey));
+            }
         }
 
         /// <summary>
@@ -152,39 +166,45 @@
         }
 
         /// <summary>
-        ///     Gets whether the AFT settings are configurable
+        ///     Gets whether the AFT/EFT settings are configurable
         /// </summary>
-        public bool IsAftSettingsConfigurable
+        public bool IsFundTransferSettingsConfigurable
         {
-            get => _isAftSettingsConfigurable;
+            get => _isFundTransferSettingsConfigurable;
             private set => SetProperty(
-                ref _isAftSettingsConfigurable,
+                ref _isFundTransferSettingsConfigurable,
                 value,
-                nameof(IsAftSettingsConfigurable));
+                nameof(IsFundTransferSettingsConfigurable),
+                nameof(IsFundTransferSettingsVisible));
         }
 
         /// <summary>
         ///     Gets a value indicating whether the EGM should
         ///     allow aft bonus transfer options to be modified or not
         /// </summary>
-        public bool AftBonusTransferStatus => BonusTransferStatusEditable && IsAftInEnabled;
+        public bool AftBonusTransferStatus => BonusTransferStatusEditable && IsTransferInEnabled;
 
         /// <summary>
-        ///     Gets or sets a value indicating whether AFT transfers in are allowed or not
+        ///     Gets a value indicating if Aft/EFT settings UI is visible to the operator.
         /// </summary>
-        public bool IsAftInEnabled
+        public bool IsFundTransferSettingsVisible => IsFundTransferSettingsConfigurable && SasProtocolConfiguration.IsFundTransferHandled;
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether AFT/EFT transfers in are allowed or not
+        /// </summary>
+        public bool IsTransferInEnabled
         {
-            get => _isAftInEnabled;
+            get => _isTransferInEnabled;
             set
             {
-                _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(_isAftInEnabled, IsAftOutEnabled, value);
+                _transferInOutInitialEnabled = GetTransferInOutInitiallyEnabled(_isTransferInEnabled, IsTransferOutEnabled, value);
 
                 SetProperty(
-                    ref _isAftInEnabled,
-                    IsAftSettingsConfigurable && value,
-                    nameof(IsAftInEnabled),
+                    ref _isTransferInEnabled,
+                    IsFundTransferSettingsConfigurable && value,
+                    nameof(IsTransferInEnabled),
                     nameof(AftBonusTransferStatus),
-                    nameof(AftPartialTransfersCheckboxEnabled));
+                    nameof(PartialTransfersCheckboxEnabled));
 
                 SetAftTransferLimitState();
 
@@ -193,20 +213,20 @@
         }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether AFT transfers out are allowed or not
+        ///     Gets or sets a value indicating whether AFT/EFT transfers out are allowed or not
         /// </summary>
-        public bool IsAftOutEnabled
+        public bool IsTransferOutEnabled
         {
-            get => _isAftOutEnabled;
+            get => _isTransferOutEnabled;
             set
             {
-                _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(IsAftInEnabled, _isAftOutEnabled, value);
+                _transferInOutInitialEnabled = GetTransferInOutInitiallyEnabled(IsTransferInEnabled, _isTransferOutEnabled, value);
 
                 SetProperty(
-                    ref _isAftOutEnabled,
-                    IsAftSettingsConfigurable && value,
-                    nameof(IsAftOutEnabled),
-                    nameof(AftPartialTransfersCheckboxEnabled));
+                    ref _isTransferOutEnabled,
+                    IsFundTransferSettingsConfigurable && value,
+                    nameof(IsTransferOutEnabled),
+                    nameof(PartialTransfersCheckboxEnabled));
 
                 SetAftTransferLimitState();
 
@@ -215,29 +235,29 @@
         }
 
         /// <summary>
-        ///     Gets or sets a value indicating whether AFT partial transfers are allowed or not
+        ///     Gets or sets a value indicating whether AFT/EFT partial transfers are allowed or not
         /// </summary>
-        public bool IsAftPartialTransfersEnabled
+        public bool IsPartialTransfersEnabled
         {
-            get => _isAftPartialTransfersEnabled;
+            get => _isPartialTransfersEnabled;
             set => SetProperty(
-                ref _isAftPartialTransfersEnabled,
-                IsAftSettingsConfigurable && value,
-                nameof(IsAftPartialTransfersEnabled));
+                ref _isPartialTransfersEnabled,
+                IsFundTransferSettingsConfigurable && value,
+                nameof(IsPartialTransfersEnabled));
         }
 
         /// <summary>
-        ///     Gets whether or not AFT partial transfers can be configured or not.
+        ///     Gets whether or not AFT/Eft partial transfers can be configured or not.
         /// </summary>
-        public bool AftPartialTransfersCheckboxEnabled
+        public bool PartialTransfersCheckboxEnabled
         {
             get
             {
-                var isEnabled = IsAftInEnabled || IsAftOutEnabled;
+                var isEnabled = IsTransferInEnabled || IsTransferOutEnabled;
 
-                if (!isEnabled && IsAftPartialTransfersEnabled)
+                if (!isEnabled && IsPartialTransfersEnabled)
                 {
-                    IsAftPartialTransfersEnabled = false;
+                    IsPartialTransfersEnabled = false;
                 }
 
                 return isEnabled;
@@ -252,7 +272,7 @@
             get => _isAftBonusingEnabled;
             set => SetProperty(
                 ref _isAftBonusingEnabled,
-                IsAftSettingsConfigurable && IsAftInEnabled && value,
+                IsFundTransferSettingsConfigurable && IsTransferInEnabled && value,
                 nameof(IsAftBonusingEnabled));
         }
 
@@ -264,71 +284,86 @@
             get => _isAftWinAmountToHostTransfersEnabled;
             set => SetProperty(
                     ref _isAftWinAmountToHostTransfersEnabled,
-                    IsAftSettingsConfigurable && IsAftOutEnabled && value,
+                    IsFundTransferSettingsConfigurable && IsTransferOutEnabled && value,
                     nameof(IsAftWinAmountToHostTransfersEnabled));
         }
 
         /// <summary>
-        ///     Gets or sets the AFT transfer limit amount.
+        ///     Resource key of fund transfer in label
         /// </summary>
-        public decimal AftTransferLimit
+        public string TransferInLabelResourceKey => IsAft ? ResourceKeys.AftInLabel : ResourceKeys.EftInLabel;
+
+        /// <summary>
+        ///     Resource key of fund transfer title label
+        /// </summary>
+        public string FundTransferTitleLabelResourceKey => IsAft ? ResourceKeys.AFTTitleLabel : ResourceKeys.EFTTitleLabel;
+
+        /// <summary>
+        ///     Resource key of transfer out label
+        /// </summary>
+        public string TransferOutLabelResourceKey => IsAft ? ResourceKeys.AftOutLabel : ResourceKeys.EftOutLabel;
+
+        /// <summary>
+        ///     Gets or sets the AFT/EFT transfer limit amount.
+        /// </summary>
+        public decimal TransferLimit
         {
-            get => _aftTransferLimit;
+            get => _transferLimit;
             set
             {
-                if ((_maxAftTransferLimit > value || IsCreditLimitMaxed) && PreviousAftTransferLimit != value)
+                if ((_maxAftTransferLimit > value || IsCreditLimitMaxed) && PreviousTransferLimit != value)
                 {
-                    PreviousAftTransferLimit = _aftTransferLimit;
+                    PreviousTransferLimit = _transferLimit;
                 }
 
-                if (SetProperty(ref _aftTransferLimit, value, nameof(AftTransferLimit)))
+                if (SetProperty(ref _transferLimit, value, nameof(TransferLimit)))
                 {
                     SetError(
-                        nameof(AftTransferLimit),
-                        _aftTransferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()));
+                        nameof(TransferLimit),
+                        _transferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()));
                 }
 
-                RaisePropertyChanged(nameof(AftTransferLimit));
+                RaisePropertyChanged(nameof(TransferLimit));
             }
         }
 
         /// <summary>
-        ///     Gets or sets the previous AFT transfer limit.
+        ///     Gets or sets the previous AFT/EFT transfer limit.
         /// </summary>
-        public decimal PreviousAftTransferLimit { get; set; }
+        public decimal PreviousTransferLimit { get; set; }
 
         /// <summary>
-        ///     Gets or sets whether AFT transfer limit checkbox is enabled.
+        ///     Gets or sets whether AFT/EFT transfer limit checkbox is enabled.
         /// </summary>
-        public bool AftTransferLimitCheckboxEnabled
+        public bool TransferLimitCheckboxEnabled
         {
-            get => _aftTransferLimitCheckboxEnabled;
+            get => _transferLimitCheckboxEnabled;
             set
             {
-                _aftTransferLimitCheckboxEnabled = IsAftSettingsConfigurable && value;
-                RaisePropertyChanged(nameof(AftTransferLimitCheckboxEnabled));
+                _transferLimitCheckboxEnabled = IsFundTransferSettingsConfigurable && value;
+                RaisePropertyChanged(nameof(TransferLimitCheckboxEnabled));
             }
         }
 
         /// <summary>
-        ///     Gets or sets whether AFT transfer limit checkbox is checked.
+        ///     Gets or sets whether AFT/EFT transfer limit checkbox is checked.
         /// </summary>
-        public bool AftTransferLimitEnabled
+        public bool TransferLimitEnabled
         {
-            get => _aftTransferLimitEnabled;
+            get => _transferLimitEnabled;
             set
             {
-                _aftTransferLimitEnabled = value;
+                _transferLimitEnabled = value;
 
-                var aftTransferLimit = GetPropertiesAftTransferLimitToDollars();
-                if (_aftTransferLimitEnabled && (aftTransferLimit == MaxTransferLimit || IsCreditLimitMaxed))
+                var aftTransferLimit = GetPropertiesTransferLimitToDollars();
+                if (_transferLimitEnabled && (aftTransferLimit == MaxTransferLimit || IsCreditLimitMaxed))
                 {
-                    aftTransferLimit = PreviousAftTransferLimit;
+                    aftTransferLimit = PreviousTransferLimit;
                 }
 
-                AftTransferLimit = _aftTransferLimitEnabled ? aftTransferLimit : MaxTransferLimit;
+                TransferLimit = _transferLimitEnabled ? aftTransferLimit : MaxTransferLimit;
 
-                RaisePropertyChanged(nameof(AftTransferLimitEnabled));
+                RaisePropertyChanged(nameof(TransferLimitEnabled));
             }
         }
 
@@ -485,7 +520,8 @@
 
             var ports = PropertiesManager.GetValue(SasProperties.SasPortAssignments, new PortAssignment());
             var settings = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
-            IsAftSettingsConfigurable = ports.AftPort != HostId.None;
+            IsAft = ports.FundTransferType == FundTransferType.Aft;
+            IsFundTransferSettingsConfigurable = ports.FundTransferPort != HostId.None;
 
             _creditLimit = PropertiesManager
                 .GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue)
@@ -496,7 +532,7 @@
                 .MillicentsToDollars();
 
             _maxAllowedTransferLimit = settings.MaxAllowedTransferLimits.CentsToDollars();
-            var aftTransferLimit = CapAmount(settings.TransferLimit.CentsToDollars(), MaxTransferLimit, (amount) =>
+            var transferLimit = CapAmount(settings.TransferLimit.CentsToDollars(), MaxTransferLimit, (amount) =>
             {
                 settings.TransferLimit = amount;
                 return settings;
@@ -505,9 +541,9 @@
             // Assign difference values to trigger property update on UI
             // In a scenario where user decided to go back to Machine Setup page to change currency type, and
             // come back to SAS page, since the amount did not change and it wont trigger property update. We manually do it here.
-            AftTransferLimit = -1;
-            AftTransferLimit = aftTransferLimit;
-            PreviousAftTransferLimit = aftTransferLimit;
+            TransferLimit = -1;
+            TransferLimit = transferLimit;
+            PreviousTransferLimit = transferLimit;
 
             BonusTransferStatusEditable = settings.BonusTransferStatusEditable;
 
@@ -526,10 +562,10 @@
                 SelectedValidationItem = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureEnhancedLabel);
                 SelectedHandpayModeItem = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureHandpayReporting);
 
-                AftTransferLimitEnabled = false;
-                IsAftInEnabled = false;
-                IsAftOutEnabled = false;
-                IsAftPartialTransfersEnabled = false;
+                TransferLimitEnabled = false;
+                IsTransferInEnabled = false;
+                IsTransferOutEnabled = false;
+                IsPartialTransfersEnabled = false;
                 IsAftBonusingEnabled = false;
                 IsAftWinAmountToHostTransfersEnabled = false;
                 IsLegacyBonusEnabled = false;
@@ -546,9 +582,9 @@
                     ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureHandpayReporting)
                     : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LegacyHandpayReporting);
 
-                IsAftInEnabled = settings.TransferInAllowed;
-                IsAftOutEnabled = settings.TransferOutAllowed;
-                IsAftPartialTransfersEnabled = settings.PartialTransferAllowed;
+                IsTransferInEnabled = settings.TransferInAllowed;
+                IsTransferOutEnabled = settings.TransferOutAllowed;
+                IsPartialTransfersEnabled = settings.PartialTransferAllowed;
                 IsAftBonusingEnabled = settings.AftBonusAllowed;
                 IsAftWinAmountToHostTransfersEnabled = settings.WinTransferAllowed;
 
@@ -577,10 +613,10 @@
         {
             if (IsWizardPage)
             {
-                var isAftTransferLimitValid = AftTransferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()) is null
-                    || !AftTransferLimitEnabled;
+                var isTransferLimitValid = TransferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()) is null
+                    || !TransferLimitEnabled;
 
-                WizardNavigator.CanNavigateForward = isAftTransferLimitValid;
+                WizardNavigator.CanNavigateForward = isTransferLimitValid;
             }
         }
 
@@ -598,7 +634,7 @@
             var restartProtocol = IsWizardPage;
 
             var sasValidationType = GetSasValidationTypeFromItem(_selectedValidationItem);
-            var aftTransferLimit = AftTransferLimit.DollarsToCents();
+            var transferLimit = TransferLimit.DollarsToCents();
 
             var handpayReportingType = _selectedHandpayModeItem == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureHandpayReporting)
                 ? SasHandpayReportingType.SecureHandpayReporting
@@ -613,12 +649,13 @@
 
             var settings = (SasFeatures)PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).Clone();
             settings.ValidationType = sasValidationType;
-            settings.TransferInAllowed = IsAftInEnabled;
-            settings.TransferOutAllowed = IsAftOutEnabled;
+            settings.TransferInAllowed = IsTransferInEnabled;
+            settings.TransferOutAllowed = IsTransferOutEnabled;
+            settings.FundTransferType = IsAft ? FundTransferType.Aft : FundTransferType.Eft;
             settings.AftBonusAllowed = IsAftBonusingEnabled;
-            settings.PartialTransferAllowed = IsAftPartialTransfersEnabled;
+            settings.PartialTransferAllowed = IsPartialTransfersEnabled;
             settings.WinTransferAllowed = IsAftWinAmountToHostTransfersEnabled;
-            settings.TransferLimit = aftTransferLimit;
+            settings.TransferLimit = transferLimit;
             settings.HandpayReportingType = handpayReportingType;
             settings.LegacyBonusAllowed = IsLegacyBonusEnabled;
             settings.DisableOnDisconnect = _egmDisabledOnHostOffline.enabled;
@@ -664,14 +701,14 @@
                 }
             }
 
-            if (AutoConfigurator.GetValue("AftInEnabled", ref boolValue))
+            if (AutoConfigurator.GetValue("TransferInEnabled", ref boolValue))
             {
-                _isAftInEnabled = boolValue;
+                _isTransferInEnabled = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("AftOutEnabled", ref boolValue))
+            if (AutoConfigurator.GetValue("TransferOutEnabled", ref boolValue))
             {
-                _isAftOutEnabled = boolValue;
+                _isTransferOutEnabled = boolValue;
             }
 
             if (AutoConfigurator.GetValue("AftBonusEnabled", ref boolValue))
@@ -679,9 +716,9 @@
                 _isAftBonusingEnabled = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("AftPartialTransferEnabled", ref boolValue))
+            if (AutoConfigurator.GetValue("PartialTransferEnabled", ref boolValue))
             {
-                _isAftPartialTransfersEnabled = boolValue;
+                _isPartialTransfersEnabled = boolValue;
             }
 
             if (AutoConfigurator.GetValue("AftWinAmountToHostEnabled", ref boolValue))
@@ -694,12 +731,21 @@
                 _isLegacyBonusEnabled = boolValue;
             }
 
-            if (AutoConfigurator.GetValue("AftTransferLimit", ref stringValue))
+            if (AutoConfigurator.GetValue("TransferLimit", ref stringValue))
             {
                 autoConfigured &= long.TryParse(stringValue, out var temp);
                 if (autoConfigured)
                 {
-                    AftTransferLimit = temp.CentsToDollars();
+                    TransferLimit = temp.CentsToDollars();
+                }
+            }
+
+            if (AutoConfigurator.GetValue("SasValidationType", ref stringValue))
+            {
+                autoConfigured &= ValidationItems.Contains(stringValue);
+                if (autoConfigured)
+                {
+                    _selectedValidationItem = stringValue;
                 }
             }
 
@@ -712,6 +758,38 @@
                 }
             }
 
+            if (AutoConfigurator.GetValue("ChangeNotification", ref stringValue))
+            {
+                autoConfigured &= NotificationTypes.Contains(stringValue);
+                if (autoConfigured)
+                {
+                    switch (stringValue)
+                    {
+                        case "Always":
+                            ConfigChangeNotification = ConfigNotificationTypes.Always;
+                            break;
+                        case "ExcludeSAS":
+                            ConfigChangeNotification = ConfigNotificationTypes.ExcludeSAS;
+                            break;
+                    }
+                }
+            }
+
+            if (AutoConfigurator.GetValue("LegacyBonusEnabled", ref boolValue))
+            {
+                _isLegacyBonusEnabled = boolValue;
+            }
+
+            if (AutoConfigurator.GetValue("LP02OnPowerUp", ref boolValue))
+            {
+                IsRequireLP02OnPowerUpEnabled = boolValue;
+            }
+
+            if (AutoConfigurator.GetValue("DisableOnCommunicationsLost", ref boolValue))
+            {
+                EgmDisabledOnHostOffline = boolValue;
+            }
+
             if (autoConfigured)
             {
                 base.LoadAutoConfiguration();
@@ -720,55 +798,54 @@
 
         private void SetAftTransferLimitState()
         {
-            AftTransferLimitCheckboxEnabled = IsCreditLimitMaxed && (IsAftInEnabled || IsAftOutEnabled);
+            TransferLimitCheckboxEnabled = IsCreditLimitMaxed && (IsTransferInEnabled || IsTransferOutEnabled);
 
-            if (!IsAftInEnabled && !IsAftOutEnabled && AftTransferLimitEnabled)
+            if (!IsTransferInEnabled && !IsTransferOutEnabled && TransferLimitEnabled)
             {
-                AftTransferLimitEnabled = false;
+                TransferLimitEnabled = false;
             }
             else
             {
-                if (IsLoaded && !AftTransferLimitEnabled && _aftInOutInitialEnabled)
+                if (IsLoaded && !TransferLimitEnabled && _transferInOutInitialEnabled)
                 {
-                    AftTransferLimitEnabled = true;
+                    TransferLimitEnabled = true;
 
                     var limit = _creditLimit <= _defaultAftTransferLimit
                         ? _creditLimit
                         : _defaultAftTransferLimit;
 
-                    AftTransferLimit = limit;
-                    PreviousAftTransferLimit = limit;
+                    TransferLimit = limit;
+                    PreviousTransferLimit = limit;
                 }
                 else if (!IsLoaded)
                 {
-                    if (PreviousAftTransferLimit == MaxTransferLimit && IsCreditLimitMaxed || AftTransferLimit > MaxTransferLimit)
+                    if ((PreviousTransferLimit == MaxTransferLimit && IsCreditLimitMaxed) || TransferLimit > MaxTransferLimit)
                     {
-                        AftTransferLimitEnabled = false;
+                        TransferLimitEnabled = false;
                     }
                     else if ((!IsWizardPage || IsWizardPage &&
                              PropertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None) != ImportMachineSettings.None)
-                             && !AftTransferLimitEnabled
-                             && (IsAftInEnabled != IsAftOutEnabled || !AftTransferLimitCheckboxEnabled && (IsAftInEnabled || IsAftOutEnabled)))
+                             && !TransferLimitEnabled
+                             && (IsTransferInEnabled != IsTransferOutEnabled || (!TransferLimitCheckboxEnabled && (IsTransferInEnabled || IsTransferOutEnabled))))
                     {
-                        AftTransferLimitEnabled = true;
+                        TransferLimitEnabled = true;
                     }
                 }
             }
         }
 
-        private bool GetAftInOutInitiallyEnabled(bool currentAftIn, bool currentAftOut, bool incomingAftInOutValue)
+        private bool GetTransferInOutInitiallyEnabled(bool currentAftIn, bool currentAftOut, bool incomingAftInOutValue)
         {
             return IsLoaded
-                && IsAftSettingsConfigurable
+                && IsFundTransferSettingsConfigurable
                 && !currentAftIn
                 && !currentAftOut
                 && incomingAftInOutValue;
         }
 
-        private decimal GetPropertiesAftTransferLimitToDollars()
+        private decimal GetPropertiesTransferLimitToDollars()
         {
-            return PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).TransferLimit
-                .CentsToDollars();
+            return PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).TransferLimit.CentsToDollars();
         }
 
         private static SasValidationType GetSasValidationTypeFromItem(string validationItem)

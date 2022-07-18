@@ -30,7 +30,7 @@
         private LP74AftGameLockAndStatusRequestHandler _target;
         private Mock<IAftLockHandler> _aftLockHandler;
         private Mock<IAftRegistrationProvider> _aftRegistrationProvider;
-        private Mock<IHostCashOutProvider> _hostCashoutProvider;
+        private Mock<IAftHostCashOutProvider> _hostCashoutProvider;
         private Mock<ITicketingCoordinator> _ticketingCoordinator;
         private Mock<IAftOffTransferProvider> _aftOff;
         private Mock<IAftOnTransferProvider> _aftOn;
@@ -65,7 +65,7 @@
             _bank = new Mock<IBank>(MockBehavior.Default);
             _aftRegistrationProvider = new Mock<IAftRegistrationProvider>(MockBehavior.Strict);
             _aftLockHandler = new Mock<IAftLockHandler>(MockBehavior.Strict);
-            _hostCashoutProvider = new Mock<IHostCashOutProvider>(MockBehavior.Strict);
+            _hostCashoutProvider = new Mock<IAftHostCashOutProvider>(MockBehavior.Strict);
             _ticketingCoordinator = new Mock<ITicketingCoordinator>(MockBehavior.Default);
             _aftOff = new Mock<IAftOffTransferProvider>(MockBehavior.Default);
             _aftOn = new Mock<IAftOnTransferProvider>(MockBehavior.Default);

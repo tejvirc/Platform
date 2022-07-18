@@ -38,7 +38,8 @@
                         {
                             ControlPorts = new ControlPortsElement
                             {
-                                AftPort = (int)ports.AftPort,
+                                FundTransferPort = (int)ports.FundTransferPort,
+                                FundTransferType = ports.FundTransferType,
                                 GameStartEndHosts = ports.GameStartEndHosts,
                                 GeneralControlPort = (int)ports.GeneralControlPort,
                                 LegacyBonusPort = (int)ports.LegacyBonusPort,

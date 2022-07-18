@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Sas.Client
 {
     /// <summary>
-    /// List of long poll commands
+    ///     List of long poll commands
     /// </summary>
     public enum LongPoll
     {
@@ -87,8 +87,8 @@
         SendNonSasProgressiveWinData,
         SendConfiguredProgressiveControllers,
         SendProgressiveBroadcastValues,
-        SingleLevelProgressiveBroadcastValue=0x80,
-        MultipleLevelProgressiveBroadcastValues =0x86,
+        SingleLevelProgressiveBroadcastValue = 0x80,
+        MultipleLevelProgressiveBroadcastValues = 0x86,
         SendAuthenticationInformation = 0x6E,
         SendExtendedMetersForGameN,
         SendTicketValidationData,
@@ -137,6 +137,33 @@
         SendExtendedGameNInformation,
         MeterCollectStatus,
         SetMachineNumbers,
-        RealTimeEventResponseToLongPoll = 0xFF
+        RealTimeEventResponseToLongPoll = 0xFF,
+
+        #region EftCommands
+
+        // (From section 8.EFT of the SAS v5.02 document)
+        EftSendCumulativeMeters = 0x1D,
+        EftSendCurrentPromotionalCredits = 0x27,
+        EftSendTransferLogs = 0x28,
+        EftTransferPromotionalCreditsToMachine = 0x63,
+        EftTransferCashAndNonCashableCreditsToHost = 0x64,
+        EftSendLastCashOutCreditAmount = 0x66,
+        EftTransferCashableCreditsToMachine = 0x69,
+        EftSendAvailableEftTransfers = 0x6A,
+        EftTransferPromotionalCreditsToHost = 0x6B,
+
+        #endregion
+    }
+
+    public static class LongPollExtensions
+    {
+        public static bool IsEftTransactionLongPoll(this LongPoll longPoll)
+        {
+            return longPoll == LongPoll.EftTransferPromotionalCreditsToMachine ||
+                   longPoll == LongPoll.EftTransferCashableCreditsToMachine ||
+                   longPoll == LongPoll.EftTransferCashAndNonCashableCreditsToHost ||
+                   longPoll == LongPoll.EftTransferPromotionalCreditsToHost ||
+                   longPoll == LongPoll.EftSendLastCashOutCreditAmount;
+        }
     }
 }

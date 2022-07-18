@@ -29,6 +29,7 @@
         HopperEmptyDetected,
         ExtraCoinPaid,
         DiverterMalfunction,
+        PlayerInitiatedCashout = 0x26, //hopper, printer and hand pay
         CashBoxFullDetected = 0x27,
         BillJam,
         BillAcceptorHardwareFailure,

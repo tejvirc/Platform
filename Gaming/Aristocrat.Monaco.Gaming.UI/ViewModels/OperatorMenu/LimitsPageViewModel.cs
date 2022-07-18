@@ -591,6 +591,7 @@
         protected override void LoadAutoConfiguration()
         {
             string value = null;
+            bool boolValue = false;
 
             AutoConfigurator.GetValue("LargeWinLimit", ref value);
             if (value != null && OverwriteLargeWinLimit && decimal.TryParse(value, out var limit))
@@ -639,6 +640,28 @@
                 if (MaxBetLimitCheckboxIsEnabled)
                 {
                     MaxBetLimitIsChecked = true;
+                }
+            }
+
+            if (AutoConfigurator.GetValue("AllowRemoteHandPayReset", ref boolValue))
+            {
+                AllowRemoteHandpayReset = boolValue;
+            }
+
+            if (AutoConfigurator.GetValue("LargeWinHandPayResetMethod", ref value))
+            {
+                if (LargeWinHandpayResetMethods.Contains(value))
+                {
+                    SelectedLargeWinHandpayResetMethod = value;
+                }
+            }
+
+            if (IncrementThresholdVisible)
+            {
+                AutoConfigurator.GetValue("ExcessiveMeterIncThreshold", ref value);
+                if (long.TryParse(value, out var incThreshold))
+                {
+                    IncrementThreshold = incThreshold;
                 }
             }
 

@@ -25,7 +25,7 @@
 
         private PortAssignment _defaultPortAssignment = new PortAssignment
         {
-            AftPort = HostId.Host1,
+            FundTransferPort = HostId.Host1,
             LegacyBonusPort = HostId.Host1,
             ProgressivePort = HostId.Host1,
             ValidationPort = HostId.Host1,
@@ -125,7 +125,7 @@
         {
             var target = new LPA0SendEnabledFeaturesHandler(_propertiesManager.Object);
             _propertiesManager.Setup(c => c.GetProperty(It.Is<string>(d => d == SasProperties.TicketRedemptionSupportedKey), It.IsAny<object>())).Returns(true);
-            _defaultPortAssignment.AftPort = HostId.None;
+            _defaultPortAssignment.FundTransferPort = HostId.None;
             _defaultPortAssignment.LegacyBonusPort = HostId.None;
             _propertiesManager.Setup(c => c.GetProperty(SasProperties.SasPortAssignments, It.IsAny<object>())).Returns(_defaultPortAssignment);
 

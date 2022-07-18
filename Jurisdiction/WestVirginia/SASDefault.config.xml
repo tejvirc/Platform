@@ -10,23 +10,23 @@ as follows:
     the corresponding class definition in csharp (SASDefaultConfiguration.cs).
 -->
 <SASDefaultConfiguration>
-    <SASHostPage>
-		<EGMDisabledOnPowerUp Enabled="true"/>
-        <BonusTransferStatus Editable="false"/>
-		<!--
+  <SASHostPage>
+    <EGMDisabledOnPowerUp Enabled="true"/>
+    <BonusTransferStatus Editable="false"/>
+    <!--
 		TransferLimit :
 			Default (Optional): The default max transfer limit (in cents).
 			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
 		-->
-		<TransferLimit Default="10000" />
-		<EGMDisabledOnHostOffline Enabled="false" Configurable="false"/>
-		<MustHaveDualHost Enabled="true"/>
-		<GeneralControl Editable="false"/>
-		<ExceptionOverflow Behaviour="DiscardNewExceptions"/>
-		<AddressConfigurationOnceOnly Enabled="true"/>
-		<Aft HostId="Host2"/>
-		<Validation HostId="Host2"/>
-		<GameStartEnd HostId="None"/>
-		<ConfigurationChangeNotification NotificationType="ExcludeSAS" />
-    </SASHostPage>  
+    <TransferLimit Default="10000" />
+    <EGMDisabledOnHostOffline Enabled="false" Configurable="false"/>
+    <MustHaveDualHost Enabled="true"/>
+    <GeneralControl Editable="false"/>
+    <ExceptionOverflow Behaviour="DiscardNewExceptions"/>
+    <AddressConfigurationOnceOnly Enabled="true"/>
+    <FundTransferHost HostId="Host2"/>
+    <Validation HostId="Host2"/>
+    <GameStartEnd HostId="None"/>
+    <ConfigurationChangeNotification NotificationType="ExcludeSAS" />
+  </SASHostPage>
 </SASDefaultConfiguration>

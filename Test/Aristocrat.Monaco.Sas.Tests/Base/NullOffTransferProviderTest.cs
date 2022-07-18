@@ -1,0 +1,70 @@
+﻿namespace Aristocrat.Monaco.Sas.Tests.TransferProvider
+{
+    using System;
+    using Accounting.Contracts;
+    using Application.Contracts;
+    using Aristocrat.Monaco.Sas.Base;
+    using Contracts.Client;
+    using Gaming.Contracts;
+    using Kernel;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
+    using Test.Common;
+    using IPrinter = Hardware.Contracts.Printer.IPrinter;
+
+    /// <summary>
+    ///     Contains the tests for the NullOffTransferProvider class
+    /// </summary>
+    [TestClass]
+    public class NullOffTransferProviderTest
+    {
+        private NullOffTransferProvider _target;
+        private readonly Mock<IAftLockHandler> _aftLock = new Mock<IAftLockHandler>(MockBehavior.Default);
+        private readonly Mock<ISasHost> _sasHost = new Mock<ISasHost>(MockBehavior.Strict);
+        private readonly Mock<ITransactionCoordinator> _transactionCoordinator = new Mock<ITransactionCoordinator>(MockBehavior.Strict);
+        private readonly Mock<ITime> _timeService = new Mock<ITime>(MockBehavior.Strict);
+        private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Strict);
+        private readonly Mock<IAutoPlayStatusProvider> _autoPlayStatusProvider = new Mock<IAutoPlayStatusProvider>(MockBehavior.Strict);
+
+        [TestInitialize]
+        public void MyTestInitialize()
+        {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Default);
+            _target = new NullOffTransferProvider();
+        }
+
+        [TestCleanup]
+        public void MyTestCleanup()
+        {
+            MoqServiceManager.RemoveInstance();
+        }
+
+        [TestMethod]
+        public void ConstructorTest()
+        {
+            Assert.IsNotNull(_target);
+        }
+
+        [TestMethod]
+        public void PropertiesTest()
+        {
+            Assert.IsFalse(_target.CanTransfer);
+            Assert.IsFalse(_target.IsAftPending);
+            Assert.AreEqual(Guid.Empty, _target.RequestorGuid);
+        }
+
+        [TestMethod]
+        public void MethodsTest()
+        {
+            Assert.IsFalse(_target.InitiateAftOff());
+            Assert.IsFalse(_target.AftOffRequest(null, true));
+        }
+
+        [TestMethod]
+        public void TaskReturnMethodsTestAsync()
+        {
+            Assert.IsFalse(_target.InitiateTransfer(null).Result);
+        }
+    }
+}

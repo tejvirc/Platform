@@ -39,15 +39,21 @@
         {
             _exceptionHandler.ReportException(new GenericExceptionBuilder(GeneralExceptionCode.OperatorMenuExited));
 
-            _aftOffTransferProvider.AftState &= ~AftDisableConditions.OperatorMenuEntered;
-            _aftOnTransferProvider.AftState &= ~AftDisableConditions.OperatorMenuEntered;
+            if (_aftOffTransferProvider != null)
+            {
+                _aftOffTransferProvider.AftState &= ~AftDisableConditions.OperatorMenuEntered;
+                // TODO: check if it is true -> Current set up is that exiting the System Operator Menu skips directly back to the game.
+                _aftOffTransferProvider.AftState &= ~AftDisableConditions.GameOperatorMenuEntered;
+            }
 
-            // TODO: check if it is true -> Current set up is that exiting the System Operator Menu skips directly back to the game.
-            _aftOffTransferProvider.AftState &= ~AftDisableConditions.GameOperatorMenuEntered;
-            _aftOnTransferProvider.AftState &= ~AftDisableConditions.GameOperatorMenuEntered;
+            if (_aftOnTransferProvider != null)
+            {
+                _aftOnTransferProvider.AftState &= ~AftDisableConditions.OperatorMenuEntered;
+                _aftOnTransferProvider.AftState &= ~AftDisableConditions.GameOperatorMenuEntered;
+            }
 
-            _aftOffTransferProvider.OnStateChanged();
-            _aftOnTransferProvider.OnStateChanged();
+            _aftOffTransferProvider?.OnStateChanged();
+            _aftOnTransferProvider?.OnStateChanged();
 
             _voucherValidation.InOperatorMenu = false;
         }

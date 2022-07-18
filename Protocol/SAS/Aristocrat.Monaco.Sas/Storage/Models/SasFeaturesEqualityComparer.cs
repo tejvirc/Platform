@@ -52,7 +52,8 @@
                    x.GeneralControlEditable == y.GeneralControlEditable &&
                    x.AddressConfigurableOnlyOnce == y.AddressConfigurableOnlyOnce &&
                    x.BonusTransferStatusEditable == y.BonusTransferStatusEditable &&
-                   x.ProgressiveGroupId == y.ProgressiveGroupId;
+                   x.ProgressiveGroupId == y.ProgressiveGroupId &&
+                   x.FundTransferType == y.FundTransferType;
         }
 
         /// <inheritdoc />
@@ -82,6 +83,7 @@
                 hashCode = (hashCode * 397) ^ obj.AddressConfigurableOnlyOnce.GetHashCode();
                 hashCode = (hashCode * 397) ^ obj.BonusTransferStatusEditable.GetHashCode();
                 hashCode = (hashCode * 397) ^ obj.ProgressiveGroupId;
+                hashCode = (hashCode * 397) ^ (int)obj.FundTransferType;
                 return hashCode;
             }
         }

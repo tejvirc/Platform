@@ -111,16 +111,16 @@
 		    ( 8, false, false ), // 0x5F
 		    ( 2, false, false ), // 0x60
 		    ( 2, false, false ), // 0x61
-		    ( 2, false, false ), // 0x62
-		    ( 2, false, false ), // 0x63
-		    ( 2, false, false ), // 0x64
-		    ( 2, false, false ), // 0x65
+		    ( 10, false, false ), // 0x62
+		    ( 10, false, false ), // 0x63
+		    ( 6, false, false ), // 0x64
+		    ( 6, false, false ), // 0x65
 		    ( 5, false, false ), // 0x66
 		    ( 2, false, false ), // 0x67
 		    ( 2, false, false ), // 0x68
-		    ( 2, false, false ), // 0x69
+		    ( 10, false, false ), // 0x69
 		    ( 2, false, false ), // 0x6A
-		    ( 2, false, false ), // 0x6B
+		    ( 6, false, false ), // 0x6B
 		    ( 2, false, false ), // 0x6C
 		    ( 2, false, false ), // 0x6D
 		    ( 5, true, false ), // 0x6E

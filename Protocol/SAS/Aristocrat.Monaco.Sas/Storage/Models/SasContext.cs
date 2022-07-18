@@ -28,6 +28,7 @@
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new AftHistoryItemConfiguration());
+            modelBuilder.Configurations.Add(new EftHistoryItemConfiguration());
             modelBuilder.Configurations.Add(new ValidationInformationConfiguration());
             modelBuilder.Configurations.Add(new TicketStorageDataConfiguration());
             modelBuilder.Configurations.Add(new AftTransferOptionsConfiguration());

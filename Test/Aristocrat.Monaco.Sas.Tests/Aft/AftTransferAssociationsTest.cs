@@ -25,7 +25,7 @@
         private const int OneSecondTimeout = 100;
         private AftTransferAssociations _target;
         private Mock<IAftRegistrationProvider> _aftRegistrationProvider;
-        private Mock<IHostCashOutProvider> _hostCashoutProvider;
+        private Mock<IAftHostCashOutProvider> _hostCashoutProvider;
         private Mock<IAftTransferProvider> _aftProvider;
         private Mock<IAftOffTransferProvider> _aftOff;
         private Mock<IAftOnTransferProvider> _aftOn;
@@ -49,7 +49,7 @@
         {
             _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Strict);
             _aftRegistrationProvider = new Mock<IAftRegistrationProvider>(MockBehavior.Strict);
-            _hostCashoutProvider = new Mock<IHostCashOutProvider>(MockBehavior.Strict);
+            _hostCashoutProvider = new Mock<IAftHostCashOutProvider>(MockBehavior.Strict);
             _aftProvider = new Mock<IAftTransferProvider>(MockBehavior.Default);
             _aftOff = new Mock<IAftOffTransferProvider>(MockBehavior.Default);
             _aftOn = new Mock<IAftOnTransferProvider>(MockBehavior.Default);

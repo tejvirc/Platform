@@ -233,7 +233,7 @@
                         implemetation = type
                     }).GroupBy(x => x.service, y => y.implemetation);
 
-            return registrations.SelectMany(registration => (IEnumerable<T>)@this.GetAllInstances(registration.Key));
+            return new HashSet<T>(registrations.SelectMany(registration => (IEnumerable<T>)@this.GetAllInstances(registration.Key)));
         }
 
         /// <summary>

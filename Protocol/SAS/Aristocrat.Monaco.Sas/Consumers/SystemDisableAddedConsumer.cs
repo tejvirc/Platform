@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Sas.Consumers
 {
-    using System;
     using AftTransferProvider;
     using Contracts.Client;
     using Kernel;
@@ -17,14 +16,14 @@
         /// </summary>
         public SystemDisableAddedConsumer(IAftOffTransferProvider aftOffTransferProvider)
         {
-            _aftOffTransferProvider = aftOffTransferProvider as AftTransferProviderBase ?? throw new ArgumentNullException(nameof(aftOffTransferProvider));
+            _aftOffTransferProvider = aftOffTransferProvider as AftTransferProviderBase;
         }
 
         /// <inheritdoc />
         public override void Consume(SystemDisableAddedEvent theEvent)
         {
-            _aftOffTransferProvider.OnSystemDisabled();
-            _aftOffTransferProvider.OnStateChanged();
+            _aftOffTransferProvider?.OnSystemDisabled();
+            _aftOffTransferProvider?.OnStateChanged();
         }
     }
 }

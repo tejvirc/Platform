@@ -1,15 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Sas.CompositionRoot
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using Aft;
     using AftTransferProvider;
+    using Aristocrat.Monaco.Sas.Contracts.Eft;
     using Aristocrat.Sas.Client;
+    using Aristocrat.Sas.Client.Eft;
     using Base;
     using ChangeRequests;
     using Common.Container;
     using Contracts.Client;
+    using Eft;
+    using EftTransferProvider;
     using Exceptions;
     using Handlers;
     using HandPay;
@@ -17,6 +18,9 @@
     using log4net;
     using Mono.Addins;
     using SimpleInjector;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using Ticketing;
     using Voucher;
     using VoucherValidation;
@@ -55,8 +59,11 @@
             container.Register<ISasDisableProvider, SasDisableProvider>(Lifestyle.Singleton);
             container.Register<ISasHandPayCommittedHandler, SasHandPayCommittedHandler>(Lifestyle.Singleton);
             container.Register<IAftTransferProvider, AftTransferProvider>(Lifestyle.Singleton);
+            container.Register<IEftTransferProvider, EftTransferProvider>(Lifestyle.Singleton);
             container.Register<IAftHistoryBuffer, AftHistoryBuffer>(Lifestyle.Singleton);
+            container.Register<IEftHistoryLogProvider, EftHistoryLogProvider>(Lifestyle.Singleton);
             container.Register<IAftTransferAssociations, AftTransferAssociations>(Lifestyle.Singleton);
+            container.Register<IPlayerInitiatedCashoutProvider, PlayerInitiatedCashoutProvider>(Lifestyle.Singleton);
 
             var aftTopLevelClasses = new List<Registration>
             {

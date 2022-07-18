@@ -9,6 +9,9 @@
         /// <summary>True if this client handles AFT Long polls and Exceptions </summary>
         public bool HandlesAft;
 
+        /// <summary>True if this client handles EFT Long polls and Exceptions </summary>
+        public bool HandlesEft;
+
         /// <summary>True if this client handles Legacy bonusing Long polls and Exceptions </summary>
         public bool HandlesLegacyBonusing;
 

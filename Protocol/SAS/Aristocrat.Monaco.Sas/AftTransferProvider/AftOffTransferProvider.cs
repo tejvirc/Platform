@@ -38,7 +38,7 @@
         private readonly object _transferStateLock = new object();
 
         private readonly IWatOffProvider _watOffProvider;
-        private readonly IHostCashOutProvider _hostCashOutProvider;
+        private readonly IAftHostCashOutProvider _aftHostCashOutProvider;
         private readonly IBank _bank;
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly ITransactionHistory _transactionHistory;
@@ -71,7 +71,7 @@
             ISasHost sasHost,
             IAftLockHandler aftLock,
             IWatOffProvider watOff,
-            IHostCashOutProvider hostCashOutProvider,
+            IAftHostCashOutProvider aftHostCashOutProvider,
             ISystemDisableManager systemDisableManager,
             ITransactionHistory transactionHistory,
             IAftRegistrationProvider registrationProvider,
@@ -91,7 +91,7 @@
                 autoPlayStatusProvider)
         {
             _watOffProvider = watOff;
-            _hostCashOutProvider = hostCashOutProvider;
+            _aftHostCashOutProvider = aftHostCashOutProvider;
             _systemDisableManager = systemDisableManager;
             _transactionHistory = transactionHistory;
             _bank = bank;
@@ -115,7 +115,7 @@
         internal TransferOffState CurrentTransferState { get; set; }
 
         /// <inheritdoc />
-        internal override bool HardCashOutMode => _hostCashOutProvider.CashOutMode == HostCashOutMode.Hard;
+        internal override bool HardCashOutMode => _aftHostCashOutProvider.CashOutMode == HostCashOutMode.Hard;
 
         private long AvailableTransferableAmount => _bank.QueryBalance();
 
@@ -131,7 +131,7 @@
         private bool TransferOffInLockupAllowed =>
             // Allow transfer starts when we are validating the signatures so OASIS can use the UTJ Tax feature
             !_systemDisableManager.CurrentDisableKeys.Except(AftConstants.AllowedAftOffDisables).Any() ||
-            _hostCashOutProvider.CanCashOut;
+            _aftHostCashOutProvider.CanCashOut;
 
         /// <inheritdoc />
         public bool InitiateAftOff()
@@ -154,7 +154,7 @@
             _transferAccepted = false;
 
             // If we are locked up for key off we can accept a transfer off for cashing out
-            if (IsAftDisabled && !_hostCashOutProvider.CanCashOut)
+            if (IsAftDisabled && !_aftHostCashOutProvider.CanCashOut)
             {
                 // Accept a transfer of all zeros
                 var transferAmounts = GetTransferAmountsDictionary(CurrentTransfer);
@@ -312,7 +312,7 @@
 
                 CurrentTransfer = data;
                 Logger.Debug($"partial transfer allowed {AllowPartialTransfer}");
-                _hostCashOutProvider.CashOutAccepted();
+                _aftHostCashOutProvider.CashOutAccepted();
 
                 if (TransactionId != Guid.Empty)
                 {
@@ -360,14 +360,14 @@
         }
 
         /// <inheritdoc cref="IAftOffTransferProvider" />
-        public override bool WaitingForKeyOff => !_keyedOff && _hostCashOutProvider.LockedUp;
+        public override bool WaitingForKeyOff => !_keyedOff && _aftHostCashOutProvider.LockedUp;
 
         /// <inheritdoc cref="IAftOffTransferProvider" />
         public override void OnKeyedOff()
         {
             lock (_lock)
             {
-                if (_keyedOff || !_hostCashOutProvider.LockedUp)
+                if (_keyedOff || !_aftHostCashOutProvider.LockedUp)
                 {
                     return;
                 }
@@ -375,7 +375,7 @@
                 Logger.DebugFormat("_keyedOff == {0}", _keyedOff);
                 _eventBus.Publish(new HardCashKeyOffEvent());
                 _keyedOff = true;
-                _hostCashOutProvider.CashOutDenied();
+                _aftHostCashOutProvider.CashOutDenied();
             }
         }
 
@@ -402,7 +402,7 @@
         /// <inheritdoc />
         public bool CanTransfer => !IsAftDisabled &&
                                    // We can only accept the transfer if we can cashout or the host initiated the transfer
-                                   (_hostCashOutProvider.CanCashOut || TransactionId != Guid.Empty);
+                                   (_aftHostCashOutProvider.CanCashOut || TransactionId != Guid.Empty);
 
         /// <inheritdoc />
         public async Task<bool> InitiateTransfer(WatTransaction transaction)
@@ -418,7 +418,7 @@
                 Logger.Debug(
                     $"HostInitiated transfer off with cashable={transaction.CashableAmount}, restricted={transaction.NonCashAmount}, non-restricted={transaction.PromoAmount} partial={transaction.AllowReducedAmounts}");
                 transaction.PayMethod = WatPayMethod.Credit;
-                UpdateAuthorizedTransactionAmount(transaction);
+                transaction.UpdateAuthorizedTransactionAmount(_bank, PropertiesManager);
 
                 return true;
             }
@@ -427,14 +427,18 @@
             var requestAccepted = false;
 
             if (!CashOutFromGamingMachineRequest && !_clientInitiated &&
-                _hostCashOutProvider.CashOutMode != HostCashOutMode.None)
+                _aftHostCashOutProvider.CashOutMode != HostCashOutMode.None)
             {
                 _clientInitiated = true;
-                requestAccepted = await _hostCashOutProvider.HandleHostCashOut(transaction);
+                requestAccepted = await _aftHostCashOutProvider.HandleHostCashOut(transaction);
                 if (requestAccepted)
                 {
                     transaction.RequestId = CurrentTransfer.TransactionId;
-                    UpdateAuthorizedHostCashoutAmount(transaction);
+                    transaction.UpdateAuthorizedHostCashoutAmount(PropertiesManager,
+                        AllowPartialTransfer,
+                        (long)CurrentTransfer.CashableAmount,
+                        (long)CurrentTransfer.NonRestrictedAmount,
+                        (long)CurrentTransfer.RestrictedAmount);
                 }
                 else
                 {
@@ -485,7 +489,7 @@
 
             base.Initialize();
 
-            if (_systemDisableManager.IsDisabled && !_hostCashOutProvider.CanCashOut)
+            if (_systemDisableManager.IsDisabled && !_aftHostCashOutProvider.CanCashOut)
             {
                 AftState |= AftDisableConditions.SystemDisabled;
             }
@@ -530,7 +534,7 @@
                             CurrentTransferState = TransferOffState.Canceling;
                         }
 
-                        _hostCashOutProvider.CashOutDenied();
+                        _aftHostCashOutProvider.CashOutDenied();
                     }
                 }
                 else
@@ -569,7 +573,7 @@
         {
             Logger.DebugFormat("Setting Aft Out Enabled state to: {0}", isEnabled);
             if (!isEnabled &&
-                !_hostCashOutProvider.CanCashOut &&
+                !_aftHostCashOutProvider.CanCashOut &&
                 (AftLockHandler.AftLockTransferConditions & AftTransferConditions.TransferFromGamingMachineOk) != AftTransferConditions.None)
             {
                 TerminateLock();
@@ -633,58 +637,6 @@
             Logger.Debug("End of AftOffCommitted()!");
         }
 
-        private void UpdateAuthorizedHostCashoutAmount(WatTransaction transaction)
-        {
-            if (AllowPartialTransfer)
-            {
-                var transferLimit = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures())
-                    .TransferLimit.CentsToMillicents();
-                transaction.AuthorizedCashableAmount = Math.Min(
-                    Math.Min(transaction.CashableAmount, transferLimit),
-                    ((long)CurrentTransfer.CashableAmount).CentsToMillicents());
-                transferLimit -= transaction.AuthorizedCashableAmount;
-                transaction.AuthorizedPromoAmount = Math.Min(
-                    Math.Min(transaction.PromoAmount, transferLimit),
-                    ((long)CurrentTransfer.NonRestrictedAmount).CentsToMillicents());
-                transferLimit -= transaction.AuthorizedPromoAmount;
-                transaction.AuthorizedNonCashAmount = Math.Min(
-                    Math.Min(transaction.NonCashAmount, transferLimit),
-                    ((long)CurrentTransfer.RestrictedAmount).CentsToMillicents());
-            }
-            else
-            {
-                transaction.AuthorizedCashableAmount = ((long)CurrentTransfer.CashableAmount).CentsToMillicents();
-                transaction.AuthorizedPromoAmount = ((long)CurrentTransfer.NonRestrictedAmount).CentsToMillicents();
-                transaction.AuthorizedNonCashAmount = ((long)CurrentTransfer.RestrictedAmount).CentsToMillicents();
-            }
-        }
-
-        private void UpdateAuthorizedTransactionAmount(WatTransaction transaction)
-        {
-            if (transaction.AllowReducedAmounts)
-            {
-                var transferLimit = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures())
-                    .TransferLimit.CentsToMillicents();
-                transaction.AuthorizedCashableAmount = Math.Min(
-                    transaction.CashableAmount,
-                    Math.Min(_bank.QueryBalance(AccountType.Cashable), transferLimit));
-                transferLimit -= transaction.AuthorizedCashableAmount;
-                transaction.AuthorizedPromoAmount = Math.Min(
-                    transaction.PromoAmount,
-                    Math.Min(_bank.QueryBalance(AccountType.Promo), transferLimit));
-                transferLimit -= transaction.AuthorizedPromoAmount;
-                transaction.AuthorizedNonCashAmount = Math.Min(
-                    transaction.NonCashAmount,
-                    Math.Min(_bank.QueryBalance(AccountType.NonCash), transferLimit));
-            }
-            else
-            {
-                transaction.AuthorizedCashableAmount = transaction.CashableAmount;
-                transaction.AuthorizedPromoAmount = transaction.PromoAmount;
-                transaction.AuthorizedNonCashAmount = transaction.NonCashAmount;
-            }
-        }
-
         private void FinishTransferStatus(WatTransaction transaction)
         {
             if (transaction.HostException != 0 &&
@@ -734,7 +686,7 @@
                 ImmediateSystemDisable)
             {
                 ReleaseTransactionId();
-                
+
                 Logger.Debug("Cannot perform AftOff request.");
                 return false;
             }

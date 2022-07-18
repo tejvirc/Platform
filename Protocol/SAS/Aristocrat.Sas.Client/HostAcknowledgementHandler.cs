@@ -12,5 +12,8 @@
 
         /// <inheritdoc />
         public Action ImpliedNackHandler { get; set; }
+
+        /// <inheritdoc />
+        public Action IntermediateNackHandler { get; set; }
     }
 }

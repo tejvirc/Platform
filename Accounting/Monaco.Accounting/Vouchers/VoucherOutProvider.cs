@@ -365,12 +365,6 @@
         {
             return new List<IMeter>()
             {
-                _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoAmount),
-                _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoCount),
-
-                _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount),
-                _meters.GetMeter(AccountingMeters.VoucherOutCashableCount),
-
                 _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount),
                 _meters.GetMeter(AccountingMeters.VoucherOutCashableCount),
 

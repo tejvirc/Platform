@@ -62,7 +62,7 @@ public partial class SASDefaultConfigurationSASHostPage {
     
     private SASDefaultConfigurationSASHostPageAddressConfigurationOnceOnly addressConfigurationOnceOnlyField;
     
-    private SASDefaultConfigurationSASHostPageAft aftField;
+    private SASDefaultConfigurationSASHostPageFundTransferHost fundTransferHostField;
     
     private SASDefaultConfigurationSASHostPageValidation validationField;
     
@@ -151,12 +151,12 @@ public partial class SASDefaultConfigurationSASHostPage {
     }
     
     /// <remarks/>
-    public SASDefaultConfigurationSASHostPageAft Aft {
+    public SASDefaultConfigurationSASHostPageFundTransferHost FundTransferHost {
         get {
-            return this.aftField;
+            return this.fundTransferHostField;
         }
         set {
-            this.aftField = value;
+            this.fundTransferHostField = value;
         }
     }
     
@@ -448,11 +448,11 @@ public partial class SASDefaultConfigurationSASHostPageAddressConfigurationOnceO
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-public partial class SASDefaultConfigurationSASHostPageAft {
+public partial class SASDefaultConfigurationSASHostPageFundTransferHost {
     
     private HostId hostIdField;
     
-    public SASDefaultConfigurationSASHostPageAft() {
+    public SASDefaultConfigurationSASHostPageFundTransferHost() {
         this.hostIdField = HostId.Host1;
     }
     

@@ -31,10 +31,18 @@
         public override void Consume(SystemEnabledEvent theEvent)
         {
             _systemEventHandler.OnSystemEnabled();
-            _aftOffTransferProvider.AftState &= ~AftDisableConditions.SystemDisabled;
-            _aftOnTransferProvider.AftState &= ~AftDisableConditions.SystemDisabled;
-            _aftOffTransferProvider.OnStateChanged();
-            _aftOnTransferProvider.OnStateChanged();
+            if(_aftOffTransferProvider!=null)
+            {
+                _aftOffTransferProvider.AftState &= ~AftDisableConditions.SystemDisabled;
+            }
+
+            if (_aftOnTransferProvider != null)
+            {
+                _aftOnTransferProvider.AftState &= ~AftDisableConditions.SystemDisabled;
+            }
+
+            _aftOffTransferProvider?.OnStateChanged();
+            _aftOnTransferProvider?.OnStateChanged();
         }
     }
 }

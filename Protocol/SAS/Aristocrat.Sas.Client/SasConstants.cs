@@ -130,8 +130,22 @@
         public static Guid AftLockHandlerGuid => new Guid("{C79F3E67-22B2-4ac9-80FE-F7D9E6C711A4}");
 
         /// <summary>
+        ///     Gets the EftTransactionLockUpGuid Key.
+        /// </summary>
+        public static Guid EftTransactionLockUpGuid => new Guid("639C6067-4427-4959-86EA-4E22726A9183");
+
+        /// <summary>
         ///     The barcode length on the ticket when using SAS None Validation type.
         /// </summary>
         public const int SasNoneValidationTicketBarcodeLength = 8;
+
+        /// <summary>
+        ///     Acknowledgement of Eft transaction LP are stored in 4th byte, index of 3.
+        /// </summary>
+        public const int EftAckByteIndex = 3;
+
+        public const int EftHistoryLogsSize = 5;
+        public const int EftBytesSizeOfSingleHistoryLog = 9;
+        public const byte EftDefaultByteValue = 0x00;
     }
 }

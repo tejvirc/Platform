@@ -96,7 +96,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="4"
-                           Text="{Binding PortAssignmentSetting.AftPort}" />
+                           Text="{Binding PortAssignmentSetting.FundTransferPort}" />
 
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -182,7 +182,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="14"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftTransferLimitLabel}}" />
+                           Text="{lex:Loc {x:Static loc:ResourceKeys.TransferLimitLabel}}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="14"

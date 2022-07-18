@@ -41,8 +41,8 @@
         private readonly Mock<IBank> _bank = new Mock<IBank>(MockBehavior.Strict);
         private readonly Mock<IAftLockHandler> _aftLockHandler = new Mock<IAftLockHandler>(MockBehavior.Default);
         private readonly Mock<ISasBonusCallback> _bonus = new Mock<ISasBonusCallback>(MockBehavior.Default);
-        private readonly Mock<IHostCashOutProvider> _cashout = new Mock<IHostCashOutProvider>(MockBehavior.Default);
-        private readonly Mock<IHostCashOutProvider> _hostCashoutProvider = new Mock<IHostCashOutProvider>(MockBehavior.Default);
+        private readonly Mock<IAftHostCashOutProvider> _cashout = new Mock<IAftHostCashOutProvider>(MockBehavior.Default);
+        private readonly Mock<IAftHostCashOutProvider> _hostCashoutProvider = new Mock<IAftHostCashOutProvider>(MockBehavior.Default);
         private readonly Mock<ITime> _time = new Mock<ITime>(MockBehavior.Strict);
         private readonly Mock<IFundsTransferDisable> _fundsTransferDisable = new Mock<IFundsTransferDisable>(MockBehavior.Default);
         private readonly Mock<IAutoPlayStatusProvider> _autoPlayStatusProvider = new Mock<IAutoPlayStatusProvider>(MockBehavior.Default);

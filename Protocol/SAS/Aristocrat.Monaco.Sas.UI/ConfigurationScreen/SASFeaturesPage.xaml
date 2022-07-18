@@ -31,7 +31,16 @@
                 <Setter Property="Margin" Value="0 5"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
-
+            <Style x:Key="AutoCollapseRow"  TargetType="RowDefinition">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsAft}" Value="True">
+                        <Setter Property="Height" Value="Auto"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsAft}" Value="False">
+                        <Setter Property="Height" Value="0"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -41,19 +50,21 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <lex:LocProxy Name="TransferInLabelProxy" Source="{Binding  TransferInLabelResourceKey}" />
+        <lex:LocProxy Name="FundTransferTitleLabelProxy" Source="{Binding  FundTransferTitleLabelResourceKey}" />
+        <lex:LocProxy Name="TransferOutLabelProxy" Source="{Binding  TransferOutLabelResourceKey}" />
 
-        <!-- Aft Section -->
         <GroupBox x:Name="AftGroupBox" 
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.AFTTitleLabel}}" 
+                  Header="{Binding ElementName=FundTransferTitleLabelProxy, Path=Result}" 
                   IsEnabled="{Binding InputEnabled}"
-                  Visibility="{Binding SasProtocolConfiguration.IsFundTransferHandled, Converter={StaticResource BoolToVisible}}">
+                  Visibility="{Binding IsFundTransferSettingsVisible, Converter={StaticResource BoolToVisible}}">
             <Grid x:Name="AftGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Style="{StaticResource AutoCollapseRow}"/>
+                    <RowDefinition Style="{StaticResource AutoCollapseRow}"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -61,29 +72,29 @@
                     <ColumnDefinition Width="*" MinWidth="150"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Aft In Section -->
-                <Label x:Name="AftInLabel" 
+                <!-- Aft/Eft In Section -->
+                <Label x:Name="TransferInLabel" 
                        Grid.Row="0" 
                        Grid.Column="0" 
                        Margin="0 0 0 5"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftInLabel}}" />
+                       Content="{Binding ElementName=TransferInLabelProxy, Path=Result}" />
                 <CheckBox x:Name="AftInCheckBox" 
-                          Grid.Row="0" 
-                          Grid.Column="1" 
-                          Margin="0 0 0 5"
-                          IsEnabled="{Binding IsAftSettingsConfigurable, Mode=OneWay}"
-                          IsChecked="{Binding IsAftInEnabled, Mode=TwoWay}" />
-
-                <!-- Aft Out Section -->
+                  Grid.Row="0" 
+                  Grid.Column="1" 
+                  Margin="0 0 0 5"
+                  IsEnabled="{Binding IsFundTransferSettingsConfigurable, Mode=OneWay}"
+                  IsChecked="{Binding IsTransferInEnabled, Mode=TwoWay}" />
+                
+                <!-- Aft/Eft Out Section -->
                 <Label x:Name="AftOutLabel" 
                        Grid.Row="1" 
                        Grid.Column="0" 
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftOutLabel}}" />
+                       Content="{Binding ElementName=TransferOutLabelProxy, Path=Result}" />
                 <CheckBox x:Name="AftOutCheckBox" 
                           Grid.Row="1" 
                           Grid.Column="1"
-                          IsEnabled="{Binding IsAftSettingsConfigurable, Mode=OneWay}"
-                          IsChecked="{Binding IsAftOutEnabled, Mode=TwoWay}" />
+                          IsEnabled="{Binding IsFundTransferSettingsConfigurable, Mode=OneWay}"
+                          IsChecked="{Binding IsTransferOutEnabled, Mode=TwoWay}" />
 
                 <!-- Aft Partial Transfers Allowed Section -->
                 <Label x:Name="AftPartialTransfersAllowedLabel" 
@@ -93,17 +104,19 @@
                 <CheckBox x:Name="AftPartialTransfersAllowedCheckbox" 
                           Grid.Row="2" 
                           Grid.Column="1" 
-                          IsEnabled="{Binding AftPartialTransfersCheckboxEnabled, Mode=OneWay}"
-                          IsChecked="{Binding IsAftPartialTransfersEnabled, Mode=TwoWay}" />
+                          IsEnabled="{Binding PartialTransfersCheckboxEnabled, Mode=OneWay}"
+                          IsChecked="{Binding IsPartialTransfersEnabled, Mode=TwoWay}" />
 
                 <!-- Aft Bonusing Enabled Section -->
                 <Label x:Name="AftBonusingEnabledLabel" 
                        Grid.Row="3" 
                        Grid.Column="0" 
+                       Visibility="{Binding IsAft, Converter={StaticResource BoolToVisHiddenConverter}}"
                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}" />
                 <CheckBox x:Name="AftBonusingEnabledCheckBox" 
                           Grid.Row="3" 
-                          Grid.Column="1" 
+                          Grid.Column="1"
+                          Visibility="{Binding IsAft, Converter={StaticResource BoolToVisHiddenConverter}}"
                           IsEnabled="{Binding AftBonusTransferStatus, Mode=OneWay}"
                           IsChecked="{Binding IsAftBonusingEnabled, Mode=TwoWay}" />
 
@@ -111,11 +124,13 @@
                 <Label x:Name="AftWinAmountToHostTransfersEnabledLabel" 
                        Grid.Row="4" 
                        Grid.Column="0" 
+                       Visibility="{Binding IsAft, Converter={StaticResource BoolToVisHiddenConverter}}"
                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftWinAmountToHostTransfersEnabledLabel}}" />
                 <CheckBox x:Name="AftWinAmountToHostTransfersEnabledCheckBox" 
                           Grid.Row="4" 
                           Grid.Column="1" 
-                          IsEnabled="{Binding IsAftOutEnabled, Mode=OneWay}"
+                          Visibility="{Binding IsAft, Converter={StaticResource BoolToVisHiddenConverter}}"
+                          IsEnabled="{Binding IsTransferOutEnabled, Mode=OneWay}"
                           IsChecked="{Binding IsAftWinAmountToHostTransfersEnabled, Mode=TwoWay}" />
 
                 <!-- Aft Transfer Limit Section -->
@@ -123,7 +138,7 @@
                        Grid.Row="5" 
                        Grid.Column="0" 
                        Margin="0 5 0 0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftTransferLimitLabel}}" />
+                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.TransferLimitLabel}}" />
                 <StackPanel x:Name="AftTransferLimitStackPanel" 
                             Grid.Row="5" 
                             Grid.Column="1" 
@@ -142,8 +157,8 @@
                                   Grid.Row="0" 
                                   Grid.Column="0" 
                                   Width="46"
-                                  IsEnabled="{Binding AftTransferLimitCheckboxEnabled, Mode=OneWay}"
-                                  IsChecked="{Binding AftTransferLimitEnabled, Mode=TwoWay}" />
+                                  IsEnabled="{Binding TransferLimitCheckboxEnabled, Mode=OneWay}"
+                                  IsChecked="{Binding TransferLimitEnabled, Mode=TwoWay}" />
 
                         <controls:CurrencyTextBox x:Name="AftTransferLimitCurrencyTextBox" 
                                                   Grid.Row="0" 
@@ -153,23 +168,23 @@
                                                   IsReadOnly="False" 
                                                   PreventNegatives="True"
                                                   Number="{
-                                                    Binding AftTransferLimit, 
+                                                    Binding TransferLimit, 
                                                     Mode=TwoWay, 
                                                     UpdateSourceTrigger=PropertyChanged, 
                                                     ValidatesOnDataErrors=True, 
                                                     NotifyOnValidationError=True}"
                                                   Visibility="{
-                                                    Binding AftTransferLimitEnabled, 
+                                                    Binding TransferLimitEnabled, 
                                                     Converter={StaticResource BoolToVisHiddenConverter}, 
                                                     UpdateSourceTrigger=PropertyChanged}" />
-                        
+
                         <TextBlock x:Name="AftTransferLimitTextBlock" 
                                    Grid.Row="0" 
                                    Grid.Column="1" 
                                    Margin="20 14 0 0" 
                                    Text="{lex:BLoc Key={x:Static loc:ResourceKeys.NoLimit}}"
                                    Visibility="{
-                                    Binding AftTransferLimitEnabled, 
+                                    Binding TransferLimitEnabled, 
                                     Converter={StaticResource BoolToHiddenConverter}, 
                                     UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>

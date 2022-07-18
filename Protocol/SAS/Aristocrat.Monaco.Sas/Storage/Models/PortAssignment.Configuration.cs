@@ -17,7 +17,9 @@
 
             Property(x => x.IsDualHost)
                 .IsRequired();
-            Property(x => x.AftPort)
+            Property(x => x.FundTransferPort)
+                .IsRequired();
+            Property(x => x.FundTransferType)
                 .IsRequired();
             Property(x => x.GeneralControlPort)
                 .IsRequired();

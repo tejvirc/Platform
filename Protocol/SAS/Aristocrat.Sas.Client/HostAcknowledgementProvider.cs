@@ -19,9 +19,11 @@
             Synchronized
         }
 
-        private const int CompareLength = 2; // We only need to check up to the command byte in a long poll
+        private const int CommandCompareLength = 2; // We only need to check up to the command byte in a long poll
+        //EFT requirements are from section 8.EFT of the SAS v5.02 document  - https://confy.aristocrat.com/pages/viewpage.action?pageId=159599156
         private const int CompareLengthMultiDenom = 5;
         private const int FinalNackCount = 2; // We have a final NACK count of 2 as SAS will repeat the same message 3 times (2 NACKs)
+        private const int FinalNackCountEft = 8; // We have a final NACK count of 8 for EFT as SAS will repeat the same message 9 times
         private const int ImpliedAckTimeout = 30_000; // 30 second timeout per the SAS Specification
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -33,7 +35,7 @@
         private bool _pendingImpliedAck;
         private SyncState _syncState = SyncState.PendingAnotherAddress;
         private int _impliedNackCount;
-        private int _compareLength = CompareLength;
+        private int _compareLength = CommandCompareLength;
         private IReadOnlyCollection<byte> _lastMessage = new List<byte>();
 
         /// <summary>
@@ -107,22 +109,81 @@
                 //         Long              |  Any Long poll with a different command, global poll, any general poll, or
                 //                           |                    long poll to any other gaming machine address
                 // --------------------------------------------------------------------------------------------------------------
+                //      EFT Long Poll        |  Any Long poll with a different transaction number is considered an Implied ACK
+                //   *not included in doc    |   as an EFT message has two phases, an initial message with ACK 0 and a another
+                //                           |                          message following with ACK 1.
+                //                           |  The EFT Nack/Resend count is increased to 9 from the SAS default of 3 but only
+                //                           |                  applies to acknowledgment messages (ACK = 1)
+                // --------------------------------------------------------------------------------------------------------------
+
                 if (globalBroadcast || // Any global broadcast message is always an implied ACK
-                    !data.Take(_compareLength).SequenceEqual(_lastMessage.Take(_compareLength))) // Check the first data points to see if we have the same command
+                        !data.Take(_compareLength).SequenceEqual(_lastMessage.Take(_compareLength))) // Check the first data points to see if we have the same command
                 {
                     ImpliedAck();
                 }
-                else if (++_impliedNackCount >= FinalNackCount)
+                else
                 {
-                    // We are on the final NACK we don't need to process the message as SAS is telling us it failed
-                    // We don't need to process the message as SAS will ignore any response we send
-                    ImpliedNack();
-                    Logger.Warn("Final NACK has been received from SAS");
-                    return false;
+                    //If incoming message is an EFT command, check if Ack flag is same as last message
+                    //If Ack is changed, its not a INack scenario.
+                    if (CheckIfEftTransactionCommand(data))
+                    {
+                        // If it is not re-ack scenario, either its second phase message with ack==1 after first phase message
+                        // or it is an invalid ack scenario. In both cases, it should be handled by relevant LP handler.
+                        if (!IsReAckReceivedForEftCommands(data, _lastMessage))
+                        {
+
+                            //Reset the implied ack as the message should be handled by LP handler
+                            _impliedNackCount = 0;
+                            return true;
+                        }
+
+                        if (++_impliedNackCount >= FinalNackCountEft)
+                        {
+                            ImpliedNack();
+                            Logger.Warn("Final NACK has been received from SAS EFT Long Poll");
+                            return false;
+                        }
+                        else
+                        {
+                            //Reset the timer for EFT state controller by issuing Re-Ack
+                            IntermediateNackHandler?.Invoke();
+                        }
+                    }
+                    else if (++_impliedNackCount >= FinalNackCount)
+                    {
+                        // We are on the final NACK we don't need to process the message as SAS is telling us it failed
+                        // We don't need to process the message as SAS will ignore any response we send
+                        ImpliedNack();
+                        Logger.Warn("Final NACK has been received from SAS");
+                        return false;
+                    }
                 }
 
                 return true;
             }
+        }
+
+        /// <summary>
+        ///     Checks whether the received command is an EFT transaction command.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>True if it is an EFT transaction command.</returns>
+        private static bool CheckIfEftTransactionCommand(IReadOnlyCollection<byte> data)
+        {
+            if (data.Count < CommandCompareLength)
+            {
+                return false;
+            }
+
+            return ((LongPoll)data.ElementAt(SasConstants.SasCommandIndex)).IsEftTransactionLongPoll();
+        }
+
+        private static bool IsReAckReceivedForEftCommands(IReadOnlyCollection<byte> data, IReadOnlyCollection<byte> previousMessage)
+        {
+            var ackIndex = ((LongPoll)data.ElementAt(SasConstants.SasCommandIndex)) == LongPoll.EftSendLastCashOutCreditAmount
+                ? 2 : SasConstants.EftAckByteIndex;
+
+            return Convert.ToBoolean(data.ElementAt(ackIndex)) && data.ElementAt(ackIndex).Equals(previousMessage.ElementAt(ackIndex));
         }
 
         /// <inheritdoc />
@@ -133,6 +194,7 @@
                 // set the callbacks
                 ImpliedAckHandler = handlers?.ImpliedAckHandler;
                 ImpliedNackHandler = handlers?.ImpliedNackHandler;
+                IntermediateNackHandler = handlers?.IntermediateNackHandler;
 
                 // Set the message to use for the pending implied ACK
                 _lastMessage = data;
@@ -140,13 +202,16 @@
                     data.Count >= SasConstants.MinimumBytesForLongPoll &&
                     data.ElementAt(SasConstants.SasCommandIndex) == (byte)LongPoll.MultiDenominationPreamble
                         ? CompareLengthMultiDenom
-                        : CompareLength;
+                        : CommandCompareLength;
                 _pendingImpliedAck = true;
             }
         }
 
         /// <inheritdoc />
         public Action ImpliedNackHandler { get; set; }
+
+        /// <inheritdoc />
+        public Action IntermediateNackHandler { get; set; }
 
         /// <inheritdoc />
         public Action ImpliedAckHandler { get; set; }

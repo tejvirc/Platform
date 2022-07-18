@@ -313,27 +313,7 @@
                 return Task.FromResult(false);
             }
 
-            if (transaction.AllowReducedAmounts)
-            {
-                var transferLimit = PropertiesManager.GetValue(SasProperties.SasFeatureSettings, new SasFeatures())
-                    .TransferLimit.CentsToMillicents();
-                var currentBalance = _bank.QueryBalance();
-                var availableBalance = Math.Min(
-                    (currentBalance > _bank.Limit ? 0 : _bank.Limit - currentBalance),
-                    transferLimit);
-                transaction.AuthorizedNonCashAmount = Math.Min(transaction.NonCashAmount, availableBalance);
-                availableBalance -= transaction.AuthorizedNonCashAmount;
-                transaction.AuthorizedPromoAmount = Math.Min(transaction.PromoAmount, availableBalance);
-                availableBalance -= transaction.AuthorizedPromoAmount;
-                transaction.AuthorizedCashableAmount = Math.Min(transaction.CashableAmount, availableBalance);
-            }
-            else
-            {
-                transaction.AuthorizedCashableAmount = transaction.CashableAmount;
-                transaction.AuthorizedPromoAmount = transaction.PromoAmount;
-                transaction.AuthorizedNonCashAmount = transaction.NonCashAmount;
-            }
-
+            transaction.UpdateAuthorizedTransactionAmount(_bank, PropertiesManager);
             return Task.FromResult(true);
         }
 

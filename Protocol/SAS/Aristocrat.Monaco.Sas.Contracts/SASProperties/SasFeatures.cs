@@ -9,9 +9,19 @@
     public class SasFeatures : BaseEntity, ICloneable
     {
         /// <summary>
-        ///     Gets whether or not aft is allowed
+        ///     Gets or sets the fund transfer type which can be Aft or Eft.
         /// </summary>
-        public bool AftAllowed => TransferInAllowed || TransferOutAllowed || AftBonusAllowed || WinTransferAllowed;
+        public FundTransferType FundTransferType { get; set; }
+
+        /// <summary>
+        ///     Gets whether or not Eft is allowed
+        /// </summary>
+        public bool EftAllowed => FundTransferType == FundTransferType.Eft && (TransferInAllowed || TransferOutAllowed);
+
+        /// <summary>
+        ///     Gets whether or not Aft is allowed
+        /// </summary>
+        public bool AftAllowed => FundTransferType == FundTransferType.Aft && (TransferInAllowed || TransferOutAllowed || AftBonusAllowed || WinTransferAllowed);
 
         /// <summary>
         ///     Gets or sets a value indicating the type of handpay reporting supported by the gaming machine

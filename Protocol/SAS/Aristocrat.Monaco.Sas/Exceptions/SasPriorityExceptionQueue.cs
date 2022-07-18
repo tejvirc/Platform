@@ -116,6 +116,7 @@
 
             RegisterExceptionHandling(SasGroup.PerClientLoad, true);
             RegisterExceptionHandling(SasGroup.Aft, configuration.HandlesAft);
+            RegisterExceptionHandling(SasGroup.Eft, configuration.HandlesEft);
             RegisterExceptionHandling(SasGroup.Validation, configuration.HandlesValidation);
             RegisterExceptionHandling(SasGroup.GeneralControl, configuration.HandlesGeneralControl);
             RegisterExceptionHandling(SasGroup.LegacyBonus, configuration.HandlesLegacyBonusing);

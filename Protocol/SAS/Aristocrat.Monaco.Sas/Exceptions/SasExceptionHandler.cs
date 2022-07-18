@@ -44,6 +44,7 @@
                 { GeneralExceptionCode.CardHeldOrNotHeld, SasGroup.PerClientLoad },
                 { GeneralExceptionCode.CashBoxDoorWasClosed, SasGroup.PerClientLoad },
                 { GeneralExceptionCode.CashBoxDoorWasOpened, SasGroup.PerClientLoad },
+                { GeneralExceptionCode.PlayerInitiatedCashout, SasGroup.Eft },
                 { GeneralExceptionCode.CashBoxFullDetected, SasGroup.PerClientLoad },
                 { GeneralExceptionCode.CashBoxNearFullDetected, SasGroup.PerClientLoad },
                 { GeneralExceptionCode.CashBoxWasInstalled, SasGroup.PerClientLoad },

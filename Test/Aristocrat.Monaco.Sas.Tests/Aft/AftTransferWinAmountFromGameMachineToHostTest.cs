@@ -20,7 +20,7 @@
     {
         private AftTransferWinAmountFromGameMachineToHost _target;
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>();
-        private readonly Mock<IHostCashOutProvider> _hostCashOutProvider = new Mock<IHostCashOutProvider>();
+        private readonly Mock<IAftHostCashOutProvider> _hostCashOutProvider = new Mock<IAftHostCashOutProvider>();
         private readonly Mock<ITime> _time = new Mock<ITime>(MockBehavior.Strict);
         private readonly Mock<IAftTransferProvider> _aftProvider = new Mock<IAftTransferProvider>(MockBehavior.Default);
 
