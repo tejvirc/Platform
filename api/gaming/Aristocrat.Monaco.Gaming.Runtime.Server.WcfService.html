@@ -362,7 +362,7 @@ public class WcfService : IGameSession</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.BeginGameRoundResult(System.Collections.Generic.IList%7BSystem.UInt32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__Aristocrat_GDKRuntime_Contract_GameRoundDetails_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.BeginGameRoundResult(System.Collections.Generic.IList%7BSystem.UInt32%7D%2CAristocrat.GDKRuntime.Contract.GameRoundDetails)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L165" title="View Source"><i class="fa fa-code"></i></a>
@@ -370,15 +370,15 @@ public class WcfService : IGameSession</code></pre>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.BeginGameRoundResult*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.BeginGameRoundResult(System.Collections.Generic.IList{System.UInt32})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__" class="expander" data-toggle="collapse">BeginGameRoundResult(IList&lt;UInt32&gt;)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__Aristocrat_GDKRuntime_Contract_GameRoundDetails_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.BeginGameRoundResult(System.Collections.Generic.IList{System.UInt32},Aristocrat.GDKRuntime.Contract.GameRoundDetails)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__Aristocrat_GDKRuntime_Contract_GameRoundDetails_" class="expander" data-toggle="collapse">BeginGameRoundResult(IList&lt;UInt32&gt;, GameRoundDetails)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_BeginGameRoundResult_System_Collections_Generic_IList_System_UInt32__Aristocrat_GDKRuntime_Contract_GameRoundDetails_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void BeginGameRoundResult(IList&lt;uint&gt; pendingJackpotTriggers)</code></pre>
+    <pre><code class="lang-csharp hljs">public void BeginGameRoundResult(IList&lt;uint&gt; pendingJackpotTriggers, GameRoundDetails gameRoundDetails)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -387,6 +387,13 @@ public class WcfService : IGameSession</code></pre>
       <td>
         <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a>&gt;</span>
         <span class="parametername">pendingJackpotTriggers</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.GDKRuntime.Contract.GameRoundDetails</span></span>
+        <span class="parametername">gameRoundDetails</span>
         <p>
       </td>
     </tr>
@@ -399,7 +406,7 @@ public class WcfService : IGameSession</code></pre>
   
   
   <h5 class="implements">Implements</h5>
-      <div><span class="xref">Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundResult(System.Collections.Generic.IList&lt;System.UInt32&gt;)</span></div>
+      <div><span class="xref">Aristocrat.GDKRuntime.Contract.IGameSession.BeginGameRoundResult(System.Collections.Generic.IList&lt;System.UInt32&gt;, Aristocrat.GDKRuntime.Contract.GameRoundDetails)</span></div>
   
   
   
@@ -411,7 +418,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_ButtonDeckImageChanged.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.ButtonDeckImageChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L254" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L258" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_ButtonDeckImageChanged_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.ButtonDeckImageChanged*"></a>
@@ -447,7 +454,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_ClaimJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.ClaimJackpot(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String%2CSystem.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L484" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L488" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_ClaimJackpot_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.ClaimJackpot*"></a>
@@ -519,7 +526,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_ConnectJackpotPool_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.ConnectJackpotPool(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L405" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L409" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_ConnectJackpotPool_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.ConnectJackpotPool*"></a>
@@ -574,7 +581,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_EndGameRound_System_UInt64_System_UInt64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.EndGameRound(System.UInt64%2CSystem.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L209" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L213" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_EndGameRound_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.EndGameRound*"></a>
@@ -627,7 +634,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GameRoundEvent_Aristocrat_GDKRuntime_Contract_GameRoundEventType_Aristocrat_GDKRuntime_Contract_GameRoundEventStage_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_Collections_Generic_IList_System_String__System_UInt64_System_UInt64_System_UInt64_System_Byte___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GameRoundEvent(Aristocrat.GDKRuntime.Contract.GameRoundEventType%2CAristocrat.GDKRuntime.Contract.GameRoundEventStage%2CAristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.Collections.Generic.IList%7BSystem.String%7D%2CSystem.UInt64%2CSystem.UInt64%2CSystem.UInt64%2CSystem.Byte%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L180" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L184" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GameRoundEvent_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GameRoundEvent*"></a>
@@ -722,7 +729,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetConnectedReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetConnectedReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L661" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L673" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetConnectedReels_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetConnectedReels*"></a>
@@ -767,7 +774,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetDisplaysToBeCaptured_System_Int32___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetDisplaysToBeCaptured(System.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L260" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L264" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetDisplaysToBeCaptured_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetDisplaysToBeCaptured*"></a>
@@ -813,7 +820,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetJackpotValues(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L418" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L422" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetJackpotValues_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetJackpotValues*"></a>
@@ -875,7 +882,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetLocalStorage.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetLocalStorage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L561" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L573" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetLocalStorage_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetLocalStorage*"></a>
@@ -920,7 +927,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetMeters.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetMeters%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L266" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L270" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetMeters_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetMeters*"></a>
@@ -965,7 +972,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetRandomNumberU32_System_UInt32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetRandomNumberU32(System.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L233" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L237" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetRandomNumberU32_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetRandomNumberU32*"></a>
@@ -1020,7 +1027,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetRandomNumberU64_System_UInt64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetRandomNumberU64(System.UInt64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L222" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L226" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetRandomNumberU64_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetRandomNumberU64*"></a>
@@ -1075,7 +1082,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetReelsState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetReelsState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L644" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L656" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_GetReelsState_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.GetReelsState*"></a>
@@ -1120,7 +1127,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_IncrementJackpotValues_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_PoolValue__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.IncrementJackpotValues(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String%2CSystem.Collections.Generic.IDictionary%7BSystem.UInt32%2CAristocrat.GDKRuntime.Contract.PoolValue%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L433" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L437" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_IncrementJackpotValues_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.IncrementJackpotValues*"></a>
@@ -1252,7 +1259,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_NudgeReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelNudgeData__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.NudgeReels(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.ReelNudgeData%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L620" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L632" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_NudgeReels_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.NudgeReels*"></a>
@@ -1307,7 +1314,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnButtonStatesChanged_System_Collections_Generic_IDictionary_System_UInt32_Aristocrat_GDKRuntime_Contract_SystemButtonState__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnButtonStatesChanged(System.Collections.Generic.IDictionary%7BSystem.UInt32%2CAristocrat.GDKRuntime.Contract.SystemButtonState%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L391" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L395" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnButtonStatesChanged_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnButtonStatesChanged*"></a>
@@ -1353,7 +1360,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnGameFatalError_Aristocrat_GDKRuntime_Contract_ErrorCode_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnGameFatalError(Aristocrat.GDKRuntime.Contract.ErrorCode%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L575" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L587" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnGameFatalError_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnGameFatalError*"></a>
@@ -1452,7 +1459,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnRuntimeEvent_Aristocrat_GDKRuntime_Contract_RuntimeEvent_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnRuntimeEvent(Aristocrat.GDKRuntime.Contract.RuntimeEvent)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L300" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L304" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnRuntimeEvent_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnRuntimeEvent*"></a>
@@ -1551,7 +1558,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnRuntimeRequest_Aristocrat_GDKRuntime_Contract_RuntimeRequestType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnRuntimeRequest(Aristocrat.GDKRuntime.Contract.RuntimeRequestType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L583" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L595" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_OnRuntimeRequest_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.OnRuntimeRequest*"></a>
@@ -1659,7 +1666,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_RegisterPresentation_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_PresentationOverrideTypes__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.RegisterPresentation(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.PresentationOverrideTypes%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L696" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L708" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_RegisterPresentation_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.RegisterPresentation*"></a>
@@ -1714,7 +1721,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SelectDenomination_System_UInt32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SelectDenomination(System.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L524" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L528" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SelectDenomination_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SelectDenomination*"></a>
@@ -1760,7 +1767,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetBonusKey_System_String_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetBonusKey(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L516" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L520" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetBonusKey_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetBonusKey*"></a>
@@ -1813,7 +1820,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetJackpotLevelWagers_System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetJackpotLevelWagers(System.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L505" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L509" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetJackpotLevelWagers_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetJackpotLevelWagers*"></a>
@@ -1859,7 +1866,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetLocalStorage_System_Collections_Generic_IDictionary_Aristocrat_GDKRuntime_Contract_StorageLocation_System_Collections_Generic_IDictionary_System_String_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetLocalStorage(System.Collections.Generic.IDictionary%7BAristocrat.GDKRuntime.Contract.StorageLocation%2CSystem.Collections.Generic.IDictionary%7BSystem.String%2CSystem.String%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L545" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L557" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetLocalStorage_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetLocalStorage*"></a>
@@ -1905,7 +1912,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetMeters_System_Collections_Generic_IDictionary_System_String_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetMeters(System.Collections.Generic.IDictionary%7BSystem.String%2CSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L286" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L290" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SetMeters_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SetMeters*"></a>
@@ -1951,7 +1958,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_Shuffle_System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.Shuffle(System.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L248" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_Shuffle_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.Shuffle*"></a>
@@ -2006,7 +2013,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SpinReels_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpinData__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SpinReels(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.ReelSpinData%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L596" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L608" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_SpinReels_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.SpinReels*"></a>
@@ -2061,7 +2068,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_TriggerJackpot_Aristocrat_GDKRuntime_Contract_GameRoundPlayMode_System_String_System_Collections_Generic_IList_System_UInt32__System_Collections_Generic_IList_System_UInt64__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.TriggerJackpot(Aristocrat.GDKRuntime.Contract.GameRoundPlayMode%2CSystem.String%2CSystem.Collections.Generic.IList%7BSystem.UInt32%7D%2CSystem.Collections.Generic.IList%7BSystem.UInt64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L454" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L458" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_TriggerJackpot_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.TriggerJackpot*"></a>
@@ -2140,7 +2147,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_UpdateBetOptions_Aristocrat_GDKRuntime_Contract_BetOptionData_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.UpdateBetOptions(Aristocrat.GDKRuntime.Contract.BetOptionData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L534" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L538" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_UpdateBetOptions_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.UpdateBetOptions*"></a>
@@ -2186,7 +2193,7 @@ public class WcfService : IGameSession</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_UpdateReelsSpeed_System_Collections_Generic_IList_Aristocrat_GDKRuntime_Contract_ReelSpeedData__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.UpdateReelsSpeed(System.Collections.Generic.IList%7BAristocrat.GDKRuntime.Contract.ReelSpeedData%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L674" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/Server/WcfService.cs/#L686" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_Server_WcfService_UpdateReelsSpeed_" data-uid="Aristocrat.Monaco.Gaming.Runtime.Server.WcfService.UpdateReelsSpeed*"></a>
