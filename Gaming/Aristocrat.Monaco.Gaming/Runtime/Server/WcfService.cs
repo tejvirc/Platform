@@ -28,7 +28,7 @@
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant, IncludeExceptionDetailInFaults = true)]
     public class WcfService : IGameSession
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IGameDiagnostics _gameDiagnostics;
@@ -162,18 +162,22 @@
             return true;
         }
 
-        public void BeginGameRoundResult(IList<uint> pendingJackpotTriggers)
+        public void BeginGameRoundResult(IList<uint> pendingJackpotTriggers, GameRoundDetails gameRoundDetails)
         {
-            Logger.Debug($"BeginGameRoundResult({pendingJackpotTriggers.Count})");
+            Logger.Debug(
+                $"BeginGameRoundResult({pendingJackpotTriggers.Count}, {gameRoundDetails?.PresentationIndex})");
 
             if (pendingJackpotTriggers.IsNullOrEmpty())
             {
-                return;
+                var command = new PendingTrigger(pendingJackpotTriggers.Select(l => (int)l).ToList());
+                _handlerFactory.Create<PendingTrigger>().Handle(command);
             }
 
-            var command = new PendingTrigger(pendingJackpotTriggers.Select(l => (int)l).ToList());
-
-            _handlerFactory.Create<PendingTrigger>().Handle(command);
+            if (gameRoundDetails is not null)
+            {
+                _handlerFactory.Create<BeginGameRoundResults>()
+                    .Handle(new BeginGameRoundResults((long)gameRoundDetails.PresentationIndex));
+            }
         }
 
         /// <inheritdoc />
@@ -533,9 +537,17 @@
 
         public void UpdateBetOptions(BetOptionData betOptions)
         {
-            Logger.Debug($"Update Bet Line options : {betOptions}");
+            Logger.Debug(
+                $"Update Bet Line options: [Ante: {betOptions.Ante}, Wager: {betOptions.Wager}, BetMultiplier: {betOptions.BetMultiplier}, LineCost: {betOptions.LineCost}, NumberLines: {betOptions.NumberLines}, StakeAmount: {betOptions.StakeAmount}]");
 
-            var bet = new UpdateBetOptions((long)betOptions.Wager, (int)betOptions.BetMultiplier, (int)betOptions.LineCost, (int)betOptions.NumberLines, (int)betOptions.Ante, (int)betOptions.BetLinePresetId);
+            var bet = new UpdateBetOptions(
+                (long)betOptions.Wager,
+                (long)betOptions.StakeAmount,
+                (int)betOptions.BetMultiplier,
+                (int)betOptions.LineCost,
+                (int)betOptions.NumberLines,
+                (int)betOptions.Ante,
+                (int)betOptions.BetLinePresetId);
 
             _handlerFactory.Create<UpdateBetOptions>()
                 .Handle(bet);

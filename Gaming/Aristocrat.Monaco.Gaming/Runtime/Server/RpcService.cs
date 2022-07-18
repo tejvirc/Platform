@@ -21,7 +21,7 @@
 
     public class RpcService : GameService.GameServiceBase
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Task<Empty> EmptyResult = Task.FromResult(new Empty());
 
         private readonly IEventBus _bus;
@@ -308,10 +308,15 @@
                 if (result.Is(PendingJackpotTriggers.Descriptor))
                 {
                     var pending = result.Unpack<PendingJackpotTriggers>();
-
                     var command = new PendingTrigger(pending.Levels.Select(l => (int)l).ToList());
-
                     _handlerFactory.Create<PendingTrigger>().Handle(command);
+                }
+
+                if (result.Is(GameRoundDetails.Descriptor))
+                {
+                    var details = result.Unpack<GameRoundDetails>();
+                    _handlerFactory.Create<BeginGameRoundResults>()
+                        .Handle(new BeginGameRoundResults((long)details.PresentationIndex));
                 }
             }
 
@@ -642,12 +647,12 @@
 
             var betOptions = new UpdateBetOptions(
                 (long)request.Wager,
+                (long)request.Stake,
                 (int)request.BetMultiplier,
                 (int)request.LineCost,
                 (int)request.NumberLines,
                 (int)request.Ante,
-                (int)request.BetLinePresetId
-            );
+                (int)request.BetLinePresetId);
 
             _handlerFactory.Create<UpdateBetOptions>().Handle(betOptions);
 

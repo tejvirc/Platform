@@ -4,6 +4,7 @@
     {
         public UpdateBetOptions(
             long wager,
+            long stake,
             int betMultiplier,
             int lineCost,
             int numberLines,
@@ -11,6 +12,7 @@
             int betLinePresetId)
         {
             Wager = wager;
+            Stake = stake;
             BetMultiplier = betMultiplier;
             LineCost = lineCost;
             NumberLines = numberLines;
@@ -19,6 +21,8 @@
         }
 
         public long Wager { get; }
+
+        public long Stake { get; }
 
         public int BetMultiplier { get; }
 

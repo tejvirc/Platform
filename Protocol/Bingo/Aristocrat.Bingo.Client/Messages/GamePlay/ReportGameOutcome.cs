@@ -22,6 +22,8 @@
 
         public int FacadeKey { get; set; }
 
+        public long PresentationIndex { get; set; }
+
         public int GameEndWinEligibility { get; set; }
 
         public uint GameTitleId { get; set; }

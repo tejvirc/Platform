@@ -152,6 +152,10 @@ message PendingJackpotTriggers {
 	repeated uint32 levels = 1;
 }
 
+message GameRoundDetails {
+	uint64 presentationIndex = 1;
+}
+
 message GameRoundEventRequest {
 	GameRoundEventType type = 1;
 	GameRoundEventStage stage = 2;
@@ -307,4 +311,5 @@ message UpdateBetOptionsRequest {
 	uint32 numberLines = 4;
 	uint32 ante = 5;
 	uint32 betLinePresetId = 6;
+	uint64 stake = 7;
 }

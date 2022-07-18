@@ -32,7 +32,7 @@
     public class CentralHandler : ICentralHandler, IBingoGameOutcomeHandler, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0);
+        private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
 
         private static readonly IReadOnlyCollection<Guid> AllowedGameDisables = new[]
         {

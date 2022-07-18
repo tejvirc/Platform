@@ -54,7 +54,8 @@
                 ProgressiveLevels = description.ProgressiveLevels,
                 CardsPlayed = description.Cards.Select(ToCardPlayed),
                 BallCall = description.BallCallNumbers.Select(x => x.Number),
-                WinResults = description.Patterns.Where(KeepPattern).Select(ToWinResult)
+                WinResults = description.Patterns.Where(KeepPattern).Select(ToWinResult),
+                PresentationIndex = log.GameRoundDetails?.PresentationIndex ?? 0
             };
 
             bool KeepPattern(BingoPattern x) => description.GameEndWinClaimAccepted || !x.IsGameEndWin;

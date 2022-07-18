@@ -36,7 +36,8 @@
                 Status = true,
                 PaidAmount = message.PaidAmount,
                 TotalWinAmount = message.TotalWin,
-                ProgressiveLevels = string.Join(",", message.ProgressiveLevels)
+                ProgressiveLevels = string.Join(",", message.ProgressiveLevels),
+                PresentationNumber = message.PresentationIndex
             };
         }
 

@@ -15,17 +15,20 @@
         /// <param name="betPerLine">Bet per line</param>
         /// <param name="numberLines">Number of lines bet</param>
         /// <param name="ante">Ante</param>
+        /// <param name="stake">Stake</param>
         [JsonConstructor]
         public BetDetails(
             int betLinePresetId,
             int betPerLine,
             int numberLines,
-            int ante)
+            int ante,
+            long stake)
         {
             BetLinePresetId = betLinePresetId;
             BetPerLine = betPerLine;
             NumberLines = numberLines;
             Ante = ante;
+            Stake = stake;
         }
 
         /// <inheritdoc />
@@ -41,6 +44,9 @@
         public int Ante { get; }
 
         /// <inheritdoc />
+        public long Stake { get; }
+
+        /// <inheritdoc />
         public bool Equals(BetDetails other)
         {
             if (ReferenceEquals(null, other))
@@ -54,7 +60,7 @@
             }
 
             return BetLinePresetId == other.BetLinePresetId && BetPerLine == other.BetPerLine &&
-                   NumberLines == other.NumberLines && Ante == other.Ante;
+                   NumberLines == other.NumberLines && Ante == other.Ante && Stake == other.Stake;
         }
 
         /// <summary>
@@ -104,6 +110,7 @@
                 hashCode = (hashCode * 397) ^ BetPerLine;
                 hashCode = (hashCode * 397) ^ NumberLines;
                 hashCode = (hashCode * 397) ^ Ante;
+                hashCode = (hashCode * 397) ^ Stake.GetHashCode();
                 return hashCode;
             }
         }
@@ -112,7 +119,7 @@
         public override string ToString()
         {
             return
-                $"{typeof(BetDetails)} [BetLinePresetId={BetLinePresetId}, BetPerLine={BetPerLine}, NumberLines={NumberLines} Ante={Ante}]";
+                $"{typeof(BetDetails)} [BetLinePresetId={BetLinePresetId}, BetPerLine={BetPerLine}, NumberLines={NumberLines}, Ante={Ante}, Stake={Stake}]";
         }
     }
 }
