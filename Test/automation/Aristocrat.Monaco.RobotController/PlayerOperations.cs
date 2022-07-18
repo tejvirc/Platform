@@ -58,8 +58,8 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _actionPlayerTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _actionPlayerTimer?.Dispose();
         }
 
         protected virtual void Dispose(bool disposing)

@@ -59,9 +59,9 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.ExitAuditMenu();
-            _loadAuditMenuTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _loadAuditMenuTimer?.Dispose();
+            _automator.ExitAuditMenu();
         }
 
         protected virtual void Dispose(bool disposing)

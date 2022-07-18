@@ -54,8 +54,8 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _actionTouchTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _actionTouchTimer?.Dispose();
         }
 
         protected virtual void Dispose(bool disposing)

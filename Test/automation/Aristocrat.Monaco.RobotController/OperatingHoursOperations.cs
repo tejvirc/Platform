@@ -60,8 +60,8 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _operatingHoursTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _operatingHoursTimer?.Dispose();
         }
 
         protected virtual void Dispose(bool disposing)

@@ -58,9 +58,9 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.ExitLockup();
-            _lockupTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _lockupTimer?.Dispose();
+            _automator.ExitLockup();
         }
 
         protected virtual void Dispose(bool disposing)

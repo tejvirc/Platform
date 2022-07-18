@@ -101,12 +101,12 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.EnableExitToLobby(true);
-            _automator.RequestGameExit();
+            _eventBus.UnsubscribeAll(this);
             _loadGameTimer?.Dispose();
             _RgTimer?.Dispose();
             _forceGameExitTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
+            _automator.EnableExitToLobby(true);
+            _automator.EnableCashOut(true);
         }
 
         protected virtual void Dispose(bool disposing)

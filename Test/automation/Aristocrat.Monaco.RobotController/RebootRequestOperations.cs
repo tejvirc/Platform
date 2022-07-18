@@ -63,9 +63,9 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
+            _eventBus.UnsubscribeAll(this);
             _rebootTimer?.Dispose();
             _softRebootTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
         }
 
         protected virtual void Dispose(bool disposing)
