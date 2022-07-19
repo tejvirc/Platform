@@ -183,7 +183,6 @@
                     disableManager.Enable(BaseConstants.ProtocolDisabledKey);
                     _shutdownEvent.WaitOne();
                     _sasHost.StopEventSystem();
-                    _startupWaiter?.Set();
                 }
 
                 ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
@@ -192,6 +191,7 @@
 
             // Set Sas property for Sas communications offline
             Container?.GetInstance<IPropertiesManager>().SetProperty(SasProperties.SasCommunicationsOfflineKey, true);
+            _startupWaiter?.Set();
 
             Logger.Debug("End of OnRun().");
         }
