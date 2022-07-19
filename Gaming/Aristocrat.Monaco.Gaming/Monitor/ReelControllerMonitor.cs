@@ -20,6 +20,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Kernel;
     using Localization.Properties;
     using log4net;
+    using Vgt.Client12.Application.OperatorMenu;
     using ConnectedEvent = Hardware.Contracts.Reel.ConnectedEvent;
     using DisabledEvent = Hardware.Contracts.Reel.DisabledEvent;
     using DisconnectedEvent = Hardware.Contracts.Reel.DisconnectedEvent;
@@ -76,6 +77,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IGameProvider _gameProvider;
         private readonly IGameService _gameService;
         private readonly IEdgeLightingController _edgeLightingController;
+        private readonly IOperatorMenuLauncher _operatorMenuLauncher;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
 
         private IEdgeLightToken _disableToken;
@@ -89,7 +91,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             IGamePlayState gamePlayState,
             IGameProvider gameProvider,
             IEdgeLightingController edgeLightingController,
-            IGameService gameService)
+            IGameService gameService,
+            IOperatorMenuLauncher operatorMenuLauncher)
             : base(message, disable)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -99,6 +102,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
+            _operatorMenuLauncher = operatorMenuLauncher ?? throw new ArgumentNullException(nameof(operatorMenuLauncher));
             _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
             Initialize().FireAndForget();
         }
@@ -109,6 +113,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             get
             {
+                var inAuditMenu = _operatorMenuLauncher.IsShowing;
                 var playEnabled = _gamePlayState.Enabled;
 
                 // If in a game round we only want to review the immediate disables
@@ -118,9 +123,9 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                     : _disableManager.CurrentDisableKeys;
 
                 var isDisabled = disableKeys.Except(AllowedTiltingDisables).Any();
-                var shouldTilt = !playEnabled && isDisabled;
+                var shouldTilt = !inAuditMenu && !playEnabled && isDisabled;
 
-                Logger.Debug($"ReelsShouldTilt: {shouldTilt} --> playEnabled={playEnabled}, inGameRound={inGameRound}, isDisabled={isDisabled}");
+                Logger.Debug($"ReelsShouldTilt: {shouldTilt} --> playEnabled={playEnabled}, inGameRound={inGameRound}, isDisabled={isDisabled}, inAuditMenu={inAuditMenu}");
 
                 return shouldTilt;
             }
