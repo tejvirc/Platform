@@ -55,6 +55,8 @@
         {
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<InitializationCompletedEvent>(this, _ => _startupWaiter.Set());
+            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
+
             Logger.Debug("Runnable initialized!");
         }
 
@@ -137,8 +139,6 @@
                 _sasHost.StartEventSystem();
 
                 ServiceManager.GetInstance().GetService<IMeterManager>().CreateSnapshot();
-
-                Container.GetInstance<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
 
                 Container.GetInstance<IEventBus>().Subscribe<CreditLimitUpdatedEvent>(this,
                     _ =>
