@@ -28,7 +28,6 @@
         private Action<TransferOutStartedEvent> _transferOutStartedEventCallbackHandler = null;
         private Action<TransferOutCompletedEvent> _transferOutCompletedEventCallbackHandler = null;
         private Action<TransferOutFailedEvent> _transferOutFailedEventCallbackHandler = null;
-        private readonly static string BlockName = typeof(PlayerInitiatedCashoutProviderTests).ToString();
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -230,12 +229,14 @@
         }
 
         [TestMethod]
-        public void ShouldTriggerTransferOutCompletedEventSubscriberToReportException()
+        public void ShouldTriggerTransferOutCompletedEventSubscriberToReportExceptionIfAmountIsGreaterThanZero()
         {
             var persistentStorageTransactionMock = new Mock<IPersistentStorageTransaction>();
             var persistentStorageAccessorMock = new Mock<IPersistentStorageAccessor>();
             _persistentStorageManagerMock.Setup(p => p.GetBlock(It.IsAny<string>())).Returns(persistentStorageAccessorMock.Object);
             _persistentStorageManagerMock.Setup(p => p.BlockExists(It.IsAny<string>())).Returns(true);
+            ulong mockAmount = 5ul;
+            persistentStorageAccessorMock.SetupGet(t => t[BlockFieldName]).Returns(mockAmount);
 
             var playerCashoutProvider = new PlayerInitiatedCashoutProvider(
                 _persistentStorageManagerMock.Object,
@@ -251,6 +252,32 @@
             persistentStorageTransactionMock.Verify(t => t.Commit(), Times.Never);
 
             _sasExceptionHandlerMock.Verify(s => s.ReportException(It.IsAny<GenericExceptionBuilder>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void ShouldNotTriggerTransferOutCompletedEventSubscriberToReportExceptionIfAmountIsZero()
+        {
+            var persistentStorageTransactionMock = new Mock<IPersistentStorageTransaction>();
+            var persistentStorageAccessorMock = new Mock<IPersistentStorageAccessor>();
+            _persistentStorageManagerMock.Setup(p => p.GetBlock(It.IsAny<string>())).Returns(persistentStorageAccessorMock.Object);
+            _persistentStorageManagerMock.Setup(p => p.BlockExists(It.IsAny<string>())).Returns(true);
+            ulong mockAmount = 0ul;
+            persistentStorageAccessorMock.SetupGet(t => t[BlockFieldName]).Returns(mockAmount);
+
+            var playerCashoutProvider = new PlayerInitiatedCashoutProvider(
+                _persistentStorageManagerMock.Object,
+                _eventBusMock.Object,
+                _sasExceptionHandlerMock.Object);
+
+            Assert.IsNotNull(playerCashoutProvider);
+            _persistentStorageManagerMock.Verify(p => p.BlockExists(It.IsAny<string>()), Times.Once);
+            _persistentStorageManagerMock.Verify(p => p.CreateBlock(It.IsAny<PersistenceLevel>(), It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+
+            _transferOutCompletedEventCallbackHandler.Invoke(new TransferOutCompletedEvent(0, 0, 0, false, Guid.Empty));
+            _persistentStorageManagerMock.Verify(p => p.GetBlock(It.IsAny<string>()), Times.Once);
+            persistentStorageTransactionMock.Verify(t => t.Commit(), Times.Never);
+
+            _sasExceptionHandlerMock.Verify(s => s.ReportException(It.IsAny<GenericExceptionBuilder>()), Times.Never);
         }
 
         [TestMethod]
