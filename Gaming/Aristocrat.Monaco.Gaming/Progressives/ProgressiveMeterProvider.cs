@@ -181,8 +181,8 @@
                 }
             }
         }
-
-        private void UpdateLPCompositeMeters(object sender, LPCompositeMetersCanUpdateEventArgs eventArgs)
+        
+        private void UpdateLPCompositeMeters(object sender, EventArgs e)
         {
             var activeLinkedLevels = _levelProvider.GetProgressiveLevels().Where(
                 level => level.LevelType == ProgressiveLevelType.LP

@@ -75,7 +75,7 @@
         public event EventHandler<ProgressiveAddedEventArgs> ProgressiveAdded;
 
         /// <inheritdoc />
-        public event EventHandler<LPCompositeMetersCanUpdateEventArgs> LPCompositeMetersCanUpdate;
+        public event EventHandler LPCompositeMetersCanUpdate;
 
         /// <inheritdoc />
         public int ProgressiveCount => _deviceIdMap.Count;
@@ -94,7 +94,7 @@
 
         public void UpdateLPCompositeMeters()
         {
-            LPCompositeMetersCanUpdate?.Invoke(this, new LPCompositeMetersCanUpdateEventArgs());
+            LPCompositeMetersCanUpdate?.Invoke(this, EventArgs.Empty);
         }
 
         public void AddProgressives(IEnumerable<IViewableProgressiveLevel> progressives)

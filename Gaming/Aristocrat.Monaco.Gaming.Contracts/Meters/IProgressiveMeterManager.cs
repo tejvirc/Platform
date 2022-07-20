@@ -35,7 +35,7 @@
         /// <summary>
         ///     Registers a <see cref="LPCompositeMetersCanUpdate" /> event handler.
         /// </summary>
-        event EventHandler<LPCompositeMetersCanUpdateEventArgs> LPCompositeMetersCanUpdate;
+        event EventHandler LPCompositeMetersCanUpdate;
 
         /// <summary>
         ///     update Linked Progressive Win Occurrence Composite meters
