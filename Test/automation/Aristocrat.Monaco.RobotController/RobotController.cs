@@ -378,6 +378,12 @@
         {
             if (_idleDuration > Constants.IdleTimeout)
             {
+                //FreeGames can prevent changing the game states for up to 20+ minutes.
+                if (_stateChecker.IsPrimaryGameStarted)
+                {
+                    _idleDuration = 0;
+                    return;
+                }
                 _idleDuration = 0;
                 _logger.Info("Idle for too long. Disabling.", GetType().Name);
                 Enabled = false;
