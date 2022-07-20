@@ -89,34 +89,81 @@
     <table>
       <tr>
         <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.AggregatePerformanceCounterWrapper.html">AggregatePerformanceCounterWrapper</a></p>
+          <p><p>An implementation of IPerformanceCounterWrapper that adds together numerous underlying
+counters. This is created so we can give a single GPU usage value, and could later be
+used for other similar purposes.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.CounterAttribute.html">CounterAttribute</a></p>
+          <p><p>An attribute for the MetricType enum that specifies the performance counter, which
+distinguishes specific counters under a general type and instance name</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.CounterTypeAttribute.html">CounterTypeAttribute</a></p>
-          <p>
+          <p><p>An attribute for the MetricType enum that specifies the performance counter type,
+which specifies the general counter type, such as CPU usage or free memory</p>
+</p>
         </td>
       </tr>
       <tr>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.InstanceAttribute.html">InstanceAttribute</a></p>
-          <p>
+          <p><p>An attribute for the MetricType enum that specifies the performance counter instance,
+which usually indicates the process name being measured by the counter</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.LabelAttribute.html">LabelAttribute</a></p>
+          <p><p>An attribute for the MetricType enum that specifies the counter label, for display</p>
+</p>
         </td>
       </tr>
       <tr>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.MaxRangeAttribute.html">MaxRangeAttribute</a></p>
-          <p>
+          <p><p>An attribute for the MetricType enum that specifies the maximum counter range, for display</p>
+</p>
         </td>
       </tr>
       <tr>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounters.html">PerformanceCounters</a></p>
-          <p><p>The Class which contains the DateTime at which the counters were captured and their values
+          <p><p>The class which contains the DateTime at which the counters were captured and their values
 This class will be written to the log files, and read from when asked.</p>
 </p>
         </td>
       </tr>
       <tr>
         <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.PlatformMetric.html">PlatformMetric</a></p>
+          <p><p>Represents a performance counter value that is being monitored. This is a wrapper for
+a performance counter that adds the ability to check if a counter is currently valid
+and to manipulate the returned value based on the counter type, to standardize the
+range or units of the counter.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.SinglePerformanceCounterWrapper.html">SinglePerformanceCounterWrapper</a></p>
+          <p><p>An implementation of IPerformanceCounterWrapper that is simply a single counter.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.UnitAttribute.html">UnitAttribute</a></p>
-          <p>
+          <p><p>An attribute for the MetricType enum that specifies the counter units, for display</p>
+</p>
         </td>
       </tr>
     </table>
@@ -128,6 +175,14 @@ This class will be written to the log files, and read from when asked.</p>
           <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.IPerformanceCounterManager.html">IPerformanceCounterManager</a></p>
           <p><p>This defines the methods that are used to expose the performance counters
 that are captured for diagnostic purpose</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Monaco.Application.PerformanceCounter.IPerformanceCounterWrapper.html">IPerformanceCounterWrapper</a></p>
+          <p><p>An interface that behaves like a PerformanceCounter but may include extra calculations
+or functionality involved in generating a value.</p>
 </p>
         </td>
       </tr>

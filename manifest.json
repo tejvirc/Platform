@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "g0qgWNsWN8MWAkBVvL5GNZLf2qGFruXCbK4EVGbDFMY="
+          "hash": "1NPxHKE6unAThH8Z8AAjyJQyYCUqWJZICebMDoobpC8="
         }
       },
       "is_incremental": false,
@@ -9740,11 +9740,35 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.AggregatePerformanceCounterWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.AggregatePerformanceCounterWrapper.html",
+          "hash": "WDC+W3HW43N+vmtXiqsNsBXY4WgJ7GoU5nHJihxAVtQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.CounterAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.CounterAttribute.html",
+          "hash": "XUo4ZX94y9NVpuwwMZpPTZzK+4loPgTBrmTSd6xxoDs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.CounterTypeAttribute.yml",
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.CounterTypeAttribute.html",
-          "hash": "DpiCTIpQFLzbfmC1TK7KOLQTtcY5WKtT5tJZVIAUvUs="
+          "hash": "xe+/uaeMeAYrs2MpExdJ1timpbR83O6jVaw7ebYqlv4="
         }
       },
       "is_incremental": false,
@@ -9764,11 +9788,35 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.IPerformanceCounterWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.IPerformanceCounterWrapper.html",
+          "hash": "M2NXC+Z6tHqCdkinT1xeBVyn5cBes+Sl7Ch1c8Xr9TA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.InstanceAttribute.yml",
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.InstanceAttribute.html",
-          "hash": "PuC0qy9Xc0IheNlDX0O+o8A2vljQvBG90uvyx7andVY="
+          "hash": "BYrZ0+jNnC+OAGOseOzSpUPQAfjaGGVol8bQ8zpwbOM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.LabelAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.LabelAttribute.html",
+          "hash": "yfI94sRGMmF0ENlIFqF1Lg6dVqavVLPzHShZz/zAk9E="
         }
       },
       "is_incremental": false,
@@ -9780,7 +9828,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.MaxRangeAttribute.html",
-          "hash": "6B4NWvAR2mVinQTfEElGy9ATg/imgARf3bfS3AvJNSE="
+          "hash": "2ehzCo9MtjDS49kn9QnhlfgOJG6KKfpbjcZEgTbTSKM="
         }
       },
       "is_incremental": false,
@@ -9792,7 +9840,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.MetricType.html",
-          "hash": "Ugq/Ks3RLQa+nvzInDbpajOXdNZGVXapD011RAg1FFU="
+          "hash": "LGcXm+P60qgwe+rZEbC1a68cMWFuA5TcW7rkFPm08XU="
         }
       },
       "is_incremental": false,
@@ -9804,7 +9852,31 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounters.html",
-          "hash": "J2VzWeQp+XylTuYkl4V0QEnlVViNFuXrugdgVukqnN4="
+          "hash": "YpeTvU/JAkeH6ZNtrVrg0jxnXPlelcNDMcEvlgL+F4U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.PlatformMetric.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.PlatformMetric.html",
+          "hash": "ZpHqt61AL0poIyKukBDKLq0WTZR0daBNYftaRP7YXlI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.PerformanceCounter.SinglePerformanceCounterWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.SinglePerformanceCounterWrapper.html",
+          "hash": "4M8ZnETcdcD47bEhVJFEUEeFDjLfau0wkBiZU60u1sU="
         }
       },
       "is_incremental": false,
@@ -9816,7 +9888,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.UnitAttribute.html",
-          "hash": "d+242sqlAzrI3bFmYRgifC97jHsHCXFWSC/5PI/eHtE="
+          "hash": "SwL18CcMn6emZ4wdoou73++vwI0+j4JuLd5rKkkM7CA="
         }
       },
       "is_incremental": false,
@@ -9828,7 +9900,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.html",
-          "hash": "NlRCP5JVnxdgAHyr4K9c16QuWap+uhrWoVICtCwiMF8="
+          "hash": "dFhcMzge5GXbirNtRFP1moy/nmAYKxV3h7im+yHvgQw="
         }
       },
       "is_incremental": false,
@@ -12588,7 +12660,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.DiagnosticMainPageViewModel.html",
-          "hash": "ZSbtoTlnsCqW9jGtAjqBiGQcXPwFOzO0Jc2AePtH9bk="
+          "hash": "JhGRryoEYOuOCKr5knnDs3PxlnkM7XQvIfP85OwwmMM="
         }
       },
       "is_incremental": false,
@@ -12612,7 +12684,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.DiagnosticPerformanceCounterChartViewModel.html",
-          "hash": "5ipRRcXQ5C0R5Bh+uod6cJprwTVfbKoEatOjAKPl9MY="
+          "hash": "mxSnbu1wk4F8hceJjfRFFoCWUHquq/dyVOfG7ksBd4M="
         }
       },
       "is_incremental": false,
@@ -12624,7 +12696,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.DiagnosticResourcesViewModel.html",
-          "hash": "RHqjKx96PsivRPigsVbSAyQpPXZmD5HnEQqHa7gfHUE="
+          "hash": "W8oW2NGQoLO/YbV3xUAnNwkxII3qBNfK8y4nXbwwyYo="
         }
       },
       "is_incremental": false,
@@ -12768,7 +12840,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.FillingColors.html",
-          "hash": "U6hNqHTJfdD0n4lStNI1Q6LaJkorHzBj45hr2HjETO4="
+          "hash": "mRYb9RC5HpGKukGKFLP9sM3yuTvaCLD1Cq1aJe0xWQ4="
         }
       },
       "is_incremental": false,
@@ -13056,7 +13128,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.MeasureModel.html",
-          "hash": "xzklYF81gaAIBOIVis2GXFlm2QxqiIOZRI1L7jSjpGo="
+          "hash": "iCIHvQM1Yh2awV3/f+N+O0R+s/0zXgR4AFe70dnSaiI="
         }
       },
       "is_incremental": false,
@@ -13128,7 +13200,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.Metric.html",
-          "hash": "u2gg6cI5xkN1rEK2fhcyum3ImndLnxEt/wEOoIt0e0o="
+          "hash": "9D04zlI03vIOOAqjJUBJ9up1/q3vLFtT6BI89T+NmcE="
         }
       },
       "is_incremental": false,
@@ -13488,7 +13560,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.ViewChartMetric.html",
-          "hash": "k4BrFwiigicUI29CZkxQQiBvc5UpTWoriiFSpVGHUUs="
+          "hash": "kWNwngQtlQwuJNWHCHUya18G++F4a7OBM/6Pg9f587w="
         }
       },
       "is_incremental": false,
@@ -13500,7 +13572,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.html",
-          "hash": "MVleYkleTl4oL2/fun68B44sqweJT1YQryiz92is820="
+          "hash": "/4J7c+K/Yld09yQMo5DJ4zHq9bpd4ZH05GW6ICezijI="
         }
       },
       "is_incremental": false,
@@ -14407,6 +14479,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14491,6 +14566,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23707,9 +23785,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -40834,9 +40909,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -83205,7 +83277,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6900,
+          "total_file_count": 6906,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
