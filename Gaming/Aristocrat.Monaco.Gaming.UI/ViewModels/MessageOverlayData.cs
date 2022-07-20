@@ -196,8 +196,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             Text = string.Empty;
             SubText = string.Empty;
             SubText2 = string.Empty;
+            SubText3 = string.Empty;
             IsSubTextVisible = false;
             IsSubText2Visible = false;
+            IsSubText3Visible = false;
             IsButtonVisible = false;
             ButtonText = string.Empty;
             DisplayForEvents = false;
