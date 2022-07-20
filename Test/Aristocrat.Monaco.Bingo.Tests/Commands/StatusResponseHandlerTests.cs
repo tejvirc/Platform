@@ -55,10 +55,10 @@
             const long cashPlayedAmount = 123_00;
             const EgmStatusFlag egmStatusFlag = EgmStatusFlag.OnLine | EgmStatusFlag.DisabledByProgCntrl;
 
-            _meterCashOut.Setup(x => x.Session).Returns(cashOutAmount.CentsToMillicents());
-            _meterCashIn.Setup(x => x.Session).Returns(cashInAmount.CentsToMillicents());
-            _meterCashWon.Setup(x => x.Session).Returns(cashWonAmount.CentsToMillicents());
-            _meterCashPlayed.Setup(x => x.Session).Returns(cashPlayedAmount.CentsToMillicents());
+            _meterCashOut.Setup(x => x.Lifetime).Returns(cashOutAmount.CentsToMillicents());
+            _meterCashIn.Setup(x => x.Lifetime).Returns(cashInAmount.CentsToMillicents());
+            _meterCashWon.Setup(x => x.Lifetime).Returns(cashWonAmount.CentsToMillicents());
+            _meterCashPlayed.Setup(x => x.Lifetime).Returns(cashPlayedAmount.CentsToMillicents());
             _statusService.Setup(x => x.GetCurrentEgmStatus()).Returns(egmStatusFlag);
 
             var message = new StatusResponseMessage("123");

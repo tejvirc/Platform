@@ -39,8 +39,8 @@
                 BetAmount = log.FinalWager,
                 TotalWin = description.Patterns.Where(KeepPattern).Sum(x => x.WinAmount),
                 PaidAmount = log.TotalWon,
-                InitialCredit = log.StartCredits.MillicentsToCents(),
-                FinalCredit = log.EndCredits.MillicentsToCents(),
+                StartingBalance = log.StartCredits.MillicentsToCents(),
+                FinalBalance = log.EndCredits.MillicentsToCents(),
                 FacadeKey = description.FacadeKey,
                 GameEndWinEligibility = description.GameEndWinEligibility,
                 GameTitleId = description.GameTitleId,
@@ -58,7 +58,7 @@
                 PresentationIndex = log.GameRoundDetails?.PresentationIndex ?? 0
             };
 
-            bool KeepPattern(BingoPattern x) => description.GameEndWinClaimAccepted || !x.IsGameEndWin;
+            bool KeepPattern(BingoPattern x) => log.GameWinBonus > 0 || !x.IsGameEndWin;
         }
 
         private static CardPlayed ToCardPlayed(BingoCard card)

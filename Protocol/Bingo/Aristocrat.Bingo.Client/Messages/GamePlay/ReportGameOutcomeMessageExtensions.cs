@@ -21,14 +21,14 @@
             bingoOutcome.WinResults.AddRange(message.WinResults.Select(ToWinResult));
             return new ServerApiGateway.GameOutcome
             {
-                DenominationId = message.DenominationId,
+                Denomination = message.DenominationId,
                 BetAmount = message.BetAmount,
                 StartTime = message.StartTime.ToUniversalTime().ToTimestamp(),
                 FacadeKey = message.FacadeKey,
-                FinalCredit = message.FinalCredit,
+                FinalBalance = message.FinalBalance,
                 GameSerial = message.GameSerial,
                 GameTitleId = message.GameTitleId,
-                InitialCredit = message.InitialCredit,
+                InitialBalance = message.StartingBalance,
                 JoinTime = message.JoinTime.ToUniversalTime().ToTimestamp(),
                 ThemeId = message.ThemeId,
                 MachineSerial = message.MachineSerial,
@@ -52,7 +52,7 @@
                 PaytableId = winResult.PatternId,
                 PatternName = winResult.PatternName,
                 CardSerial = winResult.CardSerial,
-                GewFlag = winResult.IsGameEndWin,
+                IsGew = winResult.IsGameEndWin,
                 WinIndex = winResult.WinIndex
             };
         }
@@ -62,7 +62,7 @@
             return new BingoGameOutcomeMeta.Types.CardPlayed
             {
                 DaubBitPattern = cardPlayed.BitPattern,
-                GewFlag = cardPlayed.IsGameEndWin,
+                GewClaimable = cardPlayed.IsGameEndWin,
                 Serial = cardPlayed.SerialNumber
             };
         }

@@ -13,7 +13,7 @@
 
     public class GameOutcomeService : BaseClientCommunicationService, IGameOutcomeService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const char BallCallDelimiter = ',';
 
         private readonly IMessageHandlerFactory _messageHandlerFactory;
@@ -92,7 +92,7 @@
                 gamePlayOutcome.FacadeKey,
                 gamePlayOutcome.GameTitleId,
                 themeId,
-                gamePlayOutcome.DenominationId,
+                gamePlayOutcome.Denomination,
                 gamePlayOutcome.GameSerial,
                 gamePlayOutcome.StatusMessage,
                 gamePlayOutcome.Status,
@@ -112,7 +112,7 @@
             var serverBingoOutcome = gamePlayOutcome.GamePlayResponseMeta.Unpack<BingoGamePlayResponseMeta>();
 
             var cards = serverBingoOutcome.Cards.Select(
-                cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewFlag)).ToList();
+                cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewClaimable)).ToList();
 
             var wins = serverBingoOutcome.WinResults.Select(
                     winMeta => new WinResult(
@@ -123,7 +123,7 @@
                         winMeta.PaytableId,
                         winMeta.PatternName,
                         winMeta.CardSerial,
-                        winMeta.GewFlag,
+                        winMeta.IsGew,
                         winMeta.WinIndex))
                 .ToList();
 
@@ -139,7 +139,7 @@
                 gamePlayOutcome.FacadeKey,
                 gamePlayOutcome.GameTitleId,
                 themeId,
-                gamePlayOutcome.DenominationId,
+                gamePlayOutcome.Denomination,
                 gamePlayOutcome.GameSerial,
                 gamePlayOutcome.StatusMessage,
                 gamePlayOutcome.Status,
