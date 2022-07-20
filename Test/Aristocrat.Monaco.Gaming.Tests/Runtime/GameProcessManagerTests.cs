@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using Contracts;
@@ -15,7 +16,6 @@
     public class GameProcessManagerTests
     {
         private const string InvalidRootDir = @"c:\Temp";
-        private const string GamesPath = @"Games";
         private const string Variation = @"VAR_99";
         private const string Jurisdiction = @"Test";
 
@@ -46,16 +46,15 @@
                 .Returns(new DirectoryInfo(InvalidRootDir));
         }
 
-        [DataRow(true, false, false)]
-        [DataRow(false, true, false)]
-        [DataRow(false, false, true)]
+        [DataRow(true, false)]
+        [DataRow(false, true)]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenEventBusIsNullExpectException(bool nullPathMapper = false,
+        public void WhenArgumentIsNullExpectException(
             bool nullEvent = false,
             bool nullClientEndpointProvider = false)
         {
-            SetupGameProcessManager(nullPathMapper, nullEvent, nullClientEndpointProvider);
+            SetupGameProcessManager(nullEvent, nullClientEndpointProvider);
 
             Assert.IsNull(_target);
         }
@@ -70,20 +69,11 @@
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenStartWithNullPathExpectException()
-        {
-            SetupGameProcessManager();
-
-            _target.StartProcess(null, null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void WhenStartWithNullArgsExpectException()
         {
             SetupGameProcessManager();
 
-            _target.StartProcess(GamesPath, null);
+            _target.StartProcess(null);
         }
 
         [TestMethod]
@@ -92,10 +82,7 @@
         {
             SetupGameProcessManager();
 
-            // Looks legit, but the path we're using doesn't exist
-            _target.StartProcess(
-                GamesPath,
-                new GameProcessArgs(
+            var args = new GameProcessArgs(
                     Variation,
                     _denom,
                     _bottomHwnd,
@@ -107,7 +94,19 @@
                     Jurisdiction,
                     false,
                     -1,
-                    string.Empty));
+                    string.Empty);
+
+            // Looks legit, but the path we're using doesn't exist
+            _target.StartProcess(
+                new ProcessStartInfo
+                {
+                    CreateNoWindow = false,
+                    Arguments = args.Build(),
+                    FileName = "C:\\nope.exe",
+                    WorkingDirectory = "C:\\",
+                    UseShellExecute = false,
+                    ErrorDialog = false
+                });
         }
 
         [TestMethod]
@@ -134,22 +133,11 @@
             Assert.AreEqual(result.Count(), 0);
         }
 
-        public void WhenNullExpectException(
-            bool nullPathMapper = false,
-            bool nullEvent = false,
-            bool nullClientEndpointProvider = false)
-        {
-            SetupGameProcessManager(nullPathMapper,
-                nullEvent,
-                nullClientEndpointProvider);
-        }
-
         public void SetupGameProcessManager(
-            bool nullPathMapper = false,
             bool nullEvent = false,
             bool nullClientEndpointProvider = false)
         {
-            _target = new GameProcessManager(nullPathMapper ? null : _pathMapper.Object,
+            _target = new GameProcessManager(
                 nullEvent ? null : _eventBus.Object,
                 nullClientEndpointProvider ? null : _endPointProvider.Object);
         }

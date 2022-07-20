@@ -388,52 +388,61 @@
 
         private void HandleEvent(GameProcessExitedEvent platformEvent)
         {
-            //checking to make sure we got a normal exit first because
-            //We once got a GameProcessExitedEvent with Unexpected = false
-            //without ever getting a GameExitedNormalEvent
-            //so we didn't fire off any Triggers and the box hung.
-
+            // Checking to make sure we got a normal exit first because
+            // We once got a GameProcessExitedEvent with Unexpected = false
+            // without ever getting a GameExitedNormalEvent
+            // so we didn't fire off any Triggers and the box hung.
             var unexpected = platformEvent.Unexpected || !_normalGameExitReceived;
             _normalGameExitReceived = false;
 
-            MvvmHelper.ExecuteOnUI(
-                () =>
+            // If we are trying to load a game and we got an "expected" exit, it was probably just
+            // us killing the previously loading game. If we initiate recovery again then we'll end
+            // up stuck in a loop forever. See TXM-5429 for a more detailed explanation.
+            if (CurrentState == LobbyState.GameLoading && !platformEvent.Unexpected)
+            {
+                Logger.Warn("Game recovery loop detected, ignoring GameProcessExitedEvent!");
+                return;
+            }
+
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                Logger.Debug($"GameProcessExitedEvent received.  Unexpected: {platformEvent.Unexpected}");
+
+                // Moving check for recovery outside of check for unexpected.  We sometimes shut
+                // down the game process ourselves and get an "expected" game process exited event,
+                // but still need to do recovery.
+
+                // 1) Added IsDisabled check for VLT-2112.  If the process is killed while we are
+                // locked up, then do not recover now.  We will recover upon coming out of lockup.
+                if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
                 {
-                    Logger.Debug($"GameProcessExitedEvent received.  Unexpected: {platformEvent.Unexpected}");
+                    Logger.Debug("Sending InitiateRecovery Trigger");
+                    SendTrigger(
+                        LobbyTrigger.InitiateRecovery,
+                        CurrentState == LobbyState.Game &&
+                        unexpected); //only check with runtime if we get an unexpected exit during game state.
+                }
+                else if (IsSingleGameMode && BaseState == LobbyState.Chooser && !IsInOperatorMenu)
+                {
+                    Logger.Debug("Trying to relaunch game after exit");
+                    TryLaunchSingleGame();
+                }
+                else
+                {
+                    //checking to make sure we got a normal exit first because
+                    //We once got a GameProcessExitedEvent with Unexpected = false
+                    //without ever getting a GameExitedNormalEvent
+                    //so we didn't fire off any Triggers and the box hung.
 
-                    //moving check for recovery outside of check for unexpected.  We sometimes shut down the game process
-                    //ourselves and get an "expected" game process exited event, but still need to do recovery.
-
-                    //1) Added IsDisabled check for VLT-2112.  If the process is killed while we are locked up, then do not recover now.  We will recover upon coming out of lockup.
-                    if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
+                    // If a game crashes, it is critical that we fire this trigger.
+                    // Otherwise we end up in a bad state and the box can be locked.
+                    if (unexpected)
                     {
-                        Logger.Debug("Sending InitiateRecovery Trigger");
-                        SendTrigger(
-                            LobbyTrigger.InitiateRecovery,
-                            CurrentState == LobbyState.Game &&
-                            unexpected); //only check with runtime if we get an unexpected exit during game state.
+                        Logger.Debug("Sending GameUnexpectedExit Trigger");
+                        SendTrigger(LobbyTrigger.GameUnexpectedExit);
                     }
-                    else if (IsSingleGameMode && BaseState == LobbyState.Chooser && !IsInOperatorMenu)
-                    {
-                        Logger.Debug("Trying to relaunch game after exit");
-                        TryLaunchSingleGame();
-                    }
-                    else
-                    {
-                        //checking to make sure we got a normal exit first because
-                        //We once got a GameProcessExitedEvent with Unexpected = false
-                        //without ever getting a GameExitedNormalEvent
-                        //so we didn't fire off any Triggers and the box hung.
-
-                        // If a game crashes, it is critical that we fire this trigger.
-                        // Otherwise we end up in a bad state and the box can be locked.
-                        if (unexpected)
-                        {
-                            Logger.Debug("Sending GameUnexpectedExit Trigger");
-                            SendTrigger(LobbyTrigger.GameUnexpectedExit);
-                        }
-                    }
-                });
+                }
+            });
         }
 
         private void HandleEvent(BankBalanceChangedEvent platformEvent)

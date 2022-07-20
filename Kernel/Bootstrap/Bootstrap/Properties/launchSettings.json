@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Bootstrap": {
+      "commandName": "Project",
+      "commandLineArgs": "display=windowed ignoreTouchCalibration"
+    }
+  }
+}

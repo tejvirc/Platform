@@ -17,15 +17,16 @@
         /// <summary>
         ///     Ends the current game process
         /// </summary>
-        /// <param name="notifyExited">true if the process exit events should be emitted.</param>
-        void EndGameProcess(bool notifyExited = true);
+        /// <param name="terminateExpected">true if the process exit should be "expected".</param>
+        void EndGameProcess(bool notifyExited = true, bool terminateExpected = true);
 
         /// <summary>
         ///     Ends the current game process
         /// </summary>
         /// <param name="processId">The process Id to end</param>
         /// <param name="notifyExited">true if the process exit events should be emitted.</param>
-        void EndGameProcess(int processId, bool notifyExited = true);
+        /// <param name="terminateExpected">true if the process exit should be "expected".</param>
+        void EndGameProcess(int processId, bool notifyExited = true, bool terminateExpected = true);
 
         /// <summary>
         ///     Determines if the process id specified is running
