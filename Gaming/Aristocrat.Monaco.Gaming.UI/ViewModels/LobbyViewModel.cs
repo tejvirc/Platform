@@ -1591,6 +1591,8 @@
 
         public bool StartIdleTextBlinking => IsBlinkingIdleTextVisible && IsIdleTextBlinking;
 
+        private long LastDenom => _properties.GetValue(GamingConstants.SelectedDenom, 0L);
+
         public bool IsDisableCountdownMessageSuppressed
         {
             get => _isDisabledCountdownMessageSuppressed;
@@ -2324,6 +2326,12 @@
 
             UpdateLamps();
             UpdateLcdButtonDeckRenderSetting(true);
+
+            var selectedDenomViewInfo = GameTabInfo?.Denominations?.FirstOrDefault(d => d.Denomination == LastDenom);
+            if (selectedDenomViewInfo != null)
+            {
+                GameTabInfo.SetSelectedDenomination(selectedDenomViewInfo);
+            }
 
             _renderTimer?.Stop();
             _renderTimer?.Start();
@@ -5076,12 +5084,11 @@
             if (IsTabView)
             {
                 var lastGameSelected = _properties.GetValue(GamingConstants.SelectedGameId, 0);
-                var lastDenom = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
 
                 //Return to the last game selected in the lobby by default
                 if (lastGameSelected != 0)
                 {
-                    var game = GameList.SingleOrDefault(g => g.GameId == lastGameSelected && g.Denomination == lastDenom);
+                    var game = GameList.SingleOrDefault(g => g.GameId == lastGameSelected && g.Denomination == LastDenom);
                     if (game != null)
                     {
                         var category = game.Category != GameCategory.Undefined ? game.Category : GameTabInfo.ConvertGameToDefaultCategory(game.GameType);
@@ -5093,7 +5100,7 @@
                             GameTabInfo.SelectTab(gameTab.TabIndex);
                             var subTab = GameTabInfo.SubTabs.SingleOrDefault(t => t.TypeText == subcategory);
                             GameTabInfo.SelectSubTab(subTab);
-                            var selectedDenomViewInfo = GameTabInfo?.Denominations?.FirstOrDefault(d => d.Denomination == lastDenom);
+                            var selectedDenomViewInfo = GameTabInfo?.Denominations?.FirstOrDefault(d => d.Denomination == LastDenom);
                             SetSelectedGame(game);
                             if (selectedDenomViewInfo != null)
                             {
