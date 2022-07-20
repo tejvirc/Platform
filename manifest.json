@@ -14479,9 +14479,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14566,9 +14563,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -17226,7 +17220,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage.html",
-          "hash": "bcr8KWqrCsHJ1cyoYKZQomxRXuplxhUij5iesSf3AH0="
+          "hash": "yYJCCvbR66MlE/aVwz/FdMXWQmxk87as3kkDPxs/UR4="
         }
       },
       "is_incremental": false,
@@ -21306,7 +21300,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGameClaimWinMeta.html",
-          "hash": "y21pDd/Vrv98yzK3hz1o5PUH4TTeKuqmVcRShZ7eb98="
+          "hash": "lShxi8qbt5Um9iVVzkwv7Exms+xSzIsrJY41292ksNw="
         }
       },
       "is_incremental": false,
@@ -21318,7 +21312,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGameOutcomeMeta.Types.CardPlayed.html",
-          "hash": "6mb+KfxwygjCkuItmBhKs04PkXnaAuhaL0obkYU9nz8="
+          "hash": "aiJlBPPaqI1z4qOmCO5hA47Ut19iHCJR5MlttUDVg/s="
         }
       },
       "is_incremental": false,
@@ -21330,7 +21324,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGameOutcomeMeta.Types.ReportType.html",
-          "hash": "Zyon1wG9GoiQ9nTbODcpYQxFYoluj0tCH0UuxjG/1VE="
+          "hash": "MhPtCWThdnB6c28qGVXaOuj/9QljdXzVU+JZllRXVnQ="
         }
       },
       "is_incremental": false,
@@ -21342,7 +21336,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGameOutcomeMeta.Types.WinResult.html",
-          "hash": "tbKge3UVXtMlaSOPiTNwZCsaA7pjvhMfWLDlVQtN9gA="
+          "hash": "NMTp6cDsiDK1Ag9hsCfzkUZNR+mXhtWa0wonG0wko/g="
         }
       },
       "is_incremental": false,
@@ -21354,7 +21348,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGameOutcomeMeta.Types.html",
-          "hash": "TeRXpjcgvwhxDvrjYpVxTwLEC37D9I/4TsS6uSvOAuY="
+          "hash": "awGaJDSN0cEMHpuREC4GwuArHdHe/2Rixi1W/vMdBto="
         }
       },
       "is_incremental": false,
@@ -21366,7 +21360,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGameOutcomeMeta.html",
-          "hash": "iAyvafP2wayPOSS2HvO4ESvlE9jKiSQa/FocraB7dw0="
+          "hash": "vXDiAYknsm/u30dcXFRRA2oKcADzYVvc29kozLK8ndQ="
         }
       },
       "is_incremental": false,
@@ -21378,7 +21372,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGamePlayMeta.html",
-          "hash": "ODxqkBBl4lGbwMjEEJrWawFpLoRXIAqZQuWz3fQwP7w="
+          "hash": "WHABHFusmZm7wt/2T0ds0EPzNDKV4JFq3O96+EASyvU="
         }
       },
       "is_incremental": false,
@@ -21390,7 +21384,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGamePlayResponseMeta.Types.CardPlayed.html",
-          "hash": "ssdi4SqG/ToFfoonx1k+SFYX83neLaB9uP/CqKA7Yq0="
+          "hash": "xz25zUfYysmUWfL9MThb7Qthd2u/YZLlaJU1t1sVjho="
         }
       },
       "is_incremental": false,
@@ -21402,7 +21396,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGamePlayResponseMeta.Types.WinResult.html",
-          "hash": "S7siwuzf5JngHX5gfRHrI736JU7zsLJEdnprKjOLTLs="
+          "hash": "39EZG6E2AOaQwejm7J7kn6PNvpJOEShKt9MoKVrQERk="
         }
       },
       "is_incremental": false,
@@ -21414,7 +21408,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGamePlayResponseMeta.Types.html",
-          "hash": "1Y+hhWbOjN2hJ/vz29gKJXO542QTacpwqBWflnaPz3E="
+          "hash": "wGVD4d2vGo+SwE5rZqa5vZz9FY/VPnmOtMypLLc+vxk="
         }
       },
       "is_incremental": false,
@@ -21426,7 +21420,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.BingoGamePlayResponseMeta.html",
-          "hash": "pZx96jxjQQfe+bGguNGkWt4T6OkjPhU5xoEmzEeo1nY="
+          "hash": "g4g/MycTCEhTUrWfi5Fs/PDRH5nmELmoTY/New/nwf0="
         }
       },
       "is_incremental": false,
@@ -21438,7 +21432,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.ClaimWinRequest.html",
-          "hash": "QEHPmmob0Q08IWToXrjsvYXs6JKShvpW1oAcKvqepWI="
+          "hash": "i34jVHGzmCFr8s2WWQhx7oC82uDTRF47G1D1N/rGa/s="
         }
       },
       "is_incremental": false,
@@ -21450,7 +21444,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.ClaimWinResponse.Types.ClaimWinResult.html",
-          "hash": "5gBfMHmfcVRYdXXFlNLeaMMAlyaMwcRiYFxESR4SHU0="
+          "hash": "FSmkKAsG8AsdjOQ2zCFn/4EYz3D47ZzZKc53mXF9Llk="
         }
       },
       "is_incremental": false,
@@ -21462,7 +21456,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.ClaimWinResponse.Types.html",
-          "hash": "x7eJYfReNHuEmngIcIESInMZniuDHzYj5Owt89KZBGk="
+          "hash": "vtdGW9tjArdFiT+ccg5XTb5F6TEAXtI/fHbU9MO4svs="
         }
       },
       "is_incremental": false,
@@ -21474,7 +21468,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.ClaimWinResponse.html",
-          "hash": "k3fL9qMZGrjROEzFjtP+pFcZJcbqu9LbH/qwxMErknM="
+          "hash": "JMoWnuQXfG+Yo8TG8l/dVPMd//sHBAh8MJlvIbeg894="
         }
       },
       "is_incremental": false,
@@ -21522,7 +21516,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.Command.html",
-          "hash": "b5Aey5K/aghFsZ8pXYzKlRQLUCqstE1PdbprWQeA1KI="
+          "hash": "sOlw5EpOJLu/iFbmmpiCnxK+dHV2iWoYqtcKfHMsGyM="
         }
       },
       "is_incremental": false,
@@ -21534,7 +21528,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.CommandResponse.html",
-          "hash": "PaQA1MZrmmjXE0m8VhsS75BvpUmGRvUcsPQTgNpGFEo="
+          "hash": "yH2UBZy2UCiagI2nCLF/TpUYT05eWHfMjVeXzT++cxo="
         }
       },
       "is_incremental": false,
@@ -21642,7 +21636,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.DisableCommand.html",
-          "hash": "dQYrlphgKHZMzUXvl2kHuhDSAXwipHrJWnJWVc/kbog="
+          "hash": "LRk/SqLzF6B21g67h0RPwU4AWGsq2UZKdHwk7flbgbw="
         }
       },
       "is_incremental": false,
@@ -21654,7 +21648,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.DisableCommandResponse.html",
-          "hash": "QlMzRVujT3KoIcDdTdZsc7Rc1vofkjlc/CcUnaQ2p54="
+          "hash": "sekiKzqh47ap9ToXLZNTS55CW9wiXRAwuGLX1P3kDLo="
         }
       },
       "is_incremental": false,
@@ -21666,7 +21660,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.EnableCommand.html",
-          "hash": "SUHuWgndr8WLjxC0zuweK4bjuH7ikkR2TV+pWRVqfuQ="
+          "hash": "Ca9ZZesOvkyuz5FFg+D9WOAblbfFS0vPlk+iEEt2k7g="
         }
       },
       "is_incremental": false,
@@ -21678,7 +21672,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.EnableCommandResponse.html",
-          "hash": "ufLk3/9TVnvdPapPWN7jIlvdt1n3QaSQIHtYOn+Nj4k="
+          "hash": "y6aTE6K9WkWGTHJfrLu3mwa8CLKkZ2S6pYGXq4A7Q78="
         }
       },
       "is_incremental": false,
@@ -21690,7 +21684,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.EventReport.html",
-          "hash": "VWTexXYNXdC6HkDX0XU39mDeb7n+MDC1/KdQdDcu2V4="
+          "hash": "iL3EksuDRjev1f2kuyHgEauZdclrKAT9eGJdGtYg7cM="
         }
       },
       "is_incremental": false,
@@ -21702,7 +21696,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.GameOutcome.html",
-          "hash": "5SlXZ70qW+lltY4j23H++LUqpEvG7T18u5Lu50ivVsk="
+          "hash": "qdAtWplL3SbDBNmia5DSDIspOF3xL3dgSA13682rxN0="
         }
       },
       "is_incremental": false,
@@ -21714,7 +21708,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.GameOutcomeAck.html",
-          "hash": "6rthwvz7R53MMwGwZba6ZxUs1KZ0+Uk8ubN1IL50ip4="
+          "hash": "U/tE5Tes8GcCYr4GRM4oJh6AWVRyLD5UXc+Mbojf+V0="
         }
       },
       "is_incremental": false,
@@ -21726,7 +21720,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.GamePlayRequest.html",
-          "hash": "RNK6zhFdNXHkVscnUV4OZy3hmn/WHxZmIcxeBEvxMmY="
+          "hash": "Y0uWQM+Jqi9krOSkK4j8D9ESeBTnsPzocp92FC/uKBQ="
         }
       },
       "is_incremental": false,
@@ -21738,7 +21732,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.GamePlayResponse.Types.ReportType.html",
-          "hash": "GASv6S+QgvQ4xEY9NHx1JRaK3XDiOggT3392HgImhd0="
+          "hash": "hSNCkKVav4yl9Lv0xeJFwAp+uPE05LsLlB5Y/Qzu/J8="
         }
       },
       "is_incremental": false,
@@ -21750,7 +21744,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.GamePlayResponse.Types.html",
-          "hash": "frN2gwejCf27jEFwicZIOlYHwpWaODDGkcQzXPhkEAs="
+          "hash": "WSDC/AAia/kKCBbGf0qzc3kLU5ltYeFWXlfbTh0w+Xo="
         }
       },
       "is_incremental": false,
@@ -21762,7 +21756,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.GamePlayResponse.html",
-          "hash": "XKQBAd1UI6wY4/gO7uUBVMfaUFPeqw7IqaIopts65LI="
+          "hash": "044qSllksb8qc1WZq3C2BzmVSNU/wbww6AVm5VhrFtA="
         }
       },
       "is_incremental": false,
@@ -21774,7 +21768,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.OpenConnection.html",
-          "hash": "ab5bRPzhWOYh5KMkyFHMmFP/Q3VAIh1QkahGcgE7PCY="
+          "hash": "BSwzaStMTDyHbI+10Pb26K8nZ/+SNQbn7MuC5YthKQE="
         }
       },
       "is_incremental": false,
@@ -21786,7 +21780,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.PingCommand.html",
-          "hash": "gK/46Y1tmFTrK3vbJkCwVuZ/Sv400ZAYtGYrrgWP5ik="
+          "hash": "Jwzjc3/07r4xi0/Qdy/udbIZKef16kpY5rEfVZ6hl0o="
         }
       },
       "is_incremental": false,
@@ -21798,7 +21792,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.PingResponse.html",
-          "hash": "MqXQUYLxA0V4RUTLrjEcdrPg9rPu4uq+91sPL5n4rCc="
+          "hash": "CqlaSeCzN1SL/FN23ESXKNHFHiN7AKiIFHZj2PIdknM="
         }
       },
       "is_incremental": false,
@@ -21858,7 +21852,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.ReportEventAck.html",
-          "hash": "DumYsLd7E+pUSYKVdxqH9bXnwhwpAPZVnL4qcg6iF70="
+          "hash": "eHH6j1+i1e7wh7QCVs2Exv+XCeL11AwDt24EQdOMu8w="
         }
       },
       "is_incremental": false,
@@ -21870,7 +21864,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.ReportTransactionAck.html",
-          "hash": "l8jZwimBCNcUXstN6SfGvJ3r/OBOjNtqbBKIEuIv0yg="
+          "hash": "SnUpPdoAO7pE2laLK7jwMLkRQ4wC07lrWtCsKJzgGPg="
         }
       },
       "is_incremental": false,
@@ -21882,7 +21876,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.StatusResponse.html",
-          "hash": "bmu1Et5aFhzKsVzyGKcg/Chk+TiMoNlrAHnWZqLQsAo="
+          "hash": "wClPi30lfG2AoKNF+KMbZJQpXli8mpd2Z1F+Dv+TuKk="
         }
       },
       "is_incremental": false,
@@ -21894,7 +21888,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.ServerApiGateway.TransactionReport.html",
-          "hash": "2/7aFwFpliOi9AJQpCcZLIo50KwQa4W7gTKLhXTYsys="
+          "hash": "l9RbENWKl4U4KgzGdQJQAgP9/K8aIof44bdBAajPoDk="
         }
       },
       "is_incremental": false,
@@ -23785,6 +23779,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -40909,6 +40906,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
