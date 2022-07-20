@@ -62,6 +62,18 @@
             _eventBus.Subscribe<HandpayCompletedEvent>(this, (theEvent) => UpdateCashoutAmount(theEvent.Transaction.TransactionAmount.MillicentsToCents()));
             _eventBus.Subscribe<TransferOutStartedEvent>(this, (_) => UpdateCashoutAmount(0));
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, (_) => _exceptionHandler.ReportException(new GenericExceptionBuilder(GeneralExceptionCode.PlayerInitiatedCashout)));
+
+            //this is a special case, Mixed Credit (e.g. $20 cashable, $10 non-cashout)
+            //$20 cashed out (handpay or printed voucher), $10 failed, publishes TransferOutFialedEvent
+            //still need to report Exception 26 as $20 was cashed out
+            //only report Exception 26 if player cashout amount is greater than 0.
+            _eventBus.Subscribe<TransferOutFailedEvent>(this, (_) =>
+            {
+                if (GetCashoutAmount() > 0)
+                {
+                    _exceptionHandler.ReportException(new GenericExceptionBuilder(GeneralExceptionCode.PlayerInitiatedCashout));
+                }                
+            });
         }
 
         /// get the last cashout amount
