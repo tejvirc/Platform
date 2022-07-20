@@ -313,6 +313,10 @@
             {
                 _eventBus.UnsubscribeAll(this);
                 _gameStartConditions.RemoveGameStartCondition(this);
+                if (_venueRaceCollectionViewModel != null)
+                {
+                    _venueRaceCollectionViewModel.Dispose();
+                }
             }
 
             _disposed = true;
