@@ -108,7 +108,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_IGameProcess_CreateMiniDump.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.IGameProcess.CreateMiniDump%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_CreateMiniDump_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.CreateMiniDump*"></a>
@@ -140,7 +140,7 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
@@ -148,16 +148,16 @@
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_" class="expander" data-toggle="collapse">EndGameProcess(Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">EndGameProcess(Boolean, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Boolean_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"><p>Ends the current game process</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void EndGameProcess(bool notifyExited = true)</code></pre>
+    <pre><code class="lang-csharp hljs">void EndGameProcess(bool notifyExited = true, bool terminateExpected = true)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -166,7 +166,14 @@
       <td>
         <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
         <span class="parametername">notifyExited</span>
-        <p><p>true if the process exit events should be emitted.</p>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">terminateExpected</span>
+        <p><p>true if the process exit should be &quot;expected&quot;.</p>
 </p>
       </td>
     </tr>
@@ -186,24 +193,24 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Int32%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">EndGameProcess(Int32, Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.EndGameProcess(System.Int32,System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">EndGameProcess(Int32, Boolean, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_IGameProcess_EndGameProcess_System_Int32_System_Boolean_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"><p>Ends the current game process</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void EndGameProcess(int processId, bool notifyExited = true)</code></pre>
+    <pre><code class="lang-csharp hljs">void EndGameProcess(int processId, bool notifyExited = true, bool terminateExpected = true)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -221,6 +228,14 @@
         <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
         <span class="parametername">notifyExited</span>
         <p><p>true if the process exit events should be emitted.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">terminateExpected</span>
+        <p><p>true if the process exit should be &quot;expected&quot;.</p>
 </p>
       </td>
     </tr>
@@ -243,7 +258,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_IGameProcess_Exiting.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.IGameProcess.Exiting%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_Exiting_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.Exiting*"></a>
@@ -278,7 +293,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_IGameProcess_IsRunning_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.IGameProcess.IsRunning(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L35" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/IGameProcess.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_IGameProcess_IsRunning_" data-uid="Aristocrat.Monaco.Gaming.Runtime.IGameProcess.IsRunning*"></a>
