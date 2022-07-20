@@ -12,7 +12,7 @@
 
         public string Name { get; }
 
-        public IGameConfiguration Game { get; set; }
+        public IRestrictionDetails RestrictionDetails { get; set; }
 
         /// <inheritdoc />
         public bool Equals(ConfigurationRestriction other) => Name == other?.Name;

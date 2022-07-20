@@ -6,13 +6,13 @@
     public interface IConfigurationRestriction
     {
         /// <summary>
-        ///     Gets the name of the configuration
+        ///     Gets the name of the configuration restriction
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        ///     Gets the associated game configuration for a specific game Theme. 
+        ///     Gets the associated game configuration restriction information.
         /// </summary>
-        IGameConfiguration Game { get; }
+        IRestrictionDetails RestrictionDetails { get; }
     }
 }

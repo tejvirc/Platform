@@ -69,7 +69,7 @@
         {
             return new ConfigurationRestriction(configuration.Name)
             {
-                Game = new GameConfiguration
+                RestrictionDetails = new RestrictionDetails
                 {
                     Name = configuration.GameConfiguration.Name,
                     Editable = configuration.GameConfiguration.Editable,

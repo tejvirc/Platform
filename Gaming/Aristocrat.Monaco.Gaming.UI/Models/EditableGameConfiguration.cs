@@ -55,7 +55,7 @@
         private ObservableCollection<decimal> _minBetOptions;
         private bool _progressiveSetupConfigured;
         private bool _maxDenomEntriesReached;
-        private bool _restricted;
+        private bool _restrictedToReadOnly;
         private decimal _lowestAllowedMinimumRtp;
         private decimal _highestAllowedMinimumRtp;
         private long _topAwardValue;
@@ -179,7 +179,7 @@
             }
         }
 
-        public bool BetOptionEnabled => CanEdit && BetOptionAvailable && Enabled && !Restricted;
+        public bool BetOptionEnabled => CanEdit && BetOptionAvailable && Enabled && !RestrictedToReadOnly;
 
         public bool BetOptionAvailable
         {
@@ -210,7 +210,7 @@
             }
         }
 
-        public bool LineOptionEnabled => CanEdit && LineOptionAvailable && Enabled && LineOptions.Count > 1 && !Restricted;
+        public bool LineOptionEnabled => CanEdit && LineOptionAvailable && Enabled && LineOptions.Count > 1 && !RestrictedToReadOnly;
 
         public bool LineOptionAvailable
         {
@@ -375,19 +375,19 @@
         // VLT-12434 : prevent en/disabling games when credits are on the machine
         public bool CanToggleEnabled => (EnabledByHost || _allowEditHostDisabled) && AvailablePaytables.Any() &&
                                         GameOptionsEnabled &&
-                                        !Restricted;
+                                        !RestrictedToReadOnly;
 
         public bool WarningTextHidden => string.IsNullOrEmpty(WarningText);
 
         public bool CanEdit => GameOptionsEnabled;
 
-        public bool CanEditAndEnabled => CanEdit && Enabled && !Restricted;
+        public bool CanEditAndEnabled => CanEdit && Enabled && !RestrictedToReadOnly;
 
         public bool CanEditAndEnableGamble =>
-            CanEdit && Enabled && !Restricted && (_properties.GetValue(GamingConstants.GambleAllowed, true));
+            CanEdit && Enabled && !RestrictedToReadOnly && (_properties.GetValue(GamingConstants.GambleAllowed, true));
 
         public bool CanEditAndEnableLetItRide =>
-            CanEdit && Enabled && !Restricted && (_properties.GetValue(GamingConstants.LetItRideAllowed, true));
+            CanEdit && Enabled && !RestrictedToReadOnly && (_properties.GetValue(GamingConstants.LetItRideAllowed, true));
 
         /// <summary>
         ///     Some games provide "MultiGame Packages" which are pre-defined configuration templates. The Platform equivalent for
@@ -398,13 +398,13 @@
         /// <value>
         ///     <c>true</c> if restricted; otherwise, <c>false</c>.
         /// </value>
-        public bool Restricted
+        public bool RestrictedToReadOnly
         {
-            get => _restricted;
+            get => _restrictedToReadOnly;
             set => SetProperty(
-                ref _restricted,
+                ref _restrictedToReadOnly,
                 value,
-                nameof(Restricted),
+                nameof(RestrictedToReadOnly),
                 nameof(CanToggleEnabled),
                 nameof(CanEditAndEnableGamble),
                 nameof(CanEditAndEnableLetItRide),

@@ -325,14 +325,17 @@
 
         public bool GameOptionsEnabled => GameOptionsGridEnabled && InputEnabled;
 
-        public ObservableCollection<IConfigurationRestriction> Restrictions { get; set; }
+        public IEnumerable<IConfigurationRestriction> ConfiguredRestrictions =>
+            _restrictionProvider.GetByThemeId(SelectedGame?.ThemeId);
+
+        public ObservableCollection<IConfigurationRestriction> ValidRestrictions { get; set; }
 
         public IConfigurationRestriction SelectedRestriction
         {
             get => _selectedRestriction;
             set
             {
-                if (Equals(_selectedRestriction, value))
+                if (_selectedRestriction != null && _selectedRestriction.Equals(value))
                 {
                     return;
                 }
@@ -352,12 +355,11 @@
             }
         }
 
-        public bool ShowRestrictionChooser =>
-            Restrictions?.Count > 0 && Restrictions.All(r => r.Game?.Mapping?.Any() ?? false);
+        public bool ShowRestrictionChooser => ConfiguredRestrictions.Any() && !DenomSelectionLimitExists;
 
-        public bool DenomSelectionLimitExists => Restrictions?.Count >= 1 && Restrictions.Any(r => r.Game?.MaxDenomsEnabled != null);
+        public bool DenomSelectionLimitExists => ConfiguredRestrictions.Any() && ConfiguredRestrictions.Any(r => r.RestrictionDetails?.MaxDenomsEnabled != null);
 
-        public int? DenomSelectionLimit => Restrictions?.FirstOrDefault(r => r.Game?.MaxDenomsEnabled != null)?.Game.MaxDenomsEnabled;
+        public int? DenomSelectionLimit => ConfiguredRestrictions.FirstOrDefault(r => r.RestrictionDetails?.MaxDenomsEnabled != null)?.RestrictionDetails.MaxDenomsEnabled;
 
         public bool ResetScrollIntoView
         {
@@ -480,7 +482,7 @@
 
             _cancellation = new CancellationTokenSource();
 
-            MvvmHelper.ExecuteOnUI(() => Restrictions = new ObservableCollection<IConfigurationRestriction>());
+            MvvmHelper.ExecuteOnUI(() => ValidRestrictions = new ObservableCollection<IConfigurationRestriction>());
 
             EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
             EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
@@ -733,35 +735,60 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    Restrictions.Clear();
+                    ValidRestrictions.Clear();
 
                     var restrictions = _restrictionProvider.GetByThemeId(SelectedGame?.ThemeId);
 
                     foreach (var restriction in restrictions)
                     {
-                        // SingleDenomMode restrictions will not have mappings
-                        if (restriction.Game != null && (restriction.Game.MaxDenomsEnabled != null ||
-                                                         restriction.Game.Mapping.Any(m => m.Active)))
+                        // SingleDenomMode restrictions will not have denom to paytable mappings
+                        if (!restriction.RestrictionDetails.Mapping.Any(m => m.Active) && !restriction.RestrictionDetails.MaxDenomsEnabled.HasValue)
                         {
-                            Restrictions.Add(restriction);
+                            Logger.Warn($"SingleDenomMode configuration restriction ({restriction.Name}) was found.");
+                            continue;
                         }
+
+                        // GamePack restrictions will have all the denoms mapped to game config objects
+                        if (!AreAllGamesMappedForRestriction(restriction))
+                        {
+                            Logger.Warn($"Invalid configuration restriction ({restriction.Name}) was discarded.");
+                            continue;
+                        }
+
+                        ValidRestrictions.Add(restriction);
                     }
 
                     var selected = _gameConfiguration.GetActive(SelectedGame?.ThemeId);
 
-                    SelectedRestriction = Restrictions.FirstOrDefault(r => r.Name.Equals(selected?.Name))
-                                          ?? Restrictions.FirstOrDefault();
+                    SelectedRestriction = ValidRestrictions.FirstOrDefault(r => r.Name.Equals(selected?.Name))
+                                          ?? ValidRestrictions.FirstOrDefault();
 
-                    RaisePropertyChanged(nameof(Restrictions));
+                    RaisePropertyChanged(nameof(ValidRestrictions));
                     RaisePropertyChanged(nameof(ShowRestrictionChooser));
                     RaisePropertyChanged(nameof(DenomSelectionLimit));
                     RaisePropertyChanged(nameof(DenomSelectionLimitExists));
                 });
         }
 
+        private bool AreAllGamesMappedForRestriction(IConfigurationRestriction restriction)
+        {
+            // Check whether each of the configs in the pack has a game configuration object created.
+            // These won't be created if a denomination's max bet exceeds the jurisdiction setting.
+            foreach (var mapping in restriction.RestrictionDetails.Mapping)
+            {
+                var gameConfig = SelectedGame.GameConfigurations.FirstOrDefault(c => c.BaseDenom == mapping.Denomination);
+                if (gameConfig == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void SetRestriction(IConfigurationRestriction restriction)
         {
-            if (restriction == null || SelectedGame == null)
+            if (SelectedGame == null)
             {
                 return;
             }
@@ -775,10 +802,27 @@
             // Process mappings (Single Game Multi Denom, or "Player Selectable Denoms")
             foreach (var game in SelectedGame.GameConfigurations)
             {
-                var mapping = restriction.Game.Mapping?.FirstOrDefault(c => game.BaseDenom == c.Denomination);
+                // If there are configured restrictions but none is chosen or none were valid, then
+                // we don't want to show any denoms for configuration.
+                if (ConfiguredRestrictions.Any() && restriction == null)
+                {
+                    game.RestrictedToReadOnly = true;
+                    game.Enabled = false;
+                    game.Active = false;
+                    continue;
+                }
+
+                // From here on, if the restriction is null, then we can't do anything, so we
+                // should just move on.
+                if (restriction == null)
+                {
+                    continue;
+                }
+
+                var mapping = restriction.RestrictionDetails.Mapping?.FirstOrDefault(c => game.BaseDenom == c.Denomination);
                 if (mapping == null)
                 {
-                    game.Restricted = true;
+                    game.RestrictedToReadOnly = true;
                     game.Enabled = false;
                     game.Active = false;
                     continue;
@@ -793,7 +837,7 @@
 
                 game.Active = true;
                 game.Game = mappedGame;
-                game.Restricted = !restriction.Game.Editable || !mapping.Editable;
+                game.RestrictedToReadOnly = !restriction.RestrictionDetails.Editable || !mapping.Editable;
 
                 game.Enabled = mapping.EnabledByDefault;
 
@@ -809,7 +853,7 @@
                 }
 
                 Logger.Debug(
-                    $"Restriction set - Id:{restriction.Game.Id} Name:{restriction.Game.Name} MinRtp:{restriction.Game.MinimumPaybackPercent} MaxRtp:{restriction.Game.MaximumPaybackPercent}");
+                    $"Restriction set - Id:{restriction.RestrictionDetails.Id} Name:{restriction.RestrictionDetails.Name} MinRtp:{restriction.RestrictionDetails.MinimumPaybackPercent} MaxRtp:{restriction.RestrictionDetails.MaximumPaybackPercent}");
             }
         }
 
@@ -830,7 +874,7 @@
             {
                 foreach (var game in SelectedGame.GameConfigurations)
                 {
-                    game.Restricted = false;
+                    game.RestrictedToReadOnly = false;
                 }
             }
             else if (SelectedGame.EnabledGameConfigurationsCount == DenomSelectionLimit.Value)
@@ -838,7 +882,7 @@
                 // Restrict all but the ones enabled
                 foreach (var game in SelectedGame.GameConfigurations)
                 {
-                    game.Restricted = !game.Enabled;
+                    game.RestrictedToReadOnly = !game.Enabled;
                 }
             }
             else
@@ -846,7 +890,7 @@
                 // Too many denoms enabled. Reset by disabling all denoms
                 foreach (var game in SelectedGame.GameConfigurations)
                 {
-                    game.Restricted = false;
+                    game.RestrictedToReadOnly = false;
                     game.Enabled = false;
                 }
             }
@@ -1006,7 +1050,7 @@
             // Reset the original selected restriction if the restriction has changed
             if (_originalSelectedRestriction != null && !Equals(_originalSelectedRestriction, SelectedRestriction))
             {
-                foreach (var mapping in _originalSelectedRestriction.Game.Mapping)
+                foreach (var mapping in _originalSelectedRestriction.RestrictionDetails.Mapping)
                 {
                     var game = _gameProvider.GetGames().FirstOrDefault(g => g.VariationId == mapping.VariationId);
 
