@@ -124,11 +124,11 @@
         }
 
         [TestMethod]
-        public void TestCanContinueTransferIfDisabledByHost()
+        public void TestStopTransferIfDisabledByHost()
         {
             var handler = InitializeHandler();
 
-            Assert.IsFalse(handler.CanContinueTransferIfDisabledByHost());
+            Assert.IsFalse(handler.StopTransferIfDisabledByHost());
         }
 
         [TestMethod]

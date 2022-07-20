@@ -34,11 +34,11 @@
         (ulong Amount, bool TransferAmountExceeded) CheckTransferAmount(ulong amount);
 
         /// <summary>
-        ///     This method lets the user know if the user can continue with the specific EFT Transfer while disabled by
-        ///     the Host/Site-Controller. U type LPs should let the transaction continue while D type LPs should not.
+        ///     This method returns whether the EFT Transfer should stop if disabled by the Host/Site-Controller.
+        ///     D type LPs should stop the transfer and U type should continue with the transfer.
         /// </summary>
-        /// <returns>True if EGM can continue transfer while disabled by Host/Site-Controller, false otherwise.</returns>
-        bool CanContinueTransferIfDisabledByHost();
+        /// <returns>True if EGM should stop the transfer if disabled by Host/Site-Controller, false otherwise.</returns>
+        bool StopTransferIfDisabledByHost();
 
         /// <summary>
         ///     This method returns the message that will be displayed to the player while EFT

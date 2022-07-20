@@ -73,7 +73,7 @@
         }
 
         /// <inheritdoc />
-        public bool CanContinueTransferIfDisabledByHost()
+        public bool StopTransferIfDisabledByHost()
         {
             return true;
         }

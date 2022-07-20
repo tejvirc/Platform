@@ -852,7 +852,7 @@
         {
             var eftStateController = InitializeController();
             var handler = InitializeHandler(50);
-            handler.Setup(m => m.CanContinueTransferIfDisabledByHost()).Returns(true);
+            handler.Setup(m => m.StopTransferIfDisabledByHost()).Returns(true);
             _disableProvider.Setup(m => m.IsDisabled).Returns(true);
             _disableProvider.Setup(m => m.CurrentDisableKeys).Returns(
                 new List<Guid>
@@ -893,7 +893,7 @@
                     ApplicationConstants.Host1CommunicationsOfflineDisableKey,
                     SasConstants.EftTransactionLockUpGuid
                 });
-            handler.Setup(m => m.CanContinueTransferIfDisabledByHost()).Returns(false);
+            handler.Setup(m => m.StopTransferIfDisabledByHost()).Returns(false);
             var initialTransferData = ComposeTransferData(
                 LongPoll.EftTransferCashAndNonCashableCreditsToHost,
                 "01",
@@ -1228,7 +1228,7 @@
                 .Returns(returnVariable);
             transferHandler.Setup(m => m.ProcessTransfer(It.IsAny<ulong>(), It.IsAny<int>())).Returns(true);
             transferHandler.Setup(m => m.GetDisableString()).Returns("");
-            transferHandler.Setup(m => m.CanContinueTransferIfDisabledByHost()).Returns(true);
+            transferHandler.Setup(m => m.StopTransferIfDisabledByHost()).Returns(true);
             return transferHandler;
         }
 

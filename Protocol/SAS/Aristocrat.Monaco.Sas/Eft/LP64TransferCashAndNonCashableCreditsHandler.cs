@@ -54,7 +54,7 @@
         public EftTransactionResponse Handle(EftTransferData data) => _stateController.Handle(data, this);
 
         /// <inheritdoc />
-        public bool CanContinueTransferIfDisabledByHost() => true;
+        public bool StopTransferIfDisabledByHost() => false;
 
         /// <inheritdoc />
         public string GetDisableString() => Localizer.For(CultureFor.Player).GetString(ResourceKeys.EftTransferOutInProgress);

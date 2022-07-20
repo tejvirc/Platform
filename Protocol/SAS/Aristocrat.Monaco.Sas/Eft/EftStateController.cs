@@ -391,7 +391,7 @@
                 }
 
                 _currentResponse.Status = TransactionStatus.EgmDisabled;
-                if (_eftTransferHandler.CanContinueTransferIfDisabledByHost())
+                if (_eftTransferHandler.StopTransferIfDisabledByHost())
                 {
                     return false;
                 }
