@@ -380,6 +380,12 @@
                 return false;
             }
 
+            if (_disableByOperator.DisabledByOperator)
+            {
+                _currentResponse.Status = TransactionStatus.EgmOutOfService;
+                return false;
+            }
+
             var lockupOtherThanAllowedEft =
                 _disableProvider.CurrentDisableKeys?.Except(EftCommonGuids.AllowEftGuids).ToList();
             if (lockupOtherThanAllowedEft?.Count > 0)
@@ -395,12 +401,6 @@
                 {
                     return false;
                 }
-            }
-
-            if (_disableByOperator.DisabledByOperator)
-            {
-                _currentResponse.Status = TransactionStatus.EgmOutOfService;
-                return false;
             }
 
             return true;
