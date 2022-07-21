@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
 
     internal class TouchOperations : IRobotOperations
     {
@@ -167,7 +167,7 @@
 
         private bool CheckDeadZones(List<TouchBoxes> deadZones, int x, int y)
         {
-            foreach (TouchBoxes tb in _robotController.Config.CurrentGameProfile.MainTouchDeadZones)
+            foreach (TouchBoxes tb in deadZones)
             {
                 if (x >= tb.TopLeftX && x <= tb.BottomRightX && y >= tb.TopLeftY && y <= tb.BottomRightY)
                 {

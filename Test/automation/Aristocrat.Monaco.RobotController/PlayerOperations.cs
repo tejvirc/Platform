@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
-    using System.Threading;
     using System.Linq;
+    using System.Threading;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
 
     internal class PlayerOperations : IRobotOperations
     {
-        private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
+        private readonly Dictionary<Actions, Action<Random>> _actionPlayerFunctions;
         private readonly RobotLogger _logger;
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
@@ -26,6 +26,7 @@
             _eventBus = eventBus;
             _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             _robotController = robotController;
+
             InitializeActionPlayer();
         }
 
@@ -89,8 +90,9 @@
             }
             _logger.Info("RequestPlay Received!", GetType().Name);
             var Rng = new Random((int)DateTime.Now.Ticks);
-            var action =
-                _robotController.Config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_robotController.Config.CurrentGameProfile.RobotActions.Count));
+
+            var actions = _robotController.Config.CurrentGameProfile.RobotActions;
+            var action = actions.ElementAt(Rng.Next(actions.Count));
             _actionPlayerFunctions[action](Rng);
         }
 

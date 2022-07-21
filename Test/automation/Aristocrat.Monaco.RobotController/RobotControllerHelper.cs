@@ -1,9 +1,7 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using SimpleInjector;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using SimpleInjector;
 
     internal static class RobotControllerHelper
     {
@@ -11,7 +9,7 @@
         {
             return Configuration.Load(configPath);
         }
-        
+
         internal static Dictionary<string, HashSet<IRobotOperations>> InitializeModeDictionary(Container container)
         {
             var dict = new Dictionary<string, HashSet<IRobotOperations>>
@@ -23,7 +21,8 @@
                     container.GetInstance<TouchOperations>(),
                     container.GetInstance<BalanceOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
-                    container.GetInstance<GameOperations>()
+                    container.GetInstance<GameOperations>(),
+                    container.GetInstance<GameHelpOperations>()
                 },
 
                 [nameof(ModeType.Super)] = new HashSet<IRobotOperations>
@@ -36,7 +35,8 @@
                     container.GetInstance<GameOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<LockUpOperations>(),
-                    container.GetInstance<OperatingHoursOperations>()
+                    container.GetInstance<OperatingHoursOperations>(),
+                    container.GetInstance<GameHelpOperations>()
                 },
 
                 [nameof(ModeType.Uber)] = new HashSet<IRobotOperations>
@@ -50,10 +50,11 @@
                     container.GetInstance<GameOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<LockUpOperations>(),
-                    container.GetInstance<OperatingHoursOperations>()
+                    container.GetInstance<OperatingHoursOperations>(),
+                    container.GetInstance<GameHelpOperations>()
                 }
             };
             return dict;
-        }        
+        }
     }
 }
