@@ -128,6 +128,7 @@
                 {
                     ScrollGrid.ScrollChanged -= OnScrollChanged;
                     ScrollGrid.SizeChanged -= OnScrollGridSizeChanged;
+                    ScrollGrid.TouchDown -= OnScrollGridTouched;
                 }
 
                 _initialized = false;
@@ -147,9 +148,16 @@
                 {
                     ScrollGrid.ScrollChanged += OnScrollChanged;
                     ScrollGrid.SizeChanged += OnScrollGridSizeChanged;
+                    ScrollGrid.TouchDown += OnScrollGridTouched;
                     _initialized = true;
                 }
             }
+        }
+
+        // When The ScrollGrid is touched, set Physical scrolling.
+        private void OnScrollGridTouched(object sender, System.Windows.Input.TouchEventArgs e)
+        {
+            DisableInternalScrollForListBoxScroll((FrameworkElement)sender);
         }
 
         // Based on the remark in MSDN about ScrollViewer.LineUp and LineDown:
