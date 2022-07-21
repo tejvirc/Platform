@@ -16,7 +16,7 @@
     /// </summary>
     public static class PrinterOverrideParser
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static List<OverridesOverride> _overrides;
 
         public static void LoadOverrides(string fileName)
@@ -124,7 +124,7 @@
             Logger.Debug(
                 result == null
                     ? $"No NewPrinterTemplates found for protocol '{protocol}' and firmware '{firmware}'"
-                    : $"Got '{result.NewRegion.Length}' region results and '{result.NewTemplate.Length}'");
+                    : $"Got '{result.NewRegion?.Length ?? 0}' new region results and '{result.NewTemplate?.Length ?? 0}' new templates");
             return result;
         }
     }

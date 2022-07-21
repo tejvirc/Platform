@@ -15,7 +15,7 @@
     /// </summary>
     public static class TemplateMapping
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Get mapping nodes for a specific printer protocol/firmware.
@@ -84,10 +84,15 @@
             IEnumerable<dprtype> printableRegions)
         {
             var printableTemplate = GetPlatformTemplate(printCommand.Id, printableTemplates);
+            if (printableTemplate is null)
+            {
+                return printCommand;
+            }
+
             Logger.Debug($"Platform Template Id {printCommand.Id} regions are {printableTemplate.Value}");
 
             var templateMappings = GetTemplateMappings(mappings, printCommand.Id.ToString());
-            if (templateMappings == null)
+            if (templateMappings is null)
             {
                 // nothing to remap so just give back the original information
                 return printCommand;
@@ -123,7 +128,7 @@
 
         public static IEnumerable<dprtype> HandleReplacements(OverridesOverride mapping, string[] regionsInTemplate, PrintCommand printCommand, IEnumerable<dprtype> printableRegions)
         {
-            if (mapping.Replacements == null)
+            if (mapping.Replacements is null)
             {
                 return printableRegions;
             }
@@ -183,15 +188,17 @@
             //////////////// Local Methods //////////////
             string GlobalReplaceRegionText(string regionText)
             {
-                if (mapping.Replacements.GlobalRegionTextReplace != null)
+                if (mapping.Replacements.GlobalRegionTextReplace is null)
                 {
-                    foreach (var replacement in mapping.Replacements.GlobalRegionTextReplace)
-                    {
-                        var regex = new Regex(Regex.Escape(replacement.Replace));
-                        regionText = replacement.OnlyFirstOccurrencePerLine
-                            ? regex.Replace(regionText, replacement.With, 1)
-                            : regex.Replace(regionText, replacement.With);
-                    }
+                    return regionText;
+                }
+
+                foreach (var replacement in mapping.Replacements.GlobalRegionTextReplace)
+                {
+                    var regex = new Regex(Regex.Escape(replacement.Replace));
+                    regionText = replacement.OnlyFirstOccurrencePerLine
+                        ? regex.Replace(regionText, replacement.With, 1)
+                        : regex.Replace(regionText, replacement.With);
                 }
 
                 return regionText;
@@ -267,42 +274,43 @@
 
             bool SplitRegionText(string regionId, string regionText, bool skipAdd)
             {
-                if (mapping.Replacements.TextSplitForRegion == null)
+                if (mapping.Replacements.TextSplitForRegion is null)
                 {
                     return skipAdd;
                 }
 
                 foreach (var replacement in mapping.Replacements.TextSplitForRegion)
                 {
-                    if (replacement.RegionId == regionId)
+                    if (replacement.RegionId != regionId)
                     {
-                        var splitText = string.Empty;
-                        if (!string.IsNullOrEmpty(replacement.RegEx))
+                        continue;
+                    }
+
+                    var splitText = string.Empty;
+                    if (!string.IsNullOrEmpty(replacement.RegEx))
+                    {
+                        var regex = new Regex(replacement.RegEx, RegexOptions.IgnoreCase);
+                        var match = regex.Match(regionText);
+
+                        if (match.Groups.Count > 1)
                         {
-                            var regex = new Regex(replacement.RegEx, RegexOptions.IgnoreCase);
-                            var match = regex.Match(regionText);
+                            splitText = replacement.LeadingText + match.Groups[1];
+                        }
 
-                            if (match.Groups.Count > 1)
-                            {
-                                splitText = replacement.LeadingText + match.Groups[1];
-                            }
-
+                        Logger.Debug($"replacing regionId {regionId} and text {regionText} with newId {replacement.NewRegionId} and text {splitText}");
+                        newPrintableRegions.Add(new dprtype { id = replacement.NewRegionId, property = splitText });
+                        skipAdd = true;
+                    }
+                    else if (!string.IsNullOrEmpty(replacement.FormatString))
+                    {
+                        // try to format date time string
+                        if (DateTime.TryParse(regionText, out var result))
+                        {
+                            splitText = result.ToString(replacement.FormatString);
                             Logger.Debug(
-                                $"replacing regionId {regionId} and text {regionText} with newId {replacement.NewRegionId} and text {splitText}");
+                                $"formatting datetime regionId {regionId} and text {regionText} with newId {replacement.NewRegionId} and text {splitText}");
                             newPrintableRegions.Add(new dprtype { id = replacement.NewRegionId, property = splitText });
                             skipAdd = true;
-                        }
-                        else if (!string.IsNullOrEmpty(replacement.FormatString))
-                        {
-                            // try to format date time string
-                            if (DateTime.TryParse(regionText, out var result))
-                            {
-                                splitText = result.ToString(replacement.FormatString);
-                                Logger.Debug(
-                                    $"formatting datetime regionId {regionId} and text {regionText} with newId {replacement.NewRegionId} and text {splitText}");
-                                newPrintableRegions.Add(new dprtype { id = replacement.NewRegionId, property = splitText });
-                                skipAdd = true;
-                            }
                         }
                     }
                 }
@@ -330,39 +338,41 @@
                     var combineRegions = combine.RegionIds.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                     // get text for both regions only if the first region is the current one
-                    if (combineRegions[0] == regionId)
+                    if (combineRegions[0] != regionId)
                     {
-                        // are there 2 regions
-                        if (combineRegions.Length > 1)
+                        continue;
+                    }
+
+                    // are there 2 regions
+                    if (combineRegions.Length > 1)
+                    {
+                        regionText2 = GetTextForRegionId(combineRegions[1]);
+                        if (regionText2 is null)
                         {
-                            regionText2 = GetTextForRegionId(combineRegions[1]);
-                            if (regionText2 is null)
+                            // this regionId isn't in the template so just return the original command
                             {
-                                // this regionId isn't in the template so just return the original command
-                                {
-                                    return true;
-                                }
+                                return true;
                             }
                         }
-
-                        // join all the text
-                        regionText2 = string.Join(
-                            "",
-                            combine.LeadingText,
-                            regionText,
-                            combine.JoinText,
-                            regionText2,
-                            combine.TrailingText);
-
-                        // replace special characters
-                        regionText2 = regionText2.Replace(@"\r", "~013")
-                            .Replace(@"\n", "~010");
-
-                        Logger.Debug(
-                            $"replacing regionId {regionId} and text {regionText} with newId {combine.NewRegionId} and text {regionText2}");
-                        newPrintableRegions.Add(new dprtype { id = combine.NewRegionId, property = regionText2 });
-                        skipAdd = true;
                     }
+
+                    // join all the text
+                    regionText2 = string.Join(
+                        "",
+                        combine.LeadingText,
+                        regionText,
+                        combine.JoinText,
+                        regionText2,
+                        combine.TrailingText);
+
+                    // replace special characters
+                    regionText2 = regionText2.Replace(@"\r", "~013")
+                        .Replace(@"\n", "~010");
+
+                    Logger.Debug(
+                        $"replacing regionId {regionId} and text {regionText} with newId {combine.NewRegionId} and text {regionText2}");
+                    newPrintableRegions.Add(new dprtype { id = combine.NewRegionId, property = regionText2 });
+                    skipAdd = true;
                 }
 
                 return skipAdd;
@@ -387,6 +397,7 @@
             {
                 if (f.RegionIds.Contains(region) && f.OriginalFontNumber == originalFontNumber)
                 {
+                    Logger.Debug($"changing font {f.OriginalFontNumber} to {f.NewFontNumber}");
                     return f.NewFontNumber;
                 }
             }

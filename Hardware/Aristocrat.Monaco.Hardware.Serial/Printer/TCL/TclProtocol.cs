@@ -1,4 +1,5 @@
-﻿namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
+﻿// ReSharper disable InconsistentlySynchronizedField
+namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
 {
     using System;
     using System.Collections.Generic;
@@ -22,8 +23,8 @@
         private const int MinimumLinesPerTicket = 36;
         private const int TicketCharactersPerLine = 45;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly object _lock = new object();
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly object Lock = new ();
 
         private bool _isPrinting;
         private bool _isValidationCompleteReported;
@@ -37,14 +38,14 @@
         private byte _currentTemplateId = TclProtocolConstants.UndefinedPrintAreaIdCharacter;
         private CancellationToken _cancellationToken;
 
-        private readonly Dictionary<string, PrintableObject> _regionCommands = new Dictionary<string, PrintableObject>();
-        private readonly Dictionary<int, PrintableObject> _templateCommands = new Dictionary<int, PrintableObject>();
-        private readonly HashSet<string> _loadedRegions = new HashSet<string>();
-        private readonly HashSet<int> _loadedTemplates = new HashSet<int>();
+        private readonly Dictionary<string, PrintableObject> _regionCommands = new ();
+        private readonly Dictionary<int, PrintableObject> _templateCommands = new ();
+        private readonly HashSet<string> _loadedRegions = new ();
+        private readonly HashSet<int> _loadedTemplates = new ();
 
         // Map from GDS PDL rotation codes to TCL ones
         private static readonly Dictionary<GdsConstants.PdlRotation, TclProtocolConstants.TclPrintDirection> RotationMap =
-            new Dictionary<GdsConstants.PdlRotation, TclProtocolConstants.TclPrintDirection>
+            new ()
             {
                 { GdsConstants.PdlRotation.None, TclProtocolConstants.TclPrintDirection.Right },
                 { GdsConstants.PdlRotation.Quarter, TclProtocolConstants.TclPrintDirection.Down },
@@ -54,14 +55,15 @@
 
         // Map from GDS PDL justification codes to TCL ones
         private static readonly Dictionary<GdsConstants.PdlJustify, TclProtocolConstants.TclPrintJustification> JustificationMap =
-            new Dictionary<GdsConstants.PdlJustify, TclProtocolConstants.TclPrintJustification>
+            new()
             {
                 { GdsConstants.PdlJustify.Left, TclProtocolConstants.TclPrintJustification.Left },
                 { GdsConstants.PdlJustify.Center, TclProtocolConstants.TclPrintJustification.Center },
                 { GdsConstants.PdlJustify.Right, TclProtocolConstants.TclPrintJustification.Right }
             };
 
-        private bool _templateSent;
+        private static bool _templateSent;
+        private static bool _sendingTemplates;
 
         protected TclProtocol()
         {
@@ -167,7 +169,7 @@
             AdjustReceiveTimeout(CrcResponseTime);
             MinimumResponseTime = CrcResponseTime;
 
-            lock (_lock)
+            lock (Lock)
             {
                 Logger.Debug("send CalculateCrc");
                 var response = SendMessage(
@@ -192,7 +194,7 @@
         ///  <inheritdoc />
         protected override Task<bool> FormFeed()
         {
-            lock (_lock)
+            lock (Lock)
             {
                 Logger.Debug("send FormFeed");
                 ResetPrintingFlags(false);
@@ -207,11 +209,13 @@
         /// <inheritdoc />
         protected override Task<bool> DefineRegion(dprtype region)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 RegionCache.Add(region);
             }
 
+            Logger.Debug($"DefineRegion: UsePrinterDefinedTemplates is {UsePrinterDefinedTemplates} Firmware is '{FirmwareVersion}' Protocol is '{Protocol}'");
+            CheckForNewRegionsAndTemplates();
             return Task.FromResult(UsePrinterDefinedTemplates || RenderRegionDefinition(region));
         }
 
@@ -227,7 +231,7 @@
         ///  <inheritdoc />
         protected override bool GetDeviceInformation()
         {
-            lock (_lock)
+            lock (Lock)
             {
                 RequestStatus();
                 var response = GetDeviceSpecificInformation();
@@ -255,7 +259,7 @@
         ///  <inheritdoc />
         protected override bool RequestStatus()
         {
-            lock (_lock)
+            lock (Lock)
             {
                 var status = RequestStatusInternal();
                 if (status == 0)
@@ -264,10 +268,13 @@
                 }
 
                 _isTemplateMode = !status.HasFlag(TclProtocolConstants.TclStatus.JournalPrinting);
-                _isValidationFlagSet = status.HasFlag(TclProtocolConstants.TclStatus.ValidationNumberDone);
+                _isValidationFlagSet = status.HasFlag(TclProtocolConstants.TclStatus.ValidationNumberDone)  ||
+                                       status.HasFlag(TclProtocolConstants.TclStatus.BarcodeDataIsAccessed);
                 _isTopOfForm = status.HasFlag(TclProtocolConstants.TclStatus.TopOfForm);
+                var isError = status.HasFlag(TclProtocolConstants.TclStatus.SystemError);
+                var isCommandError = status.HasFlag(TclProtocolConstants.TclStatus.CommandError);
 
-                Logger.Debug($"Status : Printing={_isPrinting}, ValidationCompleteReported={_isValidationCompleteReported}, ValidationFlagSet={_isValidationFlagSet} in template mode={_isTemplateMode} self test done={_selfTestDone}");
+                Logger.Debug($"Status: Printing={_isPrinting}, ValidationCompleteReported={_isValidationCompleteReported}, ValidationFlagSet={_isValidationFlagSet} in template mode={_isTemplateMode} self test done={_selfTestDone} System Error={isError} Command Error={isCommandError}");
 
                 if (_isPrinting && !_isValidationCompleteReported && _isValidationFlagSet)
                 {
@@ -307,6 +314,8 @@
                         _isPrinting = false;
                     }
                 }
+
+                Logger.Debug($"isPrinting={_isPrinting} waitingForRegionOfInterest={_waitForRegionOfInterest} isTemplateMode={_isTemplateMode} busy={status.HasFlag(TclProtocolConstants.TclStatus.Busy)}");
 
                 if (_isPrinting && !status.HasFlag(TclProtocolConstants.TclStatus.Busy) && !_waitForRegionOfInterest && _isTemplateMode)
                 {
@@ -388,6 +397,7 @@
 
         private string CreatePrintCommand(string templateId, List<PrintDataField> printData)
         {
+            Logger.Debug($"Creating print command for template '{templateId}'");
             var command = new StringBuilder(TclProtocolConstants.TransmitCode);
 
             AppendTclSegmentGroup(command, TclProtocolConstants.PrintCode);
@@ -401,7 +411,7 @@
             }
 
             command.Append(TclProtocolConstants.TransmitCode);
-
+            Logger.Debug($"print command is {command}");
             return command.ToString();
         }
 
@@ -459,7 +469,7 @@
             AppendTclSegmentGroup(command, TemplateWidthDots);
             AppendTclSegmentGroup(command, TemplateLengthDots);
 
-            lock (_lock)
+            lock (Lock)
             {
                 foreach (string regionId in regionIds)
                 {
@@ -505,7 +515,7 @@
 
         private void DeleteAllRegionsAndTemplates()
         {
-            lock (_lock)
+            lock (Lock)
             {
                 RegionCache.Clear();
                 TemplateCache.Clear();
@@ -518,13 +528,14 @@
                 _loadedRegions.Clear();
                 _loadedTemplates.Clear();
                 SendMessage(TclProtocolConstants.DeleteAllRegionsCommand);
+                ClearOnlineErrors();
             }
         }
 
         private void EnableTemplatePrintingMode()
         {
             Logger.Debug("enabling template printing mode");
-            lock (_lock)
+            lock (Lock)
             {
                 if (!_isTemplateMode)
                 {
@@ -536,7 +547,7 @@
         private void EnableLinePrintingMode()
         {
             Logger.Debug("Going to line printer mode");
-            lock (_lock)
+            lock (Lock)
             {
                 if (_isTemplateMode)
                 {
@@ -547,22 +558,25 @@
 
         private static string GetNextPrintableObjectId(ref byte currentId)
         {
-            // Returns characters '0' through '}' (0x30-0x7D) excluding '^' (0x5E) and '|' (0x7C)
+            // Returns characters '0' through '}' (0x30-0x7D) excluding '=', '^' (0x5E) and '|' (0x7C)
             // } will be repeated because we can not have more ids than this
             // If a character is used more than once it will be handled by a PRData error
+            currentId++;
+            if (char.IsLetterOrDigit((char)currentId))
+            {
+                return ((char)currentId).ToString();
+            }
+
             switch (currentId)
             {
-                case TclProtocolConstants.TransmitCharacter:
-                    currentId = TclProtocolConstants.UnderscoreCharacter;
+                case (byte)':':
+                    currentId = (byte)'A';
                     break;
-                case TclProtocolConstants.GroupSeparatorCharacter:
-                    currentId = TclProtocolConstants.RightBraceCharacter;
+                case (byte)'[':
+                    currentId = (byte)'a';
                     break;
-                case TclProtocolConstants.RightBraceCharacter:
-                    currentId = TclProtocolConstants.RightBraceCharacter;
-                    break;
-                default:
-                    currentId++;
+                case (byte)'{':
+                    currentId = (byte)'z';  // error case if we use all the region ids
                     break;
             }
 
@@ -587,36 +601,12 @@
 
         private bool RenderPrinterDefinedPrintData(PrintCommand ticket)
         {
-            Logger.Debug($"RenderPrinterDefinedTemplate with ticket {ticket} ");
-            lock (_lock)
+            Logger.Debug($"RenderPrinterDefinedTemplate with ticket '{ticket.Id}' templateSent is '{_templateSent}' RegionCache has '{RegionCache.Count}' items");
+            lock (Lock)
             {
-                if (!_templateSent)
+                if (!CheckForNewRegionsAndTemplates())
                 {
-                    // check if there are new regions defined in the override
-                    var newRegions = PrinterOverrideParser.GetNewTemplates(Protocol, FirmwareVersion)?.NewRegion.ToList();
-                    if (newRegions != null)
-                    {
-                        foreach (var newRegion in newRegions)
-                        {
-                            DeletePrinterRegion(newRegion.PrinterRegionId);
-                            SendTemplate(newRegion.Command.ToByteArray());
-                        }
-
-                    }
-
-                    // check if there are new templates defined in the override
-                    var newTemplates = PrinterOverrideParser.GetNewTemplates(Protocol, FirmwareVersion)?.NewTemplate.ToList();
-                    if (newTemplates != null)
-                    {
-                        foreach (var newTemplate in newTemplates)
-                        {
-                            DeletePrinterTemplate(newTemplate.PrinterTemplateId);
-                            SendTemplate(newTemplate.Command.ToByteArray());
-                        }
-
-                    }
-
-                    _templateSent = true;
+                    return false;
                 }
 
                 if (PrinterSpecificTemplateMappings.IsAuditTicket(ticket))
@@ -626,17 +616,85 @@
 
                 var remappedTicket =
                     PrinterSpecificTemplateMappings.RemapPrintCommand(ticket, TemplateCache, RegionCache);
-                Logger.Debug($"Remapped ticket is {remappedTicket}");
-                var command = CreatePrintCommand(remappedTicket.PrinterTemplateId, remappedTicket.DataFields.ToList());
+                Logger.Debug($"Remapped ticket is '{remappedTicket.PrinterTemplateId}' ticket id is '{ticket.Id}' TemplateCache has '{TemplateCache.Count}' items. RegionCache has '{RegionCache.Count}' items");
+                var command = CreatePrintCommand(
+                    remappedTicket.PrinterTemplateId,
+                    remappedTicket.DataFields.ToList());
                 Logger.Debug($"Tcl command is {command}");
                 var hasRegionIfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0);
                 return SendPrintMessage(command, hasRegionIfInterest);
             }
         }
 
+        private bool CheckForNewRegionsAndTemplates()
+        {
+            if (_templateSent || _sendingTemplates)
+            {
+                return true;
+            }
+
+            _sendingTemplates = true;
+
+            var overrides = PrinterOverrideParser.GetNewTemplates(Protocol, FirmwareVersion);
+
+            // check if there are new regions defined in the override
+            var newRegions = overrides?.NewRegion?.ToList();
+            ClearOnlineErrors();
+            if (newRegions is not null)
+            {
+                foreach (var newRegion in newRegions)
+                {
+                    ClearOnlineErrors();
+                    DeletePrinterRegion(newRegion.PrinterRegionId);
+                    if (WaitUntilPrinterNotBusy().HasFlag(TclProtocolConstants.TclStatus.SystemError))
+                    {
+                        // may get an error if trying to delete a non-existent region, so ignore errors here
+                        Logger.Error("Error while deleting existing region");
+                        ClearOnlineErrors();
+                    }
+
+                    Logger.Debug($"Sending region from override. Region={newRegion.Command}");
+                    SendTemplate(newRegion.Command.ToByteArray());
+                    if (WaitUntilPrinterNotBusy().HasFlag(TclProtocolConstants.TclStatus.SystemError))
+                    {
+                        Logger.Error("Error while sending new region");
+                        return false;
+                    }
+                }
+            }
+
+            // check if there are new templates defined in the override
+            var newTemplates = overrides?.NewTemplate?.ToList();
+            if (newTemplates is not null)
+            {
+                foreach (var newTemplate in newTemplates)
+                {
+                    ClearOnlineErrors();
+                    DeletePrinterTemplate(newTemplate.PrinterTemplateId);
+                    if (WaitUntilPrinterNotBusy().HasFlag(TclProtocolConstants.TclStatus.SystemError))
+                    {
+                        // may get an error if deleting a non-existent template, so ignore errors here
+                        Logger.Error("Error while deleting template");
+                        ClearOnlineErrors();
+                    }
+
+                    Logger.Debug($"Sending template from override. Template={newTemplate.Command}");
+                    SendTemplate(newTemplate.Command.ToByteArray());
+                    if (WaitUntilPrinterNotBusy().HasFlag(TclProtocolConstants.TclStatus.SystemError))
+                    {
+                        Logger.Error("Error while sending new template");
+                        return false;
+                    }
+                }
+            }
+
+            _templateSent = true;
+             return true;
+        }
+
         private bool RenderPlatformDefinedPrintData(PrintCommand ticket)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 if (!_templateCommands.ContainsKey(ticket.Id))
                 {
@@ -662,8 +720,9 @@
 
         protected override bool RenderRegionDefinition(dprtype pdlRegion)
         {
-            lock (_lock)
+            lock (Lock)
             {
+                Logger.Debug($"RenderRegionDefinition: region {pdlRegion.id} regionCommands has {_regionCommands.Count} entries");
                 if (!_regionCommands.ContainsKey(pdlRegion.id))
                 {
                     var typeParts = pdlRegion.type.Split('=');
@@ -717,23 +776,34 @@
                 var success = true;
                 if (!_loadedRegions.Contains(pdlRegion.id))
                 {
+                    ClearOnlineErrors();
+                    Logger.Debug($"RenderRegionDefinition: sending region {pdlRegion.id} to printer");
+
                     SendMessage(_regionCommands[pdlRegion.id].Command);
-                    success = !RequestStatusInternal().HasFlag(TclProtocolConstants.TclStatus.DataError);
+
+                    success = !WaitUntilPrinterNotBusy().HasFlag(TclProtocolConstants.TclStatus.DataError);
 
                     if (success)
                     {
                         _loadedRegions.Add(pdlRegion.id);
                     }
+                    else
+                    {
+                        Logger.Debug("Error sending command");
+                        ClearOnlineErrors();
+                    }
                 }
 
+                Logger.Debug($"RenderRegionDefinition: returning {success}");
                 return success;
             }
         }
 
         protected override bool RenderTemplateDefinition(dpttype pdlTemplate)
         {
-            lock (_lock)
+            lock (Lock)
             {
+                Logger.Debug($"RenderTemplateDefinition: template is {pdlTemplate.id} templateCommands has {_templateCommands.Count} elements");
                 if (!_templateCommands.ContainsKey(pdlTemplate.id))
                 {
                     string templateId = GetNextPrintableObjectId(ref _currentTemplateId);
@@ -751,11 +821,14 @@
                 var success = true;
                 if (!_loadedTemplates.Contains(pdlTemplate.id))
                 {
+                    Logger.Debug($"RenderTemplateDefinition: sending template {pdlTemplate.id} to printer");
+                    ClearOnlineErrors();
                     SendMessage(_templateCommands[pdlTemplate.id].Command);
-                    success = !RequestStatusInternal().HasFlag(TclProtocolConstants.TclStatus.DataError);
+                    success = !WaitUntilPrinterNotBusy().HasFlag(TclProtocolConstants.TclStatus.DataError);
 
                     if (success)
                     {
+                        Logger.Debug("adding template to loadedTemplates");
                         _loadedTemplates.Add(pdlTemplate.id);
                     }
                 }
@@ -764,9 +837,23 @@
             }
         }
 
+        private TclProtocolConstants.TclStatus WaitUntilPrinterNotBusy()
+        {
+            var delayCount = 5;
+            var status = RequestStatusInternal();
+            while (delayCount > 0 && status.HasFlag(TclProtocolConstants.TclStatus.Busy))
+            {
+                delayCount--;
+                Thread.Sleep(100);
+                status = RequestStatusInternal();
+            }
+
+            return status;
+        }
+
         private TclProtocolConstants.TclStatus RequestStatusInternal()
         {
-            lock (_lock)
+            lock (Lock)
             {
                 Logger.Debug("send RequestStatus");
                 var response = SendMessage(
@@ -798,7 +885,7 @@
         {
             ClearOnlineErrors();
 
-            lock (_lock)
+            lock (Lock)
             {
                 _waitForRegionOfInterest = hasRegionIfInterest;
                 _isValidationCompleteReported = false;
@@ -808,11 +895,10 @@
 
         private void SendTemplate(byte[] templateMessage)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 EnableTemplatePrintingMode();
 
-                Logger.Debug("send template command");
                 SendMessage(templateMessage, TclProtocolConstants.EmptyResponseLength);
 
                 UpdatePollingRate(PrintingPollingIntervalMs);
@@ -821,7 +907,7 @@
 
         private bool SendPrintMessage(string printCommand, bool hasRegionIfInterest)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 ResetPrintingFlags(hasRegionIfInterest);
                 EnableTemplatePrintingMode();
@@ -841,7 +927,7 @@
 
         protected bool SendPrintMessage(byte[] printMessage, bool hasRegionIfInterest)
         {
-            lock (_lock)
+            lock (Lock)
             {
                 ResetPrintingFlags(hasRegionIfInterest);
                 EnableLinePrintingMode();
@@ -866,6 +952,7 @@
 
             try
             {
+                Logger.Debug($"sending printer command {message}");
                 SendCommand(message.ToByteArray());
                 WaitSendComplete();
             }
@@ -910,6 +997,7 @@
 
         protected virtual bool Render3ColumnTicketData(PrintCommand ticket)
         {
+            Logger.Debug("Rendering 3 column ticket in line mode");
             string[] header = { ticket.DataFields[3].Data ?? string.Empty };
 
             var leftColumn = ticket.DataFields[0].Data;

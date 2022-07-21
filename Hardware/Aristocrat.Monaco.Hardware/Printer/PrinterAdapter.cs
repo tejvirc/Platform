@@ -41,7 +41,7 @@
         private const string ActivationTimeText = "ActivationTime";
         private const string Printer = "Printer";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private ReaderWriterLockSlim _stateLock =
             new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
@@ -485,13 +485,17 @@
             foreach (var item in Regions)
             {
                 var region = item.ToPDL(UseLargeFont);
-                Logger.Debug($"Loading region {item.Id} : {region}");
+                Logger.Debug($"Loading region {item.Id} : {region} Implementation is null {Implementation is null} ");
                 if (Implementation == null || !await Implementation.DefineRegion(region))
                 {
                     Logger.Error($"Error loading print region - ID:{item.Id}; Name:{item.Name}");
                     return false;
                 }
             }
+
+            // wait for all the region reports to come in before starting templates
+            Logger.Debug("LoadRegionsAndTemplates: waiting before loading templates");
+            Task.Delay(100).Wait();
 
             // Load the printable templates.
             foreach (var item in Templates)
