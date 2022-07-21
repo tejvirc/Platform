@@ -147,6 +147,7 @@
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
             _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
             _forceGameExitIsInProgress = true;
+            _exitWhenIdle = false;
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
         }
 
@@ -380,7 +381,7 @@
             if (_exitWhenIdle)
             {
                 _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
-                if (!IsExitToLobbyValid())
+                if (!IsExitToLobbyWhenIdleValid())
                 {
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                     return;
@@ -393,9 +394,9 @@
             }
         }
 
-        private bool IsExitToLobbyValid()
+        private bool IsExitToLobbyWhenIdleValid()
         {
-            return _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle);
+            return _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle;
         }
 
         private void BalanceCheckWithDelay(int milliseconds)
