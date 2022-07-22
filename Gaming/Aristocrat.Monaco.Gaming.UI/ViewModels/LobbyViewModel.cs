@@ -714,6 +714,8 @@
                     RaisePropertyChanged(nameof(GameList));
                     RaisePropertyChanged(nameof(MarginInputs));
                     RaisePropertyChanged(nameof(IsSingleTabView));
+                    RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
+                    RaisePropertyChanged(nameof(IsSingleGameDisplayed));
                 }
             }
         }
@@ -1049,6 +1051,16 @@
         ///     Gets a value indicating whether only one Tab is present
         /// </summary>
         public bool IsSingleTabView => GameTabInfo?.TabCount == 1;
+
+        /// <summary>
+        ///     Gets a value indicating whether only one denomination is available for player selection in the current tab
+        /// </summary>
+        public bool IsSingleDenomDisplayed => GameTabInfo?.Denominations.Count == 1;
+
+        /// <summary>
+        ///     Gets a value indicating whether icon of only one game is displayed in lobby
+        /// </summary>
+        public bool IsSingleGameDisplayed => DisplayedGameList?.Count == 1;
 
         /// <summary>
         ///     Gets or sets a value indicating whether the bottom attract feature is visible or not
@@ -3581,7 +3593,7 @@
         private void CashoutFromPlayerPopUpMenu(object obj)
         {
             Logger.Debug("Cashout Button Pressed from player pop up menu");
-            PlayAudioFile(Sound.Touch);   
+            PlayAudioFile(Sound.Touch);
             PlayerMenuPopupViewModel.IsMenuVisible = false;
             _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Collect));
         }
@@ -3605,15 +3617,15 @@
                     if (generateSubTabList)
                     {
                         var subTypes = subset.Select(x =>
-                            {
-                                if (x.SubCategory != GameSubCategory.Undefined)
-                                    return SubTabInfoViewModel.GetSubTypeText(x.SubCategory);
+                        {
+                            if (x.SubCategory != GameSubCategory.Undefined)
+                                return SubTabInfoViewModel.GetSubTypeText(x.SubCategory);
 
-                                if (gameListTypes.Count > 1 && gameListTypes.Contains(x.GameType))
-                                    return x.GameType.ToString();
+                            if (gameListTypes.Count > 1 && gameListTypes.Contains(x.GameType))
+                                return x.GameType.ToString();
 
-                                return x.GameSubtype;
-                            }
+                            return x.GameSubtype;
+                        }
                         );
                         GameTabInfo.SetSubTabs(subTypes.Distinct());
                     }
@@ -3693,6 +3705,9 @@
 
             RaisePropertyChanged(nameof(MarginInputs));
             RaisePropertyChanged(nameof(IsExtraLargeGameIconTabActive));
+            RaisePropertyChanged(nameof(IsSingleTabView));
+            RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
+            RaisePropertyChanged(nameof(IsSingleGameDisplayed));
         }
 
         private void SelectFirstDisplayedGame()
