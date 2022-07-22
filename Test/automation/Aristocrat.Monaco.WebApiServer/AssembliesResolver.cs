@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Web.Http.Dispatcher;
-
+     
     public class AssembliesResolver : IAssembliesResolver
     {
         private readonly string[] _paths = {
@@ -17,7 +17,9 @@
 
         private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static List<string> AssemblyList = new List<string>();
+        public static IReadOnlyCollection<string> AssemblyList => _assemblyList;
+
+        private static readonly List<string> _assemblyList = new();
 
         public ICollection<Assembly> GetAssemblies()
         {
@@ -34,7 +36,7 @@
                     foreach (string dll in Directory.GetFiles(path, "*.dll", SearchOption.TopDirectoryOnly))
                     {
                         Assembly loadedAssembly = Assembly.LoadFile(dll);
-                        AssemblyList.Add(loadedAssembly.FullName.Split(',')[0]);
+                        _assemblyList.Add(loadedAssembly.FullName.Split(',')[0]);
                         _logger.Info($"DLL loaded : '{loadedAssembly.FullName}'");
 
                         Type type = loadedAssembly.GetType($"{loadedAssembly.FullName.Split(',')[0]}.Setup");
@@ -52,9 +54,9 @@
                         baseAssemblies.Add(loadedAssembly);
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
-                    _logger.Error($"Error occured while loading API DLLs : '{e.Message}'");
+                    _logger.Error($"Error occurred while loading API DLLs : '{e.Message}'");
                 }
             }
 
