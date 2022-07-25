@@ -416,6 +416,8 @@ namespace Aristocrat.Monaco.Bingo.UI {
         
         private BingoDisplayConfigurationHelpAppearanceHelpBox helpBoxField;
         
+        private string creditMeterFormatField;
+        
         /// <remarks/>
         public BingoDisplayConfigurationHelpAppearanceHelpBox HelpBox {
             get {
@@ -423,6 +425,16 @@ namespace Aristocrat.Monaco.Bingo.UI {
             }
             set {
                 this.helpBoxField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CreditMeterFormat {
+            get {
+                return this.creditMeterFormatField;
+            }
+            set {
+                this.creditMeterFormatField = value;
             }
         }
     }
