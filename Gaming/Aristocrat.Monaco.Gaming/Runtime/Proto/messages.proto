@@ -87,6 +87,7 @@ enum RuntimeFlag
 	InOverlayLockup = 24;
 	RequestExitGame = 25;
 	GambleFeatureActive = 26;
+	InPlatformHelp = 27;
 }
 
 enum ConfigurationTarget
