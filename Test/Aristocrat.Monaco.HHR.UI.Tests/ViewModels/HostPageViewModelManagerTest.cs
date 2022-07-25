@@ -224,9 +224,8 @@
                 new MockGameInfo {Denominations = new List<IDenomination> {denomination.Object}, Id = 2}
             };
 
-            _properties.Setup(p => p.GetProperty(GamingConstants.Games, null)).Returns(gameInfoList);
-
             _gameProvider.Setup(m => m.GetGame(It.IsAny<int>())).Returns(gameInfoList[0]);
+            _gameProvider.Setup(m => m.GetActiveGame()).Returns((gameInfoList[0], denomination.Object));
         }
 
         [DataRow(300, 100000, false, DisplayName = "Manual Handicap button returns to game --- not enough credits")]

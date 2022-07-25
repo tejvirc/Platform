@@ -27,7 +27,7 @@
                 case Tuple<decimal, decimal> value1:
                     return value1.Item1 == value1.Item2
                         ? value1.Item1.GetRtpString()
-                        : GameConfigHelper.GetRtpRangeString(value1.Item1, value1.Item2);
+                        : new RtpRange(value1.Item1, value1.Item2).ToString();
                 case decimal value2:
                     return value2.GetRtpString();
                 default:
@@ -45,7 +45,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

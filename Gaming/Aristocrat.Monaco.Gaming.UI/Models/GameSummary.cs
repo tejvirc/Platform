@@ -4,13 +4,13 @@
 
     public class GameSummary
     {
-        private int _oneHundredPercent = 100;
+        private const decimal OneHundredPercent = 100m;
 
         public GameSummary(string name, decimal rtp)
         {
             Name = name;
             BlendedRTP = rtp.GetRtpString();
-            BlendedHold = (_oneHundredPercent - rtp).GetRtpString();
+            BlendedHold = (OneHundredPercent - rtp).GetRtpString();
         }
 
         public string Name { get; }

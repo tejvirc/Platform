@@ -132,7 +132,7 @@
             RtpRange totalJurisdictionRtp,
             RtpVerifiedState rtpState)
         {
-            BaseGameRTP = GameConfigHelper.GetRtpRangeString(baseGameRtp);
+            BaseGameRTP = baseGameRtp.ToString();
             BaseGameRTPMin = baseGameRtp.Minimum.GetRtpString();
             BaseGameRTPMax = baseGameRtp.Maximum.GetRtpString();
 

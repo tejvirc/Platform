@@ -64,6 +64,7 @@
         private Mock<ISystemDisableManager> _systemDisableManager;
         private readonly Subject<(Request, Type)> _requests = new Subject<(Request, Type)>();
         private Mock<IGameHistory> _gameHistory;
+        private Mock<IGameProvider> _gameProvider;
 
         [TestInitialize]
         public void Initialize()
@@ -81,6 +82,7 @@
             _prizeInformationEntityHelper = new Mock<IPrizeInformationEntityHelper>(MockBehavior.Default);
             _systemDisableManager = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameHistory = new Mock<IGameHistory>(MockBehavior.Default);
+            _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
 
             // Setups
             _centralManager.Setup(x => x.RequestObservable).Returns(_requests);
@@ -92,6 +94,8 @@
                 .Returns(_protocolLinkedProgressiveAdapter.Object);
             _serviceManager.Setup(s => s.GetService<IPropertiesManager>())
                 .Returns(_propertiesManager.Object);
+            _serviceManager.Setup(s => s.GetService<IGameProvider>())
+                .Returns(_gameProvider.Object);
 
             SetupDenomSelected();
             SetupProgressives();
@@ -704,9 +708,7 @@
                 Denominations = new List<IDenomination> { denomination.Object },
                 Id = 1
             };
-            _propertiesManager.Setup(p => p.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>())).Returns(1);
-            _propertiesManager.Setup(p => p.GetProperty(GamingConstants.Games, It.IsAny<object>())).Returns(new List<IGameDetail> { gameDetail });
-
+            _gameProvider.Setup(s => s.GetActiveGame()).Returns((gameDetail, denomination.Object));
         }
     }
 }

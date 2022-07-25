@@ -83,6 +83,7 @@
                 .Returns(gameInfoList);
 
             _gameProvider.Setup(m => m.GetGame(It.IsAny<int>())).Returns(gameInfoList[0]);
+            _gameProvider.Setup(m => m.GetActiveGame()).Returns((gameInfoList[0], denomination.Object));
 
             CreateCreditInService();
 

@@ -30,8 +30,8 @@
 
             Currency = CurrencyExtensions.DescriptionWithMinorSymbol;
 
-            _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, int.MinValue);
-            _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, int.MaxValue);
+            _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, decimal.MinValue);
+            _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, decimal.MaxValue);
 
             SetupRtpValuesAndVisibility();
 
@@ -82,9 +82,9 @@
 
         public bool MechanicalMeterVisibility { get; private set; }
 
-        private readonly int _defaultAnyGameMinimum;
+        private readonly decimal _defaultAnyGameMinimum;
 
-        private readonly int _defaultAnyGameMaximum;
+        private readonly decimal _defaultAnyGameMaximum;
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
@@ -162,9 +162,10 @@
 
             if (PropertiesManager.GetValue(allowGameTypeKey, true))
             {
-                allowedRtpRange = GameConfigHelper.GetRtpRangeString(
+                allowedRtpRange = new RtpRange(
                     PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum),
-                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum));
+                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum))
+                    .ToString();
                 return true;
             }
 

@@ -6783,7 +6783,7 @@ Do you really want to do partial reset?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="TheoPaybackPctLabelText" xml:space="preserve">
-    <value>Theoretical RTP</value>
+    <value>Theoretical RTP:</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="Thirteen" xml:space="preserve">

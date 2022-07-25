@@ -49,8 +49,8 @@
         public ObservableCollection<string> GameTags { get; set; }
 
         /// <summary>
-        ///     Gets or sets the TheoPaybackPct property
+        ///     Gets or sets the displayable TheoPaybackPct
         /// </summary>
-        public decimal TheoPaybackPct { get; set; }
+        public string TheoPaybackPct { get; set; }
     }
 }

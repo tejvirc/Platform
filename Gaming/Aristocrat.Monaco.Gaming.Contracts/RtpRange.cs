@@ -1,9 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System;
+    using Localization.Properties;
+
 
     /// <summary>
-    ///     Definition of Rtp Range
+    ///     Definition of Rtp Range, expressed in actual percentages (e.g. 91.23)
     /// </summary>
     [Serializable]
     public class RtpRange
@@ -18,12 +20,12 @@
         }
 
         /// <summary>
-        ///     Gets or sets the minimum rtp
+        ///     Gets or sets the minimum rtp, in percent
         /// </summary>
         public decimal Minimum { get; }
 
         /// <summary>
-        ///     Gets or sets the maximum rtp
+        ///     Gets or sets the maximum rtp, in percent
         /// </summary>
         public decimal Maximum { get; }
 
@@ -32,6 +34,21 @@
         /// </summary>
         public override string ToString()
         {
+            if (Maximum == decimal.MaxValue && Minimum == decimal.MinValue)
+            {
+                return Resources.NoLimit;
+            }
+
+            if (Maximum == decimal.MaxValue)
+            {
+                return $"{Resources.AtLeast} {Minimum.GetRtpString()}";
+            }
+
+            if (Minimum == decimal.MinValue)
+            {
+                return $"{Resources.AtMost} {Maximum.GetRtpString()}";
+            }
+
             return $"{Minimum.GetRtpString()} - {Maximum.GetRtpString()}";
         }
 

@@ -25,7 +25,7 @@
         private const string StatusField = @"PlayerTracking.Status";
         private const string InitialMetersField = @"Session.InitialMeters";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IPersistentStorageAccessor _accessor;
         private readonly IEventBus _bus;
@@ -134,7 +134,7 @@
 
         public PlayerOptions Options
         {
-            get { return _options = _options ?? _storageManager.GetEntity<PlayerOptions>(); }
+            get { return _options ??= _storageManager.GetEntity<PlayerOptions>(); }
             set
             {
                 if (value != null)
@@ -674,37 +674,39 @@
         {
             // This is a player specific meter, so we're going to calculate it here
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
-            if (wagerCategory != null)
+            if (wagerCategory == null)
             {
-                const long divisor = 10000;
-
-                var hold = Convert.ToDouble(
-                    gameLog.FinalWager * GamingConstants.Millicents * Math.Max(
-                        divisor - wagerCategory.TheoPaybackPercent.ToMeter(),
-                        Options.MinimumTheoreticalHoldPercentage) / divisor);
-
-                log.TheoreticalHoldAmount += (long)Math.Round(hold, MidpointRounding.ToEven);
+                return;
             }
+
+            const decimal oneHundredPercent = 100;
+
+            var hold = Convert.ToDouble(
+                gameLog.FinalWager * GamingConstants.Millicents * Math.Max(
+                    oneHundredPercent - wagerCategory.TheoPaybackPercent,
+                    Options.MinimumTheoreticalHoldPercentageMeter.FromMeter()) / oneHundredPercent);
+
+            log.TheoreticalHoldAmount += (long)Math.Round(hold, MidpointRounding.ToEven);
         }
 
         private SessionStartDelayTypes SetSessionDelay()
         {
-            lock (_sessionLock)
-            {
-                if (_delayType == SessionStartDelayTypes.None)
-                {
-                    if (!_gameState.Idle)
-                    {
-                        _delayType |= SessionStartDelayTypes.GameState;
-                    }
-                    if (_transactions.IsTransactionActive)
-                    {
-                        _delayType |= SessionStartDelayTypes.Transaction;
-                    }
-                }
+            _sessionLock.EnterWriteLock();
 
-                return _delayType;
+            if (_delayType == SessionStartDelayTypes.None)
+            {
+                if (!_gameState.Idle)
+                {
+                    _delayType |= SessionStartDelayTypes.GameState;
+                }
+                if (_transactions.IsTransactionActive)
+                {
+                    _delayType |= SessionStartDelayTypes.Transaction;
+                }
             }
+
+            _sessionLock.ExitWriteLock();
+            return _delayType;
         }
 
         [Flags]

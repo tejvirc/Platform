@@ -10,6 +10,8 @@
     /// </summary>
     public class RtpToHoldConverter : IValueConverter
     {
+        private const decimal OneHundredPercent = 100m;
+
         /// <summary>
         ///     Convert
         /// </summary>
@@ -26,10 +28,10 @@
                     return string.Empty;
                 case Tuple<decimal, decimal> value1:
                     return value1.Item1 == value1.Item2
-                        ? (100 - value1.Item1).GetRtpString()
-                        : GameConfigHelper.GetRtpRangeString(100 - value1.Item2, 100 - value1.Item1);
+                        ? (OneHundredPercent - value1.Item1).GetRtpString()
+                        : new RtpRange(OneHundredPercent - value1.Item2, OneHundredPercent - value1.Item1).ToString();
                 case decimal value2:
-                    return (100 - value2).GetRtpString();
+                    return (OneHundredPercent - value2).GetRtpString();
                 default:
                     return string.Empty;
             }
@@ -45,7 +47,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

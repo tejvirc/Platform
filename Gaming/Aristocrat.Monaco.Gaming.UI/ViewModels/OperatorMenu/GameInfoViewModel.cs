@@ -25,14 +25,12 @@
     [CLSCompliant(false)]
     public class GameInfoViewModel : OperatorMenuPageViewModelBase
     {
-        private const double NumberToPercentageDivisor = 10000D;
-
         private readonly IDialogService _dialogService;
         private readonly IGameOrderSettings _gameOrderSettings;
 
         private bool _allowPrintGamingMachineInfo;
         private bool _downButtonEnabled;
-        private ObservableCollection<GameOrderData> _gameList = new ObservableCollection<GameOrderData>();
+        private ObservableCollection<GameOrderData> _gameList = new ();
         private int _selectedIndex = -1;
         private GameOrderData _selectedItem;
         private string _selectedTag;
@@ -209,7 +207,7 @@
                         ThemeId = game.ThemeId,
                         ThemeName = game.ThemeName,
                         GameTags = new ObservableCollection<string>(game.GameTags ?? new List<string>()),
-                        TheoPaybackPct = game.MaximumPaybackPercent.ToDecimal()
+                        TheoPaybackPct = game.MaximumPaybackPercent.GetRtpString()
                     });
             }
 

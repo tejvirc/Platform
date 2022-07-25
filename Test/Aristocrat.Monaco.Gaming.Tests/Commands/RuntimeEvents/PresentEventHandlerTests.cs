@@ -175,10 +175,7 @@
             _gameHistory.Setup(x => x.CurrentLog).Returns(gameHistoryLog.Object);
             _propertiesManager.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, It.IsAny<bool>()))
                 .Returns(true);
-            _propertiesManager.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, It.IsAny<long>()))
-                .Returns(denomValue);
-            _propertiesManager.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>()))
-                .Returns(activeId);
+            _gameProvider.Setup(x => x.GetActiveGame()).Returns((gameDetail.Object, denom.Object));
             _propertiesManager
                 .Setup(x => x.GetProperty(GamingConstants.SelectedWagerCategory, It.IsAny<IWagerCategory>()))
                 .Returns(wagerCategory.Object);

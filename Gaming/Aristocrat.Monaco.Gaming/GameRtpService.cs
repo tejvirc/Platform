@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Reflection;
     using Aristocrat.PackageManifest.Extension.v100;
-    //using Aristocrat.PackageManifest.Extension.v100;
     using Contracts;
     using Contracts.Models;
     using Kernel;
@@ -16,13 +15,44 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private readonly IPropertiesManager _properties;
         private readonly Dictionary<GameType,
             (bool includeSapIncr, bool includeLinkIncr, decimal minPayback, decimal maxPayback)> _rtpRules = new();
 
         public GameRtpService(IPropertiesManager properties)
         {
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            if (properties == null)
+            {
+                throw new ArgumentNullException(nameof(properties));
+            }
+
+            _rtpRules[GameType.Slot] = (
+                properties.GetValue(GamingConstants.SlotsIncludeStandaloneProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.SlotMinimumReturnToPlayer, decimal.MinValue),
+                properties.GetValue(GamingConstants.SlotMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Poker] = (
+                properties.GetValue(GamingConstants.PokerIncludeStandaloneProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.PokerIncludeLinkProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.PokerMinimumReturnToPlayer, decimal.MinValue),
+                properties.GetValue(GamingConstants.PokerMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Keno] = (
+                properties.GetValue(GamingConstants.KenoIncludeStandaloneProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.KenoIncludeLinkProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.KenoMinimumReturnToPlayer, decimal.MinValue),
+                properties.GetValue(GamingConstants.KenoMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Blackjack] = (
+                properties.GetValue(GamingConstants.BlackjackIncludeStandaloneProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.BlackjackIncludeLinkProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.BlackjackMinimumReturnToPlayer, decimal.MinValue),
+                properties.GetValue(GamingConstants.BlackjackMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Roulette] = (
+                properties.GetValue(GamingConstants.RouletteIncludeStandaloneProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.RouletteIncludeLinkProgressiveIncrementRtp, false),
+                properties.GetValue(GamingConstants.RouletteMinimumReturnToPlayer, decimal.MinValue),
+                properties.GetValue(GamingConstants.RouletteMaximumReturnToPlayer, decimal.MaxValue));
+
+            // for games that didn't specify their type, presume they are Slot.
+            _rtpRules[GameType.Undefined] = _rtpRules[GameType.Slot];
         }
 
         public string Name => GetType().ToString();
@@ -31,31 +61,7 @@
 
         public void Initialize()
         {
-            _rtpRules[GameType.Slot] = (
-                _properties.GetValue(GamingConstants.SlotsIncludeStandaloneProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.SlotMinimumReturnToPlayer, decimal.MinValue),
-                _properties.GetValue(GamingConstants.SlotMaximumReturnToPlayer, decimal.MaxValue));
-            _rtpRules[GameType.Poker] = (
-                _properties.GetValue(GamingConstants.PokerIncludeStandaloneProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.PokerIncludeLinkProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.PokerMinimumReturnToPlayer, decimal.MinValue),
-                _properties.GetValue(GamingConstants.PokerMaximumReturnToPlayer, decimal.MaxValue));
-            _rtpRules[GameType.Keno] = (
-                _properties.GetValue(GamingConstants.KenoIncludeStandaloneProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.KenoIncludeLinkProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.KenoMinimumReturnToPlayer, decimal.MinValue),
-                _properties.GetValue(GamingConstants.KenoMaximumReturnToPlayer, decimal.MaxValue));
-            _rtpRules[GameType.Blackjack] = (
-                _properties.GetValue(GamingConstants.BlackjackIncludeStandaloneProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.BlackjackIncludeLinkProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.BlackjackMinimumReturnToPlayer, decimal.MinValue),
-                _properties.GetValue(GamingConstants.BlackjackMaximumReturnToPlayer, decimal.MaxValue));
-            _rtpRules[GameType.Roulette] = (
-                _properties.GetValue(GamingConstants.RouletteIncludeStandaloneProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.RouletteIncludeLinkProgressiveIncrementRtp, false),
-                _properties.GetValue(GamingConstants.RouletteMinimumReturnToPlayer, decimal.MinValue),
-                _properties.GetValue(GamingConstants.RouletteMaximumReturnToPlayer, decimal.MaxValue));
+            // N/A
         }
 
         public bool CanIncludeIncrementRtp(GameType type)

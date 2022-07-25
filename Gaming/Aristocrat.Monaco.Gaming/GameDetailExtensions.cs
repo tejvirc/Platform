@@ -10,8 +10,6 @@
     /// </summary>
     public static class GameDetailExtensions
     {
-        private const decimal Precision = 1000M;
-
         /// <summary>
         ///     Gets the total jurisdictional rtp range
         /// </summary>
@@ -74,15 +72,7 @@
                 return new RtpRange(0M, 0M);
             }
 
-            var minPercentage = @this.MinimumPaybackPercent > 100
-                ? @this.MinimumPaybackPercent * Precision
-                : @this.MinimumPaybackPercent;
-
-            var maxPercentage = @this.MaximumPaybackPercent > 100
-                ? @this.MaximumPaybackPercent * Precision
-                : @this.MaximumPaybackPercent;
-
-            return new RtpRange(minPercentage, maxPercentage);
+            return new RtpRange(@this.MinimumPaybackPercent, @this.MaximumPaybackPercent);
         }
     }
 }

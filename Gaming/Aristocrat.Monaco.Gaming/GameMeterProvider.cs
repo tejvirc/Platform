@@ -634,7 +634,7 @@
                                     x.denom,
                                     x.wagerCategory,
                                     GamingMeters.WagerCategoryWageredAmount).GetValue(timeFrame) *
-                                x.theoPaybackPercent.ToDecimal())),
+                                x.theoPaybackPercent.ToFraction())),
                     gameInfo.Select(
                         x => _meterManager.GetMeterName(
                             x.gameId,

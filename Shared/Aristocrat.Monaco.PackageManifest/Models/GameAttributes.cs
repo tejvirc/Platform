@@ -26,7 +26,7 @@
         /// <value>
         ///     Maximum theoretical payback percentage for the game; a value of 0 (zero) indicates that the information is not
         ///     available; otherwise, it MUST be set to the maximum payback percentage of the game, which MUST be greater than 0
-        ///     (zero). For example, a value of 96371 represents a maximum payback percentage of 96.371%.
+        ///     (zero). For example, a value of 96.371 represents a maximum payback percentage of 96.371%.
         /// </value>
         public decimal MaxPaybackPercent { get; set; }
 
@@ -36,7 +36,7 @@
         /// <value>
         ///     Minimum theoretical payback percentage for the game; a value of 0 (zero) indicates that the information is not
         ///     available; otherwise, it MUST be set to the minimum payback percentage for the game, which MUST be greater than 0
-        ///     (zero) and less than or equal to maxPaybackPct. For example, a value of 82451 represents a minimum payback
+        ///     (zero) and less than or equal to maxPaybackPct. For example, a value of 82.451 represents a minimum payback
         ///     percentage of 82.451%.
         /// </value>
         public decimal MinPaybackPercent { get; set; }

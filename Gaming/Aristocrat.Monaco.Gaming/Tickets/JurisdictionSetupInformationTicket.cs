@@ -114,9 +114,10 @@
         {
             if (PropertiesManager.GetValue(allowGameTypeKey, true))
             {
-                allowedRtpRange = GameConfigHelper.GetRtpRangeString(
+                allowedRtpRange = new RtpRange(
                     PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum),
-                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum));
+                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum))
+                    .ToString();
 
                 return true;
             }

@@ -65,14 +65,14 @@
         /// <summary>
         ///     Gets the maximum theoretical payback percentage for the game; a value of 0 (zero) indicates that the attribute is
         ///     not supported; otherwise, MUST be set to the maximum payback percentage of the game, which MUST be greater than 0
-        ///     (zero). For example, a value of 9637 represents a maximum payback percentage of 96.37%
+        ///     (zero). For example, a value of 96.37 represents a maximum payback percentage of 96.37%
         /// </summary>
         decimal MaximumPaybackPercent { get; }
 
         /// <summary>
         ///     Gets the minimum theoretical payback percentage for the game; a value of 0 (zero) indicates that the attribute is
         ///     not supported; otherwise, MUST be set to the minimum payback percentage for the game, which MUST be greater than 0
-        ///     (zero). For example, a value of 8245 represent
+        ///     (zero). For example, a value of 82.45 represents a minimum payback percentage of 82.45^
         /// </summary>
         decimal MinimumPaybackPercent { get; }
 

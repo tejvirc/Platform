@@ -41,22 +41,19 @@
                  ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models1:GameOrderData}">
-                        <StackPanel>
-                            <Label Content="{Binding Name}" Style="{DynamicResource MonacoListBoxLabelHeader}"/>
-                            <Label Content="{Binding Paytable}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"/>
-                            <Label Content="{Binding Version}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"/>
-                            <Label Margin="0" Style="{DynamicResource MonacoListBoxLabel}">
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0}: {1:p3}">
-                                            <Binding ElementName="TheoPaybackProxy" Path="Result"/>
-                                            <Binding Path="TheoPaybackPct"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                    <lex:LocProxy x:Name="TheoPaybackProxy" Source="{x:Static loc:ResourceKeys.TheoPaybackPctLabelText}"/>
-                                </TextBlock>
-                            </Label>
+                    <StackPanel>
+                        <Label Content="{Binding Name}" Style="{DynamicResource MonacoListBoxLabelHeader}"/>
+                        <Label Content="{Binding Paytable}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"/>
+                        <Label Content="{Binding Version}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TheoPaybackPctLabelText}}"
+                                   Margin="0"
+                                   Style="{DynamicResource MonacoListBoxLabel}" />
+                            <Label Content="{Binding TheoPaybackPct}"
+                                   Margin="5 0"
+                                   Style="{DynamicResource MonacoListBoxLabel}"/>
                         </StackPanel>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
