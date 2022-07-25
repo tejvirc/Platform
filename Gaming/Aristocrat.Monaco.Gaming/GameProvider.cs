@@ -72,13 +72,13 @@
         private readonly IProgressiveLevelProvider _progressiveProvider;
         private readonly IIdProvider _idProvider;
         private readonly IPropertiesManager _properties;
-        private readonly IGameRtpService _gameRtpService;
         private readonly IRuntimeProvider _runtimeProvider;
         private readonly IPersistentStorageManager _storageManager;
         private readonly IDigitalRights _digitalRights;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
-
+        private readonly Dictionary<GameType,
+            (bool includeSapIncr, bool includeLinkIncr, decimal minPayback, decimal maxPayback)> _rtpRules = new();
         private readonly double _multiplier;
         private readonly object _sync = new();
 
@@ -93,7 +93,6 @@
             IGameOrderSettings gameOrder,
             IEventBus bus,
             IPropertiesManager properties,
-            IGameRtpService gameRtpService,
             IRuntimeProvider runtimeProvider,
             IManifest<IEnumerable<ProgressiveDetail>> progressiveManifest,
             IProgressiveLevelProvider progressiveProvider,
@@ -110,7 +109,6 @@
             _gameOrder = gameOrder ?? throw new ArgumentNullException(nameof(gameOrder));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
-            _gameRtpService = gameRtpService ?? throw new ArgumentNullException(nameof(gameRtpService));
             _runtimeProvider = runtimeProvider ?? throw new ArgumentNullException(nameof(runtimeProvider));
             _progressiveManifest = progressiveManifest ?? throw new ArgumentNullException(nameof(progressiveManifest));
             _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
@@ -118,6 +116,8 @@
             _digitalRights = digitalRights ?? throw new ArgumentNullException(nameof(digitalRights));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+
+            SetupRtpRules();
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
 
@@ -604,6 +604,59 @@
             _initialized = true;
         }
 
+        public bool CanIncludeIncrementRtp(GameType type)
+        {
+            return CanIncludeSapIncrementRtp(type) ||
+                   CanIncludeLinkProgressiveIncrementRtp(type);
+        }
+
+        public RtpRange GetTotalRtp(GameAttributes game, IReadOnlyCollection<ProgressiveDetail> progressiveDetails)
+        {
+            var gameType = ToGameType(game.GameType);
+            var includeIncrement = CanIncludeIncrementRtp(gameType);
+
+            var categories = game.WagerCategories.ToList();
+            var minBaseRtp = categories.Select(w => w.MinBaseRtpPercent).Min();
+            var maxBaseRtp = categories.Select(w => w.MaxBaseRtpPercent).Max();
+            var minProgStartupRtp = categories.Select(w => w.MinSapStartupRtpPercent)
+                .Union(categories.Select(w => w.MinLinkStartupRtpPercent)).Min();
+            var maxProgStartupRtp = categories.Select(w => w.MaxSapStartupRtpPercent)
+                .Union(categories.Select(w => w.MaxLinkStartupRtpPercent)).Max();
+            var progIncrementRtps = categories.Select(w => w.SapIncrementRtpPercent)
+                .Union(categories.Select(w => w.LinkIncrementRtpPercent)).ToList();
+            var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
+            var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
+            Logger.Debug($"minBase={minBaseRtp}% maxBase={maxBaseRtp}% minProgStart={minProgStartupRtp}% maxProgStart={maxProgStartupRtp}% minProgIncr={minProgIncrementRtp}% maxProgIncr={maxProgIncrementRtp}%");
+
+            var totalRtpMin = minBaseRtp + minProgStartupRtp + minProgIncrementRtp;
+            var totalRtpMax = maxBaseRtp + maxProgStartupRtp + maxProgIncrementRtp;
+            Logger.Debug($"minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
+
+            // old-style game manifest?
+            if (minBaseRtp == 0)
+            {
+                var returnToPlayer = progressiveDetails?.FirstOrDefault()?.ReturnToPlayer;
+
+                totalRtpMin = (includeIncrement
+                    ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMin
+                    : returnToPlayer?.BaseRtpAndResetRtpMin) ?? game.MinPaybackPercent;
+                totalRtpMax = (includeIncrement
+                    ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMax
+                    : returnToPlayer?.BaseRtpAndResetRtpMax) ?? game.MaxPaybackPercent;
+                Logger.Debug($"Alt minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
+            }
+
+            return new RtpRange(totalRtpMin, totalRtpMax);
+        }
+
+
+        public bool IsValidRtp(GameType gameType, RtpRange rtpRange)
+        {
+            return rtpRange.Maximum >= rtpRange.Minimum
+                   && rtpRange.Minimum >= _rtpRules[gameType].minPayback
+                   && rtpRange.Maximum <= _rtpRules[gameType].maxPayback;
+        }
+
         private static string GetManifest(string path)
         {
             return Directory.GetFiles(path, ManifestFilter, SearchOption.AllDirectories).FirstOrDefault();
@@ -873,9 +926,9 @@
                         continue;
                     }
 
-                    var rtpRange = _gameRtpService.GetTotalRtp(game, progressiveDetails);
-                    var gameType = _gameRtpService.ToGameType(game.GameType);
-                    if (!_gameRtpService.IsValidRtp(gameType, rtpRange))
+                    var rtpRange = GetTotalRtp(game, progressiveDetails);
+                    var gameType = ToGameType(game.GameType);
+                    if (!IsValidRtp(gameType, rtpRange))
                     {
                         Logger.Info($"{game.ThemeId}:{game.PaytableId}'s RTP is not allowed in Jurisdiction");
                         continue;
@@ -1443,6 +1496,7 @@
                 ? game.WagerCategories.Min(wc => wc.MinWagerCredits)
                 : activeBetOption.Bets.Min(b => b.Multiplier) * activeLineOption.Lines.Min(l => l.Cost);
 
+            // the following logic supports Roulette; the odd-looking use of wc.MinWagerCredits has been tested.
             var maxWagerCredits = activeLineOption == null || activeBetOption == null
                 ? game.WagerCategories.Max(wc => wc.MinWagerCredits)
                 : activeBetOption.Bets.Max(b => b.Multiplier) * activeLineOption.Lines.Max(l => l.Cost);
@@ -1581,6 +1635,66 @@
                     return _properties.GetValue(GamingConstants.AllowRouletteGames, true);
                 default:
                     return _properties.GetValue(GamingConstants.AllowSlotGames, true);
+            }
+        }
+
+        private void SetupRtpRules()
+        {
+            _rtpRules[GameType.Slot] = (
+                _properties.GetValue(GamingConstants.SlotsIncludeStandaloneProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.SlotMinimumReturnToPlayer, decimal.MinValue),
+                _properties.GetValue(GamingConstants.SlotMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Poker] = (
+                _properties.GetValue(GamingConstants.PokerIncludeStandaloneProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.PokerIncludeLinkProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.PokerMinimumReturnToPlayer, decimal.MinValue),
+                _properties.GetValue(GamingConstants.PokerMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Keno] = (
+                _properties.GetValue(GamingConstants.KenoIncludeStandaloneProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.KenoIncludeLinkProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.KenoMinimumReturnToPlayer, decimal.MinValue),
+                _properties.GetValue(GamingConstants.KenoMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Blackjack] = (
+                _properties.GetValue(GamingConstants.BlackjackIncludeStandaloneProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.BlackjackIncludeLinkProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.BlackjackMinimumReturnToPlayer, decimal.MinValue),
+                _properties.GetValue(GamingConstants.BlackjackMaximumReturnToPlayer, decimal.MaxValue));
+            _rtpRules[GameType.Roulette] = (
+                _properties.GetValue(GamingConstants.RouletteIncludeStandaloneProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.RouletteIncludeLinkProgressiveIncrementRtp, false),
+                _properties.GetValue(GamingConstants.RouletteMinimumReturnToPlayer, decimal.MinValue),
+                _properties.GetValue(GamingConstants.RouletteMaximumReturnToPlayer, decimal.MaxValue));
+
+            // for games that didn't specify their type, presume they are Slot.
+            _rtpRules[GameType.Undefined] = _rtpRules[GameType.Slot];
+        }
+
+        private bool CanIncludeSapIncrementRtp(GameType type)
+        {
+            return _rtpRules[type].includeSapIncr;
+        }
+
+        private bool CanIncludeLinkProgressiveIncrementRtp(GameType type)
+        {
+            return _rtpRules[type].includeLinkIncr;
+        }
+
+        private GameType ToGameType(t_gameType type)
+        {
+            // Default to slot for games that are not tagged
+            switch (type)
+            {
+                case t_gameType.Blackjack:
+                    return GameType.Blackjack;
+                case t_gameType.Poker:
+                    return GameType.Poker;
+                case t_gameType.Keno:
+                    return GameType.Keno;
+                case t_gameType.Roulette:
+                    return GameType.Roulette;
+                default:
+                    return GameType.Slot;
             }
         }
     }

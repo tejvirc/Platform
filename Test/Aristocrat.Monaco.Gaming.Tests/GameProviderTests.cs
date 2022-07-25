@@ -38,7 +38,6 @@
         private Mock<IGameOrderSettings> _gameOrder;
         private Mock<IEventBus> _bus;
         private Mock<IPropertiesManager> _properties;
-        private Mock<IGameRtpService> _gameRtpService;
         private Mock<IRuntimeProvider> _runtimeProvider;
         private Mock<IManifest<IEnumerable<ProgressiveDetail>>> _progressiveManifest;
         private Mock<IProgressiveLevelProvider> _progressiveProvider;
@@ -69,22 +68,21 @@
 
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
         public void WhenArgumentIsNullExpectException(
             bool nullPath,
             bool nullStorage,
@@ -94,7 +92,6 @@
             bool nullGameOrder,
             bool nullBus,
             bool nullProperties,
-            bool nullGameRtpService,
             bool nullRuntime,
             bool nullProgressiveManifest,
             bool nullProgressiveProvider,
@@ -112,7 +109,6 @@
                 nullGameOrder,
                 nullBus,
                 nullProperties,
-                nullGameRtpService,
                 nullRuntime,
                 nullProgressiveManifest,
                 nullProgressiveProvider,
@@ -131,7 +127,6 @@
             bool nullGameOrder = false,
             bool nullBus = false,
             bool nullProperties = false,
-            bool nullGameRtpService = false,
             bool nullRuntime = false,
             bool nullProgressiveManifest = false,
             bool nullProgressiveProvider = false,
@@ -149,7 +144,6 @@
                 nullGameOrder ? null : _gameOrder.Object,
                 nullBus ? null : _bus.Object,
                 nullProperties ? null : _properties.Object,
-                nullGameRtpService ? null : _gameRtpService.Object,
                 nullRuntime ? null : _runtimeProvider.Object,
                 nullProgressiveManifest ? null : _progressiveManifest.Object,
                 nullProgressiveProvider ? null : _progressiveProvider.Object,
@@ -171,7 +165,6 @@
             _gameOrder = new Mock<IGameOrderSettings>(MockBehavior.Default);
             _bus = new Mock<IEventBus>(MockBehavior.Default);
             _properties = new Mock<IPropertiesManager>(MockBehavior.Default);
-            _gameRtpService = new Mock<IGameRtpService>(MockBehavior.Default);
             _runtimeProvider = new Mock<IRuntimeProvider>(MockBehavior.Default);
             _progressiveManifest = new Mock<IManifest<IEnumerable<ProgressiveDetail>>>(MockBehavior.Default);
             _progressiveProvider = new Mock<IProgressiveLevelProvider>(MockBehavior.Default);
@@ -191,6 +184,8 @@
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMinimumReturnToPlayer, It.IsAny<int>())).Returns(int.MinValue);
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMaximumReturnToPlayer, It.IsAny<int>())).Returns(int.MaxValue);
             _properties.Setup(p => p.GetProperty(AccountingConstants.MaxBetLimit, It.IsAny<long>())).Returns(AccountingConstants.DefaultMaxBetLimit);
+            _properties.Setup(p => p.GetProperty(It.IsAny<string>(), It.IsAny<bool>())).Returns(false);
+            _properties.Setup(p => p.GetProperty(It.IsAny<string>(), It.IsAny<decimal>())).Returns(1.0m);
         }
 
         private void SetupStorage()

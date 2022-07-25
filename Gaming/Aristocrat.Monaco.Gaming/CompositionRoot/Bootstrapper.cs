@@ -84,7 +84,6 @@
             container.Register<IManifest<GameContent>, GameManifest>(Lifestyle.Singleton);
             container.Register<IManifest<IEnumerable<ProgressiveDetail>>, ProgressiveManifest>(Lifestyle.Singleton);
             container.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
-            container.Register<IGameRtpService, GameRtpService>(Lifestyle.Singleton);
             container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
             container.Register<IGameCategoryService, GameCategoryService>(Lifestyle.Singleton);
             container.Register<IGameHelpTextProvider, GameHelpTextProvider>(Lifestyle.Singleton);

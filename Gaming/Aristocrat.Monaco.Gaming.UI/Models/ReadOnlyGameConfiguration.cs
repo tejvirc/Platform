@@ -12,7 +12,7 @@
 
     public class ReadOnlyGameConfiguration
     {
-        private readonly IGameRtpService _gameRtpService;
+        private readonly IGameProvider _gameProvider;
 
         private readonly double _denomMultiplier;
 
@@ -27,7 +27,7 @@
             _denomMultiplier = denomMultiplier;
 
             var container = ServiceManager.GetInstance().GetService<IContainerService>().Container;
-            _gameRtpService = container.GetInstance<IGameRtpService>();
+            _gameProvider = container.GetInstance<IGameProvider>();
 
             SetupProgressiveValues(container.GetInstance<IProgressiveConfigurationProvider>(), GameDetail, DenominationValue);
 
@@ -149,7 +149,7 @@
             TotalJurisdictionalRTPMax = totalJurisdictionRtp?.Maximum.GetRtpString();
 
             ProgressiveResetRTPState = rtpState;
-            ProgressiveIncrementRTPState = !_gameRtpService.CanIncludeIncrementRtp(GameType) && rtpState == RtpVerifiedState.Verified
+            ProgressiveIncrementRTPState = !_gameProvider.CanIncludeIncrementRtp(GameType) && rtpState == RtpVerifiedState.Verified
                 ? RtpVerifiedState.NotUsed : rtpState;
         }
     }
