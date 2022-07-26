@@ -17,7 +17,6 @@
         private const int MaxRpm = 4400;
 
         private readonly Subject<CpuMetricsInfo> _cpuMetrics = new();
-
         public Subject<CpuMetricsInfo> CpuMetrics => _cpuMetrics;
 
         // lock
