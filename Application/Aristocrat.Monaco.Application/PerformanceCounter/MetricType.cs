@@ -122,7 +122,7 @@
         [Instance("GDKRuntimeHost")]
         [Category("Process")]
         [Counter("Private Bytes")]
-        [Label("GDK Memory")]
+        [Label("Game Memory")]
         [Unit("MB")]
         [MaxRange(1000)]
         GdkPrivateBytes

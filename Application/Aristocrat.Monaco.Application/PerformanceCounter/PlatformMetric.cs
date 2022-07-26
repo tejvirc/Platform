@@ -97,10 +97,9 @@
 
                     case "GPU":
                         // This is a percentage after we add up all the values per process/type
-                        var gpu = Math.Round(_counter.NextValue() / MebiBytes,
-                            RoundingDecimals);
+                        var gpu = Math.Round(_counter.NextValue(), RoundingDecimals);
                         // Sometimes the system gives a wild reading on the first sample, so cap it
-                        return Math.Min(gpu, 110.0);
+                        return Math.Min(gpu, 101.0);
 
                     default:
                         // "General" which usually means a counter, but we'll keep some decimals
