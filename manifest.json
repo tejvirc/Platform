@@ -14566,9 +14566,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -19758,7 +19755,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.GameEndWin.GameEndWinBonusCreditsStrategy.html",
-          "hash": "Mc1bK+uF/5CDwD8ciMgcSBxlpJBL7bDllCKj/RMboo8="
+          "hash": "zXk6j77Ld6NeryQANzs93mk/Hf+2JrAvnJkyAT1CiAw="
         }
       },
       "is_incremental": false,
@@ -23749,6 +23746,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
