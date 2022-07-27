@@ -14566,6 +14566,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23650,9 +23653,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -66858,7 +66858,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverride.html",
-          "hash": "xiW2Dk8oIZGWVzp/VZe3GSIFjHkXQMUsgGg66oiwtDk="
+          "hash": "KzB/lri+Rvf6AFWhxtRLrujtIKBkfBwXNW9q6aV1Tb0="
         }
       },
       "is_incremental": false,
@@ -66870,7 +66870,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideAuditTickets.html",
-          "hash": "5J8mvxTkaUPZuo5mbVrqpF5XJc531EWRRmYIgklAWXc="
+          "hash": "nO3YOwUW+Vl7PVxXAeik0PRShPwhDQSVJE9PH1HMumQ="
         }
       },
       "is_incremental": false,
@@ -66882,7 +66882,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideFontOverride.html",
-          "hash": "AXDz8DiSWPZunVBjspKbuGm9332zGa56D55/XsaBRI4="
+          "hash": "qPINmfwFi2wOgavTkLRuDtELLL7dSEhhOPu5iMaJtF8="
         }
       },
       "is_incremental": false,
@@ -66894,7 +66894,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideMapping.html",
-          "hash": "u+ay2hF7Vj2IybBe+9uEgQLHCADTvcBW8MK8QhK45LQ="
+          "hash": "nhetJlz6yvwUZ2DBSt62YuJB2zP979FwOk+2hLDMWms="
         }
       },
       "is_incremental": false,
@@ -66906,7 +66906,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideNewPrinterTemplates.html",
-          "hash": "/F5TiGNKG1tBSd8msJy5Eo4c0hMhiSUqIyvq2CkQvfY="
+          "hash": "QVVmRWchq44L0LU+I5S10YXTDC5iw4KPuWUcnTPbrhw="
         }
       },
       "is_incremental": false,
@@ -66918,7 +66918,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideNewPrinterTemplatesNewRegion.html",
-          "hash": "81UVZ2VDgVH0bNLwfirOWD/d5WEkj6nrPmPivO/gCNI="
+          "hash": "1g0yu6JD3qu4Rinykff4eijJe0p350mawBhWdkb9waI="
         }
       },
       "is_incremental": false,
@@ -66930,7 +66930,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideNewPrinterTemplatesNewTemplate.html",
-          "hash": "klSa0lVByiLiaxbEh+IpTD4Ft6FJ6AfV2qYKrjNl1Lo="
+          "hash": "VpWe1kUdDxqtTvKUXWHxW5JgF8Gc9gBMkwXTP4gNcQI="
         }
       },
       "is_incremental": false,
@@ -66942,7 +66942,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideReplacements.html",
-          "hash": "GCKXK4T0Fu+p3tYP0X82sfHPFX5o+Z9RmEMOcGwTjqA="
+          "hash": "/DpPOjephYnN7AfiYknM14WlTQ+kknivLo2w5JgPDco="
         }
       },
       "is_incremental": false,
@@ -66954,7 +66954,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideReplacementsChangeRegionCase.html",
-          "hash": "uFB2SbAv9VgrWnpC4efAUP/Vrlg5RSoQ2ivoKvyiFN4="
+          "hash": "oruQDH/ssLBESwaslTLt9XhGjlWLVUOXZn2+VSNFdS0="
         }
       },
       "is_incremental": false,
@@ -66966,7 +66966,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideReplacementsGlobalReplace.html",
-          "hash": "2k61x2WVU45E5IELe4bG5DaaQKja0l6LkAUcaLp0qM0="
+          "hash": "YgjnuXjH58mk/EFTEHQrhX9ow5aLh5VXhLelc5IkuhE="
         }
       },
       "is_incremental": false,
@@ -66978,7 +66978,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideReplacementsRegionTextCombine.html",
-          "hash": "cKjRfAq4wM0cEiowjQjLzOaNzuU5mqlMGa7EWkiG/Mc="
+          "hash": "BbAfKgHIO5loIVRMcEYOYvFHsagL5vSAHrPptRJwI9I="
         }
       },
       "is_incremental": false,
@@ -66990,7 +66990,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideReplacementsSplit.html",
-          "hash": "Y5QZVcuOA5zQZ4vGELcsKgRjALB0jiiVIE0y0p+yKO4="
+          "hash": "BL252zxg/fYdc/oy2J0KZCAuQbtuncesqAiZwnhLC7g="
         }
       },
       "is_incremental": false,
@@ -67002,7 +67002,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideReplacementsTextReplace.html",
-          "hash": "BqXDmLjXyxJvxLQNtnTuNujC9wvbN/sURCXeXR1IohM="
+          "hash": "lTI4UcmPYD7le07Gb6ff8xI0fd3VLAp7+byVbXMdOyc="
         }
       },
       "is_incremental": false,
@@ -67014,7 +67014,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.OverridesOverrideTemplateChange.html",
-          "hash": "PeiszylGPfa6Fc/MV2o8jCcVK008+YSaNdNaCK4+kzY="
+          "hash": "1SAqH5NH3VXbZhDdDYE8Nd9cKrH1e6XHdKBxk7VeMH8="
         }
       },
       "is_incremental": false,
@@ -67206,7 +67206,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.Printer.TCL.TclProtocol.PrintableObject.html",
-          "hash": "4DzkQew/g3Ldlzw25LskJvzGYIGcugVYgT+mYdDvHQI="
+          "hash": "6EXA+xAwrPDqwNWi62BV0kM3dViRB9IDZvjHX6iOHNA="
         }
       },
       "is_incremental": false,
@@ -67218,7 +67218,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.Printer.TCL.TclProtocol.TclRegionData.html",
-          "hash": "OzgEEqEj50bJmsbF208/zFSriwpcM3t0X/k08/Nx7jg="
+          "hash": "h8/ZhHpUzQS5u5rTm7DPixjGIRCVdh4d4TJREo/jreQ="
         }
       },
       "is_incremental": false,
@@ -67230,7 +67230,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Serial.Printer.TCL.TclProtocol.html",
-          "hash": "hvT0dcJSAtMSwKz13nlrch/gSpu8gw+18ZXKmKPnCx8="
+          "hash": "dSrlGiGNZUpL7VlGhPgHCbTKsNn1bLw0LZDUDdZ5Ltw="
         }
       },
       "is_incremental": false,
