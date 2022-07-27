@@ -11,6 +11,7 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using OverlayServer.Data.Bingo;
     using Test.Common;
     using UI.Models;
 

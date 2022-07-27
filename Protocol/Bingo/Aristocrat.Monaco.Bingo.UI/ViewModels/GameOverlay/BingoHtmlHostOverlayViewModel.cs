@@ -34,6 +34,7 @@
     using Protocol.Common.Storage.Entity;
     using Services;
     using BingoPattern = Common.GameOverlay.BingoPattern;
+    using PresentationOverrideTypes = Gaming.Contracts.PresentationOverrideTypes;
 
     public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
     {

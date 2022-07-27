@@ -14,7 +14,8 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using PresentationOverrideMessageFormat = BingoDisplayConfigurationPresentationOverrideMessageFormat;
+    using OverlayServer.Data.Bingo;
+    using PresentationOverrideMessageFormat = OverlayServer.Data.Bingo.BingoDisplayConfigurationPresentationOverrideMessageFormat;
 
     public class BingoDisplayConfigurationProvider : IBingoDisplayConfigurationProvider, IService, IDisposable
     {

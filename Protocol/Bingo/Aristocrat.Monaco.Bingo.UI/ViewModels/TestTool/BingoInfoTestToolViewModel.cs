@@ -17,8 +17,9 @@
     using Events;
     using Gaming.Contracts;
     using Monaco.UI.Common.Extensions;
-    using PresentationOverrideMessageFormat = BingoDisplayConfigurationPresentationOverrideMessageFormat;
-    using PresentationOverrideTypes = UI.PresentationOverrideTypes;
+    using OverlayServer.Data.Bingo;
+    using PresentationOverrideMessageFormat = OverlayServer.Data.Bingo.BingoDisplayConfigurationPresentationOverrideMessageFormat;
+    using PresentationOverrideTypes = OverlayServer.Data.Bingo.PresentationOverrideTypes;
 
     public class BingoInfoTestToolViewModel : BingoTestToolViewModelBase
     {
