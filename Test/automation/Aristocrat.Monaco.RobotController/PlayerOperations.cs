@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
@@ -47,13 +46,10 @@
         {
             _logger.Info("PlayerOperations Has Been Initiated!", GetType().Name);
             _actionPlayerTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestPlay();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalAction,
-                               _robotController.Config.Active.IntervalAction);
+                _ => RequestPlay(),
+               null,
+               _robotController.Config.Active.IntervalAction,
+               _robotController.Config.Active.IntervalAction);
         }
 
         public void Halt()
@@ -72,14 +68,11 @@
 
             if (disposing)
             {
-                if (_actionPlayerTimer is not null)
-                {
-                    _actionPlayerTimer.Dispose();
-                }
+                _actionPlayerTimer?.Dispose();
                 _actionPlayerTimer = null;
                 _eventBus.UnsubscribeAll(this);
+                _disposed = true;
             }
-            _disposed = true;
         }
 
         private void RequestPlay()
@@ -89,11 +82,11 @@
                 return;
             }
             _logger.Info("RequestPlay Received!", GetType().Name);
-            var Rng = new Random((int)DateTime.Now.Ticks);
 
-            var actions = _robotController.Config.CurrentGameProfile.RobotActions;
-            var action = actions.ElementAt(Rng.Next(actions.Count));
-            _actionPlayerFunctions[action](Rng);
+
+            var rng = new Random();
+            var action = _robotController.Config.CurrentGameProfile.RobotActions.GetRandomElement(rng);
+            _actionPlayerFunctions[action](rng);
         }
 
         private bool IsValid()
@@ -104,36 +97,31 @@
 
         private void InitializeActionPlayer()
         {
-            _actionPlayerFunctions.Add(Actions.SpinRequest,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.SpinRequest] = _ =>
             {
                 _logger.Info("Spin Request", GetType().Name);
                 _automator.SpinRequest();
-            });
+            };
 
-            _actionPlayerFunctions.Add(Actions.BetLevel,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.BetLevel] = (rng) =>
             {
-                _logger.Info("Changing bet level", GetType().Name);
-                var betIndices = _robotController.Config.GetBetIndices();
-                var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
-                _automator.SetBetLevel(index);
-            });
+                var betLevel = _robotController.Config.GetBetIndices().GetRandomElement(rng);
+                _logger.Info($"Changing bet level: {betLevel}", GetType().Name);
+                _automator.SetBetLevel(betLevel);
+            };
 
-            _actionPlayerFunctions.Add(Actions.BetMax,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.BetMax] = _ =>
             {
                 _logger.Info("Bet Max", GetType().Name);
                 _automator.SetBetMax();
-            });
+            };
 
-            _actionPlayerFunctions.Add(Actions.LineLevel,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.LineLevel] = (rng) =>
             {
                 _logger.Info("Change Line Level", GetType().Name);
-                var lineIndices = _robotController.Config.GetLineIndices();
-                _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
-            });
+                var lineLevel = _robotController.Config.GetLineIndices().GetRandomElement(rng);
+                _automator.SetLineLevel(lineLevel);
+            };
         }
     }
 }

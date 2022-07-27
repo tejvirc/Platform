@@ -48,24 +48,15 @@
             IProgressiveGameProvider progressiveGameProvider,
             IGameStartConditionProvider gameStartConditions)
         {
-            _runtime = runtime
-                ?? throw new ArgumentNullException(nameof(runtime));
-            _recovery = recovery
-                ?? throw new ArgumentNullException(nameof(recovery));
-            _gamePlayState = gamePlayState
-                ?? throw new ArgumentNullException(nameof(gamePlayState));
-            _properties = properties
-                ?? throw new ArgumentNullException(nameof(properties));
-            _gameDiagnostics = diagnostics
-                ?? throw new ArgumentNullException(nameof(diagnostics));
-            _gameHistory = gameHistory
-                ?? throw new ArgumentNullException(nameof(gameHistory));
-            _eventBus = eventBus
-                ?? throw new ArgumentNullException(nameof(eventBus));
-            _progressiveGameProvider = progressiveGameProvider
-                ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
-            _gameStartConditions = gameStartConditions
-                ?? throw new ArgumentNullException(nameof(gameStartConditions));
+            _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
+            _recovery = recovery ?? throw new ArgumentNullException(nameof(recovery));
+            _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameDiagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
+            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _gameStartConditions = gameStartConditions ?? throw new ArgumentNullException(nameof(gameStartConditions));
         }
 
         /// <inheritdoc />
@@ -80,7 +71,7 @@
             {
                 if (!_gameStartConditions.CheckGameStartConditions() || !_gamePlayState.Prepare())
                 {
-                    Failed();
+                    Failed("starting conditions failed");
                     return;
                 }
             }
@@ -98,7 +89,7 @@
 
                     if (wagerCategory is null)
                     {
-                        Failed();
+                        Failed($"wager category is null: {request.WagerCategory}");
                         return;
                     }
                 }
@@ -121,7 +112,7 @@
 
                 if (!_gamePlayState.EscrowWager(command.Wager, command.Data, command.Request, _recovery.IsRecovering))
                 {
-                    Failed();
+                    Failed("EscrowWager is false");
                     return;
                 }
 
@@ -148,11 +139,11 @@
                 _runtime.BeginGameRoundResponse(BeginGameRoundResult.Success, outcomes);
             }
 
-            void Failed()
+            void Failed(string reason)
             {
                 _runtime.BeginGameRoundResponse(BeginGameRoundResult.Failed, Enumerable.Empty<Outcome>());
 
-                Logger.Warn("Failed to start game round.");
+                Logger.Warn($"Failed to start game round: {reason}");
 
                 _eventBus.Publish(new GameRequestFailedEvent());
             }

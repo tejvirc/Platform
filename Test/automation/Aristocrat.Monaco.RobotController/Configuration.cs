@@ -79,26 +79,7 @@
             GameName = string.Empty;
             Type = GameType.Reel;
             MinimumBalanceCents = 1000;
-            BetLevels = new BetLevels
-            {
-                1,
-                2,
-                3,
-                4,
-                5
-            };
-            LineSettings = new LineSettings
-            {
-                1,
-                2,
-                3,
-                4,
-                5
-            };
-            RobotActions = new HashSet<Actions>
-            {
-                Actions.BetLevel, Actions.BetMax, Actions.LineLevel, Actions.SpinRequest
-            };
+            RobotActions = new HashSet<Actions>();
             ExtraMainTouchAreas = new List<TouchBoxes>();
             ExtraVbdTouchAreas = new List<TouchBoxes>();
             MainTouchDeadZones = new List<TouchBoxes>();
@@ -370,7 +351,8 @@
 
     public class Configuration
     {
-        [XmlIgnore] private static readonly ILog Logger =
+        [XmlIgnore]
+        private static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         [XmlIgnore] private static readonly Random Rng = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
@@ -529,30 +511,20 @@
 
         public List<int> GetBetIndices()
         {
-            return CurrentGameProfile != null
-                ? CurrentGameProfile.BetLevels
-                : new List<int>
-                {
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                };
+            var bets = CurrentGameProfile?.BetLevels;
+
+            return bets == null || !bets.Any()
+                ? new List<int> { 1, 2, 3, 4, 5 }
+                : bets;
         }
 
         public List<int> GetLineIndices()
         {
-            return CurrentGameProfile != null
-                ? CurrentGameProfile.LineSettings
-                : new List<int>
-                {
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                };
+            var lines = CurrentGameProfile?.LineSettings;
+
+            return lines == null || !lines.Any()
+                ? new List<int> { 1, 2, 3, 4, 5 }
+                : lines;
         }
 
         public List<string> GetTimeLimitButtons()
@@ -595,12 +567,11 @@
 
         public string SelectNextGame()
         {
-            if (Active.GameList != null && Active.GameList.Count > 0)
+            if (Active.GameList is { Count: > 0 })
             {
                 switch (Active.Selection)
                 {
                     case GameSelection.Sequence:
-                    {
                         if (string.IsNullOrEmpty(CurrentGame))
                         {
                             CurrentGame = Active.GameList.First();
@@ -615,18 +586,13 @@
                         }
 
                         break;
-                    }
                     case GameSelection.Random:
-                    {
                         var random = Rng.Next(Active.GameList.Count);
                         CurrentGame = Active.GameList[random];
                         break;
-                    }
                     case GameSelection.Single:
-                    {
                         CurrentGame = Active.GameList.First();
                         break;
-                    }
                 }
             }
 

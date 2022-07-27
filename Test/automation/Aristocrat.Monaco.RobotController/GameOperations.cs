@@ -1,5 +1,10 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
@@ -8,11 +13,6 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.RobotController.Contracts;
     using Aristocrat.Monaco.Test.Automation;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     internal class GameOperations : IRobotOperations
     {
@@ -153,7 +153,7 @@
 
         private bool IsRequestForceExitToLobbyValid(bool skipTestRecovery)
         {
-            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
             var isGeneralRule = (_gameIsRunning && !_sc.IsGameLoading && !_forceGameExitIsInProgress && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
             return !isBlocked && isGeneralRule;
         }
@@ -176,6 +176,8 @@
         {
             if (!IsRequestGameValid())
             {
+                _logger.Info("IsRequestGameValid is false", GetType().Name);
+
                 return;
             }
             if (_sc.IsGame && _gameIsRunning)
@@ -212,7 +214,7 @@
             Task.Delay(milliseconds).ContinueWith(
                 _ =>
                 {
-                     _requestGameIsInProgress = false;
+                    _requestGameIsInProgress = false;
                     RequestGame();
                 });
         }
@@ -224,7 +226,7 @@
                 this,
                  evt =>
                  {
-                    _logger.Info($"GameLoadRequestedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     _logger.Info($"GameLoadRequestedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                      _requestGameIsInProgress = true;
                  });
             _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
@@ -251,9 +253,10 @@
                 _ =>
                 {
                     _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _requestGameIsInProgress = false;
+                    _requestGameIsInProgress = false;
                     if (!_sc.IsAllowSingleGameAutoLaunch)
                     {
+                        _logger.Info("Requesting new game", GetType().Name);
                         RequestGame();
                     }
                 });
@@ -264,7 +267,7 @@
                     _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     _gameIsRunning = true;
                     _sanityCounter = 0;
-                     _requestGameIsInProgress = false;
+                    _requestGameIsInProgress = false;
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                     _automator.EnableExitToLobby(false);
                 });
@@ -305,7 +308,7 @@
                              _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                              _robotController.Enabled = false;
                          }
-                         _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);                        
+                         _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                          _forceGameExitIsInProgress = false;
                          _goToNextGame = false;
                          _exitWhenIdle = true;
