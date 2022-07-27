@@ -621,8 +621,9 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                     remappedTicket.PrinterTemplateId,
                     remappedTicket.DataFields.ToList());
                 Logger.Debug($"Tcl command is {command}");
-                var hasRegionIfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0);
-                return SendPrintMessage(command, hasRegionIfInterest);
+                var hasRegionOfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0) &&
+                                          PrinterSpecificTemplateMappings.SupportsROI;
+                return SendPrintMessage(command, hasRegionOfInterest);
             }
         }
 
@@ -713,8 +714,9 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                 string templateId = _templateCommands[ticket.Id].Id;
                 string command = CreatePrintCommand(templateId, regionPrintData);
 
-                var hasRegionIfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0);
-                return SendPrintMessage(command, hasRegionIfInterest);
+                var hasRegionOfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0) &&
+                                          PrinterSpecificTemplateMappings.SupportsROI;
+                return SendPrintMessage(command, hasRegionOfInterest);
             }
         }
 
@@ -881,13 +883,13 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
             }
         }
 
-        private void ResetPrintingFlags(bool hasRegionIfInterest)
+        private void ResetPrintingFlags(bool hasRegionOfInterest)
         {
             ClearOnlineErrors();
 
             lock (Lock)
             {
-                _waitForRegionOfInterest = hasRegionIfInterest;
+                _waitForRegionOfInterest = hasRegionOfInterest;
                 _isValidationCompleteReported = false;
                 _isPrinting = true;
             }
@@ -905,11 +907,11 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
             }
         }
 
-        private bool SendPrintMessage(string printCommand, bool hasRegionIfInterest)
+        private bool SendPrintMessage(string printCommand, bool hasRegionOfInterest)
         {
             lock (Lock)
             {
-                ResetPrintingFlags(hasRegionIfInterest);
+                ResetPrintingFlags(hasRegionOfInterest);
                 EnableTemplatePrintingMode();
 
                 TicketPrintStatus = new TicketPrintStatus { PrintInProgress = true };
@@ -925,11 +927,11 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
             }
         }
 
-        protected bool SendPrintMessage(byte[] printMessage, bool hasRegionIfInterest)
+        protected bool SendPrintMessage(byte[] printMessage, bool hasRegionOfInterest)
         {
             lock (Lock)
             {
-                ResetPrintingFlags(hasRegionIfInterest);
+                ResetPrintingFlags(hasRegionOfInterest);
                 EnableLinePrintingMode();
 
                 TicketPrintStatus = new TicketPrintStatus { PrintInProgress = true };

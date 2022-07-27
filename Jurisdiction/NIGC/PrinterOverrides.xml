@@ -30,7 +30,72 @@ Please update the confluence page when new elements and attributes are added.
 <Overrides>
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="../../bin/Printer/PrinterOverrides.xsd">
-  <Override Protocol="JCM TCL" FirmwareBase="GURUSAG 5RUSAGE" UsePrinterDefinedTemplates="true">
+  <Override Protocol="JCM TCL" FirmwareBase="5RUSAGE" UsePrinterDefinedTemplates="true">
+    <AuditTickets PlatformTemplateIds="101 105"/>
+    <TemplateChanges>
+      <TemplateChange Name="cashout" PlatformTemplateId="102" Regions="107 121 122 135 106 117 124 125 126 114 115 118 119 120"/>
+      <TemplateChange Name="jackpot" PlatformTemplateId="103" Regions="107 121 122 135 106 130 128 125 127 129 131 132 118 119 120"/>
+      <TemplateChange Name="handpay receipt" PlatformTemplateId="104" Regions="107 121 122 135 106 130 128 125 127 129 131 132 118 119 120"/>
+      <TemplateChange Name="jackpot no barcode" PlatformTemplateId="106" Regions="121 122 135 106 128 125 127 129 131 132 118"/>
+      <TemplateChange Name="handpay receipt no barcode" PlatformTemplateId="107" Regions="121 122 135 106 128 125 127 129 131 132 118"/>
+    </TemplateChanges>
+
+    <Replacements>
+      <RegionTextReplace>
+        <TextReplace RegionId="125" Description="MachineId" Replace="#:" With="#"/>
+        <TextReplace RegionId="106" Description="CashSlipTitle" Replace="PLAYABLE ONLY" With="PLAYABLE  ONLY" />
+      </RegionTextReplace>
+      <TextSplitForRegion>
+        <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}"/>
+        <Split RegionId="127" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})"/>
+        <Split RegionId="126" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}"/>
+        <Split RegionId="126" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})"/>
+      </TextSplitForRegion>
+    </Replacements>
+
+    <NewPrinterTemplates>
+      <NewRegion Description="establishment name" PrinterRegionId="1" Command="^R|1|R|104|1027|65|1020|0|3|1|8|2|2|0|0||^"/>
+      <NewRegion Description="location name" PrinterRegionId="2" Command="^R|2|R|122|1027|31|502|0|3|1|8|1|1|0|0||^"/>
+      <NewRegion Description="city state" PrinterRegionId="3" Command="^R|3|R|122|520|31|520|0|3|0|8|1|1|0|0||^"/>
+      <NewRegion Description="ticket type" PrinterRegionId="j" Command="^R|j|R|218|1027|89|1020|0|3|1|3|2|2|0|0||^"/>
+      <NewRegion Description="dollar amount receipt" PrinterRegionId="N" Command="^R|N|R|450|1027|69|1020|0|3|1|5|2|2|0|0||^"/>
+      <NewRegion Description="dollar amount in words" PrinterRegionId="s" Command="^R|s|R|400|1027|24|1020|0|3|1|7|1|1|0|0||^"/>
+      <NewRegion Description="dollar amount in words2" PrinterRegionId="P" Command="^R|P|R|303|1027|24|1020|0|3|1|7|1|1|0|0||^"/>
+      <NewRegion Description="date receipt" PrinterRegionId="Q" Command="^R|Q|R|331|841|31|220|0|3|1|8|1|1|0|0||^"/>
+      <NewRegion Description="time receipt" PrinterRegionId="R" Command="^R|R|R|331|615|31|180|0|3|1|8|1|1|0|0||^"/>
+      <NewRegion Description="ticket number receipt" PrinterRegionId="S" Command="^R|S|R|331|430|31|425|0|3|0|8|1|1|0|0||^"/>
+      <NewRegion Description="expiration" PrinterRegionId="q" Command="^R|q|R|500|1051|31|400|0|3|2|7|1|1|0|0||^"/>
+      <NewRegion Description="machine number" PrinterRegionId="L" Command="^R|L|R|500|120|31|350|0|3|0|7|1|1|0|0||^"/>
+      <NewRegion Description="validation number at leading edge" PrinterRegionId="i" Command="^R|i|R|125|8|370|31|0|0|0|8|1|1|0|0||^"/>
+      <NewRegion Description="validation text cashout" PrinterRegionId="k" Command="^R|k|R|358|822|31|210|0|3|0|8|1|1|0|0||^"/>
+      <NewRegion Description="validation text receipt" PrinterRegionId="m" Command="^R|m|R|361|822|31|210|0|3|0|8|1|1|0|0||^"/>
+      <NewRegion Description="date cashout" PrinterRegionId="B" Command="^R|B|R|358|607|31|607|0|3|0|8|1|1|0|0||^"/>
+      <NewRegion Description="time cashout" PrinterRegionId="C" Command="^R|C|R|383|841|31|220|0|3|1|8|1|1|0|0||^"/>
+      <NewRegion Description="ticket number cashout" PrinterRegionId="D" Command="^R|D|R|383|616|31|180|0|3|1|8|1|1|0|0||^"/>
+      <NewRegion Description="amount in words cashout" PrinterRegionId="E" Command="^R|E|R|383|435|31|434|0|3|0|8|1|1|0|0||^"/>
+      <NewRegion Description="dollar amount cashout" PrinterRegionId="F" Command="^R|F|R|440|1027|24|1020|0|3|1|2|1|1|0|0||^"/>
+      <NewRegion Description="dollar amount in words 2 cashout" PrinterRegionId="G" Command="^R|G|R|419|1027|24|1020|0|3|1|7|1|1|0|0||^"/>
+      <NewRegion Description="dollar amount receipt" PrinterRegionId="N" Command="^R|N|R|268|1027|69|1020|0|3|1|5|2|2|0|0||^"/>
+      <NewRegion Description="amount in words receipt" PrinterRegionId="O" Command="^R|O|R|279|1027|24|1020|0|3|1|7|1|1|0|0||^"  />
+      <NewRegion Description="barcode receipt" PrinterRegionId="U" Command="^R|U|R|361|607|31|607|0|3|0|5|1|1|0|0||^"/>
+      <NewRegion Description="barcode cashout" PrinterRegionId="Z" Command="^R|Z|R|220|263|108|624|0|1|1|l|4|8|108|0||^"/>
+      <NewRegion Description="barcode bottom" PrinterRegionId="X" Command="^R|X|R|362|263|108|624|0|1|1|l|4|8|108|0||^"/>
+
+      <NewTemplate Description="no barcode" PrinterTemplateId="Z" Command="^T|Z|R|500|1240|1|2|3|j|N|s|P|Q|R|S|q|L|^"/>
+      <NewTemplate Description="cashout" PrinterTemplateId="9" Command="^T|9|R|500|1240|i|1|2|3|j|k|B|C|D|E|s|G|F|q|L|Z|^"/>
+      <NewTemplate Description="receipt" PrinterTemplateId="A" Command="^T|A|R|500|1240|i|1|2|3|j|N|O|P|Q|R|S|m|U|q|L|X|^"/>
+    </NewPrinterTemplates>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="9" Regions="107 121 122 135 106 120 119 1 2 124 115 0 114 118 125 117"/>
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="A" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130"/>
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="A" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130"/>
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="Z" Regions="121 122 135 106 129 131 132 1 2 128 118 125"/>
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="Z" Regions="121 122 135 106 129 131 132 1 2 128 118 125"/>
+    </PrinterTemplateMappings>
+  </Override>
+
+  <Override Protocol="JCM TCL" FirmwareBase="GURUSAG" UsePrinterDefinedTemplates="true" SupportsROI="false">
     <AuditTickets PlatformTemplateIds="101 105"/>
     <TemplateChanges>
       <TemplateChange Name="cashout" PlatformTemplateId="102" Regions="107 121 122 135 106 117 124 125 126 114 115 118 119 120"/>
