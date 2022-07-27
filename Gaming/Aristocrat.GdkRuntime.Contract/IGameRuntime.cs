@@ -387,6 +387,9 @@ namespace Aristocrat.GDKRuntime
             /// <summary>Total wager</summary>
             public ulong Wager;
 
+            /// <summary>Stake</summary>
+            public ulong StakeAmount;
+
             /// <summary>Bet multiplier</summary>
             public uint BetMultiplier;
 

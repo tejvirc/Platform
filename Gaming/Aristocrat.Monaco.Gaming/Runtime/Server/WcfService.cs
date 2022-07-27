@@ -535,7 +535,14 @@
         {
             Logger.Debug($"Update Bet Line options : {betOptions}");
 
-            var bet = new UpdateBetOptions((long)betOptions.Wager, (int)betOptions.BetMultiplier, (int)betOptions.LineCost, (int)betOptions.NumberLines, (int)betOptions.Ante, (int)betOptions.BetLinePresetId);
+            var bet = new UpdateBetOptions(
+                (long)betOptions.Wager,
+                (long)betOptions.StakeAmount,
+                (int)betOptions.BetMultiplier,
+                (int)betOptions.LineCost,
+                (int)betOptions.NumberLines,
+                (int)betOptions.Ante,
+                (int)betOptions.BetLinePresetId);
 
             _handlerFactory.Create<UpdateBetOptions>()
                 .Handle(bet);
