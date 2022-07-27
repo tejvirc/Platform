@@ -161,6 +161,8 @@
 
         public bool DiagnosticsEnabled { get; set; }
 
+        public new bool TestModeEnabledSupplementary => Printer?.CanPrint ?? false;
+
         public ICommand FormFeedButtonCommand { get; }
 
         public ICommand PrintDiagnosticButtonCommand { get; }
@@ -466,7 +468,6 @@
             var logicalState = printer?.LogicalState ?? PrinterLogicalState.Disabled;
 
             StateText = logicalState.ToString();
-            TestModeEnabled = false;
 
             switch (logicalState)
             {
@@ -488,7 +489,6 @@
                     break;
                 default:
                     StateCurrentMode = StateMode.Normal;
-                    TestModeEnabled = true;
                     break;
             }
 
