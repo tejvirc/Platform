@@ -566,7 +566,7 @@
             return ++_sequenceNumber == ToUInt64(response.Data, returnDataLength) ? returnData : null;
         }
 
-        private class Token : IToken
+        internal class Token : IToken
         {
             public ushort Id { get; set; }
 

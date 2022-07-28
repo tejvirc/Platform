@@ -122,6 +122,10 @@
             {
                 Logger.Debug("No key file defined.  Protection module will be disabled");
 
+                _protectionModule = new FakeSmartCardModule();
+                _protectionModule.Initialize();
+                _connectedTimer = new Timer(OnStatus, null, StatusInterval, Timeout.InfiniteTimeSpan);
+
                 return;
             }
 #endif
