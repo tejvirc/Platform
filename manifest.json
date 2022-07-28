@@ -14563,6 +14563,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23040,7 +23043,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.UI.Common.Controls.AlphaNumericTextBox.html",
-          "hash": "JSKiciWRpMlO4wY5daxUA3P1KA532AO/kUpSFYcV5cQ="
+          "hash": "IOvRF58Pw/Wg9cIbPq2g2l8OD8frx8m7BR/PifCzpHY="
         }
       },
       "is_incremental": false,
@@ -23647,9 +23650,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -59346,7 +59346,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.html",
-          "hash": "4Vb+HqIDE115z8DYgSJJdIM2twBlsZQCakSlgmuPy8Y="
+          "hash": "clnOEGg0+TTjQxyE2T93t5zoXahl5rYAkkUuSMqC8iw="
         }
       },
       "is_incremental": false,
@@ -61278,7 +61278,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.HardwareConstants.html",
-          "hash": "gxRJfh6AbnxlCZNq2amCDyUmBsYvL4Db4Hw0pig3+JY="
+          "hash": "q+WZQ/IJuhM8TKCbEhv1Y6t/WMjXwtvITf6g89tshIs="
         }
       },
       "is_incremental": false,
@@ -64902,7 +64902,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.html",
-          "hash": "QapwtdtEH+jWnNGKJKjDg9lQT7iwu4Fa3tk6pWzKiWQ="
+          "hash": "PLbIE3YILWltN+4lT6X1z6rvK/YFgtLTzoB7dGUuyxQ="
         }
       },
       "is_incremental": false,
@@ -64914,7 +64914,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Touch.OnscreenKeyboardClosedEvent.html",
-          "hash": "lpVXdwMHfWpHRQyLVzi7M6UwTKdlqEPibyHp6pdQgIg="
+          "hash": "+mtkJo1mY+h9RmiY2D9PwYpWlEHpTyTqQOgV8RSA4Mo="
         }
       },
       "is_incremental": false,
@@ -64926,7 +64926,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Touch.OnscreenKeyboardOpenedEvent.html",
-          "hash": "Jt3TloI0e4xa9seK54ZM1s2r59zVRtEUfoBjLODitKY="
+          "hash": "2yKY2IVH/c2WP4zJJld8e+ErhI/9hcQqf41xPrEl4SE="
         }
       },
       "is_incremental": false,
@@ -68094,7 +68094,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService.html",
-          "hash": "RhbtcJECmgYFa4vPAI6OTKdxG+ABvokpbQVBLICyTfo="
+          "hash": "KJ0yVm5CnQR8Gs45/xd1Qjk5XHJH7t5S5C+sqr48WgY="
         }
       },
       "is_incremental": false,
@@ -68178,7 +68178,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Services.CabinetDetectionService.html",
-          "hash": "iMN2YaXmPZhWFnmC/kM2q0NqyycgoM6WG/3zgm0e1rY="
+          "hash": "0ipTH5GjeobTAg1geZZcF5kbkppDIZaSgqHFmhaE0Rk="
         }
       },
       "is_incremental": false,
@@ -68394,7 +68394,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Services.OnScreenKeyboardService.html",
-          "hash": "3Whm4bQERKlNr7sB/E80jvXI2UCjvRMa/GNr3FMbM0s="
+          "hash": "OKR6JH3NLRcxXbyfhbnMd8IxlGbX8RxgkjmZe5IXpZw="
         }
       },
       "is_incremental": false,

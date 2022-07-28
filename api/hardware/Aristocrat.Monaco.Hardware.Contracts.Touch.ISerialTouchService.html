@@ -193,10 +193,61 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_IsManualTabletInputService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.IsManualTabletInputService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_IsManualTabletInputService_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.IsManualTabletInputService*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_IsManualTabletInputService" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.IsManualTabletInputService"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_IsManualTabletInputService" class="expander" data-toggle="collapse">IsManualTabletInputService</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_IsManualTabletInputService" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets whether or not the TabletInputService startup type is Manual.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsManualTabletInputService { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_IsManualTabletInputService_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For cabinet configurations without HID/USB based touch controllers (IE. LS), the
+start-up type of the TabletInputService is responsible for the OS opening/closing the on-screen
+keyboard.  If set to Manual by the OS, we need to explicitly open/close the on-screen keyboard
+whenever a TextBox controls gets/loses focus.  If set to Automatic, we can skip explicitly opening
+the on-screen keyboard as the OS should automatically do this.</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_Model.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.Model%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_Model_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.Model*"></a>
@@ -240,7 +291,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_OutputIdentity.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.OutputIdentity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_OutputIdentity_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.OutputIdentity*"></a>
@@ -284,7 +335,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_PendingCalibration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.PendingCalibration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_PendingCalibration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.PendingCalibration*"></a>
@@ -328,7 +379,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_Status.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.Status%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_Status_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.Status*"></a>
@@ -374,7 +425,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_Reconnect_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.Reconnect(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_Reconnect_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.Reconnect*"></a>
@@ -420,7 +471,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_SendResetCommand_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.SendResetCommand(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Touch/ISerialTouchService.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Touch_ISerialTouchService_SendResetCommand_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.SendResetCommand*"></a>

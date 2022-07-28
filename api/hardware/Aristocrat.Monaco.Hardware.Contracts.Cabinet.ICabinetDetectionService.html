@@ -600,7 +600,7 @@
   <h4 id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_Type" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.Type"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_Type" class="expander" data-toggle="collapse">Type</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_Type" class="collapse in">
-  <div class="markdown level1 summary"><p>Name of the cabinet</p>
+  <div class="markdown level1 summary"><p>Type of the cabinet</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -784,7 +784,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_GetFirmwareVersion_Aristocrat_Cabinet_Contracts_ITouchDevice_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.GetFirmwareVersion(Aristocrat.Cabinet.Contracts.ITouchDevice)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L134" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L139" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_GetFirmwareVersion_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.GetFirmwareVersion*"></a>
@@ -838,7 +838,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_GetTopmostDisplay.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.GetTopmostDisplay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L141" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L146" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_GetTopmostDisplay_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.GetTopmostDisplay*"></a>
@@ -937,10 +937,64 @@ The Display order of cabinet is - Topper, Top, Main, VBD</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsCabinetType_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsCabinetType(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L104" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsCabinetType_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsCabinetType*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsCabinetType_System_String_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsCabinetType(System.String)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsCabinetType_System_String_" class="expander" data-toggle="collapse">IsCabinetType(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsCabinetType_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Check if the identified cabinet type is the same as the given cabinet type string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IsCabinetType(string cabinetType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">cabinetType</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayConnected_Aristocrat_Cabinet_Contracts_DisplayRole_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayConnected(Aristocrat.Cabinet.Contracts.DisplayRole)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L153" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayConnected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayConnected*"></a>
@@ -995,7 +1049,7 @@ The Display order of cabinet is - Topper, Top, Main, VBD</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayConnectedOrNotExpected_Aristocrat_Cabinet_Contracts_DisplayRole_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayConnectedOrNotExpected(Aristocrat.Cabinet.Contracts.DisplayRole)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L165" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayConnectedOrNotExpected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayConnectedOrNotExpected*"></a>
@@ -1051,7 +1105,7 @@ is everything fine with this display role.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayExpected_Aristocrat_Cabinet_Contracts_DisplayRole_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayExpected(Aristocrat.Cabinet.Contracts.DisplayRole)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L147" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayExpected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayExpected*"></a>
@@ -1106,7 +1160,7 @@ is everything fine with this display role.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayExpectedAndConnected_Aristocrat_Cabinet_Contracts_DisplayRole_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayExpectedAndConnected(Aristocrat.Cabinet.Contracts.DisplayRole)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L175" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L180" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayExpectedAndConnected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayExpectedAndConnected*"></a>
@@ -1162,7 +1216,7 @@ only expected but currently present.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayExpectedAndDisconnected_Aristocrat_Cabinet_Contracts_DisplayRole_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayExpectedAndDisconnected(Aristocrat.Cabinet.Contracts.DisplayRole)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L167" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsDisplayExpectedAndDisconnected_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsDisplayExpectedAndDisconnected*"></a>
@@ -1218,7 +1272,7 @@ missing when it should be available.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsTouchVbd.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsTouchVbd%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L104" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_IsTouchVbd_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.IsTouchVbd*"></a>
@@ -1262,7 +1316,7 @@ missing when it should be available.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_MapTouchscreens_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.MapTouchscreens(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_MapTouchscreens_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.MapTouchscreens*"></a>
@@ -1351,7 +1405,7 @@ missing when it should be available.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_TouchDeviceByCursorId_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.TouchDeviceByCursorId(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L127" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Cabinet/ICabinetDetectionService.cs/#L132" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Cabinet_ICabinetDetectionService_TouchDeviceByCursorId_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Cabinet.ICabinetDetectionService.TouchDeviceByCursorId*"></a>
