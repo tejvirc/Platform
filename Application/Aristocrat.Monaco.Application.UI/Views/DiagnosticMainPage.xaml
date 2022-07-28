@@ -8,7 +8,9 @@
                                mc:Ignorable="d" 
                                Background="Transparent"  
                                d:DesignHeight="300" d:DesignWidth="808"
-                               d:DataContext="{d:DesignInstance viewModels:DiagnosticMainPageViewModel}">
+                               d:DataContext="{d:DesignInstance viewModels:DiagnosticMainPageViewModel}"
+                               >
 
     <operatorMenu:OperatorMenuMultiPageControl/>
 </operatorMenu:OperatorMenuPage>
+

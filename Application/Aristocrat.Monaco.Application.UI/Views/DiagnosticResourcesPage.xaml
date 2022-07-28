@@ -59,7 +59,7 @@
                             <StackPanel Orientation="Horizontal" Margin="4">
                                 <CheckBox IsChecked="{Binding MetricEnabled, Mode=TwoWay}"/>
                                 <TextBox MinWidth="350" 
-                                    Text="{Binding Label, Mode=OneWay}" 
+                                    Text="{Binding DisplayNamePlus, Mode=OneWay}" 
                                     IsHitTestVisible="False" Focusable="False" IsReadOnly="True"
                                     BorderThickness="1"
                                     Foreground="{Binding MetricColor}" />

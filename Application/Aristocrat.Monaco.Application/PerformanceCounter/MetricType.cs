@@ -8,123 +8,80 @@
     public enum MetricType
     {
         /// <summary>
-        ///     Total system CPU usage
+        /// 
         /// </summary>
-        [CounterType("TotalCPU")]
-        [Instance("_Total")]
-        [Category("Processor")]
-        [Counter("% Processor Time")]
-        [Label("Total CPU")]
-        [Unit("%")]
         [MaxRange(100)]
-        TotalProcessorTime,
-
-        /// <summary>
-        ///     Total system free memory
-        /// </summary>
-        [CounterType("TotalMemory")]
-        [Instance("")]
-        [Category("Memory")]
-        [Counter("Available Bytes")]
-        [Label("Free Memory")]
-        [Unit("MB")]
-        [MaxRange(4096)]
-        FreeMemory,
-
-        /// <summary>
-        ///     Total system GPU usage
-        /// </summary>
-        [CounterType("GPU")]
-        [Instance("*")]
-        [Category("GPU Engine")]
-        [Counter("Utilization Percentage")]
-        [Label("GPU Usage")]
-        [Unit("%")]
-        [MaxRange(100)]
-        TotalGpuTime,
-
-        /// <summary>
-        ///     Platform CPU usage
-        /// </summary>
         [CounterType("CPU")]
+        [Unit("%")]
         [Instance("Bootstrap")]
         [Category("Process")]
-        [Counter("% Processor Time")]
-        [Label("Platform CPU")]
-        [Unit("%")]
-        [MaxRange(100)]
+        [Description("% Processor Time")]
         MonacoProcessorTime,
 
         /// <summary>
-        ///     Platform thread count
+        /// 
         /// </summary>
+        [MaxRange(200)]
         [CounterType("General")]
+        [Unit("#")]
         [Instance("Bootstrap")]
         [Category("Process")]
-        [Counter("Thread Count")]
-        [Label("Platform Threads")]
-        [Unit("#")]
-        [MaxRange(200)]
+        [Description("Thread Count")]
         MonacoThreadCount,
 
         /// <summary>
-        ///     Platform memory usage
+        /// 
         /// </summary>
+        [MaxRange(1000)]
         [CounterType("Memory")]
+        [Unit("MB")]
         [Instance("Bootstrap")]
         [Category("Process")]
-        [Counter("Private Bytes")]
-        [Label("Platform Memory")]
-        [Unit("MB")]
-        [MaxRange(1000)]
+        [Description("Private Bytes")]
         MonacoPrivateBytes,
 
         /// <summary>
-        ///     Dotnet memory usage
+        /// 
         /// </summary>
+        [MaxRange(1000)]
         [CounterType("Memory")]
+        [Unit("MB")]
         [Instance("Bootstrap")]
         [Category(".Net CLR Memory")]
-        [Counter("# Bytes in All Heaps")]
-        [Label("CLR Memory")]
-        [Unit("MB")]
-        [MaxRange(1000)]
+        [Description("# Bytes in All Heaps")]
         ClrBytes,
 
         /// <summary>
-        ///     GDK CPU usage
+        /// 
         /// </summary>
+        [MaxRange(100)]
         [CounterType("CPU")]
+        [Unit("%")]
         [Instance("GDKRuntimeHost")]
         [Category("Process")]
-        [Counter("% Processor Time")]
-        [Label("Game CPU")]
-        [Unit("%")]
-        [MaxRange(100)]
+        [Description("% Processor Time")]
         GdkProcessorTime,
 
         /// <summary>
-        ///     GDK thread count
+        /// 
         /// </summary>
+        [MaxRange(200)]
         [CounterType("General")]
+        [Unit("#")]
         [Instance("GDKRuntimeHost")]
         [Category("Process")]
-        [Counter("Thread Count")]
-        [Label("Game Threads")]
-        [Unit("#")]
-        [MaxRange(200)]
+        [Description("Thread Count")]
         GdkThreadCount,
 
         /// <summary>
-        ///     GDK memory usage
+        /// 
         /// </summary>
+        [MaxRange(1000)]
         [CounterType("Memory")]
+        [Unit("MB")]
         [Instance("GDKRuntimeHost")]
         [Category("Process")]
-        [Counter("Private Bytes")]
-        [Label("GDK Memory")]
-        [Unit("MB")]
-        [MaxRange(1000)]
+        [Description("Private Bytes")]
         GdkPrivateBytes
     }
 }

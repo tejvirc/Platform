@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    ///     The class which contains the DateTime at which the counters were captured and their values
+    ///     The Class which contains the DateTime at which the counters were captured and their values
     ///     This class will be written to the log files, and read from when asked.
     /// </summary>
     [Serializable]
@@ -17,7 +17,7 @@
         public PerformanceCounters(int version = 1)
         {
             Version = version;
-            Values = Array.Empty<double>();
+            Values = new double[0];
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         public DateTime DateTime { get; set; }
 
         /// <summary>
-        ///     Contains the values of different metrics
+        ///     contains the values of different metrics
         /// </summary>
         public double[] Values { get; set; }
 

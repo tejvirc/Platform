@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -9,14 +11,11 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
+    using Common;
     using Kernel;
     using log4net;
     using Timer = System.Timers.Timer;
 
-    /// <summary>
-    ///     Implements the IPerformanceCounterManager which allows us to set up and read system
-    ///     performance counters such as CPU usage or free memory
-    /// </summary>
     internal class PerformanceCounterManager : IPerformanceCounterManager, IService, IDisposable
     {
         private const string PerformanceCounterIntervalKey = "performanceCounterInterval";
@@ -58,10 +57,8 @@
             GC.SuppressFinalize(this);
         }
 
-        /// <inheritdoc />
         public PerformanceCounters CurrentPerformanceCounter => GetAllCountersData();
 
-        /// <inheritdoc />
         public Task<IList<PerformanceCounters>> CountersForParticularDuration(
             DateTime startDate,
             DateTime endDate,
@@ -91,7 +88,7 @@
         /// <inheritdoc />
         public ICollection<Type> ServiceTypes { get; } = new[] { typeof(IPerformanceCounterManager) };
 
-        /// <inheritdoc />
+        
         public void Initialize()
         {
             _logDirectoryPath = Path.Combine(_pathMapper.GetDirectory(Logs).FullName, DirectoryName);
@@ -110,10 +107,6 @@
             Logger.Debug("PerformanceCounterManager Initialized");
         }
 
-        /// <summary>
-        ///     Reads a file of saved performance counter values so we can display the history of
-        ///     the values that we monitor
-        /// </summary>
         private static void ReadFile(string fileName, ICollection<PerformanceCounters> list)
         {
             using (var inputStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -221,6 +214,108 @@
             {
                 Logger.Error(ex);
             }
+        }
+    }
+
+    internal class PlatformMetric
+    {
+        private static readonly ILog Logger =
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        private readonly object _lock = new object();
+
+        private PerformanceCounter _counter;
+
+        public PlatformMetric(MetricType metric)
+        {
+            InstanceName = metric.GetAttribute<InstanceAttribute>().Instance;
+            MetricType = metric;
+            MetricName = metric.GetAttribute<DescriptionAttribute>().Description;
+            Category = metric.GetAttribute<CategoryAttribute>().Category;
+            CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType;
+        }
+
+        public double Value
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return GetMetric();
+                }
+            }
+        }
+
+        private string CounterType { get; }
+
+        private string Category { get; }
+
+        private MetricType MetricType { get; }
+
+        private string InstanceName { get; }
+
+        private string MetricName { get; }
+
+        private double GetMetric()
+        {
+            if (!ValidateCounter())
+            {
+                return 0.0;
+            }
+
+            try
+            {
+                switch (CounterType)
+                {
+                    case "CPU":
+                        return Math.Round(
+                            _counter.NextValue() / Environment.ProcessorCount,
+                            2); // If system has multiple cores, that should be taken into account
+
+                    case "Memory":
+                        return Math.Round(_counter.NextValue() / 1024 / 1024, 2); // return is MB
+
+                    // "General"
+                    default:
+                        return Math.Round(_counter.NextValue());
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e);
+            }
+
+            return 0.0;
+        }
+
+        private bool ValidateCounter()
+        {
+            if (_counter != null)
+            {
+                return Process.GetProcessesByName(InstanceName).Any();
+            }
+
+            try
+            {
+                var perfMon = new PerformanceCounter(Category, MetricName, InstanceName, true);
+
+                Logger.Debug(
+                    $"Created a performance counter with category = {Category}, " +
+                    $"processName = {InstanceName}, countType = {CounterType}, metricType = {MetricType}");
+
+                _counter = perfMon;
+            }
+            catch (Exception e) when (e is Win32Exception ||
+                                      e is UnauthorizedAccessException ||
+                                      e is InvalidOperationException)
+            {
+                Logger.Debug(
+                    $"Failed to create a performance counter with category = {Category}, " +
+                    $"processName = {InstanceName}, countType = {CounterType}, metricType = {MetricType}",
+                    e);
+            }
+
+            return _counter != null && Process.GetProcessesByName(InstanceName).Any();
         }
     }
 }

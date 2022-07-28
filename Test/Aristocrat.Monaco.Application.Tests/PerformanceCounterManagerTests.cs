@@ -64,15 +64,13 @@
 
             var counters = _performanceCounterManager.CurrentPerformanceCounter;
 
-            Assert.IsTrue(counters.CounterDictionary[MetricType.TotalProcessorTime] >= 0);
-            Assert.IsTrue(counters.CounterDictionary[MetricType.FreeMemory] >= 0);
+            Assert.AreEqual(counters.CounterDictionary[MetricType.GdkPrivateBytes], 0);
+            Assert.AreEqual(counters.CounterDictionary[MetricType.GdkThreadCount], 0);
+            Assert.AreEqual(counters.CounterDictionary[MetricType.GdkProcessorTime], 0);
             Assert.IsTrue(counters.CounterDictionary[MetricType.MonacoThreadCount] >= 0);
             Assert.IsTrue(counters.CounterDictionary[MetricType.MonacoProcessorTime] >= 0);
             Assert.IsTrue(counters.CounterDictionary[MetricType.MonacoPrivateBytes] >= 0);
             Assert.IsTrue(counters.CounterDictionary[MetricType.ClrBytes] >= 0);
-            Assert.AreEqual(counters.CounterDictionary[MetricType.GdkPrivateBytes], 0);
-            Assert.AreEqual(counters.CounterDictionary[MetricType.GdkThreadCount], 0);
-            Assert.AreEqual(counters.CounterDictionary[MetricType.GdkProcessorTime], 0);
         }
 
         [TestMethod]
@@ -156,15 +154,13 @@
 
             foreach (var counter in counterListResult)
             {
-                Assert.IsTrue(counter.CounterDictionary[MetricType.TotalProcessorTime] >= 0);
-                Assert.IsTrue(counter.CounterDictionary[MetricType.FreeMemory] >= 0);
+                Assert.AreEqual(counter.CounterDictionary[MetricType.GdkPrivateBytes], 0);
+                Assert.AreEqual(counter.CounterDictionary[MetricType.GdkThreadCount], 0);
+                Assert.AreEqual(counter.CounterDictionary[MetricType.GdkProcessorTime], 0);
                 Assert.IsTrue(counter.CounterDictionary[MetricType.MonacoThreadCount] >= 0);
                 Assert.IsTrue(counter.CounterDictionary[MetricType.MonacoProcessorTime] >= 0);
                 Assert.IsTrue(counter.CounterDictionary[MetricType.MonacoPrivateBytes] >= 0);
                 Assert.IsTrue(counter.CounterDictionary[MetricType.ClrBytes] >= 0);
-                Assert.AreEqual(counter.CounterDictionary[MetricType.GdkPrivateBytes], 0);
-                Assert.AreEqual(counter.CounterDictionary[MetricType.GdkThreadCount], 0);
-                Assert.AreEqual(counter.CounterDictionary[MetricType.GdkProcessorTime], 0);
             }
         }
 

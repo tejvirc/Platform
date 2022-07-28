@@ -397,3 +397,6 @@ FodyWeavers.xsd
 # Dev Debug Parameters
 ./Kernel/Bootstrap/Bootstrap/Properties/launchSettings.json
 /Kernel/Bootstrap/Bootstrap/Properties/launchSettings.json
+
+# Remote controls APIs that are placed inside Monaco to build
+/MonacoWebAPIs
