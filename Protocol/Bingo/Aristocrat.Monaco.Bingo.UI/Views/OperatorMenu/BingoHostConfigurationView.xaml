@@ -40,12 +40,14 @@
         <Label Grid.Column="0" Grid.Row="0"
                VerticalAlignment="Center"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Address}}" />
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
-                 Margin="20 0 0 0"
-                 HorizontalAlignment="Left" VerticalAlignment="Center"
-                 IsEnabled="{Binding InputEnabled}"
-                 Text="{Binding HostName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}" />
-
+        <common:AlphaNumericTextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
+                                    Margin="20 0 0 0"
+                                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    IsReadOnly="False"
+                                    IsAlphaNumeric="True"
+                                    SkipRegexCheck="True"
+                                    IsEnabled="{Binding InputEnabled}"
+                                    Text="{Binding HostName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
         <Label Grid.Column="0" Grid.Row="1"
                Margin="0 20 0 0"
                VerticalAlignment="Center"

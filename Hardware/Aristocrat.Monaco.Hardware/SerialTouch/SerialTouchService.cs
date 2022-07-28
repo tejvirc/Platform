@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.IO.Ports;
+    using System.Management;
     using System.Reflection;
     using System.Text;
-    using System.Text.RegularExpressions;
     using System.Threading;
     using System.Windows;
     using Contracts;
@@ -29,8 +29,6 @@
     {
         private const int CheckDisconnectTimeoutMs = 10000;
         private const int MaxCheckDisconnectAttempts = 2;
-
-        private const string CabinetTypeRegexLs = "^LS";
 
         private const string SerialTouchComPort = "COM3";
         private const int BaudRate = 9600;
@@ -59,6 +57,7 @@
         private readonly double _screenWidth;
         private readonly StateMachine<SerialTouchState, SerialTouchTrigger> _state;
         private readonly ReaderWriterLockSlim _stateLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        private readonly bool _isLSCabinet;
 
         private bool _gotHeader;
         private int _dataIndex;
@@ -102,6 +101,13 @@
             Logger.Debug($"SerialTouchService - _screenWidth {_screenWidth} _screenHeight {_screenHeight}");
 
             _state = CreateStateMachine();
+
+            _isLSCabinet = _cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs);
+            if (_isLSCabinet)
+            {
+                Logger.Debug("SerialTouchService - Is LS cabinet");
+                CheckTabletInputServiceStartup();
+            }
         }
 
         public void Dispose()
@@ -141,9 +147,7 @@
 
             if (!_serialPortController.IsEnabled)
             {
-                var cabinetType = _cabinetDetectionService.Type;
-                var match = Regex.Match(cabinetType.ToString(), CabinetTypeRegexLs, RegexOptions.None);
-                if (match.Success)
+                if (_isLSCabinet)
                 {
                     var port = _serialPortsService.LogicalToPhysicalName(SerialTouchComPort);
                     var keepAlive = CheckDisconnectTimeoutMs;
@@ -197,6 +201,9 @@
                 Disconnected();
             }
         }
+
+        /// <inheritdoc />
+        public bool IsManualTabletInputService { get; private set; }
 
         /// <inheritdoc />
         public bool Initialized { get; private set; }
@@ -289,6 +296,29 @@
             {
                 _stateLock.ExitReadLock();
             }
+        }
+
+        private void CheckTabletInputServiceStartup()
+        {
+            ConnectionOptions connectionOptions = new ConnectionOptions();
+            connectionOptions.Impersonation = ImpersonationLevel.Impersonate;
+            ManagementScope scope = new ManagementScope(@"\\" + Environment.MachineName + @"\root\cimv2");
+            scope.Options = connectionOptions;
+            SelectQuery query = new SelectQuery("select * from Win32_Service");
+
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query))
+            {
+                ManagementObjectCollection collection = searcher.Get();
+                foreach (ManagementObject service in collection)
+                {
+                    if (service.Properties["Name"].Value.ToString() == "TabletInputService" &&
+                        service.Properties["StartMode"].Value.Equals("Manual"))
+                    {
+                        Logger.Debug($"CheckTabletInputServiceStartup - Found {service.Properties["Name"].Value} with StartMode {service.Properties["StartMode"].Value}");
+                        IsManualTabletInputService = true;
+                    }
+                }
+            }         
         }
 
         private void ClearResponse()
