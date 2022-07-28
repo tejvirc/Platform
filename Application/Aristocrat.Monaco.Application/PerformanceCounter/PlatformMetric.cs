@@ -78,10 +78,13 @@
                 switch (CounterType)
                 {
                     case "CPU":
-                    case "TotalCPU":
                         // If system has multiple cores, that should be taken into account
                         return Math.Round(_counter.NextValue() / Environment.ProcessorCount,
                             RoundingDecimals);
+
+                    case "TotalCPU":
+                        // However for total CPU the system gives an already scaled value
+                        return Math.Round(_counter.NextValue(), RoundingDecimals);
 
                     case "Memory":
                         // The return value is in MB
