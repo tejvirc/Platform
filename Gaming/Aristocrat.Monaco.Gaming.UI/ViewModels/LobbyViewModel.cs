@@ -49,7 +49,6 @@
     using Contracts.PlayerInfoDisplay;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
-    using Kernel.Contracts;
     using Hardware.Contracts.Button;
     using Timers;
     using Utils;
@@ -2552,11 +2551,12 @@
             UpdateLcdButtonDeckDisableSetting(false);
             UpdateUI();
 
+            var softLockupButNotRecovery = _systemDisableManager.IsDisabled && !_gameRecovery.IsRecovering;
+            var singleGameAndAttract = _lobbyStateManager.AllowSingleGameAutoLaunch && _attractMode;
+
             if (_systemDisableManager.DisableImmediately ||
-                (_lobbyStateManager.AllowSingleGameAutoLaunch || _gameLaunchOnStartup) &&
-                _systemDisableManager.IsDisabled &&
-                _attractMode &&
-                !_gameRecovery.IsRecovering)
+                (singleGameAndAttract || _gameLaunchOnStartup) &&
+                softLockupButNotRecovery)
             {
                 SendTrigger(LobbyTrigger.Disable);
             }
