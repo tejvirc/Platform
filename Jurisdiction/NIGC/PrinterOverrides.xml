@@ -153,8 +153,8 @@ Please update the confluence page when new elements and attributes are added.
 
     <PrinterTemplateMappings>
       <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="9" Regions="107 121 122 135 106 120 119 1 2 124 115 0 114 118 125 117"/>
-      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="A" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130"/>
-      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="A" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130"/>
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="A" Regions="107 121 122 135 106 129 131 132 1 2 128 120 119 118 125 130"/>
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="A" Regions="107 121 122 135 106 129 131 132 1 2 128 120 119 118 125 130"/>
       <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="Z" Regions="121 122 135 106 129 131 132 1 2 128 118 125"/>
       <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="Z" Regions="121 122 135 106 129 131 132 1 2 128 118 125"/>
     </PrinterTemplateMappings>
