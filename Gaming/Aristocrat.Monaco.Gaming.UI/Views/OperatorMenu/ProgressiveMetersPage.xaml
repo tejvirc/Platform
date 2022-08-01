@@ -39,7 +39,8 @@
         <Border HorizontalAlignment="Left" MinWidth="1250" >
             <DataGrid ColumnWidth="*" Name="ProgressiveDataGrid" 
                       ItemsSource="{Binding ProgressiveDetailMeters}" 
-                      ColumnHeaderStyle="{StaticResource WrappedHeaderStyle}"/>
+                      ColumnHeaderStyle="{StaticResource WrappedHeaderStyle}"
+                      VerticalContentAlignment="Top"/>
         </Border>
 
         <StackPanel Grid.Row="1"  VerticalAlignment="Top" Orientation="Horizontal">
