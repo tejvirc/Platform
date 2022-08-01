@@ -54,7 +54,7 @@
         {
             return _storageManager.BlockExists(Name)
                 ? _storageManager.GetBlock(Name)
-                : _storageManager.CreateBlock(PersistenceLevel.Critical, Name, 1);
+                : _storageManager.CreateBlock(PersistenceLevel.Static, Name, 1);
         }
 
         private IEnumerable<ProtocolConfiguration> GetMultiProtocolConfiguration()
