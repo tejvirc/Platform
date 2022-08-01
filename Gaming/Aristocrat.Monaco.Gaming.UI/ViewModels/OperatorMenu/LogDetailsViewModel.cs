@@ -22,7 +22,7 @@
         private bool _canReprint;
         private bool _isReprintButtonVisible = true;
         private bool _reprintDisabledDueToDoor;
-        private string _statusText;
+        private string _doorStatusText;
         private bool _isMostRecentRowSelected;
 
         public ActionCommand<object> ReprintButtonCommand { get; set; }
@@ -76,27 +76,23 @@
 
             if (logSequence != -1 && _eventLogAdapter != null && _eventLogAdapter.GetMaxLogSequence() == logSequence)
             {
-                IsMostRecentRowSelected = true;
+                _isMostRecentRowSelected = true;
+                UpdateReprintButtonEnabled(true);
             }
 
-            Init();
-        }
-
-        private void Init()
-        {
             if (_eventLogAdapter is ILogTicketPrintable printable)
             {
-                IsReprintButtonVisible = printable.IsReprintSupported();
+                _isReprintButtonVisible = printable.IsReprintSupported();
             }
             else
             {
-                IsReprintButtonVisible = false;
+                _isReprintButtonVisible = false;
                 return;
             }
 
-            SetHandpayReprintButton();
+            SetHandpayReprintButton(true);
 
-            if (!IsReprintButtonVisible)
+            if (!_isReprintButtonVisible)
             {
                 return;
             }
@@ -109,7 +105,7 @@
 
             if (ReprintBehavior == defaultValue || ReprintBehavior == "Last" && !IsMostRecentRowSelected)
             {
-                IsReprintButtonVisible = false;
+                _isReprintButtonVisible = false;
                 return;
             }
 
@@ -126,20 +122,28 @@
                 EventBus.Subscribe<OpenEvent>(this, HandleDoorEvent);
             }
 
-            GetReprintButtonEnabled();
+            UpdateReprintButtonEnabled(true);
             ReprintButtonCommand = new ActionCommand<object>(
                 _ => Print(OperatorMenuPrintData.SelectedItem),
                 _ => CanReprint);
         }
 
-        private void SetHandpayReprintButton()
+        private void SetHandpayReprintButton(bool skipRaisePropertyChanged = false)
         {
             if (_eventLogAdapter.LogType == EventLogType.Handpay.GetDescription(typeof(EventLogType)))
             {
                 var printedItem = AdditionalInfoItems.FirstOrDefault(l => string.Equals(l.Item1, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printed).ToUpper(), StringComparison.InvariantCultureIgnoreCase));
                 if (printedItem != null && string.Equals(printedItem.Item2, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.No), StringComparison.InvariantCultureIgnoreCase))
                 {
-                    IsReprintButtonVisible = false;
+                    if (!skipRaisePropertyChanged)
+                    {
+                        IsReprintButtonVisible = false;
+                    }
+                    else
+                    {
+                        _isReprintButtonVisible = false;
+                    }
+                    
                 }
             }
         }
@@ -150,12 +154,12 @@
 
         public string DoorStatusText
         {
-            get => _statusText;
+            get => _doorStatusText;
             set
             {
-                if (_statusText != value)
+                if (_doorStatusText != value)
                 {
-                    _statusText = value;
+                    _doorStatusText = value;
                     RaisePropertyChanged(nameof(DoorStatusText));
                 }
             }
@@ -178,9 +182,26 @@
             }
         }
 
-        protected virtual void GetReprintButtonEnabled()
+        private void UpdateReprintButtonEnabled(bool skipRaisePropertyChanged = false)
         {
-            DoorStatusText = string.Empty;
+            var setReprintAvailability = new Action<bool>(
+                canReprint =>
+                {
+                    if (skipRaisePropertyChanged)
+                    {
+                        _canReprint = canReprint;
+                    }
+                    else
+                    {
+                        CanReprint = canReprint;
+                    }
+                });
+
+            _doorStatusText = string.Empty;
+            if (!skipRaisePropertyChanged)
+            {
+                RaisePropertyChanged(nameof(DoorStatusText));
+            }
 
             if (ReprintDoorOpenRequirement?.Length > 0)
             {
@@ -196,19 +217,34 @@
                     }
                 }
 
-                ReprintDisabledDueToDoor = false;
+                _reprintDisabledDueToDoor = false;
+                if (!skipRaisePropertyChanged)
+                {
+                    RaisePropertyChanged(nameof(ReprintDisabledDueToDoor));
+                }
+
                 if (!string.IsNullOrEmpty(doorNames))
                 {
-                    DoorStatusText =
+                    _doorStatusText =
                         $"{doorNames.TrimEnd(',', ' ')} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenDoorToReprintText)}";
-                    CanReprint = false;
-                    ReprintDisabledDueToDoor = true;
+                    if (!skipRaisePropertyChanged)
+                    {
+                        RaisePropertyChanged(nameof(DoorStatusText));
+                    }
+
+                    setReprintAvailability(false);
+
+                    _reprintDisabledDueToDoor = true;
+                    if (!skipRaisePropertyChanged)
+                    {
+                        RaisePropertyChanged(nameof(ReprintDisabledDueToDoor));
+                    }
                     return;
                 }
             }
 
-            CanReprint = ReprintBehavior == "Any"
-                         || ReprintBehavior == "Last" && IsMostRecentRowSelected;
+            var canReprint = ReprintBehavior == "Any" || ReprintBehavior == "Last" && IsMostRecentRowSelected;
+            setReprintAvailability(canReprint);
         }
 
         /// <summary>
@@ -224,20 +260,20 @@
                 {
                     _isMostRecentRowSelected = value;
                     RaisePropertyChanged(nameof(IsMostRecentRowSelected));
-                    GetReprintButtonEnabled();
+                    UpdateReprintButtonEnabled();
                 }
             }
         }
 
         protected override void UpdatePrinterButtons()
         {
-            GetReprintButtonEnabled();
+            UpdateReprintButtonEnabled();
         }
 
         protected void HandleDoorEvent(IEvent data)
         {
-            // remove reprint button
-            GetReprintButtonEnabled();
+            // Remove reprint button
+            UpdateReprintButtonEnabled();
         }
 
         private static int DoorOpenRequirementToDoorLogicalId(string doorOpenRequirement)

@@ -215,7 +215,7 @@
                         new ViewInjectionEvent(
                             _venueRaceCollection,
                             _currentDisplay,
-                            ViewInjectionEvent.ViewAction.Add));
+                            ViewAction.Add));
                 });
         }
 

@@ -62,7 +62,7 @@
             Reference Link: https://social.msdn.microsoft.com/Forums/en-US/e974c849-90ea-4741-9a27-0ae4857bc3c2/wpf-update-ui-in-while-window-is-hidden?forum=wpf
             
             When we would hide overlay window, WPF seems to skip updating the rendering of the window.  Thus when we
-            show the window the next time, it flickers the old contents befoe updating to the new state.  To workaround
+            show the window the next time, it flickers the old contents before updating to the new state.  To workaround
             this we are doing a brief fade in/out of the window so that we can clear the old contents before hiding it.
             -->
 
@@ -71,15 +71,15 @@
 
         <Grid x:Name="ViewInjectionRoot"/>
 
-        <overlay:AgeWarningDialog x:Name="AgeWarningView" Visibility="{Binding MessageOverlayDisplay.IsAgeWarningDlgVisible, Converter={StaticResource BoolToVisible}}"/>
+        <overlay:AgeWarningDialog x:Name="AgeWarningView" Visibility="{Binding MessageOverlayDisplayViewModel.IsAgeWarningDlgVisible, Converter={StaticResource BoolToVisible}}"/>
 
-        <overlay:RGInfo Visibility="{Binding MessageOverlayDisplay.IsResponsibleGamingInfoOverlayDlgVisible, Converter={StaticResource BoolToVisible}}"/>
+        <overlay:RGInfo Visibility="{Binding MessageOverlayDisplayViewModel.IsResponsibleGamingInfoOverlayDlgVisible, Converter={StaticResource BoolToVisible}}"/>
 
-        <overlay:ReserveOverlay Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible}">
+        <overlay:ReserveOverlay Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.IsDialogVisible}">
             <overlay:ReserveOverlay.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible}">
+                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.IsDialogVisible}">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
                             </DataTrigger.EnterActions>
@@ -92,11 +92,11 @@
             </overlay:ReserveOverlay.Style>
         </overlay:ReserveOverlay>
 
-        <overlay:MessageOverlay Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplay.MessageOverlayData.IsDialogVisible}">
+        <overlay:MessageOverlay Opacity="0" IsHitTestVisible="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsDialogVisible}">
             <overlay:MessageOverlay.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsDialogVisible}">
+                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsDialogVisible}">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
                             </DataTrigger.EnterActions>
@@ -111,11 +111,11 @@
 
         <overlay:ReplayRecoveryView Opacity="0"
             NavigationBarSizeChanged="OnReplayNavigationBarSizeChanged"
-            IsHitTestVisible="{Binding MessageOverlayDisplay.IsReplayRecoveryDlgVisible}">
+            IsHitTestVisible="{Binding MessageOverlayDisplayViewModel.IsReplayRecoveryDlgVisible}">
             <overlay:ReplayRecoveryView.Style>
                 <Style>
                     <Style.Triggers>
-                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplay.IsReplayRecoveryDlgVisible}">
+                        <DataTrigger Value="True" Binding="{Binding MessageOverlayDisplayViewModel.IsReplayRecoveryDlgVisible}">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
                             </DataTrigger.EnterActions>

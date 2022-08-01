@@ -46,7 +46,7 @@
         private long? _replaySequence;
         private DateTime? _replayStartTime;
         private long _replayEndCredits;
-        private Timer _cashoutMessageTimer;
+        private readonly Timer _cashoutMessageTimer;
         private int _currentCashoutMessageIndex;
         private readonly List<string> _cashOutTexts = new List<string>();
 
@@ -249,12 +249,6 @@
         public bool CanReplayContinue =>
             !string.IsNullOrEmpty(_replayPauseMessageText) && _replayPauseMessageText != CompletionText;
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         private void SubscribeToEvents()
         {
             _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, HandleEvent);
@@ -262,6 +256,12 @@
             _eventBus.Subscribe<GameReplayCompletedEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, HandleEvent);
             _eventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -275,14 +275,10 @@
             {
                 _eventBus.UnsubscribeAll(this);
 
-                if (_cashoutMessageTimer != null)
-                {
-                    _cashoutMessageTimer.Elapsed -= CashOutMessageCycleTimerTick;
-                    _cashoutMessageTimer.Dispose();
-                }
+                _cashoutMessageTimer.Elapsed -= CashOutMessageCycleTimerTick;
+                _cashoutMessageTimer.Dispose();
             }
 
-            _cashoutMessageTimer = null;
             _disposed = true;
         }
 
@@ -371,7 +367,7 @@
         {
             ReplayPauseMessageText = string.Empty;
             _gameDiagnostics.End();
-            _cashoutMessageTimer?.Stop();
+            _cashoutMessageTimer.Stop();
         }
 
         private void GetEventData(ReplayContext context)

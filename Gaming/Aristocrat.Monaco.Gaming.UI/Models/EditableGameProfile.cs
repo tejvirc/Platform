@@ -11,6 +11,7 @@
     public class EditableGameProfile : BaseViewModel, IDisposable
     {
         private readonly bool _enableRtpScaling;
+        private bool _disposed;
 
         public EditableGameProfile(string themeId, string themeName, IEnumerable<EditableGameConfiguration> configs, bool enableRtpScaling)
         {
@@ -37,13 +38,29 @@
 
         public void Dispose()
         {
-            foreach (var config in GameConfigurations)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
             {
-                config.PropertyChanged -= ConfigOnPropertyChanged;
-                config.Dispose();
+                return;
             }
 
-            GameConfigurations.Clear();
+            if (disposing)
+            {
+                foreach (var config in GameConfigurations)
+                {
+                    config.PropertyChanged -= ConfigOnPropertyChanged;
+                    config.Dispose();
+                }
+
+                GameConfigurations.Clear();
+            }
+
+            _disposed = true;
         }
 
         public bool HasChanges()

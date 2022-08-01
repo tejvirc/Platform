@@ -92,10 +92,7 @@
 
         public AdvancedGameSetupViewModel()
         {
-            if (!InDesigner)
-            {
-                _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
-            }
+            _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 
             ImportCommand = new ActionCommand<object>(
                 _ => Import(),
@@ -137,6 +134,7 @@
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
             SelectedGameType = GameTypes.FirstOrDefault();
+
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
@@ -159,18 +157,13 @@
 
         public ActionCommand<object> ExportCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveSetupCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveViewCommand { get; }
 
         public string ReadOnlyStatus
         {
             get => _readOnlyStatus;
-            // ReSharper disable once MemberCanBePrivate.Global - used by xaml
             set => SetProperty(ref _readOnlyStatus, value);
         }
 
@@ -225,7 +218,6 @@
 
         public bool OptionColumnVisible => GlobalOptionsVisible && !IsRouletteGameSelected;
 
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public bool GlobalOptionsVisible { get; }
 
         public bool GambleOptionVisible => GlobalOptionsVisible && SelectedGameType != GameType.Blackjack &&
@@ -239,7 +231,7 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public IEnumerable<GameType> GameTypes { get; }
+        public IEnumerable<GameType> GameTypes { get; private set; }
 
         public GameType SelectedGameType
         {
@@ -857,16 +849,16 @@
             var editableConfigsCountByDenom = new Dictionary<long, long>();
             if (_editableGameConfigByGameTypeMapping.ContainsKey(gameType))
             {
-                var configList = _editableGameConfigByGameTypeMapping[gameType].Where(gc => gc.Enabled).ToList();
-                foreach (var config in configList)
+                var baseDenomList = _editableGameConfigByGameTypeMapping[gameType].Where(gc => gc.Enabled).ToList();
+                foreach (var baseDenom in baseDenomList.Select(c => c.BaseDenom))
                 {
-                    if (editableConfigsCountByDenom.ContainsKey(config.BaseDenom))
+                    if (editableConfigsCountByDenom.ContainsKey(baseDenom))
                     {
-                        editableConfigsCountByDenom[config.BaseDenom]++;
+                        editableConfigsCountByDenom[baseDenom]++;
                     }
                     else
                     {
-                        editableConfigsCountByDenom.Add(config.BaseDenom, 1);
+                        editableConfigsCountByDenom.Add(baseDenom, 1);
                     }
                 }
             }
@@ -887,15 +879,15 @@
                     .Where(gc => gc.Enabled)
                     .ToList();
 
-                foreach (var config in configList)
+                foreach (var baseDenom in configList.Select(c => c.BaseDenom))
                 {
-                    if (editableConfigsCountByDenom.ContainsKey(config.BaseDenom))
+                    if (editableConfigsCountByDenom.ContainsKey(baseDenom))
                     {
-                        editableConfigsCountByDenom[config.BaseDenom]++;
+                        editableConfigsCountByDenom[baseDenom]++;
                     }
                     else
                     {
-                        editableConfigsCountByDenom.Add(config.BaseDenom, 1);
+                        editableConfigsCountByDenom.Add(baseDenom, 1);
                     }
                 }
             }
@@ -1018,11 +1010,16 @@
             }
 
             var updatedLevels = new List<IViewableProgressiveLevel>();
-            foreach (var game in _editableGames.Where(e => e.Value.HasChanges()))
-            {
-                ResetGameStorage(game.Value);
 
-                foreach (var id in game.Value.GameConfigurations
+            var changedGames = _editableGames
+                .Where(e => e.Value.HasChanges())
+                .Select(pair => pair.Value);
+
+            foreach (var game in changedGames)
+            {
+                ResetGameStorage(game);
+
+                foreach (var id in game.GameConfigurations
                     .SelectMany(c => c.AvailableGames.Select(g => g.Id))
                     .Distinct())
                 {
@@ -1030,7 +1027,7 @@
                     _gameProvider.SetActiveDenominations(id, Enumerable.Empty<IDenomination>());
                 }
 
-                var updates = game.Value.GameConfigurations
+                var updates = game.GameConfigurations
                     .Where(c => c.Game != null)
                     .Select(gameConfig => (gameId: gameConfig.Game.Id, config: gameConfig))
                     .GroupBy(x => x.gameId, (id, group) => (id, group.Select(x => x.config)));
@@ -1041,7 +1038,7 @@
 
                 if (SelectedRestriction != null)
                 {
-                    _gameConfiguration.Apply(game.Value.ThemeId, SelectedRestriction);
+                    _gameConfiguration.Apply(game.ThemeId, SelectedRestriction);
                 }
             }
 
@@ -1236,15 +1233,12 @@
                         }
                     }
                 }
-                else if (config.Game != null)
+                else if (config.Game != null &&
+                         _gameTypeToActiveDenomMapping.ContainsKey(config.Game.GameType) &&
+                         !_gameTypeToActiveDenomMapping[config.Game.GameType].Contains(config.BaseDenom) &&
+                         _gameTypeToActiveDenomMapping[config.Game.GameType].Count > ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
                 {
-                    if (_gameTypeToActiveDenomMapping.ContainsKey(config.Game.GameType) &&
-                        !_gameTypeToActiveDenomMapping[config.Game.GameType].Contains(config.BaseDenom) &&
-                        _gameTypeToActiveDenomMapping[config.Game.GameType].Count >
-                        ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
-                    {
-                        config.MaxDenomEntriesExceeded = true;
-                    }
+                    config.MaxDenomEntriesExceeded = true;
                 }
             }
 
@@ -1371,9 +1365,14 @@
             LetItRideHeaderText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LetItRide);
 
             ApplyGameOptionsEnabled();
-            RaisePropertyChanged(nameof(GambleHeaderText), nameof(GambleOptionVisible),
-                nameof(LetItRideHeaderText), nameof(LetItRideOptionVisible),
-                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected), nameof(IsPokerGameSelected));
+            RaisePropertyChanged(
+                nameof(GambleHeaderText),
+                nameof(GambleOptionVisible),
+                nameof(LetItRideHeaderText),
+                nameof(LetItRideOptionVisible),
+                nameof(OptionColumnVisible),
+                nameof(IsRouletteGameSelected),
+                nameof(IsPokerGameSelected));
         }
 
         private void ApplyGameOptionsEnabled()
@@ -1391,7 +1390,6 @@
 
         private void CalculateTopAward()
         {
-            // TODO Recalculate after certain changes?
             if (!Games.Any())
             {
                 TopAwardValue = 0;
@@ -1715,12 +1713,11 @@
         {
             if (_editableGames.Any())
             {
-                foreach (var game in _editableGames)
+                foreach (var game in _editableGames.Select(pair => pair.Value))
                 {
-                    game.Value.PropertyChanged -= OnSubPropertyChanged;
-                    game.Value.Dispose();
+                    game.PropertyChanged -= OnSubPropertyChanged;
+                    game.Dispose();
                 }
-
                 _editableGames.Clear();
             }
 
@@ -1841,16 +1838,6 @@
 
             public string ThemeName { get; }
 
-            public static bool operator ==(GamesGrouping left, GamesGrouping right)
-            {
-                return Equals(left, right);
-            }
-
-            public static bool operator !=(GamesGrouping left, GamesGrouping right)
-            {
-                return !Equals(left, right);
-            }
-
             public override int GetHashCode()
             {
                 unchecked
@@ -1881,3 +1868,4 @@
         }
     }
 }
+

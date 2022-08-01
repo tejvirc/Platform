@@ -31,7 +31,7 @@
 
             ComboTestCommand = new ActionCommand<object>(_ => LaunchCombinationTest(), _ => SelectedGame != null && InputEnabled);
 
-            Games = new ObservableCollection<GameComboInfo>();
+            _games = new ObservableCollection<GameComboInfo>();
         }
 
         public IActionCommand ComboTestCommand { get; }

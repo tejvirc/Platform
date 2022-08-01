@@ -60,9 +60,9 @@
             OnTopGameAttractCompleteHandler = OnTopGameAttractVideoCompleted;
             OnBottomGameAttractCompleteHandler = OnBottomGameAttractVideoCompleted;
 
-            TopAttractVideoPath = null;
-            TopperAttractVideoPath = null;
-            BottomAttractVideoPath = null;
+            _topAttractVideoPath = null;
+            _topperAttractVideoPath = null;
+            _bottomAttractVideoPath = null;
         }
 
         public RoutedEventHandler OnTopperGameAttractCompleteHandler { get; }

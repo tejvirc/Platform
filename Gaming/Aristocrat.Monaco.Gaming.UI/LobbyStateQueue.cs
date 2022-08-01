@@ -17,9 +17,8 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        //private readonly object _lockObject = new object();
         private readonly List<LobbyState> _stateList = new List<LobbyState>();
-        private ReaderWriterLockSlim _queueLock;
+        private readonly ReaderWriterLockSlim _queueLock;
         private bool _disposed;
 
         /// <summary>
@@ -42,14 +41,14 @@
         {
             get
             {
-                _queueLock?.EnterReadLock();
+                _queueLock.EnterReadLock();
                 try
                 {
                     return _stateList[0];
                 }
                 finally
                 {
-                    _queueLock?.ExitReadLock();
+                    _queueLock.ExitReadLock();
                 }
             }
         }
@@ -103,7 +102,7 @@
         public void SetNewBaseState(LobbyState state)
         {
             Logger.Debug($"SetNewBaseState: {state}");
-            _queueLock?.EnterWriteLock();
+            _queueLock.EnterWriteLock();
             try
             {
                 _stateList.RemoveAt(0);
@@ -111,7 +110,7 @@
             }
             finally
             {
-                _queueLock?.ExitWriteLock();
+                _queueLock.ExitWriteLock();
             }
             Logger.Debug(CurrentStateList());
         }
@@ -120,7 +119,7 @@
         {
             Debug.Assert(IsStateStackable(state));
             Logger.Debug($"AddStackableState: {state}");
-            _queueLock?.EnterWriteLock();
+            _queueLock.EnterWriteLock();
             try
             {
                 if (!ContainsAny(state))
@@ -130,7 +129,7 @@
             }
             finally
             {
-                _queueLock?.ExitWriteLock();
+                _queueLock.ExitWriteLock();
             }
             Logger.Debug(CurrentStateList());
         }
@@ -139,7 +138,7 @@
         {
             Debug.Assert(IsStateStackable(state));
             Logger.Debug($"RemoveStackableState: {state}");
-            _queueLock?.EnterWriteLock();
+            _queueLock.EnterWriteLock();
             try
             {
                 if (ContainsAny(state))
@@ -149,7 +148,7 @@
             }
             finally
             {
-                _queueLock?.ExitWriteLock();
+                _queueLock.ExitWriteLock();
             }
             Logger.Debug(CurrentStateList());
         }
@@ -185,14 +184,14 @@
                 return false;
             }
 
-            _queueLock?.EnterReadLock();
+            _queueLock.EnterReadLock();
             try
             {
                 return _stateList.Any(states.Contains);
             }
             finally
             {
-                _queueLock?.ExitReadLock();
+                _queueLock.ExitReadLock();
             }
         }
 
@@ -210,10 +209,8 @@
 
             if (disposing)
             {
-                _queueLock?.Dispose();
+                _queueLock.Dispose();
             }
-
-            _queueLock = null;
 
             _disposed = true;
         }
@@ -222,7 +219,7 @@
         {
             Debug.Assert(!state.HasValue || IsStateStackable(state.Value));
             LobbyState? topState = null;
-            _queueLock?.EnterReadLock();
+            _queueLock.EnterReadLock();
             try
             {
                 for (var i = _stateList.Count - 1; i >= 0 && !topState.HasValue; i--)
@@ -235,17 +232,19 @@
                 }
 
                 Debug.Assert(topState.HasValue);
+#pragma warning disable S3655 // Empty nullable value should not be accessed
                 return topState.Value;
+#pragma warning restore S3655 // Empty nullable value should not be accessed
             }
             finally
             {
-                _queueLock?.ExitReadLock();
+                _queueLock.ExitReadLock();
             }
         }
 
         private string CurrentStateList()
         {
-            _queueLock?.EnterReadLock();
+            _queueLock.EnterReadLock();
             try
             {
                 return string.Join(", ", _stateList);
@@ -253,7 +252,7 @@
 
             finally
             {
-                _queueLock?.ExitReadLock();
+                _queueLock.ExitReadLock();
             }
         }
     }

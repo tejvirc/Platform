@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
@@ -26,7 +27,7 @@
     using MVVM.ViewModel;
     using Utils;
 
-    public class MessageOverlayViewModel : BaseEntityViewModel
+    public class MessageOverlayViewModel : BaseEntityViewModel, IDisposable
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -51,6 +52,7 @@
         private bool _isAgeWarningDlgVisible;
         private bool _isResponsibleGamingInfoOverlayDlgVisible;
         private bool _isOverlayWindowVisible;
+        private bool _disposed;
 
         /// <summary>
         ///     Gets a value indicating whether the Non Cash Overlay Dlg is visible
@@ -181,7 +183,7 @@
         /// </summary>
         public bool IsCashingInDlgVisible => _lobbyStateManager.ContainsAnyState(LobbyState.CashIn);
 
-        public bool LastCashOutForcedByMaxBank;
+        public bool LastCashOutForcedByMaxBank { get; set; }
 
         public bool ForceBuildLockupText { get; set; }
 
@@ -189,8 +191,28 @@
 
         public bool ShowPaidMeterForAutoCashout { get; set; }
 
-        public readonly ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages =
-            new ConcurrentDictionary<string, DisplayableMessage>();
+        public ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages { get; } = new();
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                ReserveOverlayViewModel.Dispose();
+            }
+
+            _disposed = true;
+        }
 
         public void UpdateCashoutButtonState(bool state)
         {
@@ -298,14 +320,9 @@
                     }
                     break;
                 case MessageOverlayState.Disabled:
-                    if (MessageOverlayData.IsDialogFadingOut && !MessageOverlayData.DisplayForEvents && !MessageOverlayData.DisplayForPopUp)
-                    {
-                        MessageOverlayData.Text = MessageOverlayData.Text;
-                        MessageOverlayData.SubText = MessageOverlayData.SubText;
-                        MessageOverlayData.SubText2 = MessageOverlayData.SubText2;
-                        MessageOverlayData.IsSubText2Visible = MessageOverlayData.IsSubText2Visible;
-                    }
-                    else
+                    if (!MessageOverlayData.IsDialogFadingOut
+                        || MessageOverlayData.DisplayForEvents
+                        || MessageOverlayData.DisplayForPopUp)
                     {
                         MessageOverlayData.Text = BuildLockupMessageText();
                     }

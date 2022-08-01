@@ -258,7 +258,7 @@
                     _properties.SetProperty(GamingConstants.AwaitingPlayerSelection, true);
 
                     _eventBus.Publish(new OverlayMenuEnteredEvent());
-                    _eventBus.Publish(new ViewInjectionEvent(_hostView, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
+                    _eventBus.Publish(new ViewInjectionEvent(_hostView, DisplayRole.Main, ViewAction.Add));
                 }
             }
             finally
@@ -357,7 +357,7 @@
             {
                 return;
             }
-            _eventBus.Publish(new ViewInjectionEvent(_hostView, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+            _eventBus.Publish(new ViewInjectionEvent(_hostView, DisplayRole.Main, ViewAction.Remove));
 
             _overlayExpiryTimer.Stop();
 
@@ -412,7 +412,7 @@
                 () =>
                 {
                     _placardView = new PlacardView(args.Placard);
-                    _eventBus.Publish(new ViewInjectionEvent(_placardView, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
+                    _eventBus.Publish(new ViewInjectionEvent(_placardView, DisplayRole.Main, ViewAction.Add));
                 });
 
             // The timeout would be zero for the CallAttendant placard, as it would be removed only after clearing the handpay lockup
@@ -430,7 +430,7 @@
 
         private void RemovePlacard()
         {
-            _eventBus.Publish(new ViewInjectionEvent(_placardView, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+            _eventBus.Publish(new ViewInjectionEvent(_placardView, DisplayRole.Main, ViewAction.Remove));
         }
 
         private void OnTimerElapsed()

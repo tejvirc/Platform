@@ -34,7 +34,9 @@
             _enabledGamesList = new List<IGameDetail>();
             _filteredGamesList = new List<IGameDetail>();
 
-            EnabledGames = new ObservableCollection<ReadOnlyGameConfiguration>();
+            _enabledGames = new ObservableCollection<ReadOnlyGameConfiguration>();
+            _enabledGamesCount = 0;
+
             var container = ServiceManager.GetInstance().GetService<IContainerService>();
             if (container != null)
             {
@@ -49,9 +51,9 @@
             var components = componentRegistry.Components;
 
             var hashesFileName = components.SingleOrDefault(c => c.ComponentId.EndsWith(HashesFileExtension))?.ComponentId;
-            if(!string.IsNullOrEmpty(hashesFileName))
+            if (!string.IsNullOrEmpty(hashesFileName))
             {
-                HashesComponentId = hashesFileName.Substring(0, hashesFileName.LastIndexOf(HashesFileExtension[0]));
+                _hashesComponentId = hashesFileName.Substring(0, hashesFileName.LastIndexOf(HashesFileExtension[0]));
             }
         }
 

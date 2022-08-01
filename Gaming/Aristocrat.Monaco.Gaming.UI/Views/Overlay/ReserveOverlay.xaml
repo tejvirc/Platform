@@ -63,7 +63,7 @@
 		<Grid.Style>
 			<Style TargetType="Grid">
 				<Style.Triggers>
-                    <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                    <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 						<Setter Property="Background">
 							<Setter.Value>
 								<SolidColorBrush Color="Black" Opacity="0.5"/>
@@ -77,7 +77,7 @@
 		<!-- The reserve lockup that shows the countdown timer and covers the entire screen -->
 		<Grid Name="FullScreenLockupGrid"
 		      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-		      Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowLockupBackground,
+		      Visibility="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ShowLockupBackground,
                   Converter={StaticResource BoolToVisHiddenConverter}}">
 			<Grid.Background>
 				<ImageBrush Stretch="Fill" ImageSource="{DynamicResource ExitReserveLockupBackgroundImage}"/>
@@ -87,7 +87,7 @@
 		<!-- The Countdown timer display -->
 		<Grid Name="CountdownTimerGrid"
 			  HorizontalAlignment="Center" VerticalAlignment="Top"
-		      Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowCountDownTimer,
+		      Visibility="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ShowCountDownTimer,
                   Converter={StaticResource BoolToVisHiddenConverter}}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -103,14 +103,14 @@
 			<!-- The remaining time on the countdown timer -->
 			<TextBlock Name="GiantCountdownRemainingTime" Grid.Row="1"
 					Style="{StaticResource GiantReservedLockupTextBlockStyle}"
-					Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.CountdownTimerText, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+					Text="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.CountdownTimerText, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
 					Margin="0 -30 0 0"
 					FontSize="260"/>
 			<!-- The large exit button the will open the pin entry panel -->
 			<Button Name="ExitReserveButton"
 			        Grid.Row="2"
 					Margin="0 60 0 0"
-			        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ExitReserveButtonClickedCommand}">
+			        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ExitReserveButtonClickedCommand}">
 				<Button.Template>
 					<ControlTemplate TargetType="{x:Type Button}">
 						<Image Name="ExitReserveImage" Stretch="None" Source="{DynamicResource ExitReserveBigNormal}"/>
@@ -126,7 +126,7 @@
 
 		<!-- Grid that contains the too many incorrect pin entries message -->
 		<Grid Name="IncorrectPinMessageGrid" HorizontalAlignment="Center" VerticalAlignment="Center"
-				Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectUnlockPinDisplay,
+				Visibility="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ShowIncorrectUnlockPinDisplay,
                     Converter={StaticResource BoolToVisHiddenConverter}}">
 			<!-- An image of the background used for the reserve unlock screen but blank -->
 			<Image x:Name="IncorrectPinImage" Stretch="None" Source="{DynamicResource ExitReserveBlankBackgroundImage}" />
@@ -138,7 +138,7 @@
 			<!-- The time remaining that the player must wait to try again -->
 			<TextBlock Name="IncorrectPinTimeRemainingText" 
 			           Style="{StaticResource IncorrectPinTextBlockStyle}"
-			           Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.IncorrectPinWaitTimeLeft}"
+			           Text="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.IncorrectPinWaitTimeLeft}"
 			           Margin="0 200 0 0"
 					   Foreground="Gold"/>
 			<!-- Bottom part of the incorrect pin attempts message -->
@@ -150,20 +150,20 @@
 
 		<!-- The confirm and exit reserve pin panels -->
 		<Grid Name="PinPanel" HorizontalAlignment="Center" VerticalAlignment="Center"
-				Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowPinEntryPanel,
+				Visibility="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ShowPinEntryPanel,
                   Converter={StaticResource BoolToVisHiddenConverter}}">
 			<!-- The background image, will change depending on if confirming or exiting reserve -->
 			<Image Name="ConfirmOrExitImage" Stretch="None">
 				<Image.Style>
 					<Style TargetType="Image">
 						<Style.Triggers>
-                            <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                            <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 								<Setter Property="Source" Value="{DynamicResource ConfirmReserveBackgroundImage}"/>
 							</DataTrigger>
-                            <DataTrigger Value="Countdown" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                            <DataTrigger Value="Countdown" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 								<Setter Property="Source" Value="{x:Null}"/>
 							</DataTrigger>
-                            <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                            <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 								<Setter Property="Source" Value="{DynamicResource ExitReserveBackgroundImage}"/>
 							</DataTrigger>
 						</Style.Triggers>
@@ -175,14 +175,14 @@
 				<!-- The text box where the *'s will appear as keys are pressed -->
 				<TextBox x:Name="FourDigitPinBox"
 				         Style="{StaticResource FourDigitPinBoxStyle}"
-				         Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.PinBoxContent}"
+				         Text="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.PinBoxContent}"
 				         Margin="280 55 0 0"
 				         IsReadOnly="True"
                          IsReadOnlyCaretVisible="False"
                          Focusable="False"/>
 				<!-- The red rectangle that appears around the text box (which is actually a part of the background image) when an incorrect PIN is entered -->
 				<Rectangle Name="IncorrectPinHighlight"
-				           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,
+				           Visibility="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ShowIncorrectPinWarning,
                                Converter={StaticResource BoolToVisHiddenConverter}}"
 				           HorizontalAlignment="Center" VerticalAlignment="Top"
 				           StrokeThickness="4" Stroke="Red" Fill="Transparent"
@@ -191,7 +191,7 @@
 				<!-- The incorrect PIN warning message -->
 				<TextBlock Name="IncorrectPinWarningText"
 				           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinText}}"
-				           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,
+				           Visibility="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ShowIncorrectPinWarning,
                                Converter={StaticResource BoolToVisHiddenConverter}}"
 				           HorizontalAlignment="Center" VerticalAlignment="Top"
 				           Foreground="Red" 
@@ -217,7 +217,7 @@
 				<!-- Button for 1 digit -->
 				<Button Name="Digit1Button"
 				        Grid.Row="0" Grid.Column="0"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="1">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -233,7 +233,7 @@
 				<!-- Button for 2 digit -->
 				<Button Name="Digit2Button"
 				        Grid.Row="0" Grid.Column="1"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="2">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -249,7 +249,7 @@
 				<!-- Button for 3 digit -->
 				<Button Name="Digit3Button"
 				        Grid.Row="0" Grid.Column="2"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="3">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -265,7 +265,7 @@
 				<!-- Button for 4 digit -->
 				<Button Name="Digit4Button"
 				        Grid.Row="0" Grid.Column="3"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="4">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -281,7 +281,7 @@
 				<!-- Button for 5 digit -->
 				<Button Name="Digit5Button"
 				        Grid.Row="0" Grid.Column="4"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="5">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -297,7 +297,7 @@
 				<!-- Button for 6 digit -->
 				<Button Name="Digit6Button"
 				        Grid.Row="1" Grid.Column="0"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="6">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -313,7 +313,7 @@
 				<!-- Button for 7 digit -->
 				<Button Name="Digit7Button"
 				        Grid.Row="1" Grid.Column="1"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="7">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -329,7 +329,7 @@
 				<!-- Button for 8 digit -->
 				<Button Name="Digit8Button"
 				        Grid.Row="1" Grid.Column="2"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="8">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -345,7 +345,7 @@
 				<!-- Button for 9 digit -->
 				<Button Name="Digit9Button"
 				        Grid.Row="1" Grid.Column="3"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="9">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -361,7 +361,7 @@
 				<!-- Button for 0 digit -->
 				<Button Name="Digit0Button"
 				        Grid.Row="1" Grid.Column="4"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.DigitClickedCommand}"
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.DigitClickedCommand}"
 				        CommandParameter="0">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
@@ -382,7 +382,7 @@
 		            Margin="0 355 0 0">
 				<!-- The backspace button -->
 				<Button x:Name="BackspaceButton"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.BackspaceButtonClickedCommand}">
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.BackspaceButtonClickedCommand}">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
 							<Image Name="BackspaceButtonImage" Stretch="None" Source="{DynamicResource BackspaceBigNormal}"/>
@@ -396,16 +396,16 @@
 				</Button>
 				<!-- The reserve button, upon pressed will verify the pin is correct and initiate the reserve system -->
 				<Button x:Name="ReserveButton"
-			        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ReserveButtonClickedCommand}"
-					IsEnabled="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ConfirmButtonEnabled}"
+			        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ReserveButtonClickedCommand}"
+					IsEnabled="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ConfirmButtonEnabled}"
 			        Margin="13 0 13 0">
 					<Button.Style>
 						<Style TargetType="Button">
 							<Style.Triggers>
-                                <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                                <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 									<Setter Property="Visibility" Value="Visible"/>
 								</DataTrigger>
-                                <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                                <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 									<Setter Property="Visibility" Value="Collapsed"/>
 								</DataTrigger>
 							</Style.Triggers>
@@ -427,16 +427,16 @@
 				</Button>
 				<!-- The unlock button, upon pressed will verify the pin matches and unlcok the reserved machine -->
 				<Button x:Name="UnlockButton"
-			        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.UnlockButtonClickedCommand}"
-					IsEnabled="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ConfirmButtonEnabled}"
+			        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.UnlockButtonClickedCommand}"
+					IsEnabled="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.ConfirmButtonEnabled}"
 			        Margin="13 0 13 0">
 					<Button.Style>
 						<Style TargetType="Button">
 							<Style.Triggers>
-                                <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                                <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 									<Setter Property="Visibility" Value="Visible"/>
 								</DataTrigger>
-                                <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                                <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 									<Setter Property="Visibility" Value="Collapsed"/>
 								</DataTrigger>
 							</Style.Triggers>
@@ -458,7 +458,7 @@
 				</Button>
 				<!-- The cancel button that will cancel out of the current display and go to a different state -->
 				<Button x:Name="CancelButton"
-				        Command="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.CancelButtonClickedCommand}">
+				        Command="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.CancelButtonClickedCommand}">
 					<Button.Template>
 						<ControlTemplate TargetType="{x:Type Button}">
 							<Image Name="CancelButtonImage" Stretch="None" Source="{DynamicResource CancelBigNormal}"/>
@@ -479,14 +479,14 @@
 			           Height="40"
 			           FontWeight="Bold"
 			           Foreground="Gold"
-			           Text="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.TimeLengthMachineWillBeReserved}">
+			           Text="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.TimeLengthMachineWillBeReserved}">
 				<TextBlock.Style>
 					<Style TargetType="TextBlock">
 						<Style.Triggers>
-                            <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                            <DataTrigger Value="Confirm" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 								<Setter Property="Visibility" Value="Visible"/>
 							</DataTrigger>
-                            <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.State}">
+                            <DataTrigger Value="Exit" Binding="{Binding MessageOverlayDisplayViewModel.ReserveOverlayViewModel.State}">
 								<Setter Property="Visibility" Value="Hidden"/>
 							</DataTrigger>
 						</Style.Triggers>

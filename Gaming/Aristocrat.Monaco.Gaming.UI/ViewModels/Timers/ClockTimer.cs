@@ -14,7 +14,7 @@
     using Monaco.UI.Common.Models;
     using MVVM.ViewModel;
 
-    public class ClockTimer : BaseViewModel
+    public class ClockTimer : BaseViewModel,IDisposable
     {
         private const int ClockStateTimeoutInSeconds = 30;
         private const double DayTimerIntervalSeconds = 1.0;
@@ -38,6 +38,8 @@
         private bool? _lastDisplayingTimeRemainingValue;
         private string _lastTimeRemainingValue;
         private string _sessionTimeText;
+        private bool _disposed;
+
 
         public ClockTimer(
             LobbyConfiguration config,
@@ -64,11 +66,12 @@
             if (_config.DisplaySessionTimeInClock)
             {
                 StartClockTimer();
-                UpdateSessionTimeText();
+                UpdateSessionTimeText(true);
             }
 
-            UpdateTime();
+            UpdateTime(true);
         }
+
 
         /// <summary>
         ///     Property for determining how the clock is displayed.  Read from the config file
@@ -244,7 +247,7 @@
 
         public void RestartClockTimer()
         {
-            //This should only happen if we had a forced cashout while disabled and now we are re-enabling 
+            // This should only happen if we had a forced cashout while disabled and now we are re-enabling 
             if (_config.DisplaySessionTimeInClock &&
                 ResponsibleGamingSessionState == ResponsibleGamingSessionState.Stopped &&
                 !ClockStateTimer.IsEnabled)
@@ -255,9 +258,9 @@
             }
         }
 
-        public void UpdateSessionTimeText()
+        public void UpdateSessionTimeText(bool skipRaisePropertyChanged = false)
         {
-            //we want to round the time up to the last whole minute.  So if you have 59 min and 1 seconds, we should show 1 hour.
+            // We want to round the time up to the last whole minute.  So if you have 59 min and 1 seconds, we should show 1 hour.
             var time = _responsibleGaming.RemainingSessionTime;
             var fractionalMinutes = time.TotalMinutes % 1;
 
@@ -268,15 +271,19 @@
                 time += timeToAdd;
             }
 
-            SessionTimeText = time.ToString(@"h\:mm");
-            // VLT-6699 : have the time left clock not be blank when RG times out
-            //  this will display 0:00
+            _sessionTimeText = time.ToString(@"h\:mm");
+            UpdateTime(skipRaisePropertyChanged);
+            // VLT-6699 : have the time left clock not be blank when RG times out, this will display 0:00
             SetTimeRemaining(time.ToString(@"h\:mm"));
         }
 
-        public void UpdateTime()
+        public void UpdateTime(bool skipRaisePropertyChanged = false)
         {
-            RaisePropertyChanged(nameof(IsSessionOverLabelVisible));
+            if (!skipRaisePropertyChanged)
+            {
+                RaisePropertyChanged(nameof(IsSessionOverLabelVisible));
+            }
+            
             if (_clockState == LobbyClockState.Clock)
             {
                 var culture = new CultureInfo(ActiveLocaleCode);
@@ -301,14 +308,19 @@
                         break;
                 }
 
-                CurrentTime = _timeService.GetLocationTime().ToString(format, culture);
+                _currentTime = _timeService.GetLocationTime().ToString(format, culture);
             }
             else //_clockState == LobbyClockState.ResponsibleGamingSessionTime
             {
-                CurrentTime = SessionTimeText;
+                _currentTime = SessionTimeText;
+                
             }
 
-            RaisePropertyChanged(nameof(TimeLabelResourceKey));
+            if (!skipRaisePropertyChanged)
+            {
+                RaisePropertyChanged(nameof(CurrentTime));
+                RaisePropertyChanged(nameof(TimeLabelResourceKey));
+            }
         }
 
         private void DayTimer_Tick(object sender, EventArgs e)
@@ -373,8 +385,23 @@
 
         public void Dispose()
         {
-            DayTimer?.Stop();
-            DayTimer = null;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                DayTimer.Stop();
+            }
+
+            _disposed = true;
         }
     }
 }

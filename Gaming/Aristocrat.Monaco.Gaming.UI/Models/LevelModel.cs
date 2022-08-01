@@ -25,13 +25,14 @@
         private decimal _incrementRate;
         private ProgressiveErrors _levelErrors;
         private IReadOnlyCollection<IViewableLinkedProgressiveLevel> _linkedLevels;
+        private readonly IViewableSharedSapLevel _sharedSapLevel;
         private IReadOnlyCollection<IViewableSharedSapLevel> _sharedSapLevels;
         private ObservableCollection<string> _selectableLevelTypes = new ObservableCollection<string>();
         private ObservableCollection<LevelDefinition> _selectableLevelNames = new ObservableCollection<LevelDefinition>();
         private string _selectableLevelType;
         private LevelDefinition _selectableLevel;
         private bool _selectableLevelNameTooLong;
-        private readonly bool _canEdit;
+        private bool _canEdit;
 
         public LevelModel(
             IViewableProgressiveLevel level,
@@ -40,16 +41,19 @@
             int gameCount,
             IViewableSharedSapLevel sharedSapLevel)
         {
-            GameCount = gameCount;
-
             AssociatedProgressiveLevel = level;
+            _sharedSapLevels = customSapLevels;
+            _linkedLevels = linkedLevels;
+            GameCount = gameCount;
+            _sharedSapLevel = sharedSapLevel;
+
             AssignedProgressiveInfo = new AssignableProgressiveId(
-                level.AssignedProgressiveId.AssignedProgressiveType,
-                level.AssignedProgressiveId.AssignedProgressiveKey);
+                AssociatedProgressiveLevel.AssignedProgressiveId.AssignedProgressiveType,
+                AssociatedProgressiveLevel.AssignedProgressiveId.AssignedProgressiveKey);
 
             if (LevelType == ProgressiveLevelType.LP)
             {
-                var linkLevel = linkedLevels.FirstOrDefault(x => x.LevelName == LevelName);
+                var linkLevel = _linkedLevels.FirstOrDefault(x => x.LevelName == LevelName);
                 if (linkLevel != null)
                 {
                     CurrentValue = linkLevel.Amount.CentsToDollars().FormattedCurrencyString(true);
@@ -57,22 +61,20 @@
             }
             else
             {
-                CurrentValue = sharedSapLevel?.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true) ??
-                               level.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true);
+                CurrentValue = _sharedSapLevel?.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true) ??
+                               AssociatedProgressiveLevel.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true);
             }
 
-            InitialValue = level.InitialValue.MillicentsToDollars();
-            ResetValue = level.ResetValue.MillicentsToDollars();
-            IncrementRate = level.IncrementRate.ToPercentage();
-            MaxValue = level.MaximumValue.MillicentsToDollars();
-            OverflowValue = sharedSapLevel?.Overflow.MillicentsToDollars().FormattedCurrencyString(true) ??
-                            level.Overflow.MillicentsToDollars().FormattedCurrencyString(true);
+            InitialValue = AssociatedProgressiveLevel.InitialValue.MillicentsToDollars();
+            ResetValue = AssociatedProgressiveLevel.ResetValue.MillicentsToDollars();
+            IncrementRate = AssociatedProgressiveLevel.IncrementRate.ToPercentage();
+            MaxValue = AssociatedProgressiveLevel.MaximumValue.MillicentsToDollars();
+            OverflowValue = _sharedSapLevel?.Overflow.MillicentsToDollars().FormattedCurrencyString(true) ??
+                            AssociatedProgressiveLevel.Overflow.MillicentsToDollars().FormattedCurrencyString(true);
 
-            _sharedSapLevels = customSapLevels;
-            _linkedLevels = linkedLevels;
-            LevelErrors = level.Errors;
+            LevelErrors = AssociatedProgressiveLevel.Errors;
             _selectableLevelType = DetermineSelectableLevelType();
-            _canEdit = level.CanEdit;
+            _canEdit = AssociatedProgressiveLevel.CanEdit;
             _selectableLevel = new LevelDefinition(LevelName, AssignedProgressiveInfo.AssignedProgressiveKey);
 
             LoadSelectableTypes();
@@ -328,7 +330,7 @@
         }
 
         public int GameCount { get; }
-        
+
         private void ClearOrSetError(string errors, string propertyName)
         {
             if (string.IsNullOrEmpty(errors))

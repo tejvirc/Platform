@@ -157,6 +157,7 @@
 
             // The wrong PIN verification was entered, state still should be Confirm, as
             // they can keep trying until they press Cancel
+            var state = IsState(ReserveMachineDisplayState.Confirm);
             Assert.IsTrue(IsState(ReserveMachineDisplayState.Confirm));
 
             _propertiesManager.Setup(x => x.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty));

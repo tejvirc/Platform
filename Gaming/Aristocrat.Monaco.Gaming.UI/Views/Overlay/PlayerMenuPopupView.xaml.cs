@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Views.Overlay
 {
+    using System;
     using System.Windows;
     using System.Windows.Input;
     using Contracts;
@@ -11,10 +12,11 @@
     /// <summary>
     ///     Interaction logic for PlayerMenuPopupView.xaml
     /// </summary>
-    public partial class PlayerMenuPopupView
+    public partial class PlayerMenuPopupView : IDisposable
     {
-        private bool _inbetweenTouchs;
-        private readonly Timer _inbetweenTouchTimer = new Timer(GamingConstants.PlayerMenuPopupOpenCloseDelayMilliseconds);
+        private bool _inBetweenTouches;
+        private readonly Timer _inBetweenTouchTimer = new Timer(GamingConstants.PlayerMenuPopupOpenCloseDelayMilliseconds);
+        private bool _disposed;
 
         public BitmapImage ThreeSectionBackgroundImage { get; set; }
 
@@ -39,7 +41,7 @@
             ReserveMachineSection.Height = TwoSectionReserveBackgroundImage.Height - OneSectionBackgroundImage.Height;
             ButtonSection.Height = OneSectionBackgroundImage.Height;
 
-            _inbetweenTouchTimer.Elapsed += (o, args) => _inbetweenTouchs = false;
+            _inBetweenTouchTimer.Elapsed += (o, args) => _inBetweenTouches = false;
         }
 
         /// <summary>
@@ -51,37 +53,37 @@
             set => DataContext = value;
         }
 
-        // This functionality is to force some time inbetween handling outside touches.
-        // Touch sensitivitly can sometimes cause multiple touches to register, which can close
+        // This functionality is to force some time in between handling outside touches.
+        // Touch sensitivity can sometimes cause multiple touches to register, which can close
         // the menu unexpectedly 
-        private void SetInbetweenTouchTimer()
+        private void SetInBetweenTouchTimer()
         {
-            if (_inbetweenTouchTimer.Enabled)
+            if (_inBetweenTouchTimer.Enabled)
             {
-                _inbetweenTouchTimer.Stop();
+                _inBetweenTouchTimer.Stop();
             }
 
-            _inbetweenTouchs = true;
-            _inbetweenTouchTimer.Start();
+            _inBetweenTouches = true;
+            _inBetweenTouchTimer.Start();
         }
 
         private void OnClickOutside(object sender, MouseButtonEventArgs e)
-        {
-            if (_inbetweenTouchs)
+        { 
+            if (_inBetweenTouches)
             {
                 return;
             }
 
             ViewModel.SendButtonPressToExit();
 
-            SetInbetweenTouchTimer();
+            SetInBetweenTouchTimer();
         }
 
         private void PlayerMenuPopupView_OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (ViewModel.IsMenuVisible)
             {
-                SetInbetweenTouchTimer();
+                SetInBetweenTouchTimer();
 
                 AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickOutside), true);
                 Mouse.Capture(this, CaptureMode.SubTree);
@@ -94,7 +96,7 @@
 
         private void PlayerMenuPopupView_OnUnloaded(object sender, RoutedEventArgs e)
         {
-            _inbetweenTouchTimer.Dispose();
+            _inBetweenTouchTimer.Dispose();
         }
 
         private void HandleNonClosingPress(object sender, RoutedEventArgs e)
@@ -104,6 +106,27 @@
             Mouse.RemovePreviewMouseDownOutsideCapturedElementHandler(this, OnClickOutside);
             AddHandler(Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickOutside), true);
             Mouse.Capture(this, CaptureMode.SubTree);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _inBetweenTouchTimer.Dispose();
+            }
+
+            _disposed = true;
         }
     }
 }

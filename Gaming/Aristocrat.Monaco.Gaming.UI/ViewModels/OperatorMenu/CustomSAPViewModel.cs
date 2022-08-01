@@ -45,7 +45,7 @@
             DeleteSAPLevelCommand = new ActionCommand<string>(DeleteLevelPressed);
             EditSAPLevelCommand = new ActionCommand<string>(EditLevelPressed);
 
-            RefreshLevelDetails();
+            RefreshLevelDetails(true);
         }
 
         public ICommand AddSAPLevelCommand { get; }
@@ -138,10 +138,10 @@
                 this,
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LevelCreationTittle));
-            RefreshLevelDetails();
+            RefreshLevelDetails(true);
         }
 
-        private void RefreshLevelDetails()
+        private void RefreshLevelDetails(bool skipRaisePropertyChanged = false)
         {
             LevelDetails.Clear();
 
@@ -162,7 +162,10 @@
                             x => x.AssignedProgressiveId.AssignedProgressiveKey == level.LevelAssignmentKey)));
             }
 
-            RaisePropertyChanged(nameof(InputEnabled));
+            if (!skipRaisePropertyChanged)
+            {
+                RaisePropertyChanged(nameof(InputEnabled));
+            }
         }
 
         private void SetInputStatusText()

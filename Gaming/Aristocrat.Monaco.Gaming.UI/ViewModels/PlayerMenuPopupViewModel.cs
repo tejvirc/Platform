@@ -48,10 +48,10 @@
         private readonly IOnScreenKeyboardService _keyboardService;
         private readonly IAudio _audioService;
 
-        private readonly string PasswordChar = "*";
+        private const string PasswordChar = "*";
 
         private bool _isMenuVisible;
-        private bool _disposedValue;
+        private bool _disposed;
         private PlayerMenuPopupBackground _menuBackgroundOption;
         private bool _isSessionTrackingSectionVisible;
         private bool _isVolumeButtonVisible;
@@ -112,7 +112,12 @@
             StartNewSessionClickedCommand = new ActionCommand<object>(StartNewTrackingSession);
             MouseDownOnMenuCommand = new ActionCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
 
-            IsMenuVisible = false;
+            _isMenuVisible = false;
+        }
+
+        protected override void InitializeVm()
+        {
+            base.InitializeVm();
 
             SetupMenu();
         }
@@ -121,6 +126,7 @@
         {
             if (!_properties.GetValue(GamingConstants.ShowPlayerMenuPopup, true))
             {
+                _isMenuVisible = false;
                 return;
             }
 
@@ -369,20 +375,22 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposedValue)
+            if (_disposed)
             {
-                if (disposing)
-                {
-                    _closeDelayTimer.Dispose();
-                }
-
-                _disposedValue = true;
+                return;
             }
+
+            if (disposing)
+            {
+                _closeDelayTimer.Dispose();
+            }
+
+            _disposed = true;
         }
 
         public void Dispose()
         {
-            Dispose(disposing: true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 

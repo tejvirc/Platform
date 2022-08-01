@@ -68,8 +68,8 @@
             _gameService = ServiceManager.GetInstance().GetService<IGameService>();
             _gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
 
-            IsSummaryView = isSummaryView;
-            SelectedGameInfo = $"{_selectedGame.ThemeName} | {selectedGame.PaytableId} | {_selectedGame.Denomination}";
+            _isSummaryView = isSummaryView;
+            _selectedGameInfo = $"{_selectedGame.ThemeName} | {selectedGame.PaytableId} | {_selectedGame.Denomination}";
             GenerateCSAPLevelsCommand = new ActionCommand<object>(GenerateCSAPLevelsPressed);
 
             var progressiveLevels = configProgressiveLevels.Any()

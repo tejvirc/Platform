@@ -32,21 +32,21 @@
         private bool _disposed;
 
         public DefaultPlayerInfoDisplayManager(
-            IEventBus eventBus
-            , IRuntime runtime
-            , IGameResourcesModelProvider gameResourcesModelProvider
-        )
+            IEventBus eventBus,
+            IRuntime runtime,
+            IGameResourcesModelProvider gameResourcesModelProvider)
         {
             Logger.Debug("Create DefaultPlayerInfoDisplayManager");
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
-            _gameResourcesModelProvider = gameResourcesModelProvider ?? throw new ArgumentNullException(nameof(gameResourcesModelProvider));
+            _gameResourcesModelProvider = gameResourcesModelProvider ??
+                                          throw new ArgumentNullException(nameof(gameResourcesModelProvider));
 
             _isActive = false;
 
             SubscribeToEvents();
         }
-
+        
         /// <inheritdoc />
         public void AddPages(IList<IPlayerInfoDisplayViewModel> pages)
         {

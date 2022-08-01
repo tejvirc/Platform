@@ -223,7 +223,7 @@
 
             _towerLight = ServiceManager.GetInstance().TryGetService<ITowerLight>();
 
-            TimeLimit5Visible = _responsibleGamingMode == ResponsibleGamingMode.Continuous;
+            _timeLimit5Visible = _responsibleGamingMode == ResponsibleGamingMode.Continuous;
 
             InsertBillCommand = new ActionCommand<object>(InsertBill);
             InsertVoucherCommand = new ActionCommand<object>(InsertVoucher);
@@ -251,7 +251,7 @@
 
             InitTowerLightComboBoxes();
 
-            IsAuditMenuWindowSelected = true;
+            _isAuditMenuWindowSelected = true;
 
             // InfoBar Tab
             DisplayInfoBarMessageCommand = new ActionCommand<object>(_ => DisplayInfoBarMessage());
@@ -262,7 +262,7 @@
             SelectedInfoBarBackgroundColor = InfoBarColor.Black.ToString();
             SelectedInfoBarRegion = InfoBarRegion.Center.ToString();
             SelectedInfoBarLocation = DisplayRole.Main.ToString();
-            InfoBarMessage = "This is a test message ABC 123...";
+            _infoBarMessage = "This is a test message ABC 123...";
 
             // Card Reader
             InsertCardCommand = new ActionCommand<object>(_ => InsertCard());
@@ -272,14 +272,12 @@
             CurrencySwitchUsingCountryCommand = new ActionCommand<object>(_ => CurrencySwitchUsingCountry());
             CurrencySwitchUsingEnumCommand = new ActionCommand<object>(_ => CurrencySwitchUsingEnum());
 
-            SetDefaults();
-
             _displayableMessage = new DisplayableMessage(
                 () => string.Empty,
                 DisplayableMessageClassification.SoftError,
                 DisplayableMessagePriority.Immediate);
 
-            NoteAcceptorEnabled = ServiceManager.GetInstance().TryGetService<INoteAcceptor>()?.Enabled ?? false;
+            _noteAcceptorEnabled = ServiceManager.GetInstance().TryGetService<INoteAcceptor>()?.Enabled ?? false;
             _eventBus.Subscribe<EnabledEvent>(this, _ => NoteAcceptorEnabled = true);
             _eventBus.Subscribe<DisabledEvent>(this, _ => NoteAcceptorEnabled = false);
             _eventBus.Subscribe<TowerLightOffEvent>(this, evt => HandleTowerLightEvent(evt.LightTier, false, evt.FlashState));
@@ -297,6 +295,8 @@
                 _eventBus.Subscribe<RingStartedEvent>(this, _ => BellColor = _bellBrushRinging);
                 _eventBus.Subscribe<RingStoppedEvent>(this, _ => BellColor = _bellBrushSilent);
             }
+
+            MvvmHelper.ExecuteOnUI(SetDefaults);
         }
 
         public SolidColorBrush BellColor

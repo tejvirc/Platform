@@ -45,12 +45,8 @@
         public GameMetersViewModel()
             : base(MeterNodePage.Game, true)
         {
-            if (!InDesigner)
-            {
-                _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
-            }
-
-            GameButtonsEnabled = true;
+            _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+            _gameButtonsEnabled = true;
             WagerCategoryMetersVisible = GetConfigSetting(OperatorMenuSetting.ShowWagerCategoryMeters, true);
             SelectByGameNameAndDenomination = GetConfigSetting(
                 OperatorMenuSetting.GameNameAndDenominationSelections,

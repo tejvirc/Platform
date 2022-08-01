@@ -33,7 +33,7 @@
             var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.Games);
             Denoms = new List<Denomination>(
                 games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d)));
-            SelectedDenom = Denoms.FirstOrDefault();
+            _selectedDenom = Denoms.FirstOrDefault();
 
             PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
             NextDenomCommand = new ActionCommand<object>(NextDenom);

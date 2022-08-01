@@ -12,6 +12,7 @@
     using System.Windows.Input;
     using System.Windows.Media.Animation;
     using ViewModels;
+    using ViewModels.MediaDisplay;
 
     /// <summary>
     /// Interaction logic for LayoutOverlayWindow.xaml
@@ -35,15 +36,15 @@
             _browserManager = ServiceManager.GetInstance().GetService<IBrowserProcessManager>();
 
             ViewModel = new LayoutTemplateViewModel(screenType, DisplayType.Overlay);
-            ViewModel.BrowserProcessTerminated += ViewModelOnBrowserProcessTerminated;
+            ViewModel.BrowserProcessTerminated += ViewModel_OnBrowserProcessTerminated;
 
             SizeChanged += LayoutOverlayWindow_SizeChanged;
             CreateControls();
         }
 
-        private void ViewModelOnBrowserProcessTerminated(object sender, int e)
+        private void ViewModel_OnBrowserProcessTerminated(object sender, BrowserProcessTerminatedEventArgs e)
         {
-            RestartBrowser(e);
+            RestartBrowser(e.Id);
         }
 
         /// <summary>
@@ -215,7 +216,7 @@
 
         private void LayoutOverlayWindow_OnClosed(object sender, EventArgs e)
         {
-            ViewModel.BrowserProcessTerminated -= ViewModelOnBrowserProcessTerminated;
+            ViewModel.BrowserProcessTerminated -= ViewModel_OnBrowserProcessTerminated;
             ViewModel?.Dispose();
 
             SizeChanged -= LayoutOverlayWindow_SizeChanged;

@@ -61,13 +61,13 @@
 
             ShowAdditionalInfoCommand = new ActionCommand<object>(ShowAdditionalInfo);
 
-            IsAllFiltersSelected = true;
+            _isAllFiltersSelected = true;
             AllFiltersSelectedCommand = new ActionCommand<object>(_ => AllFiltersSelected());
             FilterSelectedCommand = new ActionCommand<object>(_ => FilterSelected());
 
-            FilterMenuEnabled = false;
+            _filterMenuEnabled = false;
             _eventLogAdapters = GetLogAdapters();
-            EventFilterCollection = CreateFilters();
+            _eventFilterCollection = CreateFilters();
         }
 
         public ICommand ShowAdditionalInfoCommand { get; }

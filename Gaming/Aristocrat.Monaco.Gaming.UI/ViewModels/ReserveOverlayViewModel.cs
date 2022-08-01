@@ -131,15 +131,10 @@
             _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, "");
 
             DigitClickedCommand = new ActionCommand<object>(ConcatenateReservePin);
-
             BackspaceButtonClickedCommand = new ActionCommand<object>(_ => BackspaceButtonPressed());
-
             ReserveButtonClickedCommand = new ActionCommand<object>(_ => ReserveTheMachine());
-
             CancelButtonClickedCommand = new ActionCommand<object>(_ => CancelButtonPressed());
-
             UnlockButtonClickedCommand = new ActionCommand<object>(_ => UnlockReserve());
-
             ExitReserveButtonClickedCommand = new ActionCommand<object>(_ => ExitReserveButtonPressed());
 
             _incorrectPinWaitTimer = new Timer(
@@ -154,7 +149,6 @@
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, evt => CancelButtonPressed());
 
             ResetFields();
-
             SetCountdownText();
 
             var lockupPresent = (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false);

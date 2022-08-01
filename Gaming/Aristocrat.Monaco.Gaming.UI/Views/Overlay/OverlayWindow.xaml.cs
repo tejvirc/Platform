@@ -87,7 +87,7 @@
 
         private void FadeOutStoryboard_OnCompleted(object sender, EventArgs e)
         {
-            if (!ViewModel.MessageOverlayDisplay.IsOverlayWindowVisible)
+            if (!ViewModel.MessageOverlayDisplayViewModel.IsOverlayWindowVisible)
             {
                 Hide();
             }
