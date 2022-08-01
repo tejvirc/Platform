@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
 
     internal class LockUpOperations : IRobotOperations
     {
@@ -45,14 +46,15 @@
             {
                 return;
             }
+
             _lockupTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestLockUp();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalTriggerLockup,
-                               _robotController.Config.Active.IntervalTriggerLockup);
+            (sender) =>
+            {
+                RequestLockUp();
+            },
+            null,
+            _robotController.Config.Active.IntervalTriggerLockup,
+            _robotController.Config.Active.IntervalTriggerLockup);
         }
 
         public void Halt()
@@ -69,13 +71,15 @@
             {
                 return;
             }
+
             if (disposing)
             {
                 if (_lockupTimer is not null)
                 {
                     _lockupTimer.Dispose();
+                    _lockupTimer = null;
                 }
-                _lockupTimer = null;
+
                 _eventBus.UnsubscribeAll(this);
             }
             _disposed = true;
@@ -87,23 +91,22 @@
             {
                 return;
             }
+
             _robotController.BlockOtherOperations(RobotStateAndOperations.LockUpOperation);
             _logger.Info("RequestLockUp Received!", GetType().Name);
             _automator.EnterLockup();
-            _lockupTimer = new Timer(
-            (sender) =>
+            _ = Task.Delay((int)Constants.LockupDuration).ContinueWith(
+            _ =>
             {
-                _logger.Info("RequestExitLockup Received!", GetType().Name);
                 _automator.ExitLockup();
-                _lockupTimer.Dispose();
                 _robotController.UnBlockOtherOperations(RobotStateAndOperations.LockUpOperation);
-            }, null, Constants.LockupDuration, Timeout.Infinite);
+            });
         }
 
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return isBlocked && _sc.IsChooser;
+            return !isBlocked && _sc.IsChooser;
         }
     }
 }

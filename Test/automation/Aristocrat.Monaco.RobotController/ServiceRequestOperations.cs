@@ -105,7 +105,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return isBlocked && _sc.IsGame && !_sc.IsGameLoading;
+            return !isBlocked && _sc.IsGame && !_sc.IsGameLoading;
         }
     }
 }
