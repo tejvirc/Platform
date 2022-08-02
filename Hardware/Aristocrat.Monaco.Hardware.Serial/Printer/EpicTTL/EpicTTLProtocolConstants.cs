@@ -48,7 +48,7 @@
         public const float DotsPerPoint = ResolutionDpi / PointsPerInch;
         public const byte BarcodeInterleaved2Of5 = 7;
         public const byte DefaultBarcodeLength = 18;
-        public const int ResetTimeMs = 8000;
+        public const int ResetTimeMs = 10000;
 
         public static readonly List<FontDefinition> Fonts = new List<FontDefinition>
         {
