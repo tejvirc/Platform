@@ -615,15 +615,15 @@
             var gameType = ToGameType(game.GameType);
             var includeIncrement = CanIncludeIncrementRtp(gameType);
 
-            var categories = game.WagerCategories.ToList();
-            var minBaseRtp = categories.Select(w => w.MinBaseRtpPercent).Min();
-            var maxBaseRtp = categories.Select(w => w.MaxBaseRtpPercent).Max();
-            var minProgStartupRtp = categories.Select(w => w.MinSapStartupRtpPercent)
-                .Union(categories.Select(w => w.MinLinkStartupRtpPercent)).Min();
-            var maxProgStartupRtp = categories.Select(w => w.MaxSapStartupRtpPercent)
-                .Union(categories.Select(w => w.MaxLinkStartupRtpPercent)).Max();
-            var progIncrementRtps = categories.Select(w => w.SapIncrementRtpPercent)
-                .Union(categories.Select(w => w.LinkIncrementRtpPercent)).ToList();
+            var rtps = game.ReturnToPlayerList.ToList();
+            var minBaseRtp = rtps.Select(w => w.MinBaseRtpPercent).Min();
+            var maxBaseRtp = rtps.Select(w => w.MaxBaseRtpPercent).Max();
+            var minProgStartupRtp = rtps.Select(w => w.MinSapStartupRtpPercent)
+                .Union(rtps.Select(w => w.MinLinkStartupRtpPercent)).Min();
+            var maxProgStartupRtp = rtps.Select(w => w.MaxSapStartupRtpPercent)
+                .Union(rtps.Select(w => w.MaxLinkStartupRtpPercent)).Max();
+            var progIncrementRtps = rtps.Select(w => w.SapIncrementRtpPercent)
+                .Union(rtps.Select(w => w.LinkIncrementRtpPercent)).ToList();
             var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
             var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
             Logger.Debug($"minBase={minBaseRtp}% maxBase={maxBaseRtp}% minProgStart={minProgStartupRtp}% maxProgStart={maxProgStartupRtp}% minProgIncr={minProgIncrementRtp}% maxProgIncr={maxProgIncrementRtp}%");
