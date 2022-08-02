@@ -281,7 +281,7 @@
                                 break;
                             }
 
-                            var mapping = configuration.Game.Mapping?.FirstOrDefault(
+                            var mapping = configuration.RestrictionDetails.Mapping?.FirstOrDefault(
                                 c => denom.Value == c.Denomination && c.VariationId == game.VariationId);
                             if (mapping != null)
                             {

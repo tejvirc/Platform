@@ -25,7 +25,7 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.TransferOutFailedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherIssuedEvent, Monaco.Accounting.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherReprintRequestEvent, Monaco.Accounting.Contracts" Level="info" Type="General" />
-	<EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherRejectedEvent, Monaco.Accounting.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherRejectedEvent, Monaco.Accounting.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.LegitimacyLockUpEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuEnteredEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuExitedEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />

@@ -59,7 +59,6 @@
                                 node.ProtocolId,
                                 Enum.GetName(typeof(CommsProtocol), protocol),
                                 StringComparison.InvariantCultureIgnoreCase));
-                        _protocolTypeExtensionNodes.Add(extensionNode);
 
                         if (extensionNode != null)
                         {

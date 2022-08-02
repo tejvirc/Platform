@@ -5,9 +5,9 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using System.Text.RegularExpressions;
     using Common;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
@@ -17,8 +17,6 @@
 
     internal sealed class BeagleBoneControllerService : BaseRunnable, IBeagleBoneController, IEdgeLightDevice
     {
-        private const string CabinetTypeRegex = "^LS";
-
         private static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -112,17 +110,16 @@
                 return;
             }
 
-            var cabinetType = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().Type;
-
-            var match = Regex.Match(cabinetType.ToString(), CabinetTypeRegex, RegexOptions.None);
-            if (match.Success)
+            var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
+            if (cabinetDetectionService != null &&            
+                cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs))
             {
                 _beagleBoneProtocol = new BeagleBoneProtocol();
                 _beagleBoneProtocol.Enable(true);
                 Initialized = true;
             }
 
-            Logger.Info(Name + " initialized");
+            Logger.Info($"{Name} initialized {Initialized}");
         }
 
         protected override void OnRun()

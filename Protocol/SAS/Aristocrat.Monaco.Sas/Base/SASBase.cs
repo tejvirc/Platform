@@ -55,6 +55,8 @@
         {
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<InitializationCompletedEvent>(this, _ => _startupWaiter.Set());
+            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
+
             Logger.Debug("Runnable initialized!");
         }
 
@@ -67,15 +69,21 @@
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
             disableManager.Disable(BaseConstants.ProtocolDisabledKey, SystemDisablePriority.Immediate, () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SasProtocolInitializing));
 
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
             // wait for the InitializationCompletedEvent which indicated
             // all the components we will use have been loaded
-            _startupWaiter.WaitOne();
+            if (!propertiesManager.GetValue(SasProperties.SasShutdownCommandReceivedKey, false))
+            {
+                _startupWaiter.WaitOne();
+            }
+
+            propertiesManager.SetProperty(SasProperties.SasShutdownCommandReceivedKey, false);
 
             Logger.Debug("OnRun got InitializationCompletedEvent");
             if (RunState == RunnableState.Running)
             {
                 Bootstrapper.OnAddingService(new SharedConsumerContext());
-                var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
                 Container = Bootstrapper.ConfigureContainer();
                 Container.Verify();
@@ -132,8 +140,6 @@
 
                 ServiceManager.GetInstance().GetService<IMeterManager>().CreateSnapshot();
 
-                Container.GetInstance<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
-
                 Container.GetInstance<IEventBus>().Subscribe<CreditLimitUpdatedEvent>(this,
                     _ =>
                     {
@@ -177,7 +183,6 @@
                     disableManager.Enable(BaseConstants.ProtocolDisabledKey);
                     _shutdownEvent.WaitOne();
                     _sasHost.StopEventSystem();
-                    _startupWaiter?.Set();
                 }
 
                 ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
@@ -186,6 +191,7 @@
 
             // Set Sas property for Sas communications offline
             Container?.GetInstance<IPropertiesManager>().SetProperty(SasProperties.SasCommunicationsOfflineKey, true);
+            _startupWaiter?.Set();
 
             Logger.Debug("End of OnRun().");
         }

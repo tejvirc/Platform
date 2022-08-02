@@ -106,7 +106,7 @@
         }
 
         /// <inheritdoc />
-        public void EndGameProcess(bool notifyExited = true)
+        public void EndGameProcess(bool notifyExited = true, bool terminateExpected = true)
         {
             lock (_lock)
             {
@@ -114,17 +114,17 @@
 
                 foreach (var process in processes)
                 {
-                    _processManager.EndProcess(process, notifyExited);
+                    _processManager.EndProcess(process, notifyExited, terminateExpected);
                 }
             }
         }
 
         /// <inheritdoc />
-        public void EndGameProcess(int processId, bool notifyExited = true)
+        public void EndGameProcess(int processId, bool notifyExited = true, bool terminateExpected = true)
         {
             lock (_lock)
             {
-                _processManager.EndProcess(processId, notifyExited);
+                _processManager.EndProcess(processId, notifyExited, terminateExpected);
             }
         }
 

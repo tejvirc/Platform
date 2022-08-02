@@ -17,8 +17,8 @@
         private const int AlmostFullThreshold = 24; // 80% full
         private const int TestTransactionId = 4;
         private AcknowledgedQueue<TransactionReport, int> _target;
-        private Mock<IAcknowledgedQueueHelper<TransactionReport, int>> _helper = new();
-        private TransactionReport _report =
+        private readonly Mock<IAcknowledgedQueueHelper<TransactionReport, int>> _helper = new();
+        private readonly TransactionReport _report =
             new()
             {
                 MachineSerial = "1",
@@ -28,7 +28,7 @@
                 GameTitleId = 1,
                 TransactionId = TestTransactionId,
                 PaytableId = 7,
-                DenominationId = 8,
+                Denomination = 8,
                 TransactionType = 2
             };
 

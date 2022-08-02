@@ -20,7 +20,11 @@
         /// <param name="container">Dependency injection container.</param>
         public TaskScheduler(Container container)
         {
-            var properties = new NameValueCollection { { "quartz.threadPool.threadCount", "2" } };
+            var properties = new NameValueCollection
+            {
+                { "quartz.threadPool.threadCount", "2" },
+                { "quartz.scheduler.instanceName",  $"TaskScheduler_{Guid.NewGuid()}"}
+            };
 
             var factory = new StdSchedulerFactory(properties);
 

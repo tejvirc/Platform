@@ -85,7 +85,7 @@
         
         private void PageUpButton_OnClick(object sender, RoutedEventArgs e)
         {
-            EnableInternalScrollForListBoxScroll((FrameworkElement)sender);
+            EnableInternalScrollForListBoxScroll((FrameworkElement)sender, false);
             ScrollGrid?.PageUp();
         }
         
@@ -104,7 +104,7 @@
         
         private void PageDownButton_OnClick(object sender, RoutedEventArgs e)
         {
-            EnableInternalScrollForListBoxScroll((FrameworkElement)sender);
+            EnableInternalScrollForListBoxScroll((FrameworkElement)sender, true);
             ScrollGrid?.PageDown();
         }
         
@@ -128,6 +128,7 @@
                 {
                     ScrollGrid.ScrollChanged -= OnScrollChanged;
                     ScrollGrid.SizeChanged -= OnScrollGridSizeChanged;
+                    ScrollGrid.TouchDown -= OnScrollGridTouched;
                 }
 
                 _initialized = false;
@@ -147,9 +148,16 @@
                 {
                     ScrollGrid.ScrollChanged += OnScrollChanged;
                     ScrollGrid.SizeChanged += OnScrollGridSizeChanged;
+                    ScrollGrid.TouchDown += OnScrollGridTouched;
                     _initialized = true;
                 }
             }
+        }
+
+        // When The ScrollGrid is touched, set Physical scrolling.
+        private void OnScrollGridTouched(object sender, System.Windows.Input.TouchEventArgs e)
+        {
+            DisableInternalScrollForListBoxScroll((FrameworkElement)sender);
         }
 
         // Based on the remark in MSDN about ScrollViewer.LineUp and LineDown:
@@ -170,7 +178,6 @@
             if (element.TemplatedParent is ListBox listbox && ScrollGrid.CanContentScroll)
             {
                 double trueOffset = 0;
-
                 for (var i = 0; i < (int)ScrollGrid.VerticalOffset; i++)
                 {
                     if (listbox.ItemContainerGenerator.ContainerFromIndex(i) is FrameworkElement container)
@@ -190,7 +197,7 @@
             }
         }
 
-        private void EnableInternalScrollForListBoxScroll(FrameworkElement element)
+        private void EnableInternalScrollForListBoxScroll(FrameworkElement element, bool scrollingDown)
         {
             if (ScrollGrid.CanContentScroll || element is null) return;
 
@@ -201,22 +208,59 @@
 
             if (element.TemplatedParent is ListBox listbox)
             {
+
+                if (scrollingDown && !CanScrollFurther(listbox))
+                {
+                    ScrollGrid.ScrollToBottom();
+                    ScrollGrid.CanContentScroll = false;
+                    _hasListBoxParent = true;
+                    return;
+                }
+
                 var trueOffset = ScrollGrid.VerticalOffset;
                 ScrollGrid.CanContentScroll = true;
                 int index = 0;
                 while (trueOffset > 0)
                 {
                     var item = (FrameworkElement)listbox.ItemContainerGenerator.ContainerFromIndex(index);
-                    if(item is null) break;
+                    if (item is null) break;
+
                     trueOffset -= item.ActualHeight;
-                    if(trueOffset >  0)
+                    if (trueOffset > 0)
                         index++;
                 }
+
                 ScrollGrid.ScrollToVerticalOffset(index);
                 _hasListBoxParent = true;
                 return;
             }
             ScrollGrid.CanContentScroll = true;
+        }
+
+        private bool CanScrollFurther(ListBox listbox)
+        {
+            // Do not scroll if we are passed the start of the last element
+            var lastElementStartinglocation = GetStartingLocationOfLastElement(listbox);
+            if (ScrollGrid.VerticalOffset >= lastElementStartinglocation)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private double GetStartingLocationOfLastElement(ListBox listBox)
+        {
+            double size = 0;
+            for (var i = 0; i < listBox.ItemContainerGenerator.Items.Count - 1; i++)
+            {
+                if (listBox.ItemContainerGenerator.ContainerFromIndex(i) is FrameworkElement container)
+                {
+                    size += container.ActualHeight;
+                }
+            }
+
+            return size;
         }
     }
 }

@@ -14,7 +14,7 @@
     /// </summary>
     public class UpdateBetOptionsRequestCommandHandler : ICommandHandler<UpdateBetOptions>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPropertiesManager _properties;
         private readonly IRuntime _runtime;
@@ -49,7 +49,8 @@
                 command.BetLinePresetId,
                 (int)((long)command.LineCost).MillicentsToCents(),
                 command.NumberLines,
-                command.Ante);
+                command.Ante,
+                command.Stake);
             _properties.SetProperty(GamingConstants.SelectedBetDetails, details);
 
             var betCredits = command.Wager;

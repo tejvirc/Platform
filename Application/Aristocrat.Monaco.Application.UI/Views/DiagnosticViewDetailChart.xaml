@@ -122,7 +122,7 @@
                                     <CheckBox Style="{StaticResource MonacoCheckBox}" Margin ="2" 
                                         IsChecked="{Binding MetricEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBox MinWidth="200"
-                                        Text="{Binding DisplayNamePlus, Mode=OneWay}" 
+                                        Text="{Binding Label, Mode=OneWay}" 
                                         VerticalAlignment="Center"
                                         IsHitTestVisible="False" Focusable="False" IsReadOnly="True"
                                         BorderThickness="1"

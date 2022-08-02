@@ -3,11 +3,12 @@
     using System;
     using System.ComponentModel;
     using System.Windows;
+    using CefSharp;
     using Models;
     using MVVM;
+    using ViewModels.GameOverlay;
 #if DEBUG
     using System.Windows.Input;
-    using CefSharp;
 #endif
 
     /// <summary>
@@ -25,14 +26,17 @@
         public BingoHtmlHostOverlayWindow(
             IBingoDisplayConfigurationProvider bingoConfigurationProvider,
             BingoWindow targetWindow,
-            object viewModel)
+            object overlayViewModel)
         {
             _bingoConfigurationProvider = bingoConfigurationProvider ??
                                           throw new ArgumentNullException(nameof(bingoConfigurationProvider));
             _targetWindow = targetWindow;
 
             InitializeComponent();
-            DataContext = viewModel;
+            DataContext = overlayViewModel;
+
+            BingoHelp.FrameLoadEnd += BingoHelp_OnFrameLoadEnd;
+            BingoHelp.JavascriptMessageReceived += ViewModel.ExitHelp;
 
             // MetroApps issue--need to set in code behind after InitializeComponent.
             AllowsTransparency = true;
@@ -41,53 +45,29 @@
 #endif
         }
 
-        protected override void OnClosing(CancelEventArgs e)
-        {
-#if DEBUG
-            KeyDown -= OnKeyDown;
-#endif
-            BingoHtmlHost.Dispose();
-            base.OnClosing(e);
-        }
+        private BingoHtmlHostOverlayViewModel ViewModel => DataContext as BingoHtmlHostOverlayViewModel;
 
         private void BingoHtmlHostOverlayWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             var window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             ConfigureDisplay(window);
         }
-
-        private void ParentWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        public void BingoHelp_OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-            Width = e.NewSize.Width;
-            Height = e.NewSize.Height;
-        }
+            MvvmHelper.ExecuteOnUI(() => { ViewModel.IsHelpLoading = false; });
 
-        private void ParentWindow_LocationChanged(object sender, EventArgs e)
-        {
-            Left = Owner.Left;
-            Top = Owner.Top;
-        }
-
-#if DEBUG
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.F12)
+            if (e.Frame.IsMain)
             {
-                return;
-            }
-
-            if (_devToolsVisible)
-            {
-                BingoHtmlHost.CloseDevTools();
-                _devToolsVisible = false;
-            }
-            else
-            {
-                BingoHtmlHost.ShowDevTools();
-                _devToolsVisible = true;
+                BingoHelp.ExecuteScriptAsync(@"
+                    document.addEventListener('click', function(e) {
+                        CefSharp.PostMessage(e.target.id);
+                    }, false);
+                    window.addEventListener('onClose', function(e) {
+                        CefSharp.PostMessage('Close');
+                    }, false);
+                ");
             }
         }
-#endif
 
         private void ConfigureDisplay(Window window)
         {
@@ -120,6 +100,61 @@
 
                     BringIntoView();
                 });
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+#if DEBUG
+            KeyDown -= OnKeyDown;
+#endif
+            BingoHelp.JavascriptMessageReceived -= ViewModel.ExitHelp;
+            BingoHelp?.Dispose();
+
+            BingoInfoHost.Dispose();
+            base.OnClosing(e);
+        }
+
+#if DEBUG
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.F12)
+            {
+                return;
+            }
+
+            if (_devToolsVisible)
+            {
+                BingoHelp.CloseDevTools();
+                BingoInfoHost.CloseDevTools();
+                _devToolsVisible = false;
+            }
+            else
+            {
+                if (ViewModel.IsHelpVisible)
+                {
+                    BingoHelp.ShowDevTools();
+                }
+                else
+                {
+                    BingoInfoHost.ShowDevTools();
+                }
+
+                _devToolsVisible = true;
+            }
+        }
+#endif
+
+        private void ParentWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Width = e.NewSize.Width;
+            Height = e.NewSize.Height;
+            ViewModel.LoadOverlay();
+        }
+
+        private void ParentWindow_LocationChanged(object sender, EventArgs e)
+        {
+            Left = Owner.Left;
+            Top = Owner.Top;
         }
     }
 }

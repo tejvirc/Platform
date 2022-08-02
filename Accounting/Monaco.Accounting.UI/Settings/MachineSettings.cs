@@ -577,8 +577,11 @@
         ///     Gets the max win amount to display.
         /// </summary>
         [JsonIgnore]
-        public string MaxWinAmountDisplay => _maxWinAmount.MillicentsToDollars().FormattedCurrencyString();
- 
+        public string MaxWinAmountDisplay =>
+            _maxWinAmount > 0
+                ? _maxWinAmount.MillicentsToDollars().FormattedCurrencyString()
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
+
         /// <summary>
         ///     Gets or sets a value that indicates whether to allow mix credit types.
         /// </summary>
@@ -726,8 +729,21 @@
         {
             get => _ticketTitleNonCash;
 
-            set => SetProperty(ref _ticketTitleNonCash, value);
+            set
+            {
+                SetProperty(ref _ticketTitleNonCash, value);
+                RaisePropertyChanged(nameof(TicketTitleNonCashDisplay));
+            }
         }
+
+        /// <summary>
+        ///     Gets the ticket title non-cash to display.
+        /// </summary>
+        [JsonIgnore]
+        public string TicketTitleNonCashDisplay =>
+            string.IsNullOrEmpty(_ticketTitleNonCash)
+                ? Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PlayableOnly)
+                : _ticketTitleNonCash;
 
         /// <summary>
         ///     Gets or sets the ticket title promo.
@@ -766,8 +782,21 @@
         {
             get => _titleCancelReceipt;
 
-            set => SetProperty(ref _titleCancelReceipt, value);
+            set
+            {
+                SetProperty(ref _titleCancelReceipt, value);
+                RaisePropertyChanged(nameof(TitleCancelReceiptDisplay));
+            }
         }
+
+        /// <summary>
+        ///     Gets the title cancel receipt to display.
+        /// </summary>
+        [JsonIgnore]
+        public string TitleCancelReceiptDisplay =>
+            string.IsNullOrEmpty(_titleCancelReceipt)
+                ? Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.HandpayReceipt)
+                : _titleCancelReceipt;
 
         /// <summary>
         ///     Gets or sets the ticket title jackpot receipt.
@@ -776,8 +805,20 @@
         {
             get => _titleJackpotReceipt;
 
-            set => SetProperty(ref _titleJackpotReceipt, value);
+            set
+            {
+                SetProperty(ref _titleJackpotReceipt, value);
+                RaisePropertyChanged(nameof(TitleJackpotReceiptDisplay));
+            }
         }
+
+        /// <summary>
+        ///     Gets the title jackpot receipt for display
+        /// </summary>
+        public string TitleJackpotReceiptDisplay =>
+            string.IsNullOrEmpty(_titleJackpotReceipt)
+                ? Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.JackpotHandpayTicket)
+                : _titleJackpotReceipt;
 
         /// <summary>
         ///     Gets or sets a value that indicates whether to use player ID Reader.
@@ -873,7 +914,7 @@
         public string VoucherOutExpirationDaysDisplay =>
             _voucherOutExpirationDays == 0
                 ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NeverExpires)
-                : _voucherOutExpirationDays.ToString();
+                : string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DaysFormatter), _voucherOutExpirationDays);
 
         /// <summary>
         ///     Gets or sets the voucher out limit.
@@ -929,7 +970,7 @@
         public string VoucherOutNonCashExpirationDaysDisplay =>
             _voucherOutNonCashExpirationDays == 0
                 ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NeverExpires)
-                : _voucherOutNonCashExpirationDays.ToString();
+                : string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DaysFormatter), _voucherOutNonCashExpirationDays);
 
         /// <summary>
         ///     Gets or sets the handpay limit.

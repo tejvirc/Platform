@@ -95,6 +95,7 @@
         private void LoadUI()
         {
             ClearOverlayWindow();
+
             _viewModel = new BingoHtmlHostOverlayViewModel(
                 _propertiesManager,
                 _dispatcher,
@@ -104,7 +105,9 @@
                 _gameProvider,
                 _server,
                 _playerBank,
-                _unitOfWorkFactory);
+                _unitOfWorkFactory,
+                BingoWindow.Main);
+
             _overlayWindow = new BingoHtmlHostOverlayWindow(_bingoConfigurationProvider, BingoWindow.Main, _viewModel);
             _overlayWindow.Show();
         }

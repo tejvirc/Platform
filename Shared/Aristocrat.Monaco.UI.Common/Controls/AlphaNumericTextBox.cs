@@ -47,10 +47,14 @@
             if (sender is TextBox tb)
             {
                 var cursorPosition = tb.SelectionStart;
-                tb.Text = Regex.Replace(
-                    tb.Text,
-                    IsAlphaNumeric ? "[^a-zA-Z0-9]" : AllowNegatives ? "[^\\-0-9]" : "[^0-9]",
-                    "");
+                if (!SkipRegexCheck)
+                {
+                    tb.Text = Regex.Replace(
+                        tb.Text,
+                        IsAlphaNumeric ? "[^a-zA-Z0-9]" : AllowNegatives ? "[^\\-0-9]" : "[^0-9]",
+                        "");
+                }
+
                 tb.CaretIndex = cursorPosition;
                 SetErrorText(tb.Text);
             }
@@ -76,12 +80,12 @@
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent());
+            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent());
+            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
         }
 
         #region Dependency Properties
@@ -140,15 +144,13 @@
             set => SetValue(CanBeEmptyProperty, value);
         }
 
-
-
         /// <summary>
         ///     Dependency Property For the AllowNegatives Property.  True == Allow Negative Numbers
         /// </summary>
         public static readonly DependencyProperty AllowNegativesProperty = DependencyProperty.Register(
             "AllowNegatives",
             typeof(bool),
-            typeof(CurrencyTextBox),
+            typeof(AlphaNumericTextBox),
             new FrameworkPropertyMetadata(false));
 
         /// <summary>
@@ -158,6 +160,27 @@
         {
             get => (bool)GetValue(AllowNegativesProperty);
             set => SetValue(AllowNegativesProperty, value);
+        }
+
+        /// <summary>
+        ///     Dependency Property For the SkipRegexCheck Property.  True == Will skip Regex check when handling AlphaNumericTextBox_TextChanged
+        /// </summary>
+        public static readonly DependencyProperty SkipRegexCheckProperty = DependencyProperty.Register(
+            "SkipRegexCheck",
+            typeof(bool),
+            typeof(AlphaNumericTextBox),
+            new FrameworkPropertyMetadata(false));
+
+        /// <summary>
+        ///     Indicates whether or not the AlphaNumericTextBox skips Regex check when handling AlphaNumericTextBox_TextChanged  
+        /// </summary>
+        /// <remarks>Intended use to allow the same text input as a TextBox, mainly to utilize the ability to
+        /// open/close the on-screen keyboard when the OS is not configured to do so automatically
+        /// whenever a TextBox gets/loses focus.</remarks>
+        public bool SkipRegexCheck
+        {
+            get => (bool)GetValue(SkipRegexCheckProperty);
+            set => SetValue(SkipRegexCheckProperty, value);
         }
 
         #endregion

@@ -569,7 +569,7 @@
 
             if (AutoConfigurator.GetValue("SasAddressHost1", ref stringValue) && AddressHost1Editable)
             {
-                autoConfigured &= sbyte.TryParse(stringValue, out var address) && (address == 0 || !string.IsNullOrEmpty(CheckError(address, MaxAddress)));
+                autoConfigured &= sbyte.TryParse(stringValue, out var address) && (address == 0 || string.IsNullOrEmpty(CheckError(address, MaxAddress)));
                 if (autoConfigured)
                 {
                     CommunicationAddress1 = address;
@@ -578,7 +578,7 @@
 
             if (AutoConfigurator.GetValue("SasAddressHost2", ref stringValue) && AddressHost2Editable)
             {
-                autoConfigured &= sbyte.TryParse(stringValue, out var address) && (address == 0 || !string.IsNullOrEmpty(CheckError(address, MaxAddress)));
+                autoConfigured &= sbyte.TryParse(stringValue, out var address) && (address == 0 || string.IsNullOrEmpty(CheckError(address, MaxAddress)));
                 if (autoConfigured)
                 {
                     CommunicationAddress2 = address;

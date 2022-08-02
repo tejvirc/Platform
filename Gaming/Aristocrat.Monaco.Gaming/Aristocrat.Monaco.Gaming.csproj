@@ -183,7 +183,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
     <ProjectReference Include="..\..\Shared\PRNG\PRNGLib\PRNGLib.csproj" />
-    <ProjectReference Include="..\Aristocrat.GdkRuntime.Contract\Aristocrat.GdkRuntime.Contract.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +195,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Contract" Version="1.0.8" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
   </ItemGroup>

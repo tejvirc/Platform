@@ -56,9 +56,12 @@
                                         <Binding RelativeSource="{RelativeSource AncestorType={x:Type DataGrid}}"/>
                                         <Binding ElementName="GridHorizontalScrollButtons"/>
                                         <Binding ElementName="GridScrollButtons"/>
-                                        <!--The last two bindings are not actually used in the converter but will trigger the converter when the grid size changes-->
+                                        <!--The last five bindings are not actually used in the converter but will trigger the converter when the grid size changes-->
                                         <Binding ElementName="DG_ScrollViewer" Path="ScrollableHeight"/>
                                         <Binding ElementName="DG_ScrollViewer" Path="ScrollableWidth"/>
+                                        <Binding ElementName="DG_ScrollViewer" Path="ExtentHeight"/>
+                                        <Binding ElementName="DG_ScrollViewer" Path="ExtentWidth"/>
+                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type DataGrid}}" Path="ActualHeight" />
                                     </MultiBinding>
                                 </ScrollViewer.Height>
                                 <ScrollViewer.Template>

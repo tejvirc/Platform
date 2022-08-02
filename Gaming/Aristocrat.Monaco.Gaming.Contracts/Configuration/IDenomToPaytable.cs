@@ -8,7 +8,8 @@
     public interface IDenomToPaytable
     {
         /// <summary>
-        ///     Gets a value indicating whether or not this mapping is active and can be enabled/played
+        ///     Gets or sets a value indicating whether this mapping is active. Inactive mappings
+        ///     will not be available for play so can be hidden in UI.
         /// </summary>
         bool Active { get; }
 
@@ -38,7 +39,7 @@
         int DefaultBetLinePresetId { get; }
 
         /// <summary>
-        ///     Gets the a collection of available BetLinePresets
+        ///     Gets the a collection of available BetLinePresets for this denomination
         /// </summary>
         IEnumerable<int> BetLinePresets { get; }
     }

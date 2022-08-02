@@ -58,18 +58,6 @@
         {
             _eventBus.Subscribe<OnscreenKeyboardOpenedEvent>(this, HandleOnScreenKeyboardOpened);
             _eventBus.Subscribe<OnscreenKeyboardClosedEvent>(this, HandleOnScreenKeyboardClosed);
-
-        }
-
-        private void HandleOnScreenKeyboardOpened(IEvent e)
-        {
-            CloseOnScreenKeyboard();
-            OpenOnScreenKeyboard();
-        }
-
-        private void HandleOnScreenKeyboardClosed(IEvent e)
-        {
-            CloseOnScreenKeyboard();
         }
 
         public void OpenOnScreenKeyboard()
@@ -128,6 +116,39 @@
             finally
             {
                 _onScreenKeyboardProcess = null;
+            }
+        }
+
+        private void HandleOnScreenKeyboardClosed(IEvent e)
+        {
+            var ignore = false;
+            var onscreenKeyboardClosedEvent = (OnscreenKeyboardClosedEvent)e;
+            if (onscreenKeyboardClosedEvent.IsTextBoxControl)
+            {
+                var serialTouchService = ServiceManager.GetInstance().TryGetService<ISerialTouchService>();
+                ignore = serialTouchService != null ? !serialTouchService.IsManualTabletInputService : true;
+            }
+
+            if (!ignore)
+            {
+                CloseOnScreenKeyboard();
+            }
+        }
+
+        private void HandleOnScreenKeyboardOpened(IEvent e)
+        {
+            var ignore = false;
+            var onscreenKeyboardOpenedEvent = (OnscreenKeyboardOpenedEvent)e;
+            if (onscreenKeyboardOpenedEvent.IsTextBoxControl)
+            {
+                var serialTouchService = ServiceManager.GetInstance().TryGetService<ISerialTouchService>();
+                ignore = serialTouchService != null ? !serialTouchService.IsManualTabletInputService : true;
+            }
+
+            if (!ignore)
+            {
+                CloseOnScreenKeyboard();
+                OpenOnScreenKeyboard();
             }
         }
     }

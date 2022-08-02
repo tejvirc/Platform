@@ -31,7 +31,7 @@
         private const string Gen2Universal = "Gen2 Universal";
         private const string Gen5Universal = "Gen5 Universal";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _disposed;
         private bool _printing;
         private CancellationTokenSource _printerCancellationTokenSource;
@@ -197,6 +197,7 @@
         /// <inheritdoc />
         public virtual async Task<bool> DefineRegion(string region)
         {
+            Logger.Debug($"DefineRegion: sending {region}");
             if (region == null)
             {
                 throw new ArgumentNullException(nameof(region));
@@ -206,15 +207,18 @@
             var report = await WaitForReport<TransferStatus>();
             if (report == null || !report.RegionCode)
             {
+                Logger.Debug($"report null is {report is null}");
                 return false;
             }
 
+            Logger.Debug($"region report status code is {report.StatusCode}");
             return report.StatusCode == TransferSuccessCode;
         }
 
         /// <inheritdoc />
         public virtual async Task<bool> DefineTemplate(string template)
         {
+            Logger.Debug($"DefineTemplate: sending {template}");
             if (template == null)
             {
                 throw new ArgumentNullException(nameof(template));
@@ -224,9 +228,11 @@
             var report = await WaitForReport<TransferStatus>();
             if (report == null || !report.TemplateCode)
             {
+                Logger.Debug($"report null is {report is null} report is {report}");
                 return false;
             }
 
+            Logger.Debug($"template report status code is {report.StatusCode}");
             return report.StatusCode == TransferSuccessCode;
         }
 
@@ -452,7 +458,8 @@
 
         /// <summary>Wait for print complete.</summary>
         /// <returns>An asynchronous result that yields true if it succeeds, false if it fails.</returns>
-        protected async Task<bool> WaitForPrintComplete(Func<Task> onFieldOfInterest, CancellationToken token)
+        protected async Task<bool>
+            WaitForPrintComplete(Func<Task> onFieldOfInterest, CancellationToken token)
         {
             var notified = false;
             var retry = true;

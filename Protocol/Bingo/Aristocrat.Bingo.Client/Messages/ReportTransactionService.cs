@@ -17,7 +17,7 @@
 
         public async Task<ReportTransactionAck> ReportTransaction(ReportTransactionMessage message, CancellationToken token)
         {
-            var request = new TransactionReport()
+            var request = new TransactionReport
             {
                 MachineSerial = message.MachineSerial,
                 TimeStamp = message.TimeStamp.ToUniversalTime().ToTimestamp(),
@@ -26,7 +26,7 @@
                 GameTitleId = message.GameTitleId,
                 TransactionId = message.TransactionId,
                 PaytableId = message.PaytableId,
-                DenominationId = message.DenominationId,
+                Denomination = message.DenominationId,
                 TransactionType = message.TransactionType
             };
 

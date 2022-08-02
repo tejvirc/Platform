@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.Events
 {
     using Kernel;
+    using OverlayServer.Data.Bingo;
 
     /// <summary>
     ///     Bingo display help appearance changed event.

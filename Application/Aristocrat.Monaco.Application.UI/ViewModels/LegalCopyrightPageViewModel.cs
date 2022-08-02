@@ -27,7 +27,8 @@
 
         protected override void SaveChanges()
         {
-            PropertiesManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, true);
+            var accepted = (int)PropertiesManager.GetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, 0) is not 0;
+            PropertiesManager.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, accepted);
         }
     }
 }

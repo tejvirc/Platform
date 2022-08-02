@@ -20,6 +20,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Kernel;
     using Localization.Properties;
     using log4net;
+    using Vgt.Client12.Application.OperatorMenu;
     using ConnectedEvent = Hardware.Contracts.Reel.ConnectedEvent;
     using DisabledEvent = Hardware.Contracts.Reel.DisabledEvent;
     using DisconnectedEvent = Hardware.Contracts.Reel.DisconnectedEvent;
@@ -34,12 +35,14 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     public class ReelControllerMonitor : GenericBaseMonitor
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private const string ReelsNeedHomingKey = "ReelsNeedHoming";
         private const string ReelsTiltedKey = "ReelsTilted";
         private const string MismatchedKey = "ReelMismatched";
         private const string ReelDeviceName = "ReelController";
         private const string FailedHoming = "FailedHoming";
 
         private static readonly Guid ReelsTiltedGuid = new("{AD46A871-616A-4034-9FB5-962F8DE15E79}");
+        private static readonly Guid ReelsNeedHomingGuid = new("{9613086D-052A-4FCE-9AA0-B279F8C23993}");
         private static readonly Guid DisabledGuid = new("{B9029021-106D-419B-961F-1B2799817916}");
         private static readonly Guid FailedHomingGuid = new("{3BD10514-10BA-4A48-826F-41ADFECFD01D}");
 
@@ -63,6 +66,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             ApplicationConstants.LiveAuthenticationDisableKey,
             ApplicationConstants.OperatorKeyNotRemovedDisableKey,
             ApplicationConstants.OperatorMenuLauncherDisableGuid,
+            ReelsTiltedGuid,
+            ReelsNeedHomingGuid
         };
 
         private readonly IEventBus _eventBus;
@@ -72,6 +77,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IGameProvider _gameProvider;
         private readonly IGameService _gameService;
         private readonly IEdgeLightingController _edgeLightingController;
+        private readonly IOperatorMenuLauncher _operatorMenuLauncher;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
 
         private IEdgeLightToken _disableToken;
@@ -85,7 +91,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             IGamePlayState gamePlayState,
             IGameProvider gameProvider,
             IEdgeLightingController edgeLightingController,
-            IGameService gameService)
+            IGameService gameService,
+            IOperatorMenuLauncher operatorMenuLauncher)
             : base(message, disable)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -95,6 +102,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
+            _operatorMenuLauncher = operatorMenuLauncher ?? throw new ArgumentNullException(nameof(operatorMenuLauncher));
             _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
             Initialize().FireAndForget();
         }
@@ -105,6 +113,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             get
             {
+                var inAuditMenu = _operatorMenuLauncher.IsShowing;
                 var playEnabled = _gamePlayState.Enabled;
 
                 // If in a game round we only want to review the immediate disables
@@ -114,9 +123,9 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                     : _disableManager.CurrentDisableKeys;
 
                 var isDisabled = disableKeys.Except(AllowedTiltingDisables).Any();
-                var shouldTilt = !playEnabled && isDisabled;
+                var shouldTilt = !inAuditMenu && !playEnabled && isDisabled;
 
-                Logger.Debug($"ReelsShouldTilt: {shouldTilt} --> playEnabled={playEnabled}, inGameRound={inGameRound}, isDisabled={isDisabled}");
+                Logger.Debug($"ReelsShouldTilt: {shouldTilt} --> playEnabled={playEnabled}, inGameRound={inGameRound}, isDisabled={isDisabled}, inAuditMenu={inAuditMenu}");
 
                 return shouldTilt;
             }
@@ -171,8 +180,14 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             ManageBinaryCondition(
                 ReelsTiltedKey,
                 DisplayableMessageClassification.HardError,
-                DisplayableMessagePriority.Immediate,
+                DisplayableMessagePriority.Normal,
                 ReelsTiltedGuid,
+                true);
+            ManageBinaryCondition(
+                ReelsNeedHomingKey,
+                DisplayableMessageClassification.HardError,
+                DisplayableMessagePriority.Immediate,
+                ReelsNeedHomingGuid,
                 true);
             ManageBinaryCondition(
                 DisabledKey,
@@ -193,7 +208,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 FailedHomingGuid,
                 true);
 
-            await TiltReels();
+            await TiltReels(true);
             SubscribeToEvents();
             await CheckDeviceStatus();
             ValidateReelMismatch();
@@ -285,7 +300,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 _reelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
-                await TiltReels();
+                await TiltReels(_gamePlayState.InGameRound);
             }
         }
 
@@ -295,7 +310,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 _reelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
-                await TiltReels();
+                await TiltReels(_gamePlayState.InGameRound);
             }
         }
 
@@ -315,6 +330,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
             Logger.Debug("HandleReelStoppedEvent all reels are stopped, clearing reels tilt");
             SetBinary(ReelsTiltedKey, false);
+            SetBinary(ReelsNeedHomingKey, false);
             ClearDisableState();
         }
 
@@ -339,7 +355,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private async Task ReelsConnected(ReelConnectedEvent connectedEvent, CancellationToken token)
         {
-            await TiltReels();
+            await TiltReels(true);
             ValidateReelMismatch();
         }
 
@@ -415,6 +431,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                  guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
                  guid == ApplicationConstants.MainDoorGuid && allowMainDoor ||
+                 guid == ReelsNeedHomingGuid ||
                  guid == ReelsTiltedGuid);
 
             return homeReels;
@@ -443,7 +460,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             if (!disconnected)
             {
                 ValidateReelMismatch();
-                await TiltReels();
+                await TiltReels(true);
             }
 
             SetBinary(DisconnectedKey, disconnected, behavioralDelayKey);
@@ -501,7 +518,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             SetBinary(ReelsTiltedKey, true);
             if (tiltReels && _disableManager.IsDisabled)
             {
-                await TiltReels();
+                await TiltReels(true);
             }
         }
 
@@ -544,7 +561,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
             if (tiltReels && _disableManager.IsDisabled)
             {
-                await TiltReels();
+                await TiltReels(true);
             }
         }
 
@@ -554,7 +571,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _disableToken = null;
         }
 
-        private async Task TiltReels()
+        private async Task TiltReels(bool immediate = false)
         {
             try
             {
@@ -568,13 +585,12 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 }
 
                 SetBinary(ReelsTiltedKey, true);
-                DisableReelLights();
-
-                if (_gameService.Running)
+                if (immediate)
                 {
-                    _gameService.ShutdownBegin();
+                    SetBinary(ReelsNeedHomingKey, true);
                 }
 
+                DisableReelLights();
                 await _reelController.TiltReels();
             }
             finally
@@ -603,6 +619,12 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                     return;
                 }
 
+                SetBinary(ReelsNeedHomingKey, true);
+                if (_gameService.Running)
+                {
+                    _gameService.ShutdownBegin();
+                }
+
                 homed = await _reelController.HomeReels();
             }
             finally
@@ -613,7 +635,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             if (!homed)
             {
                 SetBinary(FailedHoming, true);
-                await TiltReels();
+                await TiltReels(true);
             }
         }
     }

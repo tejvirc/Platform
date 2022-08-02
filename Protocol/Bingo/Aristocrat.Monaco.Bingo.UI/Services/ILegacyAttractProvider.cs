@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.Services
 {
     using System;
+    using OverlayServer.Data.Bingo;
 
     /// <summary>
     ///     The provider for the legacy attract mode handling for bingo

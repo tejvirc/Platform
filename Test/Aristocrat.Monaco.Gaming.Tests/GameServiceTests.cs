@@ -208,7 +208,7 @@
                         It.Is<string>(prop => prop == GamingConstants.SelectedDenom),
                         It.Is<object>(v => (long)v == Denom)));
 
-            process.Verify(p => p.EndGameProcess(false));
+            process.Verify(p => p.EndGameProcess(false, true));
             ipc.Verify(i => i.StartComms());
             process.Verify(p => p.StartGameProcess(It.Is<GameInitRequest>(req => req == request)));
         }
@@ -228,7 +228,7 @@
             var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object);
             service.Terminate(1);
 
-            process.Verify(p => p.EndGameProcess(1, true));
+            process.Verify(p => p.EndGameProcess(1, true, true));
         }
 
         private static IGameCombo Factory_CreateMockGameCombo()

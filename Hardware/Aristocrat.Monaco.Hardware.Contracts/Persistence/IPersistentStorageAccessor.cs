@@ -13,6 +13,11 @@
         int Count { get; }
 
         /// <summary>
+        /// Gets the BlockFormat for the current block.
+        /// </summary>
+        BlockFormat Format { get; }
+
+        /// <summary>
         ///     Gets the level of the persistence block.
         /// </summary>
         PersistenceLevel Level { get; }

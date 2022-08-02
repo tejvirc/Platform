@@ -14,7 +14,7 @@
     public static class BingoHelper
     {
         private const int HelpPort = 7510; // TODO Update this to be the server setting once we get it in the configuration
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, IPropertiesManager propertiesManager)
         {
@@ -38,7 +38,7 @@
 
             if (serverSettings is not null)
             {
-                uriBuilder.Path = $"/{serverSettings.GameTitles}/{serverSettings.PaytableIds}";
+                uriBuilder.Path = $"/gamehelp/{serverSettings.GameTitles}/{serverSettings.PaytableIds}";
             }
 
             return uriBuilder.Uri;

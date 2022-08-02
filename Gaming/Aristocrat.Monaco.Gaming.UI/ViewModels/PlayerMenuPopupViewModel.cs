@@ -103,7 +103,7 @@
 
             _eventBus.Subscribe<GamePlayStateChangedEvent>(this, eventArgs => Handler(eventArgs.CurrentState));
             _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == ApplicationConstants.VolumeControlLocationKey);
-            _closeDelayTimer.Elapsed += (sender, args) => IsMenuVisible = false;
+            _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
             _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, "");
 
             ReserveDigitClickedCommand = new ActionCommand<string>(ConcatenateReservePin);

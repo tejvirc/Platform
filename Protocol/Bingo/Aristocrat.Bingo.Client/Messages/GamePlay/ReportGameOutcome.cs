@@ -16,11 +16,13 @@
 
         public long PaidAmount { get; set; }
 
-        public long InitialCredit { get; set; }
+        public long StartingBalance { get; set; }
 
-        public long FinalCredit { get; set; }
+        public long FinalBalance { get; set; }
 
         public int FacadeKey { get; set; }
+
+        public long PresentationIndex { get; set; }
 
         public int GameEndWinEligibility { get; set; }
 

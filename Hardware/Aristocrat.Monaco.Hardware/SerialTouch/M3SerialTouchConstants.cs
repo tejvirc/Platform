@@ -60,40 +60,45 @@
         /// </summary>
         public const int TouchPressure = 0; // 0 (default) to 1024
 
+        #region Kortek And EX II (3M Touch) Controller Commands 
+
         /// <summary>
-        ///     Command used to query the controller and wait for a response
+        ///     A command used for placing the controller into extended calibration mode.
+        /// </summary>
+        /// <remarks>Initiates a 2-point calibration, interactive for the EX II, the Kortek
+        /// will auto-calibrate (non-interactive).</remarks>
+        public static readonly byte[] CalibrateExtendedCommand = ToMessage("CX");
+
+        /// <summary>
+        ///     A command used to query the controller and wait for a response
         /// </summary>
         public static readonly byte[] NullCommand = ToMessage("Z");
 
         /// <summary>
-        ///     A command used to determine the controller type and version
-        /// </summary>
-        public static readonly byte[] OutputIdentityCommand = ToMessage("OI");
-
-        /// <summary>
-        ///     A command used for getting the name of the controller
+        ///     A command used to get the manufacturer of the controller
         /// </summary>
         public static readonly byte[] NameCommand = ToMessage("NM");
 
         /// <summary>
-        ///     A command for determining if there is a problem with the touch screen
+        ///     A command used to determine the controller type and firmware version
         /// </summary>
-        public static readonly byte[] DiagnosticCommand = ToMessage("DX");
-
-        /// <summary>
-        ///     A command used for placing the controller into extended calibration mode
-        /// </summary>
-        public static readonly byte[] CalibrationCommand = ToMessage("CX");
+        public static readonly byte[] OutputIdentityCommand = ToMessage("OI");
 
         /// <summary>
         ///     A command used for resetting the controller
         /// </summary>
+        /// <remarks>Intializes the hardware and the firmware, causes the controller to
+        /// stop sending data, and recalculates the environmental conditions.</remarks>
         public static readonly byte[] ResetCommand = ToMessage("R");
 
         /// <summary>
         ///     A command used for resetting the controller back to factory defaults
         /// </summary>
+        /// <remarks>Returns the controller to the factory default operating parameters.
+        /// The serial port is reset to N81 format tablet and 2-point calibration is lost.</remarks>
         public static readonly byte[] RestoreDefaultsCommand = ToMessage("RD");
+
+        #endregion
 
         private static byte[] ToMessage(string command)
         {

@@ -53,12 +53,12 @@
                            Canvas.Left ="19" Canvas.Top ="39" Width="55" Height="55" 
                            VerticalAlignment="Top" HorizontalAlignment="Left">
                 </Rectangle>
-	            <!--blank-->
+                <!--blank-->
                 <Image x:Name="VBDButton3" Stretch="Fill" Source="{DynamicResource VBDButton3}" 
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource BoolToHiddenConverter}}"  
                        Canvas.Left ="210.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
-				<Image x:Name="VBDButton3Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
+                <Image x:Name="VBDButton3Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource BoolToVisHiddenConverter}}"  
                        Canvas.Left ="210.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -67,13 +67,19 @@
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource BoolToHiddenConverter}}"  
                        Canvas.Left ="364.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
-				<Image x:Name="VBDButton2Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
+                <Image x:Name="VBDButton2Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
                        Visibility="{Binding IsAttractModePlaying, Converter={StaticResource BoolToVisHiddenConverter}}"  
                        Canvas.Left ="364.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--prev game-->
-                <Image x:Name="VBDButton4" Stretch="Fill" Source="{DynamicResource VBDButton4}" 
+                <Image x:Name="VBDButton4Blank" Stretch="Fill" Source="{DynamicResource VBDButton2}" 
                        Visibility="Visible" Canvas.Left ="594.5" Canvas.Top ="28.5" Width="77" Height="77" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image x:Name="VBDButton4Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource BoolToVisHiddenConverter}}" Canvas.Left ="594.5" Canvas.Top ="28.5" Width="77" Height="77" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image x:Name="VBDButton4PrevGame" Stretch="Fill" Source="{DynamicResource VBDButton4}" 
+                       Visibility = "{Binding IsSingleGameDisplayed, Converter={StaticResource BoolToHiddenConverter}}" Canvas.Left ="594.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--prev tab-->
                 <Image x:Name="VBDButton5Blank" Stretch="Fill" Source="{DynamicResource VBDButton2}" 
@@ -86,8 +92,14 @@
                        Visibility="{Binding IsSingleTabView, Converter={StaticResource BoolToHiddenConverter}}" Canvas.Left ="774.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--change denom-->
-                <Image x:Name="VBDButton6" Stretch="Fill" Source="{DynamicResource VBDButton6}" 
+                <Image x:Name="VBDButton6Blank" Stretch="Fill" Source="{DynamicResource VBDButton2}" 
                        Visibility="Visible" Canvas.Left ="953.5" Canvas.Top ="28.5" Width="77" Height="77" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image x:Name="VBDButton6Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource BoolToVisHiddenConverter}}" Canvas.Left ="953.5" Canvas.Top ="28.5" Width="77" Height="77" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image x:Name="VBDButton6DenomChange" Stretch="Fill" Source="{DynamicResource VBDButton6}" 
+                       Visibility="{Binding IsSingleDenomDisplayed, Converter={StaticResource BoolToHiddenConverter}}" Canvas.Left ="953.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--next tab-->
                 <Image x:Name="VBDButton11Blank" Stretch="Fill" Source="{DynamicResource VBDButton2}" 
@@ -100,8 +112,14 @@
                        Visibility="{Binding IsSingleTabView, Converter={StaticResource BoolToHiddenConverter}}" Canvas.Left ="1132.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--next game-->
-                <Image x:Name="VBDButton12" Stretch="Fill" Source="{DynamicResource VBDButton12}" 
+                <Image x:Name="VBDButton12" Stretch="Fill" Source="{DynamicResource VBDButton2}" 
                        Visibility="Visible" Canvas.Left ="1311.5" Canvas.Top ="28.5" Width="77" Height="77" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image x:Name="VBDButton12Lit" Stretch="Fill" Source="{DynamicResource VBDButtonBlankLit}" 
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource BoolToVisHiddenConverter}}" Canvas.Left ="1311.5" Canvas.Top ="28.5" Width="77" Height="77" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Image x:Name="VBDButton12NextGame" Stretch="Fill" Source="{DynamicResource VBDButton12}" 
+                       Visibility="{Binding IsSingleGameDisplayed, Converter={StaticResource BoolToHiddenConverter}}" Canvas.Left ="1311.5" Canvas.Top ="28.5" Width="77" Height="77" 
                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <!--select game-->
                 <Image x:Name="VBDButton7" Stretch="Fill" Source="{DynamicResource VBDButton7}" 
@@ -141,11 +159,11 @@
     </DataTemplate>
 
     <!--There should be no overlay for 9 button deck-->
-	<DataTemplate x:Key="VbdBartopOverlayTemplate">
-		<Border>
-			<Border.Background>
-				<SolidColorBrush Color="Black" />
-			</Border.Background>
-		</Border>
-	</DataTemplate>
+    <DataTemplate x:Key="VbdBartopOverlayTemplate">
+        <Border>
+            <Border.Background>
+                <SolidColorBrush Color="Black" />
+            </Border.Background>
+        </Border>
+    </DataTemplate>
 </ResourceDictionary>

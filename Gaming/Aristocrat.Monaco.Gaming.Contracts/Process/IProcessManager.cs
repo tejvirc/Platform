@@ -16,14 +16,6 @@
         int StartProcess(ProcessStartInfo processInfo);
 
         /// <summary>
-        ///     Starts a process
-        /// </summary>
-        /// <param name="path">The path to the process</param>
-        /// <param name="args">The initialization data provided to the process at startup</param>
-        /// <returns>The process id if successful or -1</returns>
-        int StartProcess(string path, IProcessArgs args);
-
-        /// <summary>
         ///     Ends the specified process
         /// </summary>
         /// <param name="processId">The process identifier</param>
@@ -31,7 +23,8 @@
         ///     true if the process is to be treated as a hung process.  This will result in no events being
         ///     emitted for process termination.
         /// </param>
-        void EndProcess(int processId, bool notifyExited = true);
+        /// <param name="terminateExpected">true if the process exit should be "expected".</param>
+        void EndProcess(int processId, bool notifyExited = true, bool terminateExpected = true);
 
         /// <summary>
         ///     Notification that the process is exiting on its own.

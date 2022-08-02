@@ -114,8 +114,8 @@
             Assert.AreEqual(description.Paytable, outcomeMessage.Paytable);
             CollectionAssert.AreEquivalent(Enumerable.Range(1, 58).ToList(), outcomeMessage.BallCall.ToList());
             Assert.AreEqual(wagerAmount, outcomeMessage.BetAmount);
-            Assert.AreEqual(startCredits, outcomeMessage.InitialCredit);
-            Assert.AreEqual(endCredits, outcomeMessage.FinalCredit);
+            Assert.AreEqual(startCredits, outcomeMessage.StartingBalance);
+            Assert.AreEqual(endCredits, outcomeMessage.FinalBalance);
             Assert.AreEqual(description.DenominationId, outcomeMessage.DenominationId);
             Assert.AreEqual(description.FacadeKey, outcomeMessage.FacadeKey);
             Assert.AreEqual(description.GameSerial, outcomeMessage.GameSerial);

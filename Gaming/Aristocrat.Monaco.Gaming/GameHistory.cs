@@ -27,7 +27,7 @@
     {
         private const string GameHistoryKey = @"GameHistory";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBank _bank;
         private readonly ICurrencyInContainer _currencyHandler;
@@ -428,6 +428,12 @@
             Persist(_currentLog);
 
             Logger.Debug($"[AppendJackpotInfo {CurrentLogIndex}]");
+        }
+
+        /// <inheritdoc />
+        public void LogGameRoundDetails(GameRoundDetails details)
+        {
+            _currentLog.GameRoundDetails = details;
         }
 
         /// <inheritdoc />
@@ -862,6 +868,7 @@
             log.FinalWager = initialWager;
             log.PromoWager = 0L;
             log.RecoveryBlob = data;
+            log.GameRoundDetails = null;
 
             log.DenomConfiguration = new GameConfiguration
             {

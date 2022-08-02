@@ -187,14 +187,8 @@
                        Style="{StaticResource SectionLabel}" />
                 <Border Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
 
-                <Button Grid.Row="11" Grid.Column="0"
-                        Margin="4,4,4,4"
-                        Content="+"
-                        Width="125"
-                        HorizontalContentAlignment="Center"
-                        Command="{Binding CreateDisclaimerTextBoxCommand}"/>
-
-                <ListBox Grid.Row="12" Grid.Column="0" Name="DisclaimerList"
+                <ListBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"
+                         Name="DisclaimerList"
                          HorizontalAlignment="Stretch" Margin="0 0 20 0"
                          ItemsSource="{Binding DisclaimerText}">
                     <ListBox.ItemTemplate>
@@ -217,6 +211,13 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
+                <Button Grid.Row="12" Grid.Column="0"
+                        Margin="4,4,4,4"
+                        Content="+"
+                        Width="125"
+                        HorizontalContentAlignment="Center"
+                        Command="{Binding CreateDisclaimerTextBoxCommand}"/>
 
                 <!-- Styling -->
                 <Label Grid.Row="13" Grid.Column="0"
@@ -313,16 +314,37 @@
                        Style="{StaticResource SectionLabel}" />
                 <Border Grid.Row="25" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="DarkGray"/>
 
-                <ListBox Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="2"
+                <ListBox Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="3"
                          HorizontalAlignment="Stretch" Margin="0 0 20 0"
                          ItemsSource="{Binding PresentationOverrideMessageFormats}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <ComboBox ItemsSource="{Binding Path=DataContext.PresentationOverrideType, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Label Grid.Row="0" Grid.Column="0"
+                                    Content="Presentation Type"
+                                    Style="{StaticResource ItemLabel}"/>
+                                <ComboBox Grid.Row="1" Grid.Column="0"
+                                          ItemsSource="{Binding Path=DataContext.PresentationOverrideType, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                           SelectedItem="{Binding OverrideType}"
                                           Width="250"/>
-                                <TextBox Text="{Binding Path=MessageFormat}"
+
+                                <Label Grid.Row="0" Grid.Column="1"
+                                       Content="Presentation Message"
+                                       Style="{StaticResource ItemLabel}"/>
+                                <TextBox Grid.Row="1" Grid.Column="1"
+                                         Text="{Binding Path=MessageFormat}"
                                          Style="{StaticResource MessageTextBox}">
                                     <i:Interaction.Triggers>
                                         <events:RoutedEventTrigger RoutedEvent="TextBox.LostFocus">
@@ -330,10 +352,12 @@
                                         </events:RoutedEventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
-                                <Label 
+
+                                <Label Grid.Row="0" Grid.Column="2"
                                        Content="Meter Format"
                                        Style="{StaticResource ItemLabel}"/>
-                                <TextBox Text="{Binding Path=MeterFormat}"
+                                <TextBox Grid.Row="1" Grid.Column="2"
+                                         Text="{Binding Path=MeterFormat}"
                                          Style="{StaticResource MessageTextBox}">
                                     <i:Interaction.Triggers>
                                         <events:RoutedEventTrigger RoutedEvent="TextBox.LostFocus">
@@ -341,12 +365,28 @@
                                         </events:RoutedEventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
-                                <Button Margin="16,4,4,4"
+
+                                <Label Grid.Row="0" Grid.Column="3"
+                                       Content="Scene"
+                                       Style="{StaticResource ItemLabel}"/>
+                                <TextBox Grid.Row="1" Grid.Column="3"
+                                         Text="{Binding Path=MessageScene}"
+                                         Style="{StaticResource MessageTextBox}">
+                                    <i:Interaction.Triggers>
+                                        <events:RoutedEventTrigger RoutedEvent="TextBox.LostFocus">
+                                            <events:EventToCommandAction Command="{Binding Path=DataContext.ApplyPresentationOverrideMessageFormatsCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
+                                        </events:RoutedEventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+
+                                <Button Grid.Row="1" Grid.Column="4"
+                                        Margin="16,4,4,4"
                                         Content="-"
                                         HorizontalContentAlignment="Center"
                                         Command="{Binding Path=DataContext.RemovePresentationOverrideMessageFormatCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                         CommandParameter="{Binding}" />
-                            </StackPanel>
+
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

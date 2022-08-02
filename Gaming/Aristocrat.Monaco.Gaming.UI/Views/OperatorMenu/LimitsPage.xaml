@@ -93,6 +93,7 @@
                 <CheckBox IsChecked="{Binding HandpayLimitIsChecked, Mode=TwoWay}"
                           IsEnabled="{Binding HandpayLimitCheckboxEnabled, Mode=OneWay}"/>
                 <helpers:CurrencyTextBox Number="{Binding Path=HandpayLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         IsEnabled="{Binding PageEnabled}"
                                          Visibility="{Binding HandpayLimitIsChecked, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
                            Visibility="{Binding HandpayLimitIsChecked, Converter={StaticResource BoolToHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>

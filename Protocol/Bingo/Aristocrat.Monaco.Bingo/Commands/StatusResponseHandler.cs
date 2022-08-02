@@ -17,7 +17,7 @@
         private readonly ICommandService _statusResponseService;
         private readonly IMeterManager _meterManager;
         private readonly IEgmStatusService _egmStatusService;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public StatusResponseHandler(ICommandService statusResponseService, IMeterManager meterManager, IEgmStatusService egmStatusService)
         {
@@ -35,10 +35,10 @@
                 var cashWonMeter = _meterManager.GetMeter(GamingMeters.TotalPaidAmt);
                 var cashPlayedMeter = _meterManager.GetMeter(GamingMeters.WageredAmount);
 
-                message.CashPlayedMeterValue = cashPlayedMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
-                message.CashWonMeterValue = cashWonMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
-                message.CashInMeterValue = cashInMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
-                message.CashOutMeterValue = cashOutMeter.GetValue(MeterTimeframe.Session).MillicentsToCents();
+                message.CashPlayedMeterValue = cashPlayedMeter.GetValue(MeterTimeframe.Lifetime).MillicentsToCents();
+                message.CashWonMeterValue = cashWonMeter.GetValue(MeterTimeframe.Lifetime).MillicentsToCents();
+                message.CashInMeterValue = cashInMeter.GetValue(MeterTimeframe.Lifetime).MillicentsToCents();
+                message.CashOutMeterValue = cashOutMeter.GetValue(MeterTimeframe.Lifetime).MillicentsToCents();
                 message.EgmStatusFlags = (int)_egmStatusService.GetCurrentEgmStatus();
 
                 await _statusResponseService.ReportStatus(message, token);

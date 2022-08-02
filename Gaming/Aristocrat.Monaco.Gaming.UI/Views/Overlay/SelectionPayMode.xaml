@@ -65,11 +65,11 @@
     </UserControl.Resources>
 
     <UserControl.Background>
-        <SolidColorBrush Color="Black" Opacity="{Binding MessageOverlayData.Opacity}"></SolidColorBrush>
+        <SolidColorBrush Color="Black" Opacity="{Binding MessageOverlayDisplay.MessageOverlayData.Opacity}"></SolidColorBrush>
     </UserControl.Background>
 
     <Grid>
-        <GroupBox VerticalAlignment="Bottom" Margin="0 0 0 250" Width="1200" Height="300" 
+        <GroupBox VerticalAlignment="Center" Margin="0" Width="1200" Height="300" 
                   Visibility="{Binding IsInOperatorMenu, Converter={StaticResource BoolToCollapsedConverter}}" 
                   Style="{StaticResource MonacoGroupBox}">
             <Grid>

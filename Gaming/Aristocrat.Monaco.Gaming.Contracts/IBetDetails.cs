@@ -24,5 +24,10 @@
         ///     Gets the ante.
         /// </summary>
         int Ante { get; }
+
+        /// <summary>
+        ///     Gets the stake
+        /// </summary>
+        long Stake { get; }
     }
 }

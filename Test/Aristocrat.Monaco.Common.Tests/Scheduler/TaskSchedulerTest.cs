@@ -9,7 +9,6 @@
     [TestClass]
     public class TaskSchedulerTest
     {
-        [Ignore]
         [TestMethod]
         public void WhenScheduleTaskExpectSuccess()
         {
@@ -20,7 +19,6 @@
                 .ScheduleTask(new Mock<ITaskSchedulerJob>().Object, "Monaco.Triggers", DateTime.Now);
         }
 
-        [Ignore]
         [TestMethod]
         public void WhenDisposeTaskSchedulerExpectSuccess()
         {

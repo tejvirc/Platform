@@ -58,8 +58,8 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _actionCashoutTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _actionCashoutTimer?.Dispose();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -88,7 +88,7 @@
 
         private bool IsValid()
         {
-            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
             return !isBlocked && _sc.CashoutOperationValid;
         }
 
@@ -98,22 +98,26 @@
             _eventBus.Subscribe<TransferOutFailedEvent>(this,
                  _ =>
                  {
-                     _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.CashoutOperation);
+                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutOperation);
+                    _logger.Info($"TransferOutFailedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                  });
             _eventBus.Subscribe<TransferOutCompletedEvent>(this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.CashoutOperation);
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutOperation);
+                    _logger.Info($"TransferOutCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
             _eventBus.Subscribe<CashOutAbortedEvent>(this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.CashoutOperation);
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutOperation);
+                    _logger.Info($"CashOutAbortedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
             _eventBus.Subscribe<CashOutStartedEvent>(this,
                 _ =>
                 {
-                    _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.CashoutOperation);
+                    _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutOperation);
+                    _logger.Info($"CashOutStartedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
                  this,

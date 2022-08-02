@@ -17,7 +17,18 @@
     using Hardware.Contracts.Reel;
     using Kernel;
     using log4net;
+    using CentralOutcome = GDKRuntime.Contract.CentralOutcome;
+    using Direction = GDKRuntime.Contract.Direction;
+    using GameInfo = GDKRuntime.Contract.GameInfo;
+    using GameRoundEventStage = GDKRuntime.Contract.GameRoundEventStage;
+    using GameRoundEventType = GDKRuntime.Contract.GameRoundEventType;
+    using GameRoundPlayMode = GDKRuntime.Contract.GameRoundPlayMode;
     using LevelId = System.UInt32;
+    using PoolValue = GDKRuntime.Contract.PoolValue;
+    using ReelNudgeData = GDKRuntime.Contract.ReelNudgeData;
+    using ReelState = GDKRuntime.Contract.ReelState;
+    using RuntimeFlag = GDKRuntime.Contract.RuntimeFlag;
+    using StorageLocation = GDKRuntime.Contract.StorageLocation;
     using TransactionId = System.UInt64;
     using Value = System.UInt64;
     using WinAmount = System.UInt64;
@@ -28,7 +39,7 @@
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant, IncludeExceptionDetailInFaults = true)]
     public class WcfService : IGameSession
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IGameDiagnostics _gameDiagnostics;
@@ -162,18 +173,22 @@
             return true;
         }
 
-        public void BeginGameRoundResult(IList<uint> pendingJackpotTriggers)
+        public void BeginGameRoundResult(IList<uint> pendingJackpotTriggers, GameRoundDetails gameRoundDetails)
         {
-            Logger.Debug($"BeginGameRoundResult({pendingJackpotTriggers.Count})");
+            Logger.Debug(
+                $"BeginGameRoundResult({pendingJackpotTriggers.Count}, {gameRoundDetails?.PresentationIndex})");
 
             if (pendingJackpotTriggers.IsNullOrEmpty())
             {
-                return;
+                var command = new PendingTrigger(pendingJackpotTriggers.Select(l => (int)l).ToList());
+                _handlerFactory.Create<PendingTrigger>().Handle(command);
             }
 
-            var command = new PendingTrigger(pendingJackpotTriggers.Select(l => (int)l).ToList());
-
-            _handlerFactory.Create<PendingTrigger>().Handle(command);
+            if (gameRoundDetails is not null)
+            {
+                _handlerFactory.Create<BeginGameRoundResults>()
+                    .Handle(new BeginGameRoundResults((long)gameRoundDetails.PresentationIndex));
+            }
         }
 
         /// <inheritdoc />
@@ -533,7 +548,8 @@
 
         public void UpdateBetOptions(BetOptionData betOptions)
         {
-            Logger.Debug($"Update Bet Line options : {betOptions}");
+            Logger.Debug(
+                $"Update Bet Line options: [Ante: {betOptions.Ante}, Wager: {betOptions.Wager}, BetMultiplier: {betOptions.BetMultiplier}, LineCost: {betOptions.LineCost}, NumberLines: {betOptions.NumberLines}, StakeAmount: {betOptions.StakeAmount}]");
 
             var bet = new UpdateBetOptions(
                 (long)betOptions.Wager,

@@ -9,6 +9,7 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -92,8 +93,8 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _balanceCheckTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _balanceCheckTimer?.Dispose();
         }
 
         private void SubscribeToEvents()
@@ -131,13 +132,14 @@
 
         private bool IsValid()
         {
-            return _sc.BalanceOperationValid;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return !isBlocked && _sc.BalanceOperationValid;
         }
 
         private void InsertCredit()
         {
             var bankBalanceInDollars = CurrencyExtensions.MillicentsToDollars(_bank.QueryBalance());
-            var minBalanceInDollars = CurrencyExtensions.DollarsToMillicents(_robotController.Config.GetMinimumBalance());
+            var minBalanceInDollars = CurrencyExtensions.CentsToMillicents(_robotController.Config.GetMinimumBalance());
             var enoughBlanace = !CurrencyExtensions.IsBelowMinimum(bankBalanceInDollars, minBalanceInDollars);
             var hasEdgeCase = _robotController.Config?.Active?.InsertCreditsDuringGameRound == true;
             //inserting credits can lead to race conditions that make the platform not update the runtime balance

@@ -2,6 +2,7 @@
 {
     using System.Windows;
     using Kernel;
+    using OverlayServer.Data.Bingo;
 
     /// <summary>
     ///     Bingo display configuration changed event.
