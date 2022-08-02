@@ -151,8 +151,8 @@
         [DataTestMethod]
         [DataRow(PlayMode.Normal, true)]
         [DataRow(PlayMode.Demo, true)]
-        [DataRow(PlayMode.Recovery, false)]
-        [DataRow(PlayMode.Replay, false)]
+        [DataRow(PlayMode.Recovery, true)]
+        [DataRow(PlayMode.Replay, true)]
         public void HandleBeginSpinTest(PlayMode playMode, bool presentationStartedRaised)
         {
             const int activeId = 1;

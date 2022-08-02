@@ -70,10 +70,10 @@
                     HandleInvoked(gameRoundEvent);
                     break;
                 case GameRoundEventAction.Pending:
-                    HandlePending(gameRoundEvent);
+                    HandlePending();
                     break;
                 case GameRoundEventAction.Begin:
-                    HandleBegin(gameRoundEvent);
+                    HandleBegin();
                     break;
             }
         }
@@ -172,25 +172,15 @@
             _gamePlayState.End(_gameHistory.CurrentLog.FinalWin);
         }
 
-        private void HandlePending(GameRoundEvent gameRoundEvent)
+        private void HandlePending()
         {
-            if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
-            {
-                return;
-            }
-
             var (game, denomination) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GameWinPresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
         }
 
-        private void HandleBegin(GameRoundEvent gameRoundEvent)
+        private void HandleBegin()
         {
-            if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
-            {
-                return;
-            }
-
             var (game, denomination) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GamePresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
