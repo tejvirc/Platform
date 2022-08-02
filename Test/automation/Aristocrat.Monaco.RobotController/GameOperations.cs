@@ -176,10 +176,9 @@
         {
             if (!IsRequestGameValid())
             {
-                _logger.Info("IsRequestGameValid is false", GetType().Name);
-
                 return;
             }
+
             if (_sc.IsGame && _gameIsRunning)
             {
                 _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
@@ -328,6 +327,12 @@
                      _logger.Error($"GameFatalErrorEvent Got Triggered! There is an issue with [{_robotController.Config.CurrentGame}]", GetType().Name);
                      _robotController.Enabled = false;
                  });
+            _eventBus.Subscribe<GameLoadedEvent>(
+                this,
+                _ =>
+                {
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
+                });
             _eventBus.Subscribe<GamePlayStateChangedEvent>(
                  this,
                  _ =>
@@ -440,7 +445,14 @@
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
             var isGeneralRule = _sc.IsChooser || (_gameIsRunning && !_sc.IsGameLoading);
-            return !isBlocked && isGeneralRule && !_requestGameIsInProgress;
+            var isValid = !isBlocked && isGeneralRule && !_requestGameIsInProgress;
+
+            if (!isValid)
+            {
+                _logger.Info($"IsRequestGameValid is false: isBlocked={isBlocked}, isGeneralRule={isGeneralRule}, _requestGameIsInProgress={_requestGameIsInProgress}", GetType().Name);
+            }
+
+            return isValid;
         }
 
         private void ExecuteGameLoad()
@@ -450,7 +462,7 @@
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _robotController.Config.CurrentGame && g.Enabled);
             if (gameInfo != null)
             {
-                var denom = gameInfo.Denominations.First(d => d.Active == true).Value;
+                var denom = gameInfo.Denominations.First(d => d.Active).Value;
                 _logger.Info($"Requesting game {gameInfo.ThemeName} with denom {denom} be loaded.", GetType().Name);
                 if (gameInfo.GameType is not (Gaming.Contracts.Models.GameType)GameType.Reel)
                 {
