@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Application.Monitors;
     using Common;
     using Contracts;
+    using Contracts.Events.OperatorMenu;
     using Hardware.Contracts;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
@@ -284,9 +285,20 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearDisableState());
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, _ => DisableReelLights());
+            _eventBus.Subscribe<GameHistoryPageLoadedEvent>(this, HandleGameHistoryPageLoaded);
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
+        }
+
+        private async Task HandleGameHistoryPageLoaded(GameHistoryPageLoadedEvent evt, CancellationToken token)
+        {
+            var logicalState = _reelController.LogicalState;
+            if (_disableManager.CurrentDisableKeys.Contains(ReelsNeedHomingGuid) ||
+                logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
+            {
+                await HomeReels();
+            }
         }
 
         private void DisableReelLights()

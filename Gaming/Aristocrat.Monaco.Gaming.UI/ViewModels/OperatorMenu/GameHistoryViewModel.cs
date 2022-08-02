@@ -19,6 +19,7 @@
     using Application.UI.OperatorMenu;
     using Contracts;
     using Contracts.Central;
+    using Contracts.Events.OperatorMenu;
     using Contracts.Lobby;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -323,11 +324,14 @@
         {
             base.OnLoaded();
 
+            EventBus.Publish(new GameHistoryPageLoadedEvent());
+
             EventBus.Subscribe<TransactionCompletedEvent>(this, HandleUpdate);
             EventBus.Subscribe<BankBalanceChangedEvent>(this, HandleUpdate);
             EventBus.Subscribe<PrintStartedEvent>(this, PrintStatusChanged);
             EventBus.Subscribe<HardwareReelFaultEvent>(this, HandleReelRelatedFault);
             EventBus.Subscribe<HardwareReelFaultClearEvent>(this, HandleReelRelatedFault);
+            EventBus.Subscribe<ReelStoppedEvent>(this, HandleReelRelatedFault);
             EventBus.Subscribe<SystemDisableAddedEvent>(this, HandleSystemDisableAddedEvent);
             EventBus.Subscribe<SystemDisableRemovedEvent>(this, HandleSystemDisableRemovedEvent);
 
@@ -919,6 +923,7 @@
 
         private void HandleReelRelatedFault(IEvent theEvent)
         {
+            UpdateStatusText();
             RaisePropertyChanged(nameof(ReplayButtonEnabled));
         }
 
