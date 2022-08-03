@@ -39,6 +39,7 @@
         private const int CalibrationDelayMs = 2000; // Used to wait between calibration steps
         private const int DefaultInjectionDelayMs = 5; // Used to throttle between injections for Kortek
         private const int MaxCoordinateRange = 16383; // 14 bits max
+        private const int ValidUpdateRange = 5; // For touch updates, ignore anything within 5 pixels from touch down 
 
         private const int MaxTouchInfo = 1;
         private const int PointerId = 0;
@@ -810,6 +811,15 @@
                 }
                 else
                 {
+                    // Is this update out of valid range?
+                    var xRange = Math.Abs(_prevTouchX - x); 
+                    var yRange = Math.Abs(_prevTouchY - y); 
+                    if (xRange < ValidUpdateRange && yRange < ValidUpdateRange)
+                    {
+                        // Yes, ignore it.
+                        return;
+                    }
+
                     _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
                     UpdateContactArea(x, y, PointerId);
                 }
@@ -941,7 +951,13 @@
 
             if (_state.State != SerialTouchState.InterpretTouch && _state.State != SerialTouchState.Null)
             {
-                Logger.Warn($"OnCheckDisconnectTimeout - Skiped while in state {_state.State}, returning...");
+                Logger.Warn($"OnCheckDisconnectTimeout - Skipped while in state {_state.State}, returning...");
+                return;
+            }
+
+            if (_touchDown)
+            {
+                Logger.Warn($"OnCheckDisconnectTimeout - Skipped while touch down, returning...");
                 return;
             }
 
