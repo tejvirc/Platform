@@ -21,9 +21,8 @@
     public sealed class SasBonusProvider : ISasBonusCallback, IDisposable
     {
         private const string LegacyBonusHostTransactionPrefix = "LEGACY";
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private bool _disposed;
         private readonly ISasHost _sasHost;
         private readonly ISasExceptionHandler _exceptionHandler;
         private readonly IBonusHandler _bonusHandler;
@@ -33,6 +32,8 @@
         private readonly IMeterManager _meterManager;
         private readonly IEventBus _eventBus;
         private readonly IPersistentStorageManager _storage;
+
+        private bool _disposed;
 
         /// <summary> Constructs the object </summary>
         public SasBonusProvider(
@@ -57,9 +58,9 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
 
-            _eventBus.Subscribe<BonusAwardedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<BonusCancelledEvent>(this, HandleEvent);
-            _eventBus.Subscribe<BonusFailedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<BonusAwardedEvent>(this, HandleEvent, IsSasBonusEvent);
+            _eventBus.Subscribe<BonusCancelledEvent>(this, HandleEvent, IsSasBonusEvent);
+            _eventBus.Subscribe<BonusFailedEvent>(this, HandleEvent, IsSasBonusEvent);
         }
 
         /// <inheritdoc />
@@ -176,13 +177,17 @@
         /// <inheritdoc />
         public void Dispose()
         {
-            if (!_disposed)
+            if (_disposed)
             {
-                _eventBus.UnsubscribeAll(this);
-
-                _disposed = true;
+                return;
             }
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
         }
+
+        private static bool IsSasBonusEvent(BaseBonusEvent bonusEvent) =>
+            bonusEvent.Transaction?.Protocol == CommsProtocol.SAS;
 
         private static Dictionary<AccountType, long> GetBonusDictionary(AftData data)
         {
