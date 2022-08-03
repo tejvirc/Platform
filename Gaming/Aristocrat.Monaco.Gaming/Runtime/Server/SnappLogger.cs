@@ -7,13 +7,13 @@
     using log4net;
     using Snapp;
 
-    public class RpcLogger : IExternalLogger
+    public class SnappLogger : IExternalLogger
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IEventBus _eventBus;
 
-        public RpcLogger(IEventBus eventBus)
+        public SnappLogger(IEventBus eventBus)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
