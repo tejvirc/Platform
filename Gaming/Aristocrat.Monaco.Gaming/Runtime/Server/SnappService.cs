@@ -20,7 +20,7 @@
     using EventTypes = GdkRuntime.V1.RuntimeEventNotification.Types.RuntimeEvent;
     using LocalStorage = GdkRuntime.V1.LocalStorage;
 
-    public class RpcService : IGameServiceCallback
+    public class SnappService : IGameServiceCallback
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Empty EmptyResult = new ();
@@ -36,7 +36,7 @@
         private readonly ICommandHandler<Shuffle> _shuffle;
         private readonly ActionBlock<ButtonStateChanged> _buttonStateChangedProcessor;
 
-        public RpcService(
+        public SnappService(
             IEventBus bus,
             ICommandHandlerFactory handlerFactory,
             IGameDiagnostics gameDiagnostics,
@@ -64,10 +64,10 @@
         {
             Logger.Debug("Client joined the Runtime Service");
 
-            var rpcClient = new RpcClient(_bus, _processManager);
-            _serviceProvider.AddOrUpdate(rpcClient);
-            _reelServiceProvider.AddOrUpdate(rpcClient);
-            _presentationServiceProvider.AddOrUpdate(rpcClient);
+            var snappClient = new SnappClient(_bus, _processManager);
+            _serviceProvider.AddOrUpdate(snappClient);
+            _reelServiceProvider.AddOrUpdate(snappClient);
+            _presentationServiceProvider.AddOrUpdate(snappClient);
 
             _bus.Publish(new GameConnectedEvent(_gameDiagnostics.IsActive));
 

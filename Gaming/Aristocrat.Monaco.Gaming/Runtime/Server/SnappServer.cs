@@ -8,30 +8,28 @@
     using log4net;
     using Snapp;
 
-    public class RpcServer : IServerEndpoint, IDisposable
+    public class SnappServer : IServerEndpoint, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IEventBus _eventBus;
-        private readonly RpcService _gameService;
-        private readonly RpcReelService _reelService;
-        private readonly RpcPresentationService _presentationService;
-        private readonly object _lock = new object();
-
-        private Server _rpcServer;
+        private readonly SnappService _gameService;
+        private readonly SnappReelService _reelService;
+        private readonly SnappPresentationService _presentationService;
+        private readonly object _lock = new ();
 
         private Server _server;
         private bool _disposed;
 
-        public RpcServer(IEventBus eventBus, RpcService gameService, RpcReelService reelService, RpcPresentationService presentationService)
+        public SnappServer(IEventBus eventBus, SnappService gameService, SnappReelService reelService, SnappPresentationService presentationService)
         {
-            Logger.Debug("Create RpcServer");
+            Logger.Debug("Create SnappServer");
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             _reelService = reelService ?? throw new ArgumentNullException(nameof(reelService));
             _presentationService = presentationService ?? throw new ArgumentNullException(nameof(presentationService));
 
-            Snapp.Logger.ExternalLogger = new RpcLogger(_eventBus);
+            Snapp.Logger.ExternalLogger = new SnappLogger(_eventBus);
 
             _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => Shutdown());
         }
@@ -44,7 +42,7 @@
 
         public void Start()
         {
-            Logger.Debug("Start RpcServer");
+            Logger.Debug("Start SnappServer");
             lock (_lock)
             {
                 if (_server != null)
@@ -68,7 +66,7 @@
 
         public void Shutdown()
         {
-            Logger.Debug("Shutdown RpcServer");
+            Logger.Debug("Shutdown SnappServer");
             lock (_lock)
             {
                 if (_server == null)
