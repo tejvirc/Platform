@@ -9,6 +9,7 @@
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Hardware.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Test.Automation;
     using Contracts;
@@ -22,6 +23,7 @@
         private readonly ThreadSafeHashSet<RobotStateAndOperations> _inProgressRequests;
         private IPropertiesManager _propertiesManager;
         private IGameProvider _gameProvider;
+        private IReelController _reelController;
         private StateChecker _stateChecker;
         private RobotLogger _logger;
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
@@ -129,6 +131,7 @@
                 }
                 _automator = null;
                 _eventBus = null;
+                _reelController = null;
                 if (_container is not null)
                 {
                     _container.Dispose();
@@ -297,6 +300,18 @@
             _propertiesManager = _container.GetInstance<IPropertiesManager>();
             _automator = _container.GetInstance<Automation>();
             _logger = _container.GetInstance<RobotLogger>();
+            try
+            {
+                _reelController = _container.GetInstance<IReelController>();
+                if (_reelController is not null)
+                {
+                    SubscribeToReelControllerEvents();
+                }
+            }
+            catch (ActivationException)
+            {
+                _reelController = null;
+            }
         }
 
         private bool SetCurrentlyActiveGameIfAny()
@@ -352,6 +367,33 @@
             _eventBus.Subscribe<ExitRequestedEvent>(this, _ =>
             {
                 _logger.Info("Exit requested. Disabling.", GetType().Name);
+                Enabled = false;
+            });
+        }
+
+        private void SubscribeToReelControllerEvents()
+        {
+            _eventBus.Subscribe<HardwareReelFaultEvent>(this, _ =>
+            {
+                _logger.Info("ReelController HardwareReelFaultEvent received. Disabling.", GetType().Name);
+                Enabled = false;
+            });
+
+            _eventBus.Subscribe<HardwareFaultEvent>(this, _ =>
+            {
+                _logger.Info("ReelController HardwareFaultEvent received. Disabling.", GetType().Name);
+                Enabled = false;
+            });
+
+            _eventBus.Subscribe<DisconnectedEvent>(this, _ =>
+            {
+                _logger.Info("ReelController DisconnectedEvent received. Disabling.", GetType().Name);
+                Enabled = false;
+            });
+
+            _eventBus.Subscribe<DisabledEvent>(this, _ =>
+            {
+                _logger.Info("ReelController DisabledEvent received. Disabling.", GetType().Name);
                 Enabled = false;
             });
         }
@@ -412,6 +454,12 @@
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IBank>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IPathMapper>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameService>());
+            var reelControllerService = serviceManager.TryGetService<IReelController>();
+            if (reelControllerService is not null)
+            {
+                container.RegisterInstance(reelControllerService);
+            }
+
             container.Register<RobotLogger>(Lifestyle.Singleton);
             container.Register<Automation>(Lifestyle.Singleton);
             container.Register<StateChecker>(Lifestyle.Singleton);
