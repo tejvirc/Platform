@@ -111,7 +111,7 @@
         public void ConsumesLargeWinTest()
         {
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.LargeWin, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashOutJackpot, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
             VoucherIssuedEvent evt = new(
@@ -121,7 +121,7 @@
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.LargeWin, It.IsAny<long>(), 0, 0, 0, 0), Times.Once());
+                Common.TransactionType.CashOutJackpot, It.IsAny<long>(), 0, 0, 0, 0), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }

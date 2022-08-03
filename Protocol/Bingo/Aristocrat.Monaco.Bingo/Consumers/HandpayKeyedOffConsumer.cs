@@ -39,12 +39,28 @@
 
             var amountInCents = transaction.TransactionAmount.MillicentsToCents();
 
-            if (transaction.HandpayType == HandpayType.CancelCredit)
+            switch (transaction.HandpayType)
             {
-                _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                    TransactionType.CancelledCredits,
-                    amountInCents);
-                _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CancelCredits);
+                case HandpayType.CancelCredit:
+                    _bingoTransactionReportHandler.AddNewTransactionToQueue(
+                        TransactionType.CancelledCredits,
+                        amountInCents);
+                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CancelCredits);
+                    break;
+
+                case HandpayType.GameWin:
+                    _bingoTransactionReportHandler.AddNewTransactionToQueue(
+                        TransactionType.CashOutJackpot,
+                        amountInCents);
+                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
+                    break;
+
+                case HandpayType.BonusPay:
+                    _bingoTransactionReportHandler.AddNewTransactionToQueue(
+                        TransactionType.BonusWin,
+                        amountInCents);
+                    _bingoEventQueue.AddNewEventToQueue(ReportableEvent.BonusWinAwarded);
+                    break;
             }
 
             _bingoTransactionReportHandler.AddNewTransactionToQueue(

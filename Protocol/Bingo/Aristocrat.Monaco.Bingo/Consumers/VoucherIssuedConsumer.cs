@@ -72,7 +72,7 @@
                     break;
                 case TransferOutReason.LargeWin:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
-                        Common.TransactionType.LargeWin,
+                        Common.TransactionType.CashOutJackpot,
                         amountInCents);
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
                     break;

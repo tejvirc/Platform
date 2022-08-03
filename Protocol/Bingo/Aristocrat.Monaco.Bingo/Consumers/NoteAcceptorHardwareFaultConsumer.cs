@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Common;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
@@ -13,6 +15,8 @@
     public class NoteAcceptorHardwareFaultConsumer : Consumes<HardwareFaultEvent>
     {
         private readonly IReportEventQueueService _bingoServerEventReportingService;
+        private readonly IReportTransactionQueueService _bingoTransactionReportHandler;
+        private readonly IMeterManager _meterManager;
 
         private static readonly IReadOnlyDictionary<NoteAcceptorFaultTypes, ReportableEvent> BingoErrorMapping =
             new Dictionary<NoteAcceptorFaultTypes, ReportableEvent>
@@ -34,11 +38,16 @@
         public NoteAcceptorHardwareFaultConsumer(
             IEventBus eventBus,
             ISharedConsumer consumerContext,
-            IReportEventQueueService reportingService)
+            IReportEventQueueService reportingService,
+            IReportTransactionQueueService bingoTransactionReportHandler,
+            IMeterManager meterManager)
             : base(eventBus, consumerContext)
         {
             _bingoServerEventReportingService =
                 reportingService ?? throw new ArgumentNullException(nameof(reportingService));
+            _bingoTransactionReportHandler =
+                bingoTransactionReportHandler ?? throw new ArgumentNullException(nameof(bingoTransactionReportHandler));
+            _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
         }
 
         public override void Consume(HardwareFaultEvent theEvent)
@@ -57,6 +66,8 @@
             if (theEvent.Fault == NoteAcceptorFaultTypes.StackerDisconnected)
             {
                 _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.CashDrop);
+                var totalInMeter = _meterManager.GetMeter(ApplicationMeters.TotalIn);
+                _bingoTransactionReportHandler.AddNewTransactionToQueue(TransactionType.Drop, totalInMeter.Period.MillicentsToCents());
             }
         }
     }

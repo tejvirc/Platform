@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests.Consumers
 {
     using System;
+    using Application.Contracts;
     using Aristocrat.Monaco.Bingo.Common;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
@@ -16,23 +17,34 @@
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Loose);
         private readonly Mock<ISharedConsumer> _consumerContext = new(MockBehavior.Loose);
         private readonly Mock<IReportEventQueueService> _reportingService = new(MockBehavior.Strict);
+        private readonly Mock<IReportTransactionQueueService> _bingoTransactionReportHandler = new(MockBehavior.Loose);
+        private readonly Mock<IMeterManager> _meterManager = new(MockBehavior.Loose);
 
         [TestInitialize]
         public void MyTestInitialize()
         {
-            _target = new NoteAcceptorHardwareFaultConsumer(_eventBus.Object, _consumerContext.Object, _reportingService.Object);
+            _target = new NoteAcceptorHardwareFaultConsumer(
+                _eventBus.Object,
+                _consumerContext.Object,
+                _reportingService.Object,
+                _bingoTransactionReportHandler.Object,
+                _meterManager.Object);
         }
 
-        [DataRow(true, false, DisplayName = "Reporting Service Null")]
-        [DataRow(false, true, DisplayName = "EventBus Null")]
+        [DataRow(true, false, false, false, DisplayName = "Reporting Service Null")]
+        [DataRow(false, true, false, false, DisplayName = "EventBus Null")]
+        [DataRow(false, false, true, false, DisplayName = "Transaction Reporting Null")]
+        [DataRow(false, false, false, true, DisplayName = "Meter Manager Null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void NullConstructorParametersTest(bool reportingNull, bool eventBusNull)
+        public void NullConstructorParametersTest(bool reportingNull, bool eventBusNull, bool transactionNull, bool meterNull)
         {
             _target = new NoteAcceptorHardwareFaultConsumer(
                 eventBusNull ? null : _eventBus.Object,
                 _consumerContext.Object,
-                reportingNull ? null : _reportingService.Object);
+                reportingNull ? null : _reportingService.Object,
+                transactionNull ? null : _bingoTransactionReportHandler.Object,
+                meterNull ? null : _meterManager.Object);
         }
 
         [DataRow(NoteAcceptorFaultTypes.FirmwareFault, ReportableEvent.BillAcceptorSoftwareError, DisplayName = "Firmware Fault")]
@@ -70,14 +82,19 @@
         [TestMethod]
         public void ConsumesStackerDisconnectedTest()
         {
+            var periodValue = 1234000;
+            var meter = new Mock<IMeter>(MockBehavior.Strict);
+            meter.Setup(m => m.Period).Returns(periodValue);
+
+            _meterManager.Setup(m => m.GetMeter(It.IsAny<string>())).Returns(meter.Object);
             _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.StackerRemoved)).Verifiable();
             _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashDrop)).Verifiable();
-
+            _bingoTransactionReportHandler.Setup(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0)).Verifiable();
             _target.Consume(new(NoteAcceptorFaultTypes.StackerDisconnected));
 
             _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.StackerRemoved), Times.Once());
             _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashDrop), Times.Once());
+            _bingoTransactionReportHandler.Verify(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0), Times.Once());
         }
-
     }
 }
