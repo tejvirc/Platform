@@ -21,7 +21,7 @@
     [CLSCompliant(false)]
     public class GamePlayState : IGamePlayState, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IGameHistory _gameHistory;
@@ -616,7 +616,7 @@
                 .OnExit(OnGameIdleHeldExit)
                 .PermitIf(
                     Trigger.PlayInitiated,
-                    PlayState.Initiated,
+                    PlayState.Idle,
                     () => (!_systemDisableManager.IsDisabled || AllowGamePlayOnNormalLockup) && Enabled && !_faulted)
                 .PermitIf(Trigger.GameIdle, PlayState.Idle, () => !_platformHeldGameEnd && !_faulted);
 
@@ -643,15 +643,13 @@
                 new GameEndedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
             _gameId = -1;
             _denom = -1;
-            if (transition.Destination == PlayState.Idle)
+            if (transition.Trigger != Trigger.PlayInitiated)
             {
                 return;
             }
 
-            _eventBus.Publish(
-                new GameIdleEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
-            _handlerFactory.Create<GameIdle>().Handle(new GameIdle());
-            OnPlayInitiated();
+            // Re-fire the play initiated so we correctly flow through all game play states
+            Fire(Trigger.PlayInitiated);
         }
 
         private void OnGameIdleHeld()
