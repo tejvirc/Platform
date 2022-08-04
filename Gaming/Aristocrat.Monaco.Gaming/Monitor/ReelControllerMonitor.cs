@@ -294,11 +294,13 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private async Task HandleOperatorMenuExited()
         {
-            if (ReelsShouldTilt)
+            if (!ReelsShouldTilt)
             {
-                Logger.Debug("HandleOperatorMenuExited tilt reels");
-                await TiltReels();
+                return;
             }
+
+            Logger.Debug("HandleOperatorMenuExited tilt reels");
+            await TiltReels(true);
         }
 
         private async Task HandleGameHistoryPageLoaded(GameHistoryPageLoadedEvent evt, CancellationToken token)
@@ -447,12 +449,11 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                         guid == ReelsTiltedGuid);
         }
 
-        private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys, bool allowMainDoor)
+        private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys)
         {
             var homeReels = disableKeys.All(guid =>
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                  guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
-                 guid == ApplicationConstants.MainDoorGuid && allowMainDoor ||
                  guid == ReelsNeedHomingGuid ||
                  guid == ReelsTiltedGuid);
 
@@ -469,7 +470,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 : _disableManager.CurrentDisableKeys;
 
             var logicalState = _reelController.LogicalState;
-            if (IsHomeReelsCondition(disableKeys, inGameRound) &&
+            if (IsHomeReelsCondition(disableKeys) &&
                 logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
             {
                 await HomeReels();
