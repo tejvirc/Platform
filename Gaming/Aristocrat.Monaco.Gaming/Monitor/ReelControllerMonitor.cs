@@ -283,12 +283,22 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<InspectionFailedEvent>(this, (_, _) => Disconnected(true));
             _eventBus.Subscribe<InspectedEvent>(this, (_, _) => Disconnected(false));
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, _ => DisableReelLights());
+            _eventBus.Subscribe<OperatorMenuExitedEvent>(this, (_, _) => HandleOperatorMenuExited());
             _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearDisableState());
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<GameHistoryPageLoadedEvent>(this, HandleGameHistoryPageLoaded);
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
+        }
+
+        private async Task HandleOperatorMenuExited()
+        {
+            if (ReelsShouldTilt)
+            {
+                Logger.Debug("HandleOperatorMenuExited tilt reels");
+                await TiltReels();
+            }
         }
 
         private async Task HandleGameHistoryPageLoaded(GameHistoryPageLoadedEvent evt, CancellationToken token)

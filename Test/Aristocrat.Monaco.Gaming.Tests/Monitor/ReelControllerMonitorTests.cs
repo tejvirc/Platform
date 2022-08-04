@@ -52,6 +52,7 @@
         private Func<InspectedEvent, CancellationToken, Task> _inspectedAction;
         private Func<InspectionFailedEvent, CancellationToken, Task> _inspectionFailedAction;
         private Action<OperatorMenuEnteredEvent> _operatorMenuEnteredAction;
+        private Func<OperatorMenuExitedEvent, CancellationToken, Task> _operatorMenuExitedAction;
         private Func<SystemDisableAddedEvent, CancellationToken, Task> _systemDisabledAction;
         private Func<SystemDisableRemovedEvent, CancellationToken, Task> _systemDisableRemovedAction;
         private Action<ReelStoppedEvent> _reelStoppedEventAction;
@@ -130,6 +131,8 @@
                 .Callback<object, Func<InspectedEvent, CancellationToken, Task>>((o, c) => _inspectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuEnteredEvent>>()))
                 .Callback<object, Action<OperatorMenuEnteredEvent>>((o, c) => _operatorMenuEnteredAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<OperatorMenuExitedEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<OperatorMenuExitedEvent, CancellationToken, Task>>((o, c) => _operatorMenuExitedAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Func<ClosedEvent, CancellationToken, Task>>(), It.IsAny<Predicate<ClosedEvent>>()))
                 .Callback<object, Func<ClosedEvent, CancellationToken, Task>, Predicate<ClosedEvent>>((_, c, _) => _doorClosedAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ReelStoppedEvent>>()))
@@ -170,6 +173,44 @@
                 nullGameProvider,
                 nullEdgeLightController,
                 nullGameService);
+        }
+
+        [TestMethod]
+        public async Task ExitOperatorMenuWithFaultsTest()
+        {
+            InitializeClient(true);
+            _disable.Reset();
+            _reelController.Reset();
+            _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.IdleAtStops);
+            _reelController.Setup(x => x.TiltReels()).Returns(Task.FromResult(true));
+
+            var disableKeys = new List<Guid> { ReelFaults.Disconnected.GetAttribute<ErrorGuidAttribute>().Id };
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
+
+            Assert.IsNotNull(_operatorMenuExitedAction);
+            await _operatorMenuExitedAction(new OperatorMenuExitedEvent(), CancellationToken.None);
+
+            _reelController.Verify();
+            _reelController.Verify(x => x.TiltReels(), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task ExitOperatorMenuWithoutFaultsTest()
+        {
+            InitializeClient(true);
+            _disable.Reset();
+            _reelController.Reset();
+            _reelController.Setup(x => x.LogicalState).Returns(ReelControllerState.IdleAtStops);
+            _reelController.Setup(x => x.TiltReels()).Returns(Task.FromResult(true));
+
+            var disableKeys = new List<Guid>();
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(disableKeys);
+
+            Assert.IsNotNull(_operatorMenuExitedAction);
+            await _operatorMenuExitedAction(new OperatorMenuExitedEvent(), CancellationToken.None);
+
+            _reelController.Verify();
+            _reelController.Verify(x => x.TiltReels(), Times.Never());
         }
 
         [TestMethod]
