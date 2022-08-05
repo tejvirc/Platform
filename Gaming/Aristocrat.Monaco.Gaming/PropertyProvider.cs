@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Reflection;
     using Application.Contracts;
-    using Common;
     using Contracts;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
@@ -268,7 +267,8 @@
                 { GamingConstants.PlayerInformationDisplay.GameRulesScreenEnabled, (playerInformationDisplayOptions?.GameRulesScreen?.Enabled ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
-                { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) }
+                { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
+                { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) }
             };
 
             if (!blockExists)

@@ -118,6 +118,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationRngCycling rngCyclingField;
         
+        private GamingConfigurationDenomSelectionLobby denomSelectionLobbyField;
+        
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
             get {
@@ -585,6 +587,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.rngCyclingField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationDenomSelectionLobby DenomSelectionLobby {
+            get {
+                return this.denomSelectionLobbyField;
+            }
+            set {
+                this.denomSelectionLobbyField = value;
             }
         }
     }
@@ -3303,5 +3315,47 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
                 this.enabledField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationDenomSelectionLobby {
+        
+        private DenomSelectionLobby modeField;
+        
+        public GamingConfigurationDenomSelectionLobby() {
+            this.modeField = DenomSelectionLobby.Allowed;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(DenomSelectionLobby.Allowed)]
+        public DenomSelectionLobby Mode {
+            get {
+                return this.modeField;
+            }
+            set {
+                this.modeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    public enum DenomSelectionLobby {
+        
+        /// <remarks/>
+        Required,
+        
+        /// <remarks/>
+        Allowed,
+        
+        /// <remarks/>
+        Disallowed,
     }
 }

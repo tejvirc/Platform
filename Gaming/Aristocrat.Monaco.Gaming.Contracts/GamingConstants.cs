@@ -1125,7 +1125,12 @@
         /// <summary>
         ///     Is there a need to launch a game after reboot
         /// </summary>
-        public const string LaunchGameAfterReboot = @"GamePlay.LaunchGameAfterReboot";
+        public const string LaunchGameAfterReboot = "GamePlay.LaunchGameAfterReboot";
+
+        /// <summary>
+        ///     Whether denomination selection lobby is required/allowed
+        /// </summary>
+        public const string DenomSelectionLobby = "GamingConfiguration.DenomSelectionLobby.Mode";
 
         /// <summary>
         ///     encapsulate Player Information Display options
@@ -1138,27 +1143,27 @@
             public const int DefaultTimeoutMilliseconds = 30000;
 
             /// <summary>
-            ///     Property Key for inactivity timeout for the player information display
+            ///     Inactivity timeout for the player information display
             /// </summary>
             public const string TimeoutMilliseconds = @"PlayerInformationDisplay.TimeoutMilliseconds";
 
             /// <summary>
-            ///     Property Key for whether Player Information Display is enabled
+            ///     Whether Player Information Display is enabled
             /// </summary>
             public const string Enabled = @"PlayerInformationDisplay.Enabled";
 
             /// <summary>
-            ///     Property Key for whether Player Information Display supports restricted user mode
+            ///     Whether Player Information Display supports restricted user mode
             /// </summary>
             public const string RestrictedModeUse = @"PlayerInformationDisplay.RestrictedModeUse";
 
             /// <summary>
-            ///     Property Key for whether Game Rules screen enabled
+            ///     Whether Game Rules screen enabled
             /// </summary>
             public const string GameRulesScreenEnabled = @"PlayerInformationDisplay.GameRulesScreen.Enabled";
 
             /// <summary>
-            ///     Property Key for whether Player Information screen enabled
+            ///     Whether Player Information screen enabled
             /// </summary>
             public const string PlayerInformationScreenEnabled = @"PlayerInformationDisplay.PlayerInformationScreen.Enabled";
         }

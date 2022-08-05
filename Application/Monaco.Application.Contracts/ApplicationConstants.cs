@@ -418,9 +418,6 @@
         /// <summary>The default DefaultAllowDenomPatch flag Value.</summary>
         public const bool DefaultAllowDenomPatch = true;
 
-        /// <summary>The default DefaultDenomSelectionLobbyRequired value for DefaultDenomSelectionLobbyRequired flag.</summary>
-        public const bool DefaultDenomSelectionLobbyRequired = false;
-
         /// <summary>Default DefaultGameDisabledUse flag Value.</summary>
         public const string DefaultGameDisabledUse = "disallowed";
 

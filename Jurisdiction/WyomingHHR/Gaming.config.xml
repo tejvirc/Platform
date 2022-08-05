@@ -68,4 +68,5 @@ as follows:
 	</GameRestrictions>
 	<GameRoundDurationMs Minimum="3000" Maximum="10000" />
 	<ProgressivePoolCreation Type="WagerBased" />
+	<DenomSelectionLobby Mode="Required" />
 </GamingConfiguration>

@@ -169,7 +169,6 @@
                 { "/Runtime/Clock&format", _properties.GetValue(ApplicationConstants.ClockFormat, 12).ToString() },
                 { "/Runtime/DefaultBetInAttract", ApplicationConstants.DefaultBetInAttract.ToString() },
                 { "/Runtime/DenomPatch", ApplicationConstants.DefaultAllowDenomPatch.ToString() },
-                { "/Runtime/DenomSelectionLobbyRequired", ApplicationConstants.DefaultDenomSelectionLobbyRequired.ToString() },
                 { "/Runtime/Gamble&maxRounds", GamingConstants.MaxRounds.ToString() },
                 { "/Runtime/GameDuration&kenoSpeed", _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString() },
                 { "/Runtime/GameDuration&reelSpeed", GamingConstants.ReelSpeed.ToString(CultureInfo.InvariantCulture) },
@@ -320,6 +319,20 @@
             if (restrictions != null)
             {
                 parameters.Add("/Runtime/Multigame&ActivePack", _properties.GetValue(GamingConstants.GameConfiguration, string.Empty));
+            }
+
+            var denomSelectionLobby = _properties.GetValue(GamingConstants.DenomSelectionLobby, DenomSelectionLobby.Allowed);
+            if (denomSelectionLobby == DenomSelectionLobby.Required)
+            {
+                parameters.Add("/Runtime/DenomSelectionLobbyRequired", "true");
+            }
+            else
+            {
+                parameters.Add("/Runtime/DenomSelectionLobbyRequired", "false");
+                if (denomSelectionLobby == DenomSelectionLobby.Allowed)
+                {
+                    parameters.Add("/Runtime/DenomSelectionLobby&optional", "true");
+                }
             }
 
             if (_gameRecovery.IsRecovering && _gameHistory.LoadRecoveryPoint(out var data))
