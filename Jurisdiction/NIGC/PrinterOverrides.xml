@@ -57,7 +57,7 @@ Please update the confluence page when new elements and attributes are added.
       <NewRegion Description="establishment name" PrinterRegionId="1" Command="^R|1|R|104|1027|65|1020|0|3|1|8|2|2|0|0||^"/>
       <NewRegion Description="location name" PrinterRegionId="2" Command="^R|2|R|122|1027|31|502|0|3|1|8|1|1|0|0||^"/>
       <NewRegion Description="city state" PrinterRegionId="3" Command="^R|3|R|122|520|31|520|0|3|0|8|1|1|0|0||^"/>
-      <NewRegion Description="ticket type" PrinterRegionId="j" Command="^R|j|R|218|1027|89|1020|0|3|1|3|2|2|0|0||^"/>
+      <NewRegion Description="ticket type" PrinterRegionId="j" Command="^R|j|R|218|1027|89|1020|0|3|1|5|2|2|0|0||^"/>
       <NewRegion Description="dollar amount receipt" PrinterRegionId="N" Command="^R|N|R|450|1027|69|1020|0|3|1|5|2|2|0|0||^"/>
       <NewRegion Description="dollar amount in words" PrinterRegionId="s" Command="^R|s|R|400|1027|24|1020|0|3|1|7|1|1|0|0||^"/>
       <NewRegion Description="dollar amount in words2" PrinterRegionId="P" Command="^R|P|R|303|1027|24|1020|0|3|1|7|1|1|0|0||^"/>
@@ -122,7 +122,7 @@ Please update the confluence page when new elements and attributes are added.
       <NewRegion Description="establishment name" PrinterRegionId="1" Command="^R|1|R|104|1027|65|1020|0|3|1|8|2|2|0|0||^"/>
       <NewRegion Description="location name" PrinterRegionId="2" Command="^R|2|R|122|1027|31|502|0|3|1|8|1|1|0|0||^"/>
       <NewRegion Description="city state" PrinterRegionId="3" Command="^R|3|R|122|520|31|520|0|3|0|8|1|1|0|0||^"/>
-      <NewRegion Description="ticket type" PrinterRegionId="j" Command="^R|j|R|218|1027|89|1020|0|3|1|3|2|2|0|0||^"/>
+      <NewRegion Description="ticket type" PrinterRegionId="j" Command="^R|j|R|218|1027|89|1020|0|3|1|5|2|2|0|0||^"/>
       <NewRegion Description="dollar amount receipt" PrinterRegionId="N" Command="^R|N|R|450|1027|69|1020|0|3|1|5|2|2|0|0||^"/>
       <NewRegion Description="dollar amount in words" PrinterRegionId="s" Command="^R|s|R|400|1027|24|1020|0|3|1|7|1|1|0|0||^"/>
       <NewRegion Description="dollar amount in words2" PrinterRegionId="P" Command="^R|P|R|303|1027|24|1020|0|3|1|7|1|1|0|0||^"/>
@@ -192,6 +192,7 @@ Please update the confluence page when new elements and attributes are added.
     <FontOverrides>
       <FontOverride RegionIds="100 101 102" OriginalFontNumber="8" NewFontNumber="6"/>
       <FontOverride RegionIds="100 101 102 103" OriginalFontNumber="5" NewFontNumber="6"/>
+      <FontOverride RegionIds="106" OriginalFontNumber="3" NewFontNumber="5"/> <!-- ticket title -->
     </FontOverrides>
   </Override>
 
@@ -205,6 +206,7 @@ Please update the confluence page when new elements and attributes are added.
     <FontOverrides>
       <FontOverride RegionIds="100 101 102" OriginalFontNumber="8" NewFontNumber="6"/>
       <FontOverride RegionIds="100 101 102 103" OriginalFontNumber="5" NewFontNumber="6"/>
+      <FontOverride RegionIds="106" OriginalFontNumber="3" NewFontNumber="5"/> <!-- ticket title -->
     </FontOverrides>
   </Override>
 </Overrides>
