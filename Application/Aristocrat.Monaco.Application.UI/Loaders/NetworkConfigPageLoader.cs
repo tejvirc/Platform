@@ -11,7 +11,7 @@
     {
         public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConfigNetworkInfoScreen);
 
-        public override List<CommsProtocol> RequiredProtocols => new List<CommsProtocol> { CommsProtocol.G2S, CommsProtocol.MGAM, CommsProtocol.HHR };
+        public override List<CommsProtocol> RequiredProtocols => new List<CommsProtocol> { CommsProtocol.G2S, CommsProtocol.MGAM, CommsProtocol.HHR, CommsProtocol.Bingo };
 
         public NetworkConfigPageLoader() : this(false) { }
 
