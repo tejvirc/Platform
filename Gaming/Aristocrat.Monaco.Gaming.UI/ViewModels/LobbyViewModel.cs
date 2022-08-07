@@ -2282,10 +2282,9 @@
                     if (currentGame != null)
                     {
                         LaunchGameFromUi(currentGame);
-                        if (MessageOverlayDisplay.HardErrorMessages.Any())
+                        if (_systemDisableManager.IsDisabled)
                         {
                             SendTrigger(LobbyTrigger.Disable);
-
                             HandleMessageOverlayText();
                         }
                     }
