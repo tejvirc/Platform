@@ -8,6 +8,7 @@
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                              xmlns:common="http://monaco.aristocrat.com/common"
                               Background="Transparent" 
                               d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticNetworkPageViewModel}}">
 
@@ -77,7 +78,13 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Column="0" Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingIPAddressText}}"/>
-                    <TextBox Grid.Column="0" Grid.Row="1" Margin="0 5 0 0" MaxWidth="172" Text="{Binding PingIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" InputScope="Number"/>
+                    <common:AlphaNumericTextBox Grid.Column="0" Grid.Row="1" 
+                                                Margin="0 5 0 0"
+                                                MaxWidth="172"
+                                                Text="{Binding PingIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                InputScope="Number"
+                                                IsAlphaNumeric="True"
+                                                SkipRegexCheck="True"/>
                     <Button Grid.Column="0" Grid.Row="2" Margin="0 15 0 0" HorizontalAlignment="Left" Width="100" Content="Ping" Command="{Binding PingCommand}" />
 
                     <Label Grid.Column="1" Grid.Row="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PingResultText}}" Margin="15 0 0 0" />

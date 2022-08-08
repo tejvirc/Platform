@@ -302,34 +302,46 @@
             </helpers:ExpirationTextBox>
 
             <Label Grid.Row="0" Grid.Column="4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PropertyName}}"  Margin="0 0 0 4" />
-            <TextBox Grid.Row="1" Grid.Column="4" Text="{Binding PropertyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="40">
+            <helpers:AlphaNumericTextBox Grid.Row="1" Grid.Column="4" MinWidth="200"
+                                        Text="{Binding PropertyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        MaxLength="40"
+                                        IsAlphaNumeric="True"
+                                        SkipRegexCheck="True">
                 <TextBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                         <Binding Path="InputEnabled"/>
                         <Binding Path="ArePropertyFieldsEnabled"/>
                     </MultiBinding>
                 </TextBox.IsEnabled>
-            </TextBox>
+            </helpers:AlphaNumericTextBox>
 
             <Label Grid.Row="2" Grid.Column="4" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PropertyAddressLine1}}" />
-            <TextBox Grid.Row="3" Grid.Column="4" Text="{Binding PropertyAddress1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="40">
+            <helpers:AlphaNumericTextBox Grid.Row="3" Grid.Column="4" MinWidth="200"
+                                         Text="{Binding PropertyAddress1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         MaxLength="40"
+                                         IsAlphaNumeric="True"
+                                         SkipRegexCheck="True">
                 <TextBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                         <Binding Path="InputEnabled"/>
                         <Binding Path="ArePropertyFieldsEnabled"/>
                     </MultiBinding>
                 </TextBox.IsEnabled>
-            </TextBox>
+            </helpers:AlphaNumericTextBox>
 
             <Label Grid.Row="4" Grid.Column="4" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PropertyAddressLine2}}" />
-            <TextBox Grid.Row="5" Grid.Column="4" Text="{Binding PropertyAddress2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="40">
+            <helpers:AlphaNumericTextBox Grid.Row="5" Grid.Column="4" MinWidth="200"
+                                         Text="{Binding PropertyAddress2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         MaxLength="40"
+                                         IsAlphaNumeric="True"
+                                         SkipRegexCheck="True">
                 <TextBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                         <Binding Path="InputEnabled"/>
                         <Binding Path="ArePropertyFieldsEnabled"/>
                     </MultiBinding>
                 </TextBox.IsEnabled>
-            </TextBox>
+            </helpers:AlphaNumericTextBox>
         </Grid>
     </Grid>
 
