@@ -3,8 +3,6 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Gaming.Contracts;
-    using Aristocrat.Monaco.Gaming.Contracts.Central;
     using Bingo.GameEndWin;
     using Gaming.Contracts.Bonus;
     using Kernel;
@@ -17,9 +15,6 @@
     {
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private readonly Mock<IBonusHandler> _bonusHandler = new(MockBehavior.Default);
-        private readonly Mock<IMessageDisplay> _messages = new(MockBehavior.Default);
-        private readonly Mock<ICentralProvider> _centralProvider = new(MockBehavior.Default);
-        private readonly Mock<IGameHistory> _history = new(MockBehavior.Default);
 
         private GameEndWinBonusCreditsStrategy _target;
 
@@ -70,6 +65,7 @@
             var resultTask = _target.ProcessWin(100, source.Token);
             source.Cancel();
             await resultTask;
+            _eventBus.Verify(x => x.UnsubscribeAll(_target), Times.Once);
         }
 
         [DataRow(1000, false, false, false, false)]
@@ -132,21 +128,16 @@
             }
 
             Assert.AreEqual(expectedResult, await resultTask);
+            _eventBus.Verify(x => x.UnsubscribeAll(_target), Times.Once);
         }
 
         private GameEndWinBonusCreditsStrategy CreateTarget(
             bool nullEventBus = false,
-            bool nullBonusHandler = false,
-            bool nullMessages = false,
-            bool nullCentralProvider = false,
-            bool nullHistory = false)
+            bool nullBonusHandler = false)
         {
             return new GameEndWinBonusCreditsStrategy(
                 nullEventBus ? null : _eventBus.Object,
-                nullBonusHandler ? null : _bonusHandler.Object,
-                nullMessages ? null : _messages.Object,
-                nullCentralProvider ? null : _centralProvider.Object,
-                nullHistory ? null : _history.Object);
+                nullBonusHandler ? null : _bonusHandler.Object);
         }
     }
 }
