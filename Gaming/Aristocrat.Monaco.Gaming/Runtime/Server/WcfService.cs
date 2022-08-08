@@ -167,7 +167,7 @@
             Logger.Debug(
                 $"BeginGameRoundResult({pendingJackpotTriggers.Count}, {gameRoundDetails?.PresentationIndex})");
 
-            if (pendingJackpotTriggers.IsNullOrEmpty())
+            if (!pendingJackpotTriggers.IsNullOrEmpty())
             {
                 var command = new PendingTrigger(pendingJackpotTriggers.Select(l => (int)l).ToList());
                 _handlerFactory.Create<PendingTrigger>().Handle(command);
