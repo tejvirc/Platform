@@ -77,11 +77,8 @@ namespace Aristocrat.Monaco.Hardware.Serial {
         
         private bool usePrinterDefinedTemplatesField;
         
-        private bool supportsROIField;
-        
         public OverridesOverride() {
             this.usePrinterDefinedTemplatesField = false;
-            this.supportsROIField = true;
         }
         
         /// <remarks/>
@@ -178,18 +175,6 @@ namespace Aristocrat.Monaco.Hardware.Serial {
             }
             set {
                 this.usePrinterDefinedTemplatesField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(true)]
-        public bool SupportsROI {
-            get {
-                return this.supportsROIField;
-            }
-            set {
-                this.supportsROIField = value;
             }
         }
     }

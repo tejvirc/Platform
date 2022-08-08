@@ -148,7 +148,6 @@
             <xs:attribute name="Protocol" type="xs:string" use="required" />
             <xs:attribute name="FirmwareBase" type="xs:string" use="required" />
             <xs:attribute name="UsePrinterDefinedTemplates" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="SupportsROI" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>
