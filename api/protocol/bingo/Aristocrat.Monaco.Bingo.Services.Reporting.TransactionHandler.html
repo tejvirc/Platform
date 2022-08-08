@@ -212,7 +212,7 @@ It will resend failed transactions after a short delay.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.AddNewTransactionToQueue(Aristocrat.Monaco.Bingo.Common.TransactionType%2CSystem.Int64%2CSystem.Int64%2CSystem.UInt32%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_UInt32_System_Int32_System_Int64_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.AddNewTransactionToQueue(Aristocrat.Monaco.Bingo.Common.TransactionType%2CSystem.Int64%2CSystem.UInt32%2CSystem.Int32%2CSystem.Int64%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/TransactionHandler.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
@@ -220,15 +220,15 @@ It will resend failed transactions after a short delay.</p>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.AddNewTransactionToQueue*"></a>
   
-  <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.AddNewTransactionToQueue(Aristocrat.Monaco.Bingo.Common.TransactionType,System.Int64,System.Int64,System.UInt32,System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_" class="expander" data-toggle="collapse">AddNewTransactionToQueue(TransactionType, Int64, Int64, UInt32, Int32, Int32)</a></h4>
+  <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_UInt32_System_Int32_System_Int64_System_Int32_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.AddNewTransactionToQueue(Aristocrat.Monaco.Bingo.Common.TransactionType,System.Int64,System.UInt32,System.Int32,System.Int64,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_UInt32_System_Int32_System_Int64_System_Int32_" class="expander" data-toggle="collapse">AddNewTransactionToQueue(TransactionType, Int64, UInt32, Int32, Int64, Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_UInt32_System_Int32_System_Int64_System_Int32_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void AddNewTransactionToQueue(TransactionType transactionType, long amount, long gameSerial = 0L, uint gameTitleId = 0U, int paytableId = 0, int denominationId = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public void AddNewTransactionToQueue(TransactionType transactionType, long amount, uint gameTitleId, int denominationId, long gameSerial = 0L, int paytableId = 0)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -249,13 +249,6 @@ It will resend failed transactions after a short delay.</p>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
-        <span class="parametername">gameSerial</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
         <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
         <span class="parametername">gameTitleId</span>
         <p>
@@ -264,14 +257,21 @@ It will resend failed transactions after a short delay.</p>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
-        <span class="parametername">paytableId</span>
+        <span class="parametername">denominationId</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">gameSerial</span>
         <p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
-        <span class="parametername">denominationId</span>
+        <span class="parametername">paytableId</span>
         <p>
       </td>
     </tr>
@@ -284,7 +284,7 @@ It will resend failed transactions after a short delay.</p>
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Bingo.Services.Reporting.IReportTransactionQueueService.html#Aristocrat_Monaco_Bingo_Services_Reporting_IReportTransactionQueueService_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_">IReportTransactionQueueService.AddNewTransactionToQueue(TransactionType, Int64, Int64, UInt32, Int32, Int32)</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Bingo.Services.Reporting.IReportTransactionQueueService.html#Aristocrat_Monaco_Bingo_Services_Reporting_IReportTransactionQueueService_AddNewTransactionToQueue_Aristocrat_Monaco_Bingo_Common_TransactionType_System_Int64_System_UInt32_System_Int32_System_Int64_System_Int32_">IReportTransactionQueueService.AddNewTransactionToQueue(TransactionType, Int64, UInt32, Int32, Int64, Int32)</a></div>
   
   
   
@@ -296,7 +296,7 @@ It will resend failed transactions after a short delay.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/TransactionHandler.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/TransactionHandler.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_Dispose_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.Dispose*"></a>
@@ -332,7 +332,7 @@ It will resend failed transactions after a short delay.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/TransactionHandler.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/TransactionHandler.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_TransactionHandler_Dispose_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.Dispose*"></a>
