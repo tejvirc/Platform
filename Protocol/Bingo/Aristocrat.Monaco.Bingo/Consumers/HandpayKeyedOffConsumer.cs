@@ -5,6 +5,7 @@
     using Application.Contracts.Extensions;
     using Common;
     using Kernel;
+    using Protocol.Common.Storage.Entity;
     using Services.Reporting;
 
     /// <summary>
@@ -15,18 +16,24 @@
     {
         private readonly IReportTransactionQueueService _bingoTransactionReportHandler;
         private readonly IReportEventQueueService _bingoEventQueue;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IPropertiesManager _propertiesManager;
 
         public HandpayKeyedOffConsumer(
             IEventBus eventBus,
             ISharedConsumer consumerContext,
             IReportTransactionQueueService bingoTransactionReportHandler,
-            IReportEventQueueService bingoEventQueue)
+            IReportEventQueueService bingoEventQueue,
+            IUnitOfWorkFactory unitOfWorkFactory,
+            IPropertiesManager propertiesManager)
             : base(eventBus, consumerContext)
         {
             _bingoTransactionReportHandler =
                 bingoTransactionReportHandler ??
                 throw new ArgumentNullException(nameof(bingoTransactionReportHandler));
             _bingoEventQueue = bingoEventQueue ?? throw new ArgumentNullException(nameof(bingoEventQueue));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
         public override void Consume(HandpayKeyedOffEvent theEvent)
@@ -38,34 +45,41 @@
             }
 
             var amountInCents = transaction.TransactionAmount.MillicentsToCents();
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
 
             switch (transaction.HandpayType)
             {
                 case HandpayType.CancelCredit:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
                         TransactionType.CancelledCredits,
-                        amountInCents);
+                        amountInCents,
+                        (uint)(gameConfiguration?.GameTitleId ?? 0),
+                        (int)(gameConfiguration?.Denomination ?? 0));
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CancelCredits);
                     break;
-
                 case HandpayType.GameWin:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
                         TransactionType.CashOutJackpot,
-                        amountInCents);
+                        amountInCents,
+                        (uint)(gameConfiguration?.GameTitleId ?? 0),
+                        (int)(gameConfiguration?.Denomination ?? 0));
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
                     break;
-
                 case HandpayType.BonusPay:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
                         TransactionType.BonusWin,
-                        amountInCents);
+                        amountInCents,
+                        (uint)(gameConfiguration?.GameTitleId ?? 0),
+                        (int)(gameConfiguration?.Denomination ?? 0));
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.BonusWinAwarded);
                     break;
             }
 
             _bingoTransactionReportHandler.AddNewTransactionToQueue(
                 TransactionType.HandPayKeyOff,
-                amountInCents);
+                amountInCents,
+                (uint)(gameConfiguration?.GameTitleId ?? 0),
+                (int)(gameConfiguration?.Denomination ?? 0));
             _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyOff);
         }
     }

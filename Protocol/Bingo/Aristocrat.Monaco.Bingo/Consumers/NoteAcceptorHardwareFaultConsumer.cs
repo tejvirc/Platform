@@ -7,6 +7,7 @@
     using Common;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
+    using Protocol.Common.Storage.Entity;
     using Services.Reporting;
 
     /// <summary>
@@ -17,6 +18,8 @@
         private readonly IReportEventQueueService _bingoServerEventReportingService;
         private readonly IReportTransactionQueueService _bingoTransactionReportHandler;
         private readonly IMeterManager _meterManager;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IPropertiesManager _propertiesManager;
 
         private static readonly IReadOnlyDictionary<NoteAcceptorFaultTypes, ReportableEvent> BingoErrorMapping =
             new Dictionary<NoteAcceptorFaultTypes, ReportableEvent>
@@ -40,7 +43,9 @@
             ISharedConsumer consumerContext,
             IReportEventQueueService reportingService,
             IReportTransactionQueueService bingoTransactionReportHandler,
-            IMeterManager meterManager)
+            IMeterManager meterManager,
+            IUnitOfWorkFactory unitOfWorkFactory,
+            IPropertiesManager propertiesManager)
             : base(eventBus, consumerContext)
         {
             _bingoServerEventReportingService =
@@ -48,6 +53,8 @@
             _bingoTransactionReportHandler =
                 bingoTransactionReportHandler ?? throw new ArgumentNullException(nameof(bingoTransactionReportHandler));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
         public override void Consume(HardwareFaultEvent theEvent)
@@ -62,13 +69,19 @@
                 : ReportableEvent.BillAcceptorHardwareFailure;
 
             _bingoServerEventReportingService.AddNewEventToQueue(fault);
-
-            if (theEvent.Fault == NoteAcceptorFaultTypes.StackerDisconnected)
+            if (theEvent.Fault != NoteAcceptorFaultTypes.StackerDisconnected)
             {
-                _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.CashDrop);
-                var totalInMeter = _meterManager.GetMeter(ApplicationMeters.TotalIn);
-                _bingoTransactionReportHandler.AddNewTransactionToQueue(TransactionType.Drop, totalInMeter.Period.MillicentsToCents());
+                return;
             }
+
+            _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.CashDrop);
+            var totalInMeter = _meterManager.GetMeter(ApplicationMeters.TotalIn);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            _bingoTransactionReportHandler.AddNewTransactionToQueue(
+                TransactionType.Drop,
+                totalInMeter.Period.MillicentsToCents(),
+                (uint)(gameConfiguration?.GameTitleId ?? 0),
+                (int)(gameConfiguration?.Denomination ?? 0));
         }
     }
 }

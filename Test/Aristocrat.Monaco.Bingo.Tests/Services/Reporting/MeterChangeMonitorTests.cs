@@ -59,7 +59,7 @@
                     }
                 }
             };
-            
+
             _centralProvider.Setup(m => m.Transactions).Returns(transactions);
 
             _target = new MeterChangeMonitor(
@@ -154,7 +154,7 @@
                     0,
                     0))
                 .Verifiable();
-            
+
             _gamesWon.Increment(amount);
             _bingoTransactionReportHandler.Verify();
         }
@@ -209,15 +209,15 @@
             };
 
             _centralProvider.Setup(m => m.Transactions).Returns(transaction);
-            
+
             _bingoTransactionReportHandler.Setup(
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
-                    0,
-                    denominationId))
+                    denominationId,
+                    gameSerial,
+                    0))
                 .Verifiable();
 
             _gamesWon.Increment(amount);
@@ -225,10 +225,10 @@
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
-                    0,
-                    denominationId), Times.Once);
+                    denominationId,
+                    gameSerial,
+                    0), Times.Once);
         }
 
         [TestMethod]
@@ -257,15 +257,15 @@
             };
 
             _centralProvider.Setup(m => m.Transactions).Returns(transaction);
-            
+
             _bingoTransactionReportHandler.Setup(
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
-                    paytableId,
-                    denominationId))
+                    denominationId,
+                    gameSerial,
+                    paytableId))
                 .Verifiable();
 
             _gamesWon.Increment(amount);
@@ -274,10 +274,10 @@
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
-                    paytableId,
-                    denominationId), Times.Once);
+                    denominationId,
+                    gameSerial,
+                    paytableId), Times.Once);
         }
 
         private class TestMeter : IMeter

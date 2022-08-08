@@ -9,13 +9,13 @@
     public class BingoGameConfiguration
     {
         [JsonProperty("GameTitleId")]
-        public string GameTitleId { get; set; }
+        public long GameTitleId { get; set; }
 
         [JsonProperty("ThemeSkinId")]
-        public string ThemeSkinId { get; set; }
+        public long ThemeSkinId { get; set; }
 
         [JsonProperty("PaytableId")]
-        public string PaytableId { get; set; }
+        public long PaytableId { get; set; }
 
         [JsonProperty("Denomination")]
         public long Denomination { get; set; }

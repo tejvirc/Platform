@@ -70,8 +70,8 @@
 
             return new Dictionary<string, string>
             {
-                { GameNameParameter, serverSettings?.GameTitleId ?? game.ThemeName },
-                { PaytableNameParameter, serverSettings?.PaytableId ?? game.PaytableId },
+                { GameNameParameter, serverSettings?.GameTitleId.ToString() ?? game.ThemeName },
+                { PaytableNameParameter, serverSettings?.PaytableId.ToString() ?? game.PaytableId },
                 { BaseUrlParameter, helpUri.ToString() },
                 { MajorUnitSeparatorParameter, numberFormat.CurrencyGroupSeparator },
                 { MinorUnitSeparatorParameter, numberFormat.CurrencyDecimalSeparator },

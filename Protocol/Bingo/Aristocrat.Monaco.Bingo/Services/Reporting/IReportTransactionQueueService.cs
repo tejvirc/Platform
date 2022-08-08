@@ -19,9 +19,9 @@
         void AddNewTransactionToQueue(
             TransactionType transactionType,
             long amount,
+            uint gameTitleId,
+            int denominationId,
             long gameSerial = 0,
-            uint gameTitleId = 0,
-            int paytableId = 0,
-            int denominationId = 0);
+            int paytableId = 0);
     }
 }

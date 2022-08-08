@@ -6,9 +6,11 @@
     using Aristocrat.Monaco.Bingo.Common;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
     using Bingo.Consumers;
+    using Gaming.Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Protocol.Common.Storage.Entity;
 
     [TestClass]
     public class VoucherRedeemedConsumerTests
@@ -19,6 +21,8 @@
         private readonly Mock<ISharedConsumer> _consumerContext = new(MockBehavior.Loose);
         private readonly Mock<IReportTransactionQueueService> _reportingService = new(MockBehavior.Strict);
         private readonly Mock<IReportEventQueueService> _bingoEventQueue = new(MockBehavior.Strict);
+        private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
+        private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -27,21 +31,34 @@
                 _eventBus.Object,
                 _consumerContext.Object,
                 _reportingService.Object,
-                _bingoEventQueue.Object);
+                _bingoEventQueue.Object,
+                _unitOfWorkFactory.Object,
+                _propertiesManager.Object);
+
+            _propertiesManager.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, It.IsAny<bool>())).Returns(false);
         }
 
-        [DataRow(true, false, false, DisplayName = "Transaction Reporting Service Null")]
-        [DataRow(false, true, false, DisplayName = "EventBus Null")]
-        [DataRow(false, false, true, DisplayName = "Event Reporting Service Null")]
+        [DataRow(true, false, false, false, false, DisplayName = "Transaction Reporting Service Null")]
+        [DataRow(false, true, false, false, false, DisplayName = "EventBus Null")]
+        [DataRow(false, false, true, false, false, DisplayName = "Event Reporting Service Null")]
+        [DataRow(false, false, false, true, false, DisplayName = "Unit of Work Factory Null")]
+        [DataRow(false, false, false, false, true, DisplayName = "Properties manager Null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void NullConstructorParametersTest(bool reportingNull, bool eventBusNull, bool queueNull)
+        public void NullConstructorParametersTest(
+            bool reportingNull,
+            bool eventBusNull,
+            bool queueNull,
+            bool nullUnitOfWork,
+            bool nullProperties)
         {
             _target = new VoucherRedeemedConsumer(
                 eventBusNull ? null : _eventBus.Object,
                 _consumerContext.Object,
                 reportingNull ? null : _reportingService.Object,
-                queueNull ? null : _bingoEventQueue.Object);
+                queueNull ? null : _bingoEventQueue.Object,
+                nullUnitOfWork ? null : _unitOfWorkFactory.Object,
+                nullProperties ? null : _propertiesManager.Object);
         }
 
         [TestMethod]
