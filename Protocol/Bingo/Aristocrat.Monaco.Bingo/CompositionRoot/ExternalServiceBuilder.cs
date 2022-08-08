@@ -6,6 +6,7 @@
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
     using Gaming.Contracts.Central;
+    using Gaming.Contracts.Configuration;
     using Gaming.Contracts.Meters;
     using Gaming.Contracts.Payment;
     using Hardware.Contracts.Cabinet;
@@ -41,8 +42,8 @@
             container.RegisterInstance(serviceManager.GetService<IOperatorMenuLauncher>());
             container.RegisterInstance(serviceManager.GetService<IDoorMonitor>());
             container.RegisterInstance(serviceManager.GetService<IGameDiagnostics>());
-
-            // TODO register other external services
+            container.RegisterInstance(serviceManager.GetService<IGameConfigurationProvider>());
+            container.RegisterInstance(serviceManager.GetService<IConfigurationProvider>());
             return container;
         }
     }

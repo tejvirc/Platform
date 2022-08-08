@@ -130,6 +130,12 @@
         public const string BingoHelpUri = "BingoHelpUri";
 
         /// <summary>
+        ///     The default help URI formatted location.
+        ///     This string requires two parameters the game title ID and paytable ID
+        /// </summary>
+        public const string DefaultBingoHelpUriFormat = "/gamehelp/{0}/{1}";
+
+        /// <summary>
         ///     Used to get the bingo server version.
         /// </summary>
         public const string BingoServerVersion = "BingoServer.Version";
@@ -146,12 +152,12 @@
         ///     The Uri to use when starting the Bingo Overlay Server
         /// </summary>
         public const string BingoOverlayServerUri = "http://127.0.0.1:29576";
-        
+
         /// <summary>
         ///     The default free space character
         /// </summary>
         public const string DefaultFreeSpaceCharacter = "*";
-        
+
         /// <summary>
         ///     The default overlay css path
         /// </summary>
@@ -166,7 +172,7 @@
         ///     The default initial overlay scene
         /// </summary>
         public const string DefaultInitialOverlayScene = "Normal";
-        
+
         /// <summary>
         ///     The default time to cycle patterns
         /// </summary>

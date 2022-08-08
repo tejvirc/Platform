@@ -1,23 +1,34 @@
-﻿namespace Aristocrat.Monaco.Bingo.Services.Configuration
+namespace Aristocrat.Monaco.Bingo.Services.Configuration
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Common;
     using Common.Storage.Model;
     using Gaming.Contracts;
+    using Gaming.Contracts.Configuration;
     using Kernel;
+    using Newtonsoft.Json;
     using Quartz.Util;
 
     public class MachineAndGameConfiguration : BaseConfiguration
     {
         private const int InvalidResult = -1;
 
+        private readonly IGameProvider _gameProvider;
+        private readonly IConfigurationProvider _restrictionProvider;
+
         public MachineAndGameConfiguration(
             IPropertiesManager propertiesManager,
-            ISystemDisableManager systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            IGameProvider gameProvider,
+            IConfigurationProvider restrictionProvider)
             : base(propertiesManager, systemDisableManager)
         {
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
+            _restrictionProvider = restrictionProvider ?? throw new ArgumentNullException(nameof(restrictionProvider));
             ConfigurationConversion =
                 new Dictionary<string, (string, Func<string, object>)>
                 {
@@ -28,14 +39,13 @@
                     { MachineAndGameConfigurationConstants.LocationPosition, (ApplicationConstants.Position, null)},
                     { MachineAndGameConfigurationConstants.BingoCardPlacement, (BingoConstants.BingoCardPlacement, null)},
                     { MachineAndGameConfigurationConstants.DispBingoCard, (BingoConstants.DisplayBingoCardEgm, null)},
-                    { MachineAndGameConfigurationConstants.QuickStopMode, (GamingConstants.ReelStopEnabled, val => StringToBool(val))},
                     { MachineAndGameConfigurationConstants.BingoHelpUri, (BingoConstants.BingoHelpUri, null)}
                 };
 
             RequiredSettings =
                 new HashSet<string>
                 {
-                    MachineAndGameConfigurationConstants.GameTitleId
+                    MachineAndGameConfigurationConstants.GamesConfigured
                 };
         }
 
@@ -46,29 +56,11 @@
                 case MachineAndGameConfigurationConstants.LocationZoneId:
                     model.ZoneId = value;
                     break;
-                case MachineAndGameConfigurationConstants.GameTitleId:
-                    model.GameTitles = value;
-                    break;
-                case MachineAndGameConfigurationConstants.BonusGame:
-                    model.BonusGames = value;
-                    break;
-                case MachineAndGameConfigurationConstants.EvaluationTypePaytable:
-                    model.EvaluationTypePaytable = (PaytableEvaluation)Enum.Parse(typeof(PaytableEvaluation), value);
-                    break;
-                case MachineAndGameConfigurationConstants.ThemeSkin:
-                    model.ThemeSkins = value;
-                    break;
-                case MachineAndGameConfigurationConstants.PaytableId:
-                    model.PaytableIds = value;
-                    break;
                 case MachineAndGameConfigurationConstants.LocationBank:
                     model.BankId = value;
                     break;
                 case MachineAndGameConfigurationConstants.LocationPosition:
                     model.Position = value;
-                    break;
-                case MachineAndGameConfigurationConstants.QuickStopMode:
-                    model.QuickStopMode = StringToBool(value);
                     break;
                 case MachineAndGameConfigurationConstants.BingoCardPlacement:
                     model.BingoCardPlacement = value;
@@ -81,9 +73,41 @@
                     break;
                 case MachineAndGameConfigurationConstants.BingoHelpUri:
                     break;
+                case MachineAndGameConfigurationConstants.GamesConfigured when string.IsNullOrEmpty(model.ServerGameConfiguration):
+                    model.ServerGameConfiguration = value;
+                    var configured = JsonConvert.DeserializeObject<List<ServerGameConfiguration>>(value);
+                    var results = ConfigureGames(configured).ToList();
+                    model.GamesConfigurationText = JsonConvert.SerializeObject(results);
+                    break;
+                case MachineAndGameConfigurationConstants.GamesConfigured:
+                    // Do nothing we already setup the games
+                    break;
                 default:
                     LogUnhandledSetting(name, value);
                     break;
+            }
+        }
+
+        private IEnumerable<BingoGameConfiguration> ConfigureGames(IEnumerable<ServerGameConfiguration> configured)
+        {
+            var gameDetails = _gameProvider.GetGames();
+            var gameConfigurations = configured.Select(
+                    c => (
+                        GameDetails: gameDetails.First(
+                            d => d.CdsThemeId == c.GameTitleId && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
+                        Settings: c))
+                .GroupBy(x => (x.GameDetails.Id, x.GameDetails.ThemeId));
+
+            foreach (var gameConfiguration in gameConfigurations)
+            {
+                _gameProvider.SetActiveDenominations(
+                    gameConfiguration.Key.Id,
+                    gameConfiguration.Select(x => x.Settings.Denomination.CentsToMillicents()).ToList());
+
+                foreach (var (gameDetail, setting) in gameConfiguration)
+                {
+                    yield return setting.ToGameConfiguration(gameDetail);
+                }
             }
         }
 
@@ -91,6 +115,7 @@
         {
             return name switch
             {
+                MachineAndGameConfigurationConstants.GamesConfigured => !ValidGamesConfiguration(value),
                 // must be > 0
                 MachineAndGameConfigurationConstants.MachineSerial => (long.TryParse(value, out var result) ? result : InvalidResult) <= 0,
                 // must be >= 0
@@ -99,18 +124,6 @@
                 MachineAndGameConfigurationConstants.MachineTypeId => (int.TryParse(value, out var result2) ? result2 : InvalidResult) < 0,
                 // must be >= 0
                 MachineAndGameConfigurationConstants.CreditsManager => (int.TryParse(value, out var result3) ? result3 : InvalidResult) < 0,
-                // must be >= 1
-                MachineAndGameConfigurationConstants.NumGamesConfigured => (int.TryParse(value, out var result4) ? result4 : InvalidResult) < 1,
-                // must be >= 0
-                MachineAndGameConfigurationConstants.GameTitleId => (int.TryParse(value, out var result5) ? result5 : InvalidResult) < 0,
-                // must be >= 0
-                MachineAndGameConfigurationConstants.ThemeSkin => (int.TryParse(value, out var result6) ? result6 : InvalidResult) < 0,
-                // must be >= 0
-                MachineAndGameConfigurationConstants.PaytableId => (int.TryParse(value, out var result7) ? result7 : InvalidResult) < 0,
-                // must be >= 0
-                MachineAndGameConfigurationConstants.DenominationId => (int.TryParse(value, out var result8) ? result8 : InvalidResult) < 0,
-                // must be valid bool
-                MachineAndGameConfigurationConstants.QuickStopMode => !IsBooleanValue(value),
                 // valid values are "EGM Setting" or "Top Screen"
                 MachineAndGameConfigurationConstants.BingoCardPlacement => ValidateBingoCardPlacement(value),
                 // valid values are "Use Global Settings" or any bool
@@ -118,10 +131,6 @@
                     !(UsingGlobalSetting(value) || IsBooleanValue(value)),
                 MachineAndGameConfigurationConstants.HideBingoCardWhenInactive =>
                     !(UsingGlobalSetting(value) || IsBooleanValue(value)),
-                // must be valid PaytableEvaluation enum value
-                MachineAndGameConfigurationConstants.EvaluationTypePaytable =>
-                    !Enum.TryParse<PaytableEvaluation>(value, out var paytableEvaluation) ||
-                    paytableEvaluation is <= PaytableEvaluation.Unknown or >= PaytableEvaluation.MaxPaytableMethod,
                 MachineAndGameConfigurationConstants.BingoHelpUri =>
                     value.IsNullOrWhiteSpace() || !Uri.IsWellFormedUriString(value, UriKind.RelativeOrAbsolute),
                 _ => false,
@@ -132,13 +141,9 @@
         {
             return name switch
             {
-                MachineAndGameConfigurationConstants.GameTitleId => SettingChanged(model.GameTitles, value),
-                MachineAndGameConfigurationConstants.BonusGame => SettingChanged(model.BonusGames, value),
-                MachineAndGameConfigurationConstants.ThemeSkin => SettingChanged(model.ThemeSkins, value),
-                MachineAndGameConfigurationConstants.QuickStopMode => SettingChanged(model.QuickStopMode, StringToBool(value)),
-                MachineAndGameConfigurationConstants.PaytableId => SettingChanged(model.PaytableIds, value),
-                MachineAndGameConfigurationConstants.EvaluationTypePaytable => SettingChanged(model.EvaluationTypePaytable,
-                    (PaytableEvaluation)Enum.Parse(typeof(PaytableEvaluation), value)),
+                MachineAndGameConfigurationConstants.GamesConfigured =>
+                    !string.IsNullOrEmpty(model.ServerGameConfiguration) &&
+                    !string.Equals(value, model.ServerGameConfiguration, StringComparison.InvariantCultureIgnoreCase),
                 _ => false
             };
         }
@@ -155,6 +160,46 @@
         {
             return !string.Equals(value, MachineAndGameConfigurationConstants.EgmSetting, StringComparison.Ordinal) &&
                    !string.Equals(value, MachineAndGameConfigurationConstants.TopScreen, StringComparison.Ordinal);
+        }
+
+        private bool ValidGamesConfiguration(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return false;
+            }
+
+            try
+            {
+                var result = JsonConvert.DeserializeObject<List<ServerGameConfiguration>>(value);
+                var gameDetails = _gameProvider.GetGames();
+
+                var gameConfigurations = result.Select(
+                        c => (
+                            GameDetails: gameDetails.FirstOrDefault(
+                                d => d.CdsThemeId == c.GameTitleId && d.SupportedDenominations.Contains(c.Denomination.CentsToMillicents())),
+                            Settings: c))
+                    .GroupBy(x => x.GameDetails?.Id ?? -1);
+                return result.Any() &&
+                       gameConfigurations.All(x => x.Key != -1 && IsConfigurationValid(x.ToList()));
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private bool IsConfigurationValid(
+            IReadOnlyCollection<(IGameDetail GameDetails, ServerGameConfiguration Settings)> configurations)
+        {
+            var gameDetail = configurations.First().GameDetails;
+            var denoms = configurations.Select(c => c.Settings).ToList();
+            var restrictions = _restrictionProvider.GetByThemeId(gameDetail.ThemeId).Select(x => x.RestrictionDetails).Where(
+                x => x.MaxDenomsEnabled is not null || x.Mapping.Any(m => m.Active)).ToList();
+            return restrictions.Count == 0 || restrictions.Any(
+                x => x.MaxDenomsEnabled is not null && x.MaxDenomsEnabled >= denoms.Count ||
+                     x.Mapping.Count(m => m.Active) == denoms.Count && x.Mapping.All(
+                         m => m.Active && denoms.Any(d => d.Denomination.CentsToMillicents() == m.Denomination)));
         }
     }
 }
