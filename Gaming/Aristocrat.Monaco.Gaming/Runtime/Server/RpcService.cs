@@ -344,17 +344,14 @@
                                 request.Stake,
                                 request.Data.ToByteArray()));
                 }
-                else if (request.PlayMode == GameRoundPlayMode.ModeReplay && request.Type == GameRoundEventType.Present)
+                else if (request.PlayMode == GameRoundPlayMode.ModeReplay)
                 {
-                    switch (request.Stage)
-                    {
-                        case GameRoundEventStage.Invoked:
-                            _bus.Publish(new GameReplayCompletedEvent());
-                            break;
-                        case GameRoundEventStage.Pending:
-                            _bus.Publish(new GameReplayPresentationStartedEvent());
-                            break;
-                    }
+                    _handlerFactory.Create<ReplayGameRoundEvent>()
+                        .Handle(
+                            new ReplayGameRoundEvent(
+                                (GameRoundEventState)request.Type,
+                                (GameRoundEventAction)request.Stage,
+                                request.GameRoundInfo));
                 }
             }
             catch (Exception e)
