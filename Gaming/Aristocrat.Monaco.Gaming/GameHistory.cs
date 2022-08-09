@@ -13,6 +13,7 @@
     using Aristocrat.Monaco.Accounting.Contracts.Wat;
     using Contracts;
     using Contracts.Central;
+    using Contracts.Configuration;
     using Contracts.Models;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
@@ -39,6 +40,7 @@
         private readonly ILoggedEventContainer _loggedEventContainer;
         private readonly ITransactionHistory _transactionHistory;
         private readonly IGameRoundMeterSnapshotProvider _meterSnapshotProvider;
+        private readonly IGameConfigurationProvider _gameConfigurationProvider;
         private GameHistoryLog _currentLog;
         private readonly bool _keepGameRoundMeterSnapshots;
 
@@ -56,6 +58,7 @@
         /// <param name="loggedEventContainer">The logged events</param>
         /// <param name="transactionHistory">An <see cref="ITransactionHistory"/> instance</param>
         /// <param name="meterSnapshotProvider">An <see cref="IGameRoundMeterSnapshotProvider"/> instance</param>
+        /// <param name="gameConfigurationProvider">An <see cref="IGameConfigurationProvider"/> instance</param>
         public GameHistory(
             IPropertiesManager properties,
             IBank bank,
@@ -66,7 +69,8 @@
             IPersistenceProvider persistenceProvider,
             ILoggedEventContainer loggedEventContainer,
             ITransactionHistory transactionHistory,
-            IGameRoundMeterSnapshotProvider meterSnapshotProvider)
+            IGameRoundMeterSnapshotProvider meterSnapshotProvider,
+            IGameConfigurationProvider gameConfigurationProvider)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
@@ -76,7 +80,8 @@
             _persistentBlock = provider.GetOrCreateBlock(GameHistoryKey, PersistenceLevel.Critical);
             _loggedEventContainer = loggedEventContainer ?? throw new ArgumentNullException(nameof(loggedEventContainer));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
-            _meterSnapshotProvider = meterSnapshotProvider;
+            _meterSnapshotProvider = meterSnapshotProvider ?? throw new ArgumentNullException(nameof(meterSnapshotProvider));
+            _gameConfigurationProvider = gameConfigurationProvider ?? throw new ArgumentNullException(nameof(gameConfigurationProvider));
             _keepGameRoundMeterSnapshots = properties.GetValue(GamingConstants.KeepGameRoundMeterSnapshots, true);
 
             if (systemDisable == null)
@@ -229,7 +234,7 @@
             AddMeterSnapshot();
 
             Logger.Debug(
-                $"[Game Start {CurrentLogIndex}] Game Id {_currentLog.GameId} Denom Id {_currentLog.DenomId} Start Credits {_currentLog.StartCredits} Wager {initialWager} Start {_currentLog.StartDateTime}");
+                $"[Game Start {CurrentLogIndex}] Game Id {_currentLog!.GameId} Denom Id {_currentLog.DenomId} Start Credits {_currentLog.StartCredits} Wager {initialWager} Start {_currentLog.StartDateTime}");
         }
 
         public void AdditionalWager(long amount)
@@ -886,7 +891,9 @@
             log.LastCommitIndex = -1;
             log.FreeGameIndex = 0;
             log.LocaleCode = _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us");
-            log.GameConfiguration = _properties.GetValue(GamingConstants.GameConfiguration, string.Empty);
+            log.GameConfiguration = _gameConfigurationProvider.GetActive(game.ThemeId) is not null
+                ? _properties.GetValue(GamingConstants.GameConfiguration, string.Empty)
+                : string.Empty;
             var transactions = newLogSequence
                 ? _currencyHandler.Transactions
                 : _currentLog.Transactions.Concat(_currencyHandler.Transactions);
