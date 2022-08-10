@@ -54,7 +54,7 @@
                         TransactionType.CancelledCredits,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CancelCredits);
                     break;
                 case HandpayType.GameWin:
@@ -62,7 +62,7 @@
                         TransactionType.CashOutJackpot,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
                     break;
                 case HandpayType.BonusPay:
@@ -70,7 +70,7 @@
                         TransactionType.BonusWin,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.BonusWinAwarded);
                     break;
             }
@@ -79,7 +79,7 @@
                 TransactionType.HandPayKeyOff,
                 amountInCents,
                 (uint)(gameConfiguration?.GameTitleId ?? 0),
-                (int)(gameConfiguration?.Denomination ?? 0));
+                (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             _bingoEventQueue.AddNewEventToQueue(ReportableEvent.HandpayKeyOff);
         }
     }

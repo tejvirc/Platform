@@ -63,7 +63,7 @@
                 transactionType,
                 amountInCents,
                 (uint)(gameConfiguration?.GameTitleId ?? 0),
-                (int)(gameConfiguration?.Denomination ?? 0));
+                (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             _bingoEventQueue.AddNewEventToQueue(ReportableEvent.TicketIn);
         }
     }

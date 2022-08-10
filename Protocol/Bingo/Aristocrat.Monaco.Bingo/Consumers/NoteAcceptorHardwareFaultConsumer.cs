@@ -81,7 +81,7 @@
                 TransactionType.Drop,
                 totalInMeter.Period.MillicentsToCents(),
                 (uint)(gameConfiguration?.GameTitleId ?? 0),
-                (int)(gameConfiguration?.Denomination ?? 0));
+                (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
         }
     }
 }

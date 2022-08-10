@@ -68,7 +68,7 @@
                     TransactionType.TransferOut,
                     transaction.TransferredCashableAmount.MillicentsToCents(),
                     (uint)(gameConfiguration?.GameTitleId ?? 0),
-                    (int)(gameConfiguration?.Denomination ?? 0));
+                    (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             }
 
             if (transaction.TransferredPromoAmount != 0)
@@ -77,7 +77,7 @@
                     TransactionType.CashPromoTransferOut,
                     transaction.TransferredPromoAmount.MillicentsToCents(),
                     (uint)(gameConfiguration?.GameTitleId ?? 0),
-                    (int)(gameConfiguration?.Denomination ?? 0));
+                    (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             }
 
             if (transaction.TransferredNonCashAmount != 0)
@@ -86,7 +86,7 @@
                     TransactionType.NonTransferablePromoTransferOut,
                     transaction.TransferredNonCashAmount.MillicentsToCents(),
                     (uint)(gameConfiguration?.GameTitleId ?? 0),
-                    (int)(gameConfiguration?.Denomination ?? 0));
+                    (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             }
         }
     }
