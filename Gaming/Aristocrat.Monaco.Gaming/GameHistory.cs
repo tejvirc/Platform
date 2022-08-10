@@ -43,6 +43,7 @@
         private readonly IGameConfigurationProvider _gameConfigurationProvider;
         private GameHistoryLog _currentLog;
         private readonly bool _keepGameRoundMeterSnapshots;
+        private readonly object _logsLock = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistory" /> class.
@@ -122,7 +123,16 @@
         public IGameHistoryLog CurrentLog => _currentLog;
 
         /// <inheritdoc />
-        public int TotalEntries => _logs.Count;
+        public int TotalEntries
+        {
+            get
+            {
+                lock (_logsLock)
+                {
+                    return _logs.Count;
+                }
+            }
+        }
 
         /// <inheritdoc />
         public int MaxEntries { get; }
@@ -536,7 +546,11 @@
         /// <inheritdoc />
         public bool LoadReplay(int replayIndex, out byte[] data)
         {
-            data = _logs.ElementAtOrDefault(replayIndex)?.RecoveryBlob;
+            lock (_logsLock)
+            {
+                data = _logs.ElementAtOrDefault(replayIndex)?.RecoveryBlob;
+            }
+
             return data != null;
         }
 
@@ -568,7 +582,12 @@
                     _currencyHandler.Reset();
                     lastFreeGame.AmountOut =
                         finalList.Where(t => t.GameIndex == log.FreeGameIndex).Sum(t => t.Amount);
-                    var index = _logs.IndexOf(_currentLog);
+                    int index;
+                    lock (_logsLock)
+                    {
+                        index = _logs.IndexOf(_currentLog);
+                    }
+
                     persistentTransaction.SetValue(index, log);
                     persistentTransaction.Commit();
 
@@ -581,7 +600,12 @@
                 log.Transactions = finalList;
                 _currencyHandler.Reset();
                 log.AmountOut = finalList.Where(t => t.GameIndex == 0).Sum(t => t.Amount);
-                var index = _logs.IndexOf(_currentLog);
+                int index;
+                lock (_logsLock)
+                {
+                    index = _logs.IndexOf(_currentLog);
+                }
+
                 persistentTransaction.SetValue(index, log);
                 persistentTransaction.Commit();
             }
@@ -636,13 +660,19 @@
         /// <inheritdoc />
         public IGameHistoryLog GetByIndex(int index)
         {
-            return _logs.ElementAtOrDefault(index == -1 ? MaxEntries : index);
+            lock (_logsLock)
+            {
+                return _logs.ElementAtOrDefault(index == -1 ? MaxEntries : index);
+            }
         }
 
         /// <inheritdoc />
         public IEnumerable<IGameHistoryLog> GetGameHistory()
         {
-            return _logs;
+            lock (_logsLock)
+            {
+                return _logs.ToArray();
+            }
         }
 
         /// <inheritdoc />
@@ -804,14 +834,21 @@
 
         private void Persist(GameHistoryLog log)
         {
-            var index = _logs.IndexOf(_currentLog);
+            int index;
+            lock (_logsLock)
+            {
+                index = _logs.IndexOf(_currentLog);
+            }
 
             _persistentBlock.SetValue(index > -1 ? index : CurrentLogIndex, log);
         }
 
         private void LoadGameHistory()
         {
-            _logs.Clear();
+            lock (_logsLock)
+            {
+                _logs.Clear();
+            }
 
             for (var index = 0; index < MaxEntries; ++index)
             {
@@ -819,7 +856,10 @@
                 if (exists)
                 {
                     result.StorageIndex = index;
-                    _logs.Insert(index, result);
+                    lock (_logsLock)
+                    {
+                        _logs.Insert(index, result);
+                    }
                 }
                 else
                 {
@@ -827,9 +867,11 @@
                 }
             }
 
-            _currentLog = _logs.Any() ? _logs.OrderByDescending(e => e.TransactionId).FirstOrDefault() : null;
-
-            CurrentLogIndex = _currentLog is null ? 0 : _logs.IndexOf(_currentLog);
+            lock (_logsLock)
+            {
+                _currentLog = _logs.Any() ? _logs.OrderByDescending(e => e.TransactionId).FirstOrDefault() : null;
+                CurrentLogIndex = _currentLog is null ? 0 : _logs.IndexOf(_currentLog);
+            }
 
             var keepFailedGames = _properties.GetValue(GamingConstants.KeepFailedGameOutcomes, true);
             if (_currentLog?.PlayState == PlayState.Idle &&
@@ -909,7 +951,11 @@
             log.Outcomes = Enumerable.Empty<Outcome>();
             log.MeterSnapshots = new List<GameRoundMeterSnapshot>();
 
-            var firstGamePlay = !_logs.Any();
+            bool firstGamePlay;
+            lock (_logsLock)
+            {
+                firstGamePlay = !_logs.Any();
+            }
 
             using (var transaction = _persistentBlock.Transaction())
             {
@@ -919,13 +965,16 @@
 
                 transaction.Commit();
 
-                if (CurrentLogIndex >= _logs.Count)
+                lock (_logsLock)
                 {
-                    _logs.Insert(CurrentLogIndex, log);
-                }
-                else
-                {
-                    _logs[CurrentLogIndex] = log;
+                    if (CurrentLogIndex >= _logs.Count)
+                    {
+                        _logs.Insert(CurrentLogIndex, log);
+                    }
+                    else
+                    {
+                        _logs[CurrentLogIndex] = log;
+                    }
                 }
 
                 _currentLog = log;
@@ -968,7 +1017,12 @@
             }
 
             var tranInfoList = new List<TransactionInfo>();
-            var lastPlayTranId = CurrentLogIndex > 0 ? _logs[CurrentLogIndex - 1].TransactionId : 0;
+            long lastPlayTranId;
+            lock (_logsLock)
+            {
+                lastPlayTranId = CurrentLogIndex > 0 ? _logs[CurrentLogIndex - 1].TransactionId : 0;
+            }
+
             trans = trans.Where(t => t.TransactionId > lastPlayTranId)
                 .OrderByDescending(t => t.TransactionId);
             foreach (var tran in trans)

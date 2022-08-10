@@ -228,7 +228,8 @@
         {
             if (transaction.MessageDuration == TimeSpan.MaxValue)
             {
-                _bus.Subscribe<PrimaryGameStartedEvent>(this, _ => HandleStateChange(this, transaction));
+                _bus.Subscribe<CashOutStartedEvent>(this, _ => HandleStateChange(this, transaction));
+                _bus.Subscribe<GamePlayInitiatedEvent>(this, _ => HandleStateChange(this, transaction));
             }
 
             DisplayMessage(transaction);
