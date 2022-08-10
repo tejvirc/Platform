@@ -56,12 +56,4 @@ Please update the confluence page when new elements and attributes are added.
       <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="0" Regions="0 121 123 106 0 0 0 1 2 128 3 129 118 0 125 0" />
     </PrinterTemplateMappings>
   </Override>
-
-  <Override Protocol="Nanoptix TCL" FirmwareBase="*" >
-    <AuditTickets PlatformTemplateIds="101 105" />
-    <FontOverrides>
-      <FontOverride RegionIds="100 101 102" OriginalFontNumber="8" NewFontNumber="6"/>
-      <FontOverride RegionIds="100 101 102 103" OriginalFontNumber="5" NewFontNumber="6"/>
-    </FontOverrides>
-  </Override>
 </Overrides>

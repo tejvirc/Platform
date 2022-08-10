@@ -122,26 +122,11 @@ Please update the confluence page when new elements and attributes are added.
     </PrinterTemplateMappings>
   </Override>
 
-  <Override Protocol="Nanoptix TCL" FirmwareBase="NGP-">
-    <AuditTickets PlatformTemplateIds="101 105"/>
-    <FontOverrides>
-      <FontOverride RegionIds="100 101 102" OriginalFontNumber="8" NewFontNumber="6"/>
-      <FontOverride RegionIds="100 101 102 103" OriginalFontNumber="5" NewFontNumber="6"/>
-      <FontOverride RegionIds="106" OriginalFontNumber="3" NewFontNumber="5"/> <!-- ticket title -->
-    </FontOverrides>
-  </Override>
-
   <Override Protocol="Nanoptix TCL" FirmwareBase="PAY-6.10D">
-    <AuditTickets PlatformTemplateIds="101 105"/>
     <Replacements>
       <GlobalRegionTextReplace>
         <GlobalReplace Replace="\n" With="\n\n" OnlyFirstOccurrencePerLine="true"/>
       </GlobalRegionTextReplace>
     </Replacements>
-    <FontOverrides>
-      <FontOverride RegionIds="100 101 102" OriginalFontNumber="8" NewFontNumber="6"/>
-      <FontOverride RegionIds="100 101 102 103" OriginalFontNumber="5" NewFontNumber="6"/>
-      <FontOverride RegionIds="106" OriginalFontNumber="3" NewFontNumber="5"/> <!-- ticket title -->
-    </FontOverrides>
   </Override>
 </Overrides>

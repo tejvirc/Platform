@@ -390,19 +390,18 @@
         {
             if (mappings is null || mappings.FontOverrides is null)
             {
-                return originalFontNumber;
+                return string.Empty;
             }
 
             foreach (var f in mappings.FontOverrides)
             {
                 if (f.RegionIds.Contains(region) && f.OriginalFontNumber == originalFontNumber)
                 {
-                    Logger.Debug($"changing font {f.OriginalFontNumber} to {f.NewFontNumber}");
                     return f.NewFontNumber;
                 }
             }
 
-            return originalFontNumber;
+            return string.Empty;
         }
 
         private static string GetRegionPrintData(
