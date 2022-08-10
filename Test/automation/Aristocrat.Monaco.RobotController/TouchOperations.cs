@@ -6,7 +6,7 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
 
-    internal class TouchOperations : IRobotOperations
+    internal sealed class TouchOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
@@ -25,21 +25,35 @@
             _robotController = robotController;
         }
 
-        ~TouchOperations() => Dispose(false);
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (_actionTouchTimer != null)
+            {
+                _actionTouchTimer.Dispose();
+                _actionTouchTimer = null;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
+
         }
 
         public void Reset()
         {
-            _disposed = true;
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(ServiceRequestOperations));
+            }
+
             _logger.Info("TouchOperations Has Been Initiated!", GetType().Name);
             _actionTouchTimer = new Timer(
                                 (sender) =>
@@ -53,28 +67,14 @@
 
         public void Halt()
         {
-            _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
-            _actionTouchTimer?.Dispose();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
             if (_disposed)
             {
-                return;
+                throw new ObjectDisposedException(nameof(ServiceRequestOperations));
             }
 
-            if (disposing)
-            {
-                if (_actionTouchTimer is not null)
-                {
-                    _actionTouchTimer.Dispose();
-                }
-                _actionTouchTimer = null;
-                _eventBus.UnsubscribeAll(this);
-            }
-            _disposed = true;
+            _logger.Info("Halt Request is Received!", GetType().Name);
+            _eventBus.UnsubscribeAll(this);
+            _actionTouchTimer?.Halt();
         }
 
         private void TouchRequest()

@@ -15,6 +15,7 @@
     using Contracts;
     using Kernel;
     using SimpleInjector;
+    using SimpleInjector.Diagnostics;
 
     public sealed class RobotController : BaseRunnable, IRobotController
     {
@@ -26,7 +27,7 @@
         private IReelController _reelController;
         private StateChecker _stateChecker;
         private RobotLogger _logger;
-        private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
+        private HashSet<IRobotOperations> _modeOperations;
         private Dictionary<string, IList<Action>> _executionActions;
         private Dictionary<string, IList<Action>> _warmUpActions;
         private Automation _automator;
@@ -35,6 +36,7 @@
         private long _idleDuration;
         private string _configPath;
         private bool _enabled;
+        private bool _disposed;
 
         public ThreadSafeHashSet<RobotStateAndOperations> InProgressRequests
         {
@@ -55,6 +57,11 @@
             get => _enabled;
             set
             {
+                if (_disposed)
+                {
+                    throw new ObjectDisposedException(nameof(RobotController));
+                }
+
                 if (_enabled != value)
                 {
                     _enabled = value;
@@ -89,57 +96,61 @@
         protected override void OnInitialize()
         {
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            WaitForServices();
-            SubscribeToRobotEnabler();
+            WaitForServices().ContinueWith(_ => SubscribeToRobotEnabler());
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (Disposed)
+            if (_disposed)
             {
                 return;
             }
+
             base.Dispose(disposing);
+
             if (disposing)
             {
                 if (_sanityChecker is not null)
                 {
                     _sanityChecker.Dispose();
                 }
+
                 _propertiesManager = null;
                 _gameProvider = null;
                 _stateChecker = null;
                 _logger = null;
+
                 if (_modeOperations is not null)
                 {
-                    foreach (var operations in _modeOperations)
+                    foreach (var operation in _modeOperations)
                     {
-                        foreach (var opertaion in operations.Value)
-                        {
-                            opertaion.Dispose();
-                        }
+                        operation.Dispose();
                     }
                     _modeOperations.Clear();
                 }
-                if (_executionActions is not null)
+
+                if (_executionActions != null)
                 {
                     _executionActions.Clear();
                 }
-                if (_warmUpActions is not null)
+
+                if (_warmUpActions != null)
                 {
-                    _warmUpActions.Clear();
+                    _warmUpActions?.Clear();
                 }
+
                 _automator = null;
                 _eventBus = null;
                 _reelController = null;
-                if (_container is not null)
+
+                if (_container != null)
                 {
                     _container.Dispose();
+                    _container = null;
                 }
-                _container = null;
-            }
-            Disposed = true;
 
+                _disposed = true;
+            }
         }
 
         protected override void OnRun()
@@ -170,7 +181,7 @@
 
         private void ActivateRobotOperations()
         {
-            foreach (var op in _modeOperations[Config.ActiveType.ToString()])
+            foreach (var op in _modeOperations)
             {
                 op.Reset();
                 op.Execute();
@@ -194,7 +205,7 @@
         {
             _logger.Info($"RefreshRobotConfiguration Is Initiated", GetType().Name);
             Config = RobotControllerHelper.LoadConfiguration(_configPath);
-            _modeOperations = RobotControllerHelper.InitializeModeDictionary(_container);
+            _modeOperations = RobotControllerHelper.GetRobotOperationsForMode(_container, Config.ActiveType.ToString());
 
             _warmUpActions = new Dictionary<string, IList<Action>>()
             {
@@ -295,6 +306,7 @@
         private void SetupClassProperties()
         {
             _configPath = Path.Combine(_container.GetInstance<IPathMapper>().GetDirectory(HardwareConstants.DataPath).FullName, Constants.ConfigurationFileName);
+
             _gameProvider = _container.GetInstance<IGameProvider>();
             _stateChecker = _container.GetInstance<StateChecker>();
             _propertiesManager = _container.GetInstance<IPropertiesManager>();
@@ -332,9 +344,10 @@
             _automator.SetOverlayText(reason, false, _overlayTextGuid, InfoLocation.TopLeft);
             _sanityChecker.Stop();
 
-            foreach (var op in _modeOperations[Config.ActiveType.ToString()])
+            foreach (var op in _modeOperations)
             {
                 op.Halt();
+                op.Dispose();
             }
 
             InProgressRequests.Clear();
@@ -343,7 +356,7 @@
             _warmUpActions.Clear();
         }
 
-        private void CheckSanity(Object source, System.Timers.ElapsedEventArgs e)
+        private void CheckSanity(object source, System.Timers.ElapsedEventArgs e)
         {
             try
             {
@@ -398,9 +411,9 @@
             });
         }
 
-        private void WaitForServices()
+        private Task WaitForServices()
         {
-            Task.Run(() =>
+            return Task.Run(() =>
             {
                 using var serviceWaiter = new ServiceWaiter(_eventBus);
 
@@ -442,10 +455,11 @@
             _logger.Info($"InProgressRequests : {req}", GetType().Name);
         }
 
-        private Container InitializeContainer()
+        private static Container InitializeContainer()
         {
             var serviceManager = ServiceManager.GetInstance();
             var container = new Container();
+
             container.RegisterInstance(serviceManager.GetService<IEventBus>());
             container.RegisterInstance(serviceManager.GetService<IPropertiesManager>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<ILobbyStateManager>());
@@ -454,27 +468,37 @@
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IBank>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IPathMapper>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameService>());
+
             var reelControllerService = serviceManager.TryGetService<IReelController>();
             if (reelControllerService is not null)
             {
                 container.RegisterInstance(reelControllerService);
             }
 
-            container.Register<RobotLogger>(Lifestyle.Singleton);
-            container.Register<Automation>(Lifestyle.Singleton);
-            container.Register<StateChecker>(Lifestyle.Singleton);
-            container.Register<CashoutOperations>(Lifestyle.Singleton);
-            container.Register<GameOperations>(Lifestyle.Singleton);
-            container.Register<PlayerOperations>(Lifestyle.Singleton);
-            container.Register<TouchOperations>(Lifestyle.Singleton);
-            container.Register<LockUpOperations>(Lifestyle.Singleton);
-            container.Register<OperatingHoursOperations>(Lifestyle.Singleton);
-            container.Register<GameHelpOperations>(Lifestyle.Singleton);
-            container.Register<ServiceRequestOperations>(Lifestyle.Singleton);
-            container.Register<BalanceOperations>(Lifestyle.Singleton);
-            container.Register<RebootRequestOperations>(Lifestyle.Singleton);
-            container.Register<AuditMenuOperations>(Lifestyle.Singleton);
+            RegisterTransient<RobotLogger>();
+            RegisterTransient<Automation>();
+            RegisterTransient<StateChecker>();
+            RegisterTransient<CashoutOperations>();
+            RegisterTransient<GameOperations>();
+            RegisterTransient<PlayerOperations>();
+            RegisterTransient<TouchOperations>();
+            RegisterTransient<LockUpOperations>();
+            RegisterTransient<OperatingHoursOperations>();
+            RegisterTransient<GameHelpOperations>();
+            RegisterTransient<ServiceRequestOperations>();
+            RegisterTransient<BalanceOperations>();
+            RegisterTransient<RebootRequestOperations>();
+            RegisterTransient<AuditMenuOperations>();
+
             return container;
+
+            // https://docs.simpleinjector.org/en/latest/disposabletransientcomponent.html
+            void RegisterTransient<T>() where T : class
+            {
+                var registration = Lifestyle.Transient.CreateRegistration<T>(container);
+                registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "ignore");
+                container.AddRegistration(typeof(T), registration);
+            }
         }
     }
 }

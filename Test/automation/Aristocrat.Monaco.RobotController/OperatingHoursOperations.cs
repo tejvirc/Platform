@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Operations;
-    using Aristocrat.Monaco.Kernel;
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using Aristocrat.Monaco.Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Operations;
+    using Aristocrat.Monaco.Kernel;
 
-    internal class OperatingHoursOperations : IRobotOperations
+    internal sealed class OperatingHoursOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly StateChecker _sc;
@@ -26,32 +26,44 @@
             _robotController = robotController;
         }
 
-        ~OperatingHoursOperations() => Dispose(false);
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (_operatingHoursTimer != null)
+            {
+                _operatingHoursTimer.Dispose();
+                _operatingHoursTimer = null;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
         }
 
         public void Reset()
         {
-            _disposed = false;
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(OperatingHoursOperations));
+            }
+
             _logger.Info("OperatingHoursOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
+
             if (_robotController.Config.Active.IntervalSetOperatingHours == 0)
             {
                 return;
             }
+
             _operatingHoursTimer = new Timer(
-                               (sender) =>
-                               {
-                                   SetOperatingHours();
-                               },
+                               _ => SetOperatingHours(),
                                null,
                                _robotController.Config.Active.IntervalSetOperatingHours,
                                _robotController.Config.Active.IntervalSetOperatingHours);
@@ -61,25 +73,7 @@
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _operatingHoursTimer?.Dispose();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-            if (disposing)
-            {
-                if (_operatingHoursTimer is not null)
-                {
-                    _operatingHoursTimer.Dispose();
-                }
-                _operatingHoursTimer = null;
-                _eventBus.UnsubscribeAll(this);
-            }
-            _disposed = true;
+            _operatingHoursTimer?.Halt();
         }
 
         private void SubscribeToEvents()

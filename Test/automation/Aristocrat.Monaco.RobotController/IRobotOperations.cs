@@ -12,12 +12,14 @@
         /// Resets the Operation Class Properties to Default
         /// </summary>
         void Reset();
+
         /// <summary>
         /// Execute the Operation Class 
         /// </summary>
         void Execute();
+
         /// <summary>
-        /// Haly the Operation Class Execution
+        /// Halt the Operation Class Execution
         /// </summary>
         void Halt();
     }

@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Kernel.Contracts;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Kernel.Contracts;
+    using Aristocrat.Monaco.Test.Automation;
 
-    internal class RebootRequestOperations : IRobotOperations
+    internal sealed class RebootRequestOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly StateChecker _sc;
@@ -25,36 +25,50 @@
             _robotController = robotController;
         }
 
-        ~RebootRequestOperations() => Dispose(false);
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (_softRebootTimer != null)
+            {
+                _softRebootTimer.Dispose();
+                _softRebootTimer = null;
+            }
+
+            if (_rebootTimer != null)
+            {
+                _rebootTimer.Dispose();
+                _rebootTimer = null;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
         }
 
         public void Reset()
         {
-            _disposed = false;
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(RebootRequestOperations));
+            }
+
             _logger.Info("RebootRequestOperations Has Been Initiated!", GetType().Name);
             _rebootTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestHardReboot();
-                               },
+                               _ => RequestHardReboot(),
                                null,
                                _robotController.Config.Active.IntervalRebootMachine,
                                _robotController.Config.Active.IntervalRebootMachine);
 
             _softRebootTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestSoftReboot();
-                               },
+                               _ => RequestSoftReboot(),
                                null,
                                _robotController.Config.Active.IntervalSoftReboot,
                                _robotController.Config.Active.IntervalSoftReboot);
@@ -62,33 +76,15 @@
 
         public void Halt()
         {
-            _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
-            _rebootTimer?.Dispose();
-            _softRebootTimer?.Dispose();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
             if (_disposed)
             {
-                return;
+                throw new ObjectDisposedException(nameof(RebootRequestOperations));
             }
-            if (disposing)
-            {
-                if (_softRebootTimer is not null)
-                {
-                    _softRebootTimer.Dispose();
-                }
-                _softRebootTimer = null;
-                if (_rebootTimer is not null)
-                {
-                    _rebootTimer.Dispose();
-                }
-                _rebootTimer = null;
-                _eventBus.UnsubscribeAll(this);
-            }
-            _disposed = true;
+
+            _logger.Info("Halt Request is Received!", GetType().Name);
+            _eventBus.UnsubscribeAll(this);
+            _rebootTimer?.Halt();
+            _softRebootTimer?.Halt();
         }
 
         private void RequestSoftReboot()
