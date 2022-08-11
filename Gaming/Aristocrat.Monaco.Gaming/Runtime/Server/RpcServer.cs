@@ -2,6 +2,7 @@
 {
     using System;
     using System.Reflection;
+    using Common;
     using Contracts;
     using Grpc.Core;
     using log4net;
@@ -12,7 +13,6 @@
         private const string Host = "localhost";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(30);
 
         private readonly RpcService _gameService;
         private readonly RpcReelService _reelService;
@@ -66,7 +66,7 @@
 
                 try
                 {
-                    _rpcServer.ShutdownAsync().Wait(ShutdownTimeout);
+                    _rpcServer.KillAsync().FireAndForget();
                 }
                 catch (Exception ex)
                 {
