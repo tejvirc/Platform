@@ -6,6 +6,8 @@
     using System.Reflection;
     using log4net;
     using Messages;
+    using Monaco.Protocol.Common;
+    using Monaco.Protocol.Common.Communication;
 
     /// <summary>
     ///     Implementation for the IProgressiveBroadcastService interface

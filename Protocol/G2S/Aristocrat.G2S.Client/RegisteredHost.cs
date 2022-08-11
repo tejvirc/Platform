@@ -63,6 +63,14 @@
         /// <inheritdoc />
         public bool RequiredForPlay { get; private set; }
 
+        /*
+        JLK add properties here for the multicast connection
+
+        Add a string MulticastUri with a set and get
+
+        Also add a IPEndPoint MulticastEndpoint with a get that uses IPEndPoint EndpointUtilities.CreateIPEndPoint(string endPoint) to convert MulticastUri into an IPEndPoint
+        */
+
         /// <inheritdoc />
         public void Start()
         {

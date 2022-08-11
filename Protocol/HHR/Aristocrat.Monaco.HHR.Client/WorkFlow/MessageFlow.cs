@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Hhr.Client.WorkFlow
     using Data;
     using log4net;
     using Messages;
+    using Monaco.Protocol.Common;
 
     /// <inheritdoc />
     public class MessageFlow : IMessageFlow

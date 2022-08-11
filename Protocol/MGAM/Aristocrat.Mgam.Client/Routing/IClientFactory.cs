@@ -17,7 +17,7 @@
         ISecureClient CreateSecureClient(SslContext context, IPEndPoint endPoint);
 
         /// <summary>
-        ///     Creates an <see cref="UdpClient"/> instance.
+        ///     Creates an <see cref="CustomUdpClient"/> instance.
         /// </summary>
         /// <param name="endPoint"></param>
         /// <returns></returns>

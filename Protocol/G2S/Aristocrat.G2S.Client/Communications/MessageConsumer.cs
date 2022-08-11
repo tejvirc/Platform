@@ -52,6 +52,29 @@
             return error;
         }
 
+        public Error Consumes(IMulticast broadcast)
+        {
+            var error = new Error();
+
+            var request = broadcast.Item;
+            var command = ClassCommand.Create(request, 0, "");
+
+            foreach (var observer in _observers)
+            {
+                try
+                {
+                    observer.Receive(command);
+                }
+                catch (InvalidOperationException)
+                {
+                    error.SetErrorCode(ErrorCode.G2S_MSX006); // Inbound Command Queue Full
+                    return error;
+                }
+            }
+
+            return error;
+        }
+
         /// <inheritdoc />
         public void Connect(IMessageReceiver observer)
         {

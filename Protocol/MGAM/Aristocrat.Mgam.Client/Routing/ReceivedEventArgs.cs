@@ -6,7 +6,8 @@
     /// <summary>
     ///     Received event arguments.
     /// </summary>
-    internal class ReceivedEventArgs : EventArgs
+    internal class ReceivedEventArgs
+        : EventArgs
     {
         /// <summary>
         ///     Initializes and instance of the <see cref="ReceivedEventArgs"/> class.

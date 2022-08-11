@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Monaco.Protocol.Common.Communication;
 
     /// <summary>
     ///     Interface for TCP part of communication between gaming terminal and central server

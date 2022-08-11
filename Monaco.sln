@@ -63,6 +63,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebugCurrencyHandler", "Test\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj", "{CCA190F1-D08B-4481-B7E2-4ADB6F7DE86E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.G2S.Client", "Protocol\G2S\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj", "{75755BD4-938B-4980-997F-314477736E85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{70F4CC3E-F149-4DFF-B2C9-1FD1053635A0} = {70F4CC3E-F149-4DFF-B2C9-1FD1053635A0}
+		{4B09049E-2A49-42E4-81CA-F090A76E2EF3} = {4B09049E-2A49-42E4-81CA-F090A76E2EF3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.G2S.UI", "Protocol\G2S\Aristocrat.Monaco.G2S.UI\Aristocrat.Monaco.G2S.UI.csproj", "{DA46239E-041C-495B-B1C9-DD70F834A9B2}"
 EndProject
@@ -1962,7 +1966,7 @@ Global
 		{F0DD8637-2B0E-47FC-8257-4D92360C8426} = {7FDC33CF-35D7-4C55-AFF8-8CFB1D5793FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 		RESX_RemoveEmptyEntries = True
+		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 	EndGlobalSection
 EndGlobal

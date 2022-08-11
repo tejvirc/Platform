@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.G2S.Client.Communications
 {
     using System;
+    using System.Globalization;
     using System.Net;
     using System.Security.Authentication.ExtendedProtection;
     using System.ServiceModel;
@@ -158,6 +159,38 @@
         public static bool IsSecure(this Uri @this)
         {
             return @this.Scheme == Uri.UriSchemeHttps;
+        }
+
+        /// <summary>
+        ///     Converts a Uri string into an IPEndPoint.
+        /// </summary>
+        /// <param name="endPoint">The Uri string</param>
+        /// <returns>An IPEndPoint representation of endPoint</returns>
+        public static IPEndPoint CreateIPEndPoint(string endPoint)
+        {
+            string[] ep = endPoint.Split(':');
+            if (ep.Length < 2) throw new FormatException("Invalid endpoint format");
+            IPAddress ip;
+            if (ep.Length > 2)
+            {
+                if (!IPAddress.TryParse(string.Join(":", ep, 0, ep.Length - 1), out ip))
+                {
+                    throw new FormatException("Invalid ip-adress");
+                }
+            }
+            else
+            {
+                if (!IPAddress.TryParse(ep[0], out ip))
+                {
+                    throw new FormatException("Invalid ip-adress");
+                }
+            }
+            int port;
+            if (!int.TryParse(ep[ep.Length - 1], NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
+            {
+                throw new FormatException("Invalid port");
+            }
+            return new IPEndPoint(ip, port);
         }
     }
 }

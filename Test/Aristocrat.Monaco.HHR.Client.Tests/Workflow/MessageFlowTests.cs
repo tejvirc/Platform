@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Aristocrat.Monaco.Hhr.Client.Tests.Messages;
+using Aristocrat.Monaco.Protocol.Common;
 
 namespace Aristocrat.Monaco.Hhr.Client.Tests.WorkFlow
 {

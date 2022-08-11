@@ -12,6 +12,7 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Aristocrat.G2S.Client;
+    using Aristocrat.G2S.Client.Communications;
     using Aristocrat.G2S.Client.Configuration;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
@@ -167,7 +168,7 @@
                         ServiceManager.GetInstance().GetService<IPropertiesManager>()
                             .GetValue<string>(Constants.EgmId, null));
                 });
-
+            
             @this.Register<IDeviceFactory, DeviceFactory>(Lifestyle.Singleton);
             @this.Register<IGatComponentFactory, GatComponentFactory>(Lifestyle.Singleton);
             @this.Register<IHostFactory, HostFactory>(Lifestyle.Singleton);
@@ -184,6 +185,7 @@
             @this.Register<IPackageDownloadManager, PackageDownloadManager>(Lifestyle.Singleton);
             @this.Register<IMetersSubscriptionManager, MetersSubscriptionManager>(Lifestyle.Singleton);
             @this.Register<ISelfTest, SelfTest>(Lifestyle.Singleton);
+            @this.Register<IMtpClient, MtpClient>(Lifestyle.Singleton);
 
             @this.RegisterInstance(typeof(IG2SEgm), egm);
         }

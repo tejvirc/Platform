@@ -249,9 +249,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
-    <PackageReference Include="Aristocrat.Signing" Version="1.1.7" />
-    <PackageReference Include="Aristocrat.SmartCard" Version="1.1.2" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.10" />
+    <PackageReference Include="Aristocrat.Signing" Version="1.1.15" />
+    <PackageReference Include="Aristocrat.SmartCard" Version="1.1.11" />
     <PackageReference Include="BouncyCastle" Version="1.8.4" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />

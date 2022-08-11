@@ -112,7 +112,7 @@
     <ProjectReference Include="..\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.10" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.10" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />

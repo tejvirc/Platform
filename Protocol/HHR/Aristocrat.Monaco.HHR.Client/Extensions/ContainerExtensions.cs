@@ -7,6 +7,7 @@
     using Messages.Converters;
     using SimpleInjector;
     using WorkFlow;
+    using Monaco.Protocol.Common.Communication;
 
     /// <summary>
     ///     Extensions function for SimpleInjector container.
