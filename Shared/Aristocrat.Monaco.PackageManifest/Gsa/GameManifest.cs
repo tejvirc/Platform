@@ -15,6 +15,8 @@
     {
         private const string GameType = @"G2S_game";
 
+        private const string DefaultVariationId = "99";
+
         /// <inheritdoc />
         public GameContent Read(string file)
         {
@@ -47,7 +49,9 @@
                 InstallSequence = "<installSeq />",
                 UninstallSequence = "<uninstallSeq />",
                 Package = Map(manifest.packageList, product.requiredPackage.FirstOrDefault()),
-                GameAttributes = product.gameAttributes.Select(Map).ToList(),
+                GameAttributes = product.gameAttributes.Select(Map)
+                    .OrderByDescending(g => g.VariationId == DefaultVariationId)
+                    .ThenBy(g => Convert.ToInt32(g.VariationId)).ToList(),
                 UpgradeActions = manifest.upgradeActionList?.upgradeAction?.Select(Map).ToList(),
                 Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
