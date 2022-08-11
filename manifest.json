@@ -14479,9 +14479,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -14566,6 +14563,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -20547,7 +20547,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.BingoDisplayConfigurationProvider.html",
-          "hash": "ZpymoEa/kXbSyG8LxXXF2c4XjFbzRDrM1P0qEyOqtps="
+          "hash": "7p9MBZUdzRBFjSyBX2Qr9O5g8iQAZgDxsXiQ3Vasqow="
         }
       },
       "is_incremental": false,
@@ -20715,7 +20715,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.IBingoDisplayConfigurationProvider.html",
-          "hash": "ddQaI9JfM/VhcKUwxsvg2BOSFQaebBKldJ5CEp+ZPPA="
+          "hash": "6Y2I4ZFuB4fmXbZh6i8+fcsCJ7dOEOMmRxZwh405Po8="
         }
       },
       "is_incremental": false,
@@ -20955,7 +20955,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay.BingoHtmlHostOverlayViewModel.html",
-          "hash": "F1QdR5O5HppS2J7k1m3HVCssflB4SNYKD1khgo4X2bs="
+          "hash": "UGbjnIuBYG5cXBrTKTKBuVec60YyhgylgcbnJpnLOWY="
         }
       },
       "is_incremental": false,
@@ -23074,9 +23074,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -40201,6 +40198,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
