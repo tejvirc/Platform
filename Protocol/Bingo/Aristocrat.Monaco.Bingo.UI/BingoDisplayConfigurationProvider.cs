@@ -97,6 +97,17 @@
             return _windowSettings[window];
         }
 
+        public BingoDisplayConfigurationBingoWindowSettings GetSettings(BingoWindow window, int gameId)
+        {
+            var game = _gameProvider.GetGame(gameId);
+            if (game is null || !_displayConfigurations.TryGetValue(game.ThemeId, out var settings))
+            {
+                return GetDefaultSettings();
+            }
+
+            return settings.BingoInfoWindowSettings?.FirstOrDefault() ?? GetDefaultSettings();
+        }
+
         /// <inheritdoc />
         public Window GetWindow(BingoWindow window)
         {
@@ -237,6 +248,11 @@
 
         private void LoadSettings(BingoWindow window)
         {
+            _windowSettings[window] = GetDefaultSettings();
+        }
+
+        private BingoDisplayConfigurationBingoWindowSettings GetDefaultSettings()
+        {
             _attractSettings = new BingoDisplayConfigurationBingoAttractSettings();
             _helpAppearance = _defaultHelpAppearance;
             _presentationOverrideMessageFormats = new List<PresentationOverrideMessageFormat>();
@@ -263,13 +279,13 @@
                 }.ToArray()
             };
 
-            _windowSettings[window] = appearance;
+            return appearance;
         }
 
         private void ScanForGameFiles()
         {
             var allGames = _gameProvider.GetAllGames().Where(
-                game => game?.Folder is not null && !_displayConfigurations.ContainsKey(game.Folder));
+                game => game?.Folder is not null && !_displayConfigurations.ContainsKey(game.ThemeId));
             foreach (var game in allGames)
             {
                 var file = Path.Combine(game.Folder, DisplayConfigurationFile);
@@ -280,7 +296,7 @@
 
                 var bingoDisplayConfiguration = CreateSettingsFromFile(file);
                 _displayConfigurations.AddOrUpdate(
-                    game.Folder,
+                    game.ThemeId,
                     _ => bingoDisplayConfiguration,
                     (_, _) => bingoDisplayConfiguration);
             }
@@ -337,7 +353,7 @@
 
             _selectedGameId = evt.GameId;
             var currentGame = _gameProvider.GetGame(_selectedGameId);
-            if (currentGame != null && _displayConfigurations.TryGetValue(currentGame.Folder, out var configuration))
+            if (currentGame != null && _displayConfigurations.TryGetValue(currentGame.ThemeId, out var configuration))
             {
                 LoadFromSettings(configuration);
             }

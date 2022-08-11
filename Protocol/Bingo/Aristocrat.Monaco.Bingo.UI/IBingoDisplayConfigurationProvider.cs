@@ -36,6 +36,14 @@
         BingoDisplayConfigurationBingoWindowSettings GetSettings(BingoWindow window);
 
         /// <summary>
+        ///     Get config data for one window enum
+        /// </summary>
+        /// <param name="window">Which window</param>
+        /// <param name="gameId">The game identifier to get the settings for</param>
+        /// <returns>Config data for one window enum</returns>
+        BingoDisplayConfigurationBingoWindowSettings GetSettings(BingoWindow window, int gameId);
+
+        /// <summary>
         ///     Get <see cref="Window"/> for one window enum
         /// </summary>
         /// <param name="window">Which window</param>

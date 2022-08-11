@@ -65,7 +65,7 @@
         private double _height;
         private double _width;
         private bool _disposed;
-        
+
         private Thickness _helpBoxMargin;
         private bool _isHelpLoading;
         private bool _isHelpVisible;
@@ -75,6 +75,8 @@
         private string _bingoInfoAddress;
         private IWebBrowser _bingoInfoWebBrowser;
         private string _standaloneCreditMeterFormat;
+        private string _lastGameScene = string.Empty;
+        private string _previousScene = string.Empty;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -134,6 +136,8 @@
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
             _eventBus.Subscribe<ClearBingoDaubsEvent>(this, Handle);
             _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, (_, _) => HandleBingoDisplayConfigurationChanged());
+            _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, Handle);
+            _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, Handle);
 
             // Bingo Help Events
             _eventBus.Subscribe<HostConnectedEvent>(this, Handle);
@@ -417,7 +421,7 @@
 
             _configuredOverrideMessageFormats.Clear();
             SetInfoVisibility(false);
-            
+
             NavigateToOverlay(OverlayType.BingoOverlay);
         }
 
@@ -484,6 +488,32 @@
         {
             Logger.Debug($"Sending scene changed to '{scene.Scene}' to overlay");
             await UpdateOverlay(() => new BingoLiveData { SceneName = scene.Scene }, token);
+            _lastGameScene = scene.Scene;
+        }
+
+        private async Task Handle(GameDiagnosticsStartedEvent evt, CancellationToken token)
+        {
+            var windowSettings = _bingoConfigurationProvider.GetSettings(_targetWindow, evt.GameId);
+            _previousScene = string.IsNullOrEmpty(_lastGameScene)
+                ? windowSettings.InitialScene
+                : _lastGameScene;
+
+            if (_overlayServer.IsRunning)
+            {
+                await UpdateOverlay(() => new BingoLiveData { SceneName = windowSettings.InitialScene }, token);
+            }
+        }
+
+        private async Task Handle(GameDiagnosticsCompletedEvent evt, CancellationToken token)
+        {
+            if (string.IsNullOrEmpty(_previousScene))
+            {
+                return;
+            }
+
+            await UpdateOverlay(() => new BingoLiveData { SceneName = _previousScene }, token);
+            _lastGameScene = _previousScene;
+            _previousScene = string.Empty;
         }
 
         private async Task Handle(GamePlayInitiatedEvent e, CancellationToken token)
@@ -671,6 +701,7 @@
                 var windowName = _bingoConfigurationProvider.CurrentWindow;
                 _currentBingoSettings = _bingoConfigurationProvider.GetSettings(windowName);
                 var attractSettings = _bingoConfigurationProvider.GetAttractSettings();
+                _lastGameScene = _currentBingoSettings.InitialScene;
 
                 var staticData = new BingoStaticData
                 {
