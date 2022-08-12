@@ -239,7 +239,8 @@
 
                 if (uniqueDenomList.Count > ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
                 {
-                    return false;
+                    Logger.Debug($"ValidateConfiguration() error! : uniqueDenomList.Count({uniqueDenomList.Count}) > {ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby}");
+//                    return false;
                 }
 
                 var collision = _games.Any(g =>
@@ -248,6 +249,7 @@
                     g.ThemeId == gameProfile.ThemeId &&
                     denominationsList.Intersect(g.ActiveDenominations).Any());
 
+                Logger.Debug($"ValidateConfiguration() collision={collision}");
                 return !collision;
             }
         }
@@ -614,26 +616,32 @@
         {
             var gameType = ToGameType(game.GameType);
             var includeIncrement = CanIncludeIncrementRtp(gameType);
+            decimal totalRtpMin;
+            decimal totalRtpMax;
 
-            var rtps = game.ReturnToPlayerList.ToList();
-            var minBaseRtp = rtps.Select(w => w.MinBaseRtpPercent).Min();
-            var maxBaseRtp = rtps.Select(w => w.MaxBaseRtpPercent).Max();
-            var minProgStartupRtp = rtps.Select(w => w.MinSapStartupRtpPercent)
-                .Union(rtps.Select(w => w.MinLinkStartupRtpPercent)).Min();
-            var maxProgStartupRtp = rtps.Select(w => w.MaxSapStartupRtpPercent)
-                .Union(rtps.Select(w => w.MaxLinkStartupRtpPercent)).Max();
-            var progIncrementRtps = rtps.Select(w => w.SapIncrementRtpPercent)
-                .Union(rtps.Select(w => w.LinkIncrementRtpPercent)).ToList();
-            var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
-            var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
-            Logger.Debug($"minBase={minBaseRtp}% maxBase={maxBaseRtp}% minProgStart={minProgStartupRtp}% maxProgStart={maxProgStartupRtp}% minProgIncr={minProgIncrementRtp}% maxProgIncr={maxProgIncrementRtp}%");
+            var rtps = game.WagerCategories.ToList();
+            if (rtps.Any(r => r.MinBaseRtpPercent > 0))
+            {
+                var minBaseRtp = rtps.Select(w => w.MinBaseRtpPercent).Min();
+                var maxBaseRtp = rtps.Select(w => w.MaxBaseRtpPercent).Max();
+                var minProgStartupRtp = rtps.Select(w => w.MinSapStartupRtpPercent)
+                    .Union(rtps.Select(w => w.MinLinkStartupRtpPercent)).Min();
+                var maxProgStartupRtp = rtps.Select(w => w.MaxSapStartupRtpPercent)
+                    .Union(rtps.Select(w => w.MaxLinkStartupRtpPercent)).Max();
+                var progIncrementRtps = rtps.Select(w => w.SapIncrementRtpPercent)
+                    .Union(rtps.Select(w => w.LinkIncrementRtpPercent)).ToList();
+                var minProgIncrementRtp = includeIncrement ? progIncrementRtps.Min() : 0;
+                var maxProgIncrementRtp = includeIncrement ? progIncrementRtps.Max() : 0;
+                Logger.Debug(
+                    $"minBase={minBaseRtp}% maxBase={maxBaseRtp}% minProgStart={minProgStartupRtp}% maxProgStart={maxProgStartupRtp}% minProgIncr={minProgIncrementRtp}% maxProgIncr={maxProgIncrementRtp}%");
 
-            var totalRtpMin = minBaseRtp + minProgStartupRtp + minProgIncrementRtp;
-            var totalRtpMax = maxBaseRtp + maxProgStartupRtp + maxProgIncrementRtp;
-            Logger.Debug($"minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
+                totalRtpMin = minBaseRtp + minProgStartupRtp + minProgIncrementRtp;
+                totalRtpMax = maxBaseRtp + maxProgStartupRtp + maxProgIncrementRtp;
+                Logger.Debug($"minTotal={totalRtpMin}% maxTotal={totalRtpMax}%");
+            }
 
             // old-style game manifest?
-            if (minBaseRtp == 0)
+            else
             {
                 var returnToPlayer = progressiveDetails?.FirstOrDefault()?.ReturnToPlayer;
 
@@ -879,6 +887,7 @@
         {
             const string binFolder = @"bin";
             var success = false;
+            Logger.Debug($"loading manifest {file}");
 
             try
             {
@@ -965,7 +974,7 @@
                     {
                         wagerCategories = game.WagerCategories.Select(
                             w => new WagerCategory(
-                                w.Id,
+                                w.Id.ToString(),
                                 w.TheoPaybackPercent,
                                 w.MinWagerCredits,
                                 w.MaxWagerCredits,
@@ -1124,7 +1133,7 @@
                         foreach (var mapping in config.GameConfiguration.ConfigurationMapping)
                         {
                             mapping.Active = games.Any(g => g.VariationId == mapping.Variation);
-                            Logger.Debug($"{config.Name} variation {mapping.Variation} set to Active={mapping.Active}");
+                            Logger.Debug($"{config.Name} variation/denom={mapping.Variation}/{mapping.Denomination}mc set to Active={mapping.Active}");
                         }
                     }
 
@@ -1150,6 +1159,7 @@
                 Logger.Error($"Game icon asset missing: {fileNotFoundException.Message}", fileNotFoundException);
             }
 
+            Logger.Debug($"LoadFromManifest() success ==> {success}");
             return success;
         }
 

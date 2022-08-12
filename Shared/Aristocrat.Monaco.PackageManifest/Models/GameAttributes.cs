@@ -96,11 +96,6 @@
         public IEnumerable<WagerCategory> WagerCategories { get; set; }
 
         /// <summary>
-        ///     Gets or sets the return-to-player list.
-        /// </summary>
-        public IEnumerable<ReturnToPlayerItem> ReturnToPlayerList { get; set; }
-
-        /// <summary>
         ///     Gets or sets the CDS theme id
         /// </summary>
         public string CdsThemeId { get; set; }

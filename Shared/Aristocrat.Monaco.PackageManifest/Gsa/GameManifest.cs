@@ -138,7 +138,6 @@
                 LetItRideEnabled = gameInfo.letItRideEnabled,
                 Denominations = gameInfo.gameDenomList.Select(Map).ToList(),
                 WagerCategories = gameInfo.wagerCategoryList.Select(Map).ToList(),
-                ReturnToPlayerList = gameInfo.returnToPlayerList.Select(Map).ToList(),
                 CdsThemeId = gameInfo.cdsInfoList?.themeId,
                 CdsTitleId = gameInfo.cdsInfoList?.titleId,
                 CentralInfo = gameInfo.cdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>(),
@@ -222,24 +221,16 @@
                 MaxWagerCredits = wagerCategory.maxWagerCredits,
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
-                TheoPaybackPercent = ConvertToRtp(wagerCategory.theoPaybackPct)
-            };
-        }
-
-        private static ReturnToPlayerItem Map(c_returnToPlayerItem rtpItem)
-        {
-            return new ReturnToPlayerItem
-            {
-                PlayOptionId = rtpItem.playOptionId,
-                PlayOptionName = rtpItem.playOptionName,
-                MinBaseRtpPercent = ConvertToRtp(rtpItem.minBaseRtpPct),
-                MaxBaseRtpPercent = ConvertToRtp(rtpItem.maxBaseRtpPct),
-                MinSapStartupRtpPercent = ConvertToRtp(rtpItem.minSapStartupRtpPct),
-                MaxSapStartupRtpPercent = ConvertToRtp(rtpItem.maxSapStartupRtpPct),
-                SapIncrementRtpPercent = ConvertToRtp(rtpItem.sapIncrementRtpPct),
-                MinLinkStartupRtpPercent = ConvertToRtp(rtpItem.minLinkStartupRtpPct),
-                MaxLinkStartupRtpPercent = ConvertToRtp(rtpItem.maxLinkStartupRtpPct),
-                LinkIncrementRtpPercent = ConvertToRtp(rtpItem.linkIncrementRtpPct)
+                TheoPaybackPercent = ConvertToRtp(wagerCategory.theoPaybackPct),
+                PlayOptionName = wagerCategory.playOptionName,
+                MinBaseRtpPercent = ConvertToRtp(wagerCategory.minBaseRtpPct),
+                MaxBaseRtpPercent = ConvertToRtp(wagerCategory.maxBaseRtpPct),
+                MinSapStartupRtpPercent = ConvertToRtp(wagerCategory.minSapStartupRtpPct),
+                MaxSapStartupRtpPercent = ConvertToRtp(wagerCategory.maxSapStartupRtpPct),
+                SapIncrementRtpPercent = ConvertToRtp(wagerCategory.sapIncrementRtpPct),
+                MinLinkStartupRtpPercent = ConvertToRtp(wagerCategory.minLinkStartupRtpPct),
+                MaxLinkStartupRtpPercent = ConvertToRtp(wagerCategory.maxLinkStartupRtpPct),
+                LinkIncrementRtpPercent = ConvertToRtp(wagerCategory.linkIncrementRtpPct)
             };
         }
 
