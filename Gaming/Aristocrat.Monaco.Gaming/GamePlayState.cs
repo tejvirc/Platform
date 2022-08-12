@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -31,7 +32,8 @@
         private readonly ITransferOutHandler _transferHandler;
         private readonly IMoneyLaunderingMonitor _moneyLaunderingMonitor;
 
-        private readonly object _gameDelayLock = new object();
+        private readonly object _gameDelayLock = new();
+        private readonly Stopwatch _gamePlayDuration = new();
 
         private ReaderWriterLockSlim _stateLock;
 
@@ -51,7 +53,6 @@
         private CancellationTokenSource _delayTimerCancellationToken;
         private bool _gameDelayExpired;
         private bool _platformHeldGameEnd;
-        private DateTime _lastGameRoundStartTime;
 
         private bool _disposed;
 
@@ -739,6 +740,7 @@
 
         private void OnPrimaryGameStarted(long wager, byte[] data)
         {
+            _gamePlayDuration.Restart();
             _handlerFactory.Create<PrimaryGameStarted>().Handle(new PrimaryGameStarted(_gameId, _denom, wager, data));
 
             _eventBus.Publish(new PrimaryGameStartedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
@@ -916,18 +918,14 @@
 
         private bool CheckGameRoundStartTimer()
         {
-            var gameRoundMillis = _properties.GetValue(GamingConstants.GameRoundDurationMs,
-                GamingConstants.DefaultMinimumGameRoundDurationMs);
-            var currentTime = DateTime.UtcNow;
-            var timeElapsed = currentTime - _lastGameRoundStartTime;
-
-            if (timeElapsed.TotalMilliseconds < gameRoundMillis)
+            if (!_gamePlayDuration.IsRunning)
             {
-                return false;
+                return true;
             }
 
-            _lastGameRoundStartTime = currentTime;
-            return true;
+            var gameRoundMillis = _properties.GetValue(GamingConstants.GameRoundDurationMs,
+                GamingConstants.DefaultMinimumGameRoundDurationMs);
+            return _gamePlayDuration.Elapsed >= TimeSpan.FromMilliseconds(gameRoundMillis);
         }
 
         private enum Trigger
