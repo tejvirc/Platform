@@ -2499,7 +2499,7 @@
 
             if (!string.IsNullOrEmpty(game.LoadingScreenPath))
             {
-                GameLoadingScreenPath = "pack://siteOfOrigin:,,,/" + game.LoadingScreenPath;
+                GameLoadingScreenPath = "file:///" + game.LoadingScreenPath;
             }
 
             // Disable operator menu during game loading.
