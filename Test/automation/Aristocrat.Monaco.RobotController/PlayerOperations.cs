@@ -81,7 +81,7 @@
 
 
             var rng = new Random();
-            var action = _robotController.Config.CurrentGameProfile.RobotActions.GetRandomElement(rng);
+            var action = _robotController.Config.GetRobotActions().GetRandomElement(rng);
             _actionPlayerFunctions[action](rng);
         }
 
