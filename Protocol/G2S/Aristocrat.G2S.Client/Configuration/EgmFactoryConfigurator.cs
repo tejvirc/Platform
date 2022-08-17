@@ -69,15 +69,10 @@
 
             var service = new G2SService(receiveEndpointProvider);
             var receiver = new ReceiveEndpoint(service, _address, _certificate, _certificateValidator);
-            // JLK: MTP notes here
-            // MtpClient should implement IReceiveEndpoint
-            // Then it needs to be instantiated like receiver above, but it likely won't be enabled at this point, because it's created/opened in response to joinMcast
-            // Still, we can pass it to G2SEgm if it's ready, or default it to null if it's not ready.
-            // Then, everywhere receiver is opened or closed in G2SEgm (called _receiveEndpoint in G2SEgm) we also need to open and close mtpClient if we have configuration data for it
-            //
-            // TODO: Find where the mcast connection info is persisted when a joinMcast message is received
             var messageConsumer = new MessageConsumer(egm);
             receiveEndpointProvider.ConnectConsumer(messageConsumer);
+            var mtpClient = new MtpClient();
+            mtpClient.ConnectConsumer(messageConsumer);
             var hostConnector = new HostConnector(
                 egm,
                 endpointProvider,
@@ -85,7 +80,7 @@
                 idProvider,
                 messageConsumer);
 
-            return new G2SEgm(egm.Id, hostConnector, deviceConnector, handlerConnector, receiver);
+            return new G2SEgm(egm.Id, hostConnector, deviceConnector, handlerConnector, receiver, mtpClient);
         }
 
         /// <inheritdoc />

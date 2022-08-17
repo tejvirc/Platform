@@ -1,4 +1,6 @@
-﻿namespace Aristocrat.G2S.Client.Devices
+﻿using System.Net;
+
+namespace Aristocrat.G2S.Client.Devices
 {
     /// <summary>
     ///     Defines the communication triggers that can change the communication states within the CommunicationDevice.
@@ -66,7 +68,7 @@
     /// </summary>
     /// <typeparam name="TTransportState">Version specific transport state.</typeparam>
     /// <typeparam name="TCommsState">Version specific comms state.</typeparam>
-    public interface ICommunicationsDevice<out TTransportState, out TCommsState> : IDevice, INoResponseTimer
+    public interface ICommunicationsDevice<out TTransportState, out TCommsState> : IDevice, INoResponseTimer, IMtpCapableDevice
     {
         /// <summary>
         ///     Gets a value indicating whether gets the state of the outbound queue.

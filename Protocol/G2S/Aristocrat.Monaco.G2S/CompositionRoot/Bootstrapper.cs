@@ -185,7 +185,7 @@
             @this.Register<IPackageDownloadManager, PackageDownloadManager>(Lifestyle.Singleton);
             @this.Register<IMetersSubscriptionManager, MetersSubscriptionManager>(Lifestyle.Singleton);
             @this.Register<ISelfTest, SelfTest>(Lifestyle.Singleton);
-            @this.Register<IMtpClient, MtpClient>(Lifestyle.Singleton);
+            @this.Register<IMtpClient, MtpClient>(Lifestyle.Scoped);
 
             @this.RegisterInstance(typeof(IG2SEgm), egm);
         }

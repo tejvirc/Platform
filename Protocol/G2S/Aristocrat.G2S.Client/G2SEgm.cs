@@ -8,6 +8,7 @@
     using Communications;
     using Configuration;
     using Devices;
+    using Devices.v21;
 
     /// <summary>
     ///     Implementation of a G2S Egm
@@ -26,6 +27,7 @@
         private bool _disposed;
 
         private IReceiveEndpoint _receiveEndpoint;
+        private IMtpClient _mtpClient;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="G2SEgm" /> class.
@@ -35,12 +37,15 @@
         /// <param name="deviceConnector">An instance of a IDeviceConnector</param>
         /// <param name="handlerConnector">An instance of a IHandlerConnector</param>
         /// <param name="receiveEndpoint">An instance of a IReceiveEndpoint.</param>
+        /// <param name="mtpClient">An instance of a IMtpClient.</param>
         public G2SEgm(
             string egmId,
             IHostConnector hostConnector,
             IDeviceConnector deviceConnector,
             IHandlerConnector handlerConnector,
-            IReceiveEndpoint receiveEndpoint)
+            IReceiveEndpoint receiveEndpoint,
+            IMtpClient mtpClient
+            )
         {
             if (string.IsNullOrEmpty(egmId))
             {
@@ -52,6 +57,7 @@
             _deviceConnector = deviceConnector ?? throw new ArgumentNullException(nameof(deviceConnector));
             _handlerConnector = handlerConnector ?? throw new ArgumentNullException(nameof(handlerConnector));
             _receiveEndpoint = receiveEndpoint ?? throw new ArgumentNullException(nameof(receiveEndpoint));
+            _mtpClient = mtpClient ?? throw new ArgumentNullException(nameof(mtpClient));
 
             // Host identifier 0 (zero) MUST identify the EGM itself and MUST always be contained in the list of all host indexes.
             RegisterHost(Constants.EgmHostId, null, false, Constants.EgmHostIndex);
@@ -153,6 +159,7 @@
                 }
 
                 _receiveEndpoint.Open();
+                _mtpClient.Open(_deviceConnector.GetDevice<ICommunicationsDevice>());
 
                 var startupContexts = contexts as IList<IStartupContext> ?? contexts.ToList();
 
@@ -198,6 +205,7 @@
                 }
 
                 _receiveEndpoint.Close();
+                _mtpClient.Close();
 
                 Running = false;
             }
@@ -226,6 +234,12 @@
 
                 Task.WaitAll(tasks.ToArray());
             }
+        }
+
+        /// <inheritdoc />
+        public void StartMtp()
+        {
+                _mtpClient.Open(_deviceConnector.GetDevice<ICommunicationsDevice>());
         }
 
         /// <inheritdoc />
@@ -376,6 +390,8 @@
                 {
                     _receiveEndpoint?.Dispose();
                     _receiveEndpoint = null;
+                    _mtpClient?.Dispose();
+                    _mtpClient = null;
                 }
             }
 

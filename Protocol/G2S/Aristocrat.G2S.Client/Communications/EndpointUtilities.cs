@@ -175,14 +175,14 @@
             {
                 if (!IPAddress.TryParse(string.Join(":", ep, 0, ep.Length - 1), out ip))
                 {
-                    throw new FormatException("Invalid ip-adress");
+                    throw new FormatException("Invalid IP address");
                 }
             }
             else
             {
                 if (!IPAddress.TryParse(ep[0], out ip))
                 {
-                    throw new FormatException("Invalid ip-adress");
+                    throw new FormatException("Invalid IP address");
                 }
             }
             int port;

@@ -12,43 +12,36 @@
     /// <summary>
     ///     Handles the v21.joinMcast G2S message
     /// </summary>
-    public class JoinMCast : ICommandHandler<communications, joinMcast>
+    public class MCastKeyUpdate : ICommandHandler<communications, mcastKeyUpdate>
     {
-        private readonly ICommandBuilder<ICommunicationsDevice, joinMcastAck> _commandBuilder;
+        private readonly ICommandBuilder<ICommunicationsDevice, mcastKeyAck> _commandBuilder;
         private readonly IG2SEgm _egm;
         private readonly MessageBuilder _messageBuilder = new MessageBuilder();
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="JoinMCast" /> class.
-        ///     Creates a new instance of the JoinMCast handler
+        ///     Initializes a new instance of the <see cref="MCastKeyUpdate" /> class.
+        ///     Creates a new instance of the MCastKeyUpdate handler
         /// </summary>
         /// <param name="egm">A G2S egm</param>
         /// <param name="commandBuilder">An <see cref="ICommandBuilder{TDevice,TCommand}" /> instance.</param>
-        public JoinMCast(IG2SEgm egm, ICommandBuilder<ICommunicationsDevice, joinMcastAck> commandBuilder)
+        public MCastKeyUpdate(IG2SEgm egm, ICommandBuilder<ICommunicationsDevice, mcastKeyAck> commandBuilder)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _commandBuilder = commandBuilder ?? throw new ArgumentNullException(nameof(commandBuilder));
         }
 
         /// <inheritdoc />
-        public async Task<Error> Verify(ClassCommand<communications, joinMcast> command)
+        public async Task<Error> Verify(ClassCommand<communications, mcastKeyUpdate> command)
         {
             return await Sanction.OnlyOwner<ICommunicationsDevice>(_egm, command);
         }
 
         /// <inheritdoc />
-        public async Task Handle(ClassCommand<communications, joinMcast> command)
+        public async Task Handle(ClassCommand<communications, mcastKeyUpdate> command)
         {
             if (command.Class.sessionType == t_sessionTypes.G2S_request)
             {
                 var device = _egm.GetDevice<ICommunicationsDevice>(command.IClass.deviceId);
-
-                if(Uri.TryCreate(command.Command.multicastLocation, UriKind.Absolute, out Uri result))
-                {
-                    device.SetMulticastAddress(command.Command.multicastLocation);
-                }
-
-                // TODO this is happy path - Need to handle errors throughout
 
                 var sp = _messageBuilder.DecodeSecurityParams(command.Command.securityParams);
 
@@ -57,15 +50,17 @@
                     Encoding.ASCII.GetBytes(sp.newKey),
                     sp.currentKeyLastMsgId);
 
+                // TODO: Handle errors
+
                 _egm.StartMtp();
 
                 /*
                  * 
-                 * TODO where's the right place to raise up the G2S_CME110 event?
+                 * TODO where's the right place to raise up the G2S_CME110 event
                  * 
                 */
 
-                var response = command.GenerateResponse<joinMcastAck>();
+                var response = command.GenerateResponse<mcastKeyAck>();
 
                 await _commandBuilder.Build(device, response.Command);
             }
