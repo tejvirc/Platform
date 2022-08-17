@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "LH1bONyMKbaryYRHKADJrzhj11V1+LCi4XnSXqEIZsc="
+          "hash": "+4IexZ5vMWiwWU90flN8xwHX4Cn9KymAUcGb2t7rxXI="
         }
       },
       "is_incremental": false,
@@ -20699,11 +20699,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Events.BingoPatternsInfoEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Events.BingoPatternsInfoEvent.html",
+          "hash": "4YMRE003ObugaaLCM8o4nS9d/SytIFHdU+5gieOFoRw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.UI.Events.yml",
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Events.html",
-          "hash": "DCuFzdDZNJp7zza7zkr0MDZI5MDT1qx8BfDq4H+kVig="
+          "hash": "7FK3eAfj/5hMb7DGLfwVrlxhbc3vyKuU7xy8UR0jtAc="
         }
       },
       "is_incremental": false,
@@ -20955,7 +20967,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay.BingoHtmlHostOverlayViewModel.html",
-          "hash": "UGbjnIuBYG5cXBrTKTKBuVec60YyhgylgcbnJpnLOWY="
+          "hash": "+kyVAvCyaXgiS8Ltx2UsSS1LnbWiF9CCToqqYhRG2AE="
         }
       },
       "is_incremental": false,
@@ -82665,7 +82677,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6855,
+          "total_file_count": 6856,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
