@@ -553,6 +553,9 @@
             await _overlayServer.UpdateData(
                 new BingoLiveData { BingoPatterns = GetBingoPatternForOverlay(patterns) },
                 token);
+#if !(RETAIL)
+            _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(patterns)));
+#endif
         }
 
         private async Task Handle(BaseGameEvent e, CancellationToken token)
@@ -596,6 +599,9 @@
 
                 await _overlayServer.UpdateData(
                     new BingoLiveData { BingoPatterns = GetBingoPatternForOverlay(_bingoPatterns) }, token);
+#if !(RETAIL)
+                _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(_bingoPatterns)));
+#endif
 
                 _cyclingPatterns = new List<BingoPattern>(_cyclingPatterns.Concat(_bingoPatterns));
                 _bingoPatterns = new List<BingoPattern>();
@@ -822,6 +828,9 @@
                     BingoCardNumbers = _bingoCardNumbers,
                     BingoPatterns = GetBingoPatternForOverlay(_cyclingPatterns)
                 }).FireAndForget();
+#if !(RETAIL)
+            _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(_cyclingPatterns)));
+#endif
         }
 
         private void OverlayClientDisconnected(object sender, OverlayType overlayType)
