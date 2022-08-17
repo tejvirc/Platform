@@ -511,7 +511,7 @@
             Logger.Debug("Detected WatOnStartedEvent.");
             if (CurrentState != LobbyState.Disabled)
             {
-                CashInStarted(CashInType.Wat);
+                CashInStarted(CashInType.Wat, false);
             }
         }
 

@@ -2762,6 +2762,7 @@
         private void OnCashInExit()
         {
             Logger.Debug("Exiting OnCashIn");
+            MessageOverlayDisplay.IsCashingInDlgVisible = false;
             if (BaseState == LobbyState.Chooser)
             {
                 StartAttractTimer(); // In Case Cash-In Failed and Bank == 0
@@ -4277,11 +4278,12 @@
             }
         }
 
-        private void CashInStarted(CashInType cashInType)
+        private void CashInStarted(CashInType cashInType, bool showDialog = true)
         {
             _cashInStartZeroCredits = HasZeroCredits;
             Logger.Debug($"Cash In Started at Zero Credits: {_cashInStartZeroCredits}");
             MessageOverlayDisplay.CashInType = cashInType;
+            MessageOverlayDisplay.IsCashingInDlgVisible = showDialog;
             MvvmHelper.ExecuteOnUI(() => _lobbyStateManager.AddFlagState(LobbyState.CashIn, cashInType));
         }
 
@@ -4313,6 +4315,7 @@
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
                 });
+            MessageOverlayDisplay.IsCashingInDlgVisible = false;
         }
 
         private string GetCurrentLanguageButtonResourceKey()

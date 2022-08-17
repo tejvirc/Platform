@@ -177,9 +177,9 @@
         }
 
         /// <summary>
-        ///     Gets a value indicating whether we are cashing in (ticket or bill).
+        ///     Gets or sets a value indicating whether we should show the cashing in dialog
         /// </summary>
-        public bool IsCashingInDlgVisible => _lobbyStateManager.ContainsAnyState(LobbyState.CashIn);
+        public bool IsCashingInDlgVisible { get; set; }
 
         public bool LastCashOutForcedByMaxBank;
 
