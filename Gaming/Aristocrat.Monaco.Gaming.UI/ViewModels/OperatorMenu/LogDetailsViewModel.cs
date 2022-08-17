@@ -14,7 +14,8 @@
     using Kernel;
     using Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     [CLSCompliant(false)]
     public class LogDetailsViewModel : OperatorMenuSaveViewModelBase
@@ -25,7 +26,7 @@
         private string _statusText;
         private bool _isMostRecentRowSelected;
 
-        public ActionCommand<object> ReprintButtonCommand { get; set; }
+        public RelayCommand<object> ReprintButtonCommand { get; set; }
 
         private readonly IEventLogAdapter _eventLogAdapter;
         private static long _transactionId;
@@ -43,7 +44,7 @@
                 RaisePropertyChanged(nameof(CanReprint));
                 if (ReprintButtonCommand != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => ReprintButtonCommand.RaiseCanExecuteChanged());
+                    MvvmHelper.ExecuteOnUI(() => ReprintButtonCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -127,7 +128,7 @@
             }
 
             GetReprintButtonEnabled();
-            ReprintButtonCommand = new ActionCommand<object>(
+            ReprintButtonCommand = new RelayCommand<object>(
                 _ => Print(OperatorMenuPrintData.SelectedItem),
                 _ => CanReprint);
         }

@@ -10,6 +10,7 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
+    using Microsoft.Toolkit.Mvvm.Input;
     using MVVM.Command;
     using OperatorMenu;
 
@@ -24,8 +25,8 @@
 
         public CreditsInPageViewModel()
         {
-            ApplyCommand = new ActionCommand<object>(OnApply, OnCanApply);
-            ClearCommand = new ActionCommand<object>(OnClear, OnCanClear);
+            ApplyCommand = new RelayCommand<object>(OnApply, OnCanApply);
+            ClearCommand = new RelayCommand<object>(OnClear, OnCanClear);
 
             // Set whether the operator can override max credit in.
             _canOverrideMaxCreditsIn = GetConfigSetting(
@@ -37,12 +38,12 @@
         /// <summary>
         ///     Gets or sets action command that applies the options.
         /// </summary>
-        public ActionCommand<object> ApplyCommand { get; set; }
+        public RelayCommand<object> ApplyCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that clears the Cash In Limit value.
         /// </summary>
-        public ActionCommand<object> ClearCommand { get; set; }
+        public RelayCommand<object> ClearCommand { get; set; }
 
         public bool IsDirty
         {
@@ -52,7 +53,7 @@
             {
                 _isDirty = value;
                 RaisePropertyChanged(nameof(IsDirty));
-                ApplyCommand.RaiseCanExecuteChanged();
+                ApplyCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -70,8 +71,8 @@
                     ValidateMaxCreditsIn(value);
                     RaisePropertyChanged(nameof(MaxCreditsIn));
                     IsDirty = true;
-                    ApplyCommand.RaiseCanExecuteChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
+                    ClearCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -98,7 +99,7 @@
 
             IsDirty = false;
 
-            ClearCommand.RaiseCanExecuteChanged();
+            ClearCommand.NotifyCanExecuteChanged();
 
             // Are we configured to override MaxCreditsIn?
             if (_canOverrideMaxCreditsIn)

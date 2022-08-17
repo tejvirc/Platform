@@ -16,7 +16,8 @@
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     [CLSCompliant(false)]
     public class ImportMachineSettingsViewModel : ConfigWizardViewModelBase
@@ -51,7 +52,7 @@
         {
             _settingsManager = settingsManager;
 
-            ImportCommand = new ActionCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
+            ImportCommand = new RelayCommand(() => Import(), () => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
         }
@@ -59,7 +60,7 @@
         /// <summary>
         ///     Gets the import command.
         /// </summary>
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand ImportCommand { get; }
 
         /// <summary>
         ///     Gets a collection of configuration settings.
@@ -76,7 +77,7 @@
             set
             {
                 SetProperty(ref _isInProgress, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -110,7 +111,7 @@
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -125,7 +126,7 @@
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }

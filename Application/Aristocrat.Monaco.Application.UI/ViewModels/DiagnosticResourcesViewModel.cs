@@ -17,7 +17,8 @@
     using LiveCharts.Configurations;
     using LiveCharts.Wpf;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using OperatorMenu;
     using Views;
@@ -58,8 +59,8 @@
 
             LoadAvailableMetrics();
             
-            ViewMemoryCommand = new ActionCommand<object>(ViewMemory);
-            ToggleDiagnosticChartViewModeCommand = new ActionCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
+            ViewMemoryCommand = new RelayCommand<object>(ViewMemory);
+            ToggleDiagnosticChartViewModeCommand = new RelayCommand(() => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
         }
 
         private static Process GdkProcess => Process.GetProcessesByName(RuntimeInstanceName).FirstOrDefault();

@@ -31,7 +31,8 @@
     using Monaco.UI.Common;
     using Monaco.UI.Common.Events;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using OperatorMenu;
     using Vgt.Client12.Application.OperatorMenu;
@@ -148,13 +149,13 @@
 
             MenuItems = new ObservableCollection<IOperatorMenuPageLoader>();
 
-            HandleLoadedCommand = new ActionCommand<object>(HandleLoaded);
-            HandleContentRenderedCommand = new ActionCommand<object>(HandleContentRendered);
-            HandleClosingCommand = new ActionCommand<object>(HandleClosing);
-            LanguageChangedCommand = new ActionCommand<object>(HandleLanguageChangedCommand);
-            PrintButtonCommand = new ActionCommand<object>(HandlePrintButtonCommand);
-            ExitButtonCommand = new ActionCommand<object>(_ => ExitMenu());
-            HelpButtonCommand = new ActionCommand<object>(HandleHelpButtonCommand);
+            HandleLoadedCommand = new RelayCommand<object>(HandleLoaded);
+            HandleContentRenderedCommand = new RelayCommand<object>(HandleContentRendered);
+            HandleClosingCommand = new RelayCommand<object>(HandleClosing);
+            LanguageChangedCommand = new RelayCommand<object>(HandleLanguageChangedCommand);
+            PrintButtonCommand = new RelayCommand<object>(HandlePrintButtonCommand);
+            ExitButtonCommand = new RelayCommand(() => ExitMenu());
+            HelpButtonCommand = new RelayCommand<object>(HandleHelpButtonCommand);
 
             SupportedLanguages = new ObservableCollection<string>();
 

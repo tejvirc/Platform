@@ -10,7 +10,8 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     public class CombinationTestViewModel : OperatorMenuDiagnosticPageViewModelBase
     {
@@ -29,12 +30,12 @@
                 _diagnostics = container.Container.GetInstance<IGameDiagnostics>();
             }
 
-            ComboTestCommand = new ActionCommand<object>(_ => LaunchCombinationTest(), _ => SelectedGame != null && InputEnabled);
+            ComboTestCommand = new RelayCommand(() => LaunchCombinationTest(), () => SelectedGame != null && InputEnabled);
 
             Games = new ObservableCollection<GameComboInfo>();
         }
 
-        public IActionCommand ComboTestCommand { get; }
+        public IRelayCommand ComboTestCommand { get; }
 
         public GameComboInfo SelectedGame
         {
@@ -45,7 +46,7 @@
                 {
                     _selectedGame = value;
                     RaisePropertyChanged(nameof(SelectedGame));
-                    ComboTestCommand.RaiseCanExecuteChanged();
+                    ComboTestCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -62,12 +63,12 @@
 
         protected override void OnInputStatusChanged()
         {
-            ComboTestCommand.RaiseCanExecuteChanged();
+            ComboTestCommand.NotifyCanExecuteChanged();
         }
 
         protected override void OnInputEnabledChanged()
         {
-            ComboTestCommand.RaiseCanExecuteChanged();
+            ComboTestCommand.NotifyCanExecuteChanged();
         }
 
         protected override void InitializeData()

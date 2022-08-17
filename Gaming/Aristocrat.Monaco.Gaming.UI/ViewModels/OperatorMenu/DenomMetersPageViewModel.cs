@@ -16,7 +16,8 @@
     using Kernel;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     [CLSCompliant(false)]
     public class DenomMetersPageViewModel : MetersPageViewModelBase
@@ -35,8 +36,8 @@
                 games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d)));
             SelectedDenom = Denoms.FirstOrDefault();
 
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
         }
 
         public ICommand PreviousDenomCommand { get; }

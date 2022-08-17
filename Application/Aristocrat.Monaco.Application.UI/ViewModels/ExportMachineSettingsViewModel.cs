@@ -15,7 +15,8 @@
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Views;
 
@@ -62,13 +63,13 @@
             _settingsManager = settingsManager;
             _exportSettingsNoteText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExportSettingsNoteText);
 
-            ExportCommand = new ActionCommand<object>(_ => Export(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
+            ExportCommand = new RelayCommand(() => Export(), () => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
         }
 
         /// <summary>
         ///     Gets the export command.
         /// </summary>
-        public ActionCommand<object> ExportCommand { get; }
+        public RelayCommand ExportCommand { get; }
 
         /// <summary>
         ///     Gets a collection of configuration settings.
@@ -85,7 +86,7 @@
             set
             {
                 SetProperty(ref _isInProgress, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -119,7 +120,7 @@
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -134,7 +135,7 @@
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }

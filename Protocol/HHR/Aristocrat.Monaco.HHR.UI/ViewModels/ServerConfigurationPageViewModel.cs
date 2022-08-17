@@ -10,7 +10,8 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class ServerConfigurationPageViewModel : ConfigWizardViewModelBase
@@ -48,7 +49,7 @@
 
             PropertyChanged += ServerConfigurationPageViewModel_PropertyChanged;
 
-            ApplyServerConfigurationCommand = new ActionCommand<object>(Apply);
+            ApplyServerConfigurationCommand = new RelayCommand<object>(Apply);
         }
 
         protected override void Loaded()
@@ -58,7 +59,7 @@
             ValidateUdpPort(UdpPortNumber);
         }
 
-        public ActionCommand<object> ApplyServerConfigurationCommand { get; set; }
+        public RelayCommand<object> ApplyServerConfigurationCommand { get; set; }
 
         private void ServerConfigurationPageViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

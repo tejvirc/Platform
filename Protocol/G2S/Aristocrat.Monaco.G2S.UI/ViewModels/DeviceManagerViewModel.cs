@@ -13,7 +13,8 @@
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
@@ -45,7 +46,7 @@
             set
             {
                 _selectedDevice = value;
-                EditCommand.RaiseCanExecuteChanged();
+                EditCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -111,8 +112,8 @@
                 if (_isDirty != value)
                 {
                     _isDirty = value;
-                    SaveChangesCommand.RaiseCanExecuteChanged();
-                    CancelChangesCommand.RaiseCanExecuteChanged();
+                    SaveChangesCommand.NotifyCanExecuteChanged();
+                    CancelChangesCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -126,10 +127,10 @@
                 if (_saveInProgress != value)
                 {
                     _saveInProgress = value;
-                    SaveChangesCommand.RaiseCanExecuteChanged();
-                    CancelChangesCommand.RaiseCanExecuteChanged();
-                    BulkChangesCommand.RaiseCanExecuteChanged();
-                    EditCommand.RaiseCanExecuteChanged();
+                    SaveChangesCommand.NotifyCanExecuteChanged();
+                    CancelChangesCommand.NotifyCanExecuteChanged();
+                    BulkChangesCommand.NotifyCanExecuteChanged();
+                    EditCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -142,13 +143,13 @@
 
         private bool CanBulkChanges => GameIdle && !SaveInProgress;
 
-        public ActionCommand<object> EditCommand { get; }
+        public RelayCommand<object> EditCommand { get; }
 
-        public ActionCommand<object> CancelChangesCommand { get; }
+        public RelayCommand<object> CancelChangesCommand { get; }
 
-        public ActionCommand<object> SaveChangesCommand { get; }
+        public RelayCommand<object> SaveChangesCommand { get; }
 
-        public ActionCommand<object> BulkChangesCommand { get; }
+        public RelayCommand<object> BulkChangesCommand { get; }
 
 
         public DeviceManagerViewModel()
@@ -159,10 +160,10 @@
             _editableDevices = new List<EditableDevice>();
             ActiveDevices = new ObservableCollection<EditableDevice>();
 
-            EditCommand = new ActionCommand<object>(EditDevice, _ => CanEditSelected);
-            CancelChangesCommand = new ActionCommand<object>(CancelChanges, _ => CanCancelChanges);
-            SaveChangesCommand = new ActionCommand<object>(SaveChanges, _ => CanSaveChanges);
-            BulkChangesCommand = new ActionCommand<object>(BulkChanges, _ => CanBulkChanges);
+            EditCommand = new RelayCommand<object>(EditDevice, _ => CanEditSelected);
+            CancelChangesCommand = new RelayCommand<object>(CancelChanges, _ => CanCancelChanges);
+            SaveChangesCommand = new RelayCommand<object>(SaveChanges, _ => CanSaveChanges);
+            BulkChangesCommand = new RelayCommand<object>(BulkChanges, _ => CanBulkChanges);
             EventBus.Subscribe<ProtocolsInitializedEvent>(this, HandleEvent);
         }
 

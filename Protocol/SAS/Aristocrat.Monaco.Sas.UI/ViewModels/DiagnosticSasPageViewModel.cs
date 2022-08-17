@@ -11,7 +11,8 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
     using Base;
     using Contracts.Client;
     using Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     /// <summary>
     ///     ViewModel for Sas diagnostics
@@ -37,8 +38,8 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
         {
             BindingOperations.EnableCollectionSynchronization(SasPollDatas, _sasPollDataLock);
             SelectedSasDiagnostics = _sasHost.GetSasClientDiagnostics(0);
-            ToggleMonitoringCommand = new ActionCommand<object>(_ => ToggleMonitoring());
-            ClearSasDataCommand = new ActionCommand<object>(_ => ClearSasData());
+            ToggleMonitoringCommand = new RelayCommand(() => ToggleMonitoring());
+            ClearSasDataCommand = new RelayCommand(() => ClearSasData());
             _canMonitorPollType = new Dictionary<SasPollData.PollType, Func<bool>>
             {
                 { SasPollData.PollType.GeneralPoll, () => MonitoringGeneralPoll && _monitor },

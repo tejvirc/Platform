@@ -14,7 +14,8 @@
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class GamePerformanceMetersViewModel : GameMetersViewModel, IModalDialogSaveViewModel
@@ -32,7 +33,7 @@
             GameNumber = gameNumber;
 
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
-            CancelCommand = new ActionCommand<object>(_ => Cancel());
+            CancelCommand = new RelayCommand(() => Cancel());
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Close);
         }
 

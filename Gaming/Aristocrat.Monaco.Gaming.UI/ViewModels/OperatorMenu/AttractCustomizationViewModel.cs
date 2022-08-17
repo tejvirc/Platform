@@ -14,7 +14,8 @@
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class AttractCustomizationViewModel : OperatorMenuSaveViewModelBase
@@ -55,12 +56,12 @@
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Cancel);
 
-            MoveUpCommand = new ActionCommand<object>(MoveUpButton_Clicked);
-            MoveDownCommand = new ActionCommand<object>(MoveDownButton_Clicked);
-            MoveToTopCommand = new ActionCommand<object>(MoveToTopButton_Clicked);
-            MoveToBottomCommand = new ActionCommand<object>(MoveToBottomButton_Clicked);
+            MoveUpCommand = new RelayCommand<object>(MoveUpButton_Clicked);
+            MoveDownCommand = new RelayCommand<object>(MoveDownButton_Clicked);
+            MoveToTopCommand = new RelayCommand<object>(MoveToTopButton_Clicked);
+            MoveToBottomCommand = new RelayCommand<object>(MoveToBottomButton_Clicked);
 
-            RestoreDefaultCommand = new ActionCommand<object>(RestoreDefaultButton_Clicked);
+            RestoreDefaultCommand = new RelayCommand<object>(RestoreDefaultButton_Clicked);
 
             Init();
         }

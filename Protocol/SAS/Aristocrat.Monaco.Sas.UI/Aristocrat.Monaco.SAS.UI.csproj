@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />

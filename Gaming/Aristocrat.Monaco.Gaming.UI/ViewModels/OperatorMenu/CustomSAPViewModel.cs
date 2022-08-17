@@ -7,7 +7,8 @@
     using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu;
     using Kernel;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
@@ -41,9 +42,9 @@
             _sharedSapProvider = ServiceManager.GetInstance().GetService<ISharedSapProvider>();
             _configurationProvider = ServiceManager.GetInstance().GetService<IProgressiveConfigurationProvider>();
 
-            AddSAPLevelCommand = new ActionCommand<object>(AddLevelPressed);
-            DeleteSAPLevelCommand = new ActionCommand<string>(DeleteLevelPressed);
-            EditSAPLevelCommand = new ActionCommand<string>(EditLevelPressed);
+            AddSAPLevelCommand = new RelayCommand<object>(AddLevelPressed);
+            DeleteSAPLevelCommand = new RelayCommand<string>(DeleteLevelPressed);
+            EditSAPLevelCommand = new RelayCommand<string>(EditLevelPressed);
 
             RefreshLevelDetails();
         }

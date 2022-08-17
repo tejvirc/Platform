@@ -16,7 +16,8 @@
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -70,27 +71,27 @@
 
             bool enablePlay = IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled;
 
-            StopCommand = new ActionCommand<object>(_ => StopSound(),
-                _ => IsAudioServiceAvailable && !IsAudioDisabled && IsPlaying);
+            StopCommand = new RelayCommand(() => StopSound(),
+                () => IsAudioServiceAvailable && !IsAudioDisabled && IsPlaying);
 
-            PlayCommand = new ActionCommand<object>(_ => PlaySound(),
-                _ => IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled);
+            PlayCommand = new RelayCommand(() => PlaySound(),
+                () => IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled);
 
-            PlayCommandOnFrontLeftSpeaker = new ActionCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
+            PlayCommandOnFrontLeftSpeaker = new RelayCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnCenterSpeaker = new ActionCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
+            PlayCommandOnCenterSpeaker = new RelayCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
 
-            PlayCommandOnFrontRightSpeaker = new ActionCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
+            PlayCommandOnFrontRightSpeaker = new RelayCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideLeftSpeaker = new ActionCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
+            PlayCommandOnSideLeftSpeaker = new RelayCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideRightSpeaker = new ActionCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
+            PlayCommandOnSideRightSpeaker = new RelayCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnLowFrequencySpeaker = new ActionCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
+            PlayCommandOnLowFrequencySpeaker = new RelayCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
 
-            PlayCommandOnRearLeftSpeaker = new ActionCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
+            PlayCommandOnRearLeftSpeaker = new RelayCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnRearRightSpeaker = new ActionCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
+            PlayCommandOnRearRightSpeaker = new RelayCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
         }
 
         private void LoadVolumeSettings()
@@ -101,25 +102,25 @@
             RaisePropertyChanged(nameof(SoundLevel));
         }
 
-        public IActionCommand PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
-        public IActionCommand StopCommand { get; }
+        public IRelayCommand StopCommand { get; }
 
-        public IActionCommand PlayCommandOnFrontLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnCenterSpeaker { get; }
+        public IRelayCommand PlayCommandOnCenterSpeaker { get; }
 
-        public IActionCommand PlayCommandOnFrontRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnLowFrequencySpeaker { get; }
+        public IRelayCommand PlayCommandOnLowFrequencySpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearRightSpeaker { get; }
 
         public bool IsPlaying
         {
@@ -134,8 +135,8 @@
 
                 _isPlaying = value;
                 RaisePropertyChanged(nameof(IsPlaying));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -152,8 +153,8 @@
 
                 _isAudioDisabled = value;
                 RaisePropertyChanged(nameof(IsAudioDisabled));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -424,7 +425,7 @@
             {
                 _playingTimer.Stop();
                 IsPlaying = false;
-                StopCommand?.RaiseCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             });
         }
 

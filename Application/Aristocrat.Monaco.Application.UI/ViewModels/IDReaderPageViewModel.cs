@@ -16,7 +16,8 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -46,8 +47,8 @@
 
         public IdReaderPageViewModel() : base(DeviceType.IdReader)
         {
-            SelfTestButtonCommand = new ActionCommand<object>(OnSelfTestCmd);
-            SelfTestClearButtonCommand = new ActionCommand<object>(OnSelfTestClearNvmCmd);
+            SelfTestButtonCommand = new RelayCommand<object>(OnSelfTestCmd);
+            SelfTestClearButtonCommand = new RelayCommand<object>(OnSelfTestClearNvmCmd);
 
             SelfTestCurrentState = SelfTestState.None;
         }

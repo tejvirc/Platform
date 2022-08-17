@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using MVVM.Command;
+
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
@@ -46,16 +48,16 @@
                 return;
             }
 
-            ExitClickedCommand = new ActionCommand<object>(_ => ExitRequested());
+            ExitClickedCommand = new RelayCommand(() => ExitRequested());
 
             if (_playerInfoDisplayFeatureProvider.IsGameInfoSupported)
             {
-                GameInfoClickedCommand = new ActionCommand<object>(GameInfoRequested);
+                GameInfoClickedCommand = new RelayCommand<object>(GameInfoRequested);
             }
 
             if (_playerInfoDisplayFeatureProvider.IsGameRulesSupported)
             {
-                GameRulesClickedCommand = new ActionCommand<object>(GameRulesRequested);
+                GameRulesClickedCommand = new RelayCommand<object>(GameRulesRequested);
             }
 
             _closeTimer = timeoutTimer ?? new DispatcherTimerAdapter();

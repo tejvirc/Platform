@@ -19,7 +19,7 @@
     using Kernel;
     using Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
     public class BillsMetersPageViewModel : MetersPageViewModelBase
@@ -48,7 +48,7 @@
             : base(null)
         {
             _pageName = pageName;
-            BillClearanceButtonClickedCommand = new ActionCommand<object>(BillClearance_Clicked);
+            BillClearanceButtonClickedCommand = new RelayCommand(() => BillClearance_Clicked());
             BillClearanceEnabled = (bool)PropertiesManager.GetProperty(AccountingConstants.BillClearanceEnabled, false);
             _billClearanceButtonEnabled = GameIdle;
         }
@@ -189,7 +189,7 @@
             base.DisposeInternal();
         }
 
-        private void BillClearance_Clicked(object sender)
+        private void BillClearance_Clicked()
         {
             var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 

@@ -12,7 +12,8 @@
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using OxyPlot;
     using OxyPlot.Axes;
@@ -61,7 +62,7 @@
 
             PopulateAvailableMetrics();
 
-            ResetZoomOrPanCommand = new ActionCommand<object>(
+            ResetZoomOrPanCommand = new RelayCommand<object>(
                 _ =>
                 {
                     if (!ZoomingOrPanningDone)
@@ -74,7 +75,7 @@
                     MonacoPlotModel?.InvalidatePlot(true);
                 });
 
-            MagnifyMinusCommand = new ActionCommand<object>(
+            MagnifyMinusCommand = new RelayCommand<object>(
                 _ =>
                 {
                     Zoom(0.95);
@@ -84,7 +85,7 @@
                     MonacoPlotModel?.InvalidatePlot(false);
                 });
 
-            MagnifyPlusCommand = new ActionCommand<object>(
+            MagnifyPlusCommand = new RelayCommand<object>(
                 _ =>
                 {
                     Zoom(1.05);

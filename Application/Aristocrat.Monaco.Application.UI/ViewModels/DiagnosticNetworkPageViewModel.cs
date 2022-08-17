@@ -14,7 +14,8 @@
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     /// <summary>
@@ -50,7 +51,7 @@
         {
             _network = ServiceManager.GetInstance().GetService<INetworkService>();
 
-            PingCommand = new ActionCommand<object>(OnPing, _ => CanOnPing);
+            PingCommand = new RelayCommand<object>(OnPing, _ => CanOnPing);
 
             _monitorNetworkStatusTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
             _monitorNetworkStatusTimer.Tick += OnMonitorNetworkStatus;
@@ -58,7 +59,7 @@
             _netStatTimer = new Timer(OnNetStatUpdate);
         }
 
-        public ActionCommand<object> PingCommand { get; set; }
+        public RelayCommand<object> PingCommand { get; set; }
 
         public string PingIpAddress
         {
@@ -222,7 +223,7 @@
                     RaisePropertyChanged("CanOnPing");
                 }
 
-                MvvmHelper.ExecuteOnUI(() => PingCommand?.RaiseCanExecuteChanged());
+                MvvmHelper.ExecuteOnUI(() => PingCommand?.NotifyCanExecuteChanged());
             }
         }
 

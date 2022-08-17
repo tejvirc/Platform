@@ -11,7 +11,8 @@
     using Hardware.Contracts.Audio;
     using Kernel;
     using log4net;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
 
     public class LobbyVolumeViewModel : BaseEntityViewModel
@@ -40,7 +41,7 @@
                 ApplicationConstants.PlayerVolumeScalarKey,
                 ApplicationConstants.PlayerVolumeScalar);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", PlayerVolumeScalar);
-            VolumeCommand = new ActionCommand<object>(o => OnVolumeChange());
+            VolumeCommand = new RelayCommand<object>(o => OnVolumeChange());
             LoadSoundFile();
         }
 

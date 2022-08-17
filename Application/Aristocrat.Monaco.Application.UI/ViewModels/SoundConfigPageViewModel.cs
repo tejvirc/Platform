@@ -12,7 +12,8 @@
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Views;
 
@@ -38,7 +39,7 @@
         {
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
-            SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
+            SoundTestCommand = new RelayCommand<object>(SoundTestClicked);
         }
 
         private void LoadVolumeSettings()

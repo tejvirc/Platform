@@ -30,6 +30,7 @@
     using Monaco.UI.Common.Events;
     using Monaco.UI.Common.Models;
     using MVVM;
+    using Microsoft.Toolkit.Mvvm.Input;
     using MVVM.Command;
     using MVVM.ViewModel;
 
@@ -98,13 +99,13 @@
         {
             Logger = LogManager.GetLogger(GetType());
 
-            PrintSelectedButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.SelectedItem));
-            PrintCurrentPageButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.CurrentPage));
-            PrintLast15ButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Last15));
-            LoadedCommand = new ActionCommand<object>(OnLoaded);
-            UnloadedCommand = new ActionCommand<object>(OnUnloaded);
-            EventViewerScrolledCommand = new ActionCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
-            ShowInfoPopupCommand = new ActionCommand<object>(ShowInfoPopup);
+            PrintSelectedButtonCommand = new RelayCommand(() => Print(OperatorMenuPrintData.SelectedItem));
+            PrintCurrentPageButtonCommand = new RelayCommand(() => Print(OperatorMenuPrintData.CurrentPage));
+            PrintLast15ButtonCommand = new RelayCommand(() => Print(OperatorMenuPrintData.Last15));
+            LoadedCommand = new RelayCommand(() => OnLoaded());
+            UnloadedCommand = new RelayCommand(() => OnUnloaded());
+            EventViewerScrolledCommand = new RelayCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
+            ShowInfoPopupCommand = new RelayCommand<object>(ShowInfoPopup);
             DefaultPrintButtonEnabled = defaultPrintButtonEnabled;
             SetIgnoreProperties();
         }

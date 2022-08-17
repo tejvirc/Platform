@@ -6,7 +6,8 @@
     using System.Windows.Input;
     using Contracts.OperatorMenu;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     [CLSCompliant(false)]
     public class OperatorMenuDialogViewModel : OperatorMenuSaveViewModelBase
@@ -83,11 +84,11 @@
 
         private void Initialize(string windowText)
         {
-            HandleLoadedCommand = new ActionCommand<object>(HandleLoaded);
+            HandleLoadedCommand = new RelayCommand(() => HandleLoaded());
             _windowText = windowText;
         }
 
-        private void HandleLoaded(object obj)
+        private void HandleLoaded()
         {
             UpdateProperties();
         }

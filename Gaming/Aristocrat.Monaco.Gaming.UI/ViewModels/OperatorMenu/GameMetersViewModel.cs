@@ -14,7 +14,8 @@
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -55,11 +56,11 @@
             SelectByGameNameAndDenomination = GetConfigSetting(
                 OperatorMenuSetting.GameNameAndDenominationSelections,
                 false);
-            PreviousGameCommand = new ActionCommand<object>(PreviousGame);
-            NextGameCommand = new ActionCommand<object>(NextGame);
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
-            DisplayCategoriesCommand = new ActionCommand<object>(ShowWagerCategoryMeters);
+            PreviousGameCommand = new RelayCommand<object>(PreviousGame);
+            NextGameCommand = new RelayCommand<object>(NextGame);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
+            DisplayCategoriesCommand = new RelayCommand<object>(ShowWagerCategoryMeters);
         }
 
         public ICommand PreviousGameCommand { get; }

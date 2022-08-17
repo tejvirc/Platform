@@ -22,7 +22,8 @@
     using Localization.Properties;
     using Models;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Views;
     using Constants = Constants;
 
@@ -66,9 +67,9 @@
 
             ResetEditState();
 
-            NewCommand = new ActionCommand<object>(_ => NewHost());
-            EditCommand = new ActionCommand<Host>(EditHost);
-            DeleteCommand = new ActionCommand<Host>(DeleteHost);
+            NewCommand = new RelayCommand(() => NewHost());
+            EditCommand = new RelayCommand<Host>(EditHost);
+            DeleteCommand = new RelayCommand<Host>(DeleteHost);
 
             _port = PropertiesManager.GetValue(Constants.Port, Constants.DefaultPort);
 

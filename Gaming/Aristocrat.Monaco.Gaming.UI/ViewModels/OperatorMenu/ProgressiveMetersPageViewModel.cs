@@ -21,7 +21,8 @@
     using Kernel;
     using Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using static DenomMetersPageViewModel;
 
     [CLSCompliant(false)]
@@ -50,14 +51,14 @@
 
             _progressiveMeterManager = serviceManager.GetService<IProgressiveMeterManager>();
 
-            PreviousGameCommand = new ActionCommand<object>(PreviousGame);
-            NextGameCommand = new ActionCommand<object>(NextGame);
+            PreviousGameCommand = new RelayCommand<object>(PreviousGame);
+            NextGameCommand = new RelayCommand<object>(NextGame);
 
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
 
-            PreviousBetOptionCommand = new ActionCommand<object>(PreviousBetOption);
-            NextBetOptionCommand = new ActionCommand<object>(NextBetOption);
+            PreviousBetOptionCommand = new RelayCommand<object>(PreviousBetOption);
+            NextBetOptionCommand = new RelayCommand<object>(NextBetOption);
 
             BetOptions = new ObservableCollection<string>();
             Denoms = new ObservableCollection<Denomination>();

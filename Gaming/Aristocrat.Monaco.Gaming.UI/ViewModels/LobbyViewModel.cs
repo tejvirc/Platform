@@ -22,7 +22,8 @@
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using System;
     using System.Collections.Concurrent;
@@ -422,32 +423,32 @@
 
             GameList = new ObservableCollection<GameInfo>();
 
-            GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
-            PreviousPageCommand = new ActionCommand<object>(PrevPage);
-            NextPageCommand = new ActionCommand<object>(NextPage);
-            AddCreditsCommand = new ActionCommand<object>(BankPressed);
-            CashOutCommand = new ActionCommand<object>(CashOutPressed);
-            ServiceCommand = new ActionCommand<object>(ServicePressed);
-            AddDebugCashCommand = new ActionCommand<object>(AddDebugCashPressed);
-            VbdCashoutDlgYesNoCommand = new ActionCommand<object>(VbdCashoutDlgYesNoPressed);
-            VbdServiceDlgYesNoCommand = new ActionCommand<object>(VbdServiceDlgYesNoPressed);
-            DenomFilterPressedCommand = new ActionCommand<object>(DenomFilterPressed);
-            TimeLimitDlgCommand = new ActionCommand<object>(TimeLimitAccepted);
-            ResponsibleGamingDialogOpenCommand = new ActionCommand<object>(ResponsibleGamingDialogOpenButtonPressed);
-            PrintHelplineMessageCommand = new ActionCommand<object>(OnPrintHelplineMessage, CanPrintHelplineMessage);
-            IdleTextScrollingCompletedCommand = new ActionCommand<object>(OnIdleTextScrollingCompleted);
-            CashOutWrapperMouseDownCommand = new ActionCommand<object>(OnCashOutWrapperMouseDown);
-            UpiPreviewMouseDownCommand = new ActionCommand<object>(OnUpiPreviewMouseDown);
-            UserInteractionCommand = new ActionCommand<object>(obj => OnUserInteraction());
-            ExitResponsibleGamingInfoCommand = new ActionCommand<object>(obj => ExitResponsibleGamingInfoDialog());
-            TouchResponsibleGamingInfoCommand = new ActionCommand<object>(obj => TouchResponsibleGamingInfoDialog());
-            ClockSwitchCommand = new ActionCommand<object>(OnClockSwitchPressed);
-            GameTabPressedCommand = new ActionCommand<object>(OnGameTabPressed);
-            DenominationPressedCommand = new ActionCommand<object>(OnDenominationPressed);
-            DenominationForSpecificGamePressedCommand = new ActionCommand<object[]>(OnDenominationForSpecificGamePressed);
-            SubTabPressedCommand = new ActionCommand<object>(OnSubTabPressed);
-            ReturnToLobbyCommand = new ActionCommand<object>(ReturnToLobbyButtonPressed);
-            CashOutFromPlayerMenuPopupCommand = new ActionCommand<object>(CashoutFromPlayerPopUpMenu);
+            GameSelectCommand = new RelayCommand<object>(LaunchGameFromUi);
+            PreviousPageCommand = new RelayCommand<object>(PrevPage);
+            NextPageCommand = new RelayCommand<object>(NextPage);
+            AddCreditsCommand = new RelayCommand<object>(BankPressed);
+            CashOutCommand = new RelayCommand<object>(CashOutPressed);
+            ServiceCommand = new RelayCommand<object>(ServicePressed);
+            AddDebugCashCommand = new RelayCommand<object>(AddDebugCashPressed);
+            VbdCashoutDlgYesNoCommand = new RelayCommand<object>(VbdCashoutDlgYesNoPressed);
+            VbdServiceDlgYesNoCommand = new RelayCommand<object>(VbdServiceDlgYesNoPressed);
+            DenomFilterPressedCommand = new RelayCommand<object>(DenomFilterPressed);
+            TimeLimitDlgCommand = new RelayCommand<object>(TimeLimitAccepted);
+            ResponsibleGamingDialogOpenCommand = new RelayCommand<object>(ResponsibleGamingDialogOpenButtonPressed);
+            PrintHelplineMessageCommand = new RelayCommand<object>(OnPrintHelplineMessage, CanPrintHelplineMessage);
+            IdleTextScrollingCompletedCommand = new RelayCommand<object>(OnIdleTextScrollingCompleted);
+            CashOutWrapperMouseDownCommand = new RelayCommand<object>(OnCashOutWrapperMouseDown);
+            UpiPreviewMouseDownCommand = new RelayCommand<object>(OnUpiPreviewMouseDown);
+            UserInteractionCommand = new RelayCommand<object>(obj => OnUserInteraction());
+            ExitResponsibleGamingInfoCommand = new RelayCommand<object>(obj => ExitResponsibleGamingInfoDialog());
+            TouchResponsibleGamingInfoCommand = new RelayCommand<object>(obj => TouchResponsibleGamingInfoDialog());
+            ClockSwitchCommand = new RelayCommand<object>(OnClockSwitchPressed);
+            GameTabPressedCommand = new RelayCommand<object>(OnGameTabPressed);
+            DenominationPressedCommand = new RelayCommand<object>(OnDenominationPressed);
+            DenominationForSpecificGamePressedCommand = new RelayCommand<object[]>(OnDenominationForSpecificGamePressed);
+            SubTabPressedCommand = new RelayCommand<object>(OnSubTabPressed);
+            ReturnToLobbyCommand = new RelayCommand<object>(ReturnToLobbyButtonPressed);
+            CashOutFromPlayerMenuPopupCommand = new RelayCommand<object>(CashoutFromPlayerPopUpMenu);
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
@@ -623,7 +624,7 @@
         /// <summary>
         ///     Gets the print helpline message command
         /// </summary>
-        public ActionCommand<object> PrintHelplineMessageCommand { get; }
+        public RelayCommand<object> PrintHelplineMessageCommand { get; }
 
         /// <summary>
         ///     Gets the time limit dialog command
@@ -2955,7 +2956,7 @@
 
             RaisePropertiesChanged();
 
-            PrintHelplineMessageCommand.RaiseCanExecuteChanged();
+            PrintHelplineMessageCommand.NotifyCanExecuteChanged();
 
             Logger.Debug($"Leaving UpdateUI, state: {CurrentState}");
         }
@@ -4200,7 +4201,7 @@
         private void PrintHelplineTicketTimerTick(object sender, EventArgs e)
         {
             _inPrintHelplineTicketWaitPeriod = false;
-            PrintHelplineMessageCommand.RaiseCanExecuteChanged();
+            PrintHelplineMessageCommand.NotifyCanExecuteChanged();
         }
 
         private void RotateTopImageTimerTick(object sender, EventArgs e)

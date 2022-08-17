@@ -12,7 +12,8 @@
     using Hardware.Contracts;
     using Kernel;
     using log4net;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
 
     /// <summary>
@@ -106,11 +107,11 @@
             _closeDelayTimer.Elapsed += (sender, args) => IsMenuVisible = false;
             _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, "");
 
-            ReserveDigitClickedCommand = new ActionCommand<string>(ConcatenateReservePin);
-            ReserveClickedCommand = new ActionCommand<object>(StartMachineReservation);
-            ReserveBackspaceClickedCommand = new ActionCommand<object>(BackspaceOnReservePin);
-            StartNewSessionClickedCommand = new ActionCommand<object>(StartNewTrackingSession);
-            MouseDownOnMenuCommand = new ActionCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
+            ReserveDigitClickedCommand = new RelayCommand<string>(ConcatenateReservePin);
+            ReserveClickedCommand = new RelayCommand<object>(StartMachineReservation);
+            ReserveBackspaceClickedCommand = new RelayCommand<object>(BackspaceOnReservePin);
+            StartNewSessionClickedCommand = new RelayCommand<object>(StartNewTrackingSession);
+            MouseDownOnMenuCommand = new RelayCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
 
             IsMenuVisible = false;
 

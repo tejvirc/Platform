@@ -31,7 +31,8 @@
     using Microsoft.Expression.Interactivity.Core;
     using Models;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Progressives;
     using Settings;
     using Views.OperatorMenu;
@@ -97,16 +98,16 @@
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
 
-            ImportCommand = new ActionCommand<object>(
+            ImportCommand = new RelayCommand<object>(
                 _ => Import(),
                 _ => CanExecuteImportCommand);
-            ExportCommand = new ActionCommand<object>(_ => Export(), _ => CanExecuteExportCommand);
-            ConfigCommand = new ActionCommand(EnterConfig);
+            ExportCommand = new RelayCommand<object>(_ => Export(), _ => CanExecuteExportCommand);
+            ConfigCommand = new RelayCommand(EnterConfig);
 
-            ProgressiveSetupCommand = new ActionCommand<object>(ProgressiveSetup);
-            ProgressiveViewCommand = new ActionCommand<object>(ProgressiveView);
-            ShowRtpSummaryCommand = new ActionCommand(ShowRtpSummary);
-            ShowProgressiveSummaryCommand = new ActionCommand(ShowProgressiveSummary);
+            ProgressiveSetupCommand = new RelayCommand<object>(ProgressiveSetup);
+            ProgressiveViewCommand = new RelayCommand<object>(ProgressiveView);
+            ShowRtpSummaryCommand = new RelayCommand(ShowRtpSummary);
+            ShowProgressiveSummaryCommand = new RelayCommand(ShowProgressiveSummary);
 
             ImportExportVisible = GetConfigSetting(OperatorMenuSetting.AllowImportExport, false);
             GlobalOptionsVisible = GetConfigSetting(OperatorMenuSetting.ShowGlobalOptions, false);
@@ -155,9 +156,9 @@
 
         public ICommand ConfigCommand { get; }
 
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand<object> ImportCommand { get; }
 
-        public ActionCommand<object> ExportCommand { get; }
+        public RelayCommand<object> ExportCommand { get; }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
         // ReSharper disable once MemberCanBePrivate.Global - used by xaml
@@ -183,8 +184,8 @@
                 MvvmHelper.ExecuteOnUI(
                     () =>
                     {
-                        ExportCommand.RaiseCanExecuteChanged();
-                        ImportCommand.RaiseCanExecuteChanged();
+                        ExportCommand.NotifyCanExecuteChanged();
+                        ImportCommand.NotifyCanExecuteChanged();
 
                         RaisePropertyChanged(nameof(CanExecuteImportCommand));
                         RaisePropertyChanged(nameof(CanExecuteExportCommand));
@@ -395,8 +396,8 @@
             MvvmHelper.ExecuteOnUI(
             () =>
             {
-                ImportCommand.RaiseCanExecuteChanged();
-                ExportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
 
                 RaisePropertyChanged(nameof(CanExecuteImportCommand));
                 RaisePropertyChanged(nameof(CanExecuteExportCommand));
@@ -511,8 +512,8 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    ImportCommand.RaiseCanExecuteChanged();
-                    ExportCommand.RaiseCanExecuteChanged();
+                    ImportCommand.NotifyCanExecuteChanged();
+                    ExportCommand.NotifyCanExecuteChanged();
                     
                     RaisePropertyChanged(nameof(CanExecuteImportCommand));
                     RaisePropertyChanged(nameof(CanExecuteExportCommand));

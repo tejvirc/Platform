@@ -23,7 +23,8 @@
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
     using NoteAcceptorHardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
@@ -164,9 +165,9 @@
             // Initially it should always be active until it's set by the rule access service. 
             OutOfServiceModeButtonActive = true;
 
-            OutOfServiceModeButtonCommand = new ActionCommand<object>(_ => OutOfServiceModeButtonCommandHandler());
+            OutOfServiceModeButtonCommand = new RelayCommand(() => OutOfServiceModeButtonCommandHandler());
 
-            ExitReserveCommand = new ActionCommand<object>(ExitReserve);
+            ExitReserveCommand = new RelayCommand<object>(ExitReserve);
         }
 
         public ICommand ExitReserveCommand { get; }

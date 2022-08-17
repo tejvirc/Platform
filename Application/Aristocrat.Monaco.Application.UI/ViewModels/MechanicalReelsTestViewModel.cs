@@ -16,7 +16,8 @@
     using log4net;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Simulation.HarkeyReels;
 
     [CLSCompliant(false)]
@@ -54,9 +55,9 @@
             _updateScreenCallback = updateScreenCallback;
             _maxSupportedReels = maxSupportedReels;
 
-            HomeCommand = new ActionCommand<object>(_ => HomeReels());
-            SpinCommand = new ActionCommand<object>(_ => SpinReels());
-            NudgeCommand = new ActionCommand<object>(_ => NudgeReels());
+            HomeCommand = new RelayCommand(() => HomeReels());
+            SpinCommand = new RelayCommand(() => SpinReels());
+            NudgeCommand = new RelayCommand(() => NudgeReels());
         }
 
         public IReelDisplayControl ReelsSimulation { get; set; }

@@ -23,7 +23,8 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -59,11 +60,11 @@
             ShowPrintLanguageSettings = (bool)PropertiesManager.GetProperty(ApplicationConstants.LocalizationPlayerTicketLanguageSettingVisible, false);
             ShowOperatorOverrideCheckBox = (bool)PropertiesManager.GetProperty(ApplicationConstants.LocalizationPlayerTicketLanguageSettingShowCheckBox, false);
 
-            FormFeedButtonCommand = new ActionCommand<object>(FormFeedButtonClicked);
-            PrintDiagnosticButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Main, isDiagnostic: true));
-            PrintTestTicketCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1, isDiagnostic: true));
-            SelfTestClearButtonCommand = new ActionCommand<object>(SelfTestClearNvmButtonClicked);
-            SelfTestButtonCommand = new ActionCommand<object>(SelfTestButtonClicked);
+            FormFeedButtonCommand = new RelayCommand<object>(FormFeedButtonClicked);
+            PrintDiagnosticButtonCommand = new RelayCommand(() => Print(OperatorMenuPrintData.Main, isDiagnostic: true));
+            PrintTestTicketCommand = new RelayCommand(() => Print(OperatorMenuPrintData.Custom1, isDiagnostic: true));
+            SelfTestClearButtonCommand = new RelayCommand<object>(SelfTestClearNvmButtonClicked);
+            SelfTestButtonCommand = new RelayCommand<object>(SelfTestButtonClicked);
         }
 
         public bool PlayerLocalesAvailable { get; set; }

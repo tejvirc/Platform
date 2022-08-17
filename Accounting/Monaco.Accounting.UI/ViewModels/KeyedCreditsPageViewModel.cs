@@ -13,7 +13,7 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
     using MVVM.Model;
 
     [CLSCompliant(false)]
@@ -65,8 +65,8 @@
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
             _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
 
-            ConfirmKeyOnCreditsCommand = new ActionCommand<object>(ConfirmKeyOnCreditsPressed);
-            ConfirmKeyOffCreditsCommand = new ActionCommand<object>(ConfirmKeyOffCreditsPressed);
+            ConfirmKeyOnCreditsCommand = new RelayCommand(() => ConfirmKeyOnCreditsPressed());
+            ConfirmKeyOffCreditsCommand = new RelayCommand(() => ConfirmKeyOffCreditsPressed());
         }
 
         public ICommand ConfirmKeyOnCreditsCommand { get; }
@@ -166,7 +166,7 @@
             RaisePropertyChanged(nameof(KeyedOnInputEnabled));
         }
 
-        private void ConfirmKeyOnCreditsPressed(object obj)
+        private void ConfirmKeyOnCreditsPressed()
         {
             var accountType = SelectedCredit.AccountType;
             var currencyMultiplier = (double)_propertiesManager.GetProperty(
@@ -232,7 +232,7 @@
             KeyedOnCreditAmount = 0m;
         }
 
-        private void ConfirmKeyOffCreditsPressed(object obj)
+        private void ConfirmKeyOffCreditsPressed()
         {
             foreach (var credit in Credits.Where(credit => credit.KeyOff))
             {

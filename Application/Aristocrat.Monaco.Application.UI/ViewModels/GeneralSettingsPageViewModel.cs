@@ -8,7 +8,8 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Common;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using System;
     using System.Collections.Generic;
@@ -40,7 +41,7 @@
         /// </summary>
         public GeneralSettingsPageViewModel() : base(true)
         {
-            VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+            VisibilityChangedCommand = new RelayCommand<object>(OnVisibilityChanged);
 
             Version = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
 

@@ -14,7 +14,8 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -26,11 +27,11 @@
 
         public MainMetersPageViewModel() : base(MeterNodePage.MainPage)
         {
-            ClearPeriodCommand = new ActionCommand<object>(ClearPeriod_Clicked);
+            ClearPeriodCommand = new RelayCommand<object>(ClearPeriod_Clicked);
 
-            PrintVerificationButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom2));
-            PrintPeriodicResetButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
-            PrintAuditTicketButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom3));
+            PrintVerificationButtonClickedCommand = new RelayCommand(() => Print(OperatorMenuPrintData.Custom2));
+            PrintPeriodicResetButtonClickedCommand = new RelayCommand(() => Print(OperatorMenuPrintData.Custom1));
+            PrintAuditTicketButtonClickedCommand = new RelayCommand(() => Print(OperatorMenuPrintData.Custom3));
 
             PrintVerificationButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintVerificationVisible, true);
             PrintAuditTicketButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintAuditTicketVisible, false);

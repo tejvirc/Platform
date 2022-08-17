@@ -16,7 +16,8 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Views.OperatorMenu;
 
     /// <summary>
@@ -56,7 +57,7 @@
 
             _allowPrintGamingMachineInfo = true;
 
-            SetGameOrderCommand = new ActionCommand<object>(SetGameOrder);
+            SetGameOrderCommand = new RelayCommand<object>(SetGameOrder);
             _setGameOrderOnlyInShowMode = GetConfigSetting(OperatorMenuSetting.SetGameOrderOnlyInShowMode, false);
         }
 

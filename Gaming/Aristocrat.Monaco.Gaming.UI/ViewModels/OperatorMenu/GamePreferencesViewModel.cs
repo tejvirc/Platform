@@ -21,7 +21,8 @@
     using Localization.Properties;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Progressives;
     using Views.OperatorMenu;
 
@@ -136,10 +137,10 @@
 
             AutoHoldConfigurable = PokerOptionsEnabled &&
                                    PropertiesManager.GetValue(GamingConstants.AutoHoldConfigurable, true);
-            ChangeGameLobbyLayoutCommand = new ActionCommand<object>(ChangeGameLobbyLayout_Clicked);
-            AttractModeCustomizeCommand = new ActionCommand<object>(AttractModeCustomizeButton_Clicked);
-            AttractModePreviewCommand = new ActionCommand<object>(AttractModePreviewButton_Clicked);
-            PreviewBackgroundCommand = new ActionCommand<object>(BackgroundPreviewButton_Clicked);
+            ChangeGameLobbyLayoutCommand = new RelayCommand<object>(ChangeGameLobbyLayout_Clicked);
+            AttractModeCustomizeCommand = new RelayCommand<object>(AttractModeCustomizeButton_Clicked);
+            AttractModePreviewCommand = new RelayCommand<object>(AttractModePreviewButton_Clicked);
+            PreviewBackgroundCommand = new RelayCommand<object>(BackgroundPreviewButton_Clicked);
 
             IsGameStartMethodSettingVisible = PropertiesManager.GetValue(
                 GamingConstants.GameStartMethodSettingVisible,

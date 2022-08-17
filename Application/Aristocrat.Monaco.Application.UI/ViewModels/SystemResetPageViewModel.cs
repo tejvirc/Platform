@@ -9,7 +9,8 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -21,7 +22,7 @@
 
         public SystemResetPageViewModel()
         {
-            PartialResetButtonClickCommand = new ActionCommand<object>(OnPartialResetButtonClickCommand);
+            PartialResetButtonClickCommand = new RelayCommand<object>(OnPartialResetButtonClickCommand);
 
             // Disable PartialResetButton if in game round or credits are there in machine
             var gamePlayMonitor = ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>();

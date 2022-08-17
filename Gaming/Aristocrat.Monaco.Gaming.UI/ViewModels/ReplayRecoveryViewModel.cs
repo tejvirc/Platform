@@ -17,7 +17,8 @@
     using Hardware.Contracts.Button;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
 
     /// <summary>
@@ -68,8 +69,8 @@
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _commandHandlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
 
-            ExitCommand = new ActionCommand<object>(ExitButtonPressed);
-            ContinueCommand = new ActionCommand<object>(ContinueButtonPressed);
+            ExitCommand = new RelayCommand<object>(ExitButtonPressed);
+            ContinueCommand = new RelayCommand<object>(ContinueButtonPressed);
             _cashoutMessageTimer = new Timer(TimeSpan.FromSeconds(CashOutMessagesCycleIntervalInSeconds).TotalMilliseconds);
             _cashoutMessageTimer.Elapsed += CashOutMessageCycleTimerTick;
 

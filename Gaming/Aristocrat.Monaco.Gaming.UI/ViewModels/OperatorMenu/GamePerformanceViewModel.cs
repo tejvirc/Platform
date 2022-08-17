@@ -20,7 +20,8 @@
     using Models;
     using Monaco.UI.Common.Services;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Newtonsoft.Json;
     using Views.OperatorMenu;
 
@@ -71,8 +72,8 @@
                 _gameProvider = container.Container.GetInstance<IGameProvider>();
             }
 
-            ShowMoreMetersCommand = new ActionCommand<object>(ShowMoreMetersPressed);
-            SortingCommand = new ActionCommand<DataGridSortingEventArgs>(SortDataGrid);
+            ShowMoreMetersCommand = new RelayCommand<object>(ShowMoreMetersPressed);
+            SortingCommand = new RelayCommand<DataGridSortingEventArgs>(SortDataGrid);
 
             _cache = ServiceManager.GetInstance().GetService<ICache>();
         }

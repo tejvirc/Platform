@@ -10,7 +10,8 @@
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
     using Monaco.Common;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     [CLSCompliant(false)]
     public class MechanicalReelsLightTestViewModel
@@ -30,7 +31,7 @@
         {
             _reelController = reelController;
 
-            FlashReelLightsCommand = new ActionCommand<object>(_ => FlashReelLights());
+            FlashReelLightsCommand = new RelayCommand(() => FlashReelLights());
             InitializeLightIdList();
         }
 

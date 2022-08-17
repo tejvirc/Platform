@@ -25,7 +25,8 @@
     using Kernel;
     using Monaco.UI.Common.Controls;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using DisabledEvent = Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.NoteAcceptor.EnabledEvent;
@@ -225,39 +226,39 @@
 
             TimeLimit5Visible = _responsibleGamingMode == ResponsibleGamingMode.Continuous;
 
-            InsertBillCommand = new ActionCommand<object>(InsertBill);
-            InsertVoucherCommand = new ActionCommand<object>(InsertVoucher);
-            CashOutCommand = new ActionCommand<object>(CashOut);
-            SetTimeLimitsCommand = new ActionCommand<object>(SetTimeLimits, CanSetTimeLimits);
-            CreateTimeIntervalCommand = new ActionCommand<object>(CreateTimeInterval, CanCreateTimeInterval);
-            SetElapsedTimeCommand = new ActionCommand<object>(SetElapsedTime, CanSetElapsedTime);
-            SetSessionCountCommand = new ActionCommand<object>(SetSessionCount, CanSetSessionCount);
-            SetResponsibleGamingDialogTimeoutCommand = new ActionCommand<object>(
+            InsertBillCommand = new RelayCommand<object>(InsertBill);
+            InsertVoucherCommand = new RelayCommand<object>(InsertVoucher);
+            CashOutCommand = new RelayCommand<object>(CashOut);
+            SetTimeLimitsCommand = new RelayCommand<object>(SetTimeLimits, CanSetTimeLimits);
+            CreateTimeIntervalCommand = new RelayCommand<object>(CreateTimeInterval, CanCreateTimeInterval);
+            SetElapsedTimeCommand = new RelayCommand<object>(SetElapsedTime, CanSetElapsedTime);
+            SetSessionCountCommand = new RelayCommand<object>(SetSessionCount, CanSetSessionCount);
+            SetResponsibleGamingDialogTimeoutCommand = new RelayCommand<object>(
                 SetResponsibleGamingDialogTimeout,
                 CanSetResponsibleGamingDialogTimeout);
-            FullClearCommand = new ActionCommand<object>(FullClear);
-            PartialClearCommand = new ActionCommand<object>(PartialClear);
-            ResetDefaultsCommand = new ActionCommand<object>(ResetDefaults);
-            TogglePlayerCommand = new ActionCommand<string>(x => TogglePlayer(int.Parse(x)));
+            FullClearCommand = new RelayCommand<object>(FullClear);
+            PartialClearCommand = new RelayCommand<object>(PartialClear);
+            ResetDefaultsCommand = new RelayCommand<object>(ResetDefaults);
+            TogglePlayerCommand = new RelayCommand<string>(x => TogglePlayer(int.Parse(x)));
 
-            AddPlatformMessageCommand = new ActionCommand<object>(AddPlatformMessage, CanUpdatePlatformMessage);
-            RemovePlatformMessageCommand = new ActionCommand<object>(RemovePlatformMessage, CanUpdatePlatformMessage);
-            ClearAllPlatformMessagesCommand = new ActionCommand<object>(ClearAllPlatformMessages, CanUpdatePlatformMessage);
+            AddPlatformMessageCommand = new RelayCommand<object>(AddPlatformMessage, CanUpdatePlatformMessage);
+            RemovePlatformMessageCommand = new RelayCommand<object>(RemovePlatformMessage, CanUpdatePlatformMessage);
+            ClearAllPlatformMessagesCommand = new RelayCommand<object>(ClearAllPlatformMessages, CanUpdatePlatformMessage);
 
 
-            SetLargeWinLimitCommand = new ActionCommand<object>(OverrideLargeWinLimit);
+            SetLargeWinLimitCommand = new RelayCommand<object>(OverrideLargeWinLimit);
 
-            SetTowerLightFlashStateCommand = new ActionCommand<object>(SetTowerLightFlashState);
+            SetTowerLightFlashStateCommand = new RelayCommand<object>(SetTowerLightFlashState);
 
             InitTowerLightComboBoxes();
 
             IsAuditMenuWindowSelected = true;
 
             // InfoBar Tab
-            DisplayInfoBarMessageCommand = new ActionCommand<object>(_ => DisplayInfoBarMessage());
-            DisplayInfoBarDoubleMessageCommand = new ActionCommand<object>(_ => DisplayInfoBarDoubleMessage());
-            DisplayInfoBarStaticMessageCommand = new ActionCommand<object>(_ => DisplayInfoBarStaticMessage());
-            CloseInfoBarCommand = new ActionCommand<object>(_ => CloseInfoBar());
+            DisplayInfoBarMessageCommand = new RelayCommand(() => DisplayInfoBarMessage());
+            DisplayInfoBarDoubleMessageCommand = new RelayCommand(() => DisplayInfoBarDoubleMessage());
+            DisplayInfoBarStaticMessageCommand = new RelayCommand(() => DisplayInfoBarStaticMessage());
+            CloseInfoBarCommand = new RelayCommand(() => CloseInfoBar());
             SelectedInfoBarFontColor = InfoBarColor.White.ToString();
             SelectedInfoBarBackgroundColor = InfoBarColor.Black.ToString();
             SelectedInfoBarRegion = InfoBarRegion.Center.ToString();
@@ -265,12 +266,12 @@
             InfoBarMessage = "This is a test message ABC 123...";
 
             // Card Reader
-            InsertCardCommand = new ActionCommand<object>(_ => InsertCard());
-            RemoveCardCommand = new ActionCommand<object>(_ => RemoveCard());
+            InsertCardCommand = new RelayCommand(() => InsertCard());
+            RemoveCardCommand = new RelayCommand(() => RemoveCard());
 
             // Currency
-            CurrencySwitchUsingCountryCommand = new ActionCommand<object>(_ => CurrencySwitchUsingCountry());
-            CurrencySwitchUsingEnumCommand = new ActionCommand<object>(_ => CurrencySwitchUsingEnum());
+            CurrencySwitchUsingCountryCommand = new RelayCommand(() => CurrencySwitchUsingCountry());
+            CurrencySwitchUsingEnumCommand = new RelayCommand(() => CurrencySwitchUsingEnum());
 
             SetDefaults();
 
@@ -413,20 +414,20 @@
         /// </summary>
         public ICommand CashOutCommand { get; }
 
-        public ActionCommand<object> SetLargeWinLimitCommand { get; }
+        public RelayCommand<object> SetLargeWinLimitCommand { get; }
 
         /// <summary>
         ///     Gets the set time limits command
         /// </summary>
-        public ActionCommand<object> SetTimeLimitsCommand { get; }
+        public RelayCommand<object> SetTimeLimitsCommand { get; }
 
-        public ActionCommand<object> CreateTimeIntervalCommand { get; }
+        public RelayCommand<object> CreateTimeIntervalCommand { get; }
 
-        public ActionCommand<object> SetElapsedTimeCommand { get; }
+        public RelayCommand<object> SetElapsedTimeCommand { get; }
 
-        public ActionCommand<object> SetSessionCountCommand { get; }
+        public RelayCommand<object> SetSessionCountCommand { get; }
 
-        public ActionCommand<object> SetResponsibleGamingDialogTimeoutCommand { get; }
+        public RelayCommand<object> SetResponsibleGamingDialogTimeoutCommand { get; }
 
         public ICommand DisplayInfoBarMessageCommand { get; }
 
@@ -448,9 +449,9 @@
 
         public ICommand TogglePlayerCommand { get; set; }
 
-        public ActionCommand<object> AddPlatformMessageCommand { get; }
+        public RelayCommand<object> AddPlatformMessageCommand { get; }
 
-        public ActionCommand<object> RemovePlatformMessageCommand { get; }
+        public RelayCommand<object> RemovePlatformMessageCommand { get; }
 
         public ICommand ClearAllPlatformMessagesCommand { get; }
 
@@ -484,7 +485,7 @@
                 {
                     _timeLimit1 = value;
                     RaisePropertyChanged(nameof(TimeLimit1));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -499,7 +500,7 @@
                 {
                     _timeLimit2 = value;
                     RaisePropertyChanged(nameof(TimeLimit2));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -514,7 +515,7 @@
                 {
                     _timeLimit3 = value;
                     RaisePropertyChanged(nameof(TimeLimit3));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -529,7 +530,7 @@
                 {
                     _timeLimit4 = value;
                     RaisePropertyChanged(nameof(TimeLimit4));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -544,7 +545,7 @@
                 {
                     _timeLimit5 = value;
                     RaisePropertyChanged(nameof(TimeLimit5));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -629,7 +630,7 @@
                 {
                     _playBreak1 = value;
                     RaisePropertyChanged(nameof(PlayBreak1));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -644,7 +645,7 @@
                 {
                     _playBreak2 = value;
                     RaisePropertyChanged(nameof(PlayBreak2));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -659,7 +660,7 @@
                 {
                     _playBreak3 = value;
                     RaisePropertyChanged(nameof(PlayBreak3));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -674,7 +675,7 @@
                 {
                     _playBreak4 = value;
                     RaisePropertyChanged(nameof(PlayBreak4));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -745,7 +746,7 @@
                 {
                     _timeLimitInterval = value;
                     RaisePropertyChanged(nameof(TimeLimitInterval));
-                    CreateTimeIntervalCommand.RaiseCanExecuteChanged();
+                    CreateTimeIntervalCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -789,7 +790,7 @@
                 {
                     _elapsedTime = value;
                     RaisePropertyChanged(nameof(ElapsedTime));
-                    SetElapsedTimeCommand.RaiseCanExecuteChanged();
+                    SetElapsedTimeCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -818,7 +819,7 @@
                 {
                     _sessionCount = value;
                     RaisePropertyChanged(nameof(SessionCount));
-                    SetSessionCountCommand.RaiseCanExecuteChanged();
+                    SetSessionCountCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -847,7 +848,7 @@
                 {
                     _responsibleGamingDialogTimeout = value;
                     RaisePropertyChanged(nameof(ResponsibleGamingDialogTimeout));
-                    SetResponsibleGamingDialogTimeoutCommand.RaiseCanExecuteChanged();
+                    SetResponsibleGamingDialogTimeoutCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -876,7 +877,7 @@
                 {
                     _addPlatformMessage = value;
                     RaisePropertyChanged(nameof(AddPlatformMessageText));
-                    AddPlatformMessageCommand.RaiseCanExecuteChanged();
+                    AddPlatformMessageCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -891,7 +892,7 @@
                 {
                     _removePlatformMessage = value;
                     RaisePropertyChanged(nameof(RemovePlatformMessageText));
-                    RemovePlatformMessageCommand.RaiseCanExecuteChanged();
+                    RemovePlatformMessageCommand.NotifyCanExecuteChanged();
                 }
             }
         }

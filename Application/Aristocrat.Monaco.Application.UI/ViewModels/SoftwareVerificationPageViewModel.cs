@@ -4,7 +4,8 @@
     using Kernel;
     using Kernel.Contracts.Components;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using OperatorMenu;
     using System;
@@ -59,8 +60,8 @@
         {
             _authenticationService = ServiceManager.GetInstance().GetService<IAuthenticationService>();
 
-            CalculateCommand = new ActionCommand<object>(OnCalculate);
-            ResetCommand = new ActionCommand<object>(OnReset);
+            CalculateCommand = new RelayCommand<object>(OnCalculate);
+            ResetCommand = new RelayCommand<object>(OnReset);
 
             AlgorithmTypes = new List<AlgorithmInfo>
             {

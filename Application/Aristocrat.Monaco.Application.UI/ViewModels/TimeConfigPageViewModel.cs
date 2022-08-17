@@ -10,7 +10,8 @@
     using Contracts.Protocol;
     using Kernel;
     using Monaco.Common;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     /// <summary>
     ///     The view model for time and time zone configuration
@@ -49,10 +50,10 @@
             Seconds = Enumerable.Range(0, 60).ToList();
 
             _timeZoneChanged = false;
-            ApplyCommand = new ActionCommand<object>(Apply, _ => CanApply);
+            ApplyCommand = new RelayCommand<object>(Apply, _ => CanApply);
         }
 
-        public ActionCommand<object> ApplyCommand { get; }
+        public RelayCommand<object> ApplyCommand { get; }
 
         public ReadOnlyCollection<TimeZoneInfo> TimeZones { get; }
 
@@ -82,7 +83,7 @@
                 {
                     OnTimeZoneChanged(value);
                     RaisePropertyChanged(nameof(TimeZoneId));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -111,7 +112,7 @@
                 {
                     _hour = value;
                     RaisePropertyChanged(nameof(Hour));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -126,7 +127,7 @@
                 {
                     _minute = value;
                     RaisePropertyChanged(nameof(Minute));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -141,7 +142,7 @@
                 {
                     _second = value;
                     RaisePropertyChanged(nameof(Second));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -156,7 +157,7 @@
                 {
                     _pickerDate = value;
                     RaisePropertyChanged(nameof(PickerDate));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -201,7 +202,7 @@
             _previousDay = _pickerDate.Day;
             _previousMonth = _pickerDate.Month;
             _previousYear = _pickerDate.Year;
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
 
             _timeZoneChanged = false;
         }
@@ -228,12 +229,12 @@
             _previousMonth = _pickerDate.Month;
             _previousYear = _pickerDate.Year;
 
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         protected override void OnInputEnabledChanged()
         {
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         private void OnOffsetUpdated(TimeZoneOffsetUpdatedEvent evt)
@@ -265,7 +266,7 @@
             Logger.Debug($"Time Zone Selected: {timeZone.Id} Local Time Zone: {TimeZoneInfo.Local.Id}");
 
             UpdateTimeZoneOffset();
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         private void UpdateTimeZoneOffset()

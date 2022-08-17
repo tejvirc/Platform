@@ -15,7 +15,8 @@
     using Models;
     using Monaco.UI.Common;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using ICommand = System.Windows.Input.ICommand;
 
     /// <summary>
@@ -49,8 +50,8 @@
         {
             _time = ServiceManager.GetInstance().GetService<ITime>();
 
-            ViewHostTranscriptsCommand = new ActionCommand<object>(ViewHostTranscript, _ => CanViewDetail());
-            CloseDetailCommand = new ActionCommand<object>(CloseHostTranscriptDetail);
+            ViewHostTranscriptsCommand = new RelayCommand<object>(ViewHostTranscript, _ => CanViewDetail());
+            CloseDetailCommand = new RelayCommand<object>(CloseHostTranscriptDetail);
 
             _enableViewHostTranscripts = false;
 
@@ -77,7 +78,7 @@
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> ViewHostTranscriptsCommand { get; }
+        public RelayCommand<object> ViewHostTranscriptsCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
@@ -153,7 +154,7 @@
                 {
                     _enableViewHostTranscripts = value;
                     RaisePropertyChanged(nameof(EnableViewHostTranscripts));
-                    ViewHostTranscriptsCommand.RaiseCanExecuteChanged();
+                    ViewHostTranscriptsCommand.NotifyCanExecuteChanged();
                 }
             }
         }

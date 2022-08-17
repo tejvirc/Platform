@@ -18,7 +18,8 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     /// <summary>
@@ -57,7 +58,7 @@
         {
             DefaultPrintButtonEnabled = true;
 
-            VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+            VisibilityChangedCommand = new RelayCommand<object>(OnVisibilityChanged);
         }
 
         /// <summary>

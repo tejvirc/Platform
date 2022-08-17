@@ -14,7 +14,8 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -32,7 +33,7 @@
         public EdgeLightingPageViewModel()
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new RelayCommand(() => InTestMode = !InTestMode);
         }
 
         public ICommand ToggleTestModeCommand { get; }

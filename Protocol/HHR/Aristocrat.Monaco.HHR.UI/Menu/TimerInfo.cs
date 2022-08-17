@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.Menu
 {
-    using MVVM.Command;
+
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     /// <summary>
     ///     TimerInfo has the properties related to timer control HHR pages
@@ -35,12 +37,12 @@
         /// <summary>
         ///     TimerElapsedCommand --Command to execute after timer expires
         /// </summary>
-        public IActionCommand TimerElapsedCommand { get; set; }
+        public IRelayCommand TimerElapsedCommand { get; set; }
 
         /// <summary>
         ///     UnitTimeElapsedCommand --Command to execute after unit time elapsed to track the timer in view model.
         /// </summary>
 
-        public IActionCommand TimerTickCommand { get; set; }
+        public IRelayCommand TimerTickCommand { get; set; }
     }
 }

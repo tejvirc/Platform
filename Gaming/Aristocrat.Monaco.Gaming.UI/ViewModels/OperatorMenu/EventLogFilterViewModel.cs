@@ -21,7 +21,8 @@
     using Kernel;
     using Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     [CLSCompliant(false)]
     public partial class EventLogFilterViewModel : OperatorMenuPageViewModelBase
@@ -48,8 +49,8 @@
 
         private bool _isAllFiltersSelected;
         private bool _settingFilterSelections;
-        public IActionCommand AllFiltersSelectedCommand { get; }
-        public IActionCommand FilterSelectedCommand { get; }
+        public IRelayCommand AllFiltersSelectedCommand { get; }
+        public IRelayCommand FilterSelectedCommand { get; }
 
         public EventLogFilterViewModel()
             : base(true)
@@ -59,11 +60,11 @@
             _loggerSubscriptions = _tiltLogger.GetEventsSubscribed(string.Empty);
             _loggerConfigurationCount = _tiltLogger.GetEventsToSubscribe(string.Empty);
 
-            ShowAdditionalInfoCommand = new ActionCommand<object>(ShowAdditionalInfo);
+            ShowAdditionalInfoCommand = new RelayCommand<object>(ShowAdditionalInfo);
 
             IsAllFiltersSelected = true;
-            AllFiltersSelectedCommand = new ActionCommand<object>(_ => AllFiltersSelected());
-            FilterSelectedCommand = new ActionCommand<object>(_ => FilterSelected());
+            AllFiltersSelectedCommand = new RelayCommand(() => AllFiltersSelected());
+            FilterSelectedCommand = new RelayCommand(() => FilterSelected());
 
             FilterMenuEnabled = false;
             _eventLogAdapters = GetLogAdapters();

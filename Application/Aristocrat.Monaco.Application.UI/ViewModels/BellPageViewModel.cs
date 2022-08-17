@@ -7,7 +7,8 @@
     using Contracts.Extensions;
     using Hardware.Contracts.Bell;
     using Kernel;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -32,7 +33,7 @@
             _bell = bell;
             _maxBellValue = PropertiesManager.GetValue(ApplicationConstants.MaxBellRing, 0L);
 
-            RingBellClicked = new ActionCommand<object>(RingBell_Click);
+            RingBellClicked = new RelayCommand<object>(RingBell_Click);
         }
 
         public bool ToggleBell

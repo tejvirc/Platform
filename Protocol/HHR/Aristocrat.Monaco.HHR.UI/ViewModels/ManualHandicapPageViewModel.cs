@@ -21,7 +21,8 @@
     using Localization.Properties;
     using Menu;
     using Models;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Storage.Helpers;
     using Command = Menu.Command;
 
@@ -64,7 +65,7 @@
             _gameProvider = gameProvider
                 ?? throw new ArgumentNullException(nameof(gameProvider));
 
-            HorseNumberClicked = new ActionCommand<object>(OnHorseNumberClicked);
+            HorseNumberClicked = new RelayCommand<object>(OnHorseNumberClicked);
 
             _tickCount = 0;
             _manualHandicapTimer = new HHRTimer(1000);
@@ -229,7 +230,7 @@
         {
             TimerInfo = new TimerInfo
             {
-                TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
+                TimerElapsedCommand = new RelayCommand<object>(OnTimerElapsed),
                 Timeout = ManualHandicapRemainingTime,
                 IsVisible = true,
                 IsQuickPickTextVisible = ClientProperties.ManualHandicapMode == HhrConstants.QuickPickMode,

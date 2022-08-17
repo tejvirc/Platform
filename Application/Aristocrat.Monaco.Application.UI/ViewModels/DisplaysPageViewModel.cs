@@ -24,7 +24,8 @@
     using Models;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Views;
 
@@ -46,12 +47,12 @@
 
         public DisplaysPageViewModel()
         {
-            EnterTouchScreenCommand = new ActionCommand<object>(OnEnterTouchScreenCommand);
-            EnterIdentifyScreenCommand = new ActionCommand<object>(
+            EnterTouchScreenCommand = new RelayCommand<object>(OnEnterTouchScreenCommand);
+            EnterIdentifyScreenCommand = new RelayCommand<object>(
                 OnEnterIdentifyScreenCommand);
-            EnterColorTestCommand = new ActionCommand<object>(
+            EnterColorTestCommand = new RelayCommand<object>(
                 OnEnterColorTestCommand);
-            EnterCalibrateTouchScreenCommand = new ActionCommand<object>(
+            EnterCalibrateTouchScreenCommand = new RelayCommand<object>(
                 OnEnterCalibrateTouchScreenCommand);
             CabinetService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
             SerialTouchService = ServiceManager.GetInstance().GetService<ISerialTouchService>();

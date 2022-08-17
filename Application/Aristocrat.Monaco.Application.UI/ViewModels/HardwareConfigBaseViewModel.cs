@@ -29,7 +29,8 @@
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using IdReaderInspectionFailedEvent = Hardware.Contracts.IdReader.InspectionFailedEvent;
     using IdReaderInspectionSucceededEvent = Hardware.Contracts.IdReader.InspectedEvent;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
@@ -121,9 +122,9 @@
             _configWizardConfiguration = _serviceManager.GetService<IConfigurationUtilitiesProvider>()
                 .GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
 
-            ValidateCommand = new ActionCommand<object>(
-                _ => ValidateConfig(),
-                _ =>
+            ValidateCommand = new RelayCommand(
+                () => ValidateConfig(),
+                () =>
                 {
                     InitialHardMeter = _hardMetersEnabled;
                     if (!CanValidate && IsWizardPage)
@@ -165,7 +166,7 @@
         public ObservableCollection<DeviceConfigViewModel> Devices { get; set; } =
             new ObservableCollection<DeviceConfigViewModel>();
 
-        public ActionCommand<object> ValidateCommand { get; set; }
+        public RelayCommand ValidateCommand { get; set; }
 
         public bool IsValidating
         {
@@ -183,7 +184,7 @@
                 RaisePropertyChanged(nameof(ConfigurableHardMeters));
                 RaisePropertyChanged(nameof(ConfigurableDoorOpticSensor));
                 RaisePropertyChanged(nameof(ConfigurableBellyPanelDoor));
-                MvvmHelper.ExecuteOnUI(() => ValidateCommand.RaiseCanExecuteChanged());
+                MvvmHelper.ExecuteOnUI(() => ValidateCommand.NotifyCanExecuteChanged());
 
                 CheckValidatedStatus();
 
@@ -352,7 +353,7 @@
 
             CheckValidatedStatus();
 
-            MvvmHelper.ExecuteOnUI(() => ValidateCommand.RaiseCanExecuteChanged());
+            MvvmHelper.ExecuteOnUI(() => ValidateCommand.NotifyCanExecuteChanged());
         }
 
         protected virtual void UndoSavedChanges()
@@ -389,7 +390,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            ValidateCommand.RaiseCanExecuteChanged();
+            ValidateCommand.NotifyCanExecuteChanged();
             RaisePropertyChanged(nameof(ShowApplyButton));
         }
 

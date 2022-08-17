@@ -9,7 +9,8 @@
     using Common.Events;
     using Kernel;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Security;
     using System;
     using System.Collections.ObjectModel;
@@ -86,7 +87,7 @@
         /// </summary>
         public SecurityConfigurationViewModel(bool isWizardPage) : base(isWizardPage)
         {
-            GetThumbprintCommand = new ActionCommand<object>(
+            GetThumbprintCommand = new RelayCommand<object>(
                 _ =>
                 {
                     if (!PropertyHasErrors(nameof(CertificateManagerLocation)))
@@ -98,9 +99,9 @@
                 },
                 _ => CanSeeThumbPrint());
 
-            EnrollCertificateCommand = new ActionCommand<object>(Enroll, _ => CanEnroll());
+            EnrollCertificateCommand = new RelayCommand<object>(Enroll, _ => CanEnroll());
 
-            ClosePopupCommand = new ActionCommand<object>(
+            ClosePopupCommand = new RelayCommand<object>(
                 _ =>
                 {
                     ShowThumbprint = false;
@@ -108,7 +109,7 @@
                     TabsActive = true;
                     ShowInvalidCertStatusLocation = false;
                 });
-            CancelRequestCommand = new ActionCommand<object>(
+            CancelRequestCommand = new RelayCommand<object>(
                 _ =>
                 {
                     _countDownTimer?.Stop();
@@ -117,7 +118,7 @@
                 },
                 _ => !Enrolled);
 
-            TestCertificateStatusCommand = new ActionCommand<object>(TestOcsp, _ => CanTestOcsp());
+            TestCertificateStatusCommand = new RelayCommand<object>(TestOcsp, _ => CanTestOcsp());
 
             _countDownTimer = new DispatcherTimerAdapter(DispatcherPriority.Render)
             {
@@ -158,17 +159,17 @@
         /// <summary>
         ///     Gets or sets action command that displays CA Certificate Thumbprint.
         /// </summary>
-        public ActionCommand<object> GetThumbprintCommand { get; set; }
+        public RelayCommand<object> GetThumbprintCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that start enrollment for new certificate.
         /// </summary>
-        public ActionCommand<object> EnrollCertificateCommand { get; set; }
+        public RelayCommand<object> EnrollCertificateCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that start performing an OCSP status check.
         /// </summary>
-        public ActionCommand<object> TestCertificateStatusCommand { get; set; }
+        public RelayCommand<object> TestCertificateStatusCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that should close popup.
@@ -178,7 +179,7 @@
         /// <summary>
         ///     Gets or sets a command that cancels the certificate request
         /// </summary>
-        public ActionCommand<object> CancelRequestCommand { get; set; }
+        public RelayCommand<object> CancelRequestCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether SCEP is enabled.
@@ -209,8 +210,8 @@
                     ScepEnabled = !_certificateService.HasValidCertificate();
                 }
 
-                GetThumbprintCommand.RaiseCanExecuteChanged();
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                GetThumbprintCommand.NotifyCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -239,8 +240,8 @@
                 ValidateCertificateManagerLocation(value);
                 _certificateManagerLocation = value;
                 RaisePropertyChanged(nameof(CertificateManagerLocation));
-                GetThumbprintCommand.RaiseCanExecuteChanged();
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                GetThumbprintCommand.NotifyCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -256,7 +257,7 @@
                 ValidateTextBoxValue(nameof(PreSharedSecret), value);
                 _preSharedSecret = value;
                 RaisePropertyChanged(nameof(PreSharedSecret));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -272,7 +273,7 @@
                 ValidateTextBoxValue(nameof(Identity), value);
                 _identity = value;
                 RaisePropertyChanged(nameof(Identity));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -288,7 +289,7 @@
                 ValidateTextBoxValue(nameof(UserName), value);
                 _userName = value;
                 RaisePropertyChanged(nameof(UserName));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -303,7 +304,7 @@
             {
                 _keySize = value;
                 RaisePropertyChanged(nameof(KeySize));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -323,7 +324,7 @@
                 // if we do not have a valid cert enable Enroll command
                 if (!_certificateService.HasValidCertificate())
                 {
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
                 }
                
             }
@@ -341,7 +342,7 @@
                 _renewalEnabled = value;
                 ValidateCertificateStatusLocation(CertificateStatusLocation);
                 RaisePropertyChanged(nameof(RenewalEnabled));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -357,7 +358,7 @@
                 ValidateCertificateStatusLocation(value);
                 _certificateStatusLocation = value;
                 RaisePropertyChanged(nameof(CertificateStatusLocation));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -373,7 +374,7 @@
                 ValidateOfflinePeriod(value);
                 _offlinePeriod = value;
                 RaisePropertyChanged(nameof(OfflinePeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -389,7 +390,7 @@
                 ValidateReAuthenticatedPeriod(value);
                 _reAuthenticatedPeriod = value;
                 RaisePropertyChanged(nameof(ReAuthenticatedPeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -405,7 +406,7 @@
                 ValidateAcceptPreviouslyGoodCertificatePeriod(value);
                 _acceptPreviouslyGoodCertificatePeriod = value;
                 RaisePropertyChanged(nameof(AcceptPreviouslyGoodCertificatePeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -478,7 +479,7 @@
             {
                 _enrolled = value;
                 RaisePropertyChanged(nameof(Enrolled));
-                CancelRequestCommand.RaiseCanExecuteChanged();
+                CancelRequestCommand.NotifyCanExecuteChanged();
                 RaisePropertyChanged(nameof(EnrollmentEditEnabled));
             }
         }
@@ -588,8 +589,8 @@
                 {
                     _scepEnabled = value;
                     RaisePropertyChanged(nameof(ScepEnabled));
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
-                    GetThumbprintCommand.RaiseCanExecuteChanged();
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
+                    GetThumbprintCommand.NotifyCanExecuteChanged();
                     RaisePropertyChanged(nameof(EnrollmentEditEnabled));
                 }
             }
@@ -1121,7 +1122,7 @@
                     break;
             }
 
-            EnrollCertificateCommand.RaiseCanExecuteChanged();
+            EnrollCertificateCommand.NotifyCanExecuteChanged();
 
             EventBus.Publish(new CertificateStatusUpdatedEvent(result.Status));
         }

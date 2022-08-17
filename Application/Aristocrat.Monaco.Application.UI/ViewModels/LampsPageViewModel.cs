@@ -18,7 +18,8 @@
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Timer = System.Timers.Timer;
 
@@ -63,7 +64,7 @@
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
 
-            SetTowerLightFlashStateCommand = new ActionCommand<object>(SetTowerLightFlashState);
+            SetTowerLightFlashStateCommand = new RelayCommand<object>(SetTowerLightFlashState);
         }
 
         public bool ButtonLampsAvailable { get; set; }

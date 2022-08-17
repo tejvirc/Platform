@@ -16,7 +16,8 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using PackageManifest.Models;
     using Progressives;
 
@@ -70,7 +71,7 @@
 
             IsSummaryView = isSummaryView;
             SelectedGameInfo = $"{_selectedGame.ThemeName} | {selectedGame.PaytableId} | {_selectedGame.Denomination}";
-            GenerateCSAPLevelsCommand = new ActionCommand<object>(GenerateCSAPLevelsPressed);
+            GenerateCSAPLevelsCommand = new RelayCommand<object>(GenerateCSAPLevelsPressed);
 
             var progressiveLevels = configProgressiveLevels.Any()
                 ? configProgressiveLevels

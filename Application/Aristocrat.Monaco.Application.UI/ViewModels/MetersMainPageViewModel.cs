@@ -14,7 +14,8 @@
     using Contracts.MeterPage;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -39,8 +40,8 @@
         public MetersMainPageViewModel(string displayPageTitle)
             : base(displayPageTitle, PagesExtensionPath)
         {
-            IsVisibleChangedCommand = new ActionCommand<Page>(OnIsVisibleChanged);
-            PeriodMasterButtonClickedCommand = new ActionCommand<object>(PeriodOrMasterButtonClicked);
+            IsVisibleChangedCommand = new RelayCommand<Page>(OnIsVisibleChanged);
+            PeriodMasterButtonClickedCommand = new RelayCommand<object>(PeriodOrMasterButtonClicked);
             var dateFormat = PropertiesManager.GetValue(
                 ApplicationConstants.LocalizationOperatorDateFormat,
                 ApplicationConstants.DefaultDateTimeFormat);

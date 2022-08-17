@@ -10,21 +10,22 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Views;
 
     public partial class NoteAcceptorViewModel
     {
         private void InitCommands()
         {
-            StackButtonCommand = new ActionCommand<object>(HandleStackButtonCommand);
+            StackButtonCommand = new RelayCommand<object>(HandleStackButtonCommand);
 
-            InspectButtonCommand = new ActionCommand<object>(HandleInspectButtonCommand);
+            InspectButtonCommand = new RelayCommand<object>(HandleInspectButtonCommand);
 
-            SelfTestButtonCommand = new ActionCommand<object>(HandleSelfTestButtonCommand);
-            SelfTestClearButtonCommand = new ActionCommand<object>(HandleSelfTestClearNvmButtonCommand);
-            ReturnButtonCommand = new ActionCommand<object>(HandleReturnButtonCommand);
-            NoteAcceptorTestCommand = new ActionCommand<object>(HandleNoteAcceptorTestCommand);
+            SelfTestButtonCommand = new RelayCommand<object>(HandleSelfTestButtonCommand);
+            SelfTestClearButtonCommand = new RelayCommand<object>(HandleSelfTestClearNvmButtonCommand);
+            ReturnButtonCommand = new RelayCommand<object>(HandleReturnButtonCommand);
+            NoteAcceptorTestCommand = new RelayCommand<object>(HandleNoteAcceptorTestCommand);
         }
 
         public ICommand InspectButtonCommand { get; set; }

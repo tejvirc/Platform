@@ -26,7 +26,8 @@
     using Monaco.Localization.Properties;
     using Mono.Addins;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Views;
 
@@ -132,8 +133,8 @@
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
             _restartWhenFinished = !_serviceManager.GetService<ICabinetDetectionService>().TouchscreensMapped;
 
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click);
+            BackButtonClicked = new RelayCommand<object>(BackButton_Click);
+            NextButtonClicked = new RelayCommand<object>(NextButton_Click);
         }
 
         public ICommand BackButtonClicked { get; }

@@ -33,7 +33,8 @@
     using Localization.Properties;
     using Models;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Tickets;
     using Views.OperatorMenu;
 
@@ -120,12 +121,12 @@
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 
-            ReplayCommand = new ActionCommand<object>(ReplayPressed);
-            ShowGameMetersCommand = new ActionCommand<object>(ShowGameMeters);
-            ShowGameTransactionsCommand = new ActionCommand<object>(ShowGameTransactions);
-            ShowGameProgressiveWinCommand = new ActionCommand<object>(ShowGameProgressiveWin);
-            ShowGameEventLogsCommand = new ActionCommand<object>(ShowGameEventLogs);
-            ShowGameDetailsCommand = new ActionCommand<object>(ShowGameDetails);
+            ReplayCommand = new RelayCommand<object>(ReplayPressed);
+            ShowGameMetersCommand = new RelayCommand<object>(ShowGameMeters);
+            ShowGameTransactionsCommand = new RelayCommand<object>(ShowGameTransactions);
+            ShowGameProgressiveWinCommand = new RelayCommand<object>(ShowGameProgressiveWin);
+            ShowGameEventLogsCommand = new RelayCommand<object>(ShowGameEventLogs);
+            ShowGameDetailsCommand = new RelayCommand<object>(ShowGameDetails);
 
             ReplayPauseActive = PropertiesManager.GetValue(GamingConstants.ReplayPauseActive, true);
             ReplayPauseEnabled = PropertiesManager.GetValue(GamingConstants.ReplayPauseEnable, true);

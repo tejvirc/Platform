@@ -11,7 +11,8 @@
     using Events;
     using Kernel;
     using Models;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
 
     public class BingoTestToolViewModelBase : BaseEntityViewModel
@@ -27,9 +28,9 @@
             BingoConfigProvider = bingoConfigurationProvider ??
                                    throw new ArgumentNullException(nameof(bingoConfigurationProvider));
 
-            DefaultsCommand = new ActionCommand<object>(_ => SetDefaults());
-            LoadCommand = new ActionCommand<object>(_ => Load());
-            SaveCommand = new ActionCommand<object>(_ => Save());
+            DefaultsCommand = new RelayCommand(() => SetDefaults());
+            LoadCommand = new RelayCommand(() => Load());
+            SaveCommand = new RelayCommand(() => Save());
 
             IsInitializing = true;
 

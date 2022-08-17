@@ -18,7 +18,8 @@
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
     using Views;
 
@@ -82,7 +83,7 @@
             _isJurisdictionSelectionEnabled = true;
 
             _settingsManager = serviceManager.GetService<IConfigurationSettingsManager>();
-            ImportCommand = new ActionCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && IsMachineConfigFound && !IsImporting);
+            ImportCommand = new RelayCommand(() => Import(), () => IsEKeyVerified && IsEKeyDriveFound && IsMachineConfigFound && !IsImporting);
             _importSettingLabel = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ImportMachineSettingsInsertEKey);
 
             _dialogService = serviceManager.GetService<IDialogService>();
@@ -248,7 +249,7 @@
 
         public ObservableCollection<ConfigurationSetting> ConfigurationSettings { get; } = new ObservableCollection<ConfigurationSetting>();
 
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand ImportCommand { get; }
 
         /// <summary>
         ///     Gets a value that indicates if the import is in progress.
@@ -260,7 +261,7 @@
             set
             {
                 SetProperty(ref _isImporting, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -293,7 +294,7 @@
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -307,7 +308,7 @@
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 

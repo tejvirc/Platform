@@ -2,7 +2,8 @@
 {
     using System;
     using Contracts.Extensions;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
 
     [CLSCompliant(false)]
@@ -12,7 +13,7 @@
         private bool _selected;
         private bool _visible;
 
-        public ConfigurableDenomination(int denom, ActionCommand<bool> command, bool selected)
+        public ConfigurableDenomination(int denom, RelayCommand<bool> command, bool selected)
         {
             Denom = denom;
             ChangeCommand = command;
@@ -23,7 +24,7 @@
 
         public int Denom { get; }
 
-        public ActionCommand<bool> ChangeCommand { get; }
+        public RelayCommand<bool> ChangeCommand { get; }
 
         public string DisplayValue => Denom.FormattedCurrencyString("C0");
 

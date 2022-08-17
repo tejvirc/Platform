@@ -7,7 +7,8 @@
     using Contracts.OperatorMenu;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]
@@ -29,14 +30,14 @@
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
 
-            ApplyHardwareSettingsCommand = new ActionCommand<object>(Apply, _ => IsDirty);
+            ApplyHardwareSettingsCommand = new RelayCommand<object>(Apply, _ => IsDirty);
             _initialDoorOpticSensor = DoorOpticSensorEnabled;
             _initialBellyPanelDoor = BellyPanelDoorEnabled;
             _initialBell = BellEnabled;
             UpdateChanges = () => IsDirty = AreChangesMade();
         }
 
-        public ActionCommand<object> ApplyHardwareSettingsCommand { get; set; }
+        public RelayCommand<object> ApplyHardwareSettingsCommand { get; set; }
 
         public bool IsDirty
         {
@@ -50,7 +51,7 @@
 
                 _isDirty = value;
                 RaisePropertyChanged(nameof(IsDirty));
-                ApplyHardwareSettingsCommand.RaiseCanExecuteChanged();
+                ApplyHardwareSettingsCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -76,7 +77,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            ApplyHardwareSettingsCommand.RaiseCanExecuteChanged();
+            ApplyHardwareSettingsCommand.NotifyCanExecuteChanged();
             base.OnInputEnabledChanged();
         }
 

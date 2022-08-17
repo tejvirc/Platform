@@ -5,7 +5,8 @@
     using Kernel;
     using Models;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Quartz.Util;
     using System;
     using System.Collections.Generic;
@@ -50,18 +51,18 @@
             _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, Handle);
             _eventBus.Subscribe<BingoDisplayAttractSettingsChangedEvent>(this, Handle);
 
-            DefaultsCommand = new ActionCommand<object>(_ => ResetToDefaults());
-            ChangeSceneCommand = new ActionCommand<object>(_ => ChangeScene());
-            CreateDisclaimerTextBoxCommand = new ActionCommand<object>(_ => AddDisclaimerText());
-            RemoveDisclaimerTextBoxCommand = new ActionCommand<object>(RemoveDisclaimerTexts);
-            ApplyDisclaimerListChangesCommand = new ActionCommand<object>(_ => ApplyDisclaimerListChanges());
+            DefaultsCommand = new RelayCommand(() => ResetToDefaults());
+            ChangeSceneCommand = new RelayCommand(() => ChangeScene());
+            CreateDisclaimerTextBoxCommand = new RelayCommand(() => AddDisclaimerText());
+            RemoveDisclaimerTextBoxCommand = new RelayCommand<object>(RemoveDisclaimerTexts);
+            ApplyDisclaimerListChangesCommand = new RelayCommand(() => ApplyDisclaimerListChanges());
 
             BindingOperations.EnableCollectionSynchronization(DisclaimerText, _disclaimerTextLock);
             UpdateObservableListToWindowSettingsDisclaimerList(BingoConfigProvider.GetSettings(WindowName));
 
-            AddPresentationOverrideMessageFormatCommand = new ActionCommand<object>(_ => AddPresentationOverrideMessageFormat());
-            RemovePresentationOverrideMessageFormatCommand = new ActionCommand<object>(RemovePresentationOverrideMessageFormat);
-            ApplyPresentationOverrideMessageFormatsCommand = new ActionCommand<object>(_ => UpdateConfigPresentationOverrideMessageFormats());
+            AddPresentationOverrideMessageFormatCommand = new RelayCommand(() => AddPresentationOverrideMessageFormat());
+            RemovePresentationOverrideMessageFormatCommand = new RelayCommand<object>(RemovePresentationOverrideMessageFormat);
+            ApplyPresentationOverrideMessageFormatsCommand = new RelayCommand(() => UpdateConfigPresentationOverrideMessageFormats());
         }
 
         public List<string> DaubColors { get; set; }

@@ -9,7 +9,8 @@
     using Models;
     using Contracts.Barkeeper;
     using Kernel;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     public class BarkeeperConfigurationViewModel : OperatorMenuPageViewModelBase
     {
@@ -24,15 +25,15 @@
             : this(ServiceManager.GetInstance().GetService<IBarkeeperHandler>())
         {
 
-            CoinInRateEnabledChangedCommand = new ActionCommand<object>(
-                _ =>
+            CoinInRateEnabledChangedCommand = new RelayCommand(
+                () =>
                 {
                     RaisePropertyChanged(nameof(RewardLevels));
                     RaisePropertyChanged(nameof(RewardLevels.CoinInStrategy.CoinInRate.Enabled));
                 });
 
-            CashInEnabledChangedCommand = new ActionCommand<object>(
-                _ =>
+            CashInEnabledChangedCommand = new RelayCommand(
+                () =>
                 {
                     RaisePropertyChanged(nameof(CashInRewardLevel));
                     RaisePropertyChanged(nameof(CashInRewardLevel.Enabled));

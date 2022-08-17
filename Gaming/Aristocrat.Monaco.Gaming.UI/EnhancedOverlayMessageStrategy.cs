@@ -14,7 +14,8 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Utils;
 
     public class EnhancedOverlayMessageStrategy : IOverlayMessageStrategy
@@ -36,7 +37,7 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
 
-            ExitHandpayPendingCommand = new ActionCommand<object>(OnExitHandpayPendingPressed);
+            ExitHandpayPendingCommand = new RelayCommand<object>(OnExitHandpayPendingPressed);
         }
 
         public long LastCashOutAmount { get; set; }

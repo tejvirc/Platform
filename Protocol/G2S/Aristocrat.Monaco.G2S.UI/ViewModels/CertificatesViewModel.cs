@@ -25,7 +25,8 @@
     using Models;
     using Monaco.UI.Common;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Security;
 
     /// <summary>
@@ -82,13 +83,13 @@
             var access = ServiceManager.GetInstance().GetService<IOperatorMenuAccess>();
             _technicianMode = access?.HasTechnicianMode ?? false;
 
-            RenewCertificateCommand = new ActionCommand<object>(RenewCertificate, _ => RenewEnabled);
-            RemoveCertificateCommand = new ActionCommand<object>(RemoveCertificate, _ => RemoveEnabled);
-            EnrollCertificateCommand = new ActionCommand<object>(EnrollCertificate, _ => EnrollEnabled);
-            DrillDownCommand = new ActionCommand<object>(DrillDown, _ => SelectedCertificate?.Certificates.Count > 0);
-            RollUpCommand = new ActionCommand<object>(RollUp, _ => _certificateDataStack.Count > 0);
+            RenewCertificateCommand = new RelayCommand<object>(RenewCertificate, _ => RenewEnabled);
+            RemoveCertificateCommand = new RelayCommand<object>(RemoveCertificate, _ => RemoveEnabled);
+            EnrollCertificateCommand = new RelayCommand<object>(EnrollCertificate, _ => EnrollEnabled);
+            DrillDownCommand = new RelayCommand<object>(DrillDown, _ => SelectedCertificate?.Certificates.Count > 0);
+            RollUpCommand = new RelayCommand<object>(RollUp, _ => _certificateDataStack.Count > 0);
 
-            CancelRequestCommand = new ActionCommand<object>(
+            CancelRequestCommand = new RelayCommand<object>(
                 _ =>
                 {
                     _countDownTimer?.Stop();
@@ -124,7 +125,7 @@
         /// <summary>
         ///     Gets or sets a command that cancels the certificate request
         /// </summary>
-        public ActionCommand<object> CancelRequestCommand { get; set; }
+        public RelayCommand<object> CancelRequestCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether invalid server response popup should be shown
@@ -170,7 +171,7 @@
                 {
                     _renewEnabled = value;
                     RaisePropertyChanged(nameof(RenewEnabled));
-                    RenewCertificateCommand.RaiseCanExecuteChanged();
+                    RenewCertificateCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -203,7 +204,7 @@
                 {
                     _removeEnabled = value;
                     RaisePropertyChanged(nameof(RemoveEnabled));
-                    RemoveCertificateCommand.RaiseCanExecuteChanged();
+                    RemoveCertificateCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -230,27 +231,27 @@
         /// <summary>
         ///     Gets the command that fires when page renew certificate.
         /// </summary>
-        public ActionCommand<object> RenewCertificateCommand { get; }
+        public RelayCommand<object> RenewCertificateCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page enroll certificate.
         /// </summary>
-        public ActionCommand<object> EnrollCertificateCommand { get; }
+        public RelayCommand<object> EnrollCertificateCommand { get; }
 
         /// <summary>
         ///     Roll up to parent certificate level
         /// </summary>
-        public ActionCommand<object> RollUpCommand { get; }
+        public RelayCommand<object> RollUpCommand { get; }
 
         /// <summary>
         ///     Drill down to child certificate level
         /// </summary>
-        public ActionCommand<object> DrillDownCommand { get; }
+        public RelayCommand<object> DrillDownCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page remove certificate.
         /// </summary>
-        public ActionCommand<object> RemoveCertificateCommand { get; }
+        public RelayCommand<object> RemoveCertificateCommand { get; }
 
         /// <summary>
         ///     Gets the selected game round text.
@@ -309,7 +310,7 @@
             {
                 _enrolled = value;
                 RaisePropertyChanged(nameof(Enrolled));
-                CancelRequestCommand.RaiseCanExecuteChanged();
+                CancelRequestCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -354,7 +355,7 @@
                 ValidateManualPollingInterval(value);
                 _manualPollingInterval = value;
                 RaisePropertyChanged(nameof(ManualPollingInterval));
-                RenewCertificateCommand.RaiseCanExecuteChanged();
+                RenewCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -371,7 +372,7 @@
                 {
                     _preSharedSecret = value;
                     RaisePropertyChanged(nameof(PreSharedSecret));
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -400,8 +401,8 @@
                     }
 
                     RaisePropertyChanged(nameof(SelectedCertificate));
-                    DrillDownCommand.RaiseCanExecuteChanged();
-                    RollUpCommand.RaiseCanExecuteChanged();
+                    DrillDownCommand.NotifyCanExecuteChanged();
+                    RollUpCommand.NotifyCanExecuteChanged();
                     OnSelectedCertificateChanged();
                 }
             }
@@ -497,7 +498,7 @@
         {
             CertificateInfoData = new ObservableCollection<CertificateInfo>();
             _certificateDataStack.Clear();
-            RollUpCommand.RaiseCanExecuteChanged();
+            RollUpCommand.NotifyCanExecuteChanged();
             _defaultCertificate = null;
             _hasPrivateKey = false;
 
@@ -782,15 +783,15 @@
         {
             _certificateDataStack.Push(CertificateInfoData);
             CertificateInfoData = SelectedCertificate.Certificates;
-            DrillDownCommand.RaiseCanExecuteChanged();
-            RollUpCommand.RaiseCanExecuteChanged();
+            DrillDownCommand.NotifyCanExecuteChanged();
+            RollUpCommand.NotifyCanExecuteChanged();
         }
 
         private void RollUp(object obj)
         {
             CertificateInfoData = _certificateDataStack.Pop();
-            DrillDownCommand.RaiseCanExecuteChanged();
-            RollUpCommand.RaiseCanExecuteChanged();
+            DrillDownCommand.NotifyCanExecuteChanged();
+            RollUpCommand.NotifyCanExecuteChanged();
         }
 
         private void CheckLogicDoorStatus()

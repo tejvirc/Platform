@@ -8,7 +8,8 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]
@@ -25,8 +26,8 @@
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().TryGetService<IOperatorMenuLauncher>();
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
-            SaveCommand = new ActionCommand<object>(_ => Save());
-            CancelCommand = new ActionCommand<object>(_ => Cancel());
+            SaveCommand = new RelayCommand(() => Save());
+            CancelCommand = new RelayCommand(() => Cancel());
 
             ShowSaveButton = (buttons & DialogButton.Save) == DialogButton.Save;
             ShowCancelButton = (buttons & DialogButton.Cancel) == DialogButton.Cancel;

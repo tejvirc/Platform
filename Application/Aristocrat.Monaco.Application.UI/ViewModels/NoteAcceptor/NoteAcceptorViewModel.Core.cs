@@ -19,7 +19,8 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using OperatorMenu;
 
 
@@ -75,7 +76,7 @@
                 {
                     Denominations.Add(new ConfigurableDenomination(
                         denom,
-                        new ActionCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
+                        new RelayCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
                         DenominationIsSelected(denom)));
                 }
             }

@@ -12,7 +12,8 @@
     using Hardware.Contracts;
     using Kernel;
     using log4net;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using MVVM.ViewModel;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
 
@@ -130,17 +131,17 @@
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
             _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, "");
 
-            DigitClickedCommand = new ActionCommand<object>(ConcatenateReservePin);
+            DigitClickedCommand = new RelayCommand<object>(ConcatenateReservePin);
 
-            BackspaceButtonClickedCommand = new ActionCommand<object>(_ => BackspaceButtonPressed());
+            BackspaceButtonClickedCommand = new RelayCommand(() => BackspaceButtonPressed());
 
-            ReserveButtonClickedCommand = new ActionCommand<object>(_ => ReserveTheMachine());
+            ReserveButtonClickedCommand = new RelayCommand(() => ReserveTheMachine());
 
-            CancelButtonClickedCommand = new ActionCommand<object>(_ => CancelButtonPressed());
+            CancelButtonClickedCommand = new RelayCommand(() => CancelButtonPressed());
 
-            UnlockButtonClickedCommand = new ActionCommand<object>(_ => UnlockReserve());
+            UnlockButtonClickedCommand = new RelayCommand(() => UnlockReserve());
 
-            ExitReserveButtonClickedCommand = new ActionCommand<object>(_ => ExitReserveButtonPressed());
+            ExitReserveButtonClickedCommand = new RelayCommand(() => ExitReserveButtonPressed());
 
             _incorrectPinWaitTimer = new Timer(
                 IncorrectPinWaitTimerCallback,

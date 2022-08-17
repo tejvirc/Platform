@@ -9,8 +9,9 @@
     using Common;
     using Kernel;
     using MVVM;
-    using MVVM.Command;
     using Services.Communications;
+    using Microsoft.Toolkit.Mvvm.Input;
+
 
     /// <summary>
     ///     The view model for displaying communication with the NYL host.
@@ -41,19 +42,19 @@
         {
             _transcripts = ServiceManager.GetInstance().GetService<IHostTranscripts>();
 
-            ViewHostTranscriptsCommand = new ActionCommand<object>(ViewHostTranscript, _ => CanViewDetail());
-            CloseDetailCommand = new ActionCommand<object>(CloseHostTranscriptDetail);
+            ViewHostTranscriptsCommand = new RelayCommand(ViewHostTranscript, () => CanViewDetail());
+            CloseDetailCommand = new RelayCommand(() => CloseHostTranscriptDetail());
         }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> ViewHostTranscriptsCommand { get; }
+         public RelayCommand ViewHostTranscriptsCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> CloseDetailCommand { get; }
+        public RelayCommand CloseDetailCommand { get; }
 
         /// <summary>
         ///     Gets messages sent to and from the server.
@@ -239,7 +240,7 @@
             return EnableViewHostTranscripts;
         }
 
-        private void ViewHostTranscript(object obj)
+        private void ViewHostTranscript()
         {
             if (SelectedHostTranscript == null)
             {
@@ -252,7 +253,7 @@
             }
         }
 
-        private void CloseHostTranscriptDetail(object obj)
+        private void CloseHostTranscriptDetail()
         {
             ShowHostTranscripts = false;
         }

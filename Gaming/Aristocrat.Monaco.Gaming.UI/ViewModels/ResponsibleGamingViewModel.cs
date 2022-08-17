@@ -5,7 +5,8 @@
     using MVVM.ViewModel;
     using System.Windows.Input;
     using Models;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     /// <summary>
     ///     Helper class to handle responsible gaming parts of the lobby ViewModel.
@@ -24,8 +25,8 @@
         {
             _lobby = lobby ?? throw new ArgumentNullException(nameof(lobby));
 
-            LeftInfoPageNavigationCommand = new ActionCommand<object>(LeftPageNavigationButtonPressed);
-            RightInfoPageNavigationCommand = new ActionCommand<object>(RightPageNavigationButtonPressed);
+            LeftInfoPageNavigationCommand = new RelayCommand<object>(LeftPageNavigationButtonPressed);
+            RightInfoPageNavigationCommand = new RelayCommand<object>(RightPageNavigationButtonPressed);
 
             ConfigurePages();
         }

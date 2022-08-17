@@ -14,7 +14,8 @@
     using Models;
     using Monaco.Localization.Properties;
     using MVVM;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
 
     /// <summary>
     ///     View model for mechanical reels
@@ -34,19 +35,19 @@
 
         public MechanicalReelsPageViewModel() : base(DeviceType.ReelController)
         {
-            ShowLightTestCommand = new ActionCommand<object>(_ =>
+            ShowLightTestCommand = new RelayCommand(() =>
             {
                 LightTestScreenHidden = false;
                 ReelTestScreenHidden = true;
                 SettingsScreenHidden = true;
             });
-            ShowReelTestCommand = new ActionCommand<object>(_ =>
+            ShowReelTestCommand = new RelayCommand(() =>
             {
                 LightTestScreenHidden = true;
                 ReelTestScreenHidden = false;
                 SettingsScreenHidden = true;
             });
-            ShowSettingsCommand = new ActionCommand<object>(_ =>
+            ShowSettingsCommand = new RelayCommand(() =>
             {
                 LightTestScreenHidden = true;
                 ReelTestScreenHidden = true;
@@ -56,8 +57,8 @@
             LightTestViewModel = new(ReelController);
             ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen);
 
-            SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
-            SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
+            SelfTestCommand = new RelayCommand(() => SelfTest(false));
+            SelfTestClearCommand = new RelayCommand(() => SelfTest(true));
 
             MinimumBrightness = 1;
             MaximumBrightness = 100;

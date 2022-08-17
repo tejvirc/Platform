@@ -11,7 +11,8 @@
     using Kernel;
     using Menu;
     using Models;
-    using MVVM.Command;
+    using Microsoft.Toolkit.Mvvm.Input;
+    //using MVVM.Command;
     using Command = Menu.Command;
 
     public class RaceStatsPageViewModel : HhrMenuPageViewModelBase
@@ -126,7 +127,7 @@
             TimerInfo = new TimerInfo
             {
                 Timeout = Math.Min(UiProperties.ManualHandicapRemainingTime, ClientProperties.RaceStatTimeOut),
-                TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
+                TimerElapsedCommand = new RelayCommand<object>(OnTimerElapsed),
                 IsVisible = true,
                 IsQuickPickTextVisible = false,
                 IsAutoPickTextVisible = false,
