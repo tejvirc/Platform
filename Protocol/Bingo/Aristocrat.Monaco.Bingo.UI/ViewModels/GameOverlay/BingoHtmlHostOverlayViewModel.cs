@@ -77,6 +77,8 @@
         private string _standaloneCreditMeterFormat;
         private string _lastGameScene = string.Empty;
         private string _previousScene = string.Empty;
+        private double _helpOpacity;
+        private double _infoOpacity;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -220,6 +222,18 @@
             UpdateAppearance();
         }
 
+        public double HelpOpacity
+        {
+            get => _helpOpacity;
+            set => SetProperty(ref _helpOpacity, value);
+        }
+
+        public double InfoOpacity
+        {
+            get => _infoOpacity;
+            set => SetProperty(ref _infoOpacity, value);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -239,6 +253,8 @@
 
             _disposed = true;
         }
+
+        private static double GetVisibleOpacity(bool visible) => visible ? 1.0 : 0.0;
 
         private void AttractCompleted(object sender, EventArgs e)
         {
@@ -879,23 +895,24 @@
             _dispatcher.ExecuteOnUIThread(
                 () =>
                 {
-                    if (visible)
-                    {
-                        NavigateToHelp();
-                    }
-
+                    NavigateToHelp();
                     IsHelpVisible = visible;
+                    HelpOpacity = GetVisibleOpacity(visible);
                 });
         }
 
         private void SetInfoVisibility(bool visible)
         {
-            _dispatcher.ExecuteOnUIThread(() => IsInfoVisible = visible);
+            _dispatcher.ExecuteOnUIThread(() =>
+            {
+                IsInfoVisible = visible;
+                InfoOpacity = GetVisibleOpacity(visible);
+            });
         }
 
-        public void UpdateAppearance()
+        private void UpdateAppearance()
         {
-            Window window = _bingoConfigurationProvider.GetWindow(_targetWindow);
+            var window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             var helpAppearance = _bingoConfigurationProvider.GetHelpAppearance();
             _standaloneCreditMeterFormat = helpAppearance.CreditMeterFormat ?? string.Empty;
 

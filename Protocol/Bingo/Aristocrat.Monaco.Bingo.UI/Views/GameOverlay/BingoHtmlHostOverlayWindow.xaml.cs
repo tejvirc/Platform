@@ -52,6 +52,7 @@
             var window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             ConfigureDisplay(window);
         }
+
         public void BingoHelp_OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             MvvmHelper.ExecuteOnUI(() => { ViewModel.IsHelpLoading = false; });
@@ -108,7 +109,7 @@
             KeyDown -= OnKeyDown;
 #endif
             BingoHelp.JavascriptMessageReceived -= ViewModel.ExitHelp;
-            BingoHelp?.Dispose();
+            BingoHelp.Dispose();
 
             BingoInfoHost.Dispose();
             base.OnClosing(e);
