@@ -8,6 +8,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
+    using BrowserProcessTerminatedEvent = Application.Contracts.Media.BrowserProcessTerminatedEvent;
 
     public class LayoutTemplateViewModel : BaseEntityViewModel, IDisposable
     {
@@ -20,7 +21,7 @@
         private double _windowWidth;
         private double _windowHeight; 
 
-        public event EventHandler<int> BrowserProcessTerminated;
+        public event EventHandler<BrowserProcessTerminatedEventArgs> BrowserProcessTerminated;
 
         private bool _disposed;
 
@@ -80,7 +81,8 @@
             _displayType = displayType;
             ScreenType = screenType;
 
-            _eventBus.Subscribe<BrowserProcessTerminatedEvent>(this, e => BrowserProcessTerminated?.Invoke(this, e.MediaPlayerId));
+            _eventBus.Subscribe<BrowserProcessTerminatedEvent>(this, e =>
+                BrowserProcessTerminated?.Invoke(this, new BrowserProcessTerminatedEventArgs(e.MediaPlayerId)));
         }
 
         protected override void RaisePropertyChanged(string propertyName)

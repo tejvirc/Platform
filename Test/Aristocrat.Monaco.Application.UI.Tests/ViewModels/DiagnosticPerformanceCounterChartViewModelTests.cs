@@ -180,47 +180,47 @@
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-2).AddMinutes(10),
-                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7 }
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-2).AddMinutes(20),
-                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7 }
+                            Values = new[] { 1.0, 1, 3.1, 4, 5, 1.5, 7, 8, 8, 10.5 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-2).AddMinutes(30),
-                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7 }
+                            Values = new[] { 1.0, 3, 2.9, 4, 5, 10.5, 7, 8, 10, 9.5 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-1).AddMinutes(1),
-                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 6 }
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 6, 5, 4, 3 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-1).AddMinutes(2),
-                            Values = new[] { 2.0, 4, 2, 4, 12, 6, 2 }
+                            Values = new[] { 2.0, 4, 2, 4, 12, 6, 2, 8, 10, 6 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-1).AddMinutes(3),
-                            Values = new[] { 3.0, 6, 1, 4, 1, 6, 10 }
+                            Values = new[] { 3.0, 6, 1, 4, 1, 6, 10, 7, 3, 5 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddMinutes(10),
-                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12 }
+                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12, 0.1, 0.3, 0.79 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddMinutes(15),
-                            Values = new[] { 11.23, 32, 102.678, 3456.789, 123.456, 5, 3.12 }
+                            Values = new[] { 11.23, 32, 102.678, 3456.789, 123.456, 5, 3.12, 0.2, 0.6, 0.34 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddMinutes(30),
-                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12 }
+                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12, 0.9, 0.8, 0.7 }
                         }
                     }));
 
@@ -246,12 +246,13 @@
             {
                 Assert.IsTrue(metric.MetricEnabled);
                 Assert.IsNotNull(metric.LineSeries);
-                Assert.AreEqual(metric.LineSeries.Points.Count, 7);
-                Assert.AreEqual(metric.LineSeries.Points[1].Y, 0);
-                Assert.AreEqual(metric.LineSeries.Points[2].Y, 0);
-                Assert.AreEqual(metric.LineSeries.Points[4].Y, 0);
-                Assert.AreEqual(metric.LineSeries.Points[5].Y, 0);
-                Assert.AreEqual(metric.LineSeries.Points[0].Y, i++);
+                Assert.AreEqual(7, metric.LineSeries.Points.Count);
+                Assert.AreEqual(0, metric.LineSeries.Points[1].Y);
+                Assert.AreEqual(0, metric.LineSeries.Points[2].Y);
+                Assert.AreEqual(0, metric.LineSeries.Points[4].Y);
+                Assert.AreEqual(0, metric.LineSeries.Points[5].Y);
+                // Note: What this is actually testing is the average of the first 3 datapoints.
+                Assert.AreEqual(i++, metric.LineSeries.Points[0].Y);
             }
 
             Assert.AreEqual(

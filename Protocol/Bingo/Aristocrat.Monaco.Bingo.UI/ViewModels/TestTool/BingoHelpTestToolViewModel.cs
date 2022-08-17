@@ -6,6 +6,7 @@
     using Events;
     using Kernel;
     using MVVM;
+    using OverlayServer.Data.Bingo;
 
     public class BingoHelpTestToolViewModel : BingoTestToolViewModelBase
     {

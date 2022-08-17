@@ -9,7 +9,7 @@
     /// <summary>
     ///     Defines the LobbyViewModel class
     /// </summary>
-    public partial class LobbyViewModel
+    public sealed partial class LobbyViewModel
     {
         [Conditional("DESIGN")]
         private void WireDesignerData()

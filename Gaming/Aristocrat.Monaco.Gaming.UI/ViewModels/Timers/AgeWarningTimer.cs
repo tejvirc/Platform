@@ -8,7 +8,7 @@
     using Kernel;
     using log4net;
 
-    public class AgeWarningTimer
+    public class AgeWarningTimer : IDisposable
     {
         private static readonly TimeSpan AgeWarningDialogTimeOutInSeconds = new TimeSpan(0, 0, 5);
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -37,7 +37,7 @@
         {
             Logger.Debug("Stopping AgeWarningDialog");
 
-            _ageWarningTimer?.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+            _ageWarningTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
         }
 
         public AgeWarningCheckResult CheckForAgeWarning()
@@ -69,7 +69,7 @@
 
             AgeWarningNeeded = false;
 
-            _ageWarningTimer?.Change(AgeWarningDialogTimeOutInSeconds, Timeout.InfiniteTimeSpan);
+            _ageWarningTimer.Change(AgeWarningDialogTimeOutInSeconds, Timeout.InfiniteTimeSpan);
 
             _eventBus.Publish(new AgeWarningDialogVisibleEvent());
         }
@@ -80,7 +80,7 @@
 
             _eventBus.Publish(new AgeWarningDialogHiddenEvent());
         }
-
+        
         public void Dispose()
         {
             Dispose(true);
@@ -96,11 +96,9 @@
 
             if (disposing)
             {
-                if (_ageWarningTimer != null)
-                {
-                    _ageWarningTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-                    _ageWarningTimer.Dispose();
-                }
+                _eventBus.UnsubscribeAll(this);
+                _ageWarningTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+                _ageWarningTimer.Dispose();
             }
 
             _ageWarningTimer = null;

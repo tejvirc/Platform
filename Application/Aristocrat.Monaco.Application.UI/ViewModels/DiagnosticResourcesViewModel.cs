@@ -29,6 +29,10 @@
     using Timer = System.Timers.Timer;
     using UIElement = System.Windows.UIElement;
 
+    /// <summary>
+    ///     The view model for the diagnostics "resources" page, the one that shows the live values
+    ///     of the platform performance counters
+    /// </summary>
     [CLSCompliant(false)]
     public class DiagnosticResourcesViewModel : OperatorMenuPageViewModelBase
     {
@@ -45,9 +49,6 @@
 
         private readonly IPerformanceCounterManager _performanceCounterManager;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DiagnosticResourcesViewModel" /> class.
-        /// </summary>
         public DiagnosticResourcesViewModel()
         {
             if (!InDesigner)
@@ -172,12 +173,13 @@
                 {
                     InstanceName = metric.GetAttribute<InstanceAttribute>().Instance,
                     MetricType = metric,
-                    MetricName = metric.GetAttribute<DescriptionAttribute>().Description,
+                    MetricName = metric.GetAttribute<CounterAttribute>().Counter,
                     Category = metric.GetAttribute<CategoryAttribute>().Category,
                     MetricEnabled = true,
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
-                    MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange
+                    MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
+                    Label = metric.GetAttribute<LabelAttribute>().Label
                 };
 
                 Metrics.Add(m);
@@ -211,7 +213,7 @@
             {
                 Values = source,
                 IsEnabled = true,
-                Title = metric.DisplayName,
+                Title = metric.Label,
                 Stroke = metric.MetricColor,
                 LineSmoothness = 0,
                 PointGeometry = null,
@@ -310,12 +312,13 @@
             var perfData = _performanceCounterManager.CurrentPerformanceCounter;
             foreach (var metric in Metrics)
             {
+                bool gotValue = perfData.CounterDictionary.TryGetValue(metric.MetricType, out var value);
                 var newData = new MeasureModel
                 {
                     MetricName = metric.MetricName,
                     InstanceName = metric.InstanceName,
                     DateTime = perfData.DateTime,
-                    Value = perfData.CounterDictionary.TryGetValue(metric.MetricType, out var value) ? value:0
+                    Value = gotValue ? value : 0
                 };
 
                 metric.CurrentValue = newData.Value; // grab current value for the legend
@@ -331,7 +334,8 @@
 
                             if (yAxis != null)
                             {
-                                metric.MaxRange *= 2;
+                                // If the value is too big, increase the scale by 50%.
+                                metric.MaxRange = (int) Math.Ceiling(metric.MaxRange * 1.5);
 
                                 var newAxis = CreateYAxisFromMetric(index, metric);
                                 YAxes[index] = newAxis;
@@ -457,7 +461,7 @@
                     }
                     else
                     {
-                        axis.Title = Metrics[evt.SeriesIndex].MetricName + " " + Metrics[evt.SeriesIndex].Unit;
+                        axis.Title = Metrics[evt.SeriesIndex].Label + " " + Metrics[evt.SeriesIndex].Unit;
                     }
 
                     RaisePropertyChanged(nameof(YAxes));
@@ -496,6 +500,7 @@
         private MetricType _metricType;
         private string _instanceName;
         private string _category;
+        private string _label;
         private string _unit;
         private int _maxRange;
         private string _counterType;
@@ -538,6 +543,16 @@
             {
                 _category = value;
                 RaisePropertyChanged(nameof(Category));
+            }
+        }
+
+        public string Label
+        {
+            get => _label;
+            set
+            {
+                _label = value;
+                RaisePropertyChanged(nameof(Label));
             }
         }
 
@@ -602,10 +617,6 @@
             }
         }
 
-        public string DisplayName => InstanceName + " - " + MetricName;
-
-        public string DisplayNamePlus => InstanceName + " - " + MetricName + " " + Unit;
-
         // series number
         public int Index
         {
@@ -630,7 +641,10 @@
             Brushes.Gold,
             Brushes.LightCoral,
             Brushes.LightGreen,
-            Brushes.LightPink
+            Brushes.LightPink,
+            Brushes.LightGray,
+            Brushes.LightBlue,
+            Brushes.Yellow
         };
     }
 

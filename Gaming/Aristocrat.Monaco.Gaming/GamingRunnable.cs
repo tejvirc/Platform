@@ -167,7 +167,7 @@
             _container.Verify();
 
             // NOTE: This is just to ensure we don't have an orphan process running
-            _container.GetInstance<IGameService>().TerminateAny(false);
+            _container.GetInstance<IGameService>().TerminateAny(false, true);
 
             // Start the RNG cycling service necessary for some APAC markets
             _container.GetInstance<RngCyclingService>().StartCycling();
@@ -335,7 +335,7 @@
             // End the game process if one is running
             DisplayMessage(ResourceKeys.ClosingGame);
             Logger.Info("Ending game process from Unload");
-            _container.GetInstance<IGameService>().TerminateAny(false);
+            _container.GetInstance<IGameService>().TerminateAny(false, true);
 
             DisplayMessage(ResourceKeys.UnloadUi);
             UnloadUi(_container);

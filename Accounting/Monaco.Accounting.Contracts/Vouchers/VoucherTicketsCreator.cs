@@ -57,27 +57,6 @@
         private static readonly DateTimeFormatInfo DateTimeFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
 
         /// <summary>
-        ///     Create a cashout ticket
-        /// </summary>
-        /// <param name="transaction">The transaction for the cashout ticket</param>
-        /// <param name="largeWin">Indicates a large win if true.</param>
-        /// <param name="voidTicket">Whether the ticket should be printed as void demo ticket</param>
-        /// <returns>A ticket object with settings for a cashout ticket filled in</returns>
-        public static Ticket CreateCashOutTicket(VoucherOutTransaction transaction, bool largeWin = false, bool voidTicket = false)
-        {
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
-            propertiesManager.SetProperty(AccountingConstants.TicketTitleCash, voidTicket
-                ? Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.VoidDemoTicket)
-                : Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.CashoutTicket));
-
-            return CreateTicket(
-                transaction,
-                largeWin,
-                voidTicket);
-        }
-
-        /// <summary>
         ///     Create a cashout reprint ticket
         /// </summary>
         /// <param name="transaction">The transaction for the reprint ticket</param>
@@ -92,11 +71,7 @@
                     AccountingConstants.ReprintLoggedVoucherTitleOverride,
                     false);
 
-                propertiesManager.SetProperty(
-                    AccountingConstants.TicketTitleCash,
-                     scope.GetString(ResourceKeys.CashoutTicket));
-
-                var ticket = CreateTicket(transaction);
+                var ticket = CreateCashOutTicket(transaction);
 
                 if (titleOverride)
                 {
@@ -135,7 +110,7 @@
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
-            var ticket = CreateTicket(transaction, false, false, true);
+            var ticket = CreateCashOutTicket(transaction, false, false, true);
 
             ticket["title"] = propertiesManager.GetValue(
                 AccountingConstants.TicketTitleNonCash,
@@ -158,7 +133,7 @@
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
-            var ticket = CreateTicket(transaction, false, false, true);
+            var ticket = CreateCashOutTicket(transaction, false, false, true);
 
             var titleOverride = propertiesManager.GetValue(
                 AccountingConstants.ReprintLoggedVoucherTitleOverride,
@@ -253,7 +228,7 @@
         /// <param name="voidTicket">Whether the ticket should be printed as void demo ticket</param>
         /// <param name="restrictedTicket">Whether the ticket should be printed as a restricted ticket</param>
         /// <returns>A ticket object with settings for a cashout ticket filled in</returns>
-        private static Ticket CreateTicket(VoucherOutTransaction transaction, bool largeWin = false, bool voidTicket = false, bool restrictedTicket = false)
+        public static Ticket CreateCashOutTicket(VoucherOutTransaction transaction, bool largeWin = false, bool voidTicket = false, bool restrictedTicket = false)
         {
             Logger.DebugFormat("CreateTicket(transaction = '{0}')", transaction);
 
@@ -293,10 +268,13 @@
                 else
                 {
                     ticket["ticket type"] = "cashout";
-                    ticket["title"] = VoucherExtensions.PrefixToTitle(transaction.HostOnline) + propertiesManager.GetValue(AccountingConstants.TicketTitleCash,
-                        scope.GetString(ResourceKeys.CashoutTicket));
-                    ticket["title 1"] = propertiesManager.GetValue(AccountingConstants.TicketTitleCash,
-                        scope.GetString(ResourceKeys.CashoutTicket));
+
+                    var ticketTitleCash = voidTicket
+                        ? scope.GetString(ResourceKeys.VoidDemoTicket)
+                        : propertiesManager.GetValue(AccountingConstants.TicketTitleCash, scope.GetString(ResourceKeys.CashoutTicket));
+
+                    ticket["title"] = VoucherExtensions.PrefixToTitle(transaction.HostOnline) + ticketTitleCash;
+                    ticket["title 1"] = ticketTitleCash;
                 }
 
                 ticket["serial id"] = propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);

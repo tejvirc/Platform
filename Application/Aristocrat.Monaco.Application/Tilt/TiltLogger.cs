@@ -13,6 +13,7 @@
     using Contracts.Authentication;
     using Contracts.Localization;
     using Contracts.TiltLogger;
+    using Hardware.Contracts;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -782,6 +783,10 @@
                             transaction[blockIndexName, Index] = index;
                             var blockName = _blockName + "_" + key;
                             transaction[blockName, index, Events] = eventString;
+
+                            var blockSize = dataAccessor.Format.GetFieldDescription(Events).Size;
+                            var dataSize = eventString.Length;
+                            Debug.Assert(dataSize <= blockSize, $"TiltLogger log data exceeded - {blockSize} blockSize");
 
                             if (_operatorMenuLauncher.IsShowing && _reloadEventHistory.TryGetValue(description.Type, out _))
                             {

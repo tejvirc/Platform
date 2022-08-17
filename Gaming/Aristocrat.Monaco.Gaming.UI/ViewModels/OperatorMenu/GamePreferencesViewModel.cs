@@ -132,8 +132,8 @@
             EditableCensorship = PropertiesManager.GetValue(GamingConstants.CensorshipEditable, false);
             CensorshipEnforced = PropertiesManager.GetValue(GamingConstants.CensorshipEnforced, false);
             DemoModeEnabled = PropertiesManager.GetValue(ApplicationConstants.ShowMode, false);
-            AttractOptionsEnabled = gameProvider.GetEnabledGames().Any();
-            AttractEnabled = PropertiesManager.GetValue(GamingConstants.AttractModeEnabled, true);
+            _attractOptionsEnabled = gameProvider.GetEnabledGames().Any();
+            _attractEnabled = PropertiesManager.GetValue(GamingConstants.AttractModeEnabled, true);
 
             AutoHoldConfigurable = PokerOptionsEnabled &&
                                    PropertiesManager.GetValue(GamingConstants.AutoHoldConfigurable, true);
@@ -148,12 +148,12 @@
             IsGameStartMethodConfigurable = PropertiesManager.GetValue(
                 GamingConstants.GameStartMethodConfigurable,
                 false);
-            GameStartMethod = PropertiesManager.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet);
-            ShowProgramPinRequired = PropertiesManager.GetValue(GamingConstants.ShowProgramPinRequired, true);
-            ShowProgramPin = PropertiesManager.GetValue(
+            _gameStartMethod = PropertiesManager.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet);
+            _showProgramPinRequired = PropertiesManager.GetValue(GamingConstants.ShowProgramPinRequired, true);
+            _showProgramPin = PropertiesManager.GetValue(
                 GamingConstants.ShowProgramPin,
                 GamingConstants.DefaultShowProgramPin);
-            ShowProgramEnableResetCredits = PropertiesManager.GetValue(
+            _showProgramEnableResetCredits = PropertiesManager.GetValue(
                 GamingConstants.ShowProgramEnableResetCredits,
                 true);
 

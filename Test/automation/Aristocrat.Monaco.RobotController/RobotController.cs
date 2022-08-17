@@ -1,20 +1,19 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel.Contracts;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
+    using Aristocrat.Monaco.Hardware.Contracts;
+    using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Test.Automation;
     using Contracts;
     using Kernel;
     using SimpleInjector;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Aristocrat.Monaco.Gaming.Contracts.Lobby;
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using System.IO;
-    using Aristocrat.Monaco.Hardware.Contracts;
-    using System.Threading;
 
     public sealed class RobotController : BaseRunnable, IRobotController
     {
@@ -28,7 +27,6 @@
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
         private Dictionary<string, IList<Action>> _executionActions;
         private Dictionary<string, IList<Action>> _warmUpActions;
-        private Timer _coolDownTimer;
         private Automation _automator;
         private IEventBus _eventBus;
         private Container _container;
@@ -62,7 +60,6 @@
                     {
                         PrintCurrentlyInProgressRequests();
                         DisablingRobot();
-                        DisposeCoolDownTimer();
                     }
                     else
                     {
@@ -130,11 +127,6 @@
                 {
                     _warmUpActions.Clear();
                 }
-                if (_coolDownTimer is not null)
-                {
-                    _coolDownTimer.Dispose();
-                }
-                _coolDownTimer = null;
                 _automator = null;
                 _eventBus = null;
                 if (_container is not null)
@@ -162,11 +154,6 @@
             DisablingRobot($"Cooling Down for {milliseconds}");
             Task.Delay(Constants.CashOutDelayDuration).ContinueWith(_ => _eventBus.Publish(new CashOutButtonPressedEvent()));
             Task.Delay(milliseconds).ContinueWith(_ => EnablingRobot());
-        }
-
-        private void DisposeCoolDownTimer()
-        {
-            _coolDownTimer?.Dispose();
         }
 
         private void EnablingRobot()
@@ -203,8 +190,9 @@
         private void RefreshRobotConfiguration()
         {
             _logger.Info($"RefreshRobotConfiguration Is Initiated", GetType().Name);
-            Config = Helper.LoadConfiguration(_configPath);
-            _modeOperations = Helper.InitializeModeDictionary(_container);
+            Config = RobotControllerHelper.LoadConfiguration(_configPath);
+            _modeOperations = RobotControllerHelper.InitializeModeDictionary(_container);
+
             _warmUpActions = new Dictionary<string, IList<Action>>()
             {
                 { nameof(ModeType.Regular) ,
@@ -223,7 +211,6 @@
                         () =>
                         {
                             InProgressRequests.TryAdd(RobotStateAndOperations.SuperMode);
-                            CoolDownTimerInitialization();
                             SetCurrentlyActiveGameIfAny();
                         }
                     }
@@ -234,12 +221,12 @@
                         () =>
                         {
                             InProgressRequests.TryAdd(RobotStateAndOperations.UberMode);
-                            CoolDownTimerInitialization();
                             SetCurrentlyActiveGameIfAny();
                         }
                     }
                 }
             };
+
             _executionActions = new Dictionary<string, IList<Action>>()
             {
                 { nameof(ModeType.Regular) ,
@@ -285,16 +272,6 @@
             };
         }
 
-        private void CoolDownTimerInitialization()
-        {
-            var twoHours = 2 * 3600 * 1000;
-            var fiveMinutes = 5 * 60 * 1000;
-            _coolDownTimer = new System.Threading.Timer((s) =>
-            {
-                CoolDown(fiveMinutes);
-            }, null, twoHours, twoHours);
-        }
-
         private void StartRobot()
         {
             foreach (var action in _executionActions[Config.ActiveType.ToString()])
@@ -307,7 +284,7 @@
         {
             if (Config.Active.MaxWinLimitOverrideMilliCents > 0)
             {
-                _logger.Info($"SetMaxWinLimit Is Initiated", GetType().Name);
+                _logger.Info($"{nameof(SetMaxWinLimit)} Is Initiated", GetType().Name);
                 _automator.SetMaxWinLimit(Config.Active.MaxWinLimitOverrideMilliCents);
             }
         }
@@ -328,7 +305,8 @@
             {
                 return false;
             }
-            _logger.Info($"SetCurrentlyActiveGameIfAny Is Initiated", GetType().Name);
+
+            _logger.Info($"{nameof(SetCurrentlyActiveGameIfAny)} Is Initiated", GetType().Name);
             var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
             Config.SetCurrentActiveGame(currentGame.ThemeName);
             return true;
@@ -338,10 +316,12 @@
         {
             _automator.SetOverlayText(reason, false, _overlayTextGuid, InfoLocation.TopLeft);
             _sanityChecker.Stop();
+
             foreach (var op in _modeOperations[Config.ActiveType.ToString()])
             {
                 op.Halt();
             }
+
             InProgressRequests.Clear();
             _modeOperations.Clear();
             _executionActions.Clear();
@@ -352,7 +332,7 @@
         {
             try
             {
-                _idleDuration = _idleDuration + 1000;
+                _idleDuration += 1000;
                 IdleCheck();
             }
             catch (OverflowException)
@@ -378,30 +358,36 @@
 
         private void WaitForServices()
         {
-            Task.Run((Action)(() =>
+            Task.Run(() =>
             {
-                using (var serviceWaiter = new ServiceWaiter(_eventBus))
+                using var serviceWaiter = new ServiceWaiter(_eventBus);
+
+                serviceWaiter.AddServiceToWaitFor<IGamePlayState>();
+                serviceWaiter.AddServiceToWaitFor<IGameProvider>();
+                serviceWaiter.AddServiceToWaitFor<IContainerService>();
+                serviceWaiter.AddServiceToWaitFor<IBank>();
+                serviceWaiter.AddServiceToWaitFor<IPathMapper>();
+                serviceWaiter.AddServiceToWaitFor<IGameService>();
+
+                if (serviceWaiter.WaitForServices())
                 {
-                    serviceWaiter.AddServiceToWaitFor<IGamePlayState>();
-                    serviceWaiter.AddServiceToWaitFor<IGameProvider>();
-                    serviceWaiter.AddServiceToWaitFor<IContainerService>();
-                    serviceWaiter.AddServiceToWaitFor<IBank>();
-                    serviceWaiter.AddServiceToWaitFor<IPathMapper>();
-                    serviceWaiter.AddServiceToWaitFor<IGameService>();
-                    if (serviceWaiter.WaitForServices())
-                    {
-                        _container = InitializeContainer();
-                        _container.RegisterInstance(this);
-                        SetupClassProperties();
-                    }
+                    _container = InitializeContainer();
+                    _container.RegisterInstance(this);
+                    SetupClassProperties();
                 }
-            }));
+            });
         }
 
         private void IdleCheck()
         {
             if (_idleDuration > Constants.IdleTimeout)
             {
+                //FreeGames can prevent changing the game states for up to 20+ minutes.
+                if (_stateChecker.IsPrimaryGameStarted)
+                {
+                    _idleDuration = 0;
+                    return;
+                }
                 _idleDuration = 0;
                 _logger.Info("Idle for too long. Disabling.", GetType().Name);
                 Enabled = false;
@@ -410,10 +396,8 @@
 
         private void PrintCurrentlyInProgressRequests()
         {
-            foreach (var req in _inProgressRequests)
-            {
-                _logger.Info($"InProgressRequests : {req}", GetType().Name);
-            }
+            var req = string.Join(", ", _inProgressRequests);
+            _logger.Info($"InProgressRequests : {req}", GetType().Name);
         }
 
         private Container InitializeContainer()
@@ -437,6 +421,7 @@
             container.Register<TouchOperations>(Lifestyle.Singleton);
             container.Register<LockUpOperations>(Lifestyle.Singleton);
             container.Register<OperatingHoursOperations>(Lifestyle.Singleton);
+            container.Register<GameHelpOperations>(Lifestyle.Singleton);
             container.Register<ServiceRequestOperations>(Lifestyle.Singleton);
             container.Register<BalanceOperations>(Lifestyle.Singleton);
             container.Register<RebootRequestOperations>(Lifestyle.Singleton);

@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
 
     internal class LockUpOperations : IRobotOperations
     {
@@ -45,22 +46,23 @@
             {
                 return;
             }
+
             _lockupTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestLockUp();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalTriggerLockup,
-                               _robotController.Config.Active.IntervalTriggerLockup);
+            (sender) =>
+            {
+                RequestLockUp();
+            },
+            null,
+            _robotController.Config.Active.IntervalTriggerLockup,
+            _robotController.Config.Active.IntervalTriggerLockup);
         }
 
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.ExitLockup();
-            _lockupTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _lockupTimer?.Dispose();
+            _automator.ExitLockup();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -69,13 +71,15 @@
             {
                 return;
             }
+
             if (disposing)
             {
                 if (_lockupTimer is not null)
                 {
                     _lockupTimer.Dispose();
+                    _lockupTimer = null;
                 }
-                _lockupTimer = null;
+
                 _eventBus.UnsubscribeAll(this);
             }
             _disposed = true;
@@ -87,22 +91,21 @@
             {
                 return;
             }
+
+            _robotController.BlockOtherOperations(RobotStateAndOperations.LockUpOperation);
             _logger.Info("RequestLockUp Received!", GetType().Name);
             _automator.EnterLockup();
-            _robotController.InProgressRequests.TryAdd(RobotStateAndOperations.LockUpOperation);
-            _lockupTimer = new Timer(
-            (sender) =>
+            _ = Task.Delay((int)Constants.LockupDuration).ContinueWith(
+            _ =>
             {
-                _logger.Info("RequestExitLockup Received!", GetType().Name);
                 _automator.ExitLockup();
-                _lockupTimer.Dispose();
-                _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.LockUpOperation);
-            }, null, Constants.LockupDuration, Timeout.Infinite);
+                _robotController.UnBlockOtherOperations(RobotStateAndOperations.LockUpOperation);
+            });
         }
 
         private bool IsValid()
         {
-            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
             return !isBlocked && _sc.IsChooser;
         }
     }

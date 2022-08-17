@@ -39,7 +39,7 @@
         {
             _disposed = false;
             _automator.ExitAuditMenu();
-            _robotController.InProgressRequests.TryRemove(RobotStateAndOperations.AuditMenuOperation);
+            _robotController.UnBlockOtherOperations(RobotStateAndOperations.AuditMenuOperation);
         }
 
         public void Execute()
@@ -59,9 +59,9 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.ExitAuditMenu();
-            _loadAuditMenuTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _loadAuditMenuTimer?.Dispose();
+            _automator.ExitAuditMenu();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -113,20 +113,22 @@
                 this,
                 _ =>
                 {
-                    Helper.BlockOtherOperations(_robotController, RobotStateAndOperations.AuditMenuOperation);
+                    _robotController.BlockOtherOperations(RobotStateAndOperations.AuditMenuOperation);
+                    _logger.Info($"OperatorMenuEnteredEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
 
             _eventBus.Subscribe<OperatorMenuExitedEvent>(
                 this,
                 _ =>
                 {
-                    Helper.UnBlockOtherOperations(_robotController, RobotStateAndOperations.AuditMenuOperation);
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.AuditMenuOperation);
+                    _logger.Info($"OperatorMenuExitedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
         }
 
         private bool IsValid()
         {
-            var isBlocked = Helper.IsBlockedByOtherOperation(_robotController, new List<RobotStateAndOperations>());
+            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
             return !isBlocked && _sc.AuditMenuOperationValid;
         }
     }

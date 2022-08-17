@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Central;
+    using Models;
     using Progressives;
 
     /// <summary>
@@ -162,6 +163,12 @@
         /// </summary>
         /// <param name="jackpot">The jackpot info to associate to the game round.</param>
         void AppendJackpotInfo(JackpotInfo jackpot);
+
+        /// <summary>
+        ///     Logs the game round details for this game
+        /// </summary>
+        /// <param name="details">The details to log</param>
+        void LogGameRoundDetails(GameRoundDetails details);
 
         /// <summary>
         ///     Clears the game round when recovering

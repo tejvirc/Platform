@@ -33,27 +33,27 @@
     </UserControl.Resources>
 
     <UserControl.Background>
-        <SolidColorBrush Color="Black" Opacity="{Binding MessageOverlayDisplay.MessageOverlayData.Opacity}" />
+        <SolidColorBrush Color="Black" Opacity="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.Opacity}" />
     </UserControl.Background>
 
 	<Viewbox VerticalAlignment="Center" HorizontalAlignment="Center">
 		<Grid x:Name="OuterGrid">
         <Image x:Name="BackgroundImage"
                Stretch="Uniform"
-               converters:ImageHelper.SourceResourceKey="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayImageResourceKey}"
+               converters:ImageHelper.SourceResourceKey="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.DisplayImageResourceKey}"
                VerticalAlignment="Center" HorizontalAlignment="Center"
-               Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForEvents, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+               Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.DisplayForEvents, Converter={StaticResource BoolToVisHiddenConverter}, UpdateSourceTrigger=PropertyChanged}"/>
         <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
             <Viewbox.Style>
                 <Style TargetType="Viewbox">
                     <Style.Triggers>
                         <!--Resize content to fit inside overlay image if display image is available-->
-                        <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
+                        <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsScalingNeeded}" Value="True">
                             <Setter Property="Stretch" Value="Uniform"/>
                             <Setter Property="Height" Value="{Binding ElementName=BackgroundImage, Path=ActualHeight, Converter={StaticResource ScaleConverter}, ConverterParameter=0.4}"/>
                             <Setter Property="Width" Value="{Binding ElementName=BackgroundImage, Path=ActualWidth, Converter={StaticResource ScaleConverter}, ConverterParameter=0.75}"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
+                        <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsScalingNeeded}" Value="False">
                             <Setter Property="Stretch" Value="None"/>
                             <Setter Property="Height" Value="Auto"/>
                             <Setter Property="Width" Value="Auto"/>
@@ -69,20 +69,20 @@
                                        VerticalAlignment="Center"
                                        Margin="0 120 0 0" Foreground="Gold"
                                        FontSize="48" FontFamily="Arial" FontWeight="ExtraBold"
-                                       Text="{Binding MessageOverlayDisplay.MessageOverlayData.Text}" TextAlignment="Center" TextWrapping="Wrap"
-                                       Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForPopUp, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                       Text="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.Text}" TextAlignment="Center" TextWrapping="Wrap"
+                                       Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.DisplayForPopUp, Converter={StaticResource BoolToCollapsedConverter}, UpdateSourceTrigger=PropertyChanged}" />
 
                     <Border BorderBrush="Gold" BorderThickness="5" CornerRadius="28" HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="0"
-                            Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForPopUp , Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                            Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.DisplayForPopUp , Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
                         <Border.Background>
                             <SolidColorBrush Color="Black" Opacity="0.5" />
                         </Border.Background>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20"
                                    FontSize="38" FontFamily="Arial" FontWeight="ExtraBold"
                                    Foreground="Gold" TextAlignment="Center"
-                                   Text="{Binding MessageOverlayDisplay.MessageOverlayData.Text}" />
+                                   Text="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.Text}" />
                     </Border>
                 </StackPanel>
 
@@ -90,15 +90,15 @@
                                    VerticalAlignment="Center"
                                    FontFamily="Arial" FontWeight="ExtraBold"
                                    Fill="Gold" Stroke="Black" StrokeThickness="1.0"
-                                   Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText}"
-                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubTextVisible, Converter={StaticResource BoolToVisConverter}}">
+                                   Text="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.SubText}"
+                                   Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsSubTextVisible, Converter={StaticResource BoolToVisConverter}}">
                     <controls:TextPath.Style>
                         <Style TargetType="controls:TextPath">
                             <Style.Triggers>
-                                    <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForEvents}" Value="True">
+                                    <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.DisplayForEvents}" Value="True">
                                     <Setter Property="FontSize" Value="80"/>
                                 </DataTrigger>
-                                    <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.DisplayForEvents}" Value="False">
+                                    <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.DisplayForEvents}" Value="False">
                                     <Setter Property="FontSize" Value="36"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -110,15 +110,15 @@
                                    VerticalAlignment="Center"
                                    FontSize="30" FontFamily="Arial" FontWeight="ExtraBold"
                                    Fill="Gold" Stroke="Black" StrokeThickness="1.0"
-                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText2Visible, Converter={StaticResource BoolToVisible}}"
-                                   Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText2}">
+                                   Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsSubText2Visible, Converter={StaticResource BoolToVisible}}"
+                                   Text="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.SubText2}">
                     <controls:TextPath.Style>
                         <Style TargetType="controls:TextPath">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
+                                <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsScalingNeeded}" Value="True">
                                     <Setter Property="Margin" Value="0 120 0 0"></Setter>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
+                                <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsScalingNeeded}" Value="False">
                                     <Setter Property="Margin" Value="0 20 0 0"></Setter>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -130,15 +130,15 @@
                                    VerticalAlignment="Center"
                                    FontSize="30" FontFamily="Arial" FontWeight="ExtraBold"
                                    Fill="Gold" Stroke="Black" StrokeThickness="1.0"
-                                   Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsSubText3Visible, Converter={StaticResource BoolToVisible}}"
-                                   Text="{Binding MessageOverlayDisplay.MessageOverlayData.SubText3}">
+                                   Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsSubText3Visible, Converter={StaticResource BoolToVisible}}"
+                                   Text="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.SubText3}">
                     <controls:TextPath.Style>
                         <Style TargetType="controls:TextPath">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="True">
+                                <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsScalingNeeded}" Value="True">
                                     <Setter Property="Margin" Value="0 120 0 0"></Setter>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding MessageOverlayDisplay.MessageOverlayData.IsScalingNeeded}" Value="False">
+                                <DataTrigger Binding="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsScalingNeeded}" Value="False">
                                     <Setter Property="Margin" Value="0 20 0 0"></Setter>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -149,7 +149,7 @@
                     <Border BorderBrush="Gold" BorderThickness="5" CornerRadius="28" HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Margin="0 0 0 -100"
-                        Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsButtonVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
+                        Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsButtonVisible, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}">
                     <Border.Background>
                         <SolidColorBrush Color="Black" Opacity="0.5" />
                     </Border.Background>
@@ -157,12 +157,12 @@
                             VerticalAlignment="Center"
                             FontFamily="Arial" FontWeight="ExtraBold"
                             Style="{StaticResource MonacoButton2}"
-                            Command="{Binding MessageOverlayDisplay.MessageOverlayData.ButtonCommand}"
-                            Visibility="{Binding MessageOverlayDisplay.MessageOverlayData.IsButtonVisible, Converter={StaticResource BoolToVisConverter}}">
+                            Command="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.ButtonCommand}"
+                            Visibility="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.IsButtonVisible, Converter={StaticResource BoolToVisConverter}}">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"
                                    FontSize="30" FontFamily="Arial" FontWeight="ExtraBold"
                                    Foreground="Gold" TextAlignment="Center"
-                                   Text="{Binding MessageOverlayDisplay.MessageOverlayData.ButtonText}" />
+                                   Text="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.ButtonText}" />
                     </Button>
                 </Border>
 
@@ -186,7 +186,7 @@
                            VerticalAlignment="Top"
                            FontSize="36" FontFamily="Arial" FontWeight="ExtraBold"
                            MaxWidth="288"
-                           Text="{Binding MessageOverlayDisplay.MessageOverlayData.ReplayText}" />
+                           Text="{Binding MessageOverlayDisplayViewModel.MessageOverlayData.ReplayText}" />
     </Grid>
 	</Viewbox>
 </UserControl>

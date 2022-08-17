@@ -42,6 +42,16 @@
         bool IsDisconnected { get; }
 
         /// <summary>
+        ///     Gets whether or not the TabletInputService startup type is Manual.
+        /// </summary>
+        /// <remarks>For cabinet configurations without HID/USB based touch controllers (IE. LS), the
+        /// start-up type of the TabletInputService is responsible for the OS opening/closing the on-screen
+        /// keyboard.  If set to Manual by the OS, we need to explicitly open/close the on-screen keyboard
+        /// whenever a TextBox controls gets/loses focus.  If set to Automatic, we can skip explicitly opening
+        /// the on-screen keyboard as the OS should automatically do this.</remarks>
+        bool IsManualTabletInputService { get; }
+
+        /// <summary>
         ///     Gets the model of the connected serial touch device
         /// </summary>
         string Model { get; }
@@ -63,41 +73,10 @@
         void Reconnect(bool calibrating = false);
 
         /// <summary>
-        ///     Sends a calibrate extended command to the connected serial touch device
-        /// </summary>
-        void SendCalibrateExtendedCommand();
-
-        /// <summary>
-        ///     Sends a diagnostic command to the connected serial touch device
-        /// </summary>
-        void SendDiagnosticCommand();
-
-        /// <summary>
-        ///     Sends a name command to the connected serial touch device
-        /// </summary>
-        void SendNameCommand();
-
-        /// <summary>
-        ///     Sends a null command to the connected serial touch device
-        /// </summary>
-        void SendNullCommand();
-
-        /// <summary>
-        ///     Sends a output identity command to the connected serial touch device
-        /// </summary>
-        void SendOutputIdentityCommand();
-
-        /// <summary>
         ///     Sends a reset command to the connected serial touch device
         /// </summary>
         /// <param name="calibrating">Indicates whether or not we are calibrating</param>
         void SendResetCommand(bool calibrating = false);
-
-        /// <summary>
-        ///     Sends a restore defaults command to the connected serial touch device
-        /// </summary>
-        /// <param name="calibrating">Indicates whether or not we are calibrating</param>
-        void SendRestoreDefaultsCommand(bool calibrating = false);
 
         /// <summary>
         ///     Gets or sets the status of the connected serial touch device

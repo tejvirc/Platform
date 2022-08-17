@@ -11,9 +11,9 @@
         Uninitialized,
 
         /// <summary>
-        ///     The trigger when initialized
+        ///     The trigger for null
         /// </summary>
-        Initialized,
+        Null,
 
         /// <summary>
         ///     The trigger for interpret touch
@@ -39,11 +39,6 @@
         ///     The trigger for reset
         /// </summary>
         Reset,
-
-        /// <summary>
-        ///     The trigger for diagnostic
-        /// </summary>
-        Diagnostic,
 
         /// <summary>
         ///     The trigger for calibrate extended

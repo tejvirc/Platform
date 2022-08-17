@@ -37,13 +37,15 @@
     /// <summary>
     ///     Events parts of LobbyViewModel
     /// </summary>
-    public partial class LobbyViewModel
+    public sealed partial class LobbyViewModel
     {
 
         /// <summary>
         ///     Raised when the displays have changed
         /// </summary>
         public event EventHandler DisplayChanged;
+
+        public event EventHandler<ViewInjectionEventArgs> CustomEventViewChangedEvent;
 
         private void SubscribeToEvents()
         {
@@ -138,24 +140,21 @@
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
         }
 
-        public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
-
-        public event CustomViewChangedEventHandler CustomEventViewChangedEvent;
-
         private void HandleEvent(ViewInjectionEvent evt)
         {
             Logger.Debug($"ViewInjectionEvent: Role: {evt.DisplayRole}, Action: {evt.Action}, Element: {evt.Element?.GetType().FullName}/{evt.Element?.GetHashCode()}");
 
-            if (evt.DisplayRole == DisplayRole.Main && !MessageOverlayDisplay.CustomMainViewElementVisible)
+            if (evt.DisplayRole == DisplayRole.Main && !MessageOverlayDisplayViewModel.CustomMainViewElementVisible)
             {
-                MessageOverlayDisplay.CustomMainViewElementVisible = evt.Action == ViewInjectionEvent.ViewAction.Add;
+                MessageOverlayDisplayViewModel.CustomMainViewElementVisible = evt.Action == ViewAction.Add;
             }
 
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
                     HandleMessageOverlayText();
-                    OnCustomEventViewChangedEvent(evt);
+                    var args = new ViewInjectionEventArgs(evt.Element, evt.DisplayRole, evt.Action);
+                    OnCustomEventViewChangedEvent(args);
                 });
         }
 
@@ -175,7 +174,7 @@
                         return;
                     }
 
-                    MessageOverlayDisplay.ReserveOverlayViewModel.IsDialogVisible = true;
+                    MessageOverlayDisplayViewModel.ReserveOverlayViewModel.IsDialogVisible = true;
                     MvvmHelper.ExecuteOnUI(HandleMessageOverlayText);
                 });
         }
@@ -191,7 +190,7 @@
                         (string.IsNullOrEmpty(evt.BetOption) || _selectedGame?.BetOption == evt.BetOption))
                     {
                         // Only display this notification if idle we will lockup when not idle elsewhere
-                        MessageOverlayDisplay.ShowProgressiveGameDisabledNotification = true;
+                        MessageOverlayDisplayViewModel.ShowProgressiveGameDisabledNotification = true;
                         UpdateUI();
                     }
                 });
@@ -205,7 +204,7 @@
                     if (_selectedGame?.Denomination == evt.Denom && _selectedGame?.GameId == evt.GameId &&
                         (string.IsNullOrEmpty(evt.BetOption) || _selectedGame?.BetOption == evt.BetOption))
                     {
-                        MessageOverlayDisplay.ShowProgressiveGameDisabledNotification = false;
+                        MessageOverlayDisplayViewModel.ShowProgressiveGameDisabledNotification = false;
                         UpdateUI();
                     }
                 });
@@ -213,7 +212,7 @@
 
         private void HandleEvent(CashoutNotificationEvent evt)
         {
-            MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
+            MessageOverlayDisplayViewModel.ShowVoucherNotification = evt.PaperIsInChute;
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {
                 PlayLoopingAlert(Sound.PaperInChute, -1);
@@ -231,7 +230,7 @@
 
         private void HandleEvent(CashOutButtonPressedEvent evt)
         {
-            MessageOverlayDisplay.UpdateCashoutButtonState(true);
+            MessageOverlayDisplayViewModel.UpdateCashoutButtonState(true);
         }
 
         private void HandleEvent(DisplayConnectedEvent evt)
@@ -275,7 +274,7 @@
 
                     if (_systemDisableManager.IsDisabled)
                     {
-                        if (!MessageOverlayDisplay.ShowProgressiveGameDisabledNotification && ContainsAnyState(LobbyState.CashOutFailure))
+                        if (!MessageOverlayDisplayViewModel.ShowProgressiveGameDisabledNotification && ContainsAnyState(LobbyState.CashOutFailure))
                         {
                             _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                         }
@@ -290,20 +289,17 @@
                             ExitResponsibleGamingInfoDialog();
                         }
 
-                        if (IsInState(LobbyState.Chooser))
+                        if (IsInState(LobbyState.Chooser) && Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
                         {
-                            if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
-                            {
-                                HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
-                            }
+                            HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
                         }
 
                         OnUserInteraction();
                     }
 
-                    if (MessageOverlayDisplay.ShowProgressiveGameDisabledNotification)
+                    if (MessageOverlayDisplayViewModel.ShowProgressiveGameDisabledNotification)
                     {
-                        MessageOverlayDisplay.ShowProgressiveGameDisabledNotification = false;
+                        MessageOverlayDisplayViewModel.ShowProgressiveGameDisabledNotification = false;
                         InitiateGameShutdown();
                         UpdateUI();
                     }
@@ -363,13 +359,10 @@
 
                     SendTrigger(LobbyTrigger.GameLoaded);
 
-                    if (_gameRecovery.IsRecovering)
+                    if (_gameRecovery.IsRecovering && ContainsAnyState(LobbyState.CashOut))
                     {
                         // runtime crash while printing causes the message to get displayed but not cleared
-                        if (ContainsAnyState(LobbyState.CashOut))
-                        {
-                            _lobbyStateManager.RemoveFlagState(LobbyState.CashOut, true);
-                        }
+                        _lobbyStateManager.RemoveFlagState(LobbyState.CashOut, true);
                     }
                 });
         }
@@ -388,52 +381,61 @@
 
         private void HandleEvent(GameProcessExitedEvent platformEvent)
         {
-            //checking to make sure we got a normal exit first because
-            //We once got a GameProcessExitedEvent with Unexpected = false
-            //without ever getting a GameExitedNormalEvent
-            //so we didn't fire off any Triggers and the box hung.
-
+            // Checking to make sure we got a normal exit first because
+            // We once got a GameProcessExitedEvent with Unexpected = false
+            // without ever getting a GameExitedNormalEvent
+            // so we didn't fire off any Triggers and the box hung.
             var unexpected = platformEvent.Unexpected || !_normalGameExitReceived;
             _normalGameExitReceived = false;
 
-            MvvmHelper.ExecuteOnUI(
-                () =>
+            // If we are trying to load a game and we got an "expected" exit, it was probably just
+            // us killing the previously loading game. If we initiate recovery again then we'll end
+            // up stuck in a loop forever. See TXM-5429 for a more detailed explanation.
+            if (CurrentState == LobbyState.GameLoading && !platformEvent.Unexpected)
+            {
+                Logger.Warn("Game recovery loop detected, ignoring GameProcessExitedEvent!");
+                return;
+            }
+
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                Logger.Debug($"GameProcessExitedEvent received.  Unexpected: {platformEvent.Unexpected}");
+
+                // Moving check for recovery outside of check for unexpected.  We sometimes shut
+                // down the game process ourselves and get an "expected" game process exited event,
+                // but still need to do recovery.
+
+                // 1) Added IsDisabled check for VLT-2112.  If the process is killed while we are
+                // locked up, then do not recover now.  We will recover upon coming out of lockup.
+                if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
                 {
-                    Logger.Debug($"GameProcessExitedEvent received.  Unexpected: {platformEvent.Unexpected}");
+                    Logger.Debug("Sending InitiateRecovery Trigger");
+                    SendTrigger(
+                        LobbyTrigger.InitiateRecovery,
+                        CurrentState == LobbyState.Game &&
+                        unexpected); //only check with runtime if we get an unexpected exit during game state.
+                }
+                else if (IsSingleGameMode && BaseState == LobbyState.Chooser && !IsInOperatorMenu)
+                {
+                    Logger.Debug("Trying to relaunch game after exit");
+                    TryLaunchSingleGame();
+                }
+                else
+                {
+                    //checking to make sure we got a normal exit first because
+                    //We once got a GameProcessExitedEvent with Unexpected = false
+                    //without ever getting a GameExitedNormalEvent
+                    //so we didn't fire off any Triggers and the box hung.
 
-                    //moving check for recovery outside of check for unexpected.  We sometimes shut down the game process
-                    //ourselves and get an "expected" game process exited event, but still need to do recovery.
-
-                    //1) Added IsDisabled check for VLT-2112.  If the process is killed while we are locked up, then do not recover now.  We will recover upon coming out of lockup.
-                    if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
+                    // If a game crashes, it is critical that we fire this trigger.
+                    // Otherwise we end up in a bad state and the box can be locked.
+                    if (unexpected)
                     {
-                        Logger.Debug("Sending InitiateRecovery Trigger");
-                        SendTrigger(
-                            LobbyTrigger.InitiateRecovery,
-                            CurrentState == LobbyState.Game &&
-                            unexpected); //only check with runtime if we get an unexpected exit during game state.
+                        Logger.Debug("Sending GameUnexpectedExit Trigger");
+                        SendTrigger(LobbyTrigger.GameUnexpectedExit);
                     }
-                    else if (IsSingleGameMode && BaseState == LobbyState.Chooser && !IsInOperatorMenu)
-                    {
-                        Logger.Debug("Trying to relaunch game after exit");
-                        TryLaunchSingleGame();
-                    }
-                    else
-                    {
-                        //checking to make sure we got a normal exit first because
-                        //We once got a GameProcessExitedEvent with Unexpected = false
-                        //without ever getting a GameExitedNormalEvent
-                        //so we didn't fire off any Triggers and the box hung.
-
-                        // If a game crashes, it is critical that we fire this trigger.
-                        // Otherwise we end up in a bad state and the box can be locked.
-                        if (unexpected)
-                        {
-                            Logger.Debug("Sending GameUnexpectedExit Trigger");
-                            SendTrigger(LobbyTrigger.GameUnexpectedExit);
-                        }
-                    }
-                });
+                }
+            });
         }
 
         private void HandleEvent(BankBalanceChangedEvent platformEvent)
@@ -548,17 +550,6 @@
             HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
         }
 
-        private void HandleCompletedMoneyIn(long amount, bool playSound = true)
-        {
-            Logger.Debug($"HandleCompletedMoneyIn.  Amount: {amount}");
-            if (playSound)
-            {
-                PlayAudioFile(Sound.CoinIn);
-            }
-
-            CashInFinished();
-        }
-
         private void HandleEvent(TransferOutCompletedEvent platformEvent)
         {
             Logger.Debug("Detected TransferOutCompletedEvent");
@@ -616,7 +607,7 @@
                         _lobbyStateManager.AddFlagState(LobbyState.CashOutFailure);
                     }
 
-                    MessageOverlayDisplay.LastCashOutForcedByMaxBank = false;
+                    MessageOverlayDisplayViewModel.LastCashOutForcedByMaxBank = false;
                 });
         }
 
@@ -637,11 +628,12 @@
 
             if (_forcedCashOutData.TryDequeue(out var forcedByMaxBank))
             {
-                if (_bank.QueryBalance().MillicentsToCents() + platformEvent.Total.MillicentsToCents() >
-                    ((long)_properties.GetProperty(AccountingConstants.MaxCreditMeter, long.MaxValue))
-                    .MillicentsToCents())
+                var balance = _bank.QueryBalance().MillicentsToCents() + platformEvent.Total.MillicentsToCents();
+                var maxCreditMeter = ((long)_properties.GetProperty(AccountingConstants.MaxCreditMeter, long.MaxValue))
+                    .MillicentsToCents();
+                if (balance > maxCreditMeter)
                 {
-                    MessageOverlayDisplay.LastCashOutForcedByMaxBank = forcedByMaxBank;
+                    MessageOverlayDisplayViewModel.LastCashOutForcedByMaxBank = forcedByMaxBank;
                 }
             }
 
@@ -935,7 +927,7 @@
             // not need to reset the opacity.
 
             // Note: Not sure this is needed anymore, but leaving it just in case
-            MvvmHelper.ExecuteOnUI(() => MessageOverlayDisplay.MessageOverlayData.Opacity = 1.0);
+            MvvmHelper.ExecuteOnUI(() => MessageOverlayDisplayViewModel.MessageOverlayData.Opacity = 1.0);
         }
 
         private void HandleEvent(GameTagsChangedEvent evt)
@@ -963,7 +955,7 @@
 
                     if (evt.ImmediateAttract)
                     {
-                        if (MessageOverlayDisplay.ShowVoucherNotification)
+                        if (MessageOverlayDisplayViewModel.ShowVoucherNotification)
                         {
                             // We don't want to stop the game rendering in these cases
                             return;
@@ -1025,7 +1017,7 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    // VLT-4160:  Set this so that we can reset localization after going to the Operator Menu
+                    // VLT-4160: Set this so that we can reset localization after going to the Operator Menu
                     // A few pages in the operator menu share resources with the lobby, but the Operator Menu
                     // is not localized to the same language as the lobby.  Currently we change the Resource 
                     // Culture when we move to the Operator Menu so that everything works and then change it back
@@ -1035,11 +1027,6 @@
                     _responsibleGamingInfoWhileResponsibleGamingReset = ContainsAnyState(
                         LobbyState.ResponsibleGamingInfoLayeredLobby,
                         LobbyState.ResponsibleGamingInfoLayeredGame);
-
-                    //if (Resources.Culture.Name.ToUpper() != EnglishCultureCode)
-                    //{
-                    //    Resources.Culture = new CultureInfo(EnglishCultureCode);
-                    //}
 
                     // set this so that if we go to the operator menu while a responsible gaming dialog is up, 
                     // we can restore the dialog on operator menu exit.
@@ -1099,14 +1086,6 @@
 
             _responsibleGamingDialogResetWhenOperatorMenuEntered = false;
 
-            // VLT-4160:  Change back to the Resource Localization Culture that we had prior to 
-            // entering the Operator Menu
-            //if (Resources.Culture.Name.ToUpper() != _localeCodePreOperatorMenu)
-            //{
-            //    MvvmHelper.ExecuteOnUI(
-            //        () => { Resources.Culture = new CultureInfo(_localeCodePreOperatorMenu); });
-            //}
-
             RaisePropertiesChanged();
 
             MvvmHelper.ExecuteOnUI(
@@ -1145,12 +1124,12 @@
 
         private void HandleEvent(GameEndedEvent evt)
         {
-            if (!Config.RemoveIdlePaidMessageOnSessionStart && !MessageOverlayDisplay.ShowPaidMeterForAutoCashout)
+            if (!Config.RemoveIdlePaidMessageOnSessionStart && !MessageOverlayDisplayViewModel.ShowPaidMeterForAutoCashout)
             {
                 UpdatePaidMeterValue(0);
             }
 
-            MessageOverlayDisplay.ShowPaidMeterForAutoCashout = false;
+            MessageOverlayDisplayViewModel.ShowPaidMeterForAutoCashout = false;
         }
 
         private void HandleEvent(DisableCountdownTimerEvent evt)
@@ -1299,11 +1278,6 @@
             {
                 HandleMessageOverlayText();
 
-                if (evt is PlayerCultureChangedEvent)
-                {
-                    // todo let player culture provider manage multi-language support for lobby
-                    // IsPrimaryLanguageSelected = playerCultureChanged.IsPrimary;
-                }
             });
         }
 
@@ -1318,7 +1292,7 @@
                     GetVolumeButtonVisible();
                     break;
                 case LobbySettingType.ShowTopPickBanners:
-                    MvvmHelper.ExecuteOnUI(LoadGameInfo);
+                    MvvmHelper.ExecuteOnUI(() => LoadGameInfo());
                     break;
             }
         }
@@ -1330,7 +1304,7 @@
 
         private void HandleEvent(GameDenomChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(LoadGameInfo);
+            MvvmHelper.ExecuteOnUI(() => LoadGameInfo());
         }
 
         private void HandleEvent(AttractConfigurationChangedEvent evt)
@@ -1369,11 +1343,6 @@
                 });
         }
 
-        protected virtual void OnCustomEventViewChangedEvent(ViewInjectionEvent evt)
-        {
-            CustomEventViewChangedEvent?.Invoke(evt);
-        }
-
         private void HandleEvent(TransferEnableOnOverlayEvent evt)
         {
             if (evt != null)
@@ -1384,12 +1353,12 @@
 
         private void HandleEvent(PlayerMenuButtonPressedEvent evt)
         {
-            if (MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut)
+            if (MessageOverlayDisplayViewModel.MessageOverlayData.IsDialogFadingOut)
             {
                 return;
             }
 
-            MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut = !evt.Show;
+            MessageOverlayDisplayViewModel.MessageOverlayData.IsDialogFadingOut = !evt.Show;
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
@@ -1430,9 +1399,25 @@
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
         }
 
+        private void HandleCompletedMoneyIn(long amount, bool playSound = true)
+        {
+            Logger.Debug($"HandleCompletedMoneyIn.  Amount: {amount}");
+            if (playSound)
+            {
+                PlayAudioFile(Sound.CoinIn);
+            }
+
+            CashInFinished();
+        }
+
         private void HandleMessageOverlayVisibility()
         {
-            MessageOverlayDisplay.HandleOverlayWindowDialogVisibility();
+            MessageOverlayDisplayViewModel.HandleOverlayWindowDialogVisibility();
+        }
+
+        private void OnCustomEventViewChangedEvent(ViewInjectionEventArgs e)
+        {
+            CustomEventViewChangedEvent?.Invoke(this, e);
         }
     }
 }

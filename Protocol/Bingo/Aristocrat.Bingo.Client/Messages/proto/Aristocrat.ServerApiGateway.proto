@@ -1,235 +1,238 @@
 ﻿syntax = "proto3";
-
+ 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/any.proto";
-
+ 
 option csharp_namespace = "Aristocrat.ServerApiGateway";
-
+ 
 package aristocrat_server_api_gateway;
-
+ 
+// All monetary amounts are in currency (not credits) unless otherwise specified.
+// All currency amounts are in the locale's base units (e.g. cents)
+ 
 service ClientApi {
-  rpc RequestRegister(RegistrationRequest) returns (RegistrationResponse) {}
-  rpc RequestConfiguration(ConfigurationRequest) returns (ConfigurationResponse) {}
-  rpc RequestGamePlay(GamePlayRequest) returns (stream GamePlayResponse) {}
-  rpc RequestClaimWin(ClaimWinRequest) returns (ClaimWinResponse) {}
-  rpc ReadCommands(stream CommandResponse) returns (stream Command) {}
-  rpc ReportEvent(EventReport) returns (ReportEventAck) {}
-  rpc ReportTransaction(TransactionReport) returns (ReportTransactionAck) {}
-  rpc ReportGameOutcome(GameOutcome) returns (GameOutcomeAck){}
+    rpc RequestRegister(RegistrationRequest) returns (RegistrationResponse) {}
+    rpc RequestConfiguration(ConfigurationRequest) returns (ConfigurationResponse) {}
+    rpc RequestGamePlay(GamePlayRequest) returns (stream GamePlayResponse) {}
+    rpc RequestClaimWin(ClaimWinRequest) returns (ClaimWinResponse) {}
+    rpc ReadCommands(stream CommandResponse) returns (stream Command) {}
+    rpc ReportEvent(EventReport) returns (ReportEventAck) {}
+    rpc ReportTransaction(TransactionReport) returns (ReportTransactionAck) {}
+    rpc ReportGameOutcome(GameOutcome) returns (GameOutcomeAck){}
 }
-
+ 
 message RegistrationRequest {
-  string machineSerial = 1;
-  string machineNumber = 2;
-  bool isAuditCapable = 3;
-  string platformVersion = 4;
+    string machineSerial = 1;
+    string machineNumber = 2;
+    bool isAuditCapable = 3;
+    string platformVersion = 4;
 }
-
+ 
 message RegistrationResponse {
-  enum ResultType {
-    Accepted = 0;
-    Rejected = 1;
-  }
-  string authToken = 1;
-  ResultType resultType = 2;
-  string message = 3;
-  string serverVersion = 4;
+    enum ResultType {
+        Accepted = 0;
+        Rejected = 1;
+    }
+    string authToken = 1;
+    ResultType resultType = 2;
+    string message = 3;
+    string serverVersion = 4;
 }
-
+ 
 message ConfigurationRequest {
-  string machineSerial = 1;
-  string gameTitles = 2;
+    string machineSerial = 1;
+    string gameTitles = 2;
 }
-
+ 
 message ConfigurationResponse {
-  message ClientAttribute {
-    string name = 1;
-    string value = 2;
-  }
-
-  message MachineGameConfiguration {
-    repeated ClientAttribute clientAttribute = 1;
-  }
-
-  message ComplianceConfiguration {
-    repeated ClientAttribute clientAttribute = 1;
-  }
-
-  message MessageConfiguration {
-    repeated ClientAttribute clientAttribute = 1;
-  }
-
-  message SystemConfiguration {
-    repeated ClientAttribute clientAttribute = 1;
-  }
-
-  MachineGameConfiguration machineGameConfiguration = 1;
-  ComplianceConfiguration complianceConfiguration = 2;
-  MessageConfiguration messageConfiguration = 3;
-  SystemConfiguration systemConfiguration = 4;
-  string errorMessage = 5; // Invalid game title configuration, or Empty
-  // string helpMenuViewUrl = 6;
+    message ClientAttribute {
+        string name = 1;
+        string value = 2;
+    }
+ 
+    message MachineGameConfiguration {
+        repeated ClientAttribute clientAttribute = 1;
+    }
+ 
+    message ComplianceConfiguration {
+        repeated ClientAttribute clientAttribute = 1;
+    }
+ 
+    message MessageConfiguration {
+        repeated ClientAttribute clientAttribute = 1;
+    }
+ 
+    message SystemConfiguration {
+        repeated ClientAttribute clientAttribute = 1;
+    }
+ 
+    MachineGameConfiguration machineGameConfiguration = 1;
+    ComplianceConfiguration complianceConfiguration = 2;
+    MessageConfiguration messageConfiguration = 3;
+    SystemConfiguration systemConfiguration = 4;
+    string errorMessage = 5; // Invalid game title configuration, or Empty
+    // string helpMenuViewUrl = 6;
 }
-
+ 
 message GamePlayRequest {
-  string machineSerial = 1;
-  int64 betAmount = 2;
-  int32 activeDenomination = 3;
-  int32 betLinePresetId = 4; // discuss with math guys
-  int32 lineBet = 5; // bet per line
-  int32 lines = 6; // number of lines
-  int64 ante = 7; //
-  string activeGameTitles = 8;
-  google.protobuf.Any gamePlayMeta = 9;
+    string machineSerial = 1;
+    int64 betAmount = 2;           // Total wager amount, in currency
+    int32 activeDenomination = 3;  // The played denomination, in currency
+    int32 betLinePresetId = 4;     // A value identifying a bet and line config combination.
+    int32 lineBet = 5;             // The amount wagered per line, in currency
+    int32 lines = 6;               // The number of lines wagered
+    int64 ante = 7;                // An added, non-line wager, in currency
+    string activeGameTitles = 8;
+    google.protobuf.Any gamePlayMeta = 9;
 }
-
+ 
 message GamePlayResponse {
-  enum ReportType {
-    Start = 0;
-    Update = 1;
-    End = 2;
-  }
-
-  string machineSerial = 1;
-  int64 totalWinAmount = 2;
-  string progressiveLevels = 3;
-  ReportType reportType = 4;
-  int32 facadeKey = 5;
-  uint32 gameTitleId = 6;
-  int32 denominationId = 7;
-  int64 gameSerial = 8;
-  google.protobuf.Any gamePlayResponseMeta = 9;
-  string statusMessage = 10;
-  bool status = 11; // 1 indicates success, 0 indicates failure
+    enum ReportType {
+       Start = 0;
+       Update = 1;
+       End = 2;
+    }
+ 
+    string machineSerial = 1;
+    int64 totalWinAmount = 2;        // The total amount won, in currency, excluding the game end win.
+    string progressiveLevels = 3;
+    ReportType reportType = 4;
+    int32 facadeKey = 5;
+    uint32 gameTitleId = 6;
+    int32 denomination = 7;          // The played denomination, in currency
+    int64 gameSerial = 8;
+    google.protobuf.Any gamePlayResponseMeta = 9;
+    string statusMessage = 10;
+    bool status = 11;                // 1 indicates success, 0 indicates failure
 }
-
+ 
 message ClaimWinRequest {
-  string machineSerial = 1;
-  int64 gameSerial = 2;
-  google.protobuf.Any claimWinMeta = 3;
+    string machineSerial = 1;
+    int64 gameSerial = 2;
+    google.protobuf.Any claimWinMeta = 3;
 }
-
+ 
 message ClaimWinResponse {
-  enum ClaimWinResult {
-    Accepted = 0;
-    Denied = 1;
-  }
-
-  int64 gameSerial = 1;
-  ClaimWinResult winResult = 2;
-  google.protobuf.Any claimWinMeta = 3;
+    enum ClaimWinResult {
+        Accepted = 0;
+        Denied = 1;
+    }
+ 
+    int64 gameSerial = 1;
+    ClaimWinResult winResult = 2;
+    google.protobuf.Any claimWinMeta = 3;
 }
-
+ 
 // Client reports final game outcome with full game history data
 // Game history to come from database only, no client machine query
 message GameOutcome {
-  string machineSerial = 1;
-  int64 totalWinAmount = 2; // paid amount
-  string progressiveLevels = 3;
-  int32 facadeKey = 4;
-  uint32 gameTitleId = 5;
-  int32 denominationId = 6;
-  int64 gameSerial = 7;
-  google.protobuf.Any gameOutcomeMeta = 8;
-  string statusMessage = 9;
-  bool status = 10; // 1 indicates success, 0 indicates failure - indicate no game history on 0
-  int64 finalCredit = 11;
-  int64 initialCredit = 12;
-  int64 paidAmount = 13;
-  int64 betAmount = 14;
-  google.protobuf.Timestamp startTime = 15;
-  google.protobuf.Timestamp joinTime = 16;
-  int64 presentationNumber = 17;
-  uint32 themeId = 18;
+    string machineSerial = 1;
+    int64 totalWinAmount = 2;                    // The total amount won, in currency, excluding the game end win.
+    string progressiveLevels = 3;
+    int32 facadeKey = 4;
+    uint32 gameTitleId = 5;
+    int32 denomination = 6;                      // The played denomination, in currency
+    int64 gameSerial = 7;
+    google.protobuf.Any gameOutcomeMeta = 8;
+    string statusMessage = 9;
+    bool status = 10;                            // 1 indicates success, 0 indicates failure - indicate no game history on 0
+    int64 finalBalance = 11;                     // EGM balance, in currency, at the end of play and wins are paid, including game end win
+    int64 initialBalance = 12;                   // EGM balance, in currency, at the start of play, before the wager is deducted
+    int64 paidAmount = 13;                       // Total amount paid, in currency
+    int64 betAmount = 14;                        // Total amount wagered, in currency
+    google.protobuf.Timestamp startTime = 15;
+    google.protobuf.Timestamp joinTime = 16;
+    int64 presentationNumber = 17;
+    uint32 themeId = 18;
 }
-
+ 
 message GameOutcomeAck {
-  bool succeeded = 1;
+    bool succeeded = 1;
 }
-
+ 
 // support for AMC command response channel
 // Sent from the Server to the Egm to service commands from the AMC
 message Command {
-  google.protobuf.Any command = 1;
+    google.protobuf.Any command = 1;
 }
-
+ 
 // The Command sent from Server to Egm to disable the Egm
 message DisableCommand {
-  string reason = 1;
-  bool cashOut = 2;
+    string reason = 1;
+    bool cashOut = 2;
 }
 
 // The Command sent from Server to Egm to enable the Egm
 message EnableCommand {
 }
-
+ 
 // The Command sent from Server to Egm to ping the Egm
 message PingCommand {
-  google.protobuf.Timestamp pingRequestTime = 1;
+    google.protobuf.Timestamp pingRequestTime = 1;
 }
-
+ 
 // Sent from Egm to the Server in response to commands received
 message CommandResponse {
-  string machineSerial = 1;
-  google.protobuf.Any response = 2;
+    string machineSerial = 1;
+    google.protobuf.Any response = 2;
 }
-
+ 
 // The CommandResponse response message from Egm to the Server to initialize the read commands
 message OpenConnection {
 }
-
+ 
 // The CommandResponse response message from Egm to the Server in response to a DisableCommand
 message DisableCommandResponse {
-  bool status = 1; // 1 for success, 0 for fail
-  string statusMessage= 2;
+    bool status = 1; // 1 for success, 0 for fail
+    string statusMessage= 2;
 }
-
+ 
 // The CommandResponse response message from Egm to the Server in response to an EnableCommand
 message EnableCommandResponse {
-  bool status = 1; // 1 for success, 0 for fail
-  string statusMessage= 2;
+    bool status = 1; // 1 for success, 0 for fail
+    string statusMessage= 2;
 }
-
+ 
 // The CommandResponse response message from Egm to the Server in response to a PingCommand
 message PingResponse {
-  google.protobuf.Timestamp pingRequestTime = 1;
-  google.protobuf.Timestamp pingResponseTime = 2;
+    google.protobuf.Timestamp pingRequestTime = 1;
+    google.protobuf.Timestamp pingResponseTime = 2;
 }
-
+ 
 // The CommandResponse response message from Egm to the Server every time specific meters change on the Egm
 message StatusResponse {
-  int32 statusFlags = 1;
-  int64 cashPlayed = 2;
-  int64 cashWon = 3;
-  int64 cashIn = 4;
-  int64 cashOut = 5;
+    int32 statusFlags = 1;             // A bit-map indicating status
+    int64 cashPlayed = 2;              // Lifetime cash-played meter value, in currency
+    int64 cashWon = 3;                 // Lifetime cash-won meter value, in currency
+    int64 cashIn = 4;                  // Lifetime cash-in meter value, in currency
+    int64 cashOut = 5;                 // Lifetime cash-out meter value, in currency
 }
-
+ 
 message EventReport {
-  string machineSerial = 1;
-  google.protobuf.Timestamp timeStamp = 2;
-  int32 eventId = 3;
-  int32 eventType = 4;
+    string machineSerial = 1;
+    google.protobuf.Timestamp timeStamp = 2;
+    int32 eventId = 3;
+    int32 eventType = 4;
 }
-
+ 
 message ReportEventAck {
-  int32 eventId = 1;
-  bool succeeded = 2;
+    int32 eventId = 1;
+    bool succeeded = 2;
 }
-
+ 
 message TransactionReport {
-  string machineSerial = 1;
-  google.protobuf.Timestamp timeStamp = 2;
-  int64 amount = 3;
-  int64 gameSerial = 4;
-  uint32 gameTitleId = 5;
-  int32 transactionId = 6;
-  int32 paytableId = 7;
-  int32 denominationId = 8;
-  int32 transactionType = 9;
+    string machineSerial = 1;
+    google.protobuf.Timestamp timeStamp = 2;
+    int64 amount = 3;
+    int64 gameSerial = 4;
+    uint32 gameTitleId = 5;
+    int32 transactionId = 6;
+    int32 paytableId = 7;
+    int32 denomination = 8;         // The EGM denomination, in currency, at the time of the transaction
+    int32 transactionType = 9;
 }
-
+ 
 message ReportTransactionAck {
-  int32 transactionId = 1;
-  bool succeeded = 2;
+    int32 transactionId = 1;
+    bool succeeded = 2;
 }

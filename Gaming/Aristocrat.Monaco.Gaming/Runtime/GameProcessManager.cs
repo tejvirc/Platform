@@ -23,33 +23,21 @@
         private readonly IEventBus _eventBus;
         private readonly IClientEndpointProvider<IRuntime> _serviceProvider;
 
-        private readonly string _gamesPath;
-        private readonly string _runtimeRoot;
-
-        private readonly ConcurrentDictionary<int, bool> _processes = new();
+        private bool _notifyProcessExited;
 
         private bool _expectProcessExit;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameProcessManager" /> class.
         /// </summary>
-        /// <param name="pathMapper">The path mapper</param>
         /// <param name="eventBus">The event bus</param>
         /// <param name="serviceProvider">The IRuntime end point</param>
-        public GameProcessManager(IPathMapper pathMapper,
+        public GameProcessManager(
             IEventBus eventBus,
             IClientEndpointProvider<IRuntime> serviceProvider)
         {
-            if (pathMapper == null)
-            {
-                throw new ArgumentNullException(nameof(pathMapper));
-            }
-
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-
-            _gamesPath = pathMapper.GetDirectory(GamingConstants.GamesPath).FullName;
-            _runtimeRoot = pathMapper.GetDirectory(GamingConstants.RuntimePath).FullName;
         }
 
         public int StartProcess(ProcessStartInfo processInfo)
@@ -68,6 +56,7 @@
             }
 
             _expectProcessExit = false;
+            _notifyProcessExited = true;
 
             process.EnableRaisingEvents = true;
             process.Exited += ProcessExited;
@@ -75,34 +64,6 @@
             Logger.Info($"Game process started ({process.Id}): {processInfo.FileName} {processInfo.Arguments}");
 
             return process.Id;
-        }
-
-        /// <inheritdoc />
-        public int StartProcess(string path, IProcessArgs args)
-        {
-            if (path == null)
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
-            if (args == null)
-            {
-                throw new ArgumentNullException(nameof(args));
-            }
-
-            var fullGamePath = Path.Combine(_gamesPath, path);
-            var fullRuntimePath = Path.Combine(_runtimeRoot, GamingConstants.RuntimeHost);
-
-            return StartProcess(
-                new ProcessStartInfo
-                {
-                    CreateNoWindow = false,
-                    Arguments = args.Build(),
-                    FileName = fullRuntimePath,
-                    WorkingDirectory = fullGamePath,
-                    UseShellExecute = false,
-                    ErrorDialog = false
-                });
         }
 
         public void CreateMiniDump(int processId)
@@ -119,7 +80,7 @@
         }
 
         /// <inheritdoc />
-        public void EndProcess(int processId, bool notifyExited = true)
+        public void EndProcess(int processId, bool notifyExited = true, bool terminateExpected = true)
         {
             var processToKill = GetProcessFromId(processId);
             if (processToKill.HasExited)
@@ -130,8 +91,8 @@
 
             try
             {
-                _expectProcessExit = true;
-                _processes.TryAdd(processToKill.Id, notifyExited);
+                _expectProcessExit = terminateExpected;
+                _notifyProcessExited = notifyExited;
 
                 processToKill.Kill();
 
@@ -178,22 +139,25 @@
         {
             var process = sender as Process;
 
-            // Clear the RpcClient instance held, as once the Game/Runtime process is killed, it will become stale
+            // Clear the RPC Client instance held, as once the Game/Runtime process is killed, it will become stale
             _serviceProvider.Clear();
 
-            if (!_processes.TryRemove(process?.Id ?? -1, out var notify) && !_expectProcessExit)
+            if (!_expectProcessExit)
             {
                 Logger.Error(
                     $"Unexpected game process exit ({process?.Id}) : {process?.StartInfo.FileName} {process?.StartInfo.Arguments}",
                     new GameExitedException("The game process ended unexpectedly."));
 
-                _eventBus.Publish(new GameProcessExitedEvent(process?.Id ?? -1, true));
+                if (_notifyProcessExited)
+                {
+                    _eventBus.Publish(new GameProcessExitedEvent(process?.Id ?? -1, true));
+                }
             }
             else
             {
                 Logger.Info($"Game process exited ({process?.Id}): {process?.StartInfo.FileName} {process?.StartInfo.Arguments}");
 
-                if (notify || _expectProcessExit)
+                if (_notifyProcessExited)
                 {
                     _eventBus.Publish(new GameProcessExitedEvent(process?.Id ?? -1));
                 }
@@ -205,6 +169,7 @@
             }
 
             _expectProcessExit = false;
+            _notifyProcessExited = true;
         }
     }
 }

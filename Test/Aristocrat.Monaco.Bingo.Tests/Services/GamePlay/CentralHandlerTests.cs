@@ -157,7 +157,7 @@
         public async Task RequestOutcomesTest()
         {
             var currentTransactionGameId = 3;
-            var defaultBetDetails = new BetDetails(0, 0, 0, 0);
+            var defaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
             var machineSerial = "123";
             Mock<IGameDetail> gameDetail = new(MockBehavior.Default);
 
@@ -195,7 +195,7 @@
             MoqServiceManager.CreateInstance(MockBehavior.Default);
 
             _gamePlayState.Setup(x => x.InGameRound).Returns(true);
-            
+
             using var source = new CancellationTokenSource();
 
             Task<bool> playTask = _target.ProcessGameOutcome(

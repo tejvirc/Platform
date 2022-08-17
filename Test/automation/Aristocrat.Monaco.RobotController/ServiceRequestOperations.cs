@@ -3,6 +3,7 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
 
     internal class ServiceRequestOperations : IRobotOperations
@@ -48,9 +49,9 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _automator.ServiceButton(false);
-            _serviceRequestTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _serviceRequestTimer?.Dispose();
+            _automator.ServiceButton(false);
         }
 
         public void Dispose()
@@ -103,7 +104,8 @@
 
         private bool IsValid()
         {
-            return _sc.IsGame;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return !isBlocked && _sc.IsGame && !_sc.IsGameLoading;
         }
     }
 }

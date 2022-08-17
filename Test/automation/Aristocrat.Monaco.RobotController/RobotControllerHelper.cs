@@ -1,33 +1,13 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using SimpleInjector;
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using SimpleInjector;
 
-    internal static class Helper
+    internal static class RobotControllerHelper
     {
         internal static Configuration LoadConfiguration(string configPath)
         {
             return Configuration.Load(configPath);
-        }
-        internal static void BlockOtherOperations(RobotController robotController, RobotStateAndOperations robotStateAndOperations)
-        {
-            robotController.InProgressRequests.TryAdd(robotStateAndOperations);
-        }
-
-        internal static void UnBlockOtherOperations(RobotController robotController, RobotStateAndOperations robotStateAndOperations)
-        {
-            robotController.InProgressRequests.TryRemove(robotStateAndOperations);
-        }
-
-        internal static bool IsBlockedByOtherOperation(RobotController robotController, IList<RobotStateAndOperations> excluded)
-        {
-            Func<RobotStateAndOperations, bool> predicate =
-                (i) =>
-                i != RobotStateAndOperations.SuperMode && i != RobotStateAndOperations.SuperMode && i != RobotStateAndOperations.SuperMode && !excluded.Contains(i);
-            var isBlocked = robotController.InProgressRequests.Where(predicate).Any();
-            return isBlocked;
         }
 
         internal static Dictionary<string, HashSet<IRobotOperations>> InitializeModeDictionary(Container container)
@@ -41,7 +21,8 @@
                     container.GetInstance<TouchOperations>(),
                     container.GetInstance<BalanceOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
-                    container.GetInstance<GameOperations>()
+                    container.GetInstance<GameOperations>(),
+                    container.GetInstance<GameHelpOperations>()
                 },
 
                 [nameof(ModeType.Super)] = new HashSet<IRobotOperations>
@@ -54,7 +35,8 @@
                     container.GetInstance<GameOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<LockUpOperations>(),
-                    container.GetInstance<OperatingHoursOperations>()
+                    container.GetInstance<OperatingHoursOperations>(),
+                    container.GetInstance<GameHelpOperations>()
                 },
 
                 [nameof(ModeType.Uber)] = new HashSet<IRobotOperations>
@@ -68,10 +50,11 @@
                     container.GetInstance<GameOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<LockUpOperations>(),
-                    container.GetInstance<OperatingHoursOperations>()
+                    container.GetInstance<OperatingHoursOperations>(),
+                    container.GetInstance<GameHelpOperations>()
                 }
             };
             return dict;
-        }        
+        }
     }
 }

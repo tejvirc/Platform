@@ -65,6 +65,11 @@
             _clock?.Controller?.Pause();
         }
 
+        private void StopAnimation()
+        {
+            _clock?.Controller?.Remove();
+        }
+
         private void ResumeAnimation()
         {
             if (_clock?.IsPaused ?? false)
@@ -91,6 +96,10 @@
                 if ((bool)dependencyPropertyChangedEventArgs.NewValue)
                 {
                     thisControl.SetupAndStartAnimation();
+                }
+                else
+                {
+                    thisControl.StopAnimation();
                 }
             }
         }

@@ -80,7 +80,7 @@
                         <DataTrigger Value="True">
                             <DataTrigger.Binding>
                                 <MultiBinding Converter="{StaticResource BoolOrConverter}">
-                                    <Binding Path="MessageOverlayDisplay.IsReplayRecoveryDlgVisible"/>
+                                    <Binding Path="MessageOverlayDisplayViewModel.IsReplayRecoveryDlgVisible"/>
                                     <Binding Path="MainInfoBarOpenRequested"/>
                                 </MultiBinding>
                             </DataTrigger.Binding>
@@ -113,7 +113,7 @@
 
                 <Grid x:Name="LobbyRoot"
                       Visibility="{Binding IsLobbyVisible, Converter={StaticResource BoolToVisConverter}}"
-                      MouseDown="LobbyRoot_OnMouseDown" GotFocus="LobbyRoot_OnGotFocus">
+                      MouseDown="LobbyRoot_OnMouseDown">
                     <ContentControl
 	                    x:Name="LobbyControl"
 	                    Content="{Binding}"
@@ -157,7 +157,7 @@
 
                   <!-- Rectangle to give screen a disabled look if message overlay is visible -->
                   <Rectangle Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Fill="Black" Opacity="0.5"
-                              Visibility="{Binding MessageOverlayDisplay.IsLockupMessageVisible, Converter={StaticResource BoolToVisConverter}}" />
+                              Visibility="{Binding MessageOverlayDisplayViewModel.IsLockupMessageVisible, Converter={StaticResource BoolToVisConverter}}" />
 
                   <Image Grid.Row="0" Stretch="Fill" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding GameLoadingScreenPath}"
                           Visibility="{Binding IsBottomLoadingScreenVisible, Converter={StaticResource BoolToVisConverter}}"/>
@@ -169,7 +169,7 @@
 
                 <!-- spacer accommodates the non-superimposed parts of the overlay window (e.g. replay navigation bar) -->
                 <Grid Grid.Row="2" Background="Transparent"
-                      Visibility="{Binding ElementName=Root, Path=DataContext.MessageOverlayDisplay.IsReplayRecoveryDlgVisible, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
+                      Visibility="{Binding ElementName=Root, Path=DataContext.MessageOverlayDisplayViewModel.IsReplayRecoveryDlgVisible, Mode=OneWay, Converter={StaticResource BoolToVisConverter}}"
                       Height="{Binding ReplayNavigationBarHeight, Mode=OneWay}"/>
 
             </Grid>

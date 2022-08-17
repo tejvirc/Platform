@@ -19,7 +19,7 @@
     /// <summary>A serial printer.</summary>
     public abstract class SerialPrinter : SerialDeviceProtocol
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string PrinterOverridesExtensionPath = "/Hardware/PrinterOverrides";
 
         private PrinterStatus _printerStatus = new PrinterStatus { TopOfForm = true };
@@ -80,7 +80,7 @@
         /// <summary>
         /// true if we have overrides for printer template mappings
         /// </summary>
-        protected bool UsePrinterDefinedTemplates => PrinterSpecificTemplateMappings?.PrinterTemplateMappings != null;
+        protected bool UsePrinterDefinedTemplates => PrinterSpecificTemplateMappings?.PrinterTemplateMappings != null && PrinterSpecificTemplateMappings.UsePrinterDefinedTemplates;
 
         /// <summary>
         /// Get or set the PrinterStatus

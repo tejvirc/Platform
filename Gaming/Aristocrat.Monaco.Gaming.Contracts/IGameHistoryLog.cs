@@ -210,6 +210,11 @@
         /// </summary>
         /// <returns></returns>
         IGameHistoryLog ShallowCopy();
+
+        /// <summary>
+        ///     Gets the game round details
+        /// </summary>
+        GameRoundDetails GameRoundDetails { get; }
     }
 
     /// <summary>

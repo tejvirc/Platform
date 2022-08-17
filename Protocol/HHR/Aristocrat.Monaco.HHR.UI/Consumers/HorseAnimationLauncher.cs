@@ -215,7 +215,7 @@
                         new ViewInjectionEvent(
                             _venueRaceCollection,
                             _currentDisplay,
-                            ViewInjectionEvent.ViewAction.Add));
+                            ViewAction.Add));
                 });
         }
 
@@ -313,6 +313,10 @@
             {
                 _eventBus.UnsubscribeAll(this);
                 _gameStartConditions.RemoveGameStartCondition(this);
+                if (_venueRaceCollectionViewModel != null)
+                {
+                    _venueRaceCollectionViewModel.Dispose();
+                }
             }
 
             _disposed = true;

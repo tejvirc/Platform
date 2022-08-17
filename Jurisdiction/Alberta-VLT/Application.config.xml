@@ -75,6 +75,7 @@ as follows:
     <string>Comms</string>
     <string>Error</string>
     <string>General</string>
+    <string>Hash</string>
     <string>Power</string>
     <string>GameConfigurationChange</string>
     <string>GPU</string>

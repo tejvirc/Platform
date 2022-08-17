@@ -127,10 +127,14 @@
         {
             if (dependencyPropertyChangedEventArgs.NewValue != null)
             {
+                RaceTrackEntry thisControl = (RaceTrackEntry)dependencyObject;
                 if ((bool)dependencyPropertyChangedEventArgs.NewValue)
                 {
-                    RaceTrackEntry thisControl = (RaceTrackEntry)dependencyObject;
                     thisControl.StartRace();
+                }
+                else
+                {
+                    thisControl.StopRace();
                 }
             }
         }
@@ -218,6 +222,14 @@
                 _initialized = true;
 
                 SetupAndStartAnimation(CalculateDistance(Place));
+            }
+        }
+
+        private void StopRace()
+        {
+            lock (_lock)
+            {
+                _clock?.Controller?.Remove();
             }
         }
 

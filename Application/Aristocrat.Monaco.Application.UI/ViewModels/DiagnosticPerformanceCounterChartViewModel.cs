@@ -24,6 +24,10 @@
     using LinearAxis = OxyPlot.Axes.LinearAxis;
     using LineSeries = OxyPlot.Series.LineSeries;
 
+    /// <summary>
+    ///     The view model for the diagnostics "chart" page, the one that shows the history of
+    ///     the platform performance counters
+    /// </summary>
     [CLSCompliant(false)]
     public class DiagnosticPerformanceCounterChartViewModel : OperatorMenuPageViewModelBase
     {
@@ -439,11 +443,12 @@
                 {
                     InstanceName = metric.GetAttribute<InstanceAttribute>().Instance,
                     MetricType = metric,
-                    MetricName = metric.GetAttribute<DescriptionAttribute>().Description,
+                    MetricName = metric.GetAttribute<CounterAttribute>().Counter,
                     Category = metric.GetAttribute<CategoryAttribute>().Category,
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
-                    MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange
+                    MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
+                    Label = metric.GetAttribute<LabelAttribute>().Label
                 };
 
                 m.PropertyChanged += ViewMetric_PropertyChanged;
@@ -660,7 +665,7 @@
                 metric.LineSeries =
                     new LineSeries
                     {
-                        Title = metric.DisplayName,
+                        Title = metric.Label,
                         TrackerFormatString =
                             "{0} " + Environment.NewLine + "Time: {2} " + Environment.NewLine + "{3}: {4} ",
                         Color = metric.MetricColor.ToOxyColor(),

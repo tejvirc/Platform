@@ -162,6 +162,8 @@
 
         public bool DiagnosticsEnabled { get; set; }
 
+        public new bool TestModeEnabledSupplementary => Printer?.CanPrint ?? false;
+
         public ICommand FormFeedButtonCommand { get; }
 
         public ICommand PrintDiagnosticButtonCommand { get; }

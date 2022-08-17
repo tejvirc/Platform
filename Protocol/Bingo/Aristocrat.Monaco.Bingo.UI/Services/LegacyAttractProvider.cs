@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.WebUtilities;
     using OverlayServer;
     using OverlayServer.Attributes;
+    using OverlayServer.Data.Bingo;
     using Protocol.Common.Storage.Entity;
 
     public class LegacyAttractProvider : ILegacyAttractProvider

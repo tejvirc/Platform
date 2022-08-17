@@ -288,7 +288,7 @@
                             <Viewbox.Margin>
                                 <MultiBinding Converter="{StaticResource GameTileMarginConv}">
                                     <Binding Path="DataContext.MarginInputs" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                    <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                    <Binding Path="DataContext.ProgressiveLabelDisplayViewModel.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
                                 </MultiBinding>
                             </Viewbox.Margin>
                             <Border Width="Auto" Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}">
@@ -472,7 +472,7 @@
                                         <Viewbox.Visibility>
                                             <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
                                                 <Binding Source="{StaticResource FalseValue}"/> <!-- Is banner positioned as pool for all games -->
-                                                <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                <Binding Path="DataContext.ProgressiveLabelDisplayViewModel.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
                                                 <Binding Path="DataContext.IsExtraLargeGameIconTabActive" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
                                                 <Binding Path="HasProgressiveLabelDisplay"/> <!-- Is the progressive configured -->
                                             </MultiBinding>
@@ -521,7 +521,7 @@
                                             <MultiBinding Converter="{StaticResource DenomPanelMarginConv}">
                                                 <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}"/>
                                                 <Binding Path="DataContext.MarginInputs" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
-                                                <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                <Binding Path="DataContext.ProgressiveLabelDisplayViewModel.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
                                             </MultiBinding>
                                         </Viewbox.Margin>
                                         <Viewbox.Width>
@@ -679,7 +679,7 @@
                 <Viewbox.Visibility>
                     <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
                         <Binding Source="{StaticResource TrueValue}"/> <!-- Is banner positioned as pool for all games -->
-                        <Binding Path="ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled"/>
+                        <Binding Path="ProgressiveLabelDisplayViewModel.MultipleGameAssociatedSapLevelOneEnabled"/>
                         <Binding Path="IsExtraLargeGameIconTabActive"/>
                         <Binding Source="{StaticResource TrueValue}"/>
                     </MultiBinding>
@@ -688,7 +688,7 @@
                     <Image x:Name="LightningLinkGrandBannerImage" gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkGrand}"/>
                     <ItemsControl
                         FocusVisualStyle="{x:Null}"
-                        ItemsSource="{Binding ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneAmount}"
+                        ItemsSource="{Binding ProgressiveLabelDisplayViewModel.MultipleGameAssociatedSapLevelOneAmount}"
                         HorizontalAlignment="Center" VerticalAlignment="Top"
                         Margin="0 42 0 0">
                         <ItemsControl.ItemsPanel>
@@ -717,7 +717,7 @@
                 <Viewbox.Visibility>
                     <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
                         <Binding Source="{StaticResource TrueValue}"/> <!-- Is banner positioned as pool for all games -->
-                        <Binding Path="ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled"/>
+                        <Binding Path="ProgressiveLabelDisplayViewModel.MultipleGameAssociatedSapLevelTwoEnabled"/>
                         <Binding Path="IsExtraLargeGameIconTabActive"/>
                         <Binding Source="{StaticResource TrueValue}"/> <!-- HasProgressiveLabelDisplay -->
                     </MultiBinding>
@@ -729,7 +729,7 @@
                     <ItemsControl
                         FocusVisualStyle="{x:Null}"
                         Margin="0 44 0 0"
-                        ItemsSource="{Binding Path=ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoAmount}"
+                        ItemsSource="{Binding Path=ProgressiveLabelDisplayViewModel.MultipleGameAssociatedSapLevelTwoAmount}"
                         HorizontalAlignment="Center" VerticalAlignment="Top">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

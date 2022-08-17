@@ -11,7 +11,7 @@
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <JurisdictionFiles Include="**/*" Exclude="**/*.resx;*.*;obj/**"></JurisdictionFiles>
+      <JurisdictionFiles Include="**/*" Exclude="**/*.resx;*.*;obj/**;bin/**"></JurisdictionFiles>
     </ItemGroup>
     <RemoveDir Directories="$(OutputPath)" />
     <Copy SourceFiles="@(JurisdictionFiles)" DestinationFiles="@(JurisdictionFiles->'$(OutputPath)%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />

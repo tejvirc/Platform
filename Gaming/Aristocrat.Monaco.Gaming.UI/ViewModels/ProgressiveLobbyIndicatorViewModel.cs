@@ -108,7 +108,6 @@
             set => SetProperty(ref _multipleGameAssociatedSapLevelTwoEnabled, value);
         }
 
-
         public void UpdateProgressiveIndicator(IEnumerable<GameInfo> games)
         {
             foreach (var game in games)
@@ -190,7 +189,7 @@
                 }
 
                 // The DisplayMeterName will be in a format like: WinnersWorldProgressive_BigFortuneMajor, the level name is BigFortuneMajor
-                var levelName = gameDetail.DisplayMeterName.Split('_').ToList().Last();
+                var levelName = gameDetail.DisplayMeterName.Split('_').Last();
 
                 var (_, amount) = _progressiveConfiguration.ViewProgressiveLevels(game.GameId, game.Denomination)
                     .Where(x => x.LevelName == levelName &&
@@ -207,7 +206,6 @@
         public void UpdateMultipleGameAssociativeSapText()
         {
             Dictionary<string, (int, string)> levelUpdates = new Dictionary<string, (int, string)>();
-            var levels = _progressiveLevelProvider.GetProgressiveLevels().ToList();
             var gameDetails = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
 
             foreach (var game in _lobby.GameList)

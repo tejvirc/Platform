@@ -116,8 +116,8 @@
                 AllowRemoteHandpayResetVisible = GetConfigSetting(OperatorMenuSetting.AllowRemoteHandpayResetVisible, true);
                 LargeWinHandpayResetMethodVisible = GetConfigSetting(OperatorMenuSetting.LargeWinHandpayResetMethodVisible, true);
                 GambleAllowed = (bool)PropertiesManager.GetProperty(GamingConstants.GambleAllowed, true);
-                GambleWagerLimitVisible = GetConfigSetting(OperatorMenuSetting.GambleWagerLimitVisible, true);
-                GambleWinLimitVisible = GetConfigSetting(OperatorMenuSetting.GambleWinLimitVisible, false);
+                _gambleWagerLimitVisible = GetConfigSetting(OperatorMenuSetting.GambleWagerLimitVisible, true);
+                _gambleWinLimitVisible = GetConfigSetting(OperatorMenuSetting.GambleWinLimitVisible, false);
             }
         }
 
@@ -130,7 +130,7 @@
                 {
                     return;
                 }
-
+                
                 _pageEnabled = value;
                 RaisePropertyChanged(nameof(PageEnabled));
             }
@@ -174,8 +174,6 @@
                 }
             }
         }
-
-        public bool HandpayLimitEnabled => PageEnabled || AccessRestriction == OperatorMenuAccessRestriction.GamesPlayed;
 
         public bool HandpayLimitIsChecked
         {
@@ -1020,7 +1018,6 @@
             RaisePropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
             RaisePropertyChanged(nameof(CreditLimitCheckboxEnabled));
             RaisePropertyChanged(nameof(HandpayLimitCheckboxEnabled));
-            RaisePropertyChanged(nameof(HandpayLimitEnabled));
             RaisePropertyChanged(nameof(GambleWagerLimit));
             RaisePropertyChanged(nameof(GambleWinLimit));
         }

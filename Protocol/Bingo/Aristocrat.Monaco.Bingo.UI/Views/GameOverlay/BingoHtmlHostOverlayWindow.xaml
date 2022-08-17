@@ -9,7 +9,7 @@
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance {x:Type viewModels:BingoHtmlHostOverlayViewModel}}"
         Loaded="BingoHtmlHostOverlayWindow_OnLoaded"
-        Title="Bingo Html Host Overlay"
+        Title="Bingo HTML Overlay"
         ShowInTaskbar="False"
         Width="1440"
         Height="810"
@@ -19,7 +19,9 @@
         ShowMaxRestoreButton="False"
         ShowMinButton="False"
         IgnoreTaskbarOnMaximize="True"
-        BorderThickness="0">
+        BorderThickness="0"
+        ResizeMode="NoResize"
+        WindowStyle="None">
 
     <Window.Background>
         <SolidColorBrush Color="Transparent"/>
@@ -33,11 +35,46 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Visibility="{Binding Visible, Converter={StaticResource BoolToVisConverter}}">
-        <Border HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-            <cefsharp:ChromiumWebBrowser x:Name="BingoHtmlHost" Address="{Binding Address, Mode=OneWay}"
-                                         WebBrowser="{Binding WebBrowser, Mode=OneWayToSource}"/>
-        </Border>
+    <Grid>
+        <Grid ZIndex="2"
+              Width="{Binding Width, Mode=OneWay}"
+              Height="{Binding Height, Mode=OneWay}"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Left"
+              Visibility="{Binding IsInfoVisible, Converter={StaticResource BoolToVisConverter}}"
+              IsHitTestVisible="{Binding IsHelpVisible, Converter={StaticResource InverseBoolConverter}}">
+            <Border BorderThickness="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                <cefsharp:ChromiumWebBrowser x:Name="BingoInfoHost"
+                                             VerticalAlignment="Top"
+                                             HorizontalAlignment="Left"
+                                             Width="{Binding Width, Mode=OneWay}"
+                                             Height="{Binding Height, Mode=OneWay}"
+                                             Address="{Binding BingoInfoAddress, Mode=OneWay}"
+                                             WebBrowser="{Binding BingoInfoWebBrowser, Mode=OneWayToSource}" />
+            </Border>
+        </Grid>
+
+        <Grid ZIndex="1" Visibility="{Binding IsHelpVisible, Converter={StaticResource BoolToVisConverter}}"
+              Width="{Binding Width, Mode=OneWay}"
+              Height="{Binding Height, Mode=OneWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Margin="{Binding HelpBoxMargin}"
+                    BorderThickness="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                <cefsharp:ChromiumWebBrowser x:Name="BingoHelp" Address="{Binding BingoHelpAddress, Mode=TwoWay}" 
+                                             WebBrowser="{Binding BingoHelpWebBrowser, Mode=OneWayToSource}" />
+            </Border>
+
+            <metro:ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding IsHelpLoading}" Foreground="White"/>
+        </Grid>
     </Grid>
 </metro:MetroWindow>

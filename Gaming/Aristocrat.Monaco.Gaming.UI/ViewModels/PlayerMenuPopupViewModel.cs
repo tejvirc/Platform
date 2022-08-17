@@ -49,10 +49,10 @@
         private readonly IOnScreenKeyboardService _keyboardService;
         private readonly IAudio _audioService;
 
-        private readonly string PasswordChar = "*";
+        private const string PasswordChar = "*";
 
         private bool _isMenuVisible;
-        private bool _disposedValue;
+        private bool _disposed;
         private PlayerMenuPopupBackground _menuBackgroundOption;
         private bool _isSessionTrackingSectionVisible;
         private bool _isVolumeButtonVisible;
@@ -104,7 +104,7 @@
 
             _eventBus.Subscribe<GamePlayStateChangedEvent>(this, eventArgs => Handler(eventArgs.CurrentState));
             _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == ApplicationConstants.VolumeControlLocationKey);
-            _closeDelayTimer.Elapsed += (sender, args) => IsMenuVisible = false;
+            _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
             _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, "");
 
             ReserveDigitClickedCommand = new RelayCommand<string>(ConcatenateReservePin);
@@ -113,7 +113,12 @@
             StartNewSessionClickedCommand = new RelayCommand<object>(StartNewTrackingSession);
             MouseDownOnMenuCommand = new RelayCommand<object>(obj => { if (_isMenuVisible) ResetCloseDelay(); });
 
-            IsMenuVisible = false;
+            _isMenuVisible = false;
+        }
+
+        protected override void InitializeVm()
+        {
+            base.InitializeVm();
 
             SetupMenu();
         }
@@ -122,6 +127,7 @@
         {
             if (!_properties.GetValue(GamingConstants.ShowPlayerMenuPopup, true))
             {
+                _isMenuVisible = false;
                 return;
             }
 
@@ -370,20 +376,22 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposedValue)
+            if (_disposed)
             {
-                if (disposing)
-                {
-                    _closeDelayTimer.Dispose();
-                }
-
-                _disposedValue = true;
+                return;
             }
+
+            if (disposing)
+            {
+                _closeDelayTimer.Dispose();
+            }
+
+            _disposed = true;
         }
 
         public void Dispose()
         {
-            Dispose(disposing: true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 

@@ -7,6 +7,7 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Sas.Contracts.Events;
     using Sas.Contracts.SASProperties;
 
     [TestClass]
@@ -72,6 +73,60 @@
 
             _target.Consume(new PropertyChangedEvent(SasProperties.SasFeatureSettings));
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusingDisabled), Times.Once());
+        }
+
+        [TestMethod]
+        public void ConsumesBonusEnabledChangedTest()
+        {
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { AftBonusAllowed = false, LegacyBonusAllowed = false });
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.BonusingEnabled)).Verifiable();
+
+            _target.Consume(new PropertyChangedEvent(SasProperties.SasFeatureSettings));
+
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { AftBonusAllowed = true, LegacyBonusAllowed = false });
+
+            _target.Consume(new PropertyChangedEvent(SasProperties.SasFeatureSettings));
+
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusingEnabled), Times.Once());
+            _eventBus.Verify(m => m.Publish(It.IsAny<RestartProtocolEvent>()), Times.Once());
+        }
+
+        [TestMethod]
+        public void ConsumesLegacyBonusEnabledChangedTest()
+        {
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { AftBonusAllowed = false, LegacyBonusAllowed = false });
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.BonusingEnabled)).Verifiable();
+
+            _target.Consume(new PropertyChangedEvent(SasProperties.SasFeatureSettings));
+
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { AftBonusAllowed = false, LegacyBonusAllowed = true });
+
+            _target.Consume(new PropertyChangedEvent(SasProperties.SasFeatureSettings));
+
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusingEnabled), Times.Never());
+            _eventBus.Verify(m => m.Publish(It.IsAny<RestartProtocolEvent>()), Times.Once());
+        }
+
+        [TestMethod]
+        public void ConsumesBothBonusEnabledChangedTest()
+        {
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { AftBonusAllowed = false, LegacyBonusAllowed = false });
+            _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.BonusingEnabled)).Verifiable();
+
+            _target.Consume(new PropertyChangedEvent(SasProperties.SasFeatureSettings));
+
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { AftBonusAllowed = true, LegacyBonusAllowed = true });
+
+            _target.Consume(new PropertyChangedEvent(SasProperties.SasFeatureSettings));
+
+            _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.BonusingEnabled), Times.Once());
+            _eventBus.Verify(m => m.Publish(It.IsAny<RestartProtocolEvent>()), Times.Once());
         }
     }
 }

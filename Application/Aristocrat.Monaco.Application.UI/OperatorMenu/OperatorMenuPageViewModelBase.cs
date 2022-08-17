@@ -398,15 +398,13 @@
 
         public virtual bool PopupOpen { get; set; }
 
-        protected IEventBus EventBus =>
-            _eventBus ?? (_eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>());
+        protected IEventBus EventBus => _eventBus ??= ServiceManager.GetInstance().TryGetService<IEventBus>();
 
         protected IPropertiesManager PropertiesManager =>
-            _properties ?? (_properties = ServiceManager.GetInstance().TryGetService<IPropertiesManager>());
+            _properties ??= ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
 
-        protected IOperatorMenuConfiguration Configuration =>
-            _configuration ??
-            (_configuration = ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>());
+        protected IOperatorMenuConfiguration Configuration => _configuration ??=
+            ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>();
 
         protected IPrinter Printer => ServiceManager.GetInstance().TryGetService<IPrinter>();
 

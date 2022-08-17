@@ -4,9 +4,12 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Reflection;
+    using log4net;
 
     public class Nanoptix : TclProtocol
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string ManufacturerName = "Nanoptix Inc.";
 
         private const int RegionWidthDots = 520;
@@ -166,6 +169,7 @@
 
         protected override bool Render3ColumnTicketData(PrintCommand ticket)
         {
+            Logger.Debug("Rendering 3 column ticket in line mode");
             string[] header = { ticket.DataFields[3].Data ?? string.Empty };
 
             var leftColumn = ticket.DataFields[0].Data;
@@ -186,7 +190,6 @@
             {
                 builder.AddRange(TclProtocolConstants.CommandInitializePageMode);
             }
-
 
             // send unit of measure 1/180"
             builder.AddRange(TclProtocolConstants.CommandSetUnitOfMeasure);
@@ -219,9 +222,10 @@
 
             builder.AddRange(TclProtocolConstants.CrLf);
 
-            // send template mode form feed
+            // send line mode form feed
             builder.Add(TclProtocolConstants.Ff);
 
+            Logger.Debug($"sending audit ticket print message '{BitConverter.ToString(builder.ToArray())}'");
             SendPrintMessage(builder.ToArray(), false);
 
             // switch back to template mode so ticket ejects fully

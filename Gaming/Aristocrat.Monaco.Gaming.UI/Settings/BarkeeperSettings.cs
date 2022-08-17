@@ -43,9 +43,9 @@
             }
 
             var barkeeperRewardLevels = data.BarkeeperRewardLevels;
-            Enabled = barkeeperRewardLevels.Enabled;
-            CoinInRate = barkeeperRewardLevels.CoinInStrategy.CoinInRate;
-            CashInRewardLevel =
+            _enabled = barkeeperRewardLevels.Enabled;
+            _coinInRate = barkeeperRewardLevels.CoinInStrategy.CoinInRate;
+            _cashInRewardLevel =
                 barkeeperRewardLevels.RewardLevels.FirstOrDefault(x => x.TriggerStrategy == BarkeeperStrategy.CashIn);
             CoinInRewardLevels = new ObservableCollection<RewardLevel>(barkeeperRewardLevels.RewardLevels.Where(x => x.TriggerStrategy == BarkeeperStrategy.CoinIn));
         }
@@ -79,8 +79,7 @@
         /// <summary>
         ///     Gets or sets the coin in reward levels.
         /// </summary>
-        public IEnumerable<RewardLevel> CoinInRewardLevels { get; set; } =
-            Enumerable.Empty<RewardLevel>();
+        public IEnumerable<RewardLevel> CoinInRewardLevels { get; set; } 
 
         /// <summary>
         ///     Gets the reward levels to text.

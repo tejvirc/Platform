@@ -26,8 +26,8 @@
         /// <inheritdoc />
         public override void Consume(TerminateGameProcessEvent theEvent)
         {
-            Logger.Info("Ending game process from TerminateGameProcessEvent");
-            _gameService.TerminateAny();
+            Logger.Info("Ending game process from TerminateGameProcessEvent: Expected=" + theEvent.TerminateExpected);
+            _gameService.TerminateAny(true, theEvent.TerminateExpected);
         }
     }
 }

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Windows;
     using Models;
+    using OverlayServer.Data.Bingo;
 
     /// <summary>
     ///     Provide bingo display configuration data

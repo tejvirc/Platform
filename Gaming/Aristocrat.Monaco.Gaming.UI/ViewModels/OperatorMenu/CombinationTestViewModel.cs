@@ -32,7 +32,7 @@
 
             ComboTestCommand = new RelayCommand(() => LaunchCombinationTest(), () => SelectedGame != null && InputEnabled);
 
-            Games = new ObservableCollection<GameComboInfo>();
+            _games = new ObservableCollection<GameComboInfo>();
         }
 
         public IRelayCommand ComboTestCommand { get; }

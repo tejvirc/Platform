@@ -3,6 +3,8 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts.Central;
     using Bingo.GameEndWin;
     using Gaming.Contracts.Bonus;
     using Kernel;
@@ -15,6 +17,9 @@
     {
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private readonly Mock<IBonusHandler> _bonusHandler = new(MockBehavior.Default);
+        private readonly Mock<IMessageDisplay> _messages = new(MockBehavior.Default);
+        private readonly Mock<ICentralProvider> _centralProvider = new(MockBehavior.Default);
+        private readonly Mock<IGameHistory> _history = new(MockBehavior.Default);
 
         private GameEndWinBonusCreditsStrategy _target;
 
@@ -129,11 +134,19 @@
             Assert.AreEqual(expectedResult, await resultTask);
         }
 
-        private GameEndWinBonusCreditsStrategy CreateTarget(bool nullEventBus = false, bool nullBonusHandler = false)
+        private GameEndWinBonusCreditsStrategy CreateTarget(
+            bool nullEventBus = false,
+            bool nullBonusHandler = false,
+            bool nullMessages = false,
+            bool nullCentralProvider = false,
+            bool nullHistory = false)
         {
             return new GameEndWinBonusCreditsStrategy(
                 nullEventBus ? null : _eventBus.Object,
-                nullBonusHandler ? null : _bonusHandler.Object);
+                nullBonusHandler ? null : _bonusHandler.Object,
+                nullMessages ? null : _messages.Object,
+                nullCentralProvider ? null : _centralProvider.Object,
+                nullHistory ? null : _history.Object);
         }
     }
 }

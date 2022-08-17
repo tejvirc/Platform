@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using Application.Contracts;
     using Application.Contracts.Localization;
     using Common;
     using Common.Events;
@@ -12,6 +11,7 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using OverlayServer.Data.Bingo;
     using Test.Common;
     using UI.Models;
 
@@ -19,7 +19,6 @@
     public class BingoDisplayConfigurationProviderTests
     {
         private BingoDisplayConfigurationProvider _target;
-        private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
         private readonly Mock<IDispatcher> _dispatcher = DispatcherMock.Dispatcher;
@@ -32,7 +31,7 @@
             MoqServiceManager
                 .CreateAndAddService<ILocalizerFactory>(MockBehavior.Default)
                 .Setup(m => m.For(It.IsAny<string>()))
-                .Returns<string>(name =>
+                .Returns<string>(_ =>
                 {
                     var localizer = new Mock<ILocalizer>();
                     localizer.Setup(m => m.CurrentCulture).Returns(new CultureInfo("en-US"));
@@ -47,18 +46,9 @@
                 .Setup(m => m.GetAllGames())
                 .Returns(new List<IGameDetail>());
 
-            // TODO: This is a work-around used to skip CefSharp initialization for unit tests which is causing an internal System.IO.FileNotFound
-            // error when run.  Possible AppDomain issue.
-            _propertiesManager.Setup(m => m.GetProperty(BingoConstants.BingoHelpUri, string.Empty)).Returns("TEST");
-
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.CabinetControlsDisplayElements, It.IsAny<bool>())).Returns(false);
-
-            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(0);
-
             _target = new BingoDisplayConfigurationProvider(
                 _dispatcher.Object,
                 _eventBus.Object,
-                _propertiesManager.Object,
                 _gameProvider.Object);
         }
 
@@ -68,22 +58,19 @@
             MoqServiceManager.RemoveInstance();
         }
 
-        [DataRow(true, false, false, false, DisplayName = "Null IDispatcher")]
-        [DataRow(false, true, false, false, DisplayName = "Null IEventBus")]
-        [DataRow(false, false, true, false, DisplayName = "Null IPropertiesManager")]
-        [DataRow(false, false, false, true, DisplayName = "Null IGameProvider")]
+        [DataRow(true, false, false, DisplayName = "Null IDispatcher")]
+        [DataRow(false, true, false, DisplayName = "Null IEventBus")]
+        [DataRow(false, false, true, DisplayName = "Null IGameProvider")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_Fail(
             bool nullDispatcher,
             bool nullEventBus,
-            bool nullPropertiesManager,
             bool nullGameProvider)
         {
             _target = new BingoDisplayConfigurationProvider(
                 nullDispatcher ? null : _dispatcher.Object,
                 nullEventBus ? null : _eventBus.Object,
-                nullPropertiesManager ? null : _propertiesManager.Object,
                 nullGameProvider ? null : _gameProvider.Object);
         }
 

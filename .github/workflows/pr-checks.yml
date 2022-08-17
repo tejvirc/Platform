@@ -18,4 +18,4 @@ jobs:
         with:
           regex: '^(?<type>feature)\/(?<issue>(?:TXM|TXARCH)-\d+)(?:-[a-zA-Z0-9]+)?$'
           allowed_prefixes: 'feature'
-          max_length: 30
+          max_length: 50

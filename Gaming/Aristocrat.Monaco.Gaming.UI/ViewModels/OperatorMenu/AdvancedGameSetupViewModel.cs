@@ -93,10 +93,7 @@
 
         public AdvancedGameSetupViewModel()
         {
-            if (!InDesigner)
-            {
-                _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
-            }
+            _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 
             ImportCommand = new RelayCommand<object>(
                 _ => Import(),
@@ -138,6 +135,7 @@
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
             SelectedGameType = GameTypes.FirstOrDefault();
+
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
@@ -160,18 +158,13 @@
 
         public RelayCommand<object> ExportCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveSetupCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveViewCommand { get; }
 
         public string ReadOnlyStatus
         {
             get => _readOnlyStatus;
-            // ReSharper disable once MemberCanBePrivate.Global - used by xaml
             set => SetProperty(ref _readOnlyStatus, value);
         }
 
@@ -226,7 +219,6 @@
 
         public bool OptionColumnVisible => GlobalOptionsVisible && !IsRouletteGameSelected;
 
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public bool GlobalOptionsVisible { get; }
 
         public bool GambleOptionVisible => GlobalOptionsVisible && SelectedGameType != GameType.Blackjack &&
@@ -240,7 +232,7 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public IEnumerable<GameType> GameTypes { get; }
+        public IEnumerable<GameType> GameTypes { get; private set; }
 
         public GameType SelectedGameType
         {
@@ -326,14 +318,17 @@
 
         public bool GameOptionsEnabled => GameOptionsGridEnabled && InputEnabled;
 
-        public ObservableCollection<IConfigurationRestriction> Restrictions { get; set; }
+        public IEnumerable<IConfigurationRestriction> ConfiguredRestrictions =>
+            _restrictionProvider.GetByThemeId(SelectedGame?.ThemeId);
+
+        public ObservableCollection<IConfigurationRestriction> ValidRestrictions { get; set; }
 
         public IConfigurationRestriction SelectedRestriction
         {
             get => _selectedRestriction;
             set
             {
-                if (Equals(_selectedRestriction, value))
+                if (_selectedRestriction != null && _selectedRestriction.Equals(value))
                 {
                     return;
                 }
@@ -353,12 +348,11 @@
             }
         }
 
-        public bool ShowRestrictionChooser =>
-            Restrictions?.Count > 0 && Restrictions.All(r => r.Game?.Mapping?.Any() ?? false);
+        public bool ShowRestrictionChooser => ConfiguredRestrictions.Any() && !DenomSelectionLimitExists;
 
-        public bool DenomSelectionLimitExists => Restrictions?.Count >= 1 && Restrictions.Any(r => r.Game?.MaxDenomsEnabled != null);
+        public bool DenomSelectionLimitExists => ConfiguredRestrictions.Any() && ConfiguredRestrictions.Any(r => r.RestrictionDetails?.MaxDenomsEnabled != null);
 
-        public int? DenomSelectionLimit => Restrictions?.FirstOrDefault(r => r.Game?.MaxDenomsEnabled != null)?.Game.MaxDenomsEnabled;
+        public int? DenomSelectionLimit => ConfiguredRestrictions.FirstOrDefault(r => r.RestrictionDetails?.MaxDenomsEnabled != null)?.RestrictionDetails.MaxDenomsEnabled;
 
         public bool ResetScrollIntoView
         {
@@ -481,7 +475,7 @@
 
             _cancellation = new CancellationTokenSource();
 
-            MvvmHelper.ExecuteOnUI(() => Restrictions = new ObservableCollection<IConfigurationRestriction>());
+            MvvmHelper.ExecuteOnUI(() => ValidRestrictions = new ObservableCollection<IConfigurationRestriction>());
 
             EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
             EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
@@ -734,35 +728,60 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    Restrictions.Clear();
+                    ValidRestrictions.Clear();
 
                     var restrictions = _restrictionProvider.GetByThemeId(SelectedGame?.ThemeId);
 
                     foreach (var restriction in restrictions)
                     {
-                        // SingleDenomMode restrictions will not have mappings
-                        if (restriction.Game != null && (restriction.Game.MaxDenomsEnabled != null ||
-                                                         restriction.Game.Mapping.Any(m => m.Active)))
+                        // SingleDenomMode restrictions will not have denom to paytable mappings
+                        if (!restriction.RestrictionDetails.Mapping.Any(m => m.Active) && !restriction.RestrictionDetails.MaxDenomsEnabled.HasValue)
                         {
-                            Restrictions.Add(restriction);
+                            Logger.Warn($"SingleDenomMode configuration restriction ({restriction.Name}) was found.");
+                            continue;
                         }
+
+                        // GamePack restrictions will have all the denoms mapped to game config objects
+                        if (!AreAllGamesMappedForRestriction(restriction))
+                        {
+                            Logger.Warn($"Invalid configuration restriction ({restriction.Name}) was discarded.");
+                            continue;
+                        }
+
+                        ValidRestrictions.Add(restriction);
                     }
 
                     var selected = _gameConfiguration.GetActive(SelectedGame?.ThemeId);
 
-                    SelectedRestriction = Restrictions.FirstOrDefault(r => r.Name.Equals(selected?.Name))
-                                          ?? Restrictions.FirstOrDefault();
+                    SelectedRestriction = ValidRestrictions.FirstOrDefault(r => r.Name.Equals(selected?.Name))
+                                          ?? ValidRestrictions.FirstOrDefault();
 
-                    RaisePropertyChanged(nameof(Restrictions));
+                    RaisePropertyChanged(nameof(ValidRestrictions));
                     RaisePropertyChanged(nameof(ShowRestrictionChooser));
                     RaisePropertyChanged(nameof(DenomSelectionLimit));
                     RaisePropertyChanged(nameof(DenomSelectionLimitExists));
                 });
         }
 
+        private bool AreAllGamesMappedForRestriction(IConfigurationRestriction restriction)
+        {
+            // Check whether each of the configs in the pack has a game configuration object created.
+            // These won't be created if a denomination's max bet exceeds the jurisdiction setting.
+            foreach (var mapping in restriction.RestrictionDetails.Mapping)
+            {
+                var gameConfig = SelectedGame.GameConfigurations.FirstOrDefault(c => c.BaseDenom == mapping.Denomination);
+                if (gameConfig == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void SetRestriction(IConfigurationRestriction restriction)
         {
-            if (restriction == null || SelectedGame == null)
+            if (SelectedGame == null)
             {
                 return;
             }
@@ -776,10 +795,27 @@
             // Process mappings (Single Game Multi Denom, or "Player Selectable Denoms")
             foreach (var game in SelectedGame.GameConfigurations)
             {
-                var mapping = restriction.Game.Mapping?.FirstOrDefault(c => game.BaseDenom == c.Denomination);
+                // If there are configured restrictions but none is chosen or none were valid, then
+                // we don't want to show any denoms for configuration.
+                if (ConfiguredRestrictions.Any() && restriction == null)
+                {
+                    game.RestrictedToReadOnly = true;
+                    game.Enabled = false;
+                    game.Active = false;
+                    continue;
+                }
+
+                // From here on, if the restriction is null, then we can't do anything, so we
+                // should just move on.
+                if (restriction == null)
+                {
+                    continue;
+                }
+
+                var mapping = restriction.RestrictionDetails.Mapping?.FirstOrDefault(c => game.BaseDenom == c.Denomination);
                 if (mapping == null)
                 {
-                    game.Restricted = true;
+                    game.RestrictedToReadOnly = true;
                     game.Enabled = false;
                     game.Active = false;
                     continue;
@@ -794,7 +830,7 @@
 
                 game.Active = true;
                 game.Game = mappedGame;
-                game.Restricted = !restriction.Game.Editable || !mapping.Editable;
+                game.RestrictedToReadOnly = !restriction.RestrictionDetails.Editable || !mapping.Editable;
 
                 game.Enabled = mapping.EnabledByDefault;
 
@@ -810,7 +846,7 @@
                 }
 
                 Logger.Debug(
-                    $"Restriction set - Id:{restriction.Game.Id} Name:{restriction.Game.Name} MinRtp:{restriction.Game.MinimumPaybackPercent} MaxRtp:{restriction.Game.MaximumPaybackPercent}");
+                    $"Restriction set - Id:{restriction.RestrictionDetails.Id} Name:{restriction.RestrictionDetails.Name} MinRtp:{restriction.RestrictionDetails.MinimumPaybackPercent} MaxRtp:{restriction.RestrictionDetails.MaximumPaybackPercent}");
             }
         }
 
@@ -831,7 +867,7 @@
             {
                 foreach (var game in SelectedGame.GameConfigurations)
                 {
-                    game.Restricted = false;
+                    game.RestrictedToReadOnly = false;
                 }
             }
             else if (SelectedGame.EnabledGameConfigurationsCount == DenomSelectionLimit.Value)
@@ -839,7 +875,7 @@
                 // Restrict all but the ones enabled
                 foreach (var game in SelectedGame.GameConfigurations)
                 {
-                    game.Restricted = !game.Enabled;
+                    game.RestrictedToReadOnly = !game.Enabled;
                 }
             }
             else
@@ -847,7 +883,7 @@
                 // Too many denoms enabled. Reset by disabling all denoms
                 foreach (var game in SelectedGame.GameConfigurations)
                 {
-                    game.Restricted = false;
+                    game.RestrictedToReadOnly = false;
                     game.Enabled = false;
                 }
             }
@@ -858,16 +894,16 @@
             var editableConfigsCountByDenom = new Dictionary<long, long>();
             if (_editableGameConfigByGameTypeMapping.ContainsKey(gameType))
             {
-                var configList = _editableGameConfigByGameTypeMapping[gameType].Where(gc => gc.Enabled).ToList();
-                foreach (var config in configList)
+                var baseDenomList = _editableGameConfigByGameTypeMapping[gameType].Where(gc => gc.Enabled).ToList();
+                foreach (var baseDenom in baseDenomList.Select(c => c.BaseDenom))
                 {
-                    if (editableConfigsCountByDenom.ContainsKey(config.BaseDenom))
+                    if (editableConfigsCountByDenom.ContainsKey(baseDenom))
                     {
-                        editableConfigsCountByDenom[config.BaseDenom]++;
+                        editableConfigsCountByDenom[baseDenom]++;
                     }
                     else
                     {
-                        editableConfigsCountByDenom.Add(config.BaseDenom, 1);
+                        editableConfigsCountByDenom.Add(baseDenom, 1);
                     }
                 }
             }
@@ -888,15 +924,15 @@
                     .Where(gc => gc.Enabled)
                     .ToList();
 
-                foreach (var config in configList)
+                foreach (var baseDenom in configList.Select(c => c.BaseDenom))
                 {
-                    if (editableConfigsCountByDenom.ContainsKey(config.BaseDenom))
+                    if (editableConfigsCountByDenom.ContainsKey(baseDenom))
                     {
-                        editableConfigsCountByDenom[config.BaseDenom]++;
+                        editableConfigsCountByDenom[baseDenom]++;
                     }
                     else
                     {
-                        editableConfigsCountByDenom.Add(config.BaseDenom, 1);
+                        editableConfigsCountByDenom.Add(baseDenom, 1);
                     }
                 }
             }
@@ -1007,7 +1043,7 @@
             // Reset the original selected restriction if the restriction has changed
             if (_originalSelectedRestriction != null && !Equals(_originalSelectedRestriction, SelectedRestriction))
             {
-                foreach (var mapping in _originalSelectedRestriction.Game.Mapping)
+                foreach (var mapping in _originalSelectedRestriction.RestrictionDetails.Mapping)
                 {
                     var game = _gameProvider.GetGames().FirstOrDefault(g => g.VariationId == mapping.VariationId);
 
@@ -1019,11 +1055,16 @@
             }
 
             var updatedLevels = new List<IViewableProgressiveLevel>();
-            foreach (var game in _editableGames.Where(e => e.Value.HasChanges()))
-            {
-                ResetGameStorage(game.Value);
 
-                foreach (var id in game.Value.GameConfigurations
+            var changedGames = _editableGames
+                .Where(e => e.Value.HasChanges())
+                .Select(pair => pair.Value);
+
+            foreach (var game in changedGames)
+            {
+                ResetGameStorage(game);
+
+                foreach (var id in game.GameConfigurations
                     .SelectMany(c => c.AvailableGames.Select(g => g.Id))
                     .Distinct())
                 {
@@ -1031,7 +1072,7 @@
                     _gameProvider.SetActiveDenominations(id, Enumerable.Empty<IDenomination>());
                 }
 
-                var updates = game.Value.GameConfigurations
+                var updates = game.GameConfigurations
                     .Where(c => c.Game != null)
                     .Select(gameConfig => (gameId: gameConfig.Game.Id, config: gameConfig))
                     .GroupBy(x => x.gameId, (id, group) => (id, group.Select(x => x.config)));
@@ -1042,7 +1083,7 @@
 
                 if (SelectedRestriction != null)
                 {
-                    _gameConfiguration.Apply(game.Value.ThemeId, SelectedRestriction);
+                    _gameConfiguration.Apply(game.ThemeId, SelectedRestriction);
                 }
             }
 
@@ -1237,15 +1278,12 @@
                         }
                     }
                 }
-                else if (config.Game != null)
+                else if (config.Game != null &&
+                         _gameTypeToActiveDenomMapping.ContainsKey(config.Game.GameType) &&
+                         !_gameTypeToActiveDenomMapping[config.Game.GameType].Contains(config.BaseDenom) &&
+                         _gameTypeToActiveDenomMapping[config.Game.GameType].Count > ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
                 {
-                    if (_gameTypeToActiveDenomMapping.ContainsKey(config.Game.GameType) &&
-                        !_gameTypeToActiveDenomMapping[config.Game.GameType].Contains(config.BaseDenom) &&
-                        _gameTypeToActiveDenomMapping[config.Game.GameType].Count >
-                        ApplicationConstants.NumSelectableDenomsPerGameTypeInLobby)
-                    {
-                        config.MaxDenomEntriesExceeded = true;
-                    }
+                    config.MaxDenomEntriesExceeded = true;
                 }
             }
 
@@ -1372,9 +1410,14 @@
             LetItRideHeaderText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LetItRide);
 
             ApplyGameOptionsEnabled();
-            RaisePropertyChanged(nameof(GambleHeaderText), nameof(GambleOptionVisible),
-                nameof(LetItRideHeaderText), nameof(LetItRideOptionVisible),
-                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected), nameof(IsPokerGameSelected));
+            RaisePropertyChanged(
+                nameof(GambleHeaderText),
+                nameof(GambleOptionVisible),
+                nameof(LetItRideHeaderText),
+                nameof(LetItRideOptionVisible),
+                nameof(OptionColumnVisible),
+                nameof(IsRouletteGameSelected),
+                nameof(IsPokerGameSelected));
         }
 
         private void ApplyGameOptionsEnabled()
@@ -1392,7 +1435,6 @@
 
         private void CalculateTopAward()
         {
-            // TODO Recalculate after certain changes?
             if (!Games.Any())
             {
                 TopAwardValue = 0;
@@ -1716,12 +1758,11 @@
         {
             if (_editableGames.Any())
             {
-                foreach (var game in _editableGames)
+                foreach (var game in _editableGames.Select(pair => pair.Value))
                 {
-                    game.Value.PropertyChanged -= OnSubPropertyChanged;
-                    game.Value.Dispose();
+                    game.PropertyChanged -= OnSubPropertyChanged;
+                    game.Dispose();
                 }
-
                 _editableGames.Clear();
             }
 
@@ -1842,16 +1883,6 @@
 
             public string ThemeName { get; }
 
-            public static bool operator ==(GamesGrouping left, GamesGrouping right)
-            {
-                return Equals(left, right);
-            }
-
-            public static bool operator !=(GamesGrouping left, GamesGrouping right)
-            {
-                return !Equals(left, right);
-            }
-
             public override int GetHashCode()
             {
                 unchecked
@@ -1882,3 +1913,4 @@
         }
     }
 }
+

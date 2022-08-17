@@ -66,9 +66,9 @@
             AllFiltersSelectedCommand = new RelayCommand(() => AllFiltersSelected());
             FilterSelectedCommand = new RelayCommand(() => FilterSelected());
 
-            FilterMenuEnabled = false;
+            _filterMenuEnabled = false;
             _eventLogAdapters = GetLogAdapters();
-            EventFilterCollection = CreateFilters();
+            _eventFilterCollection = CreateFilters();
         }
 
         public ICommand ShowAdditionalInfoCommand { get; }

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Converters
+namespace Aristocrat.Monaco.Gaming.UI.Converters
 {
     using System;
     using System.Globalization;
@@ -12,28 +12,31 @@
         private const double NormalScreenHeight = 1080;
 
         /// <summary>
-        ///     Covert multiple parameters to form the font size
+        ///     Convert multiple parameters to form the font size
         /// </summary>
-        /// <param name="values">the bool values to convert</param>
+        /// <param name="values">the values to convert</param>
         /// <param name="targetType">not used</param>
         /// <param name="parameter">also not used</param>
         /// <param name="culture">more not used</param>
         /// <returns>a value for the font size</returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var screenHeight = (double)values[0]; // GameControlHeight
-            var extraLargeIcons = values[1] is bool && (bool)values[1]; // IsExtraLargeGameIconTabActive
+            // values[0] -> GameControlHeight
+            // values[1] -> IsExtraLargeGameIconTabActive
+            if (values is not null &&
+                values.Length is 2 &&
+                values[0] is double screenHeight &&
+                values[1] is bool extraLargeIcons)
+            {
+                if (extraLargeIcons)
+                {
+                    return ExtraLargeGameIconNormalFontSize;
+                }
 
-            if(extraLargeIcons)
-            {
-                return ExtraLargeGameIconNormalFontSize;
+                return screenHeight <= NormalScreenHeight ? NormalFontSize : LargeFontSize;
             }
-            else
-            {
-                return screenHeight <= NormalScreenHeight 
-                    ? NormalFontSize
-                    : LargeFontSize;
-            }
+
+            return NormalFontSize;
         }
 
         /// <summary>

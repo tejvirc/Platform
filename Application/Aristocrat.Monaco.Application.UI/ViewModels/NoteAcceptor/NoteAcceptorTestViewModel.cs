@@ -3,6 +3,8 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Globalization;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Contracts.Extensions;
     using Contracts.Localization;
     using Hardware.Contracts.NoteAcceptor;
@@ -115,6 +117,13 @@
                     0,
                     $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}"));
 
+            Task.Run(ReturnWithDelay);
+        }
+
+        private void ReturnWithDelay()
+        {
+            Thread.Sleep(2000);
+
             _noteAcceptor.Return();
         }
 
@@ -133,7 +142,7 @@
                     0,
                     $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}"));
 
-            _noteAcceptor.Return();
+            Task.Run(ReturnWithDelay);
         }
 
         private void SetEnableReason()

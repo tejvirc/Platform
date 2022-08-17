@@ -6,9 +6,12 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Net;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows;
+    using Accounting.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using CefSharp;
@@ -16,11 +19,13 @@
     using Common.Events;
     using Common.GameOverlay;
     using Common.Storage.Model;
+    using Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Events;
     using Kernel;
     using Localization.Properties;
     using log4net;
+    using Models;
     using Monaco.Common;
     using MVVM.Model;
     using OverlayServer;
@@ -29,9 +34,12 @@
     using Protocol.Common.Storage.Entity;
     using Services;
     using BingoPattern = Common.GameOverlay.BingoPattern;
+    using PresentationOverrideTypes = Gaming.Contracts.PresentationOverrideTypes;
 
     public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
     {
+        private const string CloseEvent = "Close";
+
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
         private readonly IDispatcher _dispatcher;
@@ -43,7 +51,9 @@
         private readonly IPlayerBank _playerBank;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly Stopwatch _stopwatch = new();
-        private readonly ConcurrentDictionary<PresentationOverrideTypes, (string, string)> _configuredOverrideMessageFormats = new();
+        private readonly ConcurrentDictionary<PresentationOverrideTypes, BingoDisplayConfigurationPresentationOverrideMessageFormat> _configuredOverrideMessageFormats = new();
+        private readonly BingoWindow _targetWindow;
+
         private BingoCard _lastBingoCard;
         private IReadOnlyList<BingoNumber> _lastBallCall = new List<BingoNumber>();
         private IReadOnlyList<BingoPattern> _bingoPatterns = new List<BingoPattern>();
@@ -52,12 +62,19 @@
         private IReadOnlyList<BingoCardNumber> _bingoCardNumbers = new List<BingoCardNumber>();
         private BingoDisplayConfigurationBingoWindowSettings _currentBingoSettings;
         private bool _multipleSpins;
-        private bool _previouslyVisible;
-
+        private double _height;
+        private double _width;
         private bool _disposed;
-        private string _address;
-        private bool _visible;
-        private IWebBrowser _webBrowser;
+        
+        private Thickness _helpBoxMargin;
+        private bool _isHelpLoading;
+        private bool _isHelpVisible;
+        private bool _isInfoVisible;
+        private string _bingoHelpAddress;
+        private IWebBrowser _bingoHelpWebBrowser;
+        private string _bingoInfoAddress;
+        private IWebBrowser _bingoInfoWebBrowser;
+        private string _standaloneCreditMeterFormat;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -68,7 +85,8 @@
             IGameProvider gameProvider,
             IServer overlayServer,
             IPlayerBank playerBank,
-            IUnitOfWorkFactory unitOfWorkFactory)
+            IUnitOfWorkFactory unitOfWorkFactory,
+            BingoWindow targetWindow)
         {
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
@@ -79,11 +97,14 @@
             _overlayServer = overlayServer ?? throw new ArgumentNullException(nameof(overlayServer));
             _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
+            _targetWindow = targetWindow;
+
             _overlayServer.ServerStarted += HandleServerStarted;
             _overlayServer.AttractCompleted += AttractCompleted;
             _overlayServer.ClientConnected += OverlayClientConnected;
             _overlayServer.ClientDisconnected += OverlayClientDisconnected;
 
+            // Bingo Info Events
             _eventBus.Subscribe<GameConnectedEvent>(this, (_, _) => HandleGameLoaded());
             _eventBus.Subscribe<GameProcessExitedEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameBallCallEvent>(this, Handle);
@@ -111,32 +132,88 @@
             _eventBus.Subscribe<PlayersFoundEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<GamePlayDisabledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
-            _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, Handle);
             _eventBus.Subscribe<ClearBingoDaubsEvent>(this, Handle);
+            _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, (_, _) => HandleBingoDisplayConfigurationChanged());
+
+            // Bingo Help Events
+            _eventBus.Subscribe<HostConnectedEvent>(this, Handle);
+            _eventBus.Subscribe<GameLoadedEvent>(this, _ => SetHelpVisibility(false));
+            _eventBus.Subscribe<GameExitedNormalEvent>(this, _ => SetHelpVisibility(false));
+            _eventBus.Subscribe<GameFatalErrorEvent>(this, _ => SetHelpVisibility(false));
+            _eventBus.Subscribe<BingoDisplayHelpAppearanceChangedEvent>(this, _ => UpdateAppearance());
+            _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, e => SetHelpVisibility(e.Visible));
+            _eventBus.Subscribe<BankBalanceChangedEvent>(this, Handle);
         }
 
-        public bool Visible
+        public string BingoInfoAddress
         {
-            get => _visible;
-            set => SetProperty(ref _visible, value);
+            get => _bingoInfoAddress;
+            set => SetProperty(ref _bingoInfoAddress, value);
         }
 
-        public string Address
+        public string BingoHelpAddress
         {
-            get => _address;
-            set => SetProperty(ref _address, value);
+            get => _bingoHelpAddress;
+            set => SetProperty(ref _bingoHelpAddress, value);
         }
 
-        public IWebBrowser WebBrowser
+        public IWebBrowser BingoHelpWebBrowser
         {
-            get => _webBrowser;
-            set => SetProperty(ref _webBrowser, value);
+            get => _bingoHelpWebBrowser;
+            set => SetProperty(ref _bingoHelpWebBrowser, value);
+        }
+
+        public IWebBrowser BingoInfoWebBrowser
+        {
+            get => _bingoInfoWebBrowser;
+            set => SetProperty(ref _bingoInfoWebBrowser, value);
+        }
+
+        public double Height
+        {
+            get => _height;
+            set => SetProperty(ref _height, value);
+        }
+
+        public Thickness HelpBoxMargin
+        {
+            get => _helpBoxMargin;
+            private set => SetProperty(ref _helpBoxMargin, value);
+        }
+
+        public bool IsHelpLoading
+        {
+            get => _isHelpLoading;
+            set => SetProperty(ref _isHelpLoading, value);
+        }
+
+        public bool IsHelpVisible
+        {
+            get => _isHelpVisible;
+            set => SetProperty(ref _isHelpVisible, value);
+        }
+
+        public bool IsInfoVisible
+        {
+            get => _isInfoVisible;
+            set => SetProperty(ref _isInfoVisible, value);
+        }
+
+        public double Width
+        {
+            get => _width;
+            set => SetProperty(ref _width, value);
         }
 
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void LoadOverlay()
+        {
+            UpdateAppearance();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -161,81 +238,187 @@
 
         private void AttractCompleted(object sender, EventArgs e)
         {
-            if (Address is not null && !Address.Contains(OverlayType.Attract.GetOverlayRoute()))
+            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
             {
                 return;
             }
 
-            HandleServerStarted(this, null);
+            NavigateToOverlay(OverlayType.BingoOverlay);
         }
 
-        private void Handle(GameRequestedPlatformHelpEvent evt)
+        private async Task CancelWaitingForPlayers(CancellationToken token)
         {
-            if (evt.Visible)
+            await UpdateOverlay(() => new BingoLiveData { CancelWaitingForGame = true }, token);
+        }
+
+        private IEnumerable<BingoCardNumber> ConvertBingoCardNumberArrayToList(BingoNumber[,] numbers)
+        {
+            var position = 0;
+            for (var row = 0; row < BingoConstants.BingoCardDimension; row++)
             {
-                var currentVisibility = Visible;
-                SetVisibility(false);
-                _previouslyVisible = currentVisibility;
+                for (var col = 0; col < BingoConstants.BingoCardDimension; col++)
+                {
+                    // check for free space position and override symbol
+                    var number = _currentBingoSettings?.Allow0PaddingBingoCard ?? false ?
+                            numbers[row, col].Number.ToString("D2") : numbers[row, col].Number.ToString();
+                    if (position == BingoConstants.FreeSpaceIndex)
+                    {
+                        number = _currentBingoSettings?.FreeSpaceCharacter ?? BingoConstants.DefaultFreeSpaceCharacter;
+                    }
+
+                    position++;
+                    yield return new BingoCardNumber(position, number, BingoCardNumber.DaubState.NoDaub);
+                }
             }
-            else
+        }
+
+        private IEnumerable<BallCallNumber> ConvertToBallCallNumber(IEnumerable<BingoNumber> numbers)
+        {
+            var index = 0;
+            var allow0PaddingBallCall = _currentBingoSettings?.Allow0PaddingBallCall ?? false;
+            foreach (var ball in numbers)
             {
-                SetVisibility(_previouslyVisible);
+                yield return new BallCallNumber(
+                    ++index,
+                    allow0PaddingBallCall ? ball.Number.ToString("D2") : ball.Number.ToString(),
+                    ball.State == BingoNumberState.BallCallInitial
+                        ? BallCallNumber.DropState.Initial
+                        : BallCallNumber.DropState.LateBall);
             }
+        }
+
+        private void DaubBingoCard(int daubs)
+        {
+            // daub bingo card numbers based on daub pattern encoded in an integer.
+            var daubed = new BitArray(new[] { daubs });
+            for (var i = 0; i < _bingoCardNumbers.Count; i++)
+            {
+                _bingoCardNumbers[i].State =
+                    daubed[i] ? BingoCardNumber.DaubState.NonPatternDaub : BingoCardNumber.DaubState.NoDaub;
+            }
+        }
+
+        public void ExitHelp(object sender, JavascriptMessageReceivedEventArgs args)
+        {
+            if (args.Message is not CloseEvent)
+            {
+                return;
+            }
+
+            _eventBus.Publish(new ExitHelpEvent());
+        }
+
+        private IEnumerable<int> GetBallCallPatternDaubs(int pattern)
+        {
+            var binary = Convert.ToString(pattern, 2).PadLeft(32, '0');
+            Logger.Debug($"daub pattern is 0b{binary}");
+            var result = new List<int>();
+            var daubed = new BitArray(new[] { pattern });
+            for (var i = 0; i < _bingoCardNumbers.Count; i++)
+            {
+                if (!daubed[i])
+                {
+                    continue;
+                }
+
+                var number = _bingoCardNumbers[i].Value;
+                var position = _ballCallNumbers.FirstOrDefault(x => x.Value == number)?.Position;
+                if (position.HasValue)
+                {
+                    Logger.Debug($"BallCallPatternDaubs adding position {position.Value} for number {number}");
+                    result.Add(position.Value);
+                }
+                else
+                {
+                    Logger.Debug("position is unknown");
+                }
+            }
+
+            return result;
+        }
+
+        private IEnumerable<OverlayServer.Data.Bingo.BingoPattern> GetBingoPatternForOverlay(IEnumerable<BingoPattern> patterns)
+        {
+            return patterns.Select(x =>
+                    new OverlayServer.Data.Bingo.BingoPattern(x.Name, GetBallCallPatternDaubs(x.BitFlags), GetCardPatternDaubs(x.BitFlags))).ToList();
+        }
+
+        private IEnumerable<int> GetCardPatternDaubs(int pattern)
+        {
+            var binary = Convert.ToString(pattern, 2).PadLeft(32, '0');
+            Logger.Debug($"card daub pattern is 0b{binary}");
+            var result = new List<int>();
+            var daubed = new BitArray(new[] { pattern });
+            for (var i = 0; i < _bingoCardNumbers.Count; i++)
+            {
+                if (!daubed[i])
+                {
+                    continue;
+                }
+
+                Logger.Debug($"CardPatternDaubs adding position {i} for number {_bingoCardNumbers[i].Value}");
+                result.Add(i + 1);
+            }
+
+            return result;
+        }
+
+        private string GetCreditMeterUrl()
+        {
+            var encodedFormattedBalance = WebUtility.UrlEncode(
+                GetFormattedCreditBalance(_standaloneCreditMeterFormat, _playerBank.Balance));
+            var formattedQueryString = string.Format(
+                OverlayType.CreditMeter.GetFormattedQueryParameters(),
+                encodedFormattedBalance);
+
+            var address = new UriBuilder(BingoConstants.BingoOverlayServerUri)
+            {
+                Path = OverlayType.CreditMeter.GetOverlayRoute(),
+                Query = formattedQueryString
+            };
+
+            return address.ToString();
+        }
+
+        private string GetFormattedCreditBalance(string formatString, long amount)
+        {
+            var subUnitDigits = CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
+            var formattedCredits = amount.MillicentsToDollars().ToString($"C{subUnitDigits}", CurrencyExtensions.CurrencyCultureInfo);
+            return string.Format(formatString, formattedCredits);
         }
 
         private void Handle(AttractModeEntered evt)
         {
-            var attractUri =
-                _legacyAttractProvider.GetLegacyAttractUri(_bingoConfigurationProvider.GetAttractSettings());
-            if (attractUri is null)
-            {
-                return;
-            }
-
-            Address = attractUri.ToString();
+            NavigateToOverlay(OverlayType.Attract);
         }
 
         private void Handle(AttractModeExited evt)
         {
-            if (Address is not null && !Address.Contains(OverlayType.Attract.GetOverlayRoute()))
+            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
             {
                 return;
             }
 
-            HandleServerStarted(this, null);
+            NavigateToOverlay(OverlayType.BingoOverlay);
         }
 
-        private async Task HandleGameLoaded()
+        private void Handle(Class2MultipleOutcomeSpinsChangedEvent e)
         {
-            LoadPresentationOverrideMessageFormats();
-            if (!_overlayServer.IsRunning)
+            Logger.Debug($"multiple spins is {e.Triggered}");
+            _multipleSpins = e.Triggered;
+        }
+
+        private void Handle(GameProcessExitedEvent e)
+        {
+            if (BingoInfoAddress is not null && BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
             {
-                var windowName = _bingoConfigurationProvider.CurrentWindow;
-                _currentBingoSettings = _bingoConfigurationProvider.GetSettings(windowName);
-                var attractSettings = _bingoConfigurationProvider.GetAttractSettings();
-
-                var staticData = new BingoStaticData
-                {
-                    AttractScene = attractSettings.OverlayScene,
-                    BallCallTitle = _currentBingoSettings.BallCallTitle,
-                    BingoCardTitle = _currentBingoSettings.CardTitle,
-                    DisclaimerMessages = _currentBingoSettings.DisclaimerText,
-                    GameCssFile = _currentBingoSettings.CssPath,
-                    InitialScene = _currentBingoSettings.InitialScene,
-                    InitialBallCallNumbers = ConvertToBallCallNumber(_lastBallCall).ToList(),
-                    InitialBingoCardNumbers =
-                        _lastBingoCard is null
-                            ? Enumerable.Empty<BingoCardNumber>()
-                            : ConvertBingoCardNumberArrayToList(_lastBingoCard.Numbers).ToList(),
-                    PatternCycleTime = _currentBingoSettings.PatternCyclePeriod
-                };
-
-                var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
-                Logger.Debug("Starting overlay server");
-                await _overlayServer.StartAsync(currentGame.Folder, new Uri(BingoConstants.BingoOverlayServerUri), staticData);
+                return;
             }
 
-            SetVisibility(true);
+            _configuredOverrideMessageFormats.Clear();
+            SetInfoVisibility(false);
+            
+            NavigateToOverlay(OverlayType.BingoOverlay);
         }
 
         private async Task Handle(BingoGameBallCallEvent e, CancellationToken token)
@@ -268,21 +451,6 @@
                     };
                 },
                 token);
-        }
-
-        private IEnumerable<BallCallNumber> ConvertToBallCallNumber(IEnumerable<BingoNumber> numbers)
-        {
-            var index = 0;
-            var allow0PaddingBallCall = _currentBingoSettings?.Allow0PaddingBallCall ?? false;
-            foreach (var ball in numbers)
-            {
-                yield return new BallCallNumber(
-                    ++index,
-                    allow0PaddingBallCall ? ball.Number.ToString("D2") : ball.Number.ToString(),
-                    ball.State == BingoNumberState.BallCallInitial
-                        ? BallCallNumber.DropState.Initial
-                        : BallCallNumber.DropState.LateBall);
-            }
         }
 
         private async Task Handle(BingoGameNewCardEvent card, CancellationToken token)
@@ -379,8 +547,8 @@
 
                 Logger.Debug(
                     $"Name={outcome.Name} daub bits={outcome.BitFlags} win={outcome.WinAmount} gew={outcome.IsGameEndWin}");
-                var daubs = CardPatternDaubs(outcome.BitFlags);
-                var numbers = BallCallPatternDaubs(outcome.BitFlags);
+                var daubs = GetCardPatternDaubs(outcome.BitFlags);
+                var numbers = GetBallCallPatternDaubs(outcome.BitFlags);
                 await _overlayServer.UpdateData(
                     new BingoLiveData
                     {
@@ -402,12 +570,6 @@
                 _cyclingPatterns = new List<BingoPattern>(_cyclingPatterns.Concat(_bingoPatterns));
                 _bingoPatterns = new List<BingoPattern>();
             }
-        }
-
-        private void Handle(Class2MultipleOutcomeSpinsChangedEvent e)
-        {
-            Logger.Debug($"multiple spins is {e.Triggered}");
-            _multipleSpins = e.Triggered;
         }
 
         private async Task Handle(WaitingForPlayersEvent e, CancellationToken token)
@@ -450,16 +612,6 @@
             SaveDaubState(false);
         }
 
-        private void SaveDaubState(bool state)
-        {
-            using var unitOfWork = _unitOfWorkFactory.Create();
-            var repository = unitOfWork.Repository<BingoDaubsModel>();
-            var daubsModel = repository.Queryable().SingleOrDefault() ?? new BingoDaubsModel();
-            daubsModel.CardIsDaubed = state;
-            repository.AddOrUpdate(daubsModel);
-            unitOfWork.SaveChanges();
-        }
-
         private async Task Handle(PresentationOverrideDataChangedEvent e, CancellationToken token)
         {
             var data = e.PresentationOverrideData;
@@ -475,36 +627,73 @@
                     return;
                 }
 
-                var messageFormat = _configuredOverrideMessageFormats[overrideType];
-                var message = string.Format(messageFormat.Item1, data.First().FormattedAmount ?? string.Empty);
-                var subUnitDigits = CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
-                var meterMessage = string.Format(
-                    messageFormat.Item2,
-                    _playerBank.Balance.MillicentsToDollars().ToString(
-                        $"C{subUnitDigits}",
-                        CurrencyExtensions.CurrencyCultureInfo));
+                var configuration = _configuredOverrideMessageFormats[overrideType];
+                var message = string.Format(configuration.MessageFormat, data.First().FormattedAmount ?? string.Empty);
+                var meterMessage = GetFormattedCreditBalance(configuration.MeterFormat, _playerBank.Balance);
 
-                await UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, MeterValue = meterMessage }, token);
+                await UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, DynamicMessageScene = configuration.MessageScene, MeterValue = meterMessage }, token);
             }
         }
 
-        private async Task UpdateOverlay(Func<BingoLiveData> updaterFunction, CancellationToken token = default)
+        private void Handle(HostConnectedEvent e)
         {
-            var updates = updaterFunction();
-            await _overlayServer.UpdateData(updates, token);
+            NavigateToHelp();
         }
 
-        private void Handle(GameProcessExitedEvent e)
+        private void Handle(BankBalanceChangedEvent e)
         {
-            if (Address is not null && !Address.Contains(OverlayType.Attract.GetOverlayRoute()))
+            if (IsHelpVisible)
+            {
+                NavigateToOverlay(OverlayType.CreditMeter);
+            }
+        }
+
+        private async Task HandleBingoDisplayConfigurationChanged()
+        {
+            if (!_overlayServer.IsRunning)
             {
                 return;
             }
 
-            _configuredOverrideMessageFormats.Clear();
-            SetVisibility(false);
+            Logger.Debug("Restarting the bingo overlay server as the settings have changed");
+            UpdateAppearance();
+            await _overlayServer.StopAsync();
+            await HandleGameLoaded();
+        }
 
-            HandleServerStarted(this, null);
+        private async Task HandleGameLoaded()
+        {
+            UpdateAppearance();
+            LoadPresentationOverrideMessageFormats();
+
+            if (!_overlayServer.IsRunning)
+            {
+                var windowName = _bingoConfigurationProvider.CurrentWindow;
+                _currentBingoSettings = _bingoConfigurationProvider.GetSettings(windowName);
+                var attractSettings = _bingoConfigurationProvider.GetAttractSettings();
+
+                var staticData = new BingoStaticData
+                {
+                    AttractScene = attractSettings.OverlayScene,
+                    BallCallTitle = _currentBingoSettings.BallCallTitle,
+                    BingoCardTitle = _currentBingoSettings.CardTitle,
+                    DisclaimerMessages = _currentBingoSettings.DisclaimerText,
+                    GameCssFile = _currentBingoSettings.CssPath,
+                    InitialScene = _currentBingoSettings.InitialScene,
+                    InitialBallCallNumbers = ConvertToBallCallNumber(_lastBallCall).ToList(),
+                    InitialBingoCardNumbers =
+                        _lastBingoCard is null
+                            ? Enumerable.Empty<BingoCardNumber>()
+                            : ConvertBingoCardNumberArrayToList(_lastBingoCard.Numbers).ToList(),
+                    PatternCycleTime = _currentBingoSettings.PatternCyclePeriod
+                };
+
+                var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
+                Logger.Debug("Starting overlay server");
+                await _overlayServer.StartAsync(currentGame.Folder, new Uri(BingoConstants.BingoOverlayServerUri), staticData);
+            }
+
+            SetInfoVisibility(true);
         }
 
         private async Task HandleNoPlayersFound(NoPlayersFoundEvent evt, CancellationToken token)
@@ -512,114 +701,79 @@
             await UpdateOverlay(() => new BingoLiveData { StartNoGameFound = true }, token);
         }
 
-        private async Task CancelWaitingForPlayers(CancellationToken token)
-        {
-            await UpdateOverlay(() => new BingoLiveData { CancelWaitingForGame = true }, token);
-        }
-
-        private IEnumerable<OverlayServer.Data.Bingo.BingoPattern> GetBingoPatternForOverlay(IEnumerable<BingoPattern> patterns)
-        {
-            return patterns.Select(x =>
-                    new OverlayServer.Data.Bingo.BingoPattern(x.Name, BallCallPatternDaubs(x.BitFlags), CardPatternDaubs(x.BitFlags))).ToList();
-        }
-
-        private void DaubBingoCard(int daubs)
-        {
-            // daub bingo card numbers based on daub pattern encoded in an integer.
-            var daubed = new BitArray(new[] { daubs });
-            for (var i = 0; i < _bingoCardNumbers.Count; i++)
-            {
-                _bingoCardNumbers[i].State =
-                    daubed[i] ? BingoCardNumber.DaubState.NonPatternDaub : BingoCardNumber.DaubState.NoDaub;
-            }
-        }
-
-        /// <summary>
-        ///     Gets a list of positions of numbers on the bingo card in a pattern
-        /// </summary>
-        /// <param name="pattern">The pattern</param>
-        /// <returns>a list of positions of the numbers on the card</returns>
-        private IEnumerable<int> CardPatternDaubs(int pattern)
-        {
-            var binary = Convert.ToString(pattern, 2).PadLeft(32, '0');
-            Logger.Debug($"card daub pattern is 0b{binary}");
-            var result = new List<int>();
-            var daubed = new BitArray(new[] { pattern });
-            for (var i = 0; i < _bingoCardNumbers.Count; i++)
-            {
-                if (!daubed[i])
-                {
-                    continue;
-                }
-
-                Logger.Debug($"CardPatternDaubs adding position {i} for number {_bingoCardNumbers[i].Value}");
-                result.Add(i + 1);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        ///     Gets the position of numbers in the ball call to highlight for a pattern
-        /// </summary>
-        /// <param name="pattern">The pattern</param>
-        /// <returns>A list of positions of numbers to highlight</returns>
-        private IEnumerable<int> BallCallPatternDaubs(int pattern)
-        {
-            var binary = Convert.ToString(pattern, 2).PadLeft(32, '0');
-            Logger.Debug($"daub pattern is 0b{binary}");
-            var result = new List<int>();
-            var daubed = new BitArray(new[] { pattern });
-            for (var i = 0; i < _bingoCardNumbers.Count; i++)
-            {
-                if (!daubed[i])
-                {
-                    continue;
-                }
-
-                var number = _bingoCardNumbers[i].Value;
-                var position = _ballCallNumbers.FirstOrDefault(x => x.Value == number)?.Position;
-                if (position.HasValue)
-                {
-                    Logger.Debug($"BallCallPatternDaubs adding position {position.Value} for number {number}");
-                    result.Add(position.Value);
-                }
-                else
-                {
-                    Logger.Debug("position is unknown");
-                }
-            }
-
-            return result;
-        }
-
-        private IEnumerable<BingoCardNumber> ConvertBingoCardNumberArrayToList(BingoNumber[,] numbers)
-        {
-            var position = 0;
-            for (var row = 0; row < BingoConstants.BingoCardDimension; row++)
-            {
-                for (var col = 0; col < BingoConstants.BingoCardDimension; col++)
-                {
-                    // check for free space position and override symbol
-                    var number = _currentBingoSettings?.Allow0PaddingBingoCard ?? false ?
-                            numbers[row, col].Number.ToString("D2") : numbers[row, col].Number.ToString();
-                    if (position == BingoConstants.FreeSpaceIndex)
-                    {
-                        number = _currentBingoSettings?.FreeSpaceCharacter ?? BingoConstants.DefaultFreeSpaceCharacter;
-                    }
-
-                    position++;
-                    yield return new BingoCardNumber(position, number, BingoCardNumber.DaubState.NoDaub);
-                }
-            }
-        }
-
         private void HandleServerStarted(object sender, EventArgs e)
         {
-            Address = new UriBuilder(BingoConstants.BingoOverlayServerUri)
+            NavigateToOverlay(OverlayType.BingoOverlay);
+        }
+
+        private bool IsNewBallCall(IReadOnlyCollection<BingoNumber> incomingBallCall)
+        {
+            return _lastBallCall.Count > incomingBallCall.Count ||
+                !_lastBallCall.SequenceEqual(incomingBallCall.Take(_lastBallCall.Count));
+        }
+
+        private void LoadPresentationOverrideMessageFormats()
+        {
+            var configurations = _bingoConfigurationProvider.GetPresentationOverrideMessageFormats();
+            if (configurations == null)
             {
-                Path = OverlayType.BingoOverlay.GetOverlayRoute()
-            }.ToString();
+                return;
+            }
+
+            foreach (var configuration in configurations.Where(x => !string.IsNullOrEmpty(x.MessageFormat)))
+            {
+                _configuredOverrideMessageFormats.TryAdd(
+                    (PresentationOverrideTypes)configuration.OverrideType,
+                    new BingoDisplayConfigurationPresentationOverrideMessageFormat
+                    {
+                        MessageFormat = configuration.MessageFormat,
+                        MeterFormat = configuration.MeterFormat ?? string.Empty,
+                        MessageScene = configuration.MessageScene ?? string.Empty
+                    });
+            }
+        }
+
+        private void NavigateToHelp()
+        {
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+            if (BingoHelpAddress != helpAddress)
+            {
+                IsHelpLoading = true;
+                _dispatcher.ExecuteOnUIThread(() => {
+                    BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+                });
+            }
+        }
+
+        private void NavigateToOverlay(OverlayType overlayType)
+        {
+            switch (overlayType)
+            {
+                case OverlayType.Attract:
+                    if (BingoInfoAddress is not null && BingoInfoAddress.Contains(OverlayType.CreditMeter.GetOverlayRoute()))
+                    {
+                        return;
+                    }
+
+                    var attractUri =
+                        _legacyAttractProvider.GetLegacyAttractUri(_bingoConfigurationProvider.GetAttractSettings());
+                    if (attractUri is null)
+                    {
+                        return;
+                    }
+
+                    BingoInfoAddress = attractUri.ToString();
+                    return;
+                case OverlayType.BingoOverlay:
+                    BingoInfoAddress = new UriBuilder(BingoConstants.BingoOverlayServerUri)
+                    {
+                        Path = OverlayType.BingoOverlay.GetOverlayRoute()
+                    }.ToString();
+                    return;
+                case OverlayType.CreditMeter:
+                    BingoInfoAddress = GetCreditMeterUrl();
+                    return;
+            }
         }
 
         private void OverlayClientConnected(object sender, OverlayType overlayType)
@@ -642,24 +796,24 @@
         private void OverlayClientDisconnected(object sender, OverlayType overlayType)
         {
             Logger.Debug($"Overlay client disconnected: {overlayType}");
-            if (Address is not null && !Address.Contains(overlayType.GetOverlayRoute()))
+            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(overlayType.GetOverlayRoute()))
             {
                 return;
             }
 
-            _dispatcher.Invoke(ReloadPage);
+            _dispatcher.Invoke(ReloadInfoPage);
         }
 
-        private void ReloadPage()
+        private void ReloadInfoPage()
         {
-            if (!Visible)
+            if (!IsInfoVisible)
             {
                 return;
             }
 
             try
             {
-                WebBrowser?.Reload();
+                BingoInfoWebBrowser?.Reload();
             }
             catch (Exception ex)
             {
@@ -668,33 +822,60 @@
             }
         }
 
-        private void SetVisibility(bool visible)
+        private void SaveDaubState(bool state)
         {
-            _dispatcher.ExecuteOnUIThread(() => Visible = visible);
-            _previouslyVisible = visible;
+            using var unitOfWork = _unitOfWorkFactory.Create();
+            var repository = unitOfWork.Repository<BingoDaubsModel>();
+            var daubsModel = repository.Queryable().SingleOrDefault() ?? new BingoDaubsModel();
+            daubsModel.CardIsDaubed = state;
+            repository.AddOrUpdate(daubsModel);
+            unitOfWork.SaveChanges();
         }
 
-        private bool IsNewBallCall(IReadOnlyCollection<BingoNumber> incomingBallCall)
+        private void SetHelpVisibility(bool visible)
         {
-            return _lastBallCall.Count > incomingBallCall.Count ||
-                !_lastBallCall.SequenceEqual(incomingBallCall.Take(_lastBallCall.Count));
+            NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
+
+            _dispatcher.ExecuteOnUIThread(
+                () =>
+                {
+                    if (visible)
+                    {
+                        NavigateToHelp();
+                    }
+
+                    IsHelpVisible = visible;
+                });
         }
 
-        private void LoadPresentationOverrideMessageFormats()
+        private void SetInfoVisibility(bool visible)
         {
-            var messageFormats = _bingoConfigurationProvider.GetPresentationOverrideMessageFormats();
-            if (messageFormats == null)
-            {
-                return;
-            }
+            _dispatcher.ExecuteOnUIThread(() => IsInfoVisible = visible);
+        }
 
-            foreach (var messageFormat in messageFormats.Where(
-                         messageFormat => !string.IsNullOrEmpty(messageFormat.MessageFormat)))
-            {
-                _configuredOverrideMessageFormats.TryAdd(
-                    (PresentationOverrideTypes)messageFormat.OverrideType,
-                    (messageFormat.MessageFormat, messageFormat.MeterFormat ?? string.Empty));
-            }
+        public void UpdateAppearance()
+        {
+            Window window = _bingoConfigurationProvider.GetWindow(_targetWindow);
+            var helpAppearance = _bingoConfigurationProvider.GetHelpAppearance();
+            _standaloneCreditMeterFormat = helpAppearance.CreditMeterFormat ?? string.Empty;
+
+            _dispatcher.ExecuteOnUIThread(
+                () =>
+                {
+                    Width = window.Width;
+                    Height = window.Height;
+                    HelpBoxMargin = new Thickness(
+                        helpAppearance.HelpBox.Left * window.Width,
+                        helpAppearance.HelpBox.Top * window.Height,
+                        helpAppearance.HelpBox.Right * window.Width,
+                        helpAppearance.HelpBox.Bottom * window.Height);
+                });
+        }
+
+        private async Task UpdateOverlay(Func<BingoLiveData> updaterFunction, CancellationToken token = default)
+        {
+            var updates = updaterFunction();
+            await _overlayServer.UpdateData(updates, token);
         }
     }
 }

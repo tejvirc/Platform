@@ -131,7 +131,7 @@
 
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();
-            ViewModel.CustomEventViewChangedEvent += ViewModelOnCustomEventViewChangedEvent;
+            ViewModel.CustomEventViewChangedEvent += ViewModel_OnCustomEventViewChangedEvent;
             ViewModel.PropertyChanged += ViewModel_OnPropertyChanged;
 
             if (ViewModel.Config.ResponsibleGamingTimeLimitEnabled)
@@ -410,7 +410,7 @@
         private static void AddOverlayBindings(OverlayWindow view, LobbyViewModel vm)
         {
             WpfUtil.Bind(view, OverlayWindow.ReplayNavigationBarHeightProperty, vm, nameof(vm.ReplayNavigationBarHeight), BindingMode.OneWayToSource);
-            WpfUtil.Bind(view, OverlayWindow.IsDialogFadingOutProperty, vm.MessageOverlayDisplay.MessageOverlayData, nameof(vm.MessageOverlayDisplay.MessageOverlayData.IsDialogFadingOut), BindingMode.OneWayToSource);
+            WpfUtil.Bind(view, OverlayWindow.IsDialogFadingOutProperty, vm.MessageOverlayDisplayViewModel.MessageOverlayData, nameof(vm.MessageOverlayDisplayViewModel.MessageOverlayData.IsDialogFadingOut), BindingMode.OneWayToSource);
         }
 
         /// <summary>
@@ -810,21 +810,21 @@
             WindowTools.AssignWindowToPrimaryScreen(sender as Window, isFullscreen);
         }
 
-        private void ViewModelOnCustomEventViewChangedEvent(ViewInjectionEvent ev)
+        private void ViewModel_OnCustomEventViewChangedEvent(object sender, ViewInjectionEventArgs e)
         {
-            if (!(ev.Element is UIElement element))
+            if (e.Element is not UIElement element)
             {
-                Logger.Error($"element {ev.Element?.GetType()} passed cannot be cast as UIElement");
+                Logger.Error($"element {e.Element?.GetType()} passed cannot be cast as UIElement");
                 return;
             }
 
-            if (ev.Action == ViewInjectionEvent.ViewAction.Add)
+            if (e.Action == ViewAction.Add)
             {
-                _customOverlays[ev.DisplayRole].entryAction(element);
+                _customOverlays[e.DisplayRole].entryAction(element);
             }
             else
             {
-                _customOverlays[ev.DisplayRole].exitAction(element);
+                _customOverlays[e.DisplayRole].exitAction(element);
             }
 
         }
@@ -833,7 +833,7 @@
         {
             if (e.PropertyName == "IsOverlayWindowVisible")
             {
-                if (ViewModel.MessageOverlayDisplay.IsOverlayWindowVisible)
+                if (ViewModel.MessageOverlayDisplayViewModel.IsOverlayWindowVisible)
                 {
                     ShowOverlayWindow();
                 }
@@ -890,20 +890,6 @@
                 Logger.Debug("Closing TopLayoutOverlayWindow");
                 CloseTopLayoutOverlayWindow();
             }
-
-            /*
-            if (_timeLimitDlg != null)
-            {
-                _timeLimitDlg.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
-                _timeLimitDlg.Close();
-            }
-      
-            if (_msgOverlay != null)
-            {
-                _msgOverlay.IsVisibleChanged -= OnChildWindowIsVisibleChanged;
-                _msgOverlay.Close();
-            }
-            */
 
             Logger.Debug("Closing VirtualButtonDeckView");
             _vbd?.Close();
@@ -964,17 +950,11 @@
             {
                 wnd.Resources = tmpResource;
             }
-
-            // Resources.Culture = new CultureInfo(ViewModel.ActiveLocaleCode);
         }
 
         private void LobbyRoot_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             ViewModel.OnUserInteraction();
-        }
-
-        private void LobbyRoot_OnGotFocus(object sender, RoutedEventArgs e)
-        {
         }
 
         private void LobbyView_OnGotFocus(object sender, RoutedEventArgs e)

@@ -93,8 +93,6 @@
             _properties.Setup(p => p.GetProperty(GamingConstants.Games, null))
                 .Returns(new List<IGameDetail> { gameDetail.Object });
 
-            _process.Setup(p => p.StartProcess(It.IsAny<string>(), It.IsAny<GameProcessArgs>()))
-                .Returns(Success);
             _process.Setup(p => p.StartProcess(It.IsAny<ProcessStartInfo>()))
                 .Returns(Success);
 
@@ -136,7 +134,7 @@
 
             process.EndGameProcess();
 
-            _process.Verify(p => p.EndProcess(It.Is<int>(id => id == ProcessId), true));
+            _process.Verify(p => p.EndProcess(It.Is<int>(id => id == ProcessId), true, true));
         }
 
         private GameProcess CreateTarget(

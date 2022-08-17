@@ -84,7 +84,7 @@
 
             ShowGameRoundInfo = GetConfigSetting(OperatorMenuSetting.PrintGameRoundInfo, false);
             _eventsPerPage = ShowGameRoundInfo ? 1 : 2;
-            GameHistory = new ObservableCollection<GameRoundHistoryItem>();
+            _gameHistory = new ObservableCollection<GameRoundHistoryItem>();
 
             _meterFreeGamesIndependently = PropertiesManager.GetValue(
                 GamingConstants.MeterFreeGamesIndependently,
@@ -128,8 +128,8 @@
             ShowGameEventLogsCommand = new RelayCommand<object>(ShowGameEventLogs);
             ShowGameDetailsCommand = new RelayCommand<object>(ShowGameDetails);
 
-            ReplayPauseActive = PropertiesManager.GetValue(GamingConstants.ReplayPauseActive, true);
-            ReplayPauseEnabled = PropertiesManager.GetValue(GamingConstants.ReplayPauseEnable, true);
+            _replayPauseActive = PropertiesManager.GetValue(GamingConstants.ReplayPauseActive, true);
+            _replayPauseEnabled = PropertiesManager.GetValue(GamingConstants.ReplayPauseEnable, true);
 
             ShowGameDetailsButton = _gameRoundDetailsDisplayProvider != null;
 

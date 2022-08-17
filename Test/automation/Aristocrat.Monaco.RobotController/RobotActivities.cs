@@ -5,6 +5,7 @@
         AuditMenuOperation,
         CashoutOperation,
         BalanceCheck,
+        GameExiting,
         ForceGameExit,
         GameExit,
         LockUpOperation,

@@ -19,6 +19,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Vgt.Client12.Application.OperatorMenu;
     using DisabledEvent = Hardware.Contracts.Reel.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.Reel.EnabledEvent;
 
@@ -36,6 +37,7 @@
         private Mock<IGamePlayState> _gamePlayState;
         private Mock<IEdgeLightingController> _edgeLightingController;
         private Mock<IGameService> _gameService;
+        private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
         private Func<ConnectedEvent, CancellationToken, Task> _connectedAction;
@@ -67,6 +69,7 @@
             _disable = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
             _gameService = new Mock<IGameService>(MockBehavior.Default);
+            _operatorMenuLauncher = new Mock<IOperatorMenuLauncher>(MockBehavior.Default);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _edgeLightingController = new Mock<IEdgeLightingController>(MockBehavior.Default);
 
@@ -84,6 +87,8 @@
 
             _gameService.Setup(x => x.Running).Returns(true);
             _gameService.Setup(x => x.ShutdownBegin()).Verifiable();
+
+            _operatorMenuLauncher.Setup(x => x.IsShowing).Returns(false);
 
             _reelController.Setup(x => x.Enabled).Returns(true);
             _reelController.Setup(x => x.Connected).Returns(false);
@@ -890,7 +895,8 @@
             bool nullGamePlay = false,
             bool nullGameProvider = false,
             bool nullEdgeLightController = false,
-            bool nullGameService = false)
+            bool nullGameService = false,
+            bool nullOperatorMenuLauncher = false)
         {
             return new ReelControllerMonitor(
                 nullEvent ? null : _eventBus.Object,
@@ -899,7 +905,8 @@
                 nullGamePlay ? null : _gamePlayState.Object,
                 nullGameProvider ? null : _gameProvider.Object,
                 nullEdgeLightController ? null : _edgeLightingController.Object,
-                nullGameService ? null : _gameService.Object);
+                nullGameService ? null : _gameService.Object,
+                nullOperatorMenuLauncher ? null : _operatorMenuLauncher.Object);
         }
     }
 }

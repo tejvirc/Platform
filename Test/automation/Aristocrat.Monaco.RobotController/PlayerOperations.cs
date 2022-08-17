@@ -1,15 +1,14 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using System.Linq;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
 
     internal class PlayerOperations : IRobotOperations
     {
-        private readonly Dictionary<Actions,Action<Random>> _actionPlayerFunctions;
+        private readonly Dictionary<Actions, Action<Random>> _actionPlayerFunctions;
         private readonly RobotLogger _logger;
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
@@ -26,6 +25,7 @@
             _eventBus = eventBus;
             _actionPlayerFunctions = new Dictionary<Actions, Action<Random>>();
             _robotController = robotController;
+
             InitializeActionPlayer();
         }
 
@@ -46,20 +46,17 @@
         {
             _logger.Info("PlayerOperations Has Been Initiated!", GetType().Name);
             _actionPlayerTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestPlay();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalAction,
-                               _robotController.Config.Active.IntervalAction);
+                _ => RequestPlay(),
+               null,
+               _robotController.Config.Active.IntervalAction,
+               _robotController.Config.Active.IntervalAction);
         }
 
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _actionPlayerTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _actionPlayerTimer?.Dispose();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -71,14 +68,11 @@
 
             if (disposing)
             {
-                if (_actionPlayerTimer is not null)
-                {
-                    _actionPlayerTimer.Dispose();
-                }
+                _actionPlayerTimer?.Dispose();
                 _actionPlayerTimer = null;
                 _eventBus.UnsubscribeAll(this);
+                _disposed = true;
             }
-            _disposed = true;
         }
 
         private void RequestPlay()
@@ -88,49 +82,46 @@
                 return;
             }
             _logger.Info("RequestPlay Received!", GetType().Name);
-            var Rng = new Random((int)DateTime.Now.Ticks);
-            var action =
-                _robotController.Config.CurrentGameProfile.RobotActions.ElementAt(Rng.Next(_robotController.Config.CurrentGameProfile.RobotActions.Count));
-            _actionPlayerFunctions[action](Rng);
+
+
+            var rng = new Random();
+            var action = _robotController.Config.CurrentGameProfile.RobotActions.GetRandomElement(rng);
+            _actionPlayerFunctions[action](rng);
         }
 
         private bool IsValid()
         {
-            return _sc.IsGame && !_sc.IsGameLoading;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return !isBlocked && _sc.IsGame && !_sc.IsGameLoading;
         }
 
         private void InitializeActionPlayer()
         {
-            _actionPlayerFunctions.Add(Actions.SpinRequest,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.SpinRequest] = _ =>
             {
                 _logger.Info("Spin Request", GetType().Name);
                 _automator.SpinRequest();
-            });
+            };
 
-            _actionPlayerFunctions.Add(Actions.BetLevel,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.BetLevel] = (rng) =>
             {
-                _logger.Info("Changing bet level", GetType().Name);
-                var betIndices = _robotController.Config.GetBetIndices();
-                var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
-                _automator.SetBetLevel(index);
-            });
+                var betLevel = _robotController.Config.GetBetIndices().GetRandomElement(rng);
+                _logger.Info($"Changing bet level: {betLevel}", GetType().Name);
+                _automator.SetBetLevel(betLevel);
+            };
 
-            _actionPlayerFunctions.Add(Actions.BetMax,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.BetMax] = _ =>
             {
                 _logger.Info("Bet Max", GetType().Name);
                 _automator.SetBetMax();
-            });
+            };
 
-            _actionPlayerFunctions.Add(Actions.LineLevel,
-            (Rng) =>
+            _actionPlayerFunctions[Actions.LineLevel] = (rng) =>
             {
                 _logger.Info("Change Line Level", GetType().Name);
-                var lineIndices = _robotController.Config.GetLineIndices();
-                _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
-            });
+                var lineLevel = _robotController.Config.GetLineIndices().GetRandomElement(rng);
+                _automator.SetLineLevel(lineLevel);
+            };
         }
     }
 }

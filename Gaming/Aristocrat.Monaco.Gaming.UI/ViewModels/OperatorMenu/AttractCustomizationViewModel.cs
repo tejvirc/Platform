@@ -24,8 +24,6 @@
         private readonly IGameProvider _gameProvider;
         private readonly IPropertiesManager _propertiesManager;
 
-        private IOperatorMenuLauncher _operatorMenuLauncher;
-
         private List<IAttractInfo> _previousAttractInfo;
         private ObservableCollection<IAttractInfo> _configuredAttractInfo;
 
@@ -63,19 +61,23 @@
 
             RestoreDefaultCommand = new RelayCommand<object>(RestoreDefaultButton_Clicked);
 
-            Init();
+            Init(true);
         }
 
-        private void Init()
+        private void Init(bool skipRaisePropertyChanged = false)
         {
-            SelectedItem = null;
+            _selectedItem = null;
             _configuredAttractChanged = false;
 
             var configuredSequence = _attractProvider.GetAttractSequence().ToList();
             _previousAttractInfo = configuredSequence.Select(o => (IAttractInfo)o.Clone()).ToList();
 
-            ConfiguredAttractInfo = new ObservableCollection<IAttractInfo>(configuredSequence);
-
+            _configuredAttractInfo = new ObservableCollection<IAttractInfo>(configuredSequence);
+            if (!skipRaisePropertyChanged)
+            {
+                RaisePropertyChanged(nameof(ConfiguredAttractInfo));
+            }
+            
             AddAttractItemSelectedHandler();
 
             var slotOptionText = PropertiesManager.GetValue(GamingConstants.OverridenSlotGameTypeText, string.Empty);
@@ -93,7 +95,7 @@
                     : localizedText;
             }
 
-            UpdateGameTypeSelection();
+            UpdateGameTypeSelection(skipRaisePropertyChanged);
         }
 
         public ObservableCollection<IAttractInfo> ConfiguredAttractInfo
@@ -318,7 +320,7 @@
 
         public override bool CanSave => HasChanges();
 
-        private void UpdateGameTypeSelection()
+        private void UpdateGameTypeSelection(bool skipPropertyChanged = false)
         {
             _slotAttractSelected = !ConfiguredAttractInfo.Any(g => g.GameType == GameType.Slot && !g.IsSelected);
 
@@ -332,11 +334,15 @@
             _rouletteAttractSelected =
                 !ConfiguredAttractInfo.Any(g => g.GameType == GameType.Roulette && !g.IsSelected);
 
-            RaisePropertyChanged(nameof(SlotAttractSelected));
-            RaisePropertyChanged(nameof(KenoAttractSelected));
-            RaisePropertyChanged(nameof(PokerAttractSelected));
-            RaisePropertyChanged(nameof(BlackjackAttractSelected));
-            RaisePropertyChanged(nameof(RouletteAttractSelected));
+            if (!skipPropertyChanged)
+            {
+                RaisePropertyChanged(nameof(SlotAttractSelected));
+                RaisePropertyChanged(nameof(KenoAttractSelected));
+                RaisePropertyChanged(nameof(PokerAttractSelected));
+                RaisePropertyChanged(nameof(BlackjackAttractSelected));
+                RaisePropertyChanged(nameof(RouletteAttractSelected));
+            }
+            
         }
 
         private void AttractSelectionChanged(GameType gameType, bool selected)
@@ -459,16 +465,16 @@
 
         protected override void OnLoaded()
         {
-            _operatorMenuLauncher = ServiceManager.GetInstance().TryGetService<IOperatorMenuLauncher>();
-            _operatorMenuLauncher?.PreventExit();
+            var operatorMenuLauncher = ServiceManager.GetInstance().TryGetService<IOperatorMenuLauncher>();
+            operatorMenuLauncher?.PreventExit();
 
             base.OnLoaded();
         }
 
         protected override void OnUnloaded()
         {
-            _operatorMenuLauncher = ServiceManager.GetInstance().TryGetService<IOperatorMenuLauncher>();
-            _operatorMenuLauncher?.AllowExit();
+            var operatorMenuLauncher = ServiceManager.GetInstance().TryGetService<IOperatorMenuLauncher>();
+            operatorMenuLauncher?.AllowExit();
 
             if (_configuredAttractChanged)
             {
@@ -491,7 +497,7 @@
             }
         }
 
-        private class AttractInfoComparer : IEqualityComparer<IAttractInfo>
+        private sealed class AttractInfoComparer : IEqualityComparer<IAttractInfo>
         {
             public bool Equals(IAttractInfo x, IAttractInfo y)
             {

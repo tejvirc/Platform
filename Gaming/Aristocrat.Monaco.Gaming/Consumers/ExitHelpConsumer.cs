@@ -2,22 +2,21 @@
 {
     using System;
     using Commands;
-    using Contracts;
     using Contracts.Events;
     using Runtime.Client;
 
     /// <summary>
-    ///     Handles the GameRequestedPlatformHelpEvent
+    ///     Handles the ExitHelpEvent
     /// </summary>
-    public class HelpExitConsumer : Consumes<ExitHelpEvent>
+    public class ExitHelpConsumer : Consumes<ExitHelpEvent>
     {
         private readonly ICommandHandlerFactory _handlerFactory;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="HelpExitConsumer" /> class.
+        ///     Initializes a new instance of the <see cref="ExitHelpConsumer" /> class.
         /// </summary>
         /// <param name="handlerFactory">An <see cref="ICommandHandlerFactory" /> instance.</param>
-        public HelpExitConsumer(
+        public ExitHelpConsumer(
             ICommandHandlerFactory handlerFactory)
         {
             _handlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
@@ -27,7 +26,7 @@
         public override void Consume(ExitHelpEvent theEvent)
         {
             _handlerFactory.Create<RuntimeRequest>()
-                    .Handle(new RuntimeRequest(RuntimeRequestState.EndPlatformHelp));
+                .Handle(new RuntimeRequest(RuntimeRequestState.EndPlatformHelp));
         }
     }
 }

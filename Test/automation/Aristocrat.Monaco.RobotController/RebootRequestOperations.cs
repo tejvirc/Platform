@@ -4,6 +4,7 @@
     using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Test.Automation;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
 
     internal class RebootRequestOperations : IRobotOperations
@@ -62,9 +63,9 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
+            _eventBus.UnsubscribeAll(this);
             _rebootTimer?.Dispose();
             _softRebootTimer?.Dispose();
-            _eventBus.UnsubscribeAll(this);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -117,7 +118,8 @@
 
         private bool IsRebootValid()
         {
-            return _sc.IsInRecovery && (_sc.IsChooser || _sc.IsGame);
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return !isBlocked && _sc.IsInRecovery && (_sc.IsChooser || _sc.IsGame);
         }
     }
 }

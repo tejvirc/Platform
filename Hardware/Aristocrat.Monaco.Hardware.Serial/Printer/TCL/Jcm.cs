@@ -2,9 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Reflection;
+    using log4net;
 
     public class Jcm : TclProtocol
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string ManufacturerName = "JCM/FutureLogic";
         private const string FutureLogicGen2Tcl = "FutureLogic Gen2 Serial TCL";
         private const string SingaporeGen2Firmware = "GURSNGAA0";
@@ -33,7 +36,7 @@
             int yOrigin = region.y;
             int xSize = region.dx;
             int ySize = region.dy;
-
+            Logger.Debug($"CalculateRegionDimensions: direction is {regionData.Direction}");
             switch (regionData.Direction)
             {
                 case TclProtocolConstants.TclPrintDirection.Right:
@@ -85,6 +88,7 @@
                     break;
             }
 
+            Logger.Debug($"RegionSize returns Origin {xOrigin},{yOrigin}  Size {xSize},{ySize}");
             regionData.Origin = new Point(xOrigin, yOrigin);
             regionData.Size = new Size(xSize, ySize);
         }
@@ -111,7 +115,7 @@
         ///  <inheritdoc />
         protected override int ParseCrcResponse(byte[] response)
         {
-            if (response != null && response.Length == TclProtocolConstants.CrcResponseLength)
+            if (response is { Length: TclProtocolConstants.CrcResponseLength })
             {
                 // Expected response: first 3 bytes are message formatting,
                 // next 2 bytes contain the CRC with the high byte second,
@@ -183,15 +187,10 @@
         {
             if (FutureLogicGen2Tcl == Name)
             {
-                if (FirmwareVersion == SingaporeGen2Firmware) 
-                    return 0; //no need to add extra new lines
+                return FirmwareVersion == SingaporeGen2Firmware ? 0 : Gen2MinimumLinesPerTicket;
+            }
 
-                return Gen2MinimumLinesPerTicket;
-            }
-            else
-            {
-                return Gen5MinimumLinesPerTicket;
-            }
+            return Gen5MinimumLinesPerTicket;
         }
     }
 }

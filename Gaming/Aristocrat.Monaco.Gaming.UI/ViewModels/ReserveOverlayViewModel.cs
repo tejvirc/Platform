@@ -155,7 +155,6 @@
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, evt => CancelButtonPressed());
 
             ResetFields();
-
             SetCountdownText();
 
             var lockupPresent = (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false);

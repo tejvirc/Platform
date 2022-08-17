@@ -47,7 +47,8 @@
         ///     Terminates any running game instance/process.
         /// </summary>
         /// <param name="notifyExited">true if the process exit events should be emitted.</param>
-        void TerminateAny(bool notifyExited);
+        /// <param name="terminateExpected">true if the process exit should be "expected".</param>
+        void TerminateAny(bool notifyExited, bool terminateExpected);
 
         /// <summary>
         ///     Tell game instance to shutdown itself gracefully.

@@ -9,7 +9,7 @@
     public interface ICabinetDetectionService
     {
         /// <summary>
-        ///     Name of the cabinet
+        ///     Type of the cabinet
         /// </summary>
         CabinetType Type { get; }
 
@@ -97,6 +97,11 @@
         ///     Refresh status of all cabinet devices
         /// </summary>
         void RefreshCabinetDeviceStatus();
+
+        /// <summary>
+        ///     Check if the identified cabinet type is the same as the given cabinet type string.
+        /// </summary>
+        bool IsCabinetType(string cabinetType);
 
         /// <summary>
         ///     Check if the VBD is touch device or not.

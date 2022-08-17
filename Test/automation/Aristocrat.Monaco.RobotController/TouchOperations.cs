@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
 
     internal class TouchOperations : IRobotOperations
     {
@@ -16,7 +16,7 @@
         private Timer _actionTouchTimer;
         private bool _disposed;
 
-        public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator,  StateChecker sc, RobotController robotController)
+        public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
             _sc = sc;
             _automator = automator;
@@ -54,8 +54,8 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _actionTouchTimer?.Dispose();
             _eventBus.UnsubscribeAll(this);
+            _actionTouchTimer?.Dispose();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -98,7 +98,8 @@
 
         private bool IsValid()
         {
-            return _sc.IsGame && !_sc.IsGameLoading;
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
+            return !isBlocked && _sc.IsGame && !_sc.IsGameLoading;
         }
 
         private void TouchAnyAuxiliaryVbdAreas(Random Rng)
@@ -166,7 +167,7 @@
 
         private bool CheckDeadZones(List<TouchBoxes> deadZones, int x, int y)
         {
-            foreach (TouchBoxes tb in _robotController.Config.CurrentGameProfile.MainTouchDeadZones)
+            foreach (TouchBoxes tb in deadZones)
             {
                 if (x >= tb.TopLeftX && x <= tb.BottomRightX && y >= tb.TopLeftY && y <= tb.BottomRightY)
                 {

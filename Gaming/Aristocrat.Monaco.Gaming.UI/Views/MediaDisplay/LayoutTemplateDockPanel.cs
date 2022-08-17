@@ -22,7 +22,7 @@
         {
             _browserManager = ServiceManager.GetInstance().GetService<IBrowserProcessManager>();
             ViewModel = new LayoutTemplateViewModel(ScreenType, DisplayType.Scale);
-            ViewModel.BrowserProcessTerminated += (sender, i) => RestartBrowser(i);
+            ViewModel.BrowserProcessTerminated += (sender, e) => RestartBrowser(e.Id);
             Background = Brushes.Black;
             // This is necessary to prevent dragging the window around which happens when Background is Transparent
         }

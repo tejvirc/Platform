@@ -127,17 +127,17 @@
 
         public void Terminate(int processId, bool notifyExited)
         {
-            InternalTerminate(notifyExited, processId);
+            InternalTerminate(notifyExited, true, processId);
         }
 
         public void TerminateAny()
         {
-            TerminateAny(true);
+            TerminateAny(true, true);
         }
 
-        public void TerminateAny(bool notifyExited)
+        public void TerminateAny(bool notifyExited, bool terminateExpected)
         {
-            InternalTerminate(notifyExited);
+            InternalTerminate(notifyExited, terminateExpected);
         }
 
         public void ShutdownBegin()
@@ -198,7 +198,7 @@
             _disposed = true;
         }
 
-        private void InternalTerminate(bool notifyExited, int processId = -1)
+        private void InternalTerminate(bool notifyExited, bool terminateExpected, int processId = -1)
         {
             Running = false;
 
@@ -206,11 +206,11 @@
 
             if (processId == -1)
             {
-                _process.EndGameProcess(notifyExited);
+                _process.EndGameProcess(notifyExited, terminateExpected);
             }
             else if (_process.IsRunning(processId))
             {
-                _process.EndGameProcess(processId, notifyExited);
+                _process.EndGameProcess(processId, notifyExited, terminateExpected);
             }
 
             _processId = 0;
