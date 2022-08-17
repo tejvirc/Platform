@@ -263,7 +263,8 @@
 
         public IDictionary<int, long> GetProgressiveLevel(string packName, bool isRecovering)
         {
-            if (isRecovering && _gameHistory.CurrentLog?.PlayState == PlayState.ProgressivePending)
+            if (isRecovering && _gameHistory.CurrentLog?.PlayState == PlayState.ProgressivePending
+                && _gameHistory.CurrentLog.Outcomes.Any())
             {
                 if (_gameHistory.CurrentLog.Jackpots.Count() == 1)
                 {
