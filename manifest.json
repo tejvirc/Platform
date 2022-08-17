@@ -14566,9 +14566,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23077,6 +23074,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -51498,7 +51498,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Progressives.ProgressiveGameProvider.html",
-          "hash": "YD6vRB3raubt1dDBqXbuHr7uBm0uC5xE63xu4rBh6r4="
+          "hash": "o1Wz4+35qrwgcOtejucz59/HY1tBBy0042Djze1zr7o="
         }
       },
       "is_incremental": false,
