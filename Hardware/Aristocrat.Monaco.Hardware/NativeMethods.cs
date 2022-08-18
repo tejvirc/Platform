@@ -167,7 +167,7 @@ namespace Aristocrat.Monaco.Hardware
         /// <param name="count">The number of entries in the contacts array.</param>
         /// <param name="contacts">The POINTER_TOUCH_INFO to inject.</param>
         /// <returns>true if success.</returns>
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern bool InjectTouchInput(int count, [MarshalAs(UnmanagedType.LPArray), In] PointerTouchInfo[] contacts);
 
         /// <summary>
@@ -591,6 +591,17 @@ namespace Aristocrat.Monaco.Hardware
                 ContactArea.top += deltaY;
                 ContactArea.bottom += deltaY;
             }
+        }
+
+        /// <summary>
+        ///     System error codes
+        ///     See: https://docs.microsoft.com/en-us/windows/win32/debug/system-error-codes
+        /// </summary>
+        public enum SystemErrors
+        {
+            ERROR_NOT_READY = 21,
+            ERROR_INVALID_PARAMETER = 87,
+            ERROR_TIMEOUT = 1460
         }
 
         #endregion

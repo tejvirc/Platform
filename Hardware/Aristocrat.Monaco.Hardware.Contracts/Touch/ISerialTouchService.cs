@@ -67,10 +67,10 @@
         bool PendingCalibration { get; }
 
         /// <summary>
-        ///     Reconnects the serial port controller
+        ///     Initializes touch injection
         /// </summary>
-        /// <param name="calibrating">Indicates whether or not we are calibrating</param>
-        void Reconnect(bool calibrating = false);
+        /// <returns>True on success, otherwise false</returns>
+        bool InitializeTouchInjection();
 
         /// <summary>
         ///     Sends a reset command to the connected serial touch device

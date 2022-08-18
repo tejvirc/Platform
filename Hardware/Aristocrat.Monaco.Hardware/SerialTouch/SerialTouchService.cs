@@ -1,13 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Hardware.SerialTouch
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO.Ports;
+    using System.Linq;
     using System.Management;
     using System.Reflection;
+    using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
+    using System.Threading.Tasks;
+    using System.Timers;
     using System.Windows;
+    using Common;
     using Contracts;
     using Contracts.Cabinet;
     using Contracts.Communicator;
@@ -20,6 +26,7 @@
     using log4net;
     using Stateless;
     using static NativeMethods;
+    using Timer = System.Timers.Timer;
 
     /// <summary>
     ///     SerialTouchService provides interaction with the serial touch device.
@@ -29,51 +36,44 @@
     {
         private const int CheckDisconnectTimeoutMs = 10000;
         private const int MaxCheckDisconnectAttempts = 2;
-
         private const string SerialTouchComPort = "COM3";
         private const int BaudRate = 9600;
         private const int DataBits = 8;
         private const int MaxBufferLength = 256;
         private const int CommunicationTimeoutMs = 1000;
-
+        private const int RequeueInterval = 200;
         private const int CalibrationDelayMs = 2000; // Used to wait between calibration steps
-        private const int DefaultInjectionDelayMs = 5; // Used to throttle between injections for Kortek
         private const int MaxCoordinateRange = 16383; // 14 bits max
-        private const int ValidUpdateRange = 5; // For touch updates, ignore anything within 5 pixels from touch down 
-
         private const int MaxTouchInfo = 1;
         private const int PointerId = 0;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly ISerialPortsService _serialPortsService;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISerialPortController _serialPortController;
-
         private readonly PointerTouchInfo[] _pointerTouchInfo = new PointerTouchInfo[MaxTouchInfo];
-        private readonly byte[] _response = new byte[MaxBufferLength];
         private readonly double _screenHeight;
         private readonly double _screenWidth;
         private readonly StateMachine<SerialTouchState, SerialTouchTrigger> _state;
-        private readonly ReaderWriterLockSlim _stateLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
-        private readonly bool _isLSCabinet;
+        private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
+        private readonly bool _isLsCabinet;
+        private readonly object _touchDataLock = new();
+        private readonly Timer _requeueTimer = new();
+        private readonly CancellationTokenSource _cts = new();
 
-        private bool _gotHeader;
-        private int _dataIndex;
         private bool _touchDown;
-        private bool _injectUpdate;
         private bool _resetForRecovery;
         private int _checkDisconnectAttempts;
         private bool _disposed;
-
-        private int _prevTouchX = 0;
-        private int _prevTouchY = 0;
-        private bool _prevTouchDown = false;
-
-        private int _injectionDelayMs = 0;
-        private bool _skipCalibrationPrompts = false; // Used to skip prompts for auto-calibrating device such as Kortek 130
+        private bool _skipCalibrationPrompts; // Used to skip prompts for auto-calibrating device such as Kortek 130
+        private List<byte> _partialPacket = new();
+        private List<byte> _lastUpdatePacket = new();
+        private int _previousTouchState;
+        private bool _queueTasksCreated;
+        private BlockingCollection<byte[]> _receiveQueue = new();
+        private BlockingCollection<byte[]> _transmitQueue = new();
 
         public SerialTouchService()
             : this(ServiceManager.GetInstance().TryGetService<IEventBus>(),
@@ -102,19 +102,12 @@
             Logger.Debug($"SerialTouchService - _screenWidth {_screenWidth} _screenHeight {_screenHeight}");
 
             _state = CreateStateMachine();
+            _isLsCabinet = _cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs);
 
-            _isLSCabinet = _cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexLs);
-            if (_isLSCabinet)
+            if (_isLsCabinet)
             {
-                Logger.Debug("SerialTouchService - Is LS cabinet");
-                CheckTabletInputServiceStartup();
+                ConfigureComPort();
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc />
@@ -122,6 +115,33 @@
 
         /// <inheritdoc />
         public ICollection<Type> ServiceTypes => new[] { typeof(ISerialTouchService) };
+
+        /// <inheritdoc />
+        public bool IsManualTabletInputService { get; private set; }
+
+        /// <inheritdoc />
+        public bool Initialized { get; private set; }
+
+        /// <inheritdoc />
+        public bool IsDisconnected { get; private set; }
+
+        public string FirmwareVersion { get; private set; }
+
+        /// <inheritdoc />
+        public string Model { get; private set; }
+
+        /// <inheritdoc />
+        public string OutputIdentity { get; private set; }
+
+        /// <inheritdoc />
+        public bool PendingCalibration { get; private set; }
+
+        /// <inheritdoc />
+        public string Status { get; set; }
+
+        private CalibrationCrosshairColors CrosshairColorLowerLeft { get; set; }
+
+        private CalibrationCrosshairColors CrosshairColorUpperRight { get; set; }
 
         /// <inheritdoc />
         public void Initialize()
@@ -139,54 +159,23 @@
                 return;
             }
 
-            var success = InitializeTouchInjection(1, TouchFeedback.NONE);
-            if (!success)
+            if (!InitializeTouchInjection())
             {
                 Logger.Error("Initialize - InitializeTouchInjection FAILED, returning");
                 return;
             }
 
-            if (!_serialPortController.IsEnabled)
+            if (!_isLsCabinet)
             {
-                if (_isLSCabinet)
-                {
-                    var port = _serialPortsService.LogicalToPhysicalName(SerialTouchComPort);
-                    var keepAlive = CheckDisconnectTimeoutMs;
-                    Logger.Debug($"Initialize -  Match LS cabinet, configuring {port} with KeepAliveTimeoutMs {keepAlive}");
-
-                    _serialPortController.Configure(
-                        new ComConfiguration
-                        {
-                            PortName = port,
-                            Mode = ComConfiguration.RS232CommunicationMode,
-                            BaudRate = BaudRate,
-                            DataBits = DataBits,
-                            Parity = Parity.None,
-                            StopBits = StopBits.One,
-                            Handshake = Handshake.None,
-                            ReadBufferSize = MaxBufferLength,
-                            WriteBufferSize = MaxBufferLength,
-                            ReadTimeoutMs = SerialPort.InfiniteTimeout,
-                            WriteTimeoutMs = CommunicationTimeoutMs,
-                            KeepAliveTimeoutMs = keepAlive
-                        });
-
-                    _serialPortController.IsEnabled = true; // This will open the COM port
-                }
-                else
-                {
-                    Logger.Warn("Initialize - No match LS cabinet, returning");
-                    return;
-                }
+                Logger.Warn("Initialize - No match LS cabinet, returning");
+                return;
             }
 
             _eventBus.Subscribe<ExitRequestedEvent>(this, HandleExitRequested);
-
+            
             Logger.Debug($"Initialize - Serial port open {_serialPortController.IsEnabled}");
-
             if (_serialPortController.IsEnabled)
             {
-                _serialPortController.ReceivedData += OnDataReceived;
                 _serialPortController.ReceivedError += OnErrorReceived;
                 _serialPortController.KeepAliveExpired += OnCheckDisconnectTimeout;
 
@@ -203,38 +192,18 @@
             }
         }
 
-        /// <inheritdoc />
-        public bool IsManualTabletInputService { get; private set; }
-
-        /// <inheritdoc />
-        public bool Initialized { get; private set; }
-
-        /// <inheritdoc />
-        public bool IsDisconnected { get; private set; }
-
-        /// <inheritdoc />
-        public string FirmwareVersion { get; private set; }
-
-        /// <inheritdoc />
-        public string Model { get; private set; }
-
-        /// <inheritdoc />
-        public string OutputIdentity { get; private set; }
-
-        /// <inheritdoc />
-        public bool PendingCalibration { get; private set; }
-
-        /// <inheritdoc />
-        public void Reconnect(bool calibrating)
+        public void ClearPartialPacket()
         {
-            Logger.Debug($"Reconnect - calibrating {calibrating}");
-            _checkDisconnectAttempts = 0;
-            PendingCalibration = calibrating;
-            CloseSerialPort();
-            ClearResponse();
-            _eventBus.UnsubscribeAll(this);
-            Initialized = false;
-            Initialize();
+            lock (_touchDataLock)
+            {
+                _partialPacket.Clear();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc />
@@ -249,14 +218,15 @@
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
                     _eventBus.Publish(new SerialTouchCalibrationStatusEvent(Model + " " + FirmwareVersion, ResourceKeys.TouchCalibrateModel, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 }
-
-                _serialPortController.FlushInputAndOutput();
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.ResetCommand);
+                
+                _transmitQueue?.Add(M3SerialTouchConstants.ResetCommand);
             }
         }
 
-        /// <inheritdoc />
-        public string Status { get; set; }
+        public bool InitializeTouchInjection()
+        {
+            return NativeMethods.InitializeTouchInjection(1, TouchFeedback.NONE);
+        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -267,18 +237,47 @@
 
             if (disposing)
             {
+                _cts.Cancel(true);
+
+                if (_requeueTimer != null)
+                {
+                    _requeueTimer.Stop();
+                    _requeueTimer.Dispose();
+                }
+
                 _eventBus.UnsubscribeAll(this);
                 CloseSerialPort();
                 _serialPortController.Dispose();
                 _stateLock.Dispose();
+
+                if (_receiveQueue != null)
+                {
+                    _receiveQueue.Dispose();
+                    _receiveQueue = null;
+                }
+
+                if (_transmitQueue != null)
+                {
+                    _transmitQueue.Dispose();
+                    _transmitQueue = null;
+                }
+
+                _cts.Dispose();
             }
 
             _disposed = true;
         }
 
-        private CalibrationCrosshairColors CrosshairColorLowerLeft { get; set; }
-
-        private CalibrationCrosshairColors CrosshairColorUpperRight { get; set; }
+        private void Reconnect(bool calibrating)
+        {
+            Logger.Debug($"Reconnect - calibrating {calibrating}");
+            _checkDisconnectAttempts = 0;
+            PendingCalibration = calibrating;
+            CloseSerialPort();
+            _eventBus.UnsubscribeAll(this);
+            Initialized = false;
+            Initialize();
+        }
 
         private bool CanFire(SerialTouchTrigger trigger)
         {
@@ -299,42 +298,80 @@
             }
         }
 
-        private void CheckTabletInputServiceStartup()
+        private void ConfigureComPort()
         {
-            ConnectionOptions connectionOptions = new ConnectionOptions();
-            connectionOptions.Impersonation = ImpersonationLevel.Impersonate;
-            ManagementScope scope = new ManagementScope(@"\\" + Environment.MachineName + @"\root\cimv2");
-            scope.Options = connectionOptions;
-            SelectQuery query = new SelectQuery("select * from Win32_Service");
+            Logger.Debug("SerialTouchService - Is LS cabinet");
+            CheckTabletInputServiceStartup();
 
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query))
-            {
-                ManagementObjectCollection collection = searcher.Get();
-                foreach (ManagementObject service in collection)
+            var port = _serialPortsService.LogicalToPhysicalName(SerialTouchComPort);
+            var keepAlive = CheckDisconnectTimeoutMs;
+            Logger.Debug($"Initialize -  Match LS cabinet, configuring {port} with KeepAliveTimeoutMs {keepAlive}");
+
+            _serialPortController.UseSyncMode = true;
+            _serialPortController.Configure(
+                new ComConfiguration
                 {
-                    if (service.Properties["Name"].Value.ToString() == "TabletInputService" &&
-                        service.Properties["StartMode"].Value.Equals("Manual"))
-                    {
-                        Logger.Debug($"CheckTabletInputServiceStartup - Found {service.Properties["Name"].Value} with StartMode {service.Properties["StartMode"].Value}");
-                        IsManualTabletInputService = true;
-                    }
-                }
-            }         
+                    PortName = port,
+                    Mode = ComConfiguration.RS232CommunicationMode,
+                    BaudRate = BaudRate,
+                    DataBits = DataBits,
+                    Parity = Parity.None,
+                    StopBits = StopBits.One,
+                    Handshake = Handshake.None,
+                    ReadBufferSize = MaxBufferLength,
+                    WriteBufferSize = MaxBufferLength,
+                    ReadTimeoutMs = SerialPort.InfiniteTimeout,
+                    WriteTimeoutMs = CommunicationTimeoutMs,
+                    KeepAliveTimeoutMs = keepAlive
+                });
+                
+            _serialPortController.IsEnabled = true;
+
+            if (!_queueTasksCreated)
+            {
+                _queueTasksCreated = true;
+
+                _requeueTimer.Interval = RequeueInterval;
+                _requeueTimer.AutoReset = true;
+                _requeueTimer.Elapsed += OnRequeueTimer;
+
+                Task.Run(() => { ProcessReceiveQueue(_cts.Token); }, _cts.Token)
+                    .FireAndForget(ex => Logger.Error($"ProcessReceiveQueue: Exception occurred {ex}"));
+
+                Task.Run(() => { SendAndReceiveData(_cts.Token); }, _cts.Token)
+                    .FireAndForget(ex => Logger.Error($"SendAndReceiveData: Exception occurred {ex}"));
+            }
         }
 
-        private void ClearResponse()
+        private void CheckTabletInputServiceStartup()
         {
-            _gotHeader = false;
-            Array.Clear(_response, 0, _response.Length);
-            _dataIndex = 0;
+            ConnectionOptions connectionOptions = new ConnectionOptions { Impersonation = ImpersonationLevel.Impersonate };
+            ManagementScope scope = new ManagementScope(@"\\" + Environment.MachineName + @"\root\cimv2")
+            {
+                Options = connectionOptions
+            };
+            SelectQuery query = new SelectQuery("select * from Win32_Service");
+
+            using ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+            ManagementObjectCollection collection = searcher.Get();
+            foreach (var o in collection)
+            {
+                var service = (ManagementObject)o;
+                if (service.Properties["Name"].Value.ToString() == "TabletInputService" &&
+                    service.Properties["StartMode"].Value.Equals("Manual"))
+                {
+                    Logger.Debug($"CheckTabletInputServiceStartup - Found {service.Properties["Name"].Value} with StartMode {service.Properties["StartMode"].Value}");
+                    IsManualTabletInputService = true;
+                }
+            }
         }
 
         private void CloseSerialPort()
         {
-            _serialPortController.ReceivedData -= OnDataReceived;
             _serialPortController.ReceivedError -= OnErrorReceived;
             _serialPortController.KeepAliveExpired -= OnCheckDisconnectTimeout;
             _serialPortController.IsEnabled = false; // This will flush the in/out buffer, close and unregister the COM port
+            ClearPartialPacket();
         }
 
         private void Connected()
@@ -511,7 +548,6 @@
                 Logger.Error($"HandleCalibrateExtended - {Status}");
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedCommandFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
-                ClearResponse();
                 SendResetCommand(PendingCalibration);
                 Thread.Sleep(CalibrationDelayMs);
             }
@@ -529,7 +565,6 @@
             // *NOTE* If this reset fails, we will request to reboot instead.
             Fire(SerialTouchTrigger.Error);
             _resetForRecovery = true;
-            ClearResponse();
             SendResetCommand();
         }
 
@@ -548,10 +583,6 @@
                     Status = "CALIBRATE EXTENDED...TOUCH UPPER RIGHT CROSSHAIR";
                     _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.TouchUpperRightCrosshair, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 }
-                else
-                {
-                    Thread.Sleep(CalibrationDelayMs);
-                }
 
                 Fire(SerialTouchTrigger.UpperRightTarget);
             }
@@ -564,7 +595,6 @@
                 CrosshairColorLowerLeft = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedLowerLeftTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
-                ClearResponse();
                 SendResetCommand(PendingCalibration);
                 Thread.Sleep(CalibrationDelayMs);
             }
@@ -591,7 +621,7 @@
             Model = GetModel(response);
             if (string.IsNullOrEmpty(Model) && !Initialized)
             {
-                Logger.Warn($"HandleName - Name null or empty, re-sending...");
+                Logger.Warn("HandleName - Name null or empty, re-sending...");
                 SendNameCommand();
                 return;
             }
@@ -600,7 +630,6 @@
             if (Model.Contains("Kortek"))
             {
                 _skipCalibrationPrompts = true;
-                _injectionDelayMs = DefaultInjectionDelayMs;
             }
 
             if (!Initialized)
@@ -625,7 +654,7 @@
                 // *NOTE* We need to remap the touch screens so that the firmware information is updated for the mapped serial touch device.
                 _cabinetDetectionService.MapTouchscreens();
                 Logger.Info($"HandleOutputIdentity - {Name} {FirmwareVersion} initialized");
-                SendResetCommand(false);
+                SendResetCommand();
                 return;
             }
 
@@ -758,10 +787,6 @@
                     Thread.Sleep(CalibrationDelayMs);
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
                 }
-                else
-                {
-                    Thread.Sleep(CalibrationDelayMs);
-                }
 
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.CalibrationComplete, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 Thread.Sleep(CalibrationDelayMs);
@@ -778,138 +803,63 @@
                 CrosshairColorUpperRight = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedUpperRightTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
-                ClearResponse();
                 SendResetCommand(PendingCalibration);
                 Thread.Sleep(CalibrationDelayMs);
             }
         }
 
-        /// <summary>
-        ///     Inject touch input on injection target for given coordinate.
-        /// </summary>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        private void InjectTouchCoordinate(int x, int y)
+        private void InjectTouchCoordinate(int x, int y, TouchAction action, IReadOnlyList<byte> response)
         {
-            var state = _touchDown ? (_injectUpdate ? "UPDATE" : " DOWN ") : "  UP  ";
-
-            // Do we have a duplicate?
-            if (_prevTouchX == x && _prevTouchY == y && _prevTouchDown == _touchDown)
-            {
-                // Yes, ignore it.
-                return;
-            }
-
             bool injected;
-            if (_touchDown)
-            {
-                if (!_injectUpdate)
-                {
-                    _injectUpdate = true;
-                    _pointerTouchInfo[PointerId] = CreateDefaultPointerTouchInfo(x, y, PointerId);
-                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-                }
-                else
-                {
-                    // Is this update out of valid range?
-                    var xRange = Math.Abs(_prevTouchX - x); 
-                    var yRange = Math.Abs(_prevTouchY - y); 
-                    if (xRange < ValidUpdateRange && yRange < ValidUpdateRange)
-                    {
-                        // Yes, ignore it.
-                        return;
-                    }
 
-                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-                    UpdateContactArea(x, y, PointerId);
-                }
+            if (action == TouchAction.Down)
+            {
+                _pointerTouchInfo[PointerId] = CreateDefaultPointerTouchInfo(x, y, PointerId);
+                _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
+            }
+            else if (action == TouchAction.Up)
+            {
+                _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UP;
+                injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
             }
             else
             {
-                _injectUpdate = false;
-
-                // Does this lift-off have different coordinates then the last touch-down?
-                if (_prevTouchX != x || _prevTouchY != y)
-                {
-                    // Yes, inject update with previous touch-down coordinates before injecting lift-off.
-                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-                    UpdateContactArea(_prevTouchX, _prevTouchY, PointerId);
-                    injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
-                    if (!injected || _injectionDelayMs > 0)
-                    {
-                        Thread.Sleep(DefaultInjectionDelayMs);
-                    }
-
-                    if (!injected)
-                    {
-                        Logger.Warn($"InjectTouchCoordinate - RECOVER - {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X} {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y} - FAILED");
-                    }
-                }
-
-                _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UP;
+                _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UPDATE | PointerFlags.INRANGE | PointerFlags.INCONTACT;
+                UpdateContactArea(x, y, PointerId);
+                injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
             }
-
-            injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
-            if (!injected || _injectionDelayMs > 0)
-            {
-                Thread.Sleep(DefaultInjectionDelayMs);
-            } 
 
             if (!injected)
             {
-                Logger.Warn($"InjectTouchCoordinate - {state} - {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X} {_pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y} - FAILED INJECTION");
-                if (!_touchDown)
+                var errorCode = Marshal.GetLastWin32Error();
+                string errorText = ((SystemErrors)errorCode).ToString();
+
+                if ((SystemErrors)errorCode == SystemErrors.ERROR_INVALID_PARAMETER)
                 {
-                    _prevTouchX = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X;
-                    _prevTouchY = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y;
-                    _pointerTouchInfo[PointerId] = CreateDefaultPointerTouchInfo(_prevTouchX, _prevTouchY, PointerId);
-                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.DOWN | PointerFlags.INRANGE | PointerFlags.INCONTACT;
-                    injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
-                    if (!injected || _injectionDelayMs > 0)
-                    {
-                        Thread.Sleep(DefaultInjectionDelayMs);
-                    }
+                    _previousTouchState = 0;
 
-                    if (!injected)
+                    lock (_touchDataLock)
                     {
-                        Logger.Warn($"InjectTouchCoordinate - RECOVER UP - {_prevTouchX} {_prevTouchY} - FAILED DOWN INJECTION");
-                    }
-                    else
-                    {
-                        _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UP;
-                        injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
-                        if (!injected || _injectionDelayMs > 0)
-                        {
-                            Thread.Sleep(DefaultInjectionDelayMs);
-                        }
-
-                        if (!injected)
-                        {
-                            Logger.Warn($"InjectTouchCoordinate - RECOVER UP - {_prevTouchX} {_prevTouchY} - FAILED UP INJECTION");
-                        }
+                        _lastUpdatePacket.Clear();
                     }
                 }
-                else if (_injectUpdate)
-                {
-                    _injectUpdate = false;
-                    _pointerTouchInfo[PointerId].PointerInfo.PointerFlags = PointerFlags.UP;
-                    injected = InjectTouchInput(MaxTouchInfo, _pointerTouchInfo);
-                    if (!injected || _injectionDelayMs > 0)
-                    {
-                        Thread.Sleep(DefaultInjectionDelayMs);
-                    }
 
-                    if (!injected)
-                    {
-                        Logger.Warn($"InjectTouchCoordinate - RECOVER UPDATE - {_prevTouchX} {_prevTouchY} - FAILED UP INJECTION");
-                    }
-                }
+                Logger.Debug($"InjectTouchCoordinate - Last injection failed: {errorText}, Packet: { BytesToHex(response.ToArray()) }");
             }
             else
             {
-                _prevTouchX = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.X;
-                _prevTouchY = _pointerTouchInfo[PointerId].PointerInfo.PtPixelLocation.Y;
-                _prevTouchDown = _touchDown;
+                lock (_touchDataLock)
+                {
+                    if (action is TouchAction.Down or TouchAction.Update)
+                    {
+                        _lastUpdatePacket = response.ToList();
+                    }
+                    else
+                    {
+                        _lastUpdatePacket.Clear();
+                    }
+                }
             }
         }
 
@@ -918,9 +868,18 @@
             // Bit 7 of 1st status byte indicates proximity
             // 1 = Sensor is being touched (touchdown)
             // 0 = Sensor is not being touched (lift off)
+            var touchState = (response[0] & M3SerialTouchConstants.ProximityBit) == 0 ? 0 : 1;
+
+            TouchAction action = TouchAction.Update;
+            if (touchState != _previousTouchState)
+            {
+                action = (TouchAction)touchState;
+            }
+
+            _previousTouchState = touchState;
             _touchDown = (response[0] & M3SerialTouchConstants.ProximityBit) != 0;
 
-            // Horizontal coordinate data (X)
+            // Horizontal coordinate data (X)parity
             var x = ConvertFormatTabletCoordinate(response[1], response[2], M3SerialTouchConstants.LowOrderBits);
 
             // Vertical coordinate data (Y)
@@ -932,7 +891,9 @@
             var flipY = MaxCoordinateRange - y;
             var yCoord = Convert.ToInt32(Math.Round(flipY > 0 ? flipY / adjustY : 0));
 
-            InjectTouchCoordinate(xCoord, yCoord);
+            _requeueTimer.Stop();
+            InjectTouchCoordinate(xCoord, yCoord, action, response);
+            _requeueTimer.Start();
         }
 
         private void OnCheckDisconnectTimeout(object sender, EventArgs e)
@@ -957,13 +918,13 @@
 
             if (_touchDown)
             {
-                Logger.Warn($"OnCheckDisconnectTimeout - Skipped while touch down, returning...");
+                Logger.Warn("OnCheckDisconnectTimeout - Skipped while touch down, returning...");
                 return;
             }
 
             if (_checkDisconnectAttempts > MaxCheckDisconnectAttempts)
             {
-                Logger.Warn($"OnCheckDisconnectTimeout - check disconnect exceeded max, attempting reconnect...");
+                Logger.Warn("OnCheckDisconnectTimeout - check disconnect exceeded max, attempting reconnect...");
                 if (!IsDisconnected)
                 {
                     Logger.Warn("OnCheckDisconnectTimeout - Disconnected, attempting re-connect...");
@@ -978,37 +939,175 @@
             SendNullCommand();
         }
 
-        private void OnDataReceived(object sender, EventArgs e)
+        private void BuildResponsePackets(byte[] bytes)
         {
-            var bytes = new byte[_serialPortController.BytesToRead];
-            if (_serialPortController.TryReadBuffer(ref bytes, 0, bytes.Length) < 1)
+            foreach (var currentByte in bytes)
             {
-                return;
-            }
-
-            if (IsDisconnected)
-            {
-                Logger.Debug($"OnDataReceived - Connected");
-                Connected();
-            }
-
-            _checkDisconnectAttempts = 0;
-
-            foreach (var b in bytes)
-            {
-                switch (b)
+                lock (_touchDataLock)
                 {
-                    case M3SerialTouchConstants.Header when !_gotHeader && _state.State != SerialTouchState.InterpretTouch:
-                        _gotHeader = true;
-                        break;
-                    case M3SerialTouchConstants.Terminator when _state.State != SerialTouchState.InterpretTouch:
-                        HandleResponse(_response);
-                        ClearResponse();
-                        break;
-                    default:
-                        ProcessTouchData(b);
-                        break;
+                    // Command responses
+                    if (_state.State != SerialTouchState.InterpretTouch)
+                    {
+                        // Unexpected data - Throw it out
+                        if (!_partialPacket.Any() && currentByte != M3SerialTouchConstants.Header || _partialPacket.Any() && _partialPacket[0] != M3SerialTouchConstants.Header)
+                        {
+                            DropBadData(currentByte);
+
+                            if (currentByte != M3SerialTouchConstants.Header)
+                            {
+                                continue;
+                            }
+                        }
+
+                        // Add expected data
+                        _partialPacket.Add(currentByte);
+                        if (currentByte == M3SerialTouchConstants.Terminator)
+                        {
+                            QueueFullPacket();
+                        }
+
+                        continue;
+                    }
+                    
+                    // Touch response
+                    // Unexpected data - Throw it out
+                    if (_partialPacket.Any() &&
+                        (currentByte & M3SerialTouchConstants.SyncBit) == M3SerialTouchConstants.SyncBit)
+                    {
+                        if ((_partialPacket[0] & M3SerialTouchConstants.ProximityBit) == 0)
+                        {
+                            DropBadData(currentByte);
+                            QueueLiftoffFromLastUpdate();
+                        }
+                        else
+                        {
+                            DropBadData(currentByte);
+                        }
+                    }
+                    
+                    // Add expected data
+                    _partialPacket.Add(currentByte);
+                    if (_partialPacket.Count == M3SerialTouchConstants.TouchDataLength)
+                    {
+                        if ((_partialPacket[0] & M3SerialTouchConstants.ProximityBit) == 0)
+                        {
+                            QueueLiftoffFromLastUpdate();
+                        }
+                        else
+                        {
+                            QueueFullPacket();
+                        }
+                    }
                 }
+            }
+
+            void DropBadData(byte currentByte)
+            {
+                Logger.Error($"Unexpected data received - State: {_state.State}, New byte: {BytesToHex(new []{ currentByte })}, Existing packet: {BytesToHex(_partialPacket.ToArray())}");
+                _partialPacket.Clear();
+            }
+        }
+
+        private void OnRequeueTimer(object sender, ElapsedEventArgs e)
+        {
+            // If windows touch does not receive an update regularly it will timeout and cancel touch.
+            // This will keep it alive by sending the last update again if we don't get data from the serial port.
+            lock (_touchDataLock)
+            {
+                if (!_lastUpdatePacket.Any())
+                {
+                    _requeueTimer.Stop();
+                    return;
+                }
+
+                if (_partialPacket.Any() && (_partialPacket[0] & M3SerialTouchConstants.ProximityBit) == 0)
+                {
+                    Logger.Warn("Adding liftoff early to prevent timeout.");
+                    QueueLiftoffFromLastUpdate();
+                }
+                else
+                {
+                    Logger.Warn("Adding last update to prevent timeout.");
+                    _receiveQueue?.Add(_lastUpdatePacket.ToArray());
+                }
+            }
+        }
+
+        private void QueueLiftoffFromLastUpdate()
+        {
+            // Use the data from the last update as the liftoff point.
+            if (_lastUpdatePacket.Any())
+            {
+                _partialPacket = new List<byte>(_lastUpdatePacket);
+                _partialPacket[0] = (byte)(_partialPacket[0] & ~M3SerialTouchConstants.ProximityBit);
+                QueueFullPacket();
+            }
+            else
+            {
+                Logger.Error("QueueLiftoffFromLastUpdate - Unexpected data - Last update is empty");
+            }
+        }
+
+        private void QueueFullPacket()
+        {
+            Logger.Debug($"QueueFullPacket - Adding {BytesToHex(_partialPacket.ToArray())} to response queue");
+            _receiveQueue?.Add(_partialPacket.ToArray());
+            _partialPacket.Clear();
+        }
+
+        private void SendAndReceiveData(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                if (_serialPortController.IsEnabled)
+                {
+                    // Read current data
+                    var bytes = new byte[_serialPortController.BytesToRead];
+                    if (_serialPortController.TryReadBuffer(ref bytes, 0, bytes.Length) > 0)
+                    {
+                        BuildResponsePackets(bytes);
+
+                        if (IsDisconnected)
+                        {
+                            Logger.Debug("SendAndReceiveData - Connected");
+                            Connected();
+                        }
+
+                        _checkDisconnectAttempts = 0;
+                    }
+
+                    // Transmit pending messages
+                    if (_transmitQueue != null && _transmitQueue.TryTake(out var message))
+                    {
+                        Logger.Debug($"SendAndReceiveData - Removing {BytesToHex(message)} from transmit queue");
+
+                        ClearPartialPacket();
+                        _serialPortController.FlushInputAndOutput();
+                        _serialPortController.WriteBuffer(message);
+                    }
+                }
+            }
+        }
+
+        private void ProcessReceiveQueue(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                var responsePacket = _receiveQueue?.Take(token);
+                if (responsePacket == null)
+                {
+                    return;
+                }
+
+                // Strip the header and terminator for command responses
+                if (_state.State != SerialTouchState.InterpretTouch && 
+                    responsePacket[0] == M3SerialTouchConstants.Header &&
+                    responsePacket[responsePacket.Length - 1] == M3SerialTouchConstants.Terminator)
+                {
+                    responsePacket = responsePacket.Skip(1).Take(responsePacket.Length - 2).ToArray();
+                }
+
+                HandleResponse(responsePacket);
             }
         }
 
@@ -1018,31 +1117,11 @@
             Reconnect(PendingCalibration);
         }
 
-        private void ProcessTouchData(byte b)
-        {
-            if (_dataIndex < MaxBufferLength)
-            {
-                _response[_dataIndex] = b;
-            }
-
-            if (_state.State == SerialTouchState.InterpretTouch &&
-                _dataIndex == M3SerialTouchConstants.TouchDataLength)
-            {
-                HandleResponse(_response);
-                ClearResponse();
-            }
-            else
-            {
-                _dataIndex++;
-            }
-        }
-
         private void SendCalibrateExtendedCommand()
         {
             if (Fire(SerialTouchTrigger.CalibrateExtended))
             {
-                _serialPortController.FlushInputAndOutput();
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.CalibrateExtendedCommand);
+                _transmitQueue?.Add(M3SerialTouchConstants.CalibrateExtendedCommand);
             }
         }
 
@@ -1050,8 +1129,7 @@
         {
             if (Fire(SerialTouchTrigger.Name))
             {
-                _serialPortController.FlushInputAndOutput();
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.NameCommand);
+                _transmitQueue?.Add(M3SerialTouchConstants.NameCommand);
             }
         }
 
@@ -1059,8 +1137,7 @@
         {
             if (Fire(SerialTouchTrigger.Null))
             {
-                _serialPortController.FlushInputAndOutput();
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.NullCommand);
+                _transmitQueue?.Add(M3SerialTouchConstants.NullCommand);
             }
         }
 
@@ -1068,8 +1145,7 @@
         {
             if (Fire(SerialTouchTrigger.OutputIdentity))
             {
-                _serialPortController.FlushInputAndOutput();
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.OutputIdentityCommand);
+                _transmitQueue?.Add(M3SerialTouchConstants.OutputIdentityCommand);
             }
         }
 
@@ -1077,8 +1153,7 @@
         {
             if (Fire(SerialTouchTrigger.RestoreDefaults))
             {
-                _serialPortController.FlushInputAndOutput();
-                _serialPortController.WriteBuffer(M3SerialTouchConstants.RestoreDefaultsCommand);
+                _transmitQueue?.Add(M3SerialTouchConstants.RestoreDefaultsCommand);
             }
         }
 
@@ -1095,6 +1170,18 @@
         private static string GetModel(byte[] response)
         {
             return Encoding.Default.GetString(response).TrimEnd('\0');
+        }
+
+        private static string BytesToHex(byte[] bytes)
+        {
+            return string.Join(":", bytes.Select(x => x.ToString("X2")));
+        }
+
+        private enum TouchAction
+        {
+            Up = 0,
+            Down = 1,
+            Update = 2
         }
     }
 }

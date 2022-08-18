@@ -43,7 +43,7 @@
         /// <summary>
         ///     The number of bytes for a touch
         /// </summary>
-        public const int TouchDataLength = 4;
+        public const int TouchDataLength = 5;
 
         /// <summary>
         ///     The radius for the touch

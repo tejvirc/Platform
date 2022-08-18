@@ -315,10 +315,10 @@
             if (window.Name.Equals("ConfigWizard"))
             {
                 var serialTouchService = ServiceManager.GetInstance().TryGetService<ISerialTouchService>();
-                if (serialTouchService != null && serialTouchService.Initialized)
+                if (serialTouchService is { Initialized: true })
                 {
-                    Logger.Debug($"{window.Name} opened, reconnecting serial touch");
-                    serialTouchService.Reconnect();
+                    Logger.Debug($"{window.Name} opened, initializing touch injection");
+                    serialTouchService.InitializeTouchInjection();
                 }
             }
 
