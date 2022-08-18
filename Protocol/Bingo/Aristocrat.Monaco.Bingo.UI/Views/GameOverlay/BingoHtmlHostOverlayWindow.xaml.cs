@@ -112,6 +112,8 @@
             BingoHelp.Dispose();
 
             BingoInfoHost.Dispose();
+
+            DynamicMessageHost.Dispose();
             base.OnClosing(e);
         }
 
@@ -127,6 +129,7 @@
             {
                 BingoHelp.CloseDevTools();
                 BingoInfoHost.CloseDevTools();
+                DynamicMessageHost.CloseDevTools();
                 _devToolsVisible = false;
             }
             else

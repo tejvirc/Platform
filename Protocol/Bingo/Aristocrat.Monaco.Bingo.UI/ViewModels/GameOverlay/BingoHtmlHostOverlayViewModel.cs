@@ -27,6 +27,7 @@
     using log4net;
     using Models;
     using Monaco.Common;
+    using Monaco.UI.Common.Extensions;
     using MVVM.Model;
     using OverlayServer;
     using OverlayServer.Attributes;
@@ -75,11 +76,13 @@
         private string _bingoInfoAddress;
         private IWebBrowser _bingoInfoWebBrowser;
         private string _standaloneCreditMeterFormat;
+        private string _dynamicMessageAddress;
         private string _lastGameScene = string.Empty;
         private string _previousScene = string.Empty;
         private double _helpOpacity;
         private double _infoOpacity;
         private double _gameControlledHeight;
+        private double _dynamicMessageOpacity;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -167,6 +170,12 @@
             set => SetProperty(ref _bingoHelpAddress, value);
         }
 
+        public string DynamicMessageAddress
+        {
+            get => _dynamicMessageAddress;
+            set => SetProperty(ref _dynamicMessageAddress, value);
+        }
+
         public IWebBrowser BingoHelpWebBrowser
         {
             get => _bingoHelpWebBrowser;
@@ -236,6 +245,12 @@
         {
             get => _infoOpacity;
             set => SetProperty(ref _infoOpacity, value);
+        }
+
+        public double DynamicMessageOpacity
+        {
+            get => _dynamicMessageOpacity;
+            set => SetProperty(ref _dynamicMessageOpacity, value);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -673,12 +688,13 @@
             SaveDaubState(false);
         }
 
-        private async Task Handle(PresentationOverrideDataChangedEvent e, CancellationToken token)
+        private void Handle(PresentationOverrideDataChangedEvent e)
         {
             var data = e.PresentationOverrideData;
             if (data == null || data.Count == 0)
             {
-                await UpdateOverlay(() => new BingoLiveData { HideDynamicMessage = true, HideMeterValue = true }, token);
+                DynamicMessageOpacity = GetVisibleOpacity(false);
+                NavigateToDynamicMessage(string.Empty, BingoConstants.DefaultInitialOverlayScene, string.Empty, false, false);
             }
             else
             {
@@ -691,8 +707,11 @@
                 var configuration = _configuredOverrideMessageFormats[overrideType];
                 var message = string.Format(configuration.MessageFormat, data.First().FormattedAmount ?? string.Empty);
                 var meterMessage = GetFormattedCreditBalance(configuration.MeterFormat, _playerBank.Balance);
+                var showDynamicMessage = !message.IsEmpty();
+                var showMeter = !meterMessage.IsEmpty();
 
-                await UpdateOverlay(() => new BingoLiveData { DynamicMessage = message, DynamicMessageScene = configuration.MessageScene, MeterValue = meterMessage }, token);
+                NavigateToDynamicMessage(message, configuration.MessageScene, meterMessage, showDynamicMessage, showMeter);
+                DynamicMessageOpacity = GetVisibleOpacity(true);
             }
         }
 
@@ -805,6 +824,18 @@
                     BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
                 });
             }
+        }
+
+        private void NavigateToDynamicMessage(string message, string scene, string meterMessage, bool showMessage, bool showMeter)
+        {
+            var formattedQueryString = string.Format(
+                OverlayType.DynamicMessageOverlay.GetFormattedQueryParameters(),
+                message, scene, meterMessage, showMessage, showMeter);
+            DynamicMessageAddress = new UriBuilder(BingoConstants.BingoOverlayServerUri)
+            {
+                Path = OverlayType.DynamicMessageOverlay.GetOverlayRoute(),
+                Query = formattedQueryString
+            }.ToString();
         }
 
         private void NavigateToOverlay(OverlayType overlayType)
