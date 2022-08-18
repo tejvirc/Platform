@@ -79,6 +79,7 @@
         private string _previousScene = string.Empty;
         private double _helpOpacity;
         private double _infoOpacity;
+        private double _gameControlledHeight;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -102,6 +103,8 @@
             _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _targetWindow = targetWindow;
+
+            _gameControlledHeight = _bingoConfigurationProvider.GetWindow(_targetWindow).Height;
 
             _overlayServer.ServerStarted += HandleServerStarted;
             _overlayServer.AttractCompleted += AttractCompleted;
@@ -140,6 +143,7 @@
             _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, (_, _) => HandleBingoDisplayConfigurationChanged());
             _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, Handle);
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, Handle);
+            _eventBus.Subscribe<GameControlSizeChangedEvent>(this, Handle);
 
             // Bingo Help Events
             _eventBus.Subscribe<HostConnectedEvent>(this, Handle);
@@ -426,6 +430,11 @@
         {
             Logger.Debug($"multiple spins is {e.Triggered}");
             _multipleSpins = e.Triggered;
+        }
+
+        private void Handle(GameControlSizeChangedEvent e)
+        {
+            _gameControlledHeight = e.GameControlHeight;
         }
 
         private void Handle(GameProcessExitedEvent e)
@@ -920,7 +929,7 @@
                 () =>
                 {
                     Width = window.Width;
-                    Height = window.Height;
+                    Height = _gameControlledHeight;
                     HelpBoxMargin = new Thickness(
                         helpAppearance.HelpBox.Left * window.Width,
                         helpAppearance.HelpBox.Top * window.Height,

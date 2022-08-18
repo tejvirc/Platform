@@ -1081,12 +1081,17 @@
         public bool MainInfoBarOpenRequested
         {
             get => _mainInfoBarOpenRequested;
-            set => SetProperty(
+            set
+            {
+                SetProperty(
                 ref _mainInfoBarOpenRequested,
                 value,
                 nameof(MainInfoBarOpenRequested),
                 nameof(GameControlHeight),
                 nameof(IsMainInfoBarVisible));
+
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
+            }
         }
 
         /// <summary>
@@ -1101,12 +1106,17 @@
         public bool VbdInfoBarOpenRequested
         {
             get => _vbdInfoBarOpenRequested;
-            set => SetProperty(
+            set
+            {
+                SetProperty(
                 ref _vbdInfoBarOpenRequested,
                 value,
                 nameof(VbdInfoBarOpenRequested),
                 nameof(GameControlHeight),
                 nameof(IsVbdInfoBarVisible));
+
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
+            }
         }
 
         /// <summary>
@@ -1637,7 +1647,11 @@
         public double ReplayNavigationBarHeight
         {
             get => _replayNavigationBarHeight;
-            set => SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
+            set
+            {
+                SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
+            }
         }
 
         public double GameControlHeight
@@ -2152,6 +2166,8 @@
                     GameControlHeight = Math.Floor(newSize.Height);
                     GameControlWidth = Math.Floor(newSize.Height * _aspectRatio);
                 }
+
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
         }
 
@@ -3014,6 +3030,7 @@
                     RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
                     RaisePropertyChanged(nameof(GameControlHeight));
                     RaisePropertyChanged(nameof(IsMainInfoBarVisible));
+                    _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
                     break;
                 case nameof(MessageOverlayDisplay.IsLockupMessageVisible):
                     RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
