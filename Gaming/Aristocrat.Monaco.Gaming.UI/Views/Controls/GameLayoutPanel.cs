@@ -110,10 +110,14 @@
             }
 
             // All items should have the same size.
-            _itemWidth = maxSize.Width;
-            _itemHeight = maxSize.Height;
+            //_itemWidth = maxSize.Width;
+            //_itemHeight = maxSize.Height;
 
-            _measuredSize = new Size(count.Cols * maxSize.Width + spacingX, count.Rows * maxSize.Height + spacingY);
+            // don't think we should take the max width/height, should just use the calculated width/height
+            _itemWidth = childWidth;
+            _itemHeight = childHeight;
+
+            _measuredSize = new Size(count.Cols * _itemWidth + spacingX, count.Rows * _itemHeight + spacingY);
 
             _surfaceSize = availableSize;
 
@@ -185,12 +189,12 @@
                         x += (columnDifferential * .5) * (_itemWidth + Spacing.Width);
                     }
 
-                    var globalX = offsetX + (x + j * dx);
+                    var globalX = offsetX + (x + j * dx) - 15;
                     var globalY = y + i * dy;
 
                     // TODO: Kind of hacky, but the icons with jackpot in 10+ game layout
                     // need extra area to fit "new-star" icon that goes out of the rectangle bounds.
-                    const double extraArea = 20.0;
+                    const double extraArea = 0; // 20.0;
                     child.Arrange(new Rect(globalX, globalY, _itemWidth, _itemHeight + extraArea));
                 }
 

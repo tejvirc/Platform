@@ -48,6 +48,7 @@
     <converters:GameIconImageHeightConverter x:Key="GameIconImageHeightConv"/>
     <converters:GameIconImageWidthConverter x:Key="GameIconImageWidthConv"/>
     <converters:GameIconAlignmentConverter x:Key="GameIconAlignmentConv"/>
+    <converters:GameIconImageMarginConverter x:Key="GameIconImageMarginConv"/>
     <converters:GridSpacingConverter x:Key="GridSpacingConverter"/>
     <converters:LobbyColumnWidthConverter x:Key="ColumnWidthConverter"/>
     <converters:LobbyOuterColumnWidthConverter x:Key="LobbyOuterColumnWidthConv"/>
@@ -336,6 +337,8 @@
                                     <Button x:Name="GameIconButton" Style="{StaticResource stlFlatButton}"
                                             HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                             VerticalAlignment="Top"
+                                            BorderBrush="Aqua"
+                                            BorderThickness="3"
                                             Tag="{Binding Name}"
                                             Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
                                             Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
@@ -355,6 +358,7 @@
                                                    RenderOptions.BitmapScalingMode="HighQuality"
                                                    HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                                    VerticalAlignment="Top"
+                                                   Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}"
                                                    Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
                                                    Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
                                                    gif:ImageBehavior.AnimatedSource="{Binding ImagePath}">
@@ -363,6 +367,7 @@
                                             <Image x:Name="SelectedImage"
                                                    Source="{DynamicResource GameSelectedOverlay}"
                                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}"
                                                    Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
                                                    Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
                                                    HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"

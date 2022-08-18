@@ -79,7 +79,7 @@
                                 ? new Thickness(0, 325 - offset + topMarginAdjust, 0, 0)
                                 : gameCount <= 8
                                     ? new Thickness(0, 240 - offset + topMarginAdjust, 0, 0)
-                                    : new Thickness(0, 180 - offset + topMarginAdjust, 0, 0);
+                                    : new Thickness(0, 150 - offset + topMarginAdjust, 0, 0);
                         }
 
                         return useSmallIcons
@@ -96,7 +96,7 @@
                     case LobbyViewMarginType.Banner:
                         return new Thickness(19.0, 0, 20.0, 8.0);
                     case LobbyViewMarginType.ProgressiveOverlay:
-                        return new Thickness(0, 0, 0, 48);
+                        return new Thickness(0, 0, 0, gameCount <= 8 ? 48 : 28);
                     case LobbyViewMarginType.ProgressiveOverlayText:
                         return new Thickness(0, 0, 0, value is bool selected ? (selected ? -5 : 0) : 0);
                     case LobbyViewMarginType.DenomLargeScreenLayout:

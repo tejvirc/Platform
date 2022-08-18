@@ -3682,11 +3682,15 @@
                 }
                 else
                 {
-                    // Add subset of GameInfo items to display.
-                    foreach (var gi in subset)
+                    for (int i = 0; i < 12; i++)
                     {
-                        DisplayedGameList.Add(gi);
+                        // Add subset of GameInfo items to display.
+                        foreach (var gi in subset)
+                        {
+                            DisplayedGameList.Add(gi);
+                        }
                     }
+
                 }
             }
 
