@@ -14566,9 +14566,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -23089,6 +23086,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -64422,7 +64422,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Touch.ISerialTouchService.html",
-          "hash": "PLbIE3YILWltN+4lT6X1z6rvK/YFgtLTzoB7dGUuyxQ="
+          "hash": "rniyJBfmFi2MkB0ZEo82cmq+ZQCLp7hnK/yX5wJcJ9s="
         }
       },
       "is_incremental": false,
@@ -67602,7 +67602,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.html",
-          "hash": "4pDxIpWOH9RMSybVMGZkBBgHWxSsAI62woXFK7BX5/4="
+          "hash": "g0PdMj4svCI2sPASdNfxsv3sU4LLoZkoAVLJbg5qCTQ="
         }
       },
       "is_incremental": false,
@@ -67614,7 +67614,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService.html",
-          "hash": "3+Ul/SmCqOIr04iTpQdxBu84XekSuOQ4Y1opcKtkLrU="
+          "hash": "gh4Jb4Hy+JNbRSXzDKUkIQCK8rcLKRc08vYP946cd2k="
         }
       },
       "is_incremental": false,
