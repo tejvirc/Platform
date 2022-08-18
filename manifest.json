@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "+4IexZ5vMWiwWU90flN8xwHX4Cn9KymAUcGb2t7rxXI="
+          "hash": "32sQ5YLcS9wtAhJoW5RzOc3I8U1Fj+wXlrVayN96pmw="
         }
       },
       "is_incremental": false,
@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/index.html",
-          "hash": "ZMeHZLF7eK8Jxlx3NfpZYBY7TJZPYpzUBY8ZwuDRf2Q="
+          "hash": "FNnnrZpHJIPKC3xhHR3lj3B8Z4kH/NCTd9l5VNE6oC8="
         }
       },
       "is_incremental": false,
@@ -20967,7 +20967,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay.BingoHtmlHostOverlayViewModel.html",
-          "hash": "GbHIJ78LhkYjm3flGAy2ycGC7+AF6AEv4NxffWnaAQU="
+          "hash": "kOCI79vJpBYkoLNulbR1FasX2Z6mJ8IyoHyRcmXpwuY="
         }
       },
       "is_incremental": false,
@@ -45170,6 +45170,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.GameControlSizeChangedEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GameControlSizeChangedEvent.html",
+          "hash": "uGtjrQlqJHbLppV8mAYsD8L+2cpJXqQqrfP2YJcex0I="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.GameDelayEndedEvent.yml",
       "output": {
         ".html": {
@@ -50622,7 +50634,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.html",
-          "hash": "hOBUczClfqiyQtcrBlyMY0qncCvQEiD5UsdfZHNwhIg="
+          "hash": "jqAfEAVojCZ2Tmmn3DRRYuGgQE3q001Ba+EYFC9gewk="
         }
       },
       "is_incremental": false,
@@ -54210,7 +54222,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.LobbyViewModel.html",
-          "hash": "ateEgRt8fkI9EGWJyFKhedqQT0D4nfzYYpW2JPirTOw="
+          "hash": "thU8OqeXR5UbYMw0aK9cJ5XC7lMaJc7b7TBCq3StW1M="
         }
       },
       "is_incremental": false,
@@ -82677,7 +82689,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6856,
+          "total_file_count": 6857,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
