@@ -555,6 +555,21 @@
                 };
         }
 
+        public HashSet<Actions> GetRobotActions()
+        {
+            var actions = CurrentGameProfile?.RobotActions;
+
+            return actions == null || !actions.Any()
+                ? new HashSet<Actions>
+                {
+                    Actions.BetLevel,
+                    Actions.BetMax,
+                    Actions.LineLevel,
+                    Actions.SpinRequest
+                }
+                : actions;
+        }
+
         public List<string> GetTimeLimitButtons()
         {
             return Active != null

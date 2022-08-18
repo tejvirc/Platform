@@ -89,11 +89,11 @@
                 return;
             }
             _logger.Info("RequestPlay Received!", GetType().Name);
-            var Rng = new Random((int)DateTime.Now.Ticks);
+            var rng = new Random((int)DateTime.Now.Ticks);
 
-            var actions = _robotController.Config.CurrentGameProfile.RobotActions;
-            var action = actions.ElementAt(Rng.Next(actions.Count));
-            _actionPlayerFunctions[action](Rng);
+
+            var action = _robotController.Config.GetRobotActions().GetRandomElement(rng);
+            _actionPlayerFunctions[action](rng);
         }
 
         private bool IsValid()
