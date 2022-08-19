@@ -88,6 +88,10 @@
             }
 
             ValidRestrictions = new List<IConfigurationRestriction>(GetValidRestrictions());
+            if (ValidRestrictions.Any() && !ValidRestrictions.Contains(_selectedRestriction))
+            {
+                SelectedRestriction = ValidRestrictions.FirstOrDefault();
+            }
         }
 
         public void Refresh()
