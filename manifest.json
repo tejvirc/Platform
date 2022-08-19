@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Y3zP40nO6HxQGucBohbl3lhtv4Eq0NFuVcB29gmMGV8="
+          "hash": "yG6BKB7NAG+bxlq+PAyPIvRFd7y0idTmRFuw+n99hHk="
         }
       },
       "is_incremental": false,
@@ -17583,7 +17583,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.html",
-          "hash": "h5vhunjH3bOYOE6rBFQK9TR5Ar0JFhR9zcI8oJq8Ing="
+          "hash": "aajqY12VF9hw3aVT+klZukHCjU+FmW+4lr4qAtrH10E="
         }
       },
       "is_incremental": false,
@@ -20415,7 +20415,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Reporting.IReportTransactionQueueService.html",
-          "hash": "LtgumJEjtlWMGfIYORd3aM7wPNNVqNFe3WQjkOCx+TE="
+          "hash": "BIXyKaj13r1BFPyv3OyFr3eyYo8YHAOvhvol/bN3Bbk="
         }
       },
       "is_incremental": false,
@@ -20447,6 +20447,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Services.Reporting.ReportTransactionQueueServiceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Reporting.ReportTransactionQueueServiceExtensions.html",
+          "hash": "8kjgE/ifVoMd6OvUTdA+d5X/sv7koyLahFhnjgV6p3c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Services.Reporting.TransactionAcknowledgedQueueHelper.yml",
       "output": {
         ".html": {
@@ -20463,7 +20475,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Reporting.TransactionHandler.html",
-          "hash": "UhptSwEk845mDSnHCVing9pkuBH7hLa1+9zD0WRHAds="
+          "hash": "guWq4CJUxnoI86NL8/YV1r+b7xrL0qBkBiVOQFM3bJM="
         }
       },
       "is_incremental": false,
@@ -20475,7 +20487,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Reporting.html",
-          "hash": "lq9/5EM6Cn90THdipqRe1O2KxGu+7hIkLeieKMq7C/c="
+          "hash": "oQj8JW0StXFWUR/E0MsExCkAD9+g6rAlh/8bFjGNhV4="
         }
       },
       "is_incremental": false,
@@ -82701,7 +82713,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6858,
+          "total_file_count": 6859,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

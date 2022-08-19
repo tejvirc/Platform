@@ -134,7 +134,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.%23ctor(System.String%2CSystem.DateTime%2CSystem.Int64%2CSystem.Int64%2CSystem.UInt32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.%23ctor(System.String%2CSystem.DateTime%2CSystem.Int64%2CSystem.Int64%2CSystem.UInt32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L8" title="View Source"><i class="fa fa-code"></i></a>
@@ -142,15 +142,15 @@ public class ReportTransactionMessage : IMessage</code></pre>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.#ctor*"></a>
   
-  <h4 id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.#ctor(System.String,System.DateTime,System.Int64,System.Int64,System.UInt32,System.Int32,System.Int32,System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_" class="expander" data-toggle="collapse">ReportTransactionMessage(String, DateTime, Int64, Int64, UInt32, Int32, Int32, Int32, Int32)</a></h4>
+  <h4 id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_System_String_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.#ctor(System.String,System.DateTime,System.Int64,System.Int64,System.UInt32,System.Int32,System.Int32,System.Int32,System.Int32,System.String)"><a href="#collapsible-Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_System_String_" class="expander" data-toggle="collapse">ReportTransactionMessage(String, DateTime, Int64, Int64, UInt32, Int32, Int32, Int32, Int32, String)</a></h4>
   
-  <div id="collapsible-Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_" class="collapse in">
+  <div id="collapsible-Aristocrat_Bingo_Client_Messages_ReportTransactionMessage__ctor_System_String_System_DateTime_System_Int64_System_Int64_System_UInt32_System_Int32_System_Int32_System_Int32_System_Int32_System_String_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ReportTransactionMessage(string machineSerial, DateTime timeStamp, long amount, long gameSerial, uint gameTitleId, int transactionId, int paytableId, int denominationId, int transactionType)</code></pre>
+    <pre><code class="lang-csharp hljs">public ReportTransactionMessage(string machineSerial, DateTime timeStamp, long amount, long gameSerial, uint gameTitleId, int transactionId, int paytableId, int denominationId, int transactionType, string barcode)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -218,6 +218,13 @@ public class ReportTransactionMessage : IMessage</code></pre>
         <p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">barcode</span>
+        <p>
+      </td>
+    </tr>
   </table>
   
   
@@ -239,7 +246,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_Amount.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.Amount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_Amount_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.Amount*"></a>
@@ -279,10 +286,53 @@ public class ReportTransactionMessage : IMessage</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_Barcode.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.Barcode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_Barcode_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.Barcode*"></a>
+  
+  <h4 id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_Barcode" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.Barcode"><a href="#collapsible-Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_Barcode" class="expander" data-toggle="collapse">Barcode</a></h4>
+  
+  <div id="collapsible-Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_Barcode" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Barcode { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_DenominationId.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.DenominationId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_DenominationId_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.DenominationId*"></a>
@@ -325,7 +375,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_GameSerial.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.GameSerial%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_GameSerial_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.GameSerial*"></a>
@@ -368,7 +418,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_GameTitleId.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.GameTitleId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_GameTitleId_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.GameTitleId*"></a>
@@ -411,7 +461,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_MachineSerial.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.MachineSerial%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_MachineSerial_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.MachineSerial*"></a>
@@ -454,7 +504,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_PaytableId.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.PaytableId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_PaytableId_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.PaytableId*"></a>
@@ -497,7 +547,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_TimeStamp.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.TimeStamp%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_TimeStamp_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.TimeStamp*"></a>
@@ -540,7 +590,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_TransactionId.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.TransactionId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_TransactionId_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.TransactionId*"></a>
@@ -583,7 +633,7 @@ public class ReportTransactionMessage : IMessage</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_TransactionType.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.TransactionType%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ReportTransactionMessage.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ReportTransactionMessage_TransactionType_" data-uid="Aristocrat.Bingo.Client.Messages.ReportTransactionMessage.TransactionType*"></a>
