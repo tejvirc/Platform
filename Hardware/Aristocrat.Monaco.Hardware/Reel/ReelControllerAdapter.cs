@@ -180,6 +180,13 @@
 
         protected override string Path => string.Empty;
 
+        private bool CanSendCommand => LogicalState is
+                    not ReelControllerState.Uninitialized and
+                    not ReelControllerState.IdleUnknown and
+                    not ReelControllerState.Inspecting and
+                    not ReelControllerState.Disabled and
+                    not ReelControllerState.Homing;
+
         public Task<bool> SpinReels(params ReelSpinData[] reelData)
         {
             Logger.Debug("SpinReels with stops called");
@@ -227,7 +234,7 @@
 
         public Task<bool> SetLights(params ReelLampData[] lampData)
         {
-            return Implementation.SetLights(lampData);
+            return CanSendCommand ? Implementation.SetLights(lampData) : Task.FromResult(false);
         }
 
         public Task<IList<int>> GetReelLightIdentifiers()
@@ -237,17 +244,17 @@
 
         public Task<bool> SetReelBrightness(IReadOnlyDictionary<int, int> brightness)
         {
-            return Implementation.SetBrightness(brightness);
+            return CanSendCommand ? Implementation.SetBrightness(brightness) : Task.FromResult(false);
         }
 
         public Task<bool> SetReelBrightness(int brightness)
         {
-            return Implementation.SetBrightness(brightness);
+            return CanSendCommand ? Implementation.SetBrightness(brightness) : Task.FromResult(false);
         }
 
         public Task<bool> SetReelSpeed(params ReelSpeedData[] speedData)
         {
-            return Implementation.SetReelSpeed(speedData);
+            return CanSendCommand ? Implementation.SetReelSpeed(speedData) : Task.FromResult(false);
         }
 
         public async Task<bool> HomeReels()
