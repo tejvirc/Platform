@@ -726,11 +726,15 @@
                 () =>
                 {
                     SelectedGame?.UpdateValidRestrictions();
-                    RaisePropertyChanged(nameof(ValidRestrictions));
-                    RaisePropertyChanged(nameof(ShowRestrictionChooser));
-                    RaisePropertyChanged(nameof(DenomSelectionLimit));
-                    RaisePropertyChanged(nameof(DenomSelectionLimitExists));
-                    RaisePropertyChanged(nameof(SelectedRestriction));
+                    RaisePropertyChanged(
+                        nameof(SelectedRestriction),
+                        nameof(ValidRestrictions),
+                        nameof(ShowRestrictionChooser),
+                        nameof(DenomSelectionLimit),
+                        nameof(DenomSelectionLimitExists),
+                        nameof(GameConfigurations),
+                        nameof(CanSave));
+                    SetRestriction(SelectedRestriction);
                 });
         }
 
