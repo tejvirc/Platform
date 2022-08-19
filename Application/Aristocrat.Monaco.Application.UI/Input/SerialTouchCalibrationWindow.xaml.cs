@@ -18,8 +18,9 @@
 
         private IDisplayDevice _monitor;
 
-        public SerialTouchCalibrationWindow()
+        public SerialTouchCalibrationWindow(object dataContext)
         {
+            DataContext = dataContext;
             InitializeComponent();
             Topmost = WindowToScreenMapper.GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>());
             ContentView.Visibility = Visibility.Hidden;
@@ -109,7 +110,7 @@
                     crosshairColor = System.Windows.Media.Brushes.Red;
                     break;
             }
-            
+
             return crosshairColor;
         }
 

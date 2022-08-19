@@ -150,7 +150,10 @@
                     {
                         Logger.Debug($"InitializeCalibration - Adding display {display.DeviceName} to the serial touch calibration test.");
                         display.TouchProductId = display.TouchVendorId = 0;
-                        var calibrationWindow = new SerialTouchCalibrationWindow { Monitor = display };
+                        var calibrationWindow = new SerialTouchCalibrationWindow(new SerialTouchCalibrationViewModel(display))
+                        {
+                            Monitor = display
+                        };
 
                         if (prevControl != null)
                         {
@@ -221,10 +224,10 @@
                     {
                         _activeWindow?.UpdateError(string.Empty);
                         StopTimer();
-                        _eventBus.Publish(new ExitRequestedEvent(ExitAction.Reboot));                          
+                        _eventBus.Publish(new ExitRequestedEvent(ExitAction.Reboot));
                     }
                     else
-                    { 
+                    {
                         var error = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SerialCalibrationError), CalibrationErrorTimeoutSeconds - _timerElapsedSeconds);
                         _activeWindow?.UpdateError(error);
                     }
