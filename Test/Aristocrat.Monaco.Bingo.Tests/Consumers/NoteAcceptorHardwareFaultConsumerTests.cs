@@ -107,12 +107,12 @@
             _meterManager.Setup(m => m.GetMeter(It.IsAny<string>())).Returns(meter.Object);
             _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.StackerRemoved)).Verifiable();
             _reportingService.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashDrop)).Verifiable();
-            _bingoTransactionReportHandler.Setup(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0)).Verifiable();
+            _bingoTransactionReportHandler.Setup(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0, string.Empty)).Verifiable();
             _target.Consume(new(NoteAcceptorFaultTypes.StackerDisconnected));
 
             _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.StackerRemoved), Times.Once());
             _reportingService.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashDrop), Times.Once());
-            _bingoTransactionReportHandler.Verify(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0), Times.Once());
+            _bingoTransactionReportHandler.Verify(m => m.AddNewTransactionToQueue(TransactionType.Drop, 1234, 0, 0, 0, 0, string.Empty), Times.Once());
         }
     }
 }

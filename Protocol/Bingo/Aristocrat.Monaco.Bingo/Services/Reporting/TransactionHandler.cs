@@ -50,8 +50,9 @@
             long amount,
             uint gameTitleId,
             int denominationId,
-            long gameSerial = 0,
-            int paytableId = 0)
+            long gameSerial,
+            int paytableId,
+            string barcode)
         {
             var message = new ReportTransactionMessage(
                 _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty),
@@ -62,7 +63,8 @@
                 (int)_idProvider.GetNextLogSequence<TransactionHandler>(),
                 paytableId,
                 denominationId,
-                (int)transactionType);
+                (int)transactionType,
+                barcode);
 
             _queue.Enqueue(message);
         }

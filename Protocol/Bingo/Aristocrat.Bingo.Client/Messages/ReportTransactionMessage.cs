@@ -14,7 +14,8 @@
             int transactionId,
             int paytableId,
             int denominationId,
-            int transactionType)
+            int transactionType,
+            string barcode)
         {
             MachineSerial = machineSerial;
             TimeStamp = timeStamp;
@@ -25,6 +26,7 @@
             PaytableId = paytableId;
             DenominationId = denominationId;
             TransactionType = transactionType;
+            Barcode = barcode;
         }
 
         public string MachineSerial { get; }
@@ -44,5 +46,7 @@
         public int DenominationId { get; }
 
         public int TransactionType { get; }
+
+        public string Barcode { get; }
     }
 }

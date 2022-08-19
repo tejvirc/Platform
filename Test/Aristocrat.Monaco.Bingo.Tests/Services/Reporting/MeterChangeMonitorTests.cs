@@ -98,7 +98,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _cashPlayed.Increment(amount);
@@ -116,7 +117,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _cashWon.Increment(amount);
@@ -134,7 +136,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _gamesPlayed.Increment(amount);
@@ -152,7 +155,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _gamesWon.Increment(amount);
@@ -170,7 +174,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _cashPlayed.Increment(amount);
@@ -181,7 +186,8 @@
                     0,
                     0,
                     0,
-                    0), Times.Never);
+                    0,
+                    It.IsAny<string>()), Times.Never);
         }
 
         [TestMethod]
@@ -217,7 +223,8 @@
                     gameTitleId,
                     denominationId,
                     gameSerial,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _gamesWon.Increment(amount);
@@ -228,7 +235,8 @@
                     gameTitleId,
                     denominationId,
                     gameSerial,
-                    0), Times.Once);
+                    0,
+                    string.Empty), Times.Once);
         }
 
         [TestMethod]
@@ -265,7 +273,8 @@
                     gameTitleId,
                     denominationId,
                     gameSerial,
-                    paytableId))
+                    paytableId,
+                    string.Empty))
                 .Verifiable();
 
             _gamesWon.Increment(amount);
@@ -277,7 +286,8 @@
                     gameTitleId,
                     denominationId,
                     gameSerial,
-                    paytableId), Times.Once);
+                    paytableId,
+                    string.Empty), Times.Once);
         }
 
         private class TestMeter : IMeter

@@ -2,6 +2,7 @@
 {
     using System;
     using Accounting.Contracts;
+    using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Accounting.Contracts.TransferOut;
     using Aristocrat.Monaco.Bingo.Common;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
@@ -23,9 +24,18 @@
         private readonly Mock<IReportEventQueueService> _bingoEventQueue = new(MockBehavior.Strict);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
-        private readonly VoucherIssuedEvent _event = new(
-                                                    new VoucherOutTransaction { Amount = 1234, VoucherPrinted = true },
-                                                    new Ticket());
+
+        private readonly VoucherOutTransaction _transaction = new(
+            0,
+            DateTime.Now,
+            1234L.CentsToMillicents(),
+            AccountType.Cashable,
+            "TestBarcode",
+            0,
+            string.Empty)
+        {
+            VoucherPrinted = true
+        };
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -68,13 +78,13 @@
         public void ConsumesCashoutCashableTest()
         {
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOut, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashOut, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
 
-            _target.Consume(_event);
+            _target.Consume(new VoucherIssuedEvent(_transaction, new Ticket()));
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOut, It.IsAny<long>(), 0, 0, 0, 0), Times.Once());
+                Common.TransactionType.CashOut, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }
 
@@ -82,63 +92,55 @@
         public void ConsumesCashoutPromoTest()
         {
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashPromoTicketOut, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashPromoTicketOut, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
 
-            VoucherIssuedEvent evt = new(
-                new VoucherOutTransaction
-                {
-                    Amount = 1234,
-                    Reason = TransferOutReason.CashOut,
-                    VoucherPrinted = true,
-                    TypeOfAccount = AccountType.Promo
-                },
-                new Ticket());
+            var transaction = (VoucherOutTransaction)_transaction.Clone();
+            transaction.Reason = TransferOutReason.CashOut;
+            transaction.TypeOfAccount = AccountType.Promo;
+            VoucherIssuedEvent evt = new(transaction, new Ticket());
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashPromoTicketOut, It.IsAny<long>(), 0, 0, 0, 0), Times.Once());
+                Common.TransactionType.CashPromoTicketOut, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }
 
         [TestMethod]
         public void ConsumesCashoutNonCashTest()
         {
+            var transaction = (VoucherOutTransaction)_transaction.Clone();
+            transaction.Reason = TransferOutReason.CashOut;
+            transaction.TypeOfAccount = AccountType.NonCash;
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.NonTransferablePromoTicketOut, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.NonTransferablePromoTicketOut, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
 
-            VoucherIssuedEvent evt = new(
-                new VoucherOutTransaction {
-                    Amount = 1234,
-                    Reason = TransferOutReason.CashOut,
-                    VoucherPrinted = true,
-                    TypeOfAccount = AccountType.NonCash },
-                new Ticket());
+            var evt = new VoucherIssuedEvent(transaction, new Ticket());
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.NonTransferablePromoTicketOut, It.IsAny<long>(), 0, 0, 0, 0), Times.Once());
+                Common.TransactionType.NonTransferablePromoTicketOut, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }
 
         [TestMethod]
         public void ConsumesLargeWinTest()
         {
+            var transaction = (VoucherOutTransaction)_transaction.Clone();
+            transaction.Reason = TransferOutReason.LargeWin;
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOutJackpot, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashOutJackpot, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
-            VoucherIssuedEvent evt = new(
-                new VoucherOutTransaction { Amount = 1234, Reason = TransferOutReason.LargeWin, VoucherPrinted = true },
-                new Ticket());
+            var evt = new VoucherIssuedEvent(transaction, new Ticket());
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOutJackpot, It.IsAny<long>(), 0, 0, 0, 0), Times.Once());
+                Common.TransactionType.CashOutJackpot, transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, transaction.Barcode), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashoutJackpot), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }
@@ -147,18 +149,18 @@
         public void ConsumesBonusWinTest()
         {
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashoutBonus, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashoutBonus, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashoutBonus)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
 
-            VoucherIssuedEvent evt = new(
-                new VoucherOutTransaction { Amount = 1234, Reason = TransferOutReason.BonusPay, VoucherPrinted = true },
-                new Ticket());
+            var transaction = (VoucherOutTransaction)_transaction.Clone();
+            transaction.Reason = TransferOutReason.BonusPay;
+            var evt = new VoucherIssuedEvent(transaction, new Ticket());
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashoutBonus, It.IsAny<long>(), 0, 0, 0, 0), Times.Once());
+                Common.TransactionType.CashoutBonus, _transaction.Amount.MillicentsToCents(), 0, 0, 0, 0, _transaction.Barcode), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashoutBonus), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Once());
         }
@@ -166,30 +168,35 @@
         [TestMethod]
         public void ConsumesZeroAmountDoesntReportTest()
         {
-            var evt = new VoucherIssuedEvent(new VoucherOutTransaction { Amount = 0, VoucherPrinted = true }, new Ticket());
+            var transaction = (VoucherOutTransaction)_transaction.Clone();
+            transaction.Amount = 0;
+            var evt = new VoucherIssuedEvent(transaction, new Ticket());
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOut, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashOut, 0, 0, 0, 0, 0, transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketOut)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOut, It.IsAny<long>(), 0, 0, 0, 0), Times.Never());
+                Common.TransactionType.CashOut, 0, 0, 0, 0, 0, transaction.Barcode), Times.Never());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketOut), Times.Never());
         }
 
         [TestMethod]
         public void ConsumesVoucherNotPrintedTest()
         {
-            var evt = new VoucherIssuedEvent(new VoucherOutTransaction { Amount = 0, VoucherPrinted = false }, new Ticket());
+            var transaction = (VoucherOutTransaction)_transaction.Clone();
+            transaction.Amount = 0;
+            transaction.VoucherPrinted = false;
+            var evt = new VoucherIssuedEvent(transaction, new Ticket());
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOut, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashOut, 0, 0, 0, 0, 0, transaction.Barcode)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.VoucherIssueTimeout)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashOut, It.IsAny<long>(), 0, 0, 0, 0), Times.Never());
+                Common.TransactionType.CashOut, 0, 0, 0, 0, 0, transaction.Barcode), Times.Never());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.VoucherIssueTimeout), Times.Once());
         }
     }

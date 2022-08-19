@@ -69,13 +69,13 @@
         public void ConsumesTest()
         {
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0, string.Empty)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashIn)).Verifiable();
 
             _target.Consume(_event);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0),
+                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0, string.Empty),
                 Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashIn), Times.Once());
         }
@@ -85,13 +85,13 @@
         {
             var evt = new CurrencyInCompletedEvent(TestAmount.CentsToMillicents());
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0, string.Empty)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashIn)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0),
+                Common.TransactionType.CashIn, TestAmount, 0, 0, 0, 0, string.Empty),
                 Times.Never());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashIn), Times.Never());
         }
@@ -101,13 +101,13 @@
         {
             var evt = new CurrencyInCompletedEvent(0, new Note());
             _reportingService.Setup(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashIn, 0, 0, 0, 0, 0)).Verifiable();
+                Common.TransactionType.CashIn, 0, 0, 0, 0, 0, string.Empty)).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.CashIn)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(m => m.AddNewTransactionToQueue(
-                Common.TransactionType.CashIn, 0, 0, 0, 0, 0),
+                Common.TransactionType.CashIn, 0, 0, 0, 0, 0, string.Empty),
                 Times.Never());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.CashIn), Times.Never());
         }

@@ -64,17 +64,21 @@
         [TestMethod]
         public void ConsumesPromoTest()
         {
-            var evt = new VoucherRedeemedEvent(new VoucherInTransaction { Amount = TestAmount, TypeOfAccount = AccountType.Promo });
+            var evt = new VoucherRedeemedEvent(
+                new VoucherInTransaction(0, DateTime.Now, "TestBarcode")
+                {
+                    Amount = TestAmount, TypeOfAccount = AccountType.Promo
+                });
             _reportingService.Setup(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.CashPromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0)).Verifiable();
+                    Common.TransactionType.CashPromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode")).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketIn)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.CashPromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0), Times.Once());
+                    Common.TransactionType.CashPromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode"), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketIn), Times.Once());
         }
 
@@ -82,17 +86,20 @@
         public void ConsumesNonCashTest()
         {
             var evt = new VoucherRedeemedEvent(
-                new VoucherInTransaction { Amount = TestAmount, TypeOfAccount = AccountType.NonCash });
+                new VoucherInTransaction(0, DateTime.Now, "TestBarcode")
+                {
+                    Amount = TestAmount, TypeOfAccount = AccountType.NonCash
+                });
             _reportingService.Setup(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.NonTransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0)).Verifiable();
+                    Common.TransactionType.NonTransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode")).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketIn)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.NonTransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0), Times.Once());
+                    Common.TransactionType.NonTransferablePromoTicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode"), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketIn), Times.Once());
         }
 
@@ -100,17 +107,20 @@
         public void ConsumesCashTest()
         {
             var evt = new VoucherRedeemedEvent(
-                new VoucherInTransaction { Amount = TestAmount, TypeOfAccount = AccountType.Cashable });
+                new VoucherInTransaction(0, DateTime.Now, "TestBarcode")
+                {
+                    Amount = TestAmount, TypeOfAccount = AccountType.Cashable
+                });
             _reportingService.Setup(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.TicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0)).Verifiable();
+                    Common.TransactionType.TicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode")).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketIn)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.TicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0), Times.Once());
+                    Common.TransactionType.TicketIn, TestAmount.MillicentsToCents(), 0, 0, 0, 0, "TestBarcode"), Times.Once());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketIn), Times.Once());
         }
 
@@ -118,17 +128,17 @@
         public void ConsumesZeroAmountDoesntReportTest()
         {
             var evt = new VoucherRedeemedEvent(
-                new VoucherInTransaction { Amount = 0, TypeOfAccount = AccountType.Cashable });
+                new VoucherInTransaction(0, DateTime.Now, "TestBarcode") { Amount = 0, TypeOfAccount = AccountType.Cashable });
             _reportingService.Setup(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.TicketIn, It.IsAny<long>(), 0, 0, 0, 0)).Verifiable();
+                    Common.TransactionType.TicketIn, It.IsAny<long>(), 0, 0, 0, 0, "TestBarcode")).Verifiable();
             _bingoEventQueue.Setup(m => m.AddNewEventToQueue(ReportableEvent.TicketIn)).Verifiable();
 
             _target.Consume(evt);
 
             _reportingService.Verify(
                 m => m.AddNewTransactionToQueue(
-                    Common.TransactionType.TicketIn, It.IsAny<long>(), 0, 0, 0, 0), Times.Never());
+                    Common.TransactionType.TicketIn, It.IsAny<long>(), 0, 0, 0, 0, "TestBarcode"), Times.Never());
             _bingoEventQueue.Verify(m => m.AddNewEventToQueue(ReportableEvent.TicketIn), Times.Never());
         }
     }

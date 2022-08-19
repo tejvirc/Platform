@@ -66,7 +66,8 @@
                         Common.TransactionType.CashOutJackpot,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                        transaction.Barcode);
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutJackpot);
                     break;
                 case TransferOutReason.BonusPay:
@@ -74,7 +75,8 @@
                         Common.TransactionType.CashoutBonus,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                        transaction.Barcode);
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutBonus);
                     break;
             }
@@ -94,21 +96,24 @@
                         Common.TransactionType.CashOut,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                        transaction.Barcode);
                     break;
                 case AccountType.Promo:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
                         Common.TransactionType.CashPromoTicketOut,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                        transaction.Barcode);
                     break;
                 case AccountType.NonCash:
                     _bingoTransactionReportHandler.AddNewTransactionToQueue(
                         Common.TransactionType.NonTransferablePromoTicketOut,
                         amountInCents,
                         (uint)(gameConfiguration?.GameTitleId ?? 0),
-                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                        transaction.Barcode);
                     break;
             }
         }
