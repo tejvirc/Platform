@@ -47,7 +47,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private static readonly Guid DisabledGuid = new("{B9029021-106D-419B-961F-1B2799817916}");
         private static readonly Guid FailedHomingGuid = new("{3BD10514-10BA-4A48-826F-41ADFECFD01D}");
 
-        private static readonly PatternParameters DisabledPattern = new SolidColorPatternParameters
+        private static readonly PatternParameters SolidBlackPattern = new SolidColorPatternParameters
         {
             Color = Color.Black,
             Priority = StripPriority.PlatformControlled,
@@ -81,7 +81,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
 
-        private IEdgeLightToken _disableToken;
+        private IEdgeLightToken _edgeLightToken;
         private bool _disposed;
         private bool _homeStopsSet;
 
@@ -284,7 +284,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<InspectedEvent>(this, (_, _) => Disconnected(false));
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<OperatorMenuExitedEvent>(this, (_, _) => HandleOperatorMenuExited());
-            _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearDisableState());
+            _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearEdgeLightRenderer());
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<GameHistoryPageLoadedEvent>(this, HandleGameHistoryPageLoaded);
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
@@ -294,6 +294,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private async Task HandleOperatorMenuExited()
         {
+            ClearEdgeLightRenderer();
+
             if (!ReelsShouldTilt)
             {
                 return;
@@ -315,7 +317,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private void DisableReelLights()
         {
-            _disableToken ??= _edgeLightingController.AddEdgeLightRenderer(DisabledPattern);
+            _edgeLightToken ??= _edgeLightingController.AddEdgeLightRenderer(SolidBlackPattern);
         }
 
         private async Task HandleSystemDisableAddedEvent(SystemDisableAddedEvent evt, CancellationToken token)
@@ -355,7 +357,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             Logger.Debug("HandleReelStoppedEvent all reels are stopped, clearing reels tilt");
             SetBinary(ReelsTiltedKey, false);
             SetBinary(ReelsNeedHomingKey, false);
-            ClearDisableState();
+            ClearEdgeLightRenderer();
         }
 
         private async Task HandleGameInitializationCompleted()
@@ -588,10 +590,13 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             }
         }
 
-        private void ClearDisableState()
+        private void ClearEdgeLightRenderer()
         {
-            _edgeLightingController.RemoveEdgeLightRenderer(_disableToken);
-            _disableToken = null;
+            if (_edgeLightToken != null)
+            {
+                _edgeLightingController.RemoveEdgeLightRenderer(_edgeLightToken);
+                _edgeLightToken = null;
+            }
         }
 
         private async Task TiltReels(bool immediate = false)

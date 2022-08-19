@@ -256,8 +256,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                     newState = data.IsLampOn;
                 }
 
-                // Only set the color if the lamp is being turned on, otherwise just ignore the color
-                if (data.IsLampOn && data.Color != _currentLightState[data.Id - 1].Color)
+                // Only set the color if the lamp is being turned on with a different color that is not transparent, otherwise just ignore the color
+                if (data.IsLampOn && data.Color != _currentLightState[data.Id - 1].Color && data.Color != Color.Transparent)
                 {
                     colorChanged = true;
                     newColor = data.Color;
