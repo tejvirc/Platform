@@ -39,8 +39,8 @@
         /// <summary>Get or sets the offsets for each reel</summary>
         IEnumerable<int> ReelOffsets { get; set; }
 
-        /// <summary>Get or sets the home stops for each reel</summary>
-        IReadOnlyDictionary<int, int> ReelHomeStops { get; set; }
+        /// <summary>Get or sets the home steps for each reel</summary>
+        IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; }
 
         /// <summary>
         ///     Spins the reels with the requested spin data

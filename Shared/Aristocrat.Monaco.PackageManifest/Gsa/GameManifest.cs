@@ -32,8 +32,7 @@
             }
 
             // Get the localized text if present, otherwise get the first one
-            var localizedInfo = product.localization.FirstOrDefault(l => IsLocaleMatch(l.localeCode)) ??
-                                product.localization.First();
+            var localizedInfo = GetLocalization(product);
 
             var game = new GameContent
             {
@@ -56,7 +55,7 @@
                 Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
                 MechanicalReels = product.mechanicalReels,
-                MechanicalReelHomeStops = product.mechanicalReelHomeStops?.Split(' ').Select(int.Parse).ToArray()
+                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product)
             };
 
             foreach (var l in product.localization)
@@ -352,7 +351,7 @@
                 DefaultBetLinePreset = configurationMap.betLinePresetIdList.@default
             };
         }
-
+        
         private static string GetVariationFromPaytableId(string paytableId)
         {
             const string delimiter = "_";

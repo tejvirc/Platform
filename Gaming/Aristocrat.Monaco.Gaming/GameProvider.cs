@@ -978,7 +978,7 @@
                     gameDetail.MaximumProgressivePerDenom = game.MaximumProgressivePerDenom;
                     gameDetail.ReleaseDate = gameContent.ReleaseDate;
                     gameDetail.MechanicalReels = gameContent.MechanicalReels;
-                    gameDetail.MechanicalReelHomeStops = gameContent.MechanicalReelHomeStops;
+                    gameDetail.MechanicalReelHomeSteps = gameContent.MechanicalReelHomeSteps;
 
                     gameDetail.Folder = gameFolder;
                     gameDetail.GameDll = fullGameDllPath;

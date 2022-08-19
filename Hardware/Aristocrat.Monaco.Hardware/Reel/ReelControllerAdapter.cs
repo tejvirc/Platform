@@ -172,7 +172,7 @@
             }
         }
 
-        public IReadOnlyDictionary<int, int> ReelHomeStops { get; set; } = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+        public IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; } = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
 
         protected override IReelControllerImplementation Implementation => _reelController;
 
@@ -259,7 +259,7 @@
 
         public async Task<bool> HomeReels()
         {
-            return await HomeReels(ReelHomeStops);
+            return await HomeReels(ReelHomeSteps);
         }
 
         public async Task<bool> HomeReels(IReadOnlyDictionary<int, int> reelOffsets)

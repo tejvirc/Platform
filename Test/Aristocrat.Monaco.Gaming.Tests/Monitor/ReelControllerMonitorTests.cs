@@ -78,7 +78,7 @@
             {
                 new GameDetail()
                 {
-                    Id = 100, MechanicalReels = 3, MechanicalReelHomeStops = new int[] { 118, 56, 132 }
+                    Id = 100, MechanicalReels = 3, MechanicalReelHomeSteps = new int[] { 118, 56, 132 }
                 }
             };
 
@@ -885,8 +885,8 @@
         {
             InitializeClient(false);
 
-            var expectedHomeStops = new Dictionary<int, int>() { { 1, 118 }, { 2, 56 }, { 3, 132 } };
-            _reelController.SetupSet(x => x.ReelHomeStops = expectedHomeStops).Verifiable();
+            var expectedHomeSteps = new Dictionary<int, int>() { { 1, 118 }, { 2, 56 }, { 3, 132 } };
+            _reelController.SetupSet(x => x.ReelHomeSteps = expectedHomeSteps).Verifiable();
 
             Assert.IsNotNull(_gameAddedEventAction);
             _gameAddedEventAction(new GameAddedEvent(1, "theme"));

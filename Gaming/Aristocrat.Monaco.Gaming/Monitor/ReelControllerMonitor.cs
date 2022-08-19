@@ -83,7 +83,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private IEdgeLightToken _edgeLightToken;
         private bool _disposed;
-        private bool _homeStopsSet;
+        private bool _homeStepsSet;
 
         public ReelControllerMonitor(
             IEventBus eventBus,
@@ -213,42 +213,44 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             SubscribeToEvents();
             await CheckDeviceStatus();
             ValidateReelMismatch();
-            GetReelHomeStops();
+            GetReelHomeSteps();
             await HandleGameInitializationCompleted();
         }
 
         private void HandleGameAddedEvent()
         {
             ValidateReelMismatch();
-            GetReelHomeStops();
+            GetReelHomeSteps();
         }
 
-        private void GetReelHomeStops()
+        private void GetReelHomeSteps()
         {
-            if (_homeStopsSet)
+            if (_homeStepsSet)
             {
                 return;
             }
 
             // this assumes all the games for a cabinet with mechanical reels will have
-            // the same home stops. Normally there will only be one game.
+            // the same home steps. Normally there will only be one game.
+
             var details = _gameProvider.GetGames().FirstOrDefault();
-            var home = details?.MechanicalReelHomeStops;
+            var home = details?.MechanicalReelHomeSteps;
             if (home is null)
             {
-                // in this case the home stops will default to all zeros
+                // in this case the home steps will default to all zeros
+
                 return;
             }
 
-            var homeStops = new Dictionary<int, int>();
+            var homeSteps = new Dictionary<int, int>();
             for (var i = 0; i < home.Length; i++)
             {
-                homeStops[i + 1] = home[i];
-                Logger.Debug($"Set reel {i + 1} home position to {homeStops[i + 1]}");
+                homeSteps[i + 1] = home[i];
+                Logger.Debug($"Set reel {i + 1} home position to {homeSteps[i + 1]}");
             }
 
-            _reelController.ReelHomeStops = homeStops;
-            _homeStopsSet = true;
+            _reelController.ReelHomeSteps = homeSteps;
+            _homeStepsSet = true;
         }
 
         private static bool IsReelFault(Guid guid)

@@ -128,7 +128,7 @@
 
         public int MechanicalReels { get; set; }
 
-        public int[] MechanicalReelHomeStops { get; set; }
+        public int[] MechanicalReelHomeSteps { get; set; }
 
         public GameCategory Category { get; set; }
 

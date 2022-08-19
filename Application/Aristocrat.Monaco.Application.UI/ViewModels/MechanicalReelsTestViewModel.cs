@@ -22,7 +22,7 @@
     [CLSCompliant(false)]
     public class MechanicalReelsTestViewModel : INotifyPropertyChanged
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private const int DefaultSpinSpeed = 1; // TODO: Get this value from the Adapter
         private const int DefaultNudgeDelay = 0;
@@ -288,7 +288,7 @@
                         {
                             try
                             {
-                                ReelsSimulation.HomeReel(i, _reelController.ReelHomeStops[i]);
+                                ReelsSimulation.HomeReel(i, _reelController.ReelHomeSteps[i]);
                             }
                             catch (Exception ex)
                             {

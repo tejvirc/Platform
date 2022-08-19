@@ -203,8 +203,8 @@
         int MechanicalReels { get; set; }
 
         /// <summary>
-        ///     Gets or sets the mechanical reel home stops
+        ///     Gets or sets the mechanical reel home steps
         /// </summary>
-        int[] MechanicalReelHomeStops { get; set; }
+        int[] MechanicalReelHomeSteps { get; set; }
     }
 }

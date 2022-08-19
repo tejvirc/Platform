@@ -254,7 +254,7 @@
 
         public int MechanicalReels { get; set; }
 
-        public int[] MechanicalReelHomeStops { get; set; }
+        public int[] MechanicalReelHomeSteps { get; set; }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

@@ -25,8 +25,7 @@
             }
 
             // Get the localized text if present, otherwise get the first one
-            var localizedInfo = product.localization.FirstOrDefault(l => IsLocaleMatch(l.localeCode)) ??
-                                product.localization.First();
+            var localizedInfo = GetLocalization(product);
 
             return new Product
             {
@@ -40,7 +39,7 @@
                 InstallSequence = "<installSeq />",
                 UninstallSequence = "<uninstallSeq />",
                 MechanicalReels = product.mechanicalReels,
-                MechanicalReelHomeStops = product.mechanicalReelHomeStops.Split(' ').Select(int.Parse).ToArray()
+                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product)
             };
         }
 
