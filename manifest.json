@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "32sQ5YLcS9wtAhJoW5RzOc3I8U1Fj+wXlrVayN96pmw="
+          "hash": "Y3zP40nO6HxQGucBohbl3lhtv4Eq0NFuVcB29gmMGV8="
         }
       },
       "is_incremental": false,
@@ -11072,6 +11072,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Input.SerialTouchCalibrationViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.SerialTouchCalibrationViewModel.html",
+          "hash": "6tpJ/YO108a/No5N2L+u/KwelH83HuXIXu2MXQkyxwI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Input.SerialTouchCalibrationWindow.SerialTouchCalibrationCompleteHandler.yml",
       "output": {
         ".html": {
@@ -11088,7 +11100,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.SerialTouchCalibrationWindow.html",
-          "hash": "p7w4L/xzuQ5sRKHOBrs+aZNqbsZa28tHUJB1GjZGJ98="
+          "hash": "L1PrObicj9vKG6NvAt8dRKwgUewLMWxrw8Pwu9ir8YE="
         }
       },
       "is_incremental": false,
@@ -11148,7 +11160,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.html",
-          "hash": "ke2GXCGU6Uim+PGnATmsoFICXaSY9Lu41D28J0R2jBk="
+          "hash": "wxkFQ0tfcpIL80mS0z3qUznqey7on5GiY+3EVdcy9Rg="
         }
       },
       "is_incremental": false,
@@ -12192,7 +12204,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuDialog.html",
-          "hash": "PCUG+ooatjxgqtu5ouJU3r0A3fxhLypXCu5HJ2P8fLs="
+          "hash": "+OAE51W1vy8LngpaCzrocDyR1F9g9J6mICxeKHaq7IE="
         }
       },
       "is_incremental": false,
@@ -82689,7 +82701,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6857,
+          "total_file_count": 6858,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
