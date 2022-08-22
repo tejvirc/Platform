@@ -7,7 +7,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
@@ -37,7 +36,6 @@
         private Mock<IScopedTransaction> _scopedTransaction;
         private Mock<IPersistentStorageAccessor> _persistentStorageAccessor;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         private CurrencyInProvider _target;
@@ -68,8 +66,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             MockLocalization.Setup(MockBehavior.Default);
 
@@ -160,8 +156,7 @@
                 _storageManager.Object,
                 _iidProvider.Object,
                 _messageDisplay.Object,
-                _validationProvider.Object,
-                _lockManager.Object);
+                _validationProvider.Object);
 
             return target;
         }

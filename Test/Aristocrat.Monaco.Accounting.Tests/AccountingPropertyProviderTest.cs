@@ -61,7 +61,6 @@
             _block.SetupGet(m => m[AccountingConstants.MaxTenderInLimit]).Returns(0);
             _block.SetupGet(m => m[AccountingConstants.CashInLaundry]).Returns(0);
             _block.SetupGet(m => m[AccountingConstants.VoucherInLaundry]).Returns(0);
-            _block.SetupGet(m => m[AccountingConstants.SelfAuditErrorOccurred]).Returns(false);
             _block.SetupGet(m => m[AccountingConstants.MaxCreditMeter])
                 .Returns(AccountingConstants.DefaultLargeWinLimit);
             _block.SetupGet(m => m[AccountingConstants.MaxCreditMeterMaxAllowed])

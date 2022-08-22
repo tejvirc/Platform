@@ -1175,11 +1175,6 @@
         public static Guid ExcessiveMeterIncrementErrorGuid = new Guid("{444D0667-F0B1-4346-BB3D-C0AB5BA4763D}");
 
         /// <summary>
-        ///      Self Audit Error lockup GUID
-        /// </summary>
-        public static Guid SelfAuditErrorGuid = new Guid("{7756BF42-FEBB-4CC2-B5CA-9313A493DD8D}");
-
-        /// <summary>
         ///      Belly Door discrepency lockup GUID
         /// </summary>
         public static Guid BellyDoorDiscrepencyGuid = new Guid("{E3307468-9863-49E4-AF9E-C3982B869B27}");

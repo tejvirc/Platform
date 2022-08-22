@@ -1,10 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Bonus.Strategies
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Transactions;
@@ -13,8 +8,6 @@
     using Accounting.Contracts.Wat;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Common;
     using Contracts;
     using Contracts.Bonus;
@@ -27,6 +20,10 @@
     using log4net;
     using Payment;
     using Runtime;
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
 
     public abstract class BonusStrategy
     {
@@ -45,7 +42,6 @@
         private readonly ITransferOutHandler _transferHandler;
         private readonly IPersistentStorageManager _storage;
         private readonly IPaymentDeterminationProvider _bonusPayDetermination;
-        private readonly ILockManager _lockManager;
 
         protected BonusStrategy(
             IPropertiesManager properties,
@@ -59,8 +55,7 @@
             IMessageDisplay messages,
             IPlayerService players,
             IPersistentStorageManager storage,
-            IPaymentDeterminationProvider bonusPayDetermination,
-            ILockManager lockManager)
+            IPaymentDeterminationProvider bonusPayDetermination)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
@@ -74,7 +69,6 @@
             _players = players ?? throw new ArgumentNullException(nameof(players));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _bonusPayDetermination = bonusPayDetermination ?? throw new ArgumentNullException(nameof(bonusPayDetermination));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
 
             _bonusPayDetermination.BonusHandler ??= new BonusPaymentDeterminationHandler(_properties, _bank);
 
@@ -198,11 +192,8 @@
                 {
                     case PayMethod.Any:
                     case PayMethod.Credit:
-                        using (_lockManager.AcquireExclusiveLock(GetMetersToUpdate(transaction)))
-                        {
-                            PayToCredits(transactionId, cashableAmount, nonCashAmount, promoAmount);
-                            CompletePayment(transaction, cashableAmount, nonCashAmount, promoAmount);
-                        }
+                        PayToCredits(transactionId, cashableAmount, nonCashAmount, promoAmount);
+                        CompletePayment(transaction, cashableAmount, nonCashAmount, promoAmount);
                         break;
                     case PayMethod.Handpay:
                         pendingPayout = PayTo<IHandpayProvider>(
@@ -439,45 +430,6 @@
             UpdateMeters(transaction, cashableAmount, nonCashAmount, promoAmount);
 
             UpdateDeductibleMeters(transaction);
-        }
-
-        protected virtual IEnumerable<IMeter> GetMetersToUpdate(BonusTransaction transaction)
-        {
-            return new[]
-            {
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.HandPaidBonusCashableInAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.HandPaidBonusNonCashInAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.HandPaidBonusPromoInAmount),
-                _meters.GetMeter(BonusMeters.HandPaidBonusCount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.EgmPaidBonusCashableInAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.EgmPaidBonusNonCashInAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.EgmPaidBonusPromoInAmount),
-                _meters.GetMeter(BonusMeters.EgmPaidBonusCount),
-                _meters.GetMeter(
-                    transaction.GameId,
-                    transaction.Denom,
-                    GamingMeters.HandPaidBonusNonDeductibleAmount),
-                _meters.GetMeter(
-                    transaction.GameId,
-                    transaction.Denom,
-                    GamingMeters.HandPaidBonusNonDeductibleCount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.HandPaidBonusWagerMatchAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.WagerMatchBonusCount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.HandPaidBonusDeductibleAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.HandPaidBonusDeductibleCount),
-                _meters.GetMeter(
-                    transaction.GameId,
-                    transaction.Denom,
-                    GamingMeters.EgmPaidBonusNonDeductibleAmount),
-                _meters.GetMeter(
-                    transaction.GameId,
-                    transaction.Denom,
-                    GamingMeters.EgmPaidBonusNonDeductibleCount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.EgmPaidBonusWagerMatchAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.WagerMatchBonusCount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.EgmPaidBonusDeductibleAmount),
-                _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.EgmPaidBonusDeductibleCount)
-            };
         }
 
         protected void Commit(BonusTransaction transaction, BonusException exception = BonusException.None, BonusExceptionInfo exceptionInfo = BonusExceptionInfo.None)

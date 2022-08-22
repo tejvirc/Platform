@@ -2,7 +2,6 @@
 {
     using Accounting.Contracts;
     using Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
     using Contracts.Session;
@@ -30,7 +29,6 @@
         private PlayerBank _target;
         private Mock<ITransactionCoordinator> _transactionCoordinator;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         private Mock<ITransferOutHandler> _transferOutHandler;
@@ -53,8 +51,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _target = new PlayerBank(
                 _bank.Object,
@@ -64,8 +60,7 @@
                 _meterManager.Object,
                 _players.Object,
                 _eventBus.Object,
-                _history.Object,
-                _lockManager.Object);
+                _history.Object);
         }
 
         // Use TestCleanup to run code after each test has run

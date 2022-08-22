@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Vouchers
 {
     using Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Transactions;
     using Contracts.TransferOut;
@@ -28,7 +27,6 @@
         private readonly IPersistentStorageManager _storage;
         private readonly ITransactionHistory _transactions;
         private readonly IValidationProvider _validationProvider;
-        private readonly ILockManager _lockManager;
 
         public VoucherOutProvider()
             : this(
@@ -39,8 +37,7 @@
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IIdProvider>(),
-                ServiceManager.GetInstance().GetService<IValidationProvider>(),
-                ServiceManager.GetInstance().GetService<ILockManager>())
+                ServiceManager.GetInstance().GetService<IValidationProvider>())
         {
         }
 
@@ -52,8 +49,7 @@
             IEventBus bus,
             IPropertiesManager properties,
             IIdProvider idProvider,
-            IValidationProvider validationProvider,
-            ILockManager lockManager)
+            IValidationProvider validationProvider)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
@@ -63,7 +59,6 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
 
             // Override MaxSequence if configured
             MaxSequence = _properties.GetValue(AccountingConstants.VoucherOutMaxSequence, MaxSequence);
@@ -258,30 +253,27 @@
                 {
                     using (var scope = _storage.ScopedTransaction())
                     {
-                        using (_lockManager.AcquireExclusiveLock(GetMetersToUpdate()))
+                        if (transaction.Reason.AffectsBalance())
                         {
-                            if (transaction.Reason.AffectsBalance())
-                            {
-                                voucherAmount.Withdraw(_bank, transaction.BankTransactionId);
-                            }
-
-                            transaction.VoucherPrinted = true;
-
-                            // Unique log sequence number assigned by the EGM; a series that strictly increases by 1 (one) starting at 1 (one).
-                            transaction.LogSequence = _idProvider.GetNextLogSequence<VoucherBaseTransaction>();
-
-                            transaction.HostSequence = _idProvider.GetNextLogSequence<IAcknowledgeableTransaction>();
-
-                            // Force the increment, since we just read it before printing
-                            _idProvider.GetNextLogSequence<VoucherOutTransaction>();
-
-                            _transactions.AddTransaction(transaction);
-
-                            Logger.Debug("Entering UpdateMeters");
-
-                            UpdateMeters(transaction, voucherAmount);
-                            Logger.Debug("Finished UpdateMeters");
+                            voucherAmount.Withdraw(_bank, transaction.BankTransactionId);
                         }
+
+                        transaction.VoucherPrinted = true;
+
+                        // Unique log sequence number assigned by the EGM; a series that strictly increases by 1 (one) starting at 1 (one).
+                        transaction.LogSequence = _idProvider.GetNextLogSequence<VoucherBaseTransaction>();
+
+                        transaction.HostSequence = _idProvider.GetNextLogSequence<IAcknowledgeableTransaction>();
+
+                        // Force the increment, since we just read it before printing
+                        _idProvider.GetNextLogSequence<VoucherOutTransaction>();
+
+                        _transactions.AddTransaction(transaction);
+
+                        Logger.Debug("Entering UpdateMeters");
+
+                        UpdateMeters(transaction, voucherAmount);
+                        Logger.Debug("Finished UpdateMeters");
 
                         scope.Complete();
                     }
@@ -359,27 +351,6 @@
                         break;
                 }
             }
-        }
-
-        private IEnumerable<IMeter> GetMetersToUpdate()
-        {
-            return new List<IMeter>()
-            {
-                _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoAmount),
-                _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoCount),
-
-                _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount),
-                _meters.GetMeter(AccountingMeters.VoucherOutCashableCount),
-
-                _meters.GetMeter(AccountingMeters.VoucherOutCashableAmount),
-                _meters.GetMeter(AccountingMeters.VoucherOutCashableCount),
-
-                _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoAmount),
-                _meters.GetMeter(AccountingMeters.VoucherOutCashablePromoCount),
-
-                _meters.GetMeter(AccountingMeters.VoucherOutNonCashableAmount),
-                _meters.GetMeter(AccountingMeters.VoucherOutNonCashableCount)
-            };
         }
 
         private bool CheckVoucherOutLimit(long amount)

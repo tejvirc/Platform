@@ -21,7 +21,6 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
     using Kernel;
-    using Kernel.Contracts.LockManagement;
     using Localization.Properties;
 
     public class HandpayProvider : TransferOutProviderBase, IHandpayProvider, IDisposable
@@ -40,7 +39,6 @@
         private readonly IVoucherOutProvider _voucherOut;
         private readonly IWatOffProvider _wat;
         private readonly IValidationProvider _validationProvider;
-        private readonly ILockManager _lockManager;
         private bool _remoteHandpayMethodSelected;
         private readonly AutoResetEvent _handpayPrintRetry = new AutoResetEvent(false);
 
@@ -59,7 +57,6 @@
                 ServiceManager.GetInstance().GetService<IVoucherOutProvider>(),
                 ServiceManager.GetInstance().GetService<IWatOffProvider>(),
                 ServiceManager.GetInstance().GetService<IValidationProvider>(),
-                ServiceManager.GetInstance().GetService<ILockManager>(),
                 ServiceManager.GetInstance().TryGetService<INoteAcceptor>())
         {
         }
@@ -76,7 +73,6 @@
             IVoucherOutProvider voucherOut,
             IWatOffProvider wat,
             IValidationProvider validationProvider,
-            ILockManager lockManager,
             INoteAcceptor noteAcceptor)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
@@ -90,7 +86,6 @@
             _voucherOut = voucherOut ?? throw new ArgumentNullException(nameof(voucherOut));
             _wat = wat ?? throw new ArgumentNullException(nameof(wat));
             _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
             _noteAcceptor = noteAcceptor; // NOTE: This one can be null, this is valid.
         }
 
@@ -548,41 +543,38 @@
                     _transactions.UpdateTransaction(transaction);
                     using (var scope = _storage.ScopedTransaction())
                     {
-                        using (_lockManager.AcquireExclusiveLock(GetAllMetersToUpdate()))
+                        switch (transaction.KeyOffType)
                         {
-                            switch (transaction.KeyOffType)
-                            {
-                                case KeyOffType.LocalHandpay:
-                                case KeyOffType.RemoteHandpay:
-                                    ToHandpay(transaction);
-                                    break;
-                                case KeyOffType.LocalVoucher:
-                                case KeyOffType.RemoteVoucher:
-                                    if (!await Transfer(_voucherOut, transaction))
-                                    {
-                                        throw new TransferOutException(@"Voucher issuance failed", true);
-                                    }
-                                    break;
-                                case KeyOffType.LocalWat:
-                                case KeyOffType.RemoteWat:
-                                    if (!await Transfer(_wat, transaction))
-                                    {
-                                        throw new TransferOutException(@"WAT transfer failed", true);
-                                    }
-                                    break;
-                                case KeyOffType.LocalCredit:
-                                case KeyOffType.RemoteCredit:
-                                    ToCreditMeter(transaction);
-                                    break;
-                                case KeyOffType.Cancelled:
-                                    // This should only occur for CancelCredit types and is currently a no-op
-                                    break;
-                                case KeyOffType.Unknown:
-                                    break;
-                            }
-
-                            CommitTransaction(transaction);
+                            case KeyOffType.LocalHandpay:
+                            case KeyOffType.RemoteHandpay:
+                                ToHandpay(transaction);
+                                break;
+                            case KeyOffType.LocalVoucher:
+                            case KeyOffType.RemoteVoucher:
+                                if (!await Transfer(_voucherOut, transaction))
+                                {
+                                    throw new TransferOutException(@"Voucher issuance failed", true);
+                                }
+                                break;
+                            case KeyOffType.LocalWat:
+                            case KeyOffType.RemoteWat:
+                                if (!await Transfer(_wat, transaction))
+                                {
+                                    throw new TransferOutException(@"WAT transfer failed", true);
+                                }
+                                break;
+                            case KeyOffType.LocalCredit:
+                            case KeyOffType.RemoteCredit:
+                                ToCreditMeter(transaction);
+                                break;
+                            case KeyOffType.Cancelled:
+                                // This should only occur for CancelCredit types and is currently a no-op
+                                break;
+                            case KeyOffType.Unknown:
+                                break;
                         }
+
+                        CommitTransaction(transaction);
                         scope.Complete();
                     }
                 }
@@ -602,41 +594,6 @@
             _bus.Publish(new HandpayKeyedOffEvent(transaction));
 
             return await Task.FromResult(true);
-        }
-
-        private IEnumerable<IMeter> GetAllMetersToUpdate()
-        {
-            return new List<IMeter>
-            {
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedGameWinReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedGameWinReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedGameWinReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedGameWinReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedGameWinNoReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedGameWinNoReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedGameWinNoReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedGameWinNoReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedBonusPayReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedBonusPayReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedBonusPayReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedBonusPayReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedBonusPayNoReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedBonusPayNoReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedBonusPayNoReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedBonusPayNoReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedCancelReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedCancelReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedCancelReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedCancelReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedCancelNoReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidValidatedCancelNoReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedCancelNoReceiptAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidNotValidatedCancelNoReceiptCount),
-                _meters.GetMeter(AccountingMeters.HandpaidCashableAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidPromoAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidNonCashableAmount),
-                _meters.GetMeter(AccountingMeters.HandpaidOutCount)
-            };
         }
 
         private void ToHandpay(HandpayTransaction transaction)

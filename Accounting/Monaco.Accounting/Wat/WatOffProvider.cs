@@ -12,7 +12,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Localization.Properties;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
 
     /// <summary>
     ///     Handles wager account transfer (WAT) transactions
@@ -33,7 +32,6 @@
         private readonly IMessageDisplay _messageDisplay;
         private readonly ITransactionHistory _transactions;
         private readonly IFundTransferProvider _fundTransferProvider;
-        private readonly ILockManager _lockManager;
         private bool _disposed;
 
         public WatOffProvider()
@@ -45,8 +43,7 @@
                 ServiceManager.GetInstance().GetService<ITransactionCoordinator>(),
                 ServiceManager.GetInstance().GetService<IMessageDisplay>(),
                 ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IFundTransferProvider>(),
-                ServiceManager.GetInstance().GetService<ILockManager>())
+                ServiceManager.GetInstance().GetService<IFundTransferProvider>())
         {
         }
 
@@ -58,8 +55,7 @@
             ITransactionCoordinator transactionCoordinator,
             IMessageDisplay messageDisplay,
             IEventBus bus,
-            IFundTransferProvider fundTransferProvider,
-            ILockManager lockManager)
+            IFundTransferProvider fundTransferProvider)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
@@ -70,7 +66,6 @@
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _fundTransferProvider = fundTransferProvider ?? throw new ArgumentNullException(nameof(fundTransferProvider));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
         }
 
         public void Dispose()
@@ -442,77 +437,53 @@
 
                 if (transaction.AuthorizedCashableAmount > 0)
                 {
-                    using (_lockManager.AcquireExclusiveLock(
-                        new List<IMeter>
-                        {
-                            _meters.GetMeter(AccountingMeters.WatOffCashableAmount),
-                            _meters.GetMeter(AccountingMeters.WatOffCashableCount)
-                        }))
+                    if (AffectsBalance(transaction.Reason))
                     {
-                        if (AffectsBalance(transaction.Reason))
-                        {
-                            _bank.Withdraw(
-                                AccountType.Cashable,
-                                transaction.AuthorizedCashableAmount,
-                                transaction.BankTransactionId);
-                        }
-
-                        transaction.TransferredCashableAmount = transaction.AuthorizedCashableAmount;
-
-                        _meters.GetMeter(AccountingMeters.WatOffCashableAmount)
-                            .Increment(transaction.AuthorizedCashableAmount);
-                        _meters.GetMeter(AccountingMeters.WatOffCashableCount).Increment(1);
+                        _bank.Withdraw(
+                            AccountType.Cashable,
+                            transaction.AuthorizedCashableAmount,
+                            transaction.BankTransactionId);
                     }
+
+                    transaction.TransferredCashableAmount = transaction.AuthorizedCashableAmount;
+
+                    _meters.GetMeter(AccountingMeters.WatOffCashableAmount)
+                        .Increment(transaction.AuthorizedCashableAmount);
+                    _meters.GetMeter(AccountingMeters.WatOffCashableCount).Increment(1);
                 }
 
                 if (transaction.AuthorizedPromoAmount > 0)
                 {
-                    using (_lockManager.AcquireExclusiveLock(
-                        new List<IMeter>
-                        {
-                            _meters.GetMeter(AccountingMeters.WatOffCashablePromoAmount),
-                            _meters.GetMeter(AccountingMeters.WatOffCashablePromoCount)
-                        }))
+                    if (AffectsBalance(transaction.Reason))
                     {
-                        if (AffectsBalance(transaction.Reason))
-                        {
-                            _bank.Withdraw(
-                                AccountType.Promo,
-                                transaction.AuthorizedPromoAmount,
-                                transaction.BankTransactionId);
-                        }
-
-                        transaction.TransferredPromoAmount = transaction.AuthorizedPromoAmount;
-
-                        _meters.GetMeter(AccountingMeters.WatOffCashablePromoAmount)
-                            .Increment(transaction.AuthorizedPromoAmount);
-                        _meters.GetMeter(AccountingMeters.WatOffCashablePromoCount).Increment(1);
+                        _bank.Withdraw(
+                            AccountType.Promo,
+                            transaction.AuthorizedPromoAmount,
+                            transaction.BankTransactionId);
                     }
+
+                    transaction.TransferredPromoAmount = transaction.AuthorizedPromoAmount;
+
+                    _meters.GetMeter(AccountingMeters.WatOffCashablePromoAmount)
+                        .Increment(transaction.AuthorizedPromoAmount);
+                    _meters.GetMeter(AccountingMeters.WatOffCashablePromoCount).Increment(1);
                 }
 
                 if (transaction.AuthorizedNonCashAmount > 0)
                 {
-                    using (_lockManager.AcquireExclusiveLock(
-                        new List<IMeter>
-                        {
-                            _meters.GetMeter(AccountingMeters.WatOffNonCashableAmount),
-                            _meters.GetMeter(AccountingMeters.WatOffNonCashableCount)
-                        }))
+                    if (AffectsBalance(transaction.Reason))
                     {
-                        if (AffectsBalance(transaction.Reason))
-                        {
-                            _bank.Withdraw(
-                                AccountType.NonCash,
-                                transaction.AuthorizedNonCashAmount,
-                                transaction.BankTransactionId);
-                        }
-
-                        transaction.TransferredNonCashAmount = transaction.AuthorizedNonCashAmount;
-
-                        _meters.GetMeter(AccountingMeters.WatOffNonCashableAmount)
-                            .Increment(transaction.AuthorizedNonCashAmount);
-                        _meters.GetMeter(AccountingMeters.WatOffNonCashableCount).Increment(1);
+                        _bank.Withdraw(
+                            AccountType.NonCash,
+                            transaction.AuthorizedNonCashAmount,
+                            transaction.BankTransactionId);
                     }
+
+                    transaction.TransferredNonCashAmount = transaction.AuthorizedNonCashAmount;
+
+                    _meters.GetMeter(AccountingMeters.WatOffNonCashableAmount)
+                        .Increment(transaction.AuthorizedNonCashAmount);
+                    _meters.GetMeter(AccountingMeters.WatOffNonCashableCount).Increment(1);
                 }
 
                 transaction.Status = WatStatus.Committed;

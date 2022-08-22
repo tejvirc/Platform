@@ -6,7 +6,6 @@ namespace Aristocrat.Monaco.Accounting
     using System.Reflection;
     using System.Threading;
     using Application.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts.SelfAudit;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -28,7 +27,6 @@ namespace Aristocrat.Monaco.Accounting
         private readonly IPropertiesManager _properties;
         private readonly IPersistentStorageManager _storage;
         private readonly ITransactionCoordinator _transactionCoordinator;
-        private readonly ISelfAuditErrorCheckingService _selfAuditService;
 
         private ReaderWriterLockSlim _accountsLock = new ReaderWriterLockSlim();
         private bool _disposed;
@@ -42,8 +40,7 @@ namespace Aristocrat.Monaco.Accounting
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<ITransactionCoordinator>(),
-                ServiceManager.GetInstance().TryGetService<INoteAcceptorMonitor>(),
-                ServiceManager.GetInstance().TryGetService<ISelfAuditErrorCheckingService>())
+                ServiceManager.GetInstance().TryGetService<INoteAcceptorMonitor>())
         {
         }
 
@@ -53,15 +50,13 @@ namespace Aristocrat.Monaco.Accounting
             IPersistentStorageManager storage,
             IEventBus bus,
             ITransactionCoordinator transactionCoordinator,
-            INoteAcceptorMonitor noteAcceptorMonitor,
-            ISelfAuditErrorCheckingService selfAuditService)
+            INoteAcceptorMonitor noteAcceptorMonitor)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _transactionCoordinator = transactionCoordinator ?? throw new ArgumentNullException(nameof(transactionCoordinator));
             _noteAcceptorMonitor = noteAcceptorMonitor;
-            _selfAuditService = selfAuditService ?? throw new ArgumentNullException(nameof(selfAuditService));
 
             _accountsLock.EnterWriteLock();
             try
@@ -171,21 +166,17 @@ namespace Aristocrat.Monaco.Accounting
                 Logger.Debug(
                     $"Current balance={oldBalance} Depositing={amount} Updating={account} New Balance={QueryBalance(account) + amount}");
 
-                //If self audit fails, disable the egm and stop the transaction.
-                if (_selfAuditService.CheckSelfAuditPassing())
+                _accountsLock.EnterWriteLock();
+                try
                 {
-                    _accountsLock.EnterWriteLock();
-                    try
-                    {
-                        _accounts[account] += amount;
-                    }
-                    finally
-                    {
-                        _accountsLock.ExitWriteLock();
-                    }
-
-                    Save(oldBalance, QueryBalance(), transactionId);
+                    _accounts[account] += amount;
                 }
+                finally
+                {
+                    _accountsLock.ExitWriteLock();
+                }
+
+                Save(oldBalance, QueryBalance(), transactionId);
             }
         }
 
@@ -204,21 +195,17 @@ namespace Aristocrat.Monaco.Accounting
                 Logger.Debug(
                     $"Current balance={oldBalance} Withdrawing={amount} Updating={account} New Balance={QueryBalance(account) - amount}");
 
-                //If self audit fails, disable the egm and stop the transaction.
-                if (_selfAuditService.CheckSelfAuditPassing())
+                _accountsLock.EnterWriteLock();
+                try
                 {
-                    _accountsLock.EnterWriteLock();
-                    try
-                    {
-                        _accounts[account] -= amount;
-                    }
-                    finally
-                    {
-                        _accountsLock.ExitWriteLock();
-                    }
-
-                    Save(oldBalance, QueryBalance(), transactionId);
+                    _accounts[account] -= amount;
                 }
+                finally
+                {
+                    _accountsLock.ExitWriteLock();
+                }
+
+                Save(oldBalance, QueryBalance(), transactionId);
             }
             else
             {

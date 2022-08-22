@@ -15,7 +15,6 @@
     using Contracts.Session;
     using Hardware.Contracts.Persistence;
     using Kernel;
-    using Kernel.Contracts.LockManagement;
     using Runtime;
 
     public class GameWinBonusStrategy : BonusStrategy, IBonusStrategy
@@ -41,8 +40,7 @@
             IMessageDisplay messages,
             IPlayerService players,
             IPersistentStorageManager storage,
-            IPaymentDeterminationProvider bonusPayDetermination,
-            ILockManager lockManager)
+            IPaymentDeterminationProvider bonusPayDetermination)
             : base(
                 properties,
                 bank,
@@ -55,8 +53,7 @@
                 messages,
                 players,
                 storage,
-                bonusPayDetermination,
-                lockManager)
+                bonusPayDetermination)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));
@@ -210,18 +207,6 @@
 
             Commit(transaction);
             _history.AddGameWinBonus((cashableAmount + nonCashAmount + promoAmount).MillicentsToCents());
-        }
-
-        protected override IEnumerable<IMeter> GetMetersToUpdate(BonusTransaction transaction)
-        {
-            return base.GetMetersToUpdate(transaction).Concat(
-                new[]
-                {
-                    _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.HandPaidGameWinBonusAmount),
-                    _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.HandPaidGameWinBonusCount),
-                    _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.EgmPaidGameWinBonusAmount),
-                    _meters.GetMeter(transaction.GameId, transaction.Denom, BonusMeters.EgmPaidGameWinBonusCount)
-                });
         }
 
         private void InternalDisplayMessage(BonusTransaction transaction)

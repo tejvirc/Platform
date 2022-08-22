@@ -11,7 +11,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Hardware.Contracts;
     using Hardware.Contracts.NoteAcceptor;
@@ -42,7 +41,6 @@
         private readonly ITransactionHistory _transactions;
         private readonly IIdProvider _idProvider;
         private readonly IValidationProvider _validationProvider;
-        private readonly ILockManager _lockManager;
         private readonly string _defaultCurrencyId;
         private readonly double _multiplier;
 
@@ -130,8 +128,7 @@
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IIdProvider>(),
                 ServiceManager.GetInstance().GetService<IMessageDisplay>(),
-                ServiceManager.GetInstance().GetService<IValidationProvider>(),
-                ServiceManager.GetInstance().GetService<ILockManager>())
+                ServiceManager.GetInstance().GetService<IValidationProvider>())
         {
         }
 
@@ -146,8 +143,7 @@
             IPersistentStorageManager storage,
             IIdProvider idProvider,
             IMessageDisplay messageDisplay,
-            IValidationProvider validationProvider,
-            ILockManager lockManager)
+            IValidationProvider validationProvider)
             : base(bank, meters, properties)
         {
             _noteAcceptor = noteAcceptor;
@@ -161,7 +157,6 @@
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
             _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager)); 
 
             var blockName = GetType().ToString();
             _accessor = _storage.GetAccessor(Level, blockName);
@@ -613,18 +608,11 @@
 
                 _transactions.UpdateTransaction(transaction);
 
-                using (_lockManager.AcquireExclusiveLock(new List<IMeter>()
-                {
-                    _meters.GetMeter($"BillCount{transaction.Denomination}s"),
-                    _meters.GetMeter(AccountingMeters.DocumentsAcceptedCount)
-                }))
-                {
-                    _bank.Deposit(transaction.TypeOfAccount, transaction.Amount, transactionId);
+                _bank.Deposit(transaction.TypeOfAccount, transaction.Amount, transactionId);
 
-                    _meters.GetMeter($"BillCount{transaction.Denomination}s").Increment(1);
+                _meters.GetMeter($"BillCount{transaction.Denomination}s").Increment(1);
 
-                    _meters.GetMeter(AccountingMeters.DocumentsAcceptedCount).Increment(1);
-                }
+                _meters.GetMeter(AccountingMeters.DocumentsAcceptedCount).Increment(1);
 
                 UpdateLaundryLimit(transaction);
 

@@ -241,17 +241,4 @@
       </ExtensionPointConfiguration>
     </AddinConfigurationGroup>
   </Extension>
-
-  <Extension path="/Accounting/CreditMetersProvider">
-    <CreditMetersProvider type="Aristocrat.Monaco.Gaming.SelfAudit.GamingCreditMetersProvider" />
-  </Extension>
-
-  <Extension path="/Accounting/DebitMetersProvider">
-    <DebitMetersProvider type="Aristocrat.Monaco.Gaming.SelfAudit.GamingDebitMetersProvider" />
-  </Extension>
-
-  <Extension path="/Accounting/SelfAuditRunAdviceProvider">
-    <SelfAuditRunAdviceProvider type="Aristocrat.Monaco.Gaming.SelfAudit.GamingSelfAuditRunAdviceProvider" />
-  </Extension>
-
 </Addin>

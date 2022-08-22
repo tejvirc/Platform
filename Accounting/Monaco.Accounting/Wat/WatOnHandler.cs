@@ -7,7 +7,6 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Wat;
     using Hardware.Contracts.Persistence;
@@ -36,7 +35,6 @@ namespace Aristocrat.Monaco.Accounting
         private readonly IMessageDisplay _messageDisplay;
         private readonly IBank _bank;
         private readonly IFundTransferProvider _fundTransferProvider;
-        private readonly ILockManager _lockManager;
 
         /// <inheritdoc />
         public string Name => typeof(IWatTransferOnHandler).ToString();
@@ -54,8 +52,7 @@ namespace Aristocrat.Monaco.Accounting
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
                 ServiceManager.GetInstance().GetService<IMessageDisplay>(),
                 ServiceManager.GetInstance().GetService<IBank>(),
-                ServiceManager.GetInstance().GetService<IFundTransferProvider>(),
-                ServiceManager.GetInstance().GetService<ILockManager>())
+                ServiceManager.GetInstance().GetService<IFundTransferProvider>())
         {
         }
 
@@ -68,8 +65,7 @@ namespace Aristocrat.Monaco.Accounting
             IMeterManager meterManager,
             IMessageDisplay messageDisplay,
             IBank bank,
-            IFundTransferProvider fundTransferProvider,
-            ILockManager lockManager)
+            IFundTransferProvider fundTransferProvider)
             : base(bank, meterManager, propertiesManager)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -82,7 +78,6 @@ namespace Aristocrat.Monaco.Accounting
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _fundTransferProvider = fundTransferProvider?? throw new ArgumentNullException(nameof(fundTransferProvider));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
         }
 
         /// <inheritdoc />
@@ -367,43 +362,28 @@ namespace Aristocrat.Monaco.Accounting
                 if (transaction.AuthorizedNonCashAmount > 0)
                 {
                     transaction.TransferredNonCashAmount = transaction.AuthorizedNonCashAmount;
-                    using (_lockManager.AcquireExclusiveLock(new List<IMeter>() {
-                        _meterManager.GetMeter(AccountingMeters.WatOnNonCashableAmount),
-                        _meterManager.GetMeter(AccountingMeters.WatOnNonCashableCount)
-                    }))
-                    {
-                        _bank.Deposit(AccountType.NonCash, transaction.TransferredNonCashAmount, transaction.BankTransactionId);
-                        _meterManager.GetMeter(AccountingMeters.WatOnNonCashableAmount).Increment(transaction.TransferredNonCashAmount);
-                        _meterManager.GetMeter(AccountingMeters.WatOnNonCashableCount).Increment(1);
-                    }
+
+                    _bank.Deposit(AccountType.NonCash, transaction.TransferredNonCashAmount, transaction.BankTransactionId);
+                    _meterManager.GetMeter(AccountingMeters.WatOnNonCashableAmount).Increment(transaction.TransferredNonCashAmount);
+                    _meterManager.GetMeter(AccountingMeters.WatOnNonCashableCount).Increment(1);
                 }
 
                 if (transaction.AuthorizedPromoAmount > 0)
                 {
                     transaction.TransferredPromoAmount = transaction.AuthorizedPromoAmount;
-                    using (_lockManager.AcquireExclusiveLock(new List<IMeter>() {
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashablePromoAmount),
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashablePromoCount)
-                    }))
-                    {
-                        _bank.Deposit(AccountType.Promo, transaction.TransferredPromoAmount, transaction.BankTransactionId);
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashablePromoAmount).Increment(transaction.TransferredPromoAmount);
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashablePromoCount).Increment(1);
-                    }
+
+                    _bank.Deposit(AccountType.Promo, transaction.TransferredPromoAmount, transaction.BankTransactionId);
+                    _meterManager.GetMeter(AccountingMeters.WatOnCashablePromoAmount).Increment(transaction.TransferredPromoAmount);
+                    _meterManager.GetMeter(AccountingMeters.WatOnCashablePromoCount).Increment(1);
                 }
 
                 if (transaction.CashableAmount > 0)
                 {
                     transaction.TransferredCashableAmount = transaction.AuthorizedCashableAmount;
-                    using (_lockManager.AcquireExclusiveLock(new List<IMeter>() {
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashableAmount),
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashableCount)
-                    }))
-                    {
-                        _bank.Deposit(AccountType.Cashable, transaction.TransferredCashableAmount, transaction.BankTransactionId);
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashableAmount).Increment(transaction.TransferredCashableAmount);
-                        _meterManager.GetMeter(AccountingMeters.WatOnCashableCount).Increment(1);
-                    }
+
+                    _bank.Deposit(AccountType.Cashable, transaction.TransferredCashableAmount, transaction.BankTransactionId);
+                    _meterManager.GetMeter(AccountingMeters.WatOnCashableAmount).Increment(transaction.TransferredCashableAmount);
+                    _meterManager.GetMeter(AccountingMeters.WatOnCashableCount).Increment(1);
                 }
 
                 transaction.Status = WatStatus.Committed;

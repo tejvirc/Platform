@@ -15,7 +15,6 @@
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.TransferOut;
     using Accounting.Contracts.Vouchers;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
 
     /// <summary>
     ///     An <see cref="IPlayerBank" /> implementation.
@@ -49,7 +48,6 @@
         private readonly IPlayerService _players;
         private readonly ITransactionCoordinator _transactionCoordinator;
         private readonly ITransferOutHandler _transferOut;
-        private readonly ILockManager _lockManager;
         private readonly IBank _bank;
         private readonly TimeSpan _lockTimeout;
         private readonly IGameHistory _history;
@@ -65,7 +63,6 @@
         /// <param name="players">An <see cref="IPlayerService" /> instance</param>
         /// <param name="bus">An <see cref="IEventBus" /> instance.</param>
         /// <param name="history">An <see cref="IGameHistory"/> instance.</param>
-        /// <param name="lockManager">An <see cref="ILockManager"/> instance.</param>
         public PlayerBank(
             IBank bank,
             ITransactionCoordinator transactionCoordinator,
@@ -74,8 +71,7 @@
             IMeterManager meters,
             IPlayerService players,
             IEventBus bus,
-            IGameHistory history,
-            ILockManager lockManager)
+            IGameHistory history)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactionCoordinator =
@@ -84,7 +80,6 @@
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _players = players ?? throw new ArgumentNullException(nameof(players));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
             _history = history ?? throw new ArgumentNullException(nameof(history));
 
             var storageName = GetType().ToString();
@@ -450,20 +445,17 @@
 
             if (_bank.CheckWithdraw(account, amount, transactionId))
             {
-                using (_lockManager.AcquireExclusiveLock(GetMetersForAccount()))
+                _bank.Withdraw(account, amount, transactionId);
+
+                if (account == AccountType.Promo)
                 {
-                    _bank.Withdraw(account, amount, transactionId);
+                    _history.AddPromoWager(amount);
+                }
 
-                    if (account == AccountType.Promo)
-                    {
-                        _history.AddPromoWager(amount);
-                    }
-
-                    _meters.GetMeter(meterDictionary[account].wageredMeter).Increment(amount);
-                    if (_players.HasActiveSession)
-                    {
-                        _meters.GetMeter(meterDictionary[account].cardedMeter).Increment(amount);
-                    }
+                _meters.GetMeter(meterDictionary[account].wageredMeter).Increment(amount);
+                if (_players.HasActiveSession)
+                {
+                    _meters.GetMeter(meterDictionary[account].cardedMeter).Increment(amount);
                 }
             }
             else
@@ -471,15 +463,6 @@
                 var message = $"Failed to withdraw {amount} from {account} account for transaction {transactionId}";
                 Logger.Fatal(message);
                 throw new BankException(message);
-            }
-
-            IEnumerable<IMeter> GetMetersForAccount()
-            {
-                return new List<IMeter>
-                {
-                    _meters.GetMeter(meterDictionary[account].wageredMeter),
-                    _meters.GetMeter(meterDictionary[account].cardedMeter)
-                };
             }
         }
     }

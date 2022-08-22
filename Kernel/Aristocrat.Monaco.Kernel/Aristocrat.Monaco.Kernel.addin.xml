@@ -74,8 +74,4 @@
     <AssemblyResolver type="Aristocrat.Monaco.Kernel.AssemblyResolver" />
   </Extension>
 
-  <Extension path="/Kernel/Services">
-    <Service type="Aristocrat.Monaco.Kernel.LockManagement.SimpleLockManager" />
-  </Extension>
-
 </Addin>

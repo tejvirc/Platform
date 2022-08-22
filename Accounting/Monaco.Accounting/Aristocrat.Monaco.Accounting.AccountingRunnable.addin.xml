@@ -27,21 +27,6 @@
     <ExtensionNode name="TransactionCoordinator" />
   </ExtensionPoint>
 
-  <!--Must implement Aristocrat.Monaco.Accounting.Contracts.SelfAudit.ICreditMetersProvider-->
-  <ExtensionPoint path="/Accounting/CreditMetersProvider">
-    <ExtensionNode name="CreditMetersProvider" />
-  </ExtensionPoint>
-  
-  <!--Must implement Aristocrat.Monaco.Accounting.Contracts.SelfAudit.IDebitMetersProvider-->
-  <ExtensionPoint path="/Accounting/DebitMetersProvider">
-    <ExtensionNode name="DebitMetersProvider" />
-  </ExtensionPoint>
-  
-  <!--Must implement Aristocrat.Monaco.Accounting.Contracts.SelfAudit.ISelfAuditRunAdviceProvider-->
-  <ExtensionPoint path="/Accounting/SelfAuditRunAdviceProvider">
-    <ExtensionNode name="SelfAuditRunAdviceProvider" />
-  </ExtensionPoint>
-  
   <!--Must implement Vgt.Client12.Accounting.IBank-->
   <ExtensionPoint path="/Accounting/Bank">
     <ExtensionNode name="Bank" />

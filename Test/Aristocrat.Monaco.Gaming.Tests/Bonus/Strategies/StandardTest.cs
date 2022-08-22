@@ -8,7 +8,6 @@ using Aristocrat.Monaco.Gaming.Runtime;
 using Aristocrat.Monaco.Hardware.Contracts.Door;
 using Aristocrat.Monaco.Hardware.Contracts.Persistence;
 using Aristocrat.Monaco.Kernel;
-using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
 using Aristocrat.Monaco.Test.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -22,7 +21,6 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
         private Mock<IGamePlayState> _gamePlayState;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IDoorService> _doorService;
-        private Mock<ILockManager> _lockManager;
         private Mock<IEventBus> _eventBus;
         private Mock<ISystemDisableManager> _systemDisableManager;
         private Mock<IBank> _bank;
@@ -59,7 +57,6 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
             _eventBus.Setup(m => m.Publish(It.IsAny<BonusPendingEvent>()));
 
             _doorService = MoqServiceManager.CreateAndAddService<IDoorService>(MockBehavior.Strict);
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Strict);
             _systemDisableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Default);
 
             _bank = MoqServiceManager.CreateAndAddService<IBank>(MockBehavior.Strict);
@@ -76,7 +73,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
                  _propertiesManager.Object, _bank.Object,
                  _transferOutHandler.Object,
                  _messageDisplay.Object, _players.Object, _systemDisableManager.Object,
-                 _largeWinDetermination.Object, _lockManager.Object);
+                 _largeWinDetermination.Object);
 
         }
 
