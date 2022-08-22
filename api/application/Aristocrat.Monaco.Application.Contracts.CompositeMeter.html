@@ -123,7 +123,7 @@ are calculated from a formula.</p>
   
   <h5 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CompositeMeter : IMeter, IReadWriteLockable, ILockable, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class CompositeMeter : IMeter, IDisposable</code></pre>
   </div>
   
   
@@ -148,7 +148,7 @@ are calculated from a formula.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_Func_Aristocrat_Monaco_Application_Contracts_MeterTimeframe_System_Int64__System_Collections_Generic_IEnumerable_System_String__Aristocrat_Monaco_Application_Contracts_MeterClassification_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.%23ctor(System.String%2CSystem.Func%7BAristocrat.Monaco.Application.Contracts.MeterTimeframe%2CSystem.Int64%7D%2CSystem.Collections.Generic.IEnumerable%7BSystem.String%7D%2CAristocrat.Monaco.Application.Contracts.MeterClassification)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.#ctor*"></a>
@@ -215,88 +215,10 @@ are calculated from a formula.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_Func_Aristocrat_Monaco_Application_Contracts_MeterTimeframe_System_Int64__System_Collections_Generic_IEnumerable_System_String__Aristocrat_Monaco_Application_Contracts_MeterClassification_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.%23ctor(System.String%2CSystem.Func%7BAristocrat.Monaco.Application.Contracts.MeterTimeframe%2CSystem.Int64%7D%2CSystem.Collections.Generic.IEnumerable%7BSystem.String%7D%2CAristocrat.Monaco.Application.Contracts.MeterClassification%2CAristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L85" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.#ctor*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_Func_Aristocrat_Monaco_Application_Contracts_MeterTimeframe_System_Int64__System_Collections_Generic_IEnumerable_System_String__Aristocrat_Monaco_Application_Contracts_MeterClassification_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.#ctor(System.String,System.Func{Aristocrat.Monaco.Application.Contracts.MeterTimeframe,System.Int64},System.Collections.Generic.IEnumerable{System.String},Aristocrat.Monaco.Application.Contracts.MeterClassification,Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager)"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_Func_Aristocrat_Monaco_Application_Contracts_MeterTimeframe_System_Int64__System_Collections_Generic_IEnumerable_System_String__Aristocrat_Monaco_Application_Contracts_MeterClassification_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" class="expander" data-toggle="collapse">CompositeMeter(String, Func&lt;MeterTimeframe, Int64&gt;, IEnumerable&lt;String&gt;, MeterClassification, ILockManager)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_Func_Aristocrat_Monaco_Application_Contracts_MeterTimeframe_System_Int64__System_Collections_Generic_IEnumerable_System_String__Aristocrat_Monaco_Application_Contracts_MeterClassification_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" class="collapse in">
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Application.Contracts.CompositeMeter.html">CompositeMeter</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CompositeMeter(string name, Func&lt;MeterTimeframe, long&gt; expression, IEnumerable&lt;string&gt; meterNameList, MeterClassification classification, ILockManager lockManager)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">name</span>
-        <p><p>Name of the composite meter.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Aristocrat.Monaco.Application.Contracts.MeterTimeframe.html">MeterTimeframe</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</span>
-        <span class="parametername">expression</span>
-        <p><p>Expression that defines the meter.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
-        <span class="parametername">meterNameList</span>
-        <p><p>List of the names of the meters used in the formula.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Application.Contracts.MeterClassification.html">MeterClassification</a></span>
-        <span class="parametername">classification</span>
-        <p><p>Classification of the meter.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager.html">ILockManager</a></span>
-        <span class="parametername">lockManager</span>
-        <p><p>Instance of lock manager to manage locking of meters that constitute the composite meter</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_Func_Aristocrat_Monaco_Application_Contracts_MeterTimeframe_System_Int64__System_Collections_Generic_IEnumerable_System_String__System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.%23ctor(System.String%2CSystem.Func%7BAristocrat.Monaco.Application.Contracts.MeterTimeframe%2CSystem.Int64%7D%2CSystem.Collections.Generic.IEnumerable%7BSystem.String%7D%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.#ctor*"></a>
@@ -366,7 +288,7 @@ are calculated from a formula.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.%23ctor(System.String%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BSystem.String%7D%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.#ctor*"></a>
@@ -441,95 +363,6 @@ one for the composite meter.</p>
   </table>
   
   </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.%23ctor(System.String%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BSystem.String%7D%2CSystem.String%2CAristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L127" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.#ctor*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.String,Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager)"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" class="expander" data-toggle="collapse">CompositeMeter(String, String, IEnumerable&lt;String&gt;, String, ILockManager)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter__ctor_System_String_System_String_System_Collections_Generic_IEnumerable_System_String__System_String_Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockManager_" class="collapse in">
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Application.Contracts.CompositeMeter.html">CompositeMeter</a> class.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CompositeMeter(string name, string formula, IEnumerable&lt;string&gt; meterNameList, string classificationName, ILockManager lockManager)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">name</span>
-        <p><p>Name of the composite meter.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">formula</span>
-        <p><p>Formula of the composite meter.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
-        <span class="parametername">meterNameList</span>
-        <p><p>List of the names of the meters used in the formula.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">classificationName</span>
-        <p><p>Name of the classification of the meter.</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockManager.html">ILockManager</a></span>
-        <span class="parametername">lockManager</span>
-        <p><p>Instance of lock manager to manage locking of meters that constitute the composite meter</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <h5 class="exceptions">Exceptions</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="Aristocrat.Monaco.Application.Contracts.MeterException.html">MeterException</a>
-        <p><p>Thrown when any of the atomic meters do not have the same classification as the
-one for the composite meter.</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  </div>
   <h3 id="properties">Properties
   </h3>
   
@@ -538,7 +371,7 @@ one for the composite meter.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Classification.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Classification%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L220" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L146" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Classification_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Classification*"></a>
@@ -584,7 +417,7 @@ one for the composite meter.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Formula.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Formula%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L154" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Formula_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Formula*"></a>
@@ -630,7 +463,7 @@ in the expression can be either of a atomic or composite meter.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Lifetime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Lifetime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L223" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L149" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Lifetime_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Lifetime*"></a>
@@ -676,7 +509,7 @@ in the expression can be either of a atomic or composite meter.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L217" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L143" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Name_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Name*"></a>
@@ -722,7 +555,7 @@ in the expression can be either of a atomic or composite meter.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Period.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Period%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L226" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L152" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Period_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Period*"></a>
@@ -768,7 +601,7 @@ in the expression can be either of a atomic or composite meter.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Session.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Session%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L229" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L155" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Session_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Session*"></a>
@@ -808,150 +641,15 @@ in the expression can be either of a atomic or composite meter.</p>
   
   
   </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_UniqueLockableName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.UniqueLockableName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L166" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_UniqueLockableName_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.UniqueLockableName*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_UniqueLockableName" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.UniqueLockableName"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_UniqueLockableName" class="expander" data-toggle="collapse">UniqueLockableName</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_UniqueLockableName" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string UniqueLockableName { get; }</code></pre>
-  </div>
-  
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockable.html#Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockable_UniqueLockableName">ILockable.UniqueLockableName</a></div>
-  
-  
-  
-  
-  </div>
   <h3 id="methods">Methods
   </h3>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireExclusiveLock.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.AcquireExclusiveLock%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L182" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireExclusiveLock_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.AcquireExclusiveLock*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireExclusiveLock" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.AcquireExclusiveLock"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireExclusiveLock" class="expander" data-toggle="collapse">AcquireExclusiveLock()</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireExclusiveLock" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IDisposable AcquireExclusiveLock()</code></pre>
-  </div>
-  
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockable.html#Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockable_AcquireExclusiveLock">ILockable.AcquireExclusiveLock()</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireReadOnlyLock.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.AcquireReadOnlyLock%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L170" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireReadOnlyLock_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.AcquireReadOnlyLock*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireReadOnlyLock" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.AcquireReadOnlyLock"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireReadOnlyLock" class="expander" data-toggle="collapse">AcquireReadOnlyLock()</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_AcquireReadOnlyLock" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IDisposable AcquireReadOnlyLock()</code></pre>
-  </div>
-  
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.IReadWriteLockable.html#Aristocrat_Monaco_Kernel_Contracts_LockManagement_IReadWriteLockable_AcquireReadOnlyLock">IReadWriteLockable.AcquireReadOnlyLock()</a></div>
-  
-  
-  
-  
-  </div>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L157" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L121" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Dispose_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Dispose*"></a>
@@ -987,7 +685,7 @@ in the expression can be either of a atomic or composite meter.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L275" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L204" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Dispose_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Dispose*"></a>
@@ -1034,7 +732,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Increment_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Increment(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L232" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Increment_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Increment*"></a>
@@ -1082,7 +780,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_Initialize_Aristocrat_Monaco_Application_Contracts_IMeterManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.Initialize(Aristocrat.Monaco.Application.Contracts.IMeterManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L249" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L178" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_Initialize_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.Initialize*"></a>
@@ -1136,166 +834,6 @@ in this initialization.</p>
   </table>
   
   </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_ReleaseLock.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.ReleaseLock%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L194" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_ReleaseLock_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.ReleaseLock*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_ReleaseLock" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.ReleaseLock"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_ReleaseLock" class="expander" data-toggle="collapse">ReleaseLock()</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_ReleaseLock" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ReleaseLock()</code></pre>
-  </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockable.html#Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockable_ReleaseLock">ILockable.ReleaseLock()</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireExclusiveLock_System_Int32_System_IDisposable__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.TryAcquireExclusiveLock(System.Int32%2CSystem.IDisposable%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L188" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireExclusiveLock_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.TryAcquireExclusiveLock*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireExclusiveLock_System_Int32_System_IDisposable__" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.TryAcquireExclusiveLock(System.Int32,System.IDisposable@)"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireExclusiveLock_System_Int32_System_IDisposable__" class="expander" data-toggle="collapse">TryAcquireExclusiveLock(Int32, out IDisposable)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireExclusiveLock_System_Int32_System_IDisposable__" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryAcquireExclusiveLock(int timeout, out IDisposable token)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
-        <span class="parametername">timeout</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></span>
-        <span class="parametername">token</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.ILockable.html#Aristocrat_Monaco_Kernel_Contracts_LockManagement_ILockable_TryAcquireExclusiveLock_System_Int32_System_IDisposable__">ILockable.TryAcquireExclusiveLock(Int32, out IDisposable)</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireReadOnlyLock_System_Int32_System_IDisposable__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.TryAcquireReadOnlyLock(System.Int32%2CSystem.IDisposable%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireReadOnlyLock_" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.TryAcquireReadOnlyLock*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireReadOnlyLock_System_Int32_System_IDisposable__" data-uid="Aristocrat.Monaco.Application.Contracts.CompositeMeter.TryAcquireReadOnlyLock(System.Int32,System.IDisposable@)"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireReadOnlyLock_System_Int32_System_IDisposable__" class="expander" data-toggle="collapse">TryAcquireReadOnlyLock(Int32, out IDisposable)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CompositeMeter_TryAcquireReadOnlyLock_System_Int32_System_IDisposable__" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryAcquireReadOnlyLock(int timeout, out IDisposable disposableToken)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></span>
-        <span class="parametername">timeout</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></span>
-        <span class="parametername">disposableToken</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.Contracts.LockManagement.IReadWriteLockable.html#Aristocrat_Monaco_Kernel_Contracts_LockManagement_IReadWriteLockable_TryAcquireReadOnlyLock_System_Int32_System_IDisposable__">IReadWriteLockable.TryAcquireReadOnlyLock(Int32, out IDisposable)</a></div>
-  
-  
-  
-  
-  </div>
   <h3 id="events">Events
   </h3>
   
@@ -1304,7 +842,7 @@ in this initialization.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter_MeterChangedEvent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter.MeterChangedEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L202" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -1356,7 +894,7 @@ in this initialization.</p>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CompositeMeter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CompositeMeter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L27" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CompositeMeter.cs/#L25" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
