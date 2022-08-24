@@ -154,6 +154,7 @@
             }
 
             CreateLockup();
+            _eventBus?.Subscribe<GameInitializationCompletedEvent>(this, HandleEvent);
         }
 
         private void Dispose(bool disposing)
@@ -244,6 +245,12 @@
                     SetupReserveServiceTimer();
                     break;
             }
+        }
+
+        private void HandleEvent(GameInitializationCompletedEvent evt)
+        {
+            _eventBus.Unsubscribe<GameInitializationCompletedEvent>(this);
+            _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
         }
 
         private bool CreateLockup()
