@@ -121,7 +121,7 @@ as follows:
 		</Page>
 		<Page Type="GameHistoryViewModel" Access="LogicDoor">
 			<Setting Name="ShowGameInfoButtons" Value="true" />
-			<Setting Name="PrintGameRoundInfo" Value="true" />
+			<Setting Name="PrintGameRoundInfo" Value="false" />
 		</Page>
 		<Page Type="GamePreferencesViewModel" Access="GameIdleZeroCredits" FieldAccess="MainLogicZeroCreditsGameIdle" />
 		<Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
