@@ -1358,6 +1358,10 @@
             set => SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState), nameof(IsLobbyVbdBackgroundBlank));
         }
 
+        public int GameCount2
+        {
+            get => -30;
+        }
         public int GameCount
         {
             get => _gameCount;
@@ -1433,6 +1437,7 @@
                 var (rows, cols) = IsExtraLargeGameIconTabActive
                     ? GameRowColumnCalculator.ExtraLargeIconRowColCount
                     : GameRowColumnCalculator.CalculateRowColCount(gameCount);
+                bool HasProgressiveLabelDisplay = DisplayedGameList![0].HasProgressiveLabelDisplay;
                 return new GameGridMarginInputs(
                     gameCount,
                     IsTabView,

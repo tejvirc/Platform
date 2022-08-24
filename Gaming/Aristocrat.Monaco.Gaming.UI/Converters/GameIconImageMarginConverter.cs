@@ -20,7 +20,7 @@
                 {
                     // Unfortunately the game icon is not created properly, some icons have some blank spaces above and below
                     // the images, so we have to move the image up a bit to display it in correct place.
-                    double topMarginOffset = -24;
+                    double topMarginOffset = -40;
                     if (inputs.GameCount > 8)
                     {
                         return new Thickness(0, topMarginOffset, 0, 0);

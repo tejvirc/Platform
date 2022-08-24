@@ -284,7 +284,7 @@
                     <DataTemplate DataType="{x:Type models:GameInfo}">
                         <!--Wrap the game icons in viewboxes to scale correctly-->
                         <!--Note: this viewbox will not stretch for tab views-->
-                        <Viewbox x:Name="GameTile" VerticalAlignment="Top" 
+                        <Viewbox x:Name="GameTile" VerticalAlignment="Top"
                                  Stretch="{Binding DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconStretchConv}}">
                             <Viewbox.Margin>
                                 <MultiBinding Converter="{StaticResource GameTileMarginConv}">
@@ -296,7 +296,8 @@
                                 <Grid HorizontalAlignment="Left" VerticalAlignment="Top"
                                       Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}">
                                     <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                                          Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlay}">
+                                          Margin="{Binding DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlay}"
+                                          >
                                         <Grid.Visibility>
                                             <MultiBinding Converter="{StaticResource ProgressiveLabelVisibilityConv}">
                                                 <Binding Path="HasProgressiveLabelDisplay"/>
@@ -337,8 +338,6 @@
                                     <Button x:Name="GameIconButton" Style="{StaticResource stlFlatButton}"
                                             HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                             VerticalAlignment="Top"
-                                            BorderBrush="Aqua"
-                                            BorderThickness="3"
                                             Tag="{Binding Name}"
                                             Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
                                             Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
@@ -469,10 +468,9 @@
                                         </Grid>
                                     </Button>
 
-                                    <!-- Lightning link major banner that can appear right above the extra large game icon -->
-                                    <Viewbox x:Name="LightningLinkMajorBannerForSingleGame"
-                                             Stretch="Uniform"
-                                             HorizontalAlignment="Center" VerticalAlignment="Top"
+                            <!-- Lightning link major banner that can appear right above the extra large game icon -->
+                            <Viewbox x:Name="LightningLinkMajorBannerForSingleGame" Stretch="Uniform"
+                                     HorizontalAlignment="Center" VerticalAlignment="Top"
                                              Width="{Binding ElementName=LightningLinkMajorBannerImageForSingleGame, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}">
                                         <Viewbox.Visibility>
                                             <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">

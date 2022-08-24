@@ -1,11 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Converters
 {
+    using Contracts;
+    using log4net;
     using System;
     using System.Globalization;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Forms;
-    using Contracts;
 
     public class MarginConverter : IValueConverter
     {
@@ -35,11 +37,13 @@
                 var bottomLabelVisible = false;
                 double topMarginAdjust = 0;
                 double denomMarginAdjust = 0;
+                double screenHeight = 0;
                 bool extraLargeIcons = false;
                 Size gameIconSize = Size.Empty;
 
                 if (value is GameGridMarginInputs inputs)
                 {
+                    screenHeight = inputs.ScreenHeight;
                     gameCount = inputs.GameCount;
                     tabView = inputs.TabView;
                     bottomLabelVisible = inputs.BottomLabelVisible;
@@ -75,11 +79,12 @@
                             }
 
                             var offset = bottomLabelVisible ? 10 : 0;
+                            var topoffset = screenHeight > NormalScreenHeight ? 0 : 30;
                             return gameCount <= 4
                                 ? new Thickness(0, 325 - offset + topMarginAdjust, 0, 0)
                                 : gameCount <= 8
                                     ? new Thickness(0, 240 - offset + topMarginAdjust, 0, 0)
-                                    : new Thickness(0, 150 - offset + topMarginAdjust, 0, 0);
+                                    : new Thickness(0, 150 - offset + topMarginAdjust - topoffset, 0, 0);
                         }
 
                         return useSmallIcons
@@ -96,7 +101,10 @@
                     case LobbyViewMarginType.Banner:
                         return new Thickness(19.0, 0, 20.0, 8.0);
                     case LobbyViewMarginType.ProgressiveOverlay:
-                        return new Thickness(0, 0, 0, gameCount <= 8 ? 48 : 28);
+                        if (screenHeight > NormalScreenHeight) {
+                            return new Thickness(0, 0, 0, gameCount <= 8 ? 118 : 168); 
+                        }
+                        return new Thickness(0, 0, 0, gameCount <= 8 ? 48 : 48); // original values: 48 : 28
                     case LobbyViewMarginType.ProgressiveOverlayText:
                         return new Thickness(0, 0, 0, value is bool selected ? (selected ? -5 : 0) : 0);
                     case LobbyViewMarginType.DenomLargeScreenLayout:
