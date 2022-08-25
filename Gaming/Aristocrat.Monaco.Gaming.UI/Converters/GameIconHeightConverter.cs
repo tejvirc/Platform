@@ -28,13 +28,14 @@
                 {
                     result = inputs.ScreenHeight > BaseScreenHeight
                         ? inputs.GameIconSize.Height * _scaleBy
-                        : inputs.GameIconSize.Height;
+                        : inputs.GameIconSize.Height; 
                 }
                 else
                 {
                     // Lobby layout icon sizes based on number of games. Affects the size of the icon image
                     var size = inputs.GameCount > GameCountSize || inputs.TabView ? SmallIconHeight : LargeIconHeight;
-                    result = inputs.ScreenHeight > BaseScreenHeight ? size * _scaleBy : size;
+                    double scaleBy = inputs.ScreenHeight / BaseScreenHeight;
+                    result = size * scaleBy;
                 }
 
                 return result;

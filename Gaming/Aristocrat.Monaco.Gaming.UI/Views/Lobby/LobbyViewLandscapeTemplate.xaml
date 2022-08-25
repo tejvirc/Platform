@@ -48,6 +48,8 @@
     <converters:GameIconImageHeightConverter x:Key="GameIconImageHeightConv"/>
     <converters:GameIconImageWidthConverter x:Key="GameIconImageWidthConv"/>
     <converters:GameIconAlignmentConverter x:Key="GameIconAlignmentConv"/>
+    <converters:GameIconImageMarginConverter x:Key="GameIconImageMarginConv"/>
+    <converters:GameTabMarginConverter x:Key="GameTabMarginConv" />
     <converters:GridSpacingConverter x:Key="GridSpacingConverter"/>
     <converters:LobbyColumnWidthConverter x:Key="ColumnWidthConverter"/>
     <converters:LobbyOuterColumnWidthConverter x:Key="LobbyOuterColumnWidthConv"/>
@@ -231,7 +233,8 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:GameTabInfo}">
                                 <Viewbox Stretch="Uniform" StretchDirection="DownOnly" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Visibility="{Binding Enabled}" >
-                                    <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}" />
+                                    <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}" 
+                                           Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}" />
                                 </Viewbox>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -295,7 +298,7 @@
                                 <Grid HorizontalAlignment="Left" VerticalAlignment="Top"
                                       Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}">
                                     <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                                          Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlay}">
+                                          Margin="{Binding DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=ProgressiveOverlay}">
                                         <Grid.Visibility>
                                             <MultiBinding Converter="{StaticResource ProgressiveLabelVisibilityConv}">
                                                 <Binding Path="HasProgressiveLabelDisplay"/>
@@ -355,6 +358,7 @@
                                                    RenderOptions.BitmapScalingMode="HighQuality"
                                                    HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
                                                    VerticalAlignment="Top"
+                                                   Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}"
                                                    Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
                                                    Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
                                                    gif:ImageBehavior.AnimatedSource="{Binding ImagePath}">
@@ -363,6 +367,7 @@
                                             <Image x:Name="SelectedImage"
                                                    Source="{DynamicResource GameSelectedOverlay}"
                                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageMarginConv}}"
                                                    Width="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageWidthConv}}"
                                                    Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
                                                    HorizontalAlignment="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconAlignmentConv}}"
@@ -529,8 +534,8 @@
                                                 <Binding Path="Denominations"/>
                                                 <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}"/>
                                                 <Binding Source="{StaticResource ExtraLargeGameIconDenomIconWidth}"/>
-                                                <Binding Source="{StaticResource TrueValue}" />  <!-- Perform scale--> 
-                                                <Binding Source="{StaticResource TrueValue}" />  <!-- Need extraPadding on left and right side--> 
+                                                <Binding Source="{StaticResource TrueValue}" />  <!-- Perform scale-->
+                                                <Binding Source="{StaticResource TrueValue}" />  <!-- Need extraPadding on left and right side-->
                                             </MultiBinding>
                                         </Viewbox.Width>
                                         <Viewbox.Height>
@@ -540,7 +545,7 @@
                                                 <Binding Source="{StaticResource TrueValue}" /> <!-- Perform scale-->
                                             </MultiBinding>
                                         </Viewbox.Height>
-                        
+
                                         <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
                                             <StackPanel Orientation="Horizontal"
                                                         HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -588,7 +593,7 @@
                                                     </Image.Height>
                                                 </Image>
                                             </StackPanel>
-                            
+
                                             <ItemsControl x:Name="DenominationPanelItemsControl"
                                                           VerticalAlignment="Center" HorizontalAlignment="Center"
                                                           ItemsSource="{Binding Denominations}">
@@ -622,7 +627,7 @@
                                                                     </i:EventTrigger>
                                                                 </i:Interaction.Triggers>
                                                             </Image>
-							            
+
                                                             <controls:TextPath Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
                                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                                FontFamily="Impact" FontWeight="Light"
