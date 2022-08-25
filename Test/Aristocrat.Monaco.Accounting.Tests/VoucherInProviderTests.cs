@@ -11,7 +11,6 @@ using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
 using Aristocrat.Monaco.Hardware.Contracts.Persistence;
 using Aristocrat.Monaco.Kernel;
 using Aristocrat.Monaco.Kernel.Contracts;
-using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
 using Aristocrat.Monaco.Test.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Mono.Addins;
@@ -34,7 +33,6 @@ namespace Aristocrat.Monaco.Accounting.Tests
         private Mock<IMessageDisplay> _messageDisplay;
         private Mock<IVoucherValidator> _validator;
         private Mock<IValidationProvider> _validationProvider;
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
         private Mock<IScopedTransaction> _scopedTransaction;
 
@@ -66,8 +64,6 @@ namespace Aristocrat.Monaco.Accounting.Tests
             _validationProvider.Setup(v => v.GetVoucherValidator(false)).Returns(_validator.Object);
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
             MockLocalization.Setup(MockBehavior.Default);
         }
 
@@ -84,8 +80,7 @@ namespace Aristocrat.Monaco.Accounting.Tests
                 _storageManager.Object,
                 _iidProvider.Object,
                 _messageDisplay.Object,
-                _validationProvider.Object,
-                _lockManager.Object
+                _validationProvider.Object
             );
             return target;
         }

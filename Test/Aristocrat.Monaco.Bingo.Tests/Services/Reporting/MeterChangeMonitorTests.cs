@@ -298,41 +298,12 @@
 
             public long Session => throw new NotImplementedException();
 
-            public string UniqueLockableName => throw new NotImplementedException();
-
             public event EventHandler<MeterChangedEventArgs> MeterChangedEvent;
-
-            public IDisposable AcquireExclusiveLock()
-            {
-                return new Mock<IDisposable>(MockBehavior.Loose).Object;
-            }
-
-            public IDisposable AcquireReadOnlyLock()
-            {
-                return new Mock<IDisposable>(MockBehavior.Loose).Object;
-            }
 
             public void Increment(long amount)
             {
                 Lifetime = amount;
                 MeterChangedEvent?.Invoke(this, new MeterChangedEventArgs(amount));
-            }
-
-            public void ReleaseLock()
-            {
-                //Do nothing as this is a test class and we dont really need locking mechanism here.
-            }
-
-            public bool TryAcquireExclusiveLock(int timeout, out IDisposable disposableToken)
-            {
-                disposableToken = new Mock<IDisposable>(MockBehavior.Loose).Object;
-                return true;
-            }
-
-            public bool TryAcquireReadOnlyLock(int timeout, out IDisposable disposableToken)
-            {
-                disposableToken = new Mock<IDisposable>(MockBehavior.Loose).Object;
-                return true;
             }
         }
 

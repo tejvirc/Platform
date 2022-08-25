@@ -1,7 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts
 {
-    using Kernel;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Flee.PublicTypes;
     using log4net;
     using Metering;
@@ -41,8 +39,6 @@
         private IGenericExpression<double> _percentageExpression;
         private IGenericExpression<decimal> _currencyExpression;
 
-        private readonly ILockManager _lockManager;
-
         private readonly Func<MeterTimeframe, long> _expression;
 
         private long _currentLifeTimeValue;
@@ -71,18 +67,6 @@
         /// <param name="meterNameList">List of the names of the meters used in the formula.</param>
         /// <param name="classification">Classification of the meter.</param>
         public CompositeMeter(string name, Func<MeterTimeframe, long> expression, IEnumerable<string> meterNameList, MeterClassification classification)
-            : this(name, expression, meterNameList, classification, ServiceManager.GetInstance().GetService<ILockManager>())
-        { }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="CompositeMeter" /> class.
-        /// </summary>
-        /// <param name="name">Name of the composite meter.</param>
-        /// <param name="expression">Expression that defines the meter.</param>
-        /// <param name="meterNameList">List of the names of the meters used in the formula.</param>
-        /// <param name="classification">Classification of the meter.</param>
-        /// <param name="lockManager">Instance of lock manager to manage locking of meters that constitute the composite meter</param>
-        public CompositeMeter(string name, Func<MeterTimeframe, long> expression, IEnumerable<string> meterNameList, MeterClassification classification, ILockManager lockManager)
         {
             Name = name;
 
@@ -93,8 +77,6 @@
             Classification = classification;
 
             _classificationType = Classification.GetType();
-
-            _lockManager = lockManager;
         }
 
         /// <summary>
@@ -109,22 +91,6 @@
         ///     one for the composite meter.
         /// </exception>
         public CompositeMeter(string name, string formula, IEnumerable<string> meterNameList, string classificationName)
-            : this(name, formula, meterNameList, classificationName, ServiceManager.GetInstance().GetService<ILockManager>())
-        { }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="CompositeMeter" /> class.
-        /// </summary>
-        /// <param name="name">Name of the composite meter.</param>
-        /// <param name="formula">Formula of the composite meter.</param>
-        /// <param name="meterNameList">List of the names of the meters used in the formula.</param>
-        /// <param name="classificationName">Name of the classification of the meter.</param>
-        /// <param name="lockManager">Instance of lock manager to manage locking of meters that constitute the composite meter</param>
-        /// <exception cref="MeterException">
-        ///     Thrown when any of the atomic meters do not have the same classification as the
-        ///     one for the composite meter.
-        /// </exception>
-        public CompositeMeter(string name, string formula, IEnumerable<string> meterNameList, string classificationName, ILockManager lockManager)
         {
             Name = name;
             Formula = formula;
@@ -142,8 +108,6 @@
             }
 
             _classificationType = Classification.GetType();
-
-            _lockManager = lockManager;
         }
 
         /// <summary>
@@ -159,44 +123,6 @@
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        #region ILockable
-
-        /// <inheritdoc/>
-        public string UniqueLockableName => Name;
-
-        /// <inheritdoc/>
-        /// <inheritdoc/>
-        public IDisposable AcquireReadOnlyLock()
-        {
-            return _lockManager.AcquireReadOnlyLock(_meters);
-        }
-
-        /// <inheritdoc/>
-        public bool TryAcquireReadOnlyLock(int timeout, out IDisposable disposableToken)
-        {
-            return _lockManager.TryAcquireReadOnlyLock(_meters, timeout, out disposableToken);
-        }
-
-        /// <inheritdoc/>
-        public IDisposable AcquireExclusiveLock()
-        {
-            return _lockManager.AcquireExclusiveLock(_meters);
-        }
-
-        /// <inheritdoc/>
-        public bool TryAcquireExclusiveLock(int timeout, out IDisposable token)
-        {
-            return _lockManager.TryAcquireExclusiveLock(_meters, timeout, out token);
-        }
-
-        /// <inheritdoc/>
-        public void ReleaseLock()
-        {
-            _lockManager.ReleaseLock(_meters);
-        }
-
-        #endregion
 
         /// <inheritdoc />
         public event EventHandler<MeterChangedEventArgs> MeterChangedEvent
@@ -231,8 +157,11 @@
         /// <inheritdoc />
         public void Increment(long amount)
         {
-            Logger.Fatal(
-                $"This method {MethodBase.GetCurrentMethod().Name} can never be called because all values are calculated from an express provided at runtime");
+            lock (_lockObject)
+            {
+                Logger.Fatal(
+                    $"This method {MethodBase.GetCurrentMethod().Name} can never be called because all values are calculated from an express provided at runtime");
+            }
 
             throw new NotImplementedException();
         }
@@ -297,7 +226,7 @@
 
         private long GetValue(MeterTimeframe timeFrame)
         {
-            using (AcquireReadOnlyLock())
+            lock (_lockObject)
             {
                 return _expression?.Invoke(timeFrame) % Classification.UpperBounds ?? EvaluateFormula(timeFrame);
             }
@@ -403,7 +332,7 @@
         {
             long delta;
 
-            using (AcquireReadOnlyLock())
+            lock (_lockObject)
             {
                 var newLifeTimeValue = Lifetime;
                 delta = newLifeTimeValue - _currentLifeTimeValue;

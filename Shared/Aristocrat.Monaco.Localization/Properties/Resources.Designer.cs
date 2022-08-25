@@ -5366,15 +5366,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred, to recover this lockup ....
-		/// </summary>
-		public static string ClearRAMSelfAuditErrorLockup {
-			get {
-				return ResourceManager.GetString("ClearRAMSelfAuditErrorLockup", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -6364,18 +6355,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CreatingPropertyProviders {
 			get {
 				return ResourceManager.GetString("CreatingPropertyProviders", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Creating Self Audit Error Checking Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco
-        /// </remarks>
-		public static string CreatingSelfAuditErrorCheckingService {
-			get {
-				return ResourceManager.GetString("CreatingSelfAuditErrorCheckingService", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -28007,24 +27986,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Self Audit Error.
-		/// </summary>
-		public static string SelfAuditError {
-			get {
-				return ResourceManager.GetString("SelfAuditError", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred. RAM clear is required t....
-		/// </summary>
-		public static string SelfAuditErrorHelpText {
-			get {
-				return ResourceManager.GetString("SelfAuditErrorHelpText", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Self Test Clear NVM.
 		/// </summary>
         /// <remarks>
@@ -32590,18 +32551,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string UnloadingPropertiesManager {
 			get {
 				return ResourceManager.GetString("UnloadingPropertiesManager", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Unloading Self Audit Provider.
-		/// </summary>
-        /// <remarks>
-        /// Monaco.Accounting
-        /// </remarks>
-		public static string UnloadingSelfAuditProvider {
-			get {
-				return ResourceManager.GetString("UnloadingSelfAuditProvider", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -39793,15 +39742,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Self audit error occurred, to recover this lockup ....
-		/// </summary>
-		public static string ClearRAMSelfAuditErrorLockup {
-			get {
-				return "ClearRAMSelfAuditErrorLockup";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -40791,18 +40731,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CreatingPropertyProviders {
 			get {
 				return "CreatingPropertyProviders";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Creating Self Audit Error Checking Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco
-        /// </remarks>
-		public static string CreatingSelfAuditErrorCheckingService {
-			get {
-				return "CreatingSelfAuditErrorCheckingService";
 			}
 		}
 
@@ -62434,24 +62362,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Self Audit Error.
-		/// </summary>
-		public static string SelfAuditError {
-			get {
-				return "SelfAuditError";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Self audit error occurred. RAM clear is required t....
-		/// </summary>
-		public static string SelfAuditErrorHelpText {
-			get {
-				return "SelfAuditErrorHelpText";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Self Test Clear NVM.
 		/// </summary>
         /// <remarks>
@@ -67017,18 +66927,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string UnloadingPropertiesManager {
 			get {
 				return "UnloadingPropertiesManager";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Unloading Self Audit Provider.
-		/// </summary>
-        /// <remarks>
-        /// Monaco.Accounting
-        /// </remarks>
-		public static string UnloadingSelfAuditProvider {
-			get {
-				return "UnloadingSelfAuditProvider";
 			}
 		}
 
@@ -71942,10 +71840,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		ClearProgressiveDisconnectError,
 		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred, to recover this lockup ....
-		/// </summary>
-		ClearRAMSelfAuditErrorLockup,
-		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -72508,13 +72402,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		CreatingPropertyProviders,
-		/// <summary>
-		///   Looks up a localized string similar to Creating Self Audit Error Checking Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco
-        /// </remarks>
-		CreatingSelfAuditErrorCheckingService,
 		/// <summary>
 		///   Looks up a localized string similar to Creating SerialGat Service.
 		/// </summary>
@@ -84853,14 +84740,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SelectStartDate,
 		/// <summary>
-		///   Looks up a localized string similar to Self Audit Error.
-		/// </summary>
-		SelfAuditError,
-		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred. RAM clear is required t....
-		/// </summary>
-		SelfAuditErrorHelpText,
-		/// <summary>
 		///   Looks up a localized string similar to Self Test Clear NVM.
 		/// </summary>
         /// <remarks>
@@ -87454,13 +87333,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Bootstrap
         /// </remarks>
 		UnloadingPropertiesManager,
-		/// <summary>
-		///   Looks up a localized string similar to Unloading Self Audit Provider.
-		/// </summary>
-        /// <remarks>
-        /// Monaco.Accounting
-        /// </remarks>
-		UnloadingSelfAuditProvider,
 		/// <summary>
 		///   Looks up a localized string similar to Unloading Snapshot Manager.
 		/// </summary>

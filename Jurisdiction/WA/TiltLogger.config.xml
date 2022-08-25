@@ -128,7 +128,6 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.LicenseErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Gaming.Contracts.ExcessiveMeterIncrementEvent, Aristocrat.Monaco.Gaming.Contracts" Level="tilt" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.SelfAudit.SelfAuditErrorEvent, Aristocrat.Monaco.Accounting.Contracts.SelfAudit" Level="tilt" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.BellyDoorDiscrepancyEvent, Aristocrat.Monaco.Application.Contracts" Level="tilt" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.FirmwareCrcMonitor.FirmwareCrcMismatchedEvent, Monaco.Application.Contracts" Level="tilt" Type="Error" />

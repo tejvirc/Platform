@@ -7,7 +7,6 @@
     using System.IO;
     using Application.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -38,7 +37,6 @@
         private DateTime _periodClearDate;
         private Action<PropertyChangedEvent> _billClearanceCheckCallback;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         /// <summary>
@@ -73,8 +71,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Strict);
             _meterManager.Setup(a => a.InvalidateProvider(It.IsAny<IMeterProvider>()));

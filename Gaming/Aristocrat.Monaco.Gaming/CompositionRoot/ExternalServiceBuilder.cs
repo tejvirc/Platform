@@ -26,7 +26,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
-    using Kernel.Contracts.LockManagement;
     using SimpleInjector;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -86,7 +85,6 @@
             @this.RegisterInstance(serviceManager.GetService<IMultiProtocolConfigurationProvider>());
             @this.RegisterInstance(serviceManager.GetService<IDisplayService>());
             @this.RegisterInstance(serviceManager.GetService<IBell>());
-            @this.RegisterInstance(serviceManager.GetService<ILockManager>());
             @this.RegisterInstance(serviceManager.GetService<IBeagleBoneController>());
             @this.RegisterInstance(serviceManager.GetService<ITime>());
             @this.RegisterInstance(serviceManager.GetService<IMoneyLaunderingMonitor>());

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -31,7 +30,6 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IPersistentStorageAccessor> _storageAccessor;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         private CompositeMeter _target;
@@ -51,8 +49,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Default);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);

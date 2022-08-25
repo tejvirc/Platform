@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts
 {
-    using System;
-    using System.Threading;
     using Hardware.Contracts.Persistence;
-    using Kernel.LockManagement;
     using Metering;
+    using System;
 
     /// <summary>
     ///     This delegate type defines the signature of the method IMeterProvider requires
@@ -21,7 +19,7 @@
     ///         value. The <c>Lifetime</c> and <c>Period</c> values are persisted.
     ///     </para>
     /// </remarks>
-    public class AtomicMeter : IMeter, IDisposable
+    public class AtomicMeter : IMeter
     {
         private const int TotalPersistedDataSize = 2 * sizeof(long);
         private const string LifetimeMeterSuffix = "Lifetime";
@@ -31,15 +29,8 @@
         private readonly int _blockIndex;
         private readonly bool _useGenericName;
 
-        /// <summary>
-        ///     To synchronize all read and write access to this meter
-        /// </summary>
-        private readonly ReaderWriterLockSlim _meterAccess;
-
         private long? _lifetime;
         private long? _period;
-        private long _session;
-        private bool _disposed;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="AtomicMeter" /> class.
@@ -58,7 +49,6 @@
             _block = persistenceBlock;
             Classification = classification;
 
-            _meterAccess = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
             provider.RegisterMeterClearDelegate(ClearPeriod);
         }
 
@@ -135,7 +125,6 @@
             _useGenericName = true;
             Classification = classification;
 
-            _meterAccess = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
             provider.RegisterMeterClearDelegate(ClearPeriod);
         }
 
@@ -148,39 +137,6 @@
         public event EventHandler<MeterChangedEventArgs> MeterChangedEvent;
 
         /// <inheritdoc />
-        public string UniqueLockableName => Name;
-
-        /// <inheritdoc />
-        public IDisposable AcquireReadOnlyLock()
-        {
-            return _meterAccess.GetReadLock();
-        }
-
-        /// <inheritdoc />
-        public bool TryAcquireReadOnlyLock(int timeout, out IDisposable disposableToken)
-        {
-            return _meterAccess.TryGetReadLock(timeout, out disposableToken);
-        }
-
-        /// <inheritdoc />
-        public IDisposable AcquireExclusiveLock()
-        {
-            return _meterAccess.GetWriteLock();
-        }
-
-        /// <inheritdoc />
-        public bool TryAcquireExclusiveLock(int timeout, out IDisposable token)
-        {
-            return _meterAccess.TryGetWriteLock(timeout, out token);
-        }
-
-        /// <inheritdoc />
-        public void ReleaseLock()
-        {
-            _meterAccess.ReleaseLock();
-        }
-
-        /// <inheritdoc />
         public string Name { get; }
 
         /// <inheritdoc />
@@ -191,11 +147,8 @@
         {
             get
             {
-                using (AcquireReadOnlyLock())
-                {
-                    return (_lifetime ??= (long)_block[_blockIndex,
+                return (_lifetime ??= (long)_block[_blockIndex,
                         _useGenericName ? LifetimeMeterSuffix : Name + LifetimeMeterSuffix]);
-                }
             }
             private set
             {
@@ -209,11 +162,8 @@
         {
             get
             {
-                using (AcquireReadOnlyLock())
-                {
-                    return (_period ??= (long)_block[_blockIndex,
+                return (_period ??= (long)_block[_blockIndex,
                         _useGenericName ? PeriodMeterSuffix : Name + PeriodMeterSuffix]);
-                }
             }
             private set
             {
@@ -223,72 +173,60 @@
         }
 
         /// <inheritdoc />
-        public long Session
-        {
-            get
-            {
-                using (AcquireReadOnlyLock())
-                {
-                    return _session;
-                }
-            }
-        }
+        public long Session { get; private set; }
 
         /// <inheritdoc />
         public void Increment(long amount)
         {
-            using (AcquireExclusiveLock())
+            if (amount == 0)
             {
-                if (amount == 0)
-                {
-                    return;
-                }
-
-                _block.StartUpdate(true);
-
-                if (Lifetime + amount <= 0)
-                {
-                    Lifetime = 0;
-                }
-                else if (Classification.UpperBounds > Lifetime + amount)
-                {
-                    Lifetime += amount;
-                }
-                else
-                {
-                    Lifetime = (Lifetime + amount) % Classification.UpperBounds;
-                }
-
-                if (Period + amount <= 0)
-                {
-                    Period = 0;
-                }
-                else if (Classification.UpperBounds > Period + amount)
-                {
-                    Period += amount;
-                }
-                else
-                {
-                    Period = (Period + amount) % Classification.UpperBounds;
-                }
-
-                _block.Commit();
-
-                if (_session + amount <= 0)
-                {
-                    _session = 0;
-                }
-                else if (Classification.UpperBounds > Session + amount)
-                {
-                    _session += amount;
-                }
-                else
-                {
-                    _session = (_session + amount) % Classification.UpperBounds;
-                }
-
-                MeterChangedEvent?.Invoke(this, new MeterChangedEventArgs(amount));
+                return;
             }
+
+            _block.StartUpdate(true);
+
+            if (Lifetime + amount <= 0)
+            {
+                Lifetime = 0;
+            }
+            else if (Classification.UpperBounds > Lifetime + amount)
+            {
+                Lifetime += amount;
+            }
+            else
+            {
+                Lifetime = (Lifetime + amount) % Classification.UpperBounds;
+            }
+
+            if (Period + amount <= 0)
+            {
+                Period = 0;
+            }
+            else if (Classification.UpperBounds > Period + amount)
+            {
+                Period += amount;
+            }
+            else
+            {
+                Period = (Period + amount) % Classification.UpperBounds;
+            }
+
+            _block.Commit();
+
+            if (Session + amount <= 0)
+            {
+                Session = 0;
+            }
+            else if (Classification.UpperBounds > Session + amount)
+            {
+                Session += amount;
+            }
+            else
+            {
+                Session = (Session + amount) % Classification.UpperBounds;
+            }
+
+            MeterChangedEvent?.Invoke(this, new MeterChangedEventArgs(amount));
         }
 
         /// <summary>
@@ -306,24 +244,21 @@
         /// </remarks>
         public void ResetMeter(long resetValue)
         {
-            using (AcquireExclusiveLock())
+            if (Classification.UpperBounds > resetValue)
             {
-                if (Classification.UpperBounds > resetValue)
-                {
-                    _block.StartUpdate(true);
-                    Lifetime = resetValue;
-                    Period = resetValue;
-                    _session = resetValue;
-                    _block.Commit();
-                }
-                else
-                {
-                    _block.StartUpdate(true);
-                    Lifetime = resetValue % Classification.UpperBounds;
-                    Period = resetValue % Classification.UpperBounds;
-                    _session = resetValue % Classification.UpperBounds;
-                    _block.Commit();
-                }
+                _block.StartUpdate(true);
+                Lifetime = resetValue;
+                Period = resetValue;
+                Session = resetValue;
+                _block.Commit();
+            }
+            else
+            {
+                _block.StartUpdate(true);
+                Lifetime = resetValue % Classification.UpperBounds;
+                Period = resetValue % Classification.UpperBounds;
+                Session = resetValue % Classification.UpperBounds;
+                _block.Commit();
             }
 
             MeterChangedEvent?.Invoke(this, new MeterChangedEventArgs(resetValue));
@@ -334,43 +269,11 @@
         ///     </remarks>
         public void ClearPeriod()
         {
-            using (AcquireExclusiveLock())
-            {
-                _block.StartUpdate(true);
+            _block.StartUpdate(true);
 
-                Period = 0;
+            Period = 0;
 
-                _block.Commit();
-            }
-        }
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        ///     Releases allocated resources.
-        /// </summary>
-        /// <param name="disposing">
-        ///     true to release both managed and unmanaged resources; false to release only unmanaged
-        ///     resources.
-        /// </param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                _meterAccess.Dispose();
-            }
-
-            _disposed = true;
+            _block.Commit();
         }
     }
 }

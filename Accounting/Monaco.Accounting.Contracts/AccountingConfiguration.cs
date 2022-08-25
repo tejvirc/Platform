@@ -53,8 +53,6 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
         
         private AccountingConfigurationTestTicket testTicketField;
         
-        private AccountingConfigurationSelfAuditErrorChecking selfAuditErrorCheckingField;
-        
         /// <remarks/>
         public AccountingConfigurationMoneyLaunderingMonitor MoneyLaunderingMonitor {
             get {
@@ -204,16 +202,6 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
                 this.testTicketField = value;
             }
         }
-        
-        /// <remarks/>
-        public AccountingConfigurationSelfAuditErrorChecking SelfAuditErrorChecking {
-            get {
-                return this.selfAuditErrorCheckingField;
-            }
-            set {
-                this.selfAuditErrorCheckingField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -232,7 +220,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
         
         public AccountingConfigurationMoneyLaunderingMonitor() {
             this.enabledField = false;
-            this.visibleField = true;
+            this.visibleField = false;
             this.soundFilePathField = "";
         }
         
@@ -250,7 +238,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(true)]
+        [System.ComponentModel.DefaultValueAttribute(false)]
         public bool Visible {
             get {
                 return this.visibleField;
@@ -1737,33 +1725,6 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
             }
             set {
                 this.typeField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class AccountingConfigurationSelfAuditErrorChecking {
-        
-        private bool enabledField;
-        
-        public AccountingConfigurationSelfAuditErrorChecking() {
-            this.enabledField = false;
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool Enabled {
-            get {
-                return this.enabledField;
-            }
-            set {
-                this.enabledField = value;
             }
         }
     }

@@ -120,9 +120,6 @@
             _block.SetupGet(m => m[AccountingConstants.VoucherInLaundry]).Returns(0);
             _block.SetupSet(m => m[AccountingConstants.VoucherInLaundry] = It.IsAny<long>());
 
-            _block.SetupGet(m => m[AccountingConstants.SelfAuditErrorOccurred]).Returns(false);
-            _block.SetupSet(m => m[AccountingConstants.SelfAuditErrorOccurred] = It.IsAny<bool>());
-
             _block.SetupGet(m => m[AccountingConstants.MaxCreditMeter]).Returns(0);
             _block.SetupSet(m => m[AccountingConstants.MaxCreditMeter] = It.IsAny<long>());
 

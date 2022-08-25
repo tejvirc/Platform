@@ -5,7 +5,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Wat;
     using Hardware.Contracts.Persistence;
@@ -40,7 +39,6 @@
         private Mock<IMeter> _nonCashCountMeter;
         private Mock<IScopedTransaction> _scopedTransaction;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         [TestInitialize]
@@ -67,8 +65,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _meterManager.Setup(x => x.GetMeter(AccountingMeters.WatOnCashableAmount))
                 .Returns(_cashableAmountMeter.Object);
@@ -95,8 +91,7 @@
                 _meterManager.Object,
                 _messageDisplay.Object,
                 _bank.Object,
-                _fundTransferProvider.Object,
-                _lockManager.Object);
+                _fundTransferProvider.Object);
         }
 
         [TestCleanup]

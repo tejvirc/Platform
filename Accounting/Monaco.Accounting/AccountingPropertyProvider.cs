@@ -233,10 +233,6 @@
                     Tuple.Create(InitFromStorage(AccountingConstants.VoucherInLaundry), true)
                 },
                 {
-                    AccountingConstants.SelfAuditErrorOccurred,
-                    Tuple.Create(InitFromStorage(AccountingConstants.SelfAuditErrorOccurred), false)
-                },
-                {
                     AccountingConstants.ExcessiveDocumentRejectLockupEnabled,
                     Tuple.Create(InitFromStorage(AccountingConstants.ExcessiveDocumentRejectLockupEnabled), true)
                 },
@@ -476,10 +472,6 @@
                 {
                     AccountingConstants.TestTicketType,
                     Tuple.Create((object)configuration.TestTicket?.Type ?? string.Empty, false)
-                },
-                {
-                    AccountingConstants.SelfAuditErrorCheckingEnabled,
-                    Tuple.Create((object)configuration.SelfAuditErrorChecking?.Enabled ?? false, false)
                 }
             };
 
@@ -492,7 +484,6 @@
                 SetProperty(AccountingConstants.TicketTitleWatCash, string.Empty);
                 SetProperty(AccountingConstants.CashInLaundry, 0L);
                 SetProperty(AccountingConstants.VoucherInLaundry, 0L);
-                SetProperty(AccountingConstants.SelfAuditErrorOccurred, false);
                 SetProperty(AccountingConstants.ExcessiveDocumentRejectLockupEnabled, false);
 
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();

@@ -6,7 +6,6 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading;
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
-    using SelfAudit;
     using Common;
     using Kernel;
     using log4net;
@@ -33,7 +32,6 @@ namespace Aristocrat.Monaco.Accounting
         private readonly List<IService> _services = new List<IService>();
         private readonly RunnablesManager _transactionHandlersManager = new RunnablesManager();
 
-        private IService _selfAuditErrorCheckingService;
         private IService _bank;
         private IRunnable _extender;
         private IService _transactionalMeterReader;
@@ -53,8 +51,6 @@ namespace Aristocrat.Monaco.Accounting
             LoadPropertyProvider();
 
             LoadTransactionCoordinator();
-
-            LoadSelfAuditErrorCheckingService();
 
             LoadBank();
 
@@ -120,13 +116,6 @@ namespace Aristocrat.Monaco.Accounting
             _transactionCoordinator = (IService)typeExtensionNode.CreateInstance();
             _transactionCoordinator.Initialize();
             ServiceManager.GetInstance().AddService(_transactionCoordinator);
-        }
-
-        private void LoadSelfAuditErrorCheckingService()
-        {
-            WritePendingActionToMessageDisplay("CreatingSelfAuditErrorCheckingService");
-            _selfAuditErrorCheckingService = new SelfAuditErrorCheckingService();
-            ServiceManager.GetInstance().AddServiceAndInitialize(_selfAuditErrorCheckingService);
         }
 
         private void LoadBank()
@@ -235,13 +224,6 @@ namespace Aristocrat.Monaco.Accounting
                 WritePendingActionToMessageDisplay("UnloadingBank");
                 ServiceManager.GetInstance().RemoveService(_bank);
                 _bank = null;
-            }
-
-            if (_selfAuditErrorCheckingService != null)
-            {
-                WritePendingActionToMessageDisplay("UnloadingSelfAuditProvider");
-                ServiceManager.GetInstance().RemoveService(_selfAuditErrorCheckingService);
-                _selfAuditErrorCheckingService = null;
             }
 
             if (_transactionalMeterReader != null)

@@ -40,8 +40,7 @@
         //Disable keys that represent a fatal error state
         private static readonly List<Guid> FatalErrorKeys = new List<Guid>
         {
-            ApplicationConstants.StorageFaultDisableKey,
-            ApplicationConstants.SelfAuditErrorGuid,
+            ApplicationConstants.StorageFaultDisableKey
         };
 
         private readonly IEventBus _eventBus;

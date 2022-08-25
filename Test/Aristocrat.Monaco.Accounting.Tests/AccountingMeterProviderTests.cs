@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,7 +15,6 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IMeterManager> _meterManager;
         private Mock<IBank> _bank;
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         [TestInitialize]
@@ -33,8 +31,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
         }
 
         [TestCleanup]

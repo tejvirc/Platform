@@ -77,5 +77,4 @@ as follows:
   <ReprintLoggedVoucher Behavior="None" />
   <Handpay HandpayPendingExitEnabled="true" LargeWinKeyOffStrategy="LocalCredit" CanKeyOffWhileInLockUp="false" NoteAcceptorConnectedRequired="true"/>
   <BillClearance Enabled="true"/>
-  <SelfAuditErrorChecking Enabled="true" />
 </AccountingConfiguration>  
