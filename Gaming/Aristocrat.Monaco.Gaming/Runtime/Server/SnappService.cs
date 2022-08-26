@@ -14,7 +14,6 @@
     using Contracts.Central;
     using Contracts.Process;
     using Kernel;
-    using Grpc.Core;
     using log4net;
     using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using EventTypes = GdkRuntime.V1.RuntimeEventNotification.Types.RuntimeEvent;
@@ -307,13 +306,6 @@
                     var pending = result.Unpack<PendingJackpotTriggers>();
                     var command = new PendingTrigger(pending.Levels.Select(l => (int)l).ToList());
                     _handlerFactory.Create<PendingTrigger>().Handle(command);
-                }
-
-                if (result.Is(GameRoundDetails.Descriptor))
-                {
-                    var details = result.Unpack<GameRoundDetails>();
-                    _handlerFactory.Create<BeginGameRoundResults>()
-                        .Handle(new BeginGameRoundResults((long)details.PresentationIndex));
                 }
 
                 if (result.Is(GameRoundDetails.Descriptor))
