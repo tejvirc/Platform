@@ -111,10 +111,6 @@
                         return new Thickness(0, 0, 0, value is bool selected ? (selected ? -5 : 0) : 0);
                     case LobbyViewMarginType.DenomLargeScreenLayout:
                         return new Thickness(0, 0, 0, 45 + denomMarginAdjust);
-
-                    //case LobbyViewMarginType.GameTab:
-                    //    return new Thickness(60, 62, 60, 0);
-                        
                 }
             }
 
