@@ -138,7 +138,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/index.html",
-          "hash": "FNnnrZpHJIPKC3xhHR3lj3B8Z4kH/NCTd9l5VNE6oC8="
+          "hash": "CcE5JPc9JNz37/dylHMmGBlhVkBWhF0Py4Skp+Jdg9g="
         }
       },
       "is_incremental": false,
@@ -14431,9 +14431,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -22966,6 +22963,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
