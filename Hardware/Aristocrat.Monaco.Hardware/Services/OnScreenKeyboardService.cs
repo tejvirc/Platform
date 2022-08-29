@@ -64,7 +64,37 @@
         {
             if (DisableKeyboard)
             {
-                Logger.Warn("OnScreenKeyboard was not opened due to disabled state");
+                Logger.Warn("OpenOnScreenKeyboard - Not opened due to disabled state, returning");
+                return;
+            }
+
+            if (_onScreenKeyboardProcess != null)
+            {
+                Logger.Warn("OpenOnScreenKeyboard - Already open, returning");
+                return;
+            }
+
+            try
+            {
+                // Get all running tabtip processes.
+                var runningTabTipProcesses = Process.GetProcessesByName("tabtip");
+                if (runningTabTipProcesses.Length != 0)
+                {
+                    for (var i = 0; i < runningTabTipProcesses.Length; i++)
+                    {
+                        // Has this tabtip process exited?
+                        if (!runningTabTipProcesses[i].HasExited)
+                        {
+                            // No, kill it. 
+                            Logger.Debug($"OpenOnScreenKeyboard - {runningTabTipProcesses[i].ProcessName} ID {runningTabTipProcesses[i].Id} has not exited, killing");
+                            runningTabTipProcesses[i].Kill();
+                        }
+                    }
+                }            
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"OpenOnScreenKeyboard Exception: {ex.Message} {ex.InnerException?.Message}");
                 return;
             }
 
@@ -96,9 +126,15 @@
 
         private void CloseOnScreenKeyboard()
         {
-            if (_onScreenKeyboardProcess == null || _onScreenKeyboardProcess.HasExited)
+            if (_onScreenKeyboardProcess == null)
             {
+                Logger.Warn("CloseOnScreenKeyboard - _onScreenKeyboardProcess == null, returning");
                 return;
+            }
+            else if (_onScreenKeyboardProcess.HasExited)
+            {
+                Logger.Warn($"CloseOnScreenKeyboard - _onScreenKeyboardProcess.HasExited, returning");
+                _onScreenKeyboardProcess = null;
             }
 
             try
