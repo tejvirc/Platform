@@ -93,8 +93,8 @@ jobs:
       # Uploading to artifacts s3 bucket
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_FTP_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_FTP_SECRET_ACCESS_KEY_ID }}
           aws-region: us-west-2
       - name: Upload Artifacts
         shell: powershell
@@ -148,8 +148,8 @@ jobs:
           monaco manifest new image -f ./artifacts/ATI_Runtime_${{ env.RUNTIME_VERSION }}.iso -t runtime -v ${{ env.RUNTIME_VERSION }}
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_FTP_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_FTP_SECRET_ACCESS_KEY_ID }}
           aws-region: us-west-2
       - name: Upload Artifacts
         shell: powershell
@@ -204,8 +204,8 @@ jobs:
           monaco manifest new hash -i "dev-${{ env.BUILD_COUNTER }}" -d ./artifacts
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-access-key-id: ${{ secrets.AWS_FTP_USER_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_FTP_SECRET_ACCESS_KEY_ID }}
           aws-region: us-west-2
       - name: Upload Artifacts
         shell: powershell
