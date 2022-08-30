@@ -251,6 +251,11 @@
             return !_state.IsInState(PlayState.Idle);
         }
 
+        public void InitializationFailed()
+        {
+            Fire(Trigger.InitializationFailed);
+        }
+
         /// <inheritdoc />
         public void Start(long initialWager, byte[] data, bool recovering)
         {
