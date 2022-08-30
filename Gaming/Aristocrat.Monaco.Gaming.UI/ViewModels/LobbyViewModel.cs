@@ -4527,7 +4527,11 @@
         private void DetermineBashLampState(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            if (ContainsAnyState(LobbyState.GameLoadingForDiagnostics, LobbyState.GameDiagnostics))
+            if (BaseState == LobbyState.GameLoading)
+            {
+                state = null;
+            }
+            else if (ContainsAnyState(LobbyState.GameLoadingForDiagnostics, LobbyState.GameDiagnostics))
             {
                 state = true;
             }
@@ -4549,7 +4553,11 @@
         private void DetermineCollectLampState(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
+            if (BaseState == LobbyState.GameLoading)
+            {
+                state = null;
+            }
+            else if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
             {
                 state = false;
             }
@@ -4567,7 +4575,11 @@
         private void DetermineNavLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
+            if (BaseState == LobbyState.GameLoading)
+            {
+                state = null;
+            }
+            else if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
             {
                 state = false;
             }
@@ -4590,7 +4602,8 @@
         private void DetermineUnusedLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state = false;
-            if (BaseState == LobbyState.Game && !ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
+            if ((BaseState == LobbyState.Game && !ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay)) ||
+                BaseState == LobbyState.GameLoading)
             {
                 state = null;
             }
