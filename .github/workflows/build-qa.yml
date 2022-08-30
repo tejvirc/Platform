@@ -1,0 +1,213 @@
+name: build-qa
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/*
+
+env:
+  CLEAN_BUILD: true
+  S3_BUCKET: monaco-builds-us-west/Monaco-Platform/FeatureBuilds
+  S3_PATH: ${{ github.ref_name }}/${{ github.run_number }}
+  PRODUCT_VERSION: 2.7
+  PATCH_VERSION: 0
+  GAME_ASSEMBLY_VERSION: 0.16.0
+  GDK_ASSEMBLY_VERSION: 5.1.0
+  JURISDICTION: WinnersWorld
+  JURISDICTION_CODE: WW
+  JURISDICTION_PATH: WinnersWorld_R2.5
+  MONACO_GAMES_VCS_URL: "https://svn.ali.global/PlatformArchitecture/MonacoGames/G2E Artifacts/G2EGames/GDK/Runtime/core/Games"
+  GDK_VCS_URL: https://svn.ali.global/nAble/UserDevelopment/Monaco/3.5/trunk/Runtime
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  platform:
+    runs-on: [self-hosted, Windows, monaco, build]
+    env:
+      BUILD_COUNTER: ${{ github.run_number }}
+    steps:
+      - name: Cleanup
+        if: env.CLEAN_BUILD == 'true'
+        shell: powershell
+        run: Remove-Item * -Recurse -Force
+      - name: Show the path for the powershell
+        shell: powershell
+        run: |
+          dir env:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1.0.5
+        with:
+          nuget-version: "5.x"
+      - name: Setup Monaco Tools
+        uses: Aristocrat-Monaco-Platform/actions/setup-monaco@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      - name: Cache NuGet Packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.nuget/packages
+          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
+      - name: Set Platform Version
+        run: |
+          echo "PLATFORM_VERSION=${{ env.PRODUCT_VERSION }}.${{ env.PATCH_VERSION }}.${{ env.BUILD_COUNTER }}" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Remove TeamCity NuGet Source
+        run: >
+          dotnet nuget remove source TeamCity --configfile ./NuGet.config
+      - name: Restore Nuget Packages
+        run: |
+          nuget restore Monaco.sln
+      - name: Build Debug
+        run: |
+          msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild  Monaco.sln
+      - name: Test
+        continue-on-error: true
+        run: |
+          vstest.console.exe "**\bin\Debug\*.Tests.dll" --platform:x64 --logger:trx --resultsDirectory:TestResults
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: Unit Tests
+          path: "**/*.trx"
+          reporter: dotnet-trx
+          fail-on-error: true
+      - name: Build Release
+        run: |
+          msbuild -p:"Configuration=Release" -p:"Platform=Any CPU" -t:Rebuild Monaco.sln
+      - name: Create Package
+        run: >
+          monaco image new -d ./bin/Release/Platform/bin -p ./artifacts/ATI_Platform_${{ env.PLATFORM_VERSION }}.iso -t ATI_Platform_${{ env.PLATFORM_VERSION }}
+      - name: Create Manifest
+        run: >
+          monaco manifest new image -f ./artifacts/ATI_Platform_${{ env.PLATFORM_VERSION }}.iso -t platform -v ${{ env.PLATFORM_VERSION }}
+      # Uploading to artifacts s3 bucket
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+      - name: Upload Artifacts
+        shell: powershell
+        run: |
+          aws s3 sync ./artifacts "s3://${{ env.S3_BUCKET }}/${{ env.S3_PATH }}" --storage-class INTELLIGENT_TIERING --region us-west-2 --endpoint-url https://s3-accelerate.amazonaws.com
+
+  gdk:
+    runs-on: [self-hosted, Windows, monaco, build]
+    env:
+      BUILD_COUNTER: ${{ github.run_number }}
+    steps:
+      - name: Cleanup
+        if: env.CLEAN_BUILD == 'true'
+        shell: powershell
+        run: Remove-Item * -Recurse -Force
+      - name: Checkout repository
+        run: svn --non-interactive --username ${{ secrets.SVN_USERNAME }}  --password ${{ secrets.SVN_PASSWORD }} export ${{ env.GDK_VCS_URL}} GDK/Runtime
+      - name: Setup msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1.0.5
+        with:
+          nuget-version: "5.x"
+      - name: Setup Monaco Tools
+        uses: Aristocrat-Monaco-Platform/actions/setup-monaco@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      - name: Cache NuGet Packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.nuget/packages
+          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
+      - name: Set Runtime Version
+        run: |
+          echo "RUNTIME_VERSION=${{ env.GDK_ASSEMBLY_VERSION }}.${{ env.BUILD_COUNTER }}" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Build GDK Core
+        run: |
+          msbuild -p:"Configuration=Release" -p:"Platform=x64" -t:Rebuild -m:3 ./GDK/Runtime/core/GDK/GDK_2019.sln
+      - name: Restore Nuget Packages
+        run: |
+          nuget restore ./GDK/Runtime/host/GDKRuntime_2019.sln
+      - name: Build Runtime
+        run: |
+          msbuild -p:"Configuration=Release" -p:"Platform=x64" -t:Rebuild -m:3 ./GDK/Runtime/host/GDKRuntime_2019.sln
+      - name: Create Package
+        run: >
+          monaco image new -d ./GDK/Runtime/Binaries/Tools/GDKRuntimeHost/x64/Release -p ./artifacts/ATI_Runtime_${{ env.RUNTIME_VERSION }}.iso -t ATI_Runtime_${{ env.RUNTIME_VERSION }}
+      - name: Create Manifest
+        run: >
+          monaco manifest new image -f ./artifacts/ATI_Runtime_${{ env.RUNTIME_VERSION }}.iso -t runtime -v ${{ env.RUNTIME_VERSION }}
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+      - name: Upload Artifacts
+        shell: powershell
+        run: |
+          aws s3 sync ./artifacts "s3://${{ env.S3_BUCKET }}/${{ env.S3_PATH }}" --storage-class INTELLIGENT_TIERING --region us-west-2 --endpoint-url https://s3-accelerate.amazonaws.com
+
+  games:
+    runs-on: [self-hosted, Windows, monaco, build]
+    needs: gdk
+    strategy:
+      fail-fast: true
+      matrix:
+        game: [BigFortune]
+        include:
+          - game: BigFortune
+            url: https://svn.ali.global/nAble/UserDevelopment/Monaco/3.5/sample_games/trunk/BigFortune
+    env:
+      BUILD_COUNTER: ${{ github.run_number }}
+    steps:
+      - name: Monaco Games - Checkout repository
+        run: >
+          svn --non-interactive --username ${{ secrets.SVN_USERNAME }}  --password ${{ secrets.SVN_PASSWORD }} --force export "${{ env.MONACO_GAMES_VCS_URL }}/${{ env.JURISDICTION_PATH }}" GDK/Runtime/core/Games
+      - name: ${{ matrix.game }} - Checkout repository
+        run: >
+          svn --non-interactive --username ${{ secrets.SVN_USERNAME }}  --password ${{ secrets.SVN_PASSWORD }} export ${{ matrix.url }} Games/${{ matrix.game }}
+      - name: Setup msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup Monaco Tools
+        uses: Aristocrat-Monaco-Platform/actions/setup-monaco@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      - name: Set Games Version
+        run: |
+          echo "GAMES_VERSION=${{ env.GAME_ASSEMBLY_VERSION }}.${{ env.BUILD_COUNTER }}" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+      - name: ${{ matrix.game }} - Build
+        run: |
+          msbuild -p:"Configuration=Release" -p:"Platform=x64" -t:Rebuild -m:3 ./GDK/Runtime/core/Games/${{ matrix.game }}.sln
+      - name: ${{ matrix.game }} - Create Package
+        run: >
+          monaco image new
+          -d ./GDK/Runtime/Binaries/Games/${{ matrix.game }}/x64/Release
+          -p ./artifacts/ATI_${{ env.JURISDICTION_CODE }}_${{ matrix.game }}_${{ env.GAMES_VERSION }}.iso
+          -t ATI_${{ env.JURISDICTION_CODE }}_${{ matrix.game }}_${{ env.GAMES_VERSION }}
+      - name: Create License Manifest
+        run: >
+          monaco manifest new license -i DEVELOPER -d ./artifacts -c Standard -l Minimal
+      - name: Create Game Manifest
+        run: >
+          monaco manifest new image -d ./artifacts -t game -v ${{ env.GAMES_VERSION }} -j ${{ env.JURISDICTION }}
+      - name: Create Hash Manifest
+        run: >
+          monaco manifest new hash -i "dev-${{ env.BUILD_COUNTER }}" -d ./artifacts
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+      - name: Upload Artifacts
+        shell: powershell
+        run: |
+          aws s3 sync ./artifacts "s3://${{ env.S3_BUCKET }}/${{ env.S3_PATH }}" --storage-class INTELLIGENT_TIERING --region us-west-2 --endpoint-url https://s3-accelerate.amazonaws.com
