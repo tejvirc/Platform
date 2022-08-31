@@ -110,12 +110,6 @@ as follows:
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
     <Menu Type="GamesMainPageLoader">
-        <Page Type="AdvancedGameSetupViewModel" Access="EKeyLogicZeroCreditGameIdle" FieldAccess="EKeyLogicDoor">
-            <Setting Name="AllowImportExport" Value="true" />
-            <Setting Name="ShowGlobalOptions" Value="true" />
-            <Setting Name="EnableAdvancedConfig" Value="true" />
-            <Setting Name="EnableQuickConfig" Value="false" />
-        </Page>
         <Page Type="GameHistoryViewModel" Access="LogicDoor" PrintButtonEnabled="true">
             <Setting Name="ShowGameInfoButtons" Value="true" />
             <Setting Name="PrintGameRoundInfo" Value="true" />
