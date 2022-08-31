@@ -1204,32 +1204,10 @@
             else if (!string.IsNullOrEmpty(e.Error))
             {
                 Log.Error(e.Error);
-
-                MvvmHelper.ExecuteOnUI(
-                    () =>
-                    {
-                        _touchErrorDialog = new TouchCalibrationErrorViewModel();
-
-                        if (_operatorMenuLauncher.IsShowing)
-                        {
-                            var result = _dialogService.ShowDialog<TouchCalibrationErrorView>(
-                                this,
-                                _touchErrorDialog,
-                                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchCalibrationErrorTitle),
-                                DialogButton.None);
-
-                            if (result.HasValue)
-                            {
-                                _touchErrorDialog = null;
-                            }
-                        }
-                        else
-                        {
-                            Log.Debug("Operator Menu is closed and Touch Calibration will not continue.");
-                        }
-                    });
+                ShowTouchErrorDialog(e.DisplayMessage);
             }
         }
+
 
         private void HandleEvent(SerialTouchCalibrationCompletedEvent e)
         {
@@ -1272,6 +1250,40 @@
         private void HandleEvent(DisplayConnectedEvent evt)
         {
             DisplayChanged?.Invoke(this, EventArgs.Empty);
+            if (_touchErrorDialog != null)
+            {
+                _touchErrorDialog?.CancelCommand.Execute(null);
+                var message = _touchErrorDialog?.ErrorText;
+                _dialogService.DismissOpenedDialog();
+                ShowTouchErrorDialog(message);
+            }
+        }
+
+        private void ShowTouchErrorDialog(string message)
+        {
+            MvvmHelper.ExecuteOnUI(
+            () =>
+            {
+                _touchErrorDialog = new TouchCalibrationErrorViewModel(message);
+
+                if (_operatorMenuLauncher.IsShowing)
+                {
+                    var result = _dialogService.ShowDialog<TouchCalibrationErrorView>(
+                        this,
+                        _touchErrorDialog,
+                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchCalibrationErrorTitle),
+                        DialogButton.None);
+
+                    if (result.HasValue)
+                    {
+                        _touchErrorDialog = null;
+                    }
+                }
+                else
+                {
+                    Log.Debug("Operator Menu is closed and Touch Calibration will not continue.");
+                }
+            });
         }
 
         private bool NoOperatorKey()

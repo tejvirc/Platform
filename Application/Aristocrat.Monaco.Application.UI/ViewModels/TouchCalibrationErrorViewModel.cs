@@ -18,7 +18,7 @@
         private readonly int _touchscreenCount;
         private readonly ITouchCalibration _calibrationService;
 
-        public TouchCalibrationErrorViewModel()
+        public TouchCalibrationErrorViewModel(string errorText = "")
         {
             EventBus.Subscribe<SystemDownEvent>(this, HandleEvent);
             EventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
@@ -27,11 +27,20 @@
                 .ExpectedTouchDevices.Count();
 
             _calibrationService = ServiceManager.GetInstance().GetService<ITouchCalibration>();
+
+            if (string.IsNullOrEmpty(errorText))
+            {
+                ErrorText = string.Format(
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchCalibrationErrorText),
+                    _touchscreenCount);
+            }
+            else
+            {
+                ErrorText = errorText;
+            }
         }
 
-        public string ErrorText => string.Format(
-            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchCalibrationErrorText),
-            _touchscreenCount);
+        public string ErrorText { get; }
 
         public bool IsInWizard { get; set; }
 

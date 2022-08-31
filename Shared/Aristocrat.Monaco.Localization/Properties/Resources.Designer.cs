@@ -31469,6 +31469,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrationDisconnectError {
+			get {
+				return ResourceManager.GetString("TouchCalibrationDisconnectError", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to You have {0} touch devices.  Each touch device mus....
 		/// </summary>
         /// <remarks>
@@ -65845,6 +65857,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrationDisconnectError {
+			get {
+				return "TouchCalibrationDisconnectError";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to You have {0} touch devices.  Each touch device mus....
 		/// </summary>
         /// <remarks>
@@ -86712,6 +86736,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TouchCalibrationDialogTooltip,
+		/// <summary>
+		///   Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TouchCalibrationDisconnectError,
 		/// <summary>
 		///   Looks up a localized string similar to You have {0} touch devices.  Each touch device mus....
 		/// </summary>
