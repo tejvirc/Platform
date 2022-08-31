@@ -699,11 +699,6 @@
 
             GameDelay = TimeSpan.Zero;
 
-            if (_systemDisableManager.IsDisabled)
-            {
-                HandleDisabled();
-            }
-
             if (transition.Source == PlayState.Initiated)
             {
                 _handlerFactory.Create<GameRoundFailed>().Handle(new GameRoundFailed());
@@ -721,6 +716,11 @@
                 _eventBus.Publish(new PrimaryGameFailedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
 
                 HandleBonusEvents(Trigger.GameIdle);
+            }
+
+            if (_systemDisableManager.IsDisabled)
+            {
+                HandleDisabled();
             }
 
             _gameId = -1;

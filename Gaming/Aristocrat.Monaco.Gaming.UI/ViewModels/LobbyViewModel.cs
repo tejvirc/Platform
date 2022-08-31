@@ -2554,7 +2554,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             var softLockupButNotRecovery = _systemDisableManager.IsDisabled && !_gameRecovery.IsRecovering;
             var singleGameAndAttract = _lobbyStateManager.AllowSingleGameAutoLaunch && _attractMode;
 
-            if (_systemDisableManager.DisableImmediately ||
+            if (_systemDisableManager.IsDisabled ||
                 (singleGameAndAttract || _gameLaunchOnStartup) &&
                 softLockupButNotRecovery)
             {
