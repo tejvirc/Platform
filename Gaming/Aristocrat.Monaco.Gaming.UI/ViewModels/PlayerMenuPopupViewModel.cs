@@ -104,7 +104,7 @@
             _eventBus.Subscribe<GamePlayStateChangedEvent>(this, eventArgs => Handler(eventArgs.CurrentState));
             _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == ApplicationConstants.VolumeControlLocationKey);
             _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
-            _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, "");
+            _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
             ReserveDigitClickedCommand = new ActionCommand<string>(ConcatenateReservePin);
             ReserveClickedCommand = new ActionCommand<object>(StartMachineReservation);
@@ -398,8 +398,11 @@
 
         public void PlayClickSound()
         {
-            var soundVolume = (byte)_properties.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
-            _audioService.Play(_touchSoundFile, soundVolume);
+            if (!string.IsNullOrWhiteSpace(_touchSoundFile))
+            {
+                var soundVolume = (byte)_properties.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+                _audioService.Play(_touchSoundFile, soundVolume);
+            }
         }
     }
 }

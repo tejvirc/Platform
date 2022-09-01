@@ -91,6 +91,12 @@
         /// <inheritdoc />
         public bool Load(string file)
         {
+            if (string.IsNullOrWhiteSpace(file))
+            {
+                Logger.Error("Unable to load null audio file");
+                return false;
+            }
+
             lock (_lock)
             {
                 if (_sounds.ContainsKey(file))
@@ -403,7 +409,11 @@
                     lock (_lock)
                     {
                         Stop();
-                        Load(file);
+
+                        if (!Load(file))
+                        {
+                            return; 
+                        }
 
                         if (!_sounds.TryGetValue(file, out var sound))
                         {
