@@ -2,10 +2,12 @@
 {
     using System;
     using System.Globalization;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Forms;
     using Contracts;
+    using log4net;
 
     public class MarginConverter : IValueConverter
     {
@@ -35,11 +37,13 @@
                 var bottomLabelVisible = false;
                 double topMarginAdjust = 0;
                 double denomMarginAdjust = 0;
+                double screenHeight = 0;
                 bool extraLargeIcons = false;
                 Size gameIconSize = Size.Empty;
 
                 if (value is GameGridMarginInputs inputs)
                 {
+                    screenHeight = inputs.ScreenHeight;
                     gameCount = inputs.GameCount;
                     tabView = inputs.TabView;
                     bottomLabelVisible = inputs.BottomLabelVisible;
@@ -75,11 +79,12 @@
                             }
 
                             var offset = bottomLabelVisible ? 10 : 0;
+                            var topOffset = screenHeight > NormalScreenHeight ? (gameCount > 4 ? 0 : -80) : 60;
                             return gameCount <= 4
-                                ? new Thickness(0, 325 - offset + topMarginAdjust, 0, 0)
+                                ? new Thickness(0, 325 - offset + topMarginAdjust - topOffset, 0, 0)
                                 : gameCount <= 8
                                     ? new Thickness(0, 240 - offset + topMarginAdjust, 0, 0)
-                                    : new Thickness(0, 180 - offset + topMarginAdjust, 0, 0);
+                                    : new Thickness(0, 180 - offset + topMarginAdjust - topOffset, 0, 0);
                         }
 
                         return useSmallIcons
@@ -96,7 +101,12 @@
                     case LobbyViewMarginType.Banner:
                         return new Thickness(19.0, 0, 20.0, 8.0);
                     case LobbyViewMarginType.ProgressiveOverlay:
-                        return new Thickness(0, 0, 0, 48);
+                        if (screenHeight > NormalScreenHeight)
+                        {
+                            // for marsX or any monitor with higher resolution
+                            return new Thickness(0, 0, 0, gameCount <= 8 ? 128 : 168);
+                        }
+                        return new Thickness(0, 0, 0, 36);
                     case LobbyViewMarginType.ProgressiveOverlayText:
                         return new Thickness(0, 0, 0, value is bool selected ? (selected ? -5 : 0) : 0);
                     case LobbyViewMarginType.DenomLargeScreenLayout:
