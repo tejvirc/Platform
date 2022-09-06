@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "/qYaNnx1V202g6qOKI7jjdQN3hZ3HVAxDitCuYQMvow="
+          "hash": "XIfgaqShIv/Za+dyOz0zu5nm0EUEM5Uoe+uvzXxFMSw="
         }
       },
       "is_incremental": false,
@@ -14434,6 +14434,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -22966,9 +22969,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -67442,11 +67442,47 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.SerialTouch.InvalidPacketException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.InvalidPacketException.html",
+          "hash": "p2R7QfaUpZimUzfCm7+XMnxLZz8s3cYtK4VHbpjNBw4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.yml",
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.html",
-          "hash": "g0PdMj4svCI2sPASdNfxsv3sU4LLoZkoAVLJbg5qCTQ="
+          "hash": "SbMctDQmz509dWLerEgs2mFYRLpyZi0oOIxIbw3jVB8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchHelper.TouchAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchHelper.TouchAction.html",
+          "hash": "ekr5zw2lVbq/9gdddpIOicIBTW0GYA+V7ZSzNxe6rXE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchHelper.html",
+          "hash": "kj6b5dabmZ7DB8FdlhnqEsFDjo20Upfil81smSpqixU="
         }
       },
       "is_incremental": false,
@@ -67458,7 +67494,19 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService.html",
-          "hash": "gh4Jb4Hy+JNbRSXzDKUkIQCK8rcLKRc08vYP946cd2k="
+          "hash": "b6v1G8s+yZLEv3UHeq+F/1YwKrAGB+mLFYmQyAZzWk8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.SerialTouch.TouchPacketBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.TouchPacketBuilder.html",
+          "hash": "3tKLmThZwi5XmF2kPr9WLEln7A05kmUR4a/YquUcsVc="
         }
       },
       "is_incremental": false,
@@ -67470,7 +67518,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.SerialTouch.html",
-          "hash": "o4x0Z5GdtIwQAGJc844dPjys+GbKBU6trBYwaft4wyo="
+          "hash": "0bwQZ+ZeCahuBkakrq9nntAXUOaW0rxnf43FnSQ4dGM="
         }
       },
       "is_incremental": false,
@@ -82425,7 +82473,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6835,
+          "total_file_count": 6839,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

@@ -136,7 +136,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_CalibrateExtendedCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.CalibrateExtendedCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -183,7 +183,7 @@ will auto-calibrate (non-interactive).</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_Header.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.Header%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -222,23 +222,23 @@ will auto-calibrate (non-interactive).</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_LowOrderBits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.LowOrderBits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MaxCoordinateRange.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.MaxCoordinateRange%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
-  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_LowOrderBits" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.LowOrderBits"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_LowOrderBits" class="expander" data-toggle="collapse">LowOrderBits</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MaxCoordinateRange" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.MaxCoordinateRange"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MaxCoordinateRange" class="expander" data-toggle="collapse">MaxCoordinateRange</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_LowOrderBits" class="collapse in">
-  <div class="markdown level1 summary"><p>Touch mask used for getting the coordinates</p>
+  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MaxCoordinateRange" class="collapse in">
+  <div class="markdown level1 summary"><p>The Maximum coordinate range - 14 bits</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public const byte LowOrderBits = 15</code></pre>
+    <pre><code class="lang-csharp hljs">public const int MaxCoordinateRange = 16383</code></pre>
   </div>
   
   
@@ -248,7 +248,50 @@ will auto-calibrate (non-interactive).</p>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MinimumResponseLength.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.MinimumResponseLength%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MinimumResponseLength" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.MinimumResponseLength"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MinimumResponseLength" class="expander" data-toggle="collapse">MinimumResponseLength</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_MinimumResponseLength" class="collapse in">
+  <div class="markdown level1 summary"><p>The minimum length of a valid command response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int MinimumResponseLength = 3</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
         <p>
       </td>
     </tr>
@@ -268,7 +311,7 @@ will auto-calibrate (non-interactive).</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_NameCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.NameCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -311,7 +354,7 @@ will auto-calibrate (non-interactive).</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_NullCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.NullCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -354,7 +397,7 @@ will auto-calibrate (non-interactive).</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_OutputIdentityCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.OutputIdentityCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L85" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L116" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -440,7 +483,7 @@ will auto-calibrate (non-interactive).</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_ResetCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.ResetCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L123" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -474,7 +517,7 @@ will auto-calibrate (non-interactive).</p>
   
   
   <h5 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_ResetCommand_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Intializes the hardware and the firmware, causes the controller to
+  <div class="markdown level1 remarks"><p>Initializes the hardware and the firmware, causes the controller to
 stop sending data, and recalculates the environmental conditions.</p>
 </div>
   
@@ -487,7 +530,7 @@ stop sending data, and recalculates the environmental conditions.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_RestoreDefaultsCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.RestoreDefaultsCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -534,7 +577,7 @@ The serial port is reset to N81 format tablet and 2-point calibration is lost.</
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_StatusGood.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.StatusGood%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -620,7 +663,7 @@ The serial port is reset to N81 format tablet and 2-point calibration is lost.</
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TargetAcknowledged.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TargetAcknowledged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -663,7 +706,7 @@ The serial port is reset to N81 format tablet and 2-point calibration is lost.</
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_Terminator.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.Terminator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -705,7 +748,7 @@ The serial port is reset to N81 format tablet and 2-point calibration is lost.</
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataLength.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataLength%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -745,10 +788,226 @@ The serial port is reset to N81 format tablet and 2-point calibration is lost.</
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighByteShift.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketHighByteShift%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighByteShift" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketHighByteShift"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighByteShift" class="expander" data-toggle="collapse">TouchDataPacketHighByteShift</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighByteShift" class="collapse in">
+  <div class="markdown level1 summary"><p>The number of bits to shift the high coordinate byte in touch data.
+The MSB of the low byte is not used so we need to shift the high byte 7 bits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TouchDataPacketHighByteShift = 7</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighXByte.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketHighXByte%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighXByte" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketHighXByte"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighXByte" class="expander" data-toggle="collapse">TouchDataPacketHighXByte</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighXByte" class="collapse in">
+  <div class="markdown level1 summary"><p>The high byte index of the x coordinate in touch data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TouchDataPacketHighXByte = 2</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighYByte.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketHighYByte%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighYByte" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketHighYByte"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighYByte" class="expander" data-toggle="collapse">TouchDataPacketHighYByte</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketHighYByte" class="collapse in">
+  <div class="markdown level1 summary"><p>The high byte index of the y coordinate in touch data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TouchDataPacketHighYByte = 4</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowXByte.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketLowXByte%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowXByte" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketLowXByte"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowXByte" class="expander" data-toggle="collapse">TouchDataPacketLowXByte</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowXByte" class="collapse in">
+  <div class="markdown level1 summary"><p>The low byte index of the x coordinate in touch data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TouchDataPacketLowXByte = 1</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowYByte.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketLowYByte%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowYByte" data-uid="Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchDataPacketLowYByte"><a href="#collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowYByte" class="expander" data-toggle="collapse">TouchDataPacketLowYByte</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchDataPacketLowYByte" class="collapse in">
+  <div class="markdown level1 summary"><p>The low byte index of the y coordinate in touch data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TouchDataPacketLowYByte = 3</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 class="fieldValue">Field Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchOrientation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchOrientation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -791,7 +1050,7 @@ The serial port is reset to N81 format tablet and 2-point calibration is lost.</
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchPressure.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchPressure%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -834,7 +1093,7 @@ The serial port is reset to N81 format tablet and 2-point calibration is lost.</
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_SerialTouch_M3SerialTouchConstants_TouchRadius.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.SerialTouch.M3SerialTouchConstants.TouchRadius%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware/SerialTouch/M3SerialTouchConstants.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
