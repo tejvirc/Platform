@@ -11,6 +11,11 @@
         Uninitialized,
 
         /// <summary>
+        ///     The trigger for initializing the touch input
+        /// </summary>
+        Initialize,
+
+        /// <summary>
         ///     The trigger for null
         /// </summary>
         Null,
@@ -19,6 +24,11 @@
         ///     The trigger for interpret touch
         /// </summary>
         InterpretTouch,
+
+        /// <summary>
+        ///     The trigger for handling when null completes
+        /// </summary>
+        NullCompleted,
 
         /// <summary>
         ///     The trigger for name
