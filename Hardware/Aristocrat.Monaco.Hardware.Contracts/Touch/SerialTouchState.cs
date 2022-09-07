@@ -11,6 +11,11 @@
         Uninitialized = 0,
 
         /// <summary>
+        ///     The Initialize state
+        /// </summary>
+        Initialize,
+
+        /// <summary>
         ///     The state used to query the controller and wait for a response
         /// </summary>
         Null,

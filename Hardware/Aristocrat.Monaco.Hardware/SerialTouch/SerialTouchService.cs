@@ -163,7 +163,7 @@
             }
 
             _eventBus.Subscribe<ExitRequestedEvent>(this, HandleExitRequested);
-            
+
             Logger.Debug($"Initialize - Serial port open {_serialPortController.IsEnabled}");
             if (_serialPortController.IsEnabled)
             {
@@ -173,8 +173,7 @@
                 CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
                 CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
 
-                // *NOTE* Serial touch will be initialized when the OutputIdentity is handled during the start-up sequence that will begin with this Name command.
-                SendNameCommand();
+                Fire(SerialTouchTrigger.Initialize);
             }
             else if (!IsDisconnected)
             {
@@ -189,26 +188,19 @@
             GC.SuppressFinalize(this);
         }
 
-        /// <inheritdoc />
-        public void SendResetCommand(bool calibrating = false)
-        {
-            if (Fire(SerialTouchTrigger.Reset))
-            {
-                PendingCalibration = calibrating;
-                if (PendingCalibration)
-                {
-                    CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
-                    CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
-                    _eventBus.Publish(new SerialTouchCalibrationStatusEvent(Model + " " + FirmwareVersion, ResourceKeys.TouchCalibrateModel, CrosshairColorLowerLeft, CrosshairColorUpperRight));
-                }
-                
-                _transmitQueue?.Add(M3SerialTouchConstants.ResetCommand);
-            }
-        }
-
         public bool InitializeTouchInjection()
         {
             return NativeMethods.InitializeTouchInjection(MaxTouchInfo, TouchFeedback.NONE);
+        }
+
+        public void StartCalibration()
+        {
+            SendResetCommand(true);
+        }
+
+        public void CancelCalibration()
+        {
+            SendResetCommand();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -249,6 +241,24 @@
             }
 
             _disposed = true;
+        }
+
+        private void SendResetCommand(bool calibrating = false)
+        {
+            if (!Fire(SerialTouchTrigger.Reset))
+            {
+                return;
+            }
+
+            PendingCalibration = calibrating;
+            if (PendingCalibration)
+            {
+                CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
+                CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
+                _eventBus.Publish(new SerialTouchCalibrationStatusEvent(Model + " " + FirmwareVersion, ResourceKeys.TouchCalibrateModel, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+            }
+
+            _transmitQueue?.Add(M3SerialTouchConstants.ResetCommand);
         }
 
         private bool CanFire(SerialTouchTrigger trigger)
@@ -296,7 +306,7 @@
                     WriteTimeoutMs = CommunicationTimeoutMs,
                     KeepAliveTimeoutMs = keepAlive
                 });
-                
+
             _serialPortController.IsEnabled = true;
 
             if (!_queueTasksCreated)
@@ -327,34 +337,44 @@
         {
             var stateMachine = new StateMachine<SerialTouchState, SerialTouchTrigger>(SerialTouchState.Uninitialized);
             stateMachine.Configure(SerialTouchState.Uninitialized)
+                .Permit(SerialTouchTrigger.Name, SerialTouchState.Name)
+                .Permit(SerialTouchTrigger.Initialize, SerialTouchState.Initialize);
+            stateMachine.Configure(SerialTouchState.Initialize)
+                .OnEntry(() => _transmitQueue?.Add(M3SerialTouchConstants.ResetCommand))
                 .Permit(SerialTouchTrigger.Name, SerialTouchState.Name);
             stateMachine.Configure(SerialTouchState.Name)
+                .OnEntry(SendNameCommand)
                 .PermitReentry(SerialTouchTrigger.Name)
                 .Permit(SerialTouchTrigger.OutputIdentity, SerialTouchState.OutputIdentity)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch);
             stateMachine.Configure(SerialTouchState.Null)
+                .OnEntry(SendNullCommand)
                 .PermitReentry(SerialTouchTrigger.Null)
-                .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
+                .Permit(SerialTouchTrigger.NullCompleted, SerialTouchState.InterpretTouch)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.OutputIdentity)
+                .OnEntry(SendOutputIdentityCommand)
                 .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch);
             stateMachine.Configure(SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.Uninitialized, SerialTouchState.Uninitialized)
                 .Permit(SerialTouchTrigger.RestoreDefaults, SerialTouchState.RestoreDefaults)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
-                .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);            
+                .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.RestoreDefaults)
                 .Permit(SerialTouchTrigger.CalibrateExtended, SerialTouchState.CalibrateExtended)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.CalibrateExtended)
+                .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.LowerLeftTarget, SerialTouchState.LowerLeftTarget)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.LowerLeftTarget)
+                .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.UpperRightTarget, SerialTouchState.UpperRightTarget)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.UpperRightTarget)
+                .Permit(SerialTouchTrigger.Reset, SerialTouchState.Reset)
                 .Permit(SerialTouchTrigger.InterpretTouch, SerialTouchState.InterpretTouch)
                 .Permit(SerialTouchTrigger.Error, SerialTouchState.Error);
             stateMachine.Configure(SerialTouchState.InterpretTouch)
@@ -499,7 +519,7 @@
             if (status == M3SerialTouchConstants.StatusGood)
             {
                 Status = "NULL COMMAND OK";
-                Fire(SerialTouchTrigger.InterpretTouch);
+                Fire(SerialTouchTrigger.NullCompleted);
             }
             else
             {
@@ -515,7 +535,7 @@
             if (string.IsNullOrEmpty(Model) && !Initialized)
             {
                 Logger.Warn("HandleName - Name null or empty, re-sending...");
-                SendNameCommand();
+                Fire(SerialTouchTrigger.Name);
                 return;
             }
 
@@ -525,14 +545,7 @@
                 _skipCalibrationPrompts = true;
             }
 
-            if (!Initialized)
-            {
-                SendOutputIdentityCommand();
-            }
-            else
-            {
-                Fire(SerialTouchTrigger.InterpretTouch);
-            }
+            Fire(!Initialized ? SerialTouchTrigger.OutputIdentity : SerialTouchTrigger.InterpretTouch);
         }
 
         private void HandleOutputIdentity(byte[] response)
@@ -547,11 +560,25 @@
                 // *NOTE* We need to remap the touch screens so that the firmware information is updated for the mapped serial touch device.
                 _cabinetDetectionService.MapTouchscreens();
                 Logger.Info($"HandleOutputIdentity - {Name} {FirmwareVersion} initialized");
-                SendResetCommand();
-                return;
             }
 
             Fire(SerialTouchTrigger.InterpretTouch);
+        }
+
+        private void HandleInitialize(byte status)
+        {
+            if (status == M3SerialTouchConstants.StatusGood)
+            {
+                Status = "RESET COMMAND OK";
+                Fire(SerialTouchTrigger.Name);
+            }
+            else
+            {
+                if (Fire(SerialTouchTrigger.Uninitialized))
+                {
+                    Fire(SerialTouchTrigger.Initialize);
+                }
+            }
         }
 
         private void HandleReset(byte status)
@@ -562,7 +589,10 @@
                 if (_resetForRecovery)
                 {
                     _resetForRecovery = false;
-                    Fire(SerialTouchTrigger.Uninitialized);
+                    if (Fire(SerialTouchTrigger.Uninitialized))
+                    {
+                        Fire(SerialTouchTrigger.Initialize);
+                    }
                 }
                 else if (PendingCalibration)
                 {
@@ -614,6 +644,9 @@
                     break;
                 case SerialTouchState.Reset:
                     HandleReset(response[0]);
+                    break;
+                case SerialTouchState.Initialize:
+                    HandleInitialize(response[0]);
                     break;
                 case SerialTouchState.RestoreDefaults:
                     HandleRestoreDefaults(response[0]);
@@ -762,7 +795,7 @@
             }
 
             _checkDisconnectAttempts++;
-            SendNullCommand();
+            Fire(SerialTouchTrigger.Null);
         }
 
         private void OnRequeueTimer(object sender, ElapsedEventArgs e)
@@ -916,26 +949,17 @@
 
         private void SendNameCommand()
         {
-            if (Fire(SerialTouchTrigger.Name))
-            {
-                _transmitQueue?.Add(M3SerialTouchConstants.NameCommand);
-            }
+            _transmitQueue?.Add(M3SerialTouchConstants.NameCommand);
         }
 
         private void SendNullCommand()
         {
-            if (Fire(SerialTouchTrigger.Null))
-            {
-                _transmitQueue?.Add(M3SerialTouchConstants.NullCommand);
-            }
+            _transmitQueue?.Add(M3SerialTouchConstants.NullCommand);
         }
 
         private void SendOutputIdentityCommand()
         {
-            if (Fire(SerialTouchTrigger.OutputIdentity))
-            {
-                _transmitQueue?.Add(M3SerialTouchConstants.OutputIdentityCommand);
-            }
+            _transmitQueue?.Add(M3SerialTouchConstants.OutputIdentityCommand);
         }
 
         private void SendRestoreDefaultsCommand()
