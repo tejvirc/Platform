@@ -79,6 +79,14 @@
                         transaction.Barcode);
                     _bingoEventQueue.AddNewEventToQueue(ReportableEvent.CashoutBonus);
                     break;
+                case TransferOutReason.CashWin:
+                    _bingoTransactionReportHandler.AddNewTransactionToQueue(
+                        Common.TransactionType.CashWon,
+                        amountInCents,
+                        (uint)(gameConfiguration?.GameTitleId ?? 0),
+                        (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0),
+                        transaction.Barcode);
+                    break;
             }
 
             _bingoEventQueue.AddNewEventToQueue(ReportableEvent.TicketOut);
