@@ -263,6 +263,7 @@
                 _ =>
                 {
                     _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                     _gameIsRunning = true;
                     _sanityCounter = 0;
                     _requestGameIsInProgress = false;
