@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Windows.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
+    using Hardware.Contracts.Button;
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM;
@@ -123,6 +125,7 @@
 
         protected override void OnLoaded()
         {
+            EventBus.Subscribe<SystemDownEvent>(this, HandleEvent);
             PreventOperatorMenuExit();
             base.OnLoaded();
         }
@@ -142,6 +145,14 @@
             if (CloseOnRestrictedAccess && AccessRestriction != OperatorMenuAccessRestriction.None)
             {
                 MvvmHelper.ExecuteOnUI(() => DialogResult = false);
+            }
+        }
+
+        protected virtual void HandleEvent(SystemDownEvent theEvent)
+        {
+            if (theEvent.LogicalId == (int)ButtonLogicalId.Play && theEvent.Enabled == false)
+            {
+                MvvmHelper.ExecuteOnUI(Cancel);
             }
         }
 
