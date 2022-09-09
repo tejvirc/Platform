@@ -139,7 +139,7 @@
         {
             var process = sender as Process;
 
-            // Clear the RpcClient instance held, as once the Game/Runtime process is killed, it will become stale
+            // Clear the RPC Client instance held, as once the Game/Runtime process is killed, it will become stale
             _serviceProvider.Clear();
 
             if (!_expectProcessExit)

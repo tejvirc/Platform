@@ -59,9 +59,14 @@
         public static readonly string RuntimeHost = $"{RuntimeHostName}.exe";
 
         /// <summary>
-        ///     Base port for gRpc inter-process communications with the runtime
+        ///     Server pipe name for Snapp inter-process communications with the runtime
         /// </summary>
-        public static readonly int IpcPort = 51227;
+        public static readonly string IpcPlatformPipeName = "MonacoPlatformSnapp";
+
+        /// <summary>
+        ///     Client pipe name for Snapp inter-process communications with the runtime
+        /// </summary>
+        public static readonly string IpcRuntimePipeName = "MonacoRuntimeSnapp";
 
         /// <summary>
         ///     Is there a game running
