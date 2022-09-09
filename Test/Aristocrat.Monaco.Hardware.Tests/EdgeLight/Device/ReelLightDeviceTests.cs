@@ -2,15 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Hardware.Contracts.Reel;
     using Hardware.EdgeLight.Device;
+    using Hardware.EdgeLight.Strips;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
-    using Vgt.Client12.Hardware.HidLibrary;
 
     [TestClass]
     public class ReelLightDeviceTests
@@ -22,8 +24,8 @@
         private Func<DisconnectedEvent, CancellationToken, Task> _disconnectedAction;
         private Func<ReelConnectedEvent, CancellationToken, Task> _reelConnectedAction;
         private Func<ReelDisconnectedEvent, CancellationToken, Task> _reelDisconnectedAction;
-        private bool _connectionChangedCallbackCalled = false;
-        private bool _stripsChangedCallbackCalled = false;
+        private bool _connectionChangedCallbackCalled;
+        private bool _stripsChangedCallbackCalled;
 
         [TestInitialize]
         public void Setup()
@@ -33,19 +35,19 @@
             _reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
 
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<ConnectedEvent, CancellationToken, Task>>()))
-                .Callback<object, Func<ConnectedEvent, CancellationToken, Task>>((o, c) => _connectedAction = c);
+                .Callback<object, Func<ConnectedEvent, CancellationToken, Task>>((_, c) => _connectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<DisconnectedEvent, CancellationToken, Task>>()))
-                .Callback<object, Func<DisconnectedEvent, CancellationToken, Task>>((o, c) => _disconnectedAction = c);
+                .Callback<object, Func<DisconnectedEvent, CancellationToken, Task>>((_, c) => _disconnectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<ReelConnectedEvent, CancellationToken, Task>>()))
-                .Callback<object, Func<ReelConnectedEvent, CancellationToken, Task>>((o, c) => _reelConnectedAction = c);
+                .Callback<object, Func<ReelConnectedEvent, CancellationToken, Task>>((_, c) => _reelConnectedAction = c);
             _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<ReelDisconnectedEvent, CancellationToken, Task>>()))
-                .Callback<object, Func<ReelDisconnectedEvent, CancellationToken, Task>>((o, c) => _reelDisconnectedAction = c);
+                .Callback<object, Func<ReelDisconnectedEvent, CancellationToken, Task>>((_, c) => _reelDisconnectedAction = c);
 
             _device = new ReelLightDevice(_eventBus.Object);
 
-            IList<int> ids = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+            IList<int> ids = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
             _reelController.Setup(x => x.GetReelLightIdentifiers()).Returns(Task.FromResult(ids));
-            _reelController.Setup(x => x.ConnectedReels).Returns(new List<int>() { 1, 2, 3, 4, 5 });
+            _reelController.Setup(x => x.ConnectedReels).Returns(new List<int> { 1, 2, 3, 4, 5 });
             _reelController.Setup(x => x.Connected).Returns(true);
             _reelController.Setup(x => x.Enabled).Returns(true);
             _reelController.Setup(x => x.Initialized).Returns(true);
@@ -64,7 +66,7 @@
         }
 
         [TestMethod]
-        public void DiposeTest()
+        public void DisposeTest()
         {
             // Method being tested
             _device.Dispose();
@@ -75,7 +77,7 @@
         [TestMethod]
         public async Task HandleConnectionChangedConnectedTest()
         {
-            int reelControllerId = 1;
+            const int reelControllerId = 1;
 
             // Method being tested
             Assert.IsNotNull(_connectedAction);
@@ -96,7 +98,7 @@
         [TestMethod]
         public async Task HandleConnectionChangedDisconnectedTest()
         {
-            int reelControllerId = 1;
+            const int reelControllerId = 1;
 
             // Method being tested
             Assert.IsNotNull(_connectedAction);
@@ -117,7 +119,7 @@
         [TestMethod]
         public async Task HandledStripChangedReelConnectedTest()
         {
-            int reelId = 1;
+            const int reelId = 1;
 
             // Method being tested
             Assert.IsNotNull(_connectedAction);
@@ -138,7 +140,7 @@
         [TestMethod]
         public async Task HandledStripChangedReelDisconnectedTest()
         {
-            int reelId = 1;
+            const int reelId = 1;
 
             // Method being tested
             Assert.IsNotNull(_connectedAction);
@@ -171,17 +173,25 @@
                 Assert.AreEqual(0x50 + i, strip.StripId);
                 Assert.AreEqual(3, strip.LedCount);
                 Assert.AreEqual(100, strip.Brightness);
+                _device.PhysicalStrips[i].ColorBuffer.SetColors(
+                    new LedColorBuffer(new[] { Color.White, Color.White, Color.White }),
+                    0,
+                    3,
+                    0);
             }
 
             var expectedReelLampData = new List<ReelLampData>();
             var expectedReelLampBrightness = new Dictionary<int, int>();
             for (var i = 0; i < 15; ++i)
             {
-                expectedReelLampData.Add(new ReelLampData(System.Drawing.Color.White, false, i + 1));
+                expectedReelLampData.Add(new ReelLampData(Color.White, true, i + 1));
                 expectedReelLampBrightness.Add(i + 1, 100);
             }
 
-            _reelController.Setup(x => x.SetLights(expectedReelLampData.ToArray())).Returns(Task.FromResult(true)).Verifiable();
+            _reelController.Setup(
+                    x => x.SetLights(
+                        It.Is<ReelLampData[]>(l => expectedReelLampData.SequenceEqual(l, new ReelLampDataComparer()))))
+                .ReturnsAsync(true);
 
             // Method being tested
             _device.RenderAllStripData();
@@ -229,12 +239,14 @@
             Assert.IsFalse(_connectionChangedCallbackCalled);
             Assert.IsTrue(_stripsChangedCallbackCalled);
             Assert.AreEqual(5, _device.PhysicalStrips.Count);
+            _reelController.Setup(x => x.SetReelBrightness(It.IsAny<int>())).ReturnsAsync(true);
 
             // Brightness defaults to -1
-            int brightness = 100;
+            const int brightness = 100;
 
             // Method being tested
             _device.SetSystemBrightness(brightness);
+            _device.RenderAllStripData();
 
             _reelController.Verify(x => x.SetReelBrightness(brightness), Times.Once());
         }
@@ -248,11 +260,15 @@
             Assert.IsTrue(_stripsChangedCallbackCalled);
             Assert.AreEqual(5, _device.PhysicalStrips.Count);
 
-            int brightness = 100;
+            const int brightness = 100;
+            _reelController.Setup(x => x.SetReelBrightness(It.IsAny<int>())).ReturnsAsync(true);
 
             // Method being tested
             _device.SetSystemBrightness(brightness);
+            _device.RenderAllStripData();
+
             _device.SetSystemBrightness(brightness);
+            _device.RenderAllStripData();
 
             _reelController.Verify(x => x.SetReelBrightness(brightness), Times.Once());
         }
@@ -265,10 +281,13 @@
             Assert.IsFalse(_connectionChangedCallbackCalled);
             Assert.IsTrue(_stripsChangedCallbackCalled);
             Assert.AreEqual(5, _device.PhysicalStrips.Count);
+            _reelController.Setup(x => x.SetReelBrightness(It.IsAny<int>())).ReturnsAsync(true);
 
             // Method being tested
             _device.SetSystemBrightness(100);
+            _device.RenderAllStripData();
             _device.SetSystemBrightness(50);
+            _device.RenderAllStripData();
 
             _reelController.Verify(x => x.SetReelBrightness(100), Times.Once());
             _reelController.Verify(x => x.SetReelBrightness(50), Times.Once());
@@ -282,6 +301,45 @@
         private void EdgeLightDevice_StripsChanged(object sender, EventArgs e)
         {
             _stripsChangedCallbackCalled = true;
+        }
+
+        private class ReelLampDataComparer : IEqualityComparer<ReelLampData>
+        {
+            public bool Equals(ReelLampData x, ReelLampData y)
+            {
+                if (ReferenceEquals(x, y))
+                {
+                    return true;
+                }
+
+                if (ReferenceEquals(x, null))
+                {
+                    return false;
+                }
+
+                if (ReferenceEquals(y, null))
+                {
+                    return false;
+                }
+
+                if (x.GetType() != y.GetType())
+                {
+                    return false;
+                }
+
+                return x.Color.ToArgb() == y.Color.ToArgb() && x.IsLampOn == y.IsLampOn && x.Id == y.Id;
+            }
+
+            public int GetHashCode(ReelLampData obj)
+            {
+                unchecked
+                {
+                    var hashCode = obj.Color.ToArgb().GetHashCode();
+                    hashCode = (hashCode * 397) ^ obj.IsLampOn.GetHashCode();
+                    hashCode = (hashCode * 397) ^ obj.Id;
+                    return hashCode;
+                }
+            }
         }
     }
 }

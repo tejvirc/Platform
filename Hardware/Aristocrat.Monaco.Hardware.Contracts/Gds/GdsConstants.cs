@@ -250,8 +250,8 @@
             /// <summary> The reel controller set reel lights brightness command </summary>
             ReelControllerSetReelBrightness = 0xF8,
 
-            /// <summary> The reel controller response to a set reel lights brightness command </summary>
-            ReelControllerBrightnessResponse = 0xF9,
+            /// <summary> The reel controller response to a set reel lights and brightness command </summary>
+            ReelControllerLightResponse = 0xF9,
 
             /// <summary> The reel controller set speed command </summary>
             ReelControllerSetReelSpeed = 0xFA,
@@ -267,9 +267,9 @@
 
             /// <summary> The reel controller get reel IDs command </summary>
             ReelControllerGetLightIds = 0xFE,
-			
+
             /// <summary> The reel controller failure status clear event </summary>
-            ReelControllerFailureStatusClear = 0xFF			
+            ReelControllerFailureStatusClear = 0xFF
         }
 
         /// <summary>The default seed value used to calculate the CRC.</summary>
