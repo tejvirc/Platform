@@ -6,6 +6,16 @@ on:
   push:
     branches:
     - main
+    paths:
+    - 'Accounting/**'
+    - 'Application/**'
+    - 'Gaming/**'
+    - 'Hardware/**'
+    - 'Jurisdiction/**'
+    - 'Kernel/**'
+    - 'Protocol/**'
+    - 'Shared/**'
+    - 'Documentation/**'
 
 jobs:
   build-docs:
