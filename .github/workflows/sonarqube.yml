@@ -94,7 +94,7 @@ jobs:
         /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
         /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
         /d:sonar.cs.vstest.reportsPaths="**/*.trx"
-        /d:sonar.cs.dotcover.reportsPaths="**/coverage.*.html"
+        /d:sonar.cs.opencover.reportsPaths="**/coverage.*.xml"
     - name: Begin pull request scan
       if: github.event_name == 'pull_request'
       env:
