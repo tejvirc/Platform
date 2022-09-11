@@ -88,7 +88,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         void EnableLamps();
     }
 
-    /// <summary> Button and correspondeing state of lamp for static button deck </summary>
+    /// <summary> Button and corresponding state of lamp for static button deck </summary>
     public class ButtonLampState
     {
         /// <summary> Id of button</summary>

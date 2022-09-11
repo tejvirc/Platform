@@ -95,12 +95,29 @@ jobs:
         New-Item -Path .\.sonar\scanner -ItemType Directory -Force
         dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
     - name: Begin scan
+      if: github.event_name != 'pull_request'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
       shell: powershell
       run: >
         .\.sonar\scanner\dotnet-sonarscanner begin
-        /k:"Aristocrat-Monaco-Platform_monaco"
+        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
+        /d:sonar.branch.name="${{ github.ref_name }}"
+        /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+        /d:sonar.cs.vstest.reportsPaths="**/*.trx"
+        /d:sonar.cs.dotcover.reportsPaths="**/coverage.*.html"
+    - name: Begin pull request scan
+      if: github.event_name == 'pull_request'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      shell: powershell
+      run: >
+        .\.sonar\scanner\dotnet-sonarscanner begin
+        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
+        /d:sonar.pullrequest.key="${{ github.event.number }}"
+        /d:sonar.pullrequest.branch="${{ github.ref_name }}"
+        /d:sonar.pullrequest.base="${{ github.head_ref }}"
         /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
         /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
         /d:sonar.cs.vstest.reportsPaths="**/*.trx"
@@ -132,9 +149,18 @@ jobs:
       run: |
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
     - name: Quality Gate check
+      id: sonarqube-quality-gate-check
       uses: sonarsource/sonarqube-quality-gate-action@master
       timeout-minutes: 10
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: sonar-artifacts
+        path: .sonarqube/out/.sonar/report-task.txt
+        if-no-files-found: error
+    - name: Quality Gate Status value
+      run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"

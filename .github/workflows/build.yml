@@ -109,17 +109,3 @@ jobs:
         path: "**/*.trx"
         reporter: dotnet-trx
         fail-on-error: true
-    - name: Create Package
-      if: github.event_name != 'pull_request'
-      run: >
-        monaco image new -d ./bin/${{ matrix.configuration }}/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
-    - name: Create Manifest
-      if: github.event_name != 'pull_request'
-      run: >
-        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemFileVer }}
-    - uses: actions/upload-artifact@v2
-      if: github.event_name != 'pull_request'
-      with:
-        name: ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}_${{ matrix.configuration }}
-        path: artifacts/
-        if-no-files-found: error

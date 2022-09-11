@@ -395,7 +395,7 @@
             _state.Configure(LobbyState.GameLoading)
                 .OnEntryFrom(_launchGameTrigger, CallStateEntry)
                 .Permit(LobbyTrigger.GameLoaded, LobbyState.Game)
-                .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => AllowSingleGameAutoLaunch || IsLoadingGameForRecovery)
+                .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => AllowSingleGameAutoLaunch || (_gameHistory.IsRecoveryNeeded && IsLoadingGameForRecovery))
                 .PermitDynamic(
                     LobbyTrigger.GameNormalExit,
                     () => IsLoadingGameForRecovery ? LobbyState.Recovery : GetDefaultChooserState())

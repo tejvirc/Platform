@@ -228,7 +228,7 @@
                     continue;
                 }
 
-                if (NoteAcceptorEventsDescriptor.FaultTexts.ContainsKey(value))
+                if (_faultTexts.ContainsKey(value))
                 {
                     UpdateStatus();
                 }
@@ -248,7 +248,7 @@
                     continue;
                 }
 
-                if (NoteAcceptorEventsDescriptor.FaultTexts.ContainsKey(value))
+                if (_faultTexts.ContainsKey(value))
                 {
                     UpdateStatus();
                 }
