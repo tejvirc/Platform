@@ -42,7 +42,6 @@
         private bool _enableVideo;
         private bool _enableAudio;
         private bool _enableLighting;
-        private VolumeControlLocation _volumeControlLocation;
         private bool _showServiceButton;
         private bool _showTopPickBanners;
         private bool _showTopPickBannersVisible;
@@ -184,19 +183,6 @@
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveLobbyIndicatorValue))
         };
 
-        public IEnumerable<VolumeControlLocationInfo> VolumeControlLocationOptions => new List<VolumeControlLocationInfo>
-        {
-            new VolumeControlLocationInfo(
-                VolumeControlLocation.Lobby,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VolumeControlLocationLobbyLabel)),
-            new VolumeControlLocationInfo(
-                VolumeControlLocation.Game,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VolumeControlLocationGameLabel)),
-            new VolumeControlLocationInfo(
-                VolumeControlLocation.LobbyAndGame,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VolumeControlLocationLobbyAndGameLabel))
-        };
-
         public bool SlotOptionsEnabled { get; }
 
         public bool KenoOptionsEnabled { get; }
@@ -313,24 +299,6 @@
                 RaisePropertyChanged(nameof(AttractEnabled));
                 Save(GamingConstants.AttractModeEnabled, _attractEnabled);
                 EventBus.Publish(new AttractConfigurationChangedEvent());
-            }
-        }
-
-        public VolumeControlLocation VolumeControlLocation
-        {
-            get => _volumeControlLocation;
-            set
-            {
-                if (_volumeControlLocation == value)
-                {
-                    return;
-                }
-
-                _volumeControlLocation = value;
-                RaisePropertyChanged(nameof(VolumeControlLocation));
-
-                Save(ApplicationConstants.VolumeControlLocationKey, (int)_volumeControlLocation);
-                EventBus.Publish(new LobbySettingsChangedEvent(LobbySettingType.VolumeButtonVisible));//TODO
             }
         }
 
@@ -1015,10 +983,6 @@
             LobbyVolumeScalar = (VolumeScalar)PropertiesManager.GetValue(
                 ApplicationConstants.LobbyVolumeScalarKey,
                 ApplicationConstants.LobbyVolumeScalar);
-
-            VolumeControlLocation = (VolumeControlLocation)PropertiesManager.GetValue(
-                ApplicationConstants.VolumeControlLocationKey,
-                ApplicationConstants.VolumeControlLocationDefault);
 
             var gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
             var localeCode = PropertiesManager.GetValue(GamingConstants.SelectedLocaleCode, "EN-US");
