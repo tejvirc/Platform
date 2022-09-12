@@ -33377,42 +33377,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationGameLabel {
-			get {
-				return ResourceManager.GetString("VolumeControlLocationGameLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Lobby and Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyAndGameLabel {
-			get {
-				return ResourceManager.GetString("VolumeControlLocationLobbyAndGameLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Lobby.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyLabel {
-			get {
-				return ResourceManager.GetString("VolumeControlLocationLobbyLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Volume Control Location.
 		/// </summary>
         /// <remarks>
@@ -67753,42 +67717,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationGameLabel {
-			get {
-				return "VolumeControlLocationGameLabel";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Lobby and Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyAndGameLabel {
-			get {
-				return "VolumeControlLocationLobbyAndGameLabel";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Lobby.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VolumeControlLocationLobbyLabel {
-			get {
-				return "VolumeControlLocationLobbyLabel";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Volume Control Location.
 		/// </summary>
         /// <remarks>
@@ -87800,27 +87728,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		Volume,
-		/// <summary>
-		///   Looks up a localized string similar to Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VolumeControlLocationGameLabel,
-		/// <summary>
-		///   Looks up a localized string similar to Lobby and Game.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VolumeControlLocationLobbyAndGameLabel,
-		/// <summary>
-		///   Looks up a localized string similar to Lobby.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VolumeControlLocationLobbyLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Volume Control Location.
 		/// </summary>

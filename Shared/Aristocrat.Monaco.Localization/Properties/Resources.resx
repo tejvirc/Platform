@@ -11241,18 +11241,6 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
     <value>Game Win Bonus Awarded: {0}</value>
   </data>
-  <data name="VolumeControlLocationLobbyLabel" xml:space="preserve">
-    <value>Lobby</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
-  <data name="VolumeControlLocationGameLabel" xml:space="preserve">
-    <value>Game</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
-  <data name="VolumeControlLocationLobbyAndGameLabel" xml:space="preserve">
-    <value>Lobby and Game</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
   <data name="VolumeControlLocationTitle" xml:space="preserve">
     <value>Volume Control Location</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
