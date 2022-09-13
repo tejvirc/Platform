@@ -91,9 +91,7 @@
 
         public bool ExitReserveMachine()
         {
-            if (!(bool)_propertiesManager.GetProperty(
-                ApplicationConstants.ReserveServiceLockupPresent,
-                false))
+            if (!IsReserveServiceLockupPresent)
             {
                 return false;
             }
@@ -121,10 +119,6 @@
                 ApplicationConstants.ReserveServiceAllowed,
                 true);
 
-            var lockUpOnStartup = (bool)_propertiesManager.GetProperty(
-                ApplicationConstants.ReserveServiceLockupPresent,
-                false);
-
             _reserveServiceSupported =
                 (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceEnabled, true);
 
@@ -136,25 +130,25 @@
 
             _eventBus?.Subscribe<ExitReserveButtonPressedEvent>(this, HandleEvent);
             _eventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
-            _eventBus?.Subscribe< GambleFeatureActiveEvent> (this, HandleEvent);
+            _eventBus?.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
 
             SetupReserveServiceTimer();
 
             // If we have a lockup and the reserve is not allowed or enabled, clear up lockup.
             // This should not happen in the first place
-            if ((!_reserveServiceSupported || !_reserveServiceAllowed) && lockUpOnStartup)
+            if ((!_reserveServiceSupported || !_reserveServiceAllowed) && IsReserveServiceLockupPresent)
             {
                 RemoveLockup();
             }
 
             //If the reserve is not allowed, enabled or there's no lockup on start, no need to do anything else.
-            if (!lockUpOnStartup || !_reserveServiceSupported || !_reserveServiceAllowed)
+            if (!IsReserveServiceLockupPresent || !_reserveServiceSupported || !_reserveServiceAllowed)
             {
                 return;
             }
 
-            CreateLockup();
-            _eventBus?.Subscribe<GameInitializationCompletedEvent>(this, HandleEvent);
+            CreateLockup(true);
+            _eventBus?.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleEvent);
         }
 
         private void Dispose(bool disposing)
@@ -229,7 +223,7 @@
 
         private void HandleEvent(GambleFeatureActiveEvent evt)
         {
-            _isGambleFeatureActive = evt.Active; 
+            _isGambleFeatureActive = evt.Active;
         }
 
         private void HandleEvent(PropertyChangedEvent evt)
@@ -247,13 +241,23 @@
             }
         }
 
-        private void HandleEvent(GameInitializationCompletedEvent evt)
+
+        private void HandleEvent(OverlayWindowVisibilityChangedEvent evt)
         {
-            _eventBus.Unsubscribe<GameInitializationCompletedEvent>(this);
-            _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            if (!evt.IsVisible)
+                return;
+
+            _eventBus.Unsubscribe<OverlayWindowVisibilityChangedEvent>(this);
+
+            if (IsReserveServiceLockupPresent)
+            {
+                _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            }
         }
 
-        private bool CreateLockup()
+        private bool IsReserveServiceLockupPresent => (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false);
+        
+        private bool CreateLockup(bool lockupOnStartup = false)
         {
             ShowLockup();
             IsMachineReserved = true;
@@ -267,7 +271,13 @@
                 _remainingSeconds = _timeoutInSeconds;
             }
 
-            _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            //while reserving the machine on startup, don't start timer immediately as game will take
+            //some time to initialize , will do that when initialization is completed.
+            if (!lockupOnStartup)
+            {
+                _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            }
+
             return true;
         }
     }
