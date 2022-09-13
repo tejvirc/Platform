@@ -12,6 +12,7 @@ as follows:
 <ConfiguredDevices>
   <Defaults>
     <Device Name="JCM Serial ID003" />
+    <Device Name="TransAct Epic950 Serial EpicTTL" />
     <Device Name="UNIFORM USB GDS" Enabled="false" />
   </Defaults>
 
