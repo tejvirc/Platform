@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Reflection;
     using Application.Contracts;
     using Bingo.Services.Configuration;
     using Common;
@@ -45,6 +43,7 @@
       1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99, 108,
       117, 126, 135, 144, 153, 162, 171, 180,
     ],
+    HelpUrl: ""http://localhost/gamehelp/61/46082/""
   },
 ]";
 
@@ -60,6 +59,7 @@
       18, 36, 54, 72, 90, 108, 126, 144, 162, 180, 198, 216, 234, 252, 270, 288,
       306, 324, 342, 360,
     ],
+    HelpUrl: ""http://localhost/gamehelp/61/46082/""
   }
 ]";
 
@@ -111,7 +111,6 @@
             const bool expectedHideWhenInactive = true;
             const string initialHideWhenInactive = BingoConstants.ServerSettingOn;
             const string themeId = "TestTheme";
-            var initialBingoHelpUri = "file:///" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace('\\', '/') + "/www/bingo";
 
             var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
             {
@@ -150,10 +149,6 @@
                 },
                 new ConfigurationResponse.Types.ClientAttribute
                 {
-                    Value = initialBingoHelpUri, Name = MachineAndGameConfigurationConstants.BingoHelpUri
-                },
-                new ConfigurationResponse.Types.ClientAttribute
-                {
                     Value = GamesConfigurationString, Name = MachineAndGameConfigurationConstants.GamesConfigured
                 }
             };
@@ -165,7 +160,6 @@
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.Position, locationPositionValue)).Verifiable();
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.BingoCardPlacement, initialBingoCardPlacement)).Verifiable();
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.DisplayBingoCardEgm, initialDispBingoCard)).Verifiable();
-            _propertiesManager.Setup(m => m.SetProperty(BingoConstants.BingoHelpUri, initialBingoHelpUri)).Verifiable();
 
             var mockGame = new Mock<IGameDetail>();
             mockGame.Setup(x => x.CdsThemeId).Returns("272");
@@ -223,7 +217,6 @@
         [DataRow("Any Screen", MachineAndGameConfigurationConstants.BingoCardPlacement, DisplayName = "Invalid Setting Unknown BingoCardPlacement")]
         [DataRow("No Bingo Card", MachineAndGameConfigurationConstants.DispBingoCard, DisplayName = "Invalid Setting Unknown DispBingoCard")]
         [DataRow("No Bingo Card", MachineAndGameConfigurationConstants.HideBingoCardWhenInactive, DisplayName = "Invalid Setting Unknown HideBingoCardWhenInactive")]
-        [DataRow("", MachineAndGameConfigurationConstants.BingoHelpUri, DisplayName = "Invalid Setting BingoHelpUri Empty")]
         [DataRow("", MachineAndGameConfigurationConstants.GamesConfigured, DisplayName = "Invalid Setting GamesConfigured Empty")]
         [DataTestMethod]
         public void InvalidSettingTest(object value, string name)
