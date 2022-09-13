@@ -9,7 +9,7 @@
             return new FailureStatus
             {
                 MechanicalError = (status & GlobalStatus.ReelVoltageLow) == GlobalStatus.ReelVoltageLow,
-                ComponentError = (status & GlobalStatus.LampVoltageLow) == GlobalStatus.LampVoltageLow
+                HardwareError = (status & GlobalStatus.LampVoltageLow) == GlobalStatus.LampVoltageLow
             };
         }
     }

@@ -734,7 +734,6 @@
 
         [DataRow(ReelFaults.ReelStall, true)]
         [DataRow(ReelFaults.ReelTamper, true)]
-        [DataRow(ReelFaults.RequestError, true)]
         [DataRow(ReelFaults.LowVoltage, true)]
         [DataRow(ReelFaults.Disconnected, true)]
         [DataTestMethod]
@@ -766,7 +765,6 @@
         [DataRow(ReelFaults.None, false)]
         [DataRow(ReelFaults.ReelStall, true)]
         [DataRow(ReelFaults.ReelTamper, true)]
-        [DataRow(ReelFaults.RequestError, true)]
         [DataRow(ReelFaults.LowVoltage, true)]
         [DataRow(ReelFaults.Disconnected, true)]
         [DataTestMethod]
@@ -788,7 +786,6 @@
         [DataRow(ReelFaults.None, false)]
         [DataRow(ReelFaults.ReelStall, true)]
         [DataRow(ReelFaults.ReelTamper, true)]
-        [DataRow(ReelFaults.RequestError, true)]
         [DataRow(ReelFaults.LowVoltage, true)]
         [DataRow(ReelFaults.Disconnected, true)]
         [DataTestMethod]

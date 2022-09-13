@@ -287,7 +287,7 @@
 
         protected override void UpdateWarningMessage()
         {
-            if (!(ReelController?.Connected ?? false) || (bool)ReelController?.DisabledByError)
+            if (!(ReelController?.Connected ?? false) || (ReelController?.DisabledByError ?? false))
             {
                 TestWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TestModeDisabledStatusDevice);
             }
@@ -351,7 +351,7 @@
                         {
                             localizedState = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
                         }
-                    } 
+                    }
                 }
                 else if (activeReel.IsSpinning && state != ReelControllerState.Tilted.ToString())
                 {
@@ -372,7 +372,7 @@
                 else
                 {
                     var reelsStatus = ReelController.ReelsStatus;
-                    
+
                     if (reelsStatus.ContainsKey(reelId))
                     {
                         reelsStatus.TryGetValue(reelId, out var reelStatus);
@@ -388,7 +388,7 @@
                         {
                             localizedState = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LowVoltage);
                         }
-                        else if (reelStatus?.RequestError == true || reelStatus?.FailedHome == true)
+                        else if (reelStatus?.FailedHome == true)
                         {
                             localizedState = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
                         }

@@ -50,5 +50,9 @@
         /// </summary>
         [ErrorGuid("{D7C35CBB-9D7F-4C0D-9792-0C27E2E594D0}", DisplayableMessageClassification.HardError)]
         CommunicationError = 0x0020,
+
+        /// <summary>A command request received a NAK response to a well-formed command.</summary>
+        [ErrorGuid("{77594C12-3F17-4872-97F3-DD62129D15E5}", DisplayableMessageClassification.HardError)]
+        RequestError = 0x0040,
     }
 }
