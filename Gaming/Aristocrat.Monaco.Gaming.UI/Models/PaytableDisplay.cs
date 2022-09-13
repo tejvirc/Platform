@@ -5,10 +5,11 @@
 
     public class PaytableDisplay
     {
-        public PaytableDisplay(IGameDetail gameDetail, long denom)
+        public PaytableDisplay(IGameDetail gameDetail, long denom, bool displayRtpAsRange)
         {
             GameDetail = gameDetail;
             Rtp = gameDetail.GetTotalJurisdictionRtpRange(denom).Rtp;
+            DisplayText = $"{(displayRtpAsRange ? Rtp.GetRtpString() : Rtp.Minimum.GetRtpString())} v{gameDetail.VariationId}";
         }
 
         public IGameDetail GameDetail { get; }
@@ -25,6 +26,8 @@
         {
             return GameDetail?.Id.GetHashCode() ?? 0;
         }
+
+        public string DisplayText { get; }
 
         protected bool Equals(PaytableDisplay other)
         {

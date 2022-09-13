@@ -8,6 +8,8 @@
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                               xmlns:convertersUiCommon="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
@@ -21,6 +23,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/XceedToolkit.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
@@ -42,7 +45,8 @@
             </Style>
 
             <converters:FormattedCurrencyConverter x:Key="CurrencyConverter" />
-            <converters:PaytableDisplayTextConverter x:Key="PaytableDisplayTextConverter" />
+            <helpers:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
+            <convertersUiCommon:MultiValueConverter x:Key="MultiValueConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -115,11 +119,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Style="{StaticResource TextBlockStyle}">
-                    <Run Text="{Binding SelectedGame.ThemeName, Mode=OneWay}"/>
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameOptions}}"/>
-                    <Run Text="{Binding ReadOnlyStatus, Mode=OneWay}"/>
-                </TextBlock>
+                <TextBlock Grid.Row="0" Style="{StaticResource TextBlockStyle}" Text="{Binding ThemePlusOptions}" />
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource BoolToVisConverter}}">
                     <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PackageLabel}}" VerticalAlignment="Center" Margin="0 0 5 0" FontSize="16" />
@@ -130,12 +130,7 @@
                               IsEnabled="{Binding GameOptionsEnabled}"/>
                 </StackPanel>
 
-                <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource BoolToVisConverter}}">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.DenomsSelected}}"/>
-                    <Run Text="{Binding SelectedGame.EnabledGameConfigurationsCount, Mode=OneWay, FallbackValue=0}"/>
-                    <Run Text="of"/>
-                    <Run Text="{Binding DenomSelectionLimit, Mode=OneWay}"/>
-                </TextBlock>
+                <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource BoolToVisConverter}}" Text="{Binding SelectedDenoms}" />
 
                 <DataGrid Grid.Row="2" Margin="0 -15 0 0" 
                           ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
@@ -150,8 +145,9 @@
                           ScrollViewer.PanningMode="VerticalOnly"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          ScrollViewer.CanContentScroll="True"
                           VirtualizingPanel.IsContainerVirtualizable="True"
-                          VirtualizingPanel.VirtualizationMode="Standard"
+                          VirtualizingPanel.VirtualizationMode="Recycling"
                           VirtualizingPanel.IsVirtualizingWhenGrouping="True"
                           VirtualizingPanel.CacheLengthUnit="Item"
                           VirtualizingPanel.IsVirtualizing="True"
@@ -181,8 +177,8 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
                                     <StackPanel Margin="10 -20 0 0">
-                                        <Label HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
-                                               Content="{Binding DenomString}" FontSize="16" Margin="0"/>
+                                        <TextBlock HorizontalAlignment="Center" 
+                                               Text="{Binding DenomString}" FontSize="16" Margin="0"/>
                                         <CheckBox HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0"
                                                   IsChecked="{Binding Path=DataContext.(models:EditableGameConfiguration.Enabled), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
                                                   IsEnabled="{Binding CanToggleEnabled}" />
@@ -201,15 +197,7 @@
                                               IsEnabled="{Binding CanEditAndEnabled}">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock>
-                                                    <TextBlock.Text>
-                                                        <MultiBinding Converter="{StaticResource PaytableDisplayTextConverter}">
-                                                            <Binding Path="Rtp"/>
-                                                            <Binding Path="GameDetail.VariationId"/>
-                                                            <Binding Path="Data.(viewModels:AdvancedGameSetupViewModel.ShowGameRtpAsRange)" Source="{StaticResource PageModel}" Mode="OneWay"/>
-                                                        </MultiBinding>
-                                                    </TextBlock.Text>
-                                                </TextBlock>
+                                                <TextBlock Text="{Binding DisplayText}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                         <ComboBox.ItemsPanel>
@@ -319,7 +307,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleHeaderText), Source={StaticResource PageModel}}" 
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Gamble}}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -332,7 +320,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideHeaderText), Source={StaticResource PageModel}}" 
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LetItRide}}" 
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource BoolToVisConverter}}">
                             <DataGridTemplateColumn.CellTemplate>
@@ -539,5 +527,9 @@
                     Visibility="{Binding ShowSummaryButtons, Converter={StaticResource BoolToVisConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"/>
         </StackPanel>
+
+        <controls:ProgressRing Grid.RowSpan="3" Height="100" Width="100" IsLarge="True" IsActive="True"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Visibility="{Binding IsLoadingData, Converter={StaticResource BoolToVisConverter}}" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

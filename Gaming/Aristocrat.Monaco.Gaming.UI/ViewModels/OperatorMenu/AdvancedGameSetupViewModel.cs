@@ -168,7 +168,11 @@
         {
             get => _readOnlyStatus;
             // ReSharper disable once MemberCanBePrivate.Global - used by xaml
-            set => SetProperty(ref _readOnlyStatus, value);
+            set
+            {
+                _readOnlyStatus = value;
+                RaisePropertyChanged(nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
+            }
         }
 
         public bool IsInProgress
@@ -256,10 +260,6 @@
             }
         }
 
-        public string GambleHeaderText { get; set; }
-
-        public string LetItRideHeaderText { get; set; }
-
         public ObservableCollection<EditableGameProfile> Games
         {
             get => _games;
@@ -284,7 +284,7 @@
 
                 _selectedGame = value;
                 UpdateInputStatusText();
-                RaisePropertyChanged(nameof(SelectedGame), nameof(GameConfigurations));
+                RaisePropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms));
                 if (_selectedGame == null)
                 {
                     return;
@@ -301,6 +301,8 @@
             SelectedGame?.GameConfigurations
             .Where(c => c.Active)
             .OrderBy(c => c.Denom);
+
+        public string ThemePlusOptions => $"{SelectedGame.ThemeName} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOptions)} {ReadOnlyStatus}";
 
         public bool HasTopAward => _topAwardValue > 0;
 
@@ -354,13 +356,15 @@
 
         public int? DenomSelectionLimit => ConfiguredRestrictions.FirstOrDefault(r => r.RestrictionDetails?.MaxDenomsEnabled != null)?.RestrictionDetails.MaxDenomsEnabled;
 
+        public string SelectedDenoms => $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DenomsSelected)} {SelectedGame?.EnabledGameConfigurationsCount ?? 0} of {DenomSelectionLimit}";
+
         public bool ResetScrollIntoView
         {
             get => _resetScrollIntoView;
             set
             {
                 _resetScrollIntoView = value;
-                RaisePropertyChanged(nameof(ResetScrollIntoView));
+                RaisePropertyChanged(nameof(ResetScrollIntoView), nameof(SelectedDenoms));
             }
         }
 
@@ -477,12 +481,16 @@
             EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
             EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
 
-            LoadGames();
-
             _canEdit = GetConfigSetting(OperatorMenuSetting.EnableAdvancedConfig, false);
             _editMode = _canEdit && !InitialConfigComplete;
 
             SetEditMode();
+        }
+
+        protected override void InitializeData()
+        {
+            base.InitializeData();
+            LoadGames();
         }
 
         protected override void OnUnloaded()
@@ -907,7 +915,7 @@
 
         private void SetupPaytableOptions(IReadOnlyList<IGameDetail> gameProfiles, GamesGrouping groupKey)
         {
-            var editableConfig = new EditableGameConfiguration(groupKey.Denom, gameProfiles);
+            var editableConfig = new EditableGameConfiguration(groupKey.Denom, gameProfiles, ShowGameRtpAsRange);
             var maxBet = editableConfig.BetMaximum.DollarsToCents();
 
             if (maxBet > _maxBetLimit)
@@ -1367,12 +1375,9 @@
                     : Enumerable.Empty<EditableGameProfile>());
 
             SelectedGame = Games.FirstOrDefault();
-            GambleHeaderText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Gamble);
-            LetItRideHeaderText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LetItRide);
 
             ApplyGameOptionsEnabled();
-            RaisePropertyChanged(nameof(GambleHeaderText), nameof(GambleOptionVisible),
-                nameof(LetItRideHeaderText), nameof(LetItRideOptionVisible),
+            RaisePropertyChanged(nameof(LetItRideOptionVisible), nameof(GambleOptionVisible),
                 nameof(OptionColumnVisible), nameof(IsRouletteGameSelected), nameof(IsPokerGameSelected));
         }
 
