@@ -454,17 +454,16 @@
 
         private async Task Handle(GameProcessExitedEvent e, CancellationToken token)
         {
-            if (BingoInfoAddress is not null && BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
-            {
-                return;
-            }
-
             _configuredOverrideMessageFormats.Clear();
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
                     SetInfoVisibility(false);
-                    NavigateToOverlay(OverlayType.BingoOverlay);
+
+                    if (BingoInfoAddress is null || !BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
+                    {
+                        NavigateToOverlay(OverlayType.BingoOverlay);
+                    }
                 });
         }
 
