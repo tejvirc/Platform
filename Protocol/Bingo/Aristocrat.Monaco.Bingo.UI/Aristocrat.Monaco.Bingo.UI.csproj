@@ -44,9 +44,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)' == 'Retail'">
-    <Compile Remove="Views\TestTool\**" />
-    <Page Remove="Views\TestTool\**" />
-    <Compile Remove="ViewModels\TestTool\**" />
     <Compile Update="BingoDisplayConfiguration.cs">
       <DependentUpon>BingoDisplayConfiguration.xsd</DependentUpon>
     </Compile>
