@@ -150,11 +150,11 @@
 
             // Bingo Help Events
             _eventBus.Subscribe<HostConnectedEvent>(this, Handle);
-            _eventBus.Subscribe<GameLoadedEvent>(this, _ => SetHelpVisibility(false));
-            _eventBus.Subscribe<GameExitedNormalEvent>(this, _ => SetHelpVisibility(false));
-            _eventBus.Subscribe<GameFatalErrorEvent>(this, _ => SetHelpVisibility(false));
-            _eventBus.Subscribe<BingoDisplayHelpAppearanceChangedEvent>(this, _ => UpdateAppearance());
-            _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, e => SetHelpVisibility(e.Visible));
+            _eventBus.Subscribe<GameLoadedEvent>(this, (_, _) => SetHelpVisibility(false));
+            _eventBus.Subscribe<GameExitedNormalEvent>(this, (_, _) => SetHelpVisibility(false));
+            _eventBus.Subscribe<GameFatalErrorEvent>(this, (_, _) => SetHelpVisibility(false));
+            _eventBus.Subscribe<BingoDisplayHelpAppearanceChangedEvent>(this, (_, _) => UpdateAppearance());
+            _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, (e, _) => SetHelpVisibility(e.Visible));
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, Handle);
         }
 
@@ -232,7 +232,7 @@
 
         public void LoadOverlay()
         {
-            UpdateAppearance();
+            UpdateAppearance().FireAndForget();
         }
 
         public double HelpOpacity
@@ -452,7 +452,7 @@
             _gameControlledHeight = e.GameControlHeight;
         }
 
-        private void Handle(GameProcessExitedEvent e)
+        private async Task Handle(GameProcessExitedEvent e, CancellationToken token)
         {
             if (BingoInfoAddress is not null && BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
             {
@@ -460,9 +460,12 @@
             }
 
             _configuredOverrideMessageFormats.Clear();
-            SetInfoVisibility(false);
-
-            NavigateToOverlay(OverlayType.BingoOverlay);
+            await _dispatcher.ExecuteAndWaitOnUIThread(
+                () =>
+                {
+                    SetInfoVisibility(false);
+                    NavigateToOverlay(OverlayType.BingoOverlay);
+                });
         }
 
         private async Task Handle(BingoGameBallCallEvent e, CancellationToken token)
@@ -715,17 +718,21 @@
             }
         }
 
-        private void Handle(HostConnectedEvent e)
+        private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
-            NavigateToHelp();
+            await _dispatcher.ExecuteAndWaitOnUIThread(NavigateToHelp);
         }
 
-        private void Handle(BankBalanceChangedEvent e)
+        private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)
         {
-            if (IsHelpVisible)
-            {
-                NavigateToOverlay(OverlayType.CreditMeter);
-            }
+            await _dispatcher.ExecuteAndWaitOnUIThread(
+                () =>
+                {
+                    if (IsHelpVisible)
+                    {
+                        NavigateToOverlay(OverlayType.CreditMeter);
+                    }
+                });
         }
 
         private async Task HandleBingoDisplayConfigurationChanged()
@@ -736,14 +743,14 @@
             }
 
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
-            UpdateAppearance();
+            await UpdateAppearance();
             await _overlayServer.StopAsync();
             await HandleGameLoaded();
         }
 
         private async Task HandleGameLoaded()
         {
-            UpdateAppearance();
+            await UpdateAppearance();
             LoadPresentationOverrideMessageFormats();
 
             if (!_overlayServer.IsRunning)
@@ -774,7 +781,7 @@
                 await _overlayServer.StartAsync(currentGame.Folder, new Uri(BingoConstants.BingoOverlayServerUri), staticData);
             }
 
-            SetInfoVisibility(true);
+            await _dispatcher.ExecuteAndWaitOnUIThread(() => SetInfoVisibility(true));
         }
 
         private async Task HandleNoPlayersFound(NoPlayersFoundEvent evt, CancellationToken token)
@@ -817,13 +824,13 @@
         private void NavigateToHelp()
         {
             var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            if (BingoHelpAddress != helpAddress)
+            if (BingoHelpAddress == helpAddress)
             {
-                IsHelpLoading = true;
-                _dispatcher.ExecuteOnUIThread(() => {
-                    BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-                });
+                return;
             }
+
+            IsHelpLoading = true;
+            BingoHelpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
         }
 
         private void NavigateToDynamicMessage(string message, string scene, string meterMessage, bool showMessage, bool showMeter)
@@ -843,13 +850,15 @@
             switch (overlayType)
             {
                 case OverlayType.Attract:
-                    if (BingoInfoAddress is not null && BingoInfoAddress.Contains(OverlayType.CreditMeter.GetOverlayRoute()))
+                    if (BingoInfoAddress is not null &&
+                        BingoInfoAddress.Contains(OverlayType.CreditMeter.GetOverlayRoute()))
                     {
                         return;
                     }
 
                     var attractUri =
-                        _legacyAttractProvider.GetLegacyAttractUri(_bingoConfigurationProvider.GetAttractSettings());
+                        _legacyAttractProvider.GetLegacyAttractUri(
+                            _bingoConfigurationProvider.GetAttractSettings());
                     if (attractUri is null)
                     {
                         return;
@@ -897,7 +906,7 @@
                 return;
             }
 
-            _dispatcher.Invoke(ReloadInfoPage);
+            _dispatcher.ExecuteOnUIThread(ReloadInfoPage);
         }
 
         private void ReloadInfoPage()
@@ -928,13 +937,12 @@
             unitOfWork.SaveChanges();
         }
 
-        private void SetHelpVisibility(bool visible)
+        private async Task SetHelpVisibility(bool visible)
         {
-            NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
-
-            _dispatcher.ExecuteOnUIThread(
+            await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
+                    NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
                     NavigateToHelp();
                     IsHelpVisible = visible;
                     HelpOpacity = GetVisibleOpacity(visible);
@@ -943,20 +951,17 @@
 
         private void SetInfoVisibility(bool visible)
         {
-            _dispatcher.ExecuteOnUIThread(() =>
-            {
-                IsInfoVisible = visible;
-                InfoOpacity = GetVisibleOpacity(visible);
-            });
+            IsInfoVisible = visible;
+            InfoOpacity = GetVisibleOpacity(visible);
         }
 
-        private void UpdateAppearance()
+        private async Task UpdateAppearance()
         {
             var window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             var helpAppearance = _bingoConfigurationProvider.GetHelpAppearance();
             _standaloneCreditMeterFormat = helpAppearance.CreditMeterFormat ?? string.Empty;
 
-            _dispatcher.ExecuteOnUIThread(
+            await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
                     Width = window.Width;

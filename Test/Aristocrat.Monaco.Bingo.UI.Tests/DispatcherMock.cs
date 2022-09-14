@@ -16,8 +16,6 @@
         /// </summary>
         public static void DispatcherSetup(Action action)
         {
-            Dispatcher.Setup(x => x.Invoke(action))
-                .Callback((Action a) => a());
             Dispatcher.Setup(x => x.BeginInvoke(action))
                 .Callback((Action a) => a());
             Dispatcher.Setup(x => x.CheckAccess()).Returns(true);

@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Threading;
 
@@ -18,15 +19,9 @@
         }
 
         /// <inheritdoc />
-        public void Invoke(Action callback)
+        public async Task BeginInvoke(Action action)
         {
-            _dispatcher.Invoke(callback);
-        }
-
-        /// <inheritdoc />
-        public void BeginInvoke(Action action)
-        {
-            _dispatcher.BeginInvoke(action);
+            await _dispatcher.BeginInvoke(action);
         }
 
         /// <inheritdoc />
