@@ -153,7 +153,6 @@
             _eventBus.Subscribe<GameLoadedEvent>(this, (_, _) => SetHelpVisibility(false));
             _eventBus.Subscribe<GameExitedNormalEvent>(this, (_, _) => SetHelpVisibility(false));
             _eventBus.Subscribe<GameFatalErrorEvent>(this, (_, _) => SetHelpVisibility(false));
-            _eventBus.Subscribe<BingoDisplayHelpAppearanceChangedEvent>(this, (_, _) => UpdateAppearance());
             _eventBus.Subscribe<GameRequestedPlatformHelpEvent>(this, (e, _) => SetHelpVisibility(e.Visible));
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, Handle);
         }
