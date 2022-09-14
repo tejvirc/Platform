@@ -193,46 +193,40 @@
         public int IntervalBalanceCheck { get; set; } = 20000;
 
         /// <summary>
-        ///     (minutes) how long the Responsible Gaming Session time will be set to on every _intervalAction;
+        ///     (ms) how long between any lobby action is possible
         /// </summary>
         [XmlElement]
-        public int IntervalResponsibleGamingSession { get; set; } = 60;
+        public int IntervalLobby { get; set; } = 0;
 
         /// <summary>
         ///     (ms) how long between any lobby action is possible
         /// </summary>
         [XmlElement]
-        public int IntervalLobby { get; set; } = 10000;
-
-        /// <summary>
-        ///     (ms) how long between any lobby action is possible
-        /// </summary>
-        [XmlElement]
-        public int IntervalForceGameExit { get; set; } = 600000;
+        public int IntervalForceGameExit { get; set; } = 0;
 
         /// <summary>
         ///     (ms) interval between a game loaded or reloaded
         /// </summary>
         [XmlElement]
-        public int IntervalLoadGame { get; set; } = 600000;
+        public int IntervalLoadGame { get; set; } = 0;
 
         /// <summary>
         ///     (ms) interval between Audit Menu loads
         /// </summary>
         [XmlElement]
-        public int IntervalLoadAuditMenu { get; set; } = 600000;
+        public int IntervalLoadAuditMenu { get; set; } = 0;
 
         /// <summary>
         ///     (ms) interval between lockups
         /// </summary>
         [XmlElement]
-        public int IntervalTriggerLockup { get; set; }
+        public int IntervalTriggerLockup { get; set; } = 0;
 
         /// <summary>
         ///     (ms) interval between cash outs
         /// </summary>
         [XmlElement]
-        public int IntervalCashOut { get; set; }
+        public int IntervalCashOut { get; set; } = 0;
 
         /// <summary>
         ///     (ms) interval between soft reboots
@@ -306,38 +300,6 @@
 
         [XmlElement]
         public bool LogMessageLoadTest { get; set; } = false;
-
-        //[OnDeserializing]
-        private void SetValuesOnDeserializing(StreamingContext context)
-        {
-            Type = ModeType.Regular;
-            Selection = GameSelection.Single;
-            GameList = new GameCollection();
-            InsertedDollars = 20;
-            MinimumBalanceCents = 200;
-            IntervalResolution = 50;
-            IntervalTouch = 100;
-            IntervalAction = 500;
-            IntervalBalanceCheck = 20000;
-            IntervalResponsibleGamingSession = 60;
-            IntervalLobby = 10000;
-            IntervalLoadGame = 600000;
-            IntervalLoadAuditMenu = 0;
-            IntervalTriggerLockup = 0;
-            IntervalCashOut = 0;
-            IntervalSoftReboot = 0;
-            IntervalRgSet = 10000;
-            RgElapsedTimeSeconds = 0;
-            TimeLimitButtons = new TimeLimitButtons { "btn60Min", "btnExpired60Min", "btnForcedCashOut" };
-            IntervalSetOperatingHours = 0;
-            OperatingHoursDisabledDuration = 0;
-            IntervalRebootMachine = 0;
-            RgSessionCountOverride = 1;
-            IntervalServiceRequest = 0;
-            IntervalValidation = 0;
-            MaxWinLimitOverrideMilliCents = 0;
-            TestRecovery = true;
-        }
     }
 
     public class Screen

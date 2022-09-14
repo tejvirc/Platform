@@ -91,30 +91,42 @@
                 return;
             }
 
-            _loadGameTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestGame();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalLoadGame,
-                               _robotController.Config.Active.IntervalLoadGame);
-            _RgTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestRg();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalRgSet,
-                               _robotController.Config.Active.IntervalRgSet);
-            _forceGameExitTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestForceExitToLobby();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalLobby,
-                               _robotController.Config.Active.IntervalLobby);
+            if (_robotController.Config.Active.IntervalLoadGame > 0)
+            {
+                _loadGameTimer = new Timer(
+                    (sender) =>
+                    {
+                        RequestGame();
+                    },
+                    null,
+                    _robotController.Config.Active.IntervalLoadGame,
+                    _robotController.Config.Active.IntervalLoadGame);
+            }
+
+
+            if (_robotController.Config.Active.IntervalRgSet > 0)
+            {
+                _RgTimer = new Timer(
+                    (sender) =>
+                    {
+                        RequestRg();
+                    },
+                    null,
+                    _robotController.Config.Active.IntervalRgSet,
+                    _robotController.Config.Active.IntervalRgSet);
+            }
+
+            if (_robotController.Config.Active.IntervalLobby > 0)
+            {
+                _forceGameExitTimer = new Timer(
+                    (sender) =>
+                    {
+                        RequestForceExitToLobby();
+                    },
+                    null,
+                    _robotController.Config.Active.IntervalLobby,
+                    _robotController.Config.Active.IntervalLobby);
+            }
         }
 
         public void Reset()

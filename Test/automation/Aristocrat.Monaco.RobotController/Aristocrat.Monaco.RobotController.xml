@@ -1,117 +1,31 @@
 ﻿<Configuration>
-  <ActiveType>Regular</ActiveType>
+  <ActiveType>Super</ActiveType>
   <Speed>1.0</Speed>
   <Modes>
-    <Mode>
-      <Type>Regular</Type>
-      <Selection>Single</Selection>
-      <GameList>
-        <Game>Captain Coins</Game>
-      </GameList>
-      <InsertedDollars>20</InsertedDollars>
-      <MinimumBalanceCents>100</MinimumBalanceCents>
-      <IntervalResolution>50</IntervalResolution>
-      <IntervalTouch>100</IntervalTouch>
-      <IntervalAction>50</IntervalAction>
-      <IntervalBalanceCheck>20000</IntervalBalanceCheck>
-      <IntervalResponsibleGamingSession>60</IntervalResponsibleGamingSession>
-      <IntervalLobby>10000</IntervalLobby>
-      <IntervalLoadGame>600000</IntervalLoadGame>
-      <DisableOnLockup>true</DisableOnLockup>
-    </Mode>
     <Mode>
       <Type>Super</Type>
       <Selection>Random</Selection>
       <GameList>
-        <Game>Sun &amp; Moon</Game>
-        <Game>Captain Coins</Game>
       </GameList>
-      <InsertedDollars>20</InsertedDollars>
-      <MinimumBalanceCents>200</MinimumBalanceCents>
+      <InsertedDollars>50</InsertedDollars>
+      <MinimumBalanceCents>20000</MinimumBalanceCents>
       <IntervalResolution>50</IntervalResolution>
       <IntervalTouch>100</IntervalTouch>
       <IntervalAction>50</IntervalAction>
       <IntervalBalanceCheck>20000</IntervalBalanceCheck>
-      <IntervalResponsibleGamingSession>60</IntervalResponsibleGamingSession>
-      <IntervalLobby>10000</IntervalLobby>
-      <IntervalLoadGame>60000</IntervalLoadGame>
+      <IntervalTriggerLockup>59000</IntervalTriggerLockup>
+      <IntervalLoadAuditMenu>60000</IntervalLoadAuditMenu>
+      <IntervalCashOut>90000</IntervalCashOut>
       <DisableOnLockup>true</DisableOnLockup>
     </Mode>
   </Modes>
   <GameProfiles>
     <GameProfile>
-      <GameName>Sun &amp; Moon</GameName>
-      <Type>Reel</Type>
-      <MinimumBalanceCents>200</MinimumBalanceCents>
-      <InsertedDollars>20</InsertedDollars>
-      <BetLevels>
-        <Index>1</Index>
-        <Index>2</Index>
-        <Index>3</Index>
-        <Index>4</Index>
-        <Index>5</Index>
-      </BetLevels>
-      <LineSettings>
-        <Index>1</Index>
-        <Index>2</Index>
-        <Index>3</Index>
-        <Index>4</Index>
-        <Index>5</Index>
-      </LineSettings>
-      <RobotActions>
-        <Actions>LineLevel</Actions>
-        <Actions>BetLevel</Actions>
-        <Actions>SpinRequest</Actions>
-      </RobotActions>
-    </GameProfile>
-    <GameProfile>
-      <GameName>Flamin Hits Platinum</GameName>
-      <Type>Reel</Type>
-      <MinimumBalanceCents>200</MinimumBalanceCents>
-      <InsertedDollars>20</InsertedDollars>
-      <BetLevels>
-        <Index>1</Index>
-        <Index>2</Index>
-        <Index>3</Index>
-        <Index>4</Index>
-        <Index>5</Index>
-      </BetLevels>
-      <LineSettings/>
-      <RobotActions>
-        <Actions>BetLevel</Actions>
-        <Actions>SpinRequest</Actions>
-      </RobotActions>
-    </GameProfile>
-    <GameProfile>
-      <GameName>Fast Frankies</GameName>
-      <Type>Reel</Type>
-      <MinimumBalanceCents>200</MinimumBalanceCents>
-      <InsertedDollars>20</InsertedDollars>
-      <BetLevels>
-        <Index>1</Index>
-        <Index>2</Index>
-      </BetLevels>
-      <LineSettings>
-        <Index>1</Index>
-        <Index>2</Index>
-        <Index>3</Index>
-        <Index>4</Index>
-        <Index>5</Index>
-      </LineSettings>
-      <RobotActions>
-        <Actions>LineLevel</Actions>
-        <Actions>BetLevel</Actions>
-        <Actions>SpinRequest</Actions>
-      </RobotActions>
-    </GameProfile>
-    <GameProfile>
       <GameName>Captain Coins</GameName>
       <Type>Reel</Type>
       <MinimumBalanceCents>200</MinimumBalanceCents>
-      <InsertedDollars>20</InsertedDollars>
+      <InsertedDollars>50</InsertedDollars>
       <BetLevels>
-        <Index>2</Index>
-        <Index>3</Index>
       </BetLevels>
       <LineSettings>
       </LineSettings>
