@@ -114,6 +114,9 @@
             _disposed = true;
         }
 
+        private static int GetDaubs(BingoCard card, bool initialBallCall) =>
+            initialBallCall && card.InitialDaubedBits.HasValue ? card.InitialDaubedBits.Value : card.DaubedBits;
+
         private CentralTransaction GetLastTransaction()
         {
             return _centralProvider.Transactions.OrderByDescending(x => x.TransactionId)
@@ -143,7 +146,7 @@
                 _bus.Publish(new BingoGameNewCardEvent(card));
             }
 
-            var cardDaubs = showDaubs ? bingoGame.Cards.First().DaubedBits : 0;
+            var cardDaubs = showDaubs ? GetDaubs(bingoGame.Cards.First(), initialBallCall) : 0;
             var bingoNumbers = (initialBallCall ? bingoGame.GetJoiningBalls() : bingoGame.BallCallNumbers).ToList();
             Logger.Debug($"Recovering the ball call: {string.Join(", ", bingoNumbers)}");
             _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), cardDaubs, isRecovery));
