@@ -37,9 +37,6 @@ jobs:
       with:
         dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-    - name: Remove TeamCity NuGet Source
-      run: >
-        dotnet nuget remove source TeamCity --configfile ./NuGet.config
     - name: Setup msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Setup NuGet
