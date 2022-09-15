@@ -52,7 +52,8 @@
                 new List<CardPlayed>(),
                 new List<int> { 23, 41, 55 },
                 new List<WinResult>(),
-                false);
+                false,
+                0);
 
             _outcomeHandler.Setup(x => x.ProcessGameOutcome(outcome, It.IsAny<CancellationToken>())).Returns(Task.FromResult(accepted));
             var result = await _target.Handle(outcome, CancellationToken.None);

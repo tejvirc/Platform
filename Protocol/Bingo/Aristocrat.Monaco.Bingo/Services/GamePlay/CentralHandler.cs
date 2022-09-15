@@ -566,6 +566,7 @@
             var balls = outcome.BallCall.ToList();
             if (!balls.Any())
             {
+                description.JoinBallIndex = -1;
                 return;
             }
 
@@ -578,9 +579,9 @@
 
             var ballCall = new BingoBallCall(bingoNumbers);
             description.BallCallNumbers = bingoNumbers;
-            if (description.JoinBallIndex <= 0)
+            if (description.JoinBallIndex < 0)
             {
-                description.JoinBallIndex = bingoNumbers.Count;
+                description.JoinBallIndex = outcome.JoinBallNumber;
             }
 
             _eventBus.Publish(new BingoGameBallCallEvent(ballCall, outcome.CardsPlayed.First().BitPattern));

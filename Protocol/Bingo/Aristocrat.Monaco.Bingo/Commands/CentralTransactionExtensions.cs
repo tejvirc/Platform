@@ -7,7 +7,6 @@
     using Common.Storage;
     using Gaming.Contracts;
     using Gaming.Contracts.Central;
-    using Services.GamePlay;
 
     /// <summary>
     ///     Extension methods for <see cref="CentralTransaction"/>
@@ -48,7 +47,7 @@
                 DenominationId = description.DenominationId,
                 GameSerial = description.GameSerial,
                 Paytable = description.Paytable,
-                JoinBall = description.GetJoiningBall().Number,
+                JoinBall = description.JoinBallIndex,
                 StartTime = log.StartDateTime,
                 JoinTime = description.JoinTime,
                 ProgressiveLevels = description.ProgressiveLevels,

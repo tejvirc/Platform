@@ -101,7 +101,8 @@
                 Enumerable.Empty<CardPlayed>(),
                 Enumerable.Empty<int>(),
                 Enumerable.Empty<WinResult>(),
-                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End);
+                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End,
+                0);
 
             Logger.Warn("Outcome response rejected");
             return outcome;
@@ -150,7 +151,8 @@
                     ? Enumerable.Empty<int>()
                     : serverBingoOutcome.BallCall.Split(BallCallDelimiter).Select(int.Parse),
                 wins,
-                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End);
+                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End,
+                serverBingoOutcome.JoinBallNumber);
         }
 
         private async Task<bool> ReadGameOutcome(GamePlayResponse gamePlayOutcome, GamePlayRequest request, CancellationToken token)

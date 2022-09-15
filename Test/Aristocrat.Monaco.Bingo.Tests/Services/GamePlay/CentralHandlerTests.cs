@@ -147,7 +147,8 @@
                     {
                         new(12345, winAmount, 30, int.MaxValue, 1234, "4 Corners", (int)CardSerial, false, 3)
                     },
-                    false),
+                    false,
+                    0),
                 source.Token);
 
             _eventBus.Verify();
@@ -219,7 +220,8 @@
                     {
                         new(12345, winAmount, 30, int.MaxValue, 1234, "4 Corners", (int)CardSerial, false, 2)
                     },
-                    false),
+                    false,
+                    0),
                 source.Token);
 
             await playTask;
@@ -415,7 +417,8 @@
                     {
                         new(12345, gewWinAmount, 50, int.MaxValue, 1234, "GEW Pattern", (int)CardSerial, true, 1)
                     },
-                    false),
+                    false,
+                    0),
                 token);
         }
     }

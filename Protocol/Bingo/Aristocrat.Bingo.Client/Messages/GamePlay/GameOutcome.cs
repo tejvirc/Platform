@@ -27,7 +27,8 @@
             IEnumerable<CardPlayed> cardsPlayed,
             IEnumerable<int> ballCall,
             IEnumerable<WinResult> winResults,
-            bool isFinal)
+            bool isFinal,
+            int joinBallNumber)
         {
             ResponseCode = code;
             MachineSerial = machineSerial;
@@ -46,6 +47,7 @@
             BallCall = ballCall.ToList();
             WinResults = winResults.ToList();
             IsFinal = isFinal;
+            JoinBallNumber = joinBallNumber;
         }
 
         public GameOutcome(ResponseCode code)
@@ -86,5 +88,7 @@
         public IReadOnlyCollection<WinResult> WinResults { get; }
 
         public bool IsFinal { get; }
+
+        public int JoinBallNumber { get; }
     }
 }
