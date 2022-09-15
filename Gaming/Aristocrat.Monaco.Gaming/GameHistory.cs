@@ -933,7 +933,7 @@
             log.LastCommitIndex = -1;
             log.FreeGameIndex = 0;
             log.LocaleCode = _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us");
-            log.GameConfiguration = _gameConfigurationProvider.GetActive(game.ThemeId) is not null
+            log.GameConfiguration = _gameConfigurationProvider.GetActive(game.ThemeId)?.RestrictionDetails?.Mapping?.Any() ?? false
                 ? _properties.GetValue(GamingConstants.GameConfiguration, string.Empty)
                 : string.Empty;
             var transactions = newLogSequence

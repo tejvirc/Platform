@@ -316,7 +316,7 @@
             }
 
             var restrictions = _gameConfiguration.GetActive(currentGame.ThemeId);
-            if (restrictions != null)
+            if (restrictions?.RestrictionDetails?.Mapping?.Any() ?? false)
             {
                 parameters.Add("/Runtime/Multigame&ActivePack", _properties.GetValue(GamingConstants.GameConfiguration, string.Empty));
             }
