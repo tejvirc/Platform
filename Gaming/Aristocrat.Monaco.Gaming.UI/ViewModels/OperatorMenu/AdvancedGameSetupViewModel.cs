@@ -168,11 +168,7 @@
         {
             get => _readOnlyStatus;
             // ReSharper disable once MemberCanBePrivate.Global - used by xaml
-            set
-            {
-                _readOnlyStatus = value;
-                RaisePropertyChanged(nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
-            }
+            set => SetProperty(ref _readOnlyStatus, value, nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
         }
 
         public bool IsInProgress

@@ -24,7 +24,6 @@
             </ResourceDictionary.MergedDictionaries>
 
             <converter:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
-            <converter:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
