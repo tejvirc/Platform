@@ -116,7 +116,8 @@
             _overlayServer.ClientDisconnected += OverlayClientDisconnected;
 
             // Bingo Info Events
-            _eventBus.Subscribe<GameConnectedEvent>(this, (_, _) => HandleGameLoaded());
+            _eventBus.Subscribe<GameSelectedEvent>(this, Handle);
+            _eventBus.Subscribe<GameInitializationCompletedEvent>(this, (_, _) => SetInfoVisibility(true));
             _eventBus.Subscribe<GameProcessExitedEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameBallCallEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameNewCardEvent>(this, Handle);
@@ -466,16 +467,21 @@
         private async Task Handle(GameProcessExitedEvent e, CancellationToken token)
         {
             _configuredOverrideMessageFormats.Clear();
-            await _dispatcher.ExecuteAndWaitOnUIThread(
-                () =>
-                {
-                    SetInfoVisibility(false);
 
-                    if (BingoInfoAddress is null || !BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
-                    {
-                        NavigateToOverlay(OverlayType.BingoOverlay);
-                    }
-                });
+            await SetInfoVisibility(false);
+            await _dispatcher.ExecuteAndWaitOnUIThread(() =>
+            {
+                if (BingoInfoAddress is null || !BingoInfoAddress.Contains(OverlayType.BingoOverlay.GetOverlayRoute()))
+                {
+                    NavigateToOverlay(OverlayType.BingoOverlay);
+                }
+            });
+        }
+
+        private async Task Handle(GameSelectedEvent e, CancellationToken token)
+        {
+            await SetInfoVisibility(false);
+            await InitializeOverlay();
         }
 
         private async Task Handle(BingoGameBallCallEvent e, CancellationToken token)
@@ -755,10 +761,11 @@
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
             await UpdateAppearance();
             await _overlayServer.StopAsync();
-            await HandleGameLoaded();
+            await InitializeOverlay();
+            await SetInfoVisibility(true);
         }
 
-        private async Task HandleGameLoaded()
+        private async Task InitializeOverlay()
         {
             await UpdateAppearance();
             LoadPresentationOverrideMessageFormats();
@@ -790,8 +797,6 @@
                 Logger.Debug("Starting overlay server");
                 await _overlayServer.StartAsync(currentGame.Folder, new Uri(BingoConstants.BingoOverlayServerUri), staticData);
             }
-
-            await _dispatcher.ExecuteAndWaitOnUIThread(() => SetInfoVisibility(true));
         }
 
         private async Task HandleNoPlayersFound(NoPlayersFoundEvent evt, CancellationToken token)
@@ -922,10 +927,13 @@
                 });
         }
 
-        private void SetInfoVisibility(bool visible)
+        private async Task SetInfoVisibility(bool visible)
         {
-            IsInfoVisible = visible;
-            InfoOpacity = GetVisibleOpacity(visible);
+            await _dispatcher.ExecuteAndWaitOnUIThread(() =>
+            {
+                IsInfoVisible = visible;
+                InfoOpacity = GetVisibleOpacity(visible);
+            });
         }
 
         private async Task UpdateAppearance()
