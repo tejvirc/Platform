@@ -26,10 +26,6 @@
         [ErrorGuid("{DF57B5CC-EF18-4B77-A925-A3BEB0A07DB0}", DisplayableMessageClassification.HardError)]
         LowVoltage = 0x0002,
 
-        /// <summary>A command request received a NAK response to a well-formed command.</summary>
-        [ErrorGuid("{77594C12-3F17-4872-97F3-DD62129D15E5}", DisplayableMessageClassification.HardError)]
-        RequestError = 0x0004,
-
         /// <summary>
         ///     The error when a reel has stalled during a spin
         /// </summary>

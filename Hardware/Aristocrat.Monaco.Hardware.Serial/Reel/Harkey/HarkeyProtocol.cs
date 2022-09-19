@@ -124,9 +124,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             _homeReelMessageDictionary.Clear();
 
             // Clear any hardware faults that are active
-            OnMessageReceived(new FailureStatusClear { HardwareError = true });
-            OnMessageReceived(new FailureStatusClear { CommunicationError = true });
-
+            OnMessageReceived(new FailureStatusClear { HardwareError = true, CommunicationError = true });
             List<bool> connectedReels;
             lock (_sequenceLock)
             {
@@ -141,10 +139,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 }
 
                 // Clear unsolicited tamper detected fault
-                OnMessageReceived(new FailureStatusClear { ReelId = reelIndex, TamperDetected = true });
-
-                // Clear unsolicited stall detected fault
-                OnMessageReceived(new FailureStatusClear { ReelId = reelIndex, StallDetected = true });
+                OnMessageReceived(new FailureStatusClear { ReelId = reelIndex, TamperDetected = true, StallDetected = true, ComponentError = true });
             }
 
             // It doesn't support this
@@ -619,7 +614,6 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                         x.ReelStall = false;
                         x.ReelTampered = false;
                         x.LowVoltage = false;
-                        x.RequestError = false;
                         x.FailedHome = false;
                         return x;
                     });
@@ -627,13 +621,6 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             }
             else if (IsRequestError(response.ResponseCode))
             {
-                UpdateReelStatus(
-                    reel,
-                    x =>
-                    {
-                        x.RequestError = true;
-                        return x;
-                    });
                 OnMessageReceived(new ReelSpinningStatus { ReelId = reel });
             }
             else if (response.ResponseCode == (int)HomeReelResponseCodes.FailedHome)
