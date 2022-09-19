@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.IO;
     using System.IO.Ports;
     using System.Linq;
     using System.Reflection;
@@ -47,6 +48,8 @@
         private const int PointerId = 0;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly TimeSpan DisabledDelay = TimeSpan.FromMilliseconds(500);
+
         private readonly IEventBus _eventBus;
         private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly ISerialPortsService _serialPortsService;
@@ -320,7 +323,7 @@
                 Task.Run(() => { ProcessReceiveQueue(_cts.Token); }, _cts.Token)
                     .FireAndForget(ex => Logger.Error($"ProcessReceiveQueue: Exception occurred {ex}"));
 
-                Task.Run(() => { SendAndReceiveData(_cts.Token); }, _cts.Token)
+                SendAndReceiveData(_cts.Token)
                     .FireAndForget(ex => Logger.Error($"SendAndReceiveData: Exception occurred {ex}"));
             }
         }
@@ -829,31 +832,59 @@
             }
         }
 
-        private void SendAndReceiveData(CancellationToken token)
+        private async Task SendAndReceiveData(CancellationToken token)
         {
+            var portReadTask = HandlePortReads(token);
+            var queueTask = GetReceiveData(token);
             while (!token.IsCancellationRequested)
             {
-                if (_serialPortController.IsEnabled)
+                if (!_serialPortController.IsEnabled)
                 {
-                    // Read current data
-                    var bytes = new byte[_serialPortController.BytesToRead];
-                    if (bytes.Length > 0 && _serialPortController.TryReadBuffer(ref bytes, 0, bytes.Length) > 0)
-                    {
-                        ProcessNewData(bytes);
-                        _checkDisconnectAttempts = 0;
-                    }
+                    await Task.Delay(DisabledDelay, token);
+                    continue;
+                }
 
-                    // Transmit pending messages
-                    if (_transmitQueue != null && _transmitQueue.TryTake(out var message))
-                    {
-                        Logger.Debug($"SendAndReceiveData - Removing [{message.ToHexString()}] from transmit queue");
+                // Read current data
+                var result = await Task.WhenAny(portReadTask, queueTask);
+                if (result == portReadTask)
+                {
+                    ProcessNewData(await result);
+                    _checkDisconnectAttempts = 0;
+                    portReadTask = HandlePortReads(token);
+                }
 
-                        _packetBuilder.Reset();
-                        _serialPortController.FlushInputAndOutput();
-                        _serialPortController.WriteBuffer(message);
-                    }
+                if (result == queueTask)
+                {
+                    var message = await result;
+                    Logger.Debug($"SendAndReceiveData - Removing [{message.ToHexString()}] from transmit queue");
+
+                    _packetBuilder.Reset();
+                    _serialPortController.FlushInputAndOutput();
+                    _serialPortController.WriteBuffer(message);
+                    queueTask = GetReceiveData(token);
                 }
             }
+        }
+
+        private async Task<byte[]> GetReceiveData(CancellationToken token)
+        {
+            return await Task.Run(() => _transmitQueue?.Take(token) ?? Array.Empty<byte>(), token);
+        }
+
+        private async Task<byte[]> HandlePortReads(CancellationToken token)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    var data = (byte)_serialPortController.ReadByte();
+                    return new[] { data };
+                }
+                catch (Exception e) when (e is IOException or TimeoutException or InvalidOperationException)
+                {
+                    return Array.Empty<byte>();
+                }
+            }, token);
         }
 
         private void ProcessReceiveQueue(CancellationToken token)
