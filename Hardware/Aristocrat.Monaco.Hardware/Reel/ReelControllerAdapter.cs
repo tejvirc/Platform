@@ -393,7 +393,7 @@
             }
 
             Logger.Debug($"Disabling for {ReasonDisabled}");
-            Implementation?.Disable();
+            Implementation?.Disable()?.WaitForCompletion();
         }
 
         protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)
@@ -402,7 +402,7 @@
             {
                 if (Fire(ReelControllerTrigger.Enable, new EnabledEvent(ReelControllerId, reason)))
                 {
-                    Implementation?.Enable();
+                    Implementation?.Enable()?.WaitForCompletion();
                 }
                 else
                 {
@@ -983,12 +983,12 @@
             Fire(ReelControllerTrigger.Initialized, new InspectedEvent(ReelControllerId));
             if (Enabled)
             {
-                Implementation?.Enable();
+                Implementation?.Enable()?.WaitForCompletion();
             }
             else
             {
                 DisabledDetected();
-                Implementation?.Disable();
+                Implementation?.Disable()?.WaitForCompletion();
             }
         }
 
@@ -1085,27 +1085,22 @@
 
         private void ReelControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)
         {
-            if (e.Faults == ReelControllerFaults.None)
+            if (e.Faults == ReelControllerFaults.None || !AddError(e.Faults))
             {
                 return;
             }
 
-            AddError(e.Faults);
-
             Logger.Info($"ReelControllerFaultOccurred - ADDED {e.Faults} from the error list");
             Disable(DisabledReasons.Error);
-
             PostEvent(new HardwareFaultEvent(e.Faults));
         }
 
         private void ReelControllerFaultCleared(object sender, ReelControllerFaultedEventArgs e)
         {
-            if (e.Faults == ReelControllerFaults.None)
+            if (e.Faults == ReelControllerFaults.None || !ClearError(e.Faults))
             {
                 return;
             }
-
-            ClearError(e.Faults);
 
             Logger.Info($"ReelControllerFaultCleared - REMOVED {e.Faults} from the error list");
             if (!AnyErrors)
@@ -1129,13 +1124,11 @@
             {
                 if (!AddError(value))
                 {
-                    Logger.Info($"ReelControllerFaultOccurred - SKIPPED {value} already added to list for reel {e.ReelId}");
                     continue;
                 }
 
                 Logger.Info($"ReelControllerFaultOccurred - ADDED {value} to the error list for reel {e.ReelId}");
                 Disable(DisabledReasons.Error);
-
                 PostEvent(
                     e.Faults is ReelFaults.ReelStall or ReelFaults.ReelTamper
                         ? new HardwareReelFaultEvent(ReelControllerId, value, e.ReelId)
@@ -1152,12 +1145,10 @@
                 return;
             }
 
-            var clearedFaults = new List<ReelFaults>();
             foreach (var value in e.Faults.GetFlags().Where(x => x != ReelFaults.None))
             {
                 if (!ClearError(value))
                 {
-                    Logger.Info($"ReelControllerFaultCleared - SKIPPED {value} not in list for reel {e.ReelId}");
                     continue;
                 }
 
@@ -1167,12 +1158,7 @@
                     Enable(EnabledReasons.Reset);
                 }
 
-                clearedFaults.Add(value);
-            }
-
-            foreach (var clearedFault in clearedFaults)
-            {
-                PostEvent(new HardwareReelFaultClearEvent(ReelControllerId, clearedFault));
+                PostEvent(new HardwareReelFaultClearEvent(ReelControllerId, value));
             }
         }
 

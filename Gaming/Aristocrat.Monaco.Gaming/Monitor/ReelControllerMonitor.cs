@@ -439,18 +439,22 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
             // Perform a self test to attempt to clear any hardware faults
             await _reelController.SelfTest(false);
-            if (HasReelFaults())
+            if (NeedsReelFaultsCleared())
             {
                 // Clear all reel controller faults
                 await HomeReels();
             }
         }
 
-        private bool HasReelFaults()
+        private bool NeedsReelFaultsCleared()
         {
             return _disableManager.CurrentDisableKeys.All(
-                guid => IsReelFault(guid) || guid == ApplicationConstants.LiveAuthenticationDisableKey ||
-                        guid == ReelsTiltedGuid);
+                guid => IsReelFault(guid) ||
+                guid == ApplicationConstants.LiveAuthenticationDisableKey ||
+                guid == ApplicationConstants.OperatorKeyNotRemovedDisableKey ||
+                guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
+                guid == ReelsNeedHomingGuid ||
+                guid == ReelsTiltedGuid);
         }
 
         private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys)
