@@ -66,6 +66,7 @@
         private double _height;
         private double _width;
         private bool _disposed;
+        private OverlayType? _selectedOverlayType;
 
         private Thickness _helpBoxMargin;
         private bool _isHelpLoading;
@@ -274,14 +275,22 @@
 
         private static double GetVisibleOpacity(bool visible) => visible ? 1.0 : 0.0;
 
+        private static void OverlayClientDisconnected(object sender, OverlayType overlayType)
+        {
+            Logger.Debug($"Overlay client disconnected: {overlayType}");
+        }
+
         private void AttractCompleted(object sender, EventArgs e)
         {
-            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+            _dispatcher.ExecuteOnUIThread(() =>
             {
-                return;
-            }
+                if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+                {
+                    return;
+                }
 
-            NavigateToOverlay(OverlayType.BingoOverlay);
+                NavigateToOverlay(OverlayType.BingoOverlay);
+            });
         }
 
         private async Task CancelWaitingForPlayers(CancellationToken token)
@@ -425,19 +434,22 @@
             return string.Format(formatString, formattedCredits);
         }
 
-        private void Handle(AttractModeEntered evt)
+        private async Task Handle(AttractModeEntered evt, CancellationToken token)
         {
-            NavigateToOverlay(OverlayType.Attract);
+            await _dispatcher.ExecuteAndWaitOnUIThread(() => NavigateToOverlay(OverlayType.Attract));
         }
 
-        private void Handle(AttractModeExited evt)
+        private async Task Handle(AttractModeExited evt, CancellationToken token)
         {
-            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+            await _dispatcher.ExecuteAndWaitOnUIThread(() =>
             {
-                return;
-            }
+                if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(OverlayType.Attract.GetOverlayRoute()))
+                {
+                    return;
+                }
 
-            NavigateToOverlay(OverlayType.BingoOverlay);
+                NavigateToOverlay(OverlayType.BingoOverlay);
+            });
         }
 
         private void Handle(Class2MultipleOutcomeSpinsChangedEvent e)
@@ -789,7 +801,7 @@
 
         private void HandleServerStarted(object sender, EventArgs e)
         {
-            NavigateToOverlay(OverlayType.BingoOverlay);
+            _dispatcher.ExecuteOnUIThread(() => NavigateToOverlay(OverlayType.BingoOverlay));
         }
 
         private bool IsNewBallCall(IReadOnlyCollection<BingoNumber> incomingBallCall)
@@ -845,36 +857,28 @@
 
         private void NavigateToOverlay(OverlayType overlayType)
         {
-            switch (overlayType)
+            Logger.Debug($"Navigating the bingo overlay to {overlayType}");
+            var isCreditOverlayDisplayed = BingoInfoAddress is not null &&
+                                           BingoInfoAddress.Contains(OverlayType.CreditMeter.GetOverlayRoute());
+
+            BingoInfoAddress = overlayType switch
             {
-                case OverlayType.Attract:
-                    if (BingoInfoAddress is not null &&
-                        BingoInfoAddress.Contains(OverlayType.CreditMeter.GetOverlayRoute()))
-                    {
-                        return;
-                    }
+                OverlayType.Attract when !isCreditOverlayDisplayed => GetAttractOverlay(),
+                OverlayType.BingoOverlay when _selectedOverlayType != OverlayType.BingoOverlay => GetBingoOverlay(),
+                OverlayType.CreditMeter => GetCreditMeterUrl(),
+                _ => BingoInfoAddress
+            };
 
-                    var attractUri =
-                        _legacyAttractProvider.GetLegacyAttractUri(
-                            _bingoConfigurationProvider.GetAttractSettings());
-                    if (attractUri is null)
-                    {
-                        return;
-                    }
-
-                    BingoInfoAddress = attractUri.ToString();
-                    return;
-                case OverlayType.BingoOverlay:
-                    BingoInfoAddress = new UriBuilder(BingoConstants.BingoOverlayServerUri)
-                    {
-                        Path = OverlayType.BingoOverlay.GetOverlayRoute()
-                    }.ToString();
-                    return;
-                case OverlayType.CreditMeter:
-                    BingoInfoAddress = GetCreditMeterUrl();
-                    return;
-            }
+            _selectedOverlayType = overlayType;
         }
+
+        private string GetAttractOverlay() =>
+            _legacyAttractProvider.GetLegacyAttractUri(_bingoConfigurationProvider.GetAttractSettings())
+                ?.ToString() ?? BingoInfoAddress;
+
+        private string GetBingoOverlay() =>
+            new UriBuilder(BingoConstants.BingoOverlayServerUri) { Path = OverlayType.BingoOverlay.GetOverlayRoute() }
+                .ToString();
 
         private void OverlayClientConnected(object sender, OverlayType overlayType)
         {
@@ -896,35 +900,6 @@
 #endif
         }
 
-        private void OverlayClientDisconnected(object sender, OverlayType overlayType)
-        {
-            Logger.Debug($"Overlay client disconnected: {overlayType}");
-            if (BingoInfoAddress is not null && !BingoInfoAddress.Contains(overlayType.GetOverlayRoute()))
-            {
-                return;
-            }
-
-            _dispatcher.ExecuteOnUIThread(ReloadInfoPage);
-        }
-
-        private void ReloadInfoPage()
-        {
-            if (!IsInfoVisible)
-            {
-                return;
-            }
-
-            try
-            {
-                BingoInfoWebBrowser?.Reload();
-            }
-            catch (Exception ex)
-            {
-                // CefSharp throws a general exception for things so we must catch Exception
-                Logger.Warn("Failed to reload the browser", ex);
-            }
-        }
-
         private void SaveDaubState(bool state)
         {
             using var unitOfWork = _unitOfWorkFactory.Create();
@@ -940,9 +915,9 @@
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
-                    NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
-                    NavigateToHelp();
                     IsHelpVisible = visible;
+                    NavigateToHelp();
+                    NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);
                     HelpOpacity = GetVisibleOpacity(visible);
                 });
         }
