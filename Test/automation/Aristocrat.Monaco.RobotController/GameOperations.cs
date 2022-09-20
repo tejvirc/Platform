@@ -361,7 +361,7 @@
 
         private void InitGameProcessHungEvent()
         {
-            // If the runtime process hangs, and the setting to not kill it is active, then stop the robot. 
+            // If the runtime process hangs, and the setting to not kill it is active, then stop the robot.
             // This will allow someone to attach a debugger to investigate.
             var doNotKillRuntime = _pm.GetValue("doNotKillRuntime", Common.Constants.False).ToUpperInvariant();
             if (doNotKillRuntime == Common.Constants.True)
@@ -403,7 +403,7 @@
 
         private bool IsExitToLobbyWhenIdleValid()
         {
-            return _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle;
+            return !_sc.IsAllowSingleGameAutoLaunch && _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle;
         }
 
         private void BalanceCheckWithDelay(int milliseconds)
