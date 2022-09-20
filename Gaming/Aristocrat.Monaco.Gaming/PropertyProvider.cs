@@ -112,7 +112,7 @@
                 { GamingConstants.MeterFreeGamesIndependently, ((object)configuration.FreeGames?.MeterIndependently ?? false, false) },
                 { GamingConstants.ShowMessages, ((object)configuration.Messages?.ShowMessages ?? false, false) },
                 { GamingConstants.MessageClearStyle, ((object)configuration.Messages?.MessageClearStyle ?? MessageClearStyle.GameStart, false) },
-                { GamingConstants.MinBetMessageMustDisplay, ((object)configuration.Messages?.MinBetMessage?.MustDisplay ?? false, false) },
+                { GamingConstants.MinBetMessageMustDisplay, ((object)configuration.Messages?.MinBetMessage?.MustDisplay ?? true, false) },
                 { GamingConstants.MinBetMessageFormat, ((object)configuration.Messages?.MinBetMessage?.Format ?? DisplayFormat.Credit, false) },
                 { GamingConstants.JackpotOddsMustDisplay, ((object)configuration.Messages?.JackpotOdds?.MustDisplay ?? false, false) },
                 { GamingConstants.PlayerNotificationNewReelSetSelected, ((object)configuration.Messages?.PlayerNotification?.NewReelSetSelected ?? false, false) },
