@@ -9,37 +9,46 @@
     [TestClass]
     public class AddRecoveryDataPointCommandHandlerTests
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenGameRecoveryIsNullExpectException()
-        {
-            var handler = new AddRecoveryDataPointCommandHandler(null);
+        private readonly Mock<IGameHistory> _gameHistory = new();
+        private readonly Mock<IGamePlayState> _gamePlayState = new();
 
-            Assert.IsNull(handler);
+        private AddRecoveryDataPointCommandHandler _target;
+
+        [TestInitialize]
+        public void MyTestInitialize()
+        {
+            _target = CreateTarget();
         }
 
-        [TestMethod]
-        public void WhenParamsAreValidExpectSuccess()
+        [DataTestMethod]
+        [DataRow(true, false)]
+        [DataRow(false, true)]
+        public void WhenGameRecoveryIsNullExpectException(bool nullHistory, bool nullGamePlayState)
         {
-            var history = new Mock<IGameHistory>();
-
-            var handler = new AddRecoveryDataPointCommandHandler(history.Object);
-
-            Assert.IsNotNull(handler);
+            Assert.ThrowsException<ArgumentNullException>(() => _ = CreateTarget(nullHistory, nullGamePlayState));
         }
 
-        [TestMethod]
-        public void WhenHandleExpectSave()
+        [DataTestMethod]
+        [DataRow(false, false, true)]
+        [DataRow(true, false, false)]
+        [DataRow(false, true, false)]
+        public void WhenHandleExpectSave(bool isIdle, bool isPresentationIdle, bool recoverySaved)
         {
             byte[] data = { 0x01, 0x02 };
 
-            var history = new Mock<IGameHistory>();
+            _gamePlayState.Setup(x => x.Idle).Returns(isIdle);
+            _gamePlayState.Setup(x => x.InPresentationIdle).Returns(isPresentationIdle);
+            _target.Handle(new AddRecoveryDataPoint(data));
+            _gameHistory.Verify(m => m.SaveRecoveryPoint(data), recoverySaved ? Times.Once() : Times.Never());
+        }
 
-            var handler = new AddRecoveryDataPointCommandHandler(history.Object);
-
-            handler.Handle(new AddRecoveryDataPoint(data));
-
-            history.Verify(m => m.SaveRecoveryPoint(data));
+        private AddRecoveryDataPointCommandHandler CreateTarget(
+            bool nullHistory = false,
+            bool nullGamePlayState = false)
+        {
+            return new AddRecoveryDataPointCommandHandler(
+                nullHistory ? null : _gameHistory.Object,
+                nullGamePlayState ? null : _gamePlayState.Object);
         }
     }
 }
