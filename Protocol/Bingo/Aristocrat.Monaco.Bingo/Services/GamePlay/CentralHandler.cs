@@ -391,7 +391,10 @@
             catch (Exception ex)
             {
                 Logger.Error("RequestOutcomes failed", ex);
-                CheckForOutcomeResponseFailure(transaction);
+                if (CheckForOutcomeResponseFailure(transaction))
+                {
+                    _eventBus.Publish(new WaitingForPlayersCanceledEvent());
+                }
             }
             finally
             {
