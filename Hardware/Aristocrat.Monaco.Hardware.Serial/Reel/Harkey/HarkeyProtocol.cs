@@ -35,7 +35,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         private (byte sequenceId, byte commandedReelBits) _lastSpinCommandReels;
 
         private readonly ReelFaults _faults = ReelFaults.None;
-        private readonly List<ReelLampData> _currentLightState = new();
+        private readonly ReelLampData[] _currentLightState = new ReelLampData[HarkeyConstants.MaxLightId];
         private readonly List<bool> _reelsConnected = new();
         private readonly byte[] _homeSteps = new byte[HarkeyConstants.MaxReelId];
         private readonly ReelColors[] _lastReelColors = new ReelColors[HarkeyConstants.MaxReelId];
@@ -71,7 +71,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
             for (var lightId = 0; lightId < HarkeyConstants.MaxLightId; ++lightId)
             {
-                _currentLightState.Add(new ReelLampData(Color.Black, false, lightId + 1));
+                _currentLightState[lightId] = new ReelLampData(Color.Black, false, lightId + 1);
             }
 
             lock (_sequenceLock)
@@ -1206,6 +1206,15 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             // First we need to tell the reel controller to turn all lights on, then turn them all off.
             SetLightsStates(HarkeyConstants.AllLightsOn);
             SetLightsStates(HarkeyConstants.AllLightsOff);
+            for (var i = 0; i < _lastReelColors.Length; ++i)
+            {
+                _lastReelColors[i] = new ReelColors();
+            }
+
+            for (var i = 0; i < _currentLightState.Length; ++i)
+            {
+                _currentLightState[i] = new ReelLampData(Color.Black, false, i + 1);
+            }
         }
 
         private async Task<TMessage> WaitForMessage<TMessage>(CancellationToken token)
