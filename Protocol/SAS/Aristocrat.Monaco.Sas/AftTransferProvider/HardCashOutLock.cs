@@ -5,11 +5,12 @@
     using Kernel;
     using log4net;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
     using Application.Contracts.Localization;
+    using Gaming.Contracts;
     using Localization.Properties;
 
     /// <summary>
@@ -20,11 +21,20 @@
     /// </summary>
     public sealed class HardCashOutLock : IHardCashOutLock, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
-        private static readonly Guid RequestorId = new Guid("{DEAE9B2D-C61D-471b-B63E-26EC52C9C7A5}");
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly Guid RequestorId = new("{DEAE9B2D-C61D-471b-B63E-26EC52C9C7A5}");
+
+        // what disables that shouldn't stop a host cash out key off
+        private static readonly Guid[] ExcludeDisables =
+        {
+            ApplicationConstants.HostCashOutFailedDisableKey,
+            ApplicationConstants.LiveAuthenticationDisableKey,
+            GamingConstants.ReelsTiltedGuid,
+            GamingConstants.ReelsNeedHomingGuid
+        };
+
         private Guid _transactionId;
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         /// <summary>Indicates if the operator has keyed off the lockup.</summary>
         private bool _keyedOff;
@@ -33,7 +43,7 @@
         private bool _aftIncoming;
 
         /// <summary>The auto reset event to wait for a key off.</summary>
-        private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
+        private readonly AutoResetEvent _autoResetEvent = new(false);
 
         private bool _disposed;
         private readonly ITransactionCoordinator _transactionCoordinator;
@@ -42,13 +52,6 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly IEventBus _eventBus;
         private readonly IBank _bank;
-
-        // what disables that shouldn't stop a host cash out key off
-        private readonly List<Guid> _excludeDisables = new List<Guid>
-        {
-            ApplicationConstants.HostCashOutFailedDisableKey,
-            ApplicationConstants.LiveAuthenticationDisableKey
-        };
 
         /// <summary>
         ///     Initializes a new instance of the HardCashOutLock class.
@@ -99,7 +102,6 @@
         /// <inheritdoc />
         public bool Recover()
         {
-            // TODO does the host cashout request (not host cashout mode) need persistence?
             return false;
         }
 
@@ -121,7 +123,7 @@
             _keyedOff = false;
             _aftIncoming = false;
 
-            new Thread(
+            Task.Run(
                 () =>
                 {
                     Logger.Debug("Start of hard cash-out thread.");
@@ -132,7 +134,7 @@
 
                     Logger.Debug($"End of hard cash-out thread.  m_keyedOff={_keyedOff}, m_aftIncoming={_aftIncoming}");
 
-                    // if this is false, then the system is shutting down and 
+                    // if this is false, then the system is shutting down and
                     // needs to come back into this state on boot up.
                     if (_keyedOff && !_aftIncoming)
                     {
@@ -143,10 +145,7 @@
                         Logger.Debug("Starting transfer out.");
                         _transferOutHandler.TransferOut();
                     }
-                })
-            {
-                CurrentCulture = System.Globalization.CultureInfo.CurrentCulture, Name = "Hard Cash Lock"
-            }.Start();
+                });
 
             Logger.Debug("End of LockupAndCashOut().");
             return true;
@@ -174,7 +173,7 @@
             else if (((cashAmountToKeyOff + promotionalAmountToKeyOff) >= maximumVoucherLimit) ||
                 (nonCashAmountToKeyOff >= maximumVoucherLimit))
             {
-                // If the Combined Cash-able and Promotional are greater than the HandPay Limit 
+                // If the Combined Cash-able and Promotional are greater than the HandPay Limit
                 // a HandPay will be required for the Combined Cash-able and Promotional and the
                 // Restricted Credits will remain.
                 nonCashAmountToKeyOff = 0;
@@ -201,15 +200,17 @@
         {
             lock (_lock)
             {
-                if (WaitingForKeyOff)
+                if (!WaitingForKeyOff)
                 {
-                    Logger.Debug("Set was called, releasing transaction and not starting a transfer.");
-                    _aftIncoming = true;
-                    _keyedOff = false;
-                    _transactionCoordinator.ReleaseTransaction(_transactionId);
-                    _transactionId = Guid.Empty;
-                    _autoResetEvent.Set();
+                    return;
                 }
+
+                Logger.Debug("Set was called, releasing transaction and not starting a transfer.");
+                _aftIncoming = true;
+                _keyedOff = false;
+                _transactionCoordinator.ReleaseTransaction(_transactionId);
+                _transactionId = Guid.Empty;
+                _autoResetEvent.Set();
             }
         }
 
@@ -235,7 +236,7 @@
 
         private bool DisablesPresentThatStopCashout()
         {
-            return _systemDisableManager.CurrentDisableKeys.Except(_excludeDisables).Any();
+            return _systemDisableManager.CurrentDisableKeys.Except(ExcludeDisables).Any();
         }
     }
 }

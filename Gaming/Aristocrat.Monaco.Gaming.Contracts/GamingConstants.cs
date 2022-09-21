@@ -305,6 +305,26 @@
         public static readonly Guid OperatorMenuDisableKey = new Guid("{DEBE3C68-F5CC-4AAA-9175-4586B72017FF}");
 
         /// <summary>
+        ///     Key to disable the system when the reels are tilted
+        /// </summary>
+        public static readonly Guid ReelsTiltedGuid = new("{AD46A871-616A-4034-9FB5-962F8DE15E79}");
+
+        /// <summary>
+        ///     Key to disable the system when the reels need to be homed
+        /// </summary>
+        public static readonly Guid ReelsNeedHomingGuid = new("{9613086D-052A-4FCE-9AA0-B279F8C23993}");
+
+        /// <summary>
+        ///     Key to disable the system when the reels are disabled
+        /// </summary>
+        public static readonly Guid ReelsDisabledGuid = new("{B9029021-106D-419B-961F-1B2799817916}");
+
+        /// <summary>
+        ///     Key to disable the system when the reels fail to home
+        /// </summary>
+        public static readonly Guid ReelsFailedHomingGuid = new("{3BD10514-10BA-4A48-826F-41ADFECFD01D}");
+
+        /// <summary>
         ///     System disable guid for fatal game error.
         /// </summary>
         public static readonly Guid FatalGameErrorGuid = ApplicationConstants.FatalGameErrorGuid;

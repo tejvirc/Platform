@@ -42,11 +42,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private const string ReelDeviceName = "ReelController";
         private const string FailedHoming = "FailedHoming";
 
-        private static readonly Guid ReelsTiltedGuid = new("{AD46A871-616A-4034-9FB5-962F8DE15E79}");
-        private static readonly Guid ReelsNeedHomingGuid = new("{9613086D-052A-4FCE-9AA0-B279F8C23993}");
-        private static readonly Guid DisabledGuid = new("{B9029021-106D-419B-961F-1B2799817916}");
-        private static readonly Guid FailedHomingGuid = new("{3BD10514-10BA-4A48-826F-41ADFECFD01D}");
-
         private static readonly PatternParameters SolidBlackPattern = new SolidColorPatternParameters
         {
             Color = Color.Black,
@@ -67,8 +62,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             ApplicationConstants.LiveAuthenticationDisableKey,
             ApplicationConstants.OperatorKeyNotRemovedDisableKey,
             ApplicationConstants.OperatorMenuLauncherDisableGuid,
-            ReelsTiltedGuid,
-            ReelsNeedHomingGuid
+            GamingConstants.ReelsTiltedGuid,
+            GamingConstants.ReelsNeedHomingGuid
         };
 
         private readonly IEventBus _eventBus;
@@ -195,19 +190,19 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ReelsTiltedKey,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Normal,
-                ReelsTiltedGuid,
+                GamingConstants.ReelsTiltedGuid,
                 true);
             ManageBinaryCondition(
                 ReelsNeedHomingKey,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Immediate,
-                ReelsNeedHomingGuid,
+                GamingConstants.ReelsNeedHomingGuid,
                 true);
             ManageBinaryCondition(
                 DisabledKey,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Immediate,
-                DisabledGuid,
+                GamingConstants.ReelsDisabledGuid,
                 true);
             ManageBinaryCondition(
                 MismatchedKey,
@@ -219,7 +214,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 FailedHoming,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Immediate,
-                FailedHomingGuid,
+                GamingConstants.ReelsFailedHomingGuid,
                 true);
 
             await TiltReels(true);
@@ -323,7 +318,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private async Task HandleGameHistoryPageLoaded(GameHistoryPageLoadedEvent evt, CancellationToken token)
         {
             var logicalState = ReelController.LogicalState;
-            if (_disableManager.CurrentDisableKeys.Contains(ReelsNeedHomingGuid) ||
+            if (_disableManager.CurrentDisableKeys.Contains(GamingConstants.ReelsNeedHomingGuid) ||
                 logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
             {
                 await HomeReels();
@@ -466,8 +461,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                 guid == ApplicationConstants.OperatorKeyNotRemovedDisableKey ||
                 guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
-                guid == ReelsNeedHomingGuid ||
-                guid == ReelsTiltedGuid);
+                guid == GamingConstants.ReelsNeedHomingGuid ||
+                guid == GamingConstants.ReelsTiltedGuid);
         }
 
         private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys)
@@ -475,8 +470,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             var homeReels = disableKeys.All(guid =>
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                  guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
-                 guid == ReelsNeedHomingGuid ||
-                 guid == ReelsTiltedGuid);
+                 guid == GamingConstants.ReelsNeedHomingGuid ||
+                 guid == GamingConstants.ReelsTiltedGuid);
 
             return homeReels;
         }
