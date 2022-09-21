@@ -330,6 +330,7 @@
             Verify(BarkeeperAlertOptions.MediumFlash, CoinInLevel2Color, ButtonLed, 1);
         }
 
+        [Ignore]
         [TestMethod]
         public void VerifyRewardLevelWithRateOfPlayTest()
         {
@@ -359,6 +360,7 @@
             VerifyRewardLevel3();
         }
 
+        [Ignore]
         [TestMethod]
         public void VerifyRateOfPlayWithPowerCycleInRewardLevelTest()
         {
@@ -616,6 +618,7 @@
             Verify(BarkeeperAlertOptions.SlowFlash, CoinInLevel1Color, ButtonLed, 0);
         }
 
+        [Ignore]
         [TestMethod]
         public void SessionRestoreAndContinueToNextLevelTest()
         {
@@ -665,7 +668,7 @@
             VerifyRewardLevel3();
         }
 
-
+        [Ignore]
         [TestMethod]
         public void GameEndedWithZeroCreditRemaining()
         {
@@ -725,6 +728,7 @@
             Verify(BarkeeperAlertOptions.RapidFlash, CoinInLevel3Color, ButtonLed, 1);
         }
 
+        [Ignore]
         [TestMethod]
         public void CoinInLevelsWithRateOfPlayEnabled()
         {

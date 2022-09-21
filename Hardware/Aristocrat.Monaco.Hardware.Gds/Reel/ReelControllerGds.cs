@@ -37,6 +37,7 @@
             RegisterCallback<ReelStatus>(ReelStatusReceived);
             RegisterCallback<ReelSpinningStatus>(ReelSpinningStatusReceived);
             RegisterCallback<ReelLightIdentifiersResponse>(ReelLightsIdentifiersReceived);
+            RegisterCallback<ReelLightResponse>(ReelLightsResponseReceived);
             RegisterCallback<ControllerInitializedStatus>(_ => { OnHardwareInitialized(); });
         }
 
@@ -150,10 +151,12 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> SetBrightness(int brightness)
+        public async Task<bool> SetBrightness(int brightness)
         {
+            ClearStaleReports<ReelLightResponse>();
             SendCommand(new SetBrightness { ReelId = 0, Brightness = brightness });
-            return Task.FromResult(true);
+            var result = await WaitForReport<ReelLightResponse>();
+            return result?.LightsUpdated ?? false;
         }
 
         /// <inheritdoc />
@@ -165,11 +168,13 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> SetLights(params ReelLampData[] lampData)
+        public async Task<bool> SetLights(params ReelLampData[] lampData)
         {
+            ClearStaleReports<ReelLightResponse>();
             var gdsData = lampData.Select(x => new GdsReelLampData(x)).ToArray();
             SendCommand(new SetLamps { LampCount = (byte)lampData.Length, ReelLampData = gdsData });
-            return Task.FromResult(true);
+            var result = await WaitForReport<ReelLightResponse>();
+            return result?.LightsUpdated ?? false;
         }
 
         /// <inheritdoc />
@@ -638,6 +643,11 @@
         }
 
         private void ReelLightsIdentifiersReceived(ReelLightIdentifiersResponse response)
+        {
+            PublishReport(response);
+        }
+
+        private void ReelLightsResponseReceived(ReelLightResponse response)
         {
             PublishReport(response);
         }
