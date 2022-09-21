@@ -16,6 +16,7 @@
     using Common;
     using Common.Events;
     using Common.Exceptions;
+    using Common.Extensions;
     using Common.GameOverlay;
     using Common.Storage;
     using Common.Storage.Model;
@@ -384,7 +385,7 @@
                         details.BetPerLine,
                         details.NumberLines,
                         details.Ante,
-                        currentGame.CdsThemeId ?? currentGame.ThemeName),
+                        currentGame.GetBingoTitleId()),
                     source.Token);
             }
             catch (Exception ex)

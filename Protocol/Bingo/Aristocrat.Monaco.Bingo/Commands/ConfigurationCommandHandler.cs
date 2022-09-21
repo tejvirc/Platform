@@ -8,7 +8,9 @@
     using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
+    using Common;
     using Common.Exceptions;
+    using Common.Extensions;
     using Common.Storage.Model;
     using Gaming.Contracts;
     using Kernel;
@@ -44,7 +46,7 @@
             {
                 var serialNumber = _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty);
                 var allGameTitles = _gameProvider.GetAllGames();
-                var gameTitles = string.Join(",", allGameTitles.Select(x => x.CdsThemeId ?? x.ThemeName).Distinct());
+                var gameTitles = string.Join(",", allGameTitles.Select(x => x.GetBingoTitleId()).Distinct());
                 var message = new ConfigurationMessage(serialNumber, gameTitles);
                 var result = await _configurationService.ConfigureClient(message, token);
 
