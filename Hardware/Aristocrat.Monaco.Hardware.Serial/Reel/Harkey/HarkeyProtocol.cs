@@ -63,9 +63,9 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             RegisterCallback<SetFaultsResponse>(HandleSetFaultsResponse);
             RegisterCallback<ProtocolErrorResponse>(HandleProtocolErrorResponse);
             RegisterCallback<HardwareErrorResponse>(HandleHardwareErrorResponse);
-            RegisterCallback<SetReelLightBrightnessResponse>(HandleBrightnessResponse);
+            RegisterCallback<SetReelLightBrightnessResponse>(HandleSimpleAckResponse);
             RegisterCallback<ChangeSpeedResponse>(HandleSimpleAckResponse);
-            RegisterCallback<SetReelLightColorResponse>(HandleColorResponse);
+            RegisterCallback<SetReelLightColorResponse>(HandleSimpleAckResponse);
             RegisterCallback<UnsolicitedErrorTamperResponse>(HandleUnsolicitedErrorTamperResponse);
             RegisterCallback<UnsolicitedErrorStallResponse>(HandleUnsolicitedErrorStallResponse);
 
@@ -79,21 +79,10 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 for (var reelId = 0; reelId < HarkeyConstants.MaxReelId; ++reelId)
                 {
                     _reelsConnected.Add(false);
-                    _lastReelColors[reelId] = new ReelColors();
                 }
             }
 
             MessageBuilt += OnMessageBuilt;
-        }
-
-        private void HandleBrightnessResponse(SetReelLightBrightnessResponse response)
-        {
-            OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
-        }
-
-        private void HandleColorResponse(SetReelLightColorResponse response)
-        {
-            OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
         }
 
         protected override bool HasDisablingFault => _faults != ReelFaults.None;
@@ -288,15 +277,12 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 SetLightsColors(_currentLightState);
             }
 
-            if (stateChanged)
+            if (stateChanged || colorChanged)
             {
                 SetLightsStates(_currentLightState);
             }
 
-            if (!colorChanged && !stateChanged)
-            {
-                OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
-            }
+            OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
         }
 
         protected override void SetReelLightBrightness(int reelId, int brightness)
@@ -320,6 +306,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             {
                 SendCommand(new SetReelLightBrightness { ReelId = reelId, Brightness = brightness });
             }
+
+            OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
         }
 
         protected override void SetReelSpeed(params ReelSpeedData[] speedData)
@@ -931,21 +919,21 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             }, false);
         }
 
-        private static int CreateLightMask(ReelLampData topLight, ReelLampData middleLight, ReelLampData bottomLight)
+        private static int CreateLightMask(bool topLightOn, bool middleLightOn, bool bottomLightOn)
         {
             var lightMask = 0x00;
 
-            if (topLight.IsLampOn)
+            if (topLightOn)
             {
                 lightMask |= 0x04;
             }
 
-            if (middleLight.IsLampOn)
+            if (middleLightOn)
             {
                 lightMask |= 0x02;
             }
 
-            if (bottomLight.IsLampOn)
+            if (bottomLightOn)
             {
                 lightMask |= 0x01;
             }
@@ -953,20 +941,20 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             return lightMask;
         }
 
-        private void SetLightsStates(IList<ReelLampData> lampData)
-        {
-            SendCommand(new SetReelLights
+        private static SetReelLights GetReelLightsCommand(IReadOnlyList<ReelLampData> lampData) =>
+            new()
             {
-                Reel1Lights = CreateLightMask(lampData[0], lampData[1], lampData[2]),
-                Reel2Lights = CreateLightMask(lampData[3], lampData[4], lampData[5]),
-                Reel3Lights = CreateLightMask(lampData[6], lampData[7], lampData[8]),
-                Reel4Lights = CreateLightMask(lampData[9], lampData[10], lampData[11]),
-                Reel5Lights = CreateLightMask(lampData[12], lampData[13], lampData[14]),
-                Reel6Lights = CreateLightMask(lampData[15], lampData[16], lampData[17])
-            });
+                Reel1Lights = CreateLightMask(lampData[0].IsLampOn, lampData[1].IsLampOn, lampData[2].IsLampOn),
+                Reel2Lights = CreateLightMask(lampData[3].IsLampOn, lampData[4].IsLampOn, lampData[5].IsLampOn),
+                Reel3Lights = CreateLightMask(lampData[6].IsLampOn, lampData[7].IsLampOn, lampData[8].IsLampOn),
+                Reel4Lights = CreateLightMask(lampData[9].IsLampOn, lampData[10].IsLampOn, lampData[11].IsLampOn),
+                Reel5Lights = CreateLightMask(lampData[12].IsLampOn, lampData[13].IsLampOn, lampData[14].IsLampOn),
+                Reel6Lights = CreateLightMask(lampData[15].IsLampOn, lampData[16].IsLampOn, lampData[17].IsLampOn)
+            };
 
-            // No response for this command so just blindly say it was accepted
-            OnMessageReceived(new ReelLightResponse { LightsUpdated = true });
+        private void SetLightsStates(IReadOnlyList<ReelLampData> lampData)
+        {
+            SendCommand(GetReelLightsCommand(lampData));
         }
 
         private void SetLightsColors(IList<ReelLampData> lampData)
@@ -983,6 +971,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                 reelConnected.AddRange(_reelsConnected);
             }
 
+            var reelLightsCommand = GetReelLightsCommand(_currentLightState);
             for (var i = 0; i < HarkeyConstants.MaxReelId; i++)
             {
                 if (!reelConnected[i])
@@ -990,25 +979,35 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                     continue;
                 }
 
-                var top = lampData[i * HarkeyConstants.LightsPerReel].Color.ToWord();
-                var middle = lampData[i * HarkeyConstants.LightsPerReel + 1].Color.ToWord();
-                var bottom = lampData[i * HarkeyConstants.LightsPerReel + 2].Color.ToWord();
+                var top = lampData[i * HarkeyConstants.LightsPerReel];
+                var middle = lampData[i * HarkeyConstants.LightsPerReel + 1];
+                var bottom = lampData[i * HarkeyConstants.LightsPerReel + 2];
 
-                if (top == _lastReelColors[i].TopColor && middle == _lastReelColors[i].MiddleColor && bottom == _lastReelColors[i].BottomColor)
+                var newColor = new ReelColors(top.Color.ToWord(), middle.Color.ToWord(), bottom.Color.ToWord());
+                var previousColor = _lastReelColors[i];
+                if (previousColor == newColor)
                 {
                     continue;
                 }
 
-                _lastReelColors[i] = new ReelColors(top, middle, bottom);
+                _lastReelColors[i] = newColor;
+
+                // Only set the lights on if the state is currently on and hasn't changed otherwise we need to toggle the lamps
+                reelLightsCommand.AllReelLights[i] = CreateLightMask(
+                    previousColor.TopColor == newColor.TopColor && top.IsLampOn,
+                    previousColor.MiddleColor == newColor.MiddleColor && middle.IsLampOn,
+                    previousColor.BottomColor == newColor.BottomColor && bottom.IsLampOn);
                 SendCommand(
                     new SetReelLightColor
                     {
                         ReelId = i + 1,
-                        TopColor = top,
-                        MiddleColor = middle,
-                        BottomColor = bottom
+                        TopColor = newColor.TopColor,
+                        MiddleColor = newColor.MiddleColor,
+                        BottomColor = newColor.BottomColor
                     });
             }
+
+            SendCommand(reelLightsCommand);
         }
 
         private void OnMessageBuilt(object sender, MessagedBuiltEventArgs e)
@@ -1205,10 +1204,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             // The reel controller will not update the lights unless there is a change in the status.
             // After a reset the controller thinks the lights are off but they could be on.
             // First we need to tell the reel controller to turn all lights on, then turn them all off.
-            SetLightsStates(
-                Enumerable.Range(0, HarkeyConstants.MaxLightId).Select(i => new ReelLampData(Color.White, true, i + 1)).ToList());
-            SetLightsStates(
-                Enumerable.Range(0, HarkeyConstants.MaxLightId).Select(i => new ReelLampData(Color.White, false, i + 1)).ToList());
+            SetLightsStates(HarkeyConstants.AllLightsOn);
+            SetLightsStates(HarkeyConstants.AllLightsOff);
         }
 
         private async Task<TMessage> WaitForMessage<TMessage>(CancellationToken token)
