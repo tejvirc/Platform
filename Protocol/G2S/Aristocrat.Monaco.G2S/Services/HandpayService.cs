@@ -685,7 +685,9 @@
 
         public async Task RequestHandpay(HandpayTransaction transaction)
         {
-            transaction.PrintTicket = !string.IsNullOrWhiteSpace(transaction.Barcode) || _properties.GetValue(ApplicationConstants.HandpayReceiptPrintingEnabled, true);
+            transaction.PrintTicket = !string.IsNullOrWhiteSpace(transaction.Barcode)
+                                      || _properties.GetValue(ApplicationConstants.HandpayReceiptPrintingEnabled, true)
+                                      || transaction.PrintTicket;
 
             var handpay = _egm.GetDevice<IHandpayDevice>();
             if (handpay == null)
