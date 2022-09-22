@@ -6,6 +6,7 @@
     using Contracts.Events;
     using Handlers;
     using Kernel;
+    using Monaco.UI.Common.CefHandlers;
     using MVVM;
     using ViewModels;
 
@@ -32,7 +33,7 @@
             Browser.JsDialogHandler = new JsDialogHandler();
             Browser.LifeSpanHandler = new LifeSpanHandler();
             Browser.LoadHandler = new LoadHandler(viewModel as MediaPlayerViewModel);
-            Browser.MenuHandler = new ContextMenuHandler();
+            Browser.MenuHandler = new DisabledContextMenuHandler();
             Browser.RequestHandler = new RequestHandler(viewModel.Id);
 
             eventBus.Subscribe<MediaPlayerSetAudioMutedEvent>(this, MuteAudioHandler);
