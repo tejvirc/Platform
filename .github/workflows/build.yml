@@ -15,11 +15,6 @@ on:
 
 jobs:
   build:
-    env:
-      BUILD_COUNTER: ${{ github.run_number }}
-      ENLISTMENT_ROOT: ${{ github.workspace }}
-      SOURCE_PATH: ${{ github.workspace }}
-      DETERMINISTIC: false
     strategy:
       fail-fast: true
       matrix:
@@ -69,14 +64,9 @@ jobs:
     - name: Restore
       run: |
         nuget restore .\Monaco.sln
-    - name: Set deterministic build
-      if: matrix.configuration == 'Retail'
-      run: |
-        echo "SOURCE_PATH=C:\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-        echo "DETERMINISTIC=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
     - name: Build
       run: |
-        msbuild -p:"Configuration=${{ matrix.configuration }}" -p:"Platform=Any CPU" -t:Rebuild -p:"Deterministic=${{ env.DETERMINISTIC }}" -p:"PathMap=${{ env.ENLISTMENT_ROOT }}=${{ env.SOURCE_PATH }}" .\Monaco.sln
+        msbuild -p:"Configuration=${{ matrix.configuration }}" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
     - name: Test
       if: matrix.configuration == 'Debug'
       run: >

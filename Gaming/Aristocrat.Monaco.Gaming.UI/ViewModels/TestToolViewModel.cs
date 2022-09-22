@@ -1282,7 +1282,9 @@
 #endif
         }
 
+#if !(RETAIL)
         private byte _bnaTicketTransactionId = 0;
+#endif
         private void InsertVoucher(object parameter)
         {
 #if !(RETAIL)
@@ -1606,7 +1608,7 @@
                 if (parsed)
                 {
                     return timeLimits;
-                } 
+                }
             }
 
             return new List<double>();

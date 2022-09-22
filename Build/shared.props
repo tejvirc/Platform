@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SolutionDir Condition="$(SolutionDir) == ''">$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\))</SolutionDir>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Product>Monaco</Product>
+    <Copyright>Copyright © Aristocrat Technologies Inc. 2022</Copyright>
+    <Company>Aristocrat Technologies Inc.</Company>
+    <Authors>Monaco Platform Team</Authors>
+    <LangVersion>9</LangVersion>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <SuppressLegacyCodeAnalysisDeprecatedWarning>true</SuppressLegacyCodeAnalysisDeprecatedWarning>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="$(DotNetReproducibleBuildsVersion)" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)versions.props" />
+  <Import Condition="!$(MSBuildProjectName.EndsWith('.Tests'))" Project="$(MSBuildThisFileDirectory)sharedproject.props" />
+  <Import Condition="$(MSBuildProjectName.EndsWith('.Tests'))" Project="$(MSBuildThisFileDirectory)sharedtest.props" />
+</Project>
