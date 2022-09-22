@@ -28,7 +28,7 @@
                 PaytableId = message.PaytableId,
                 Denomination = message.DenominationId,
                 TransactionType = message.TransactionType,
-                Barcode = message.Barcode
+                Barcode = message.Barcode ?? string.Empty
             };
 
             var result = await Invoke(async x => await x.ReportTransactionAsync(request, null, null, token));
