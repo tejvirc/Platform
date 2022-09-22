@@ -2556,12 +2556,18 @@
             if (!_gameDiagnostics.IsActive)
             {
                 IsDisableCountdownMessageSuppressed = false;
+                if (_justCashedOut)
+                { 
+                    UpdateLamps();
+                }
             }
             else
             {
                 UpdateLamps();
                 _buttonLamps.EnableLamps();
             }
+
+           _justCashedOut = false;
 
             UpdateLcdButtonDeckRenderSetting(false);
             UpdateLcdButtonDeckDisableSetting(false);
@@ -2784,6 +2790,7 @@
             {
                 StartAttractTimer(); // In Case Cash-In Failed and Bank == 0
             }
+
             OnUserInteraction();
         }
 
@@ -3532,6 +3539,7 @@
                 {
                     ExitResponsibleGamingInfoDialog();
                 }
+
                 ExecuteOnUserCashOut();
             }
         }
@@ -4973,8 +4981,6 @@
             CashOutDialogState = LobbyCashOutDialogState.Hidden;
             MessageOverlayDisplay.UpdateCashoutButtonState(false);
             MessageOverlayDisplay.LastCashOutForcedByMaxBank = false;
-            UpdateLamps();
-            _justCashedOut = false;
         }
 
         private void UpdateLcdButtonDeckVideo()
