@@ -282,6 +282,18 @@
             Logger.Debug($"Overlay client disconnected: {overlayType}");
         }
 
+        private static void ReloadBrowser(IWebBrowser browser)
+        {
+            try
+            {
+                browser.Reload(true);
+            }
+            catch (Exception e) // CrefSharp throws Exception and not anything more specific so we must catch a generic exception
+            {
+                Logger.Error("Failed to reload the web browser", e);
+            }
+        }
+
         private void AttractCompleted(object sender, EventArgs e)
         {
             _dispatcher.ExecuteOnUIThread(() =>
@@ -812,7 +824,11 @@
 
         private void HandleServerStarted(object sender, EventArgs e)
         {
-            _dispatcher.ExecuteOnUIThread(() => NavigateToOverlay(OverlayType.BingoOverlay));
+            _dispatcher.ExecuteOnUIThread(() =>
+            {
+                NavigateToOverlay(OverlayType.BingoOverlay);
+                ReloadBrowser(BingoInfoWebBrowser);
+            });
         }
 
         private bool IsNewBallCall(IReadOnlyCollection<BingoNumber> incomingBallCall)
