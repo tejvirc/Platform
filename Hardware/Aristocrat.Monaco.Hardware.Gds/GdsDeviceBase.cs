@@ -476,17 +476,14 @@
         /// <returns>Whether or not the device was opened</returns>
         protected bool TryOpen(int retryLimit = MaxRetry)
         {
-            _tryingToOpen = true; 
+            _tryingToOpen = true;
             var open = Open();
             var attempt = 0;
             while (!open && _tryingToOpen && ++attempt <= retryLimit)
             {
                 _logger.Warn($"TryOpen - Attempting to reconnect to the attached device {DeviceType}.  Retry open attempt {attempt} after sleeping {RetryInterval}");
                 Thread.Sleep(RetryInterval);
-                if (_tryingToOpen)
-                {
-                    open = Open();
-                }
+                open = _tryingToOpen ? Open() : IsConnected;
             }
 
             _tryingToOpen = false;

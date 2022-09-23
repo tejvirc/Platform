@@ -460,7 +460,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 guid => IsReelFault(guid) ||
                 guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                 guid == ApplicationConstants.OperatorKeyNotRemovedDisableKey ||
-                guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
                 guid == GamingConstants.ReelsNeedHomingGuid ||
                 guid == GamingConstants.ReelsTiltedGuid);
         }
@@ -469,7 +468,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             var homeReels = disableKeys.All(guid =>
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
-                 guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
                  guid == GamingConstants.ReelsNeedHomingGuid ||
                  guid == GamingConstants.ReelsTiltedGuid);
 

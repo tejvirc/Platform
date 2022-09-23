@@ -382,6 +382,8 @@
                         {
                             _simWindow.TiltReel(id);
                         }
+
+                        OnMessageReceived(new TiltReelsResponse());
                         break;
                     case GdsConstants.ReportId.ReelControllerSetReelBrightness:
                         if (message is SetBrightness brightness)

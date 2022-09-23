@@ -560,6 +560,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                     OnMessageReceived(new ReelSpinningStatus { ReelId = i + 1, SlowSpinning = true });
                 }
             }
+
+            OnMessageReceived(new TiltReelsResponse());
         }
 
         private void HandleProtocolErrorResponse(ProtocolErrorResponse response)

@@ -11,6 +11,8 @@
     using Contracts.Reel;
     using Contracts.SharedDevice;
     using log4net;
+    using HomeReel = Contracts.Gds.Reel.HomeReel;
+    using Nudge = Contracts.Gds.Reel.Nudge;
 
     /// <summary>
     ///     The reel controller gds device
@@ -38,6 +40,7 @@
             RegisterCallback<ReelSpinningStatus>(ReelSpinningStatusReceived);
             RegisterCallback<ReelLightIdentifiersResponse>(ReelLightsIdentifiersReceived);
             RegisterCallback<ReelLightResponse>(ReelLightsResponseReceived);
+            RegisterCallback<TiltReelsResponse>(TiltReelsResponseReceived);
             RegisterCallback<ControllerInitializedStatus>(_ => { OnHardwareInitialized(); });
         }
 
@@ -185,10 +188,11 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> TiltReels()
+        public async Task<bool> TiltReels()
         {
             SendCommand(new TiltReels());
-            return Task.FromResult(true);
+            await WaitForReport<TiltReelsResponse>();
+            return true;
         }
 
         /// <inheritdoc />
@@ -648,6 +652,11 @@
         }
 
         private void ReelLightsResponseReceived(ReelLightResponse response)
+        {
+            PublishReport(response);
+        }
+
+        private void TiltReelsResponseReceived(TiltReelsResponse response)
         {
             PublishReport(response);
         }

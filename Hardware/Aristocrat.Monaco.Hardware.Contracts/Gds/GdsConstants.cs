@@ -62,7 +62,7 @@
         /// <summary>
         ///     Command and event report IDs per GDS specs.
         /// </summary>
-        public enum ReportId : byte
+        public enum ReportId
         {
             /// <summary>The acknowledge command.</summary>
             Ack = 0x01,
@@ -269,7 +269,10 @@
             ReelControllerGetLightIds = 0xFE,
 
             /// <summary> The reel controller failure status clear event </summary>
-            ReelControllerFailureStatusClear = 0xFF
+            ReelControllerFailureStatusClear = 0xFF,
+
+            /// <summary> The reel controller response to a tilt reels command</summary>
+            ReelControllerTiltReelsResponse = 0x100
         }
 
         /// <summary>The default seed value used to calculate the CRC.</summary>

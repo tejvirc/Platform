@@ -25,7 +25,6 @@
         private int _lastReelCount;
         private int _lastLightIdentifiersCount;
         private List<LightData> _lastLightData;
-        private int _systemBrightness = -1;
         private int _lastReelBrightness = -1;
 
         internal class LightData
@@ -85,6 +84,7 @@
             _lastLightData = new List<LightData>();
             _lastReelCount = 0;
             _lastLightIdentifiersCount = 0;
+            _lastReelBrightness = -1;
             ConnectionChanged?.Invoke(this, EventArgs.Empty);
             await HandledStripChanged(evt, token);
         }
@@ -181,7 +181,7 @@
                         var ledColorBuffer = strip.ColorBuffer[ledIndex];
                         var isLampOn = IsLampStateOn(ledColorBuffer);
                         var lightId = (stripIndex * _lightsPerReel) + ledIndex + 1;
-                        reelLampBrightness.Add(lightId, strip.Brightness);
+                        reelLampBrightness.Add(lightId, strip.Brightness * Controller.DefaultReelBrightness / 100);
                         var lastDataIndex = lightId - 1;
 
                         if (_lastLightData.Count <= lastDataIndex)
@@ -253,22 +253,19 @@
 
         public void SetSystemBrightness(int brightness)
         {
-            lock (_lock)
-            {
-                _systemBrightness = brightness;
-            }
         }
 
         private void SetSystemBrightness()
         {
-            if (!IsOpen || !Controller.Enabled || !Controller.Initialized || _lastReelBrightness == _systemBrightness)
+            if (!IsOpen || !Controller.Enabled || !Controller.Initialized || _lastReelBrightness == Controller.DefaultReelBrightness)
             {
                 return;
             }
 
-            if (Controller.SetReelBrightness(_systemBrightness).WaitForCompletion())
+            if (Controller.SetReelBrightness(Controller.DefaultReelBrightness).WaitForCompletion())
             {
-                _lastReelBrightness = _systemBrightness;
+                _lastReelBrightness = Controller.DefaultReelBrightness;
+                _lastLightData = new List<LightData>();
             }
         }
 
