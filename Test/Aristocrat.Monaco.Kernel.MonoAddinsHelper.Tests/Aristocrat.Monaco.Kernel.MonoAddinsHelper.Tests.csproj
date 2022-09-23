@@ -10,7 +10,6 @@
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Aristocrat.Monaco.Test.Common\Aristocrat.Monaco.Test.Common.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
     <ProjectReference Include="..\..\Kernel\Bootstrap\Bootstrap\Bootstrap.csproj" />

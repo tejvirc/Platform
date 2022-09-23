@@ -36,29 +36,29 @@ namespace Aristocrat.Monaco.Application.Contracts
     ///        public class DoorLogHistory : Page
     ///        {
     ///          private EventHandler&lt;DoorMonitorAppendedEventArgs&gt; logEventHandler;
-    /// 
+    ///
     ///          public void Page_Load()
     ///          {
     ///            // ...
     ///            logEventHandler = new EventHandler&lt;DoorMonitorAppendedEventArgs&gt;(DoorMonitorLogAppended);
-    /// 
+    ///
     ///            // Get the IDoorMonitor service
     ///            IDoorMonitor doorLog = ...
-    /// 
+    ///
     ///            doorLog.DoorMonitorAppended += logEventHandler;
-    /// 
+    ///
     ///            // Populate the entries to the log presentation.
     ///            foreach (var entry in doorLog.Log)
     ///            {
     ///              DoorMonitorLogAppended(this, new DoorMonitorAppendedEventArgs(entry));
     ///            }
     ///          }
-    /// 
+    ///
     ///          private void private void DoorMonitorLogAppended(object sender, DoorMonitorAppendedEventArgs e)
     ///          {
     ///            Dispatcher.BeginInvoke(new ThreadSwitchDelegate(AppendLogText), e);
     ///          }
-    /// 
+    ///
     ///          private  void AppendLogText(DoorMonitorAppendedEventArgs message)
     ///          {
     ///            // Display the logged message.
@@ -189,10 +189,7 @@ namespace Aristocrat.Monaco.Application.Contracts
 
                 hash = hash * 23 + DoorId.GetHashCode();
                 hash = hash * 23 + IsOpen.GetHashCode();
-                if (Time != null)
-                {
-                    hash = hash * 23 + Time.GetHashCode();
-                }
+                hash = hash * 23 + Time.GetHashCode();
 
                 hash = hash * 23 + ValidationPassed.GetHashCode();
                 return hash;

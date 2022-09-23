@@ -19,7 +19,6 @@
     <ProjectReference Include="..\..\Protocol\HHR\Aristocrat.Monaco.HHR.Client\Aristocrat.Monaco.HHR.Client.csproj" />
     <ProjectReference Include="..\..\Protocol\HHR\Aristocrat.Monaco.HHR.UI\Aristocrat.Monaco.HHR.UI.csproj" />
     <ProjectReference Include="..\..\Protocol\HHR\Aristocrat.Monaco.HHR\Aristocrat.Monaco.HHR.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.Test.Common\Aristocrat.Monaco.Test.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />

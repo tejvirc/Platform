@@ -25,7 +25,6 @@
     <ProjectReference Include="..\..\Protocol\Bingo\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
     <ProjectReference Include="..\..\Protocol\SAS\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.Test.Common\Aristocrat.Monaco.Test.Common.csproj" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>

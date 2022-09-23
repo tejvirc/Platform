@@ -13,7 +13,6 @@
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Application.Contracts.Tests\Aristocrat.Monaco.Application.Contracts.Tests.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.Test.Common\Aristocrat.Monaco.Test.Common.csproj" />
     <ProjectReference Include="..\..\Protocol\ASP\Aristocrat.Monaco.Asp\Aristocrat.Monaco.Asp.csproj" />
   </ItemGroup>
   <ItemGroup>

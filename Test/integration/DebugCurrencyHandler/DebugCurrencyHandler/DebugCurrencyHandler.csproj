@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <Monaco_DisableCodeAnlysis>true</Monaco_DisableCodeAnlysis>
+  </PropertyGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />
+
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>Vgt.Client12.Testing.Tools</RootNamespace>
@@ -10,10 +15,6 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-  </PropertyGroup>    
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>

@@ -16,7 +16,6 @@
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.Test.Common\Aristocrat.Monaco.Test.Common.csproj" />
     <ProjectReference Include="..\..\Protocol\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
     <ProjectReference Include="..\..\Protocol\Mgam\Aristocrat.Mgam.Client\Aristocrat.Mgam.Client.csproj" />
     <ProjectReference Include="..\..\Protocol\Mgam\Aristocrat.Monaco.Mgam.Common\Aristocrat.Monaco.Mgam.Common.csproj" />

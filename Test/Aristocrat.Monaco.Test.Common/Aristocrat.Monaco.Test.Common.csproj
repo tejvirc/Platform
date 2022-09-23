@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Monaco_DisableCodeAnlysis>true</Monaco_DisableCodeAnlysis>
+  </PropertyGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Test.Common</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-  </PropertyGroup>    
   <ItemGroup>
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>

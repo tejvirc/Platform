@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Monaco_DisableCodeAnlysis>true</Monaco_DisableCodeAnlysis>
+  </PropertyGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.RobotController.Contracts</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>
-  <PropertyGroup>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
-  </PropertyGroup>    
   <ItemGroup>
     <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
   </ItemGroup>

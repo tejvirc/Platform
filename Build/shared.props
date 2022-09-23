@@ -21,15 +21,21 @@
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisMode>Minimum</AnalysisMode>
+    <AnalysisLevel>5</AnalysisLevel>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="DotNet.ReproducibleBuilds" Version="$(DotNetReproducibleBuildsVersion)" PrivateAssets="All"/>
-  </ItemGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)versions.props" />
   <Import Condition="!$(MSBuildProjectName.EndsWith('.Tests'))" Project="$(MSBuildThisFileDirectory)sharedproject.props" />
   <Import Condition="$(MSBuildProjectName.EndsWith('.Tests'))" Project="$(MSBuildThisFileDirectory)sharedtest.props" />
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="$(DotNetReproducibleBuildsVersion)" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="$(NetAnalyzersVersion)" Condition="'(Monaco_DisableCodeAnlysis)' == ''">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>

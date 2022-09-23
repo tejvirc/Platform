@@ -24,7 +24,6 @@
     <ProjectReference Include="..\..\Protocol\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.HHR.Client.Tests\Aristocrat.Monaco.HHR.Client.Tests.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.Test.Common\Aristocrat.Monaco.Test.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
