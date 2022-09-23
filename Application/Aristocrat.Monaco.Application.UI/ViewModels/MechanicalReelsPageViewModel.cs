@@ -8,6 +8,7 @@
     using System.Windows.Media;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
+    using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -53,7 +54,8 @@
                 SettingsScreenHidden = false;
             });
 
-            LightTestViewModel = new(ReelController);
+            var edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
+            LightTestViewModel = new(ReelController, edgeLightController);
             ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen);
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
@@ -184,6 +186,12 @@
             }
         }
 
+        protected override void DisposeInternal()
+        {
+            LightTestViewModel.Dispose();
+            base.DisposeInternal();
+        }
+
         protected override void OnLoaded()
         {
             base.OnLoaded();
@@ -197,7 +205,7 @@
 
         protected override void OnUnloaded()
         {
-            LightTestViewModel.Unload();
+            LightTestViewModel.CancelTest();
             EventBus.UnsubscribeAll(this);
             base.OnUnloaded();
         }
