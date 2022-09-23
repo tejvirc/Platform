@@ -11,6 +11,7 @@
     using Gaming.Contracts.Central;
     using Gaming.Contracts.Tickets;
     using Localization.Properties;
+    using Services.GamePlay;
 
     /// <inheritdoc cref="IGameRoundPrintFormatter"/>
     public class BingoRoundPrintFormatter : IGameRoundPrintFormatter
@@ -75,7 +76,7 @@
             AddMeterLine(ResourceKeys.TotalWin, totalWinCash.CentsToDollars().FormattedCurrencyString(), builder);
             AddMeterLine(
                 ResourceKeys.JoinBallLabel,
-                description.BallCallNumbers.Select(x => x.Number).ElementAt(description.JoinBallIndex - 1),
+                description.BallCallNumbers.Select(x => x.Number).ElementAt(description.GetGameStartBallIndex() - 1),
                 builder);
             if (!description.GameEndWinClaimAccepted)
             {
