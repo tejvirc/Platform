@@ -270,7 +270,7 @@
                 }
 
                 if (_isPrinting &&
-                    status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.NotPrinting))
+                    status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.NotPrinting) && !PrinterStatus.TopOfForm)
                 {
                     _isPrinting = false;
                     TicketPrintStatus = new TicketPrintStatus { PrintComplete = true };
