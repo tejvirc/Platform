@@ -325,6 +325,8 @@
                             OnMessageReceived(new ReelStatus { ReelId = reelNum + 1, Connected = true });
                             OnMessageReceived(new ReelSpinningStatus { ReelId = reelNum + 1, IdleAtStop = true });
                         }
+
+                        OnMessageReceived(new ControllerInitializedStatus());
                     }
                     break;
                 default:
