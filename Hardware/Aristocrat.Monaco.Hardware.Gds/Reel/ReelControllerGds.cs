@@ -23,11 +23,11 @@
 
         private const int RequestGatReportWaitTimeout = 30000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly ConcurrentDictionary<int, ReelFaults> _faults = new ConcurrentDictionary<int, ReelFaults>();
+        private readonly ConcurrentDictionary<int, ReelFaults> _faults = new();
 
-        private readonly ConcurrentDictionary<int, ReelStatus> _reelsStatus = new ConcurrentDictionary<int, ReelStatus>();
+        private readonly ConcurrentDictionary<int, ReelStatus> _reelsStatus = new();
 
         /// <summary>
         /// </summary>
@@ -41,7 +41,7 @@
             RegisterCallback<ReelLightIdentifiersResponse>(ReelLightsIdentifiersReceived);
             RegisterCallback<ReelLightResponse>(ReelLightsResponseReceived);
             RegisterCallback<TiltReelsResponse>(TiltReelsResponseReceived);
-            RegisterCallback<ControllerInitializedStatus>(_ => { OnHardwareInitialized(); });
+            RegisterCallback<ControllerInitializedStatus>(OnHardwareInitializedReceived);
         }
 
         /// <inheritdoc />
@@ -396,8 +396,9 @@
         /// <summary>
         ///     Called when the controller hardware is initialized
         /// </summary>
-        protected virtual void OnHardwareInitialized()
+        protected virtual void OnHardwareInitializedReceived(ControllerInitializedStatus status)
         {
+            PublishReport(status);
             HardwareInitialized?.Invoke(this, EventArgs.Empty);
         }
 
@@ -422,7 +423,8 @@
                 return false;
             }
 
-            return true;
+            var result = await WaitForReport<ControllerInitializedStatus>();
+            return result is not null;
         }
 
         private void FailureClear(FailureStatusClear status)

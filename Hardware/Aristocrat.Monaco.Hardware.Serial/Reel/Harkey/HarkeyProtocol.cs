@@ -122,7 +122,13 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
         protected override void SelfTest()
         {
-            _homeReelMessageDictionary.Clear();
+            lock (_sequenceLock)
+            {
+                if (_isInitialized)
+                {
+                    _homeReelMessageDictionary.Clear();
+                }
+            }
 
             // Clear any hardware faults that are active
             OnMessageReceived(new FailureStatusClear { HardwareError = true, CommunicationError = true });
@@ -626,7 +632,6 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
                     reel,
                     x =>
                     {
-                        x.Connected = true;
                         x.ReelStall = false;
                         x.ReelTampered = false;
                         x.LowVoltage = false;
@@ -665,12 +670,17 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             bool postInitialized;
             lock (_sequenceLock)
             {
-                postInitialized = !_isInitialized && !_homeReelMessageDictionary.IsEmpty;
-                _isInitialized = true;
+                if (_isInitialized)
+                {
+                    return;
+                }
+
+                postInitialized = _isInitialized = _homeReelMessageDictionary.IsEmpty;
             }
 
             if (postInitialized)
             {
+                RequestStatus();
                 OnMessageReceived(new ControllerInitializedStatus());
             }
         }
@@ -784,12 +794,12 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
             lock (_sequenceLock)
             {
                 // We need to ignore the connected status when homing after a tilt because the controller reports no status.
-                reel1Status = status.Reel1Status.ToReelStatus(1, _homeReelMessageDictionary.ContainsKey(1) && _reelsConnected[0]);
-                reel2Status = status.Reel2Status.ToReelStatus(2, _homeReelMessageDictionary.ContainsKey(2) && _reelsConnected[1]);
-                reel3Status = status.Reel3Status.ToReelStatus(3, _homeReelMessageDictionary.ContainsKey(3) && _reelsConnected[2]);
-                reel4Status = status.Reel4Status.ToReelStatus(4, _homeReelMessageDictionary.ContainsKey(4) && _reelsConnected[3]);
-                reel5Status = status.Reel5Status.ToReelStatus(5, _homeReelMessageDictionary.ContainsKey(5) && _reelsConnected[4]);
-                reel6Status = status.Reel6Status.ToReelStatus(6, _homeReelMessageDictionary.ContainsKey(6) && _reelsConnected[5]);
+                reel1Status = status.Reel1Status.ToReelStatus(1, _isInitialized, _homeReelMessageDictionary.ContainsKey(1) && _reelsConnected[0]);
+                reel2Status = status.Reel2Status.ToReelStatus(2, _isInitialized, _homeReelMessageDictionary.ContainsKey(2) && _reelsConnected[1]);
+                reel3Status = status.Reel3Status.ToReelStatus(3, _isInitialized, _homeReelMessageDictionary.ContainsKey(3) && _reelsConnected[2]);
+                reel4Status = status.Reel4Status.ToReelStatus(4, _isInitialized, _homeReelMessageDictionary.ContainsKey(4) && _reelsConnected[3]);
+                reel5Status = status.Reel5Status.ToReelStatus(5, _isInitialized, _homeReelMessageDictionary.ContainsKey(5) && _reelsConnected[4]);
+                reel6Status = status.Reel6Status.ToReelStatus(6, _isInitialized, _homeReelMessageDictionary.ContainsKey(6) && _reelsConnected[5]);
 
                 _reelsConnected[0] = reel1Status.Connected;
                 _reelsConnected[1] = reel2Status.Connected;
