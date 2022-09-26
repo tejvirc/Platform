@@ -26,8 +26,8 @@
             BingoConstants.DefaultCardTitle.Where(x => !char.IsWhiteSpace(x))
                 .Select(x => x.ToString().PadRight(MaxBingoContentChars, PadCharacter)));
 
-        private const string CoverallBallFormat = "[{0}]"; 
-        private const string JoinBallFormat = "({0})"; 
+        private const string CoverallBallFormat = "[{0}]";
+        private const string JoinBallFormat = "({0})";
         private const string BallCallFormat = "{0}, ";
         private const string FreeSpace = "*";
         private const char CardCellDelimiter = ' ';
@@ -41,7 +41,7 @@
         {
             _centralProvider = centralProvider ?? throw new ArgumentNullException(nameof(centralProvider));
         }
-        
+
         public string Name => GetType().ToString();
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IGameRoundPrintFormatter) };
@@ -108,13 +108,14 @@
                 return;
             }
 
+            var gameStartBallIndex = description.GetGameStartBallIndex();
             var ballCallLine = new StringBuilder();
             for (var ballIndex = 0; ballIndex < bingoNumbers.Count; ++ballIndex)
             {
                 var format = BallCallFormat;
 
                 // Update the format if this is the join ball.
-                if (ballIndex == description.JoinBallIndex - 1)
+                if (ballIndex == gameStartBallIndex - 1)
                 {
                     format = string.Format(format, JoinBallFormat);
                 }
@@ -140,7 +141,7 @@
 
             builder.Append(ballCallLine.ToString().TrimEnd(BallCallDelimiter)).Append(SectionBreak);
         }
-        
+
         private static void FormatBingoCards(BingoGameDescription description, StringBuilder builder)
         {
             foreach (var card in description.Cards)
