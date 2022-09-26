@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -11,16 +12,20 @@
     using Kernel;
     using Localization.Properties;
     using Monaco.Common;
+    using Polly;
     using Protocol.Common.Storage.Entity;
 
     public sealed class DynamicHelpMonitor : IDisposable
     {
+        private const int RetryCount = 3;
         private static readonly TimeSpan DynamicHelpMonitorTime = TimeSpan.FromMinutes(1);
+        private static readonly TimeSpan RetryDelay = TimeSpan.FromMilliseconds(100);
 
         private readonly IBingoClientConnectionState _connectionState;
         private readonly ISystemDisableManager _disableManager;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly HttpClient _httpClient = new(new HttpClientHandler { AllowAutoRedirect = true });
+        private readonly IAsyncPolicy<bool> _helpPolicy;
 
         private CancellationTokenSource _tokenSource;
         private bool _disposed;
@@ -37,6 +42,9 @@
             _connectionState.ClientConnected += OnClientConnected;
             _connectionState.ClientDisconnected += OnClientDisconnected;
             _httpClient.DefaultRequestHeaders.Clear();
+            _helpPolicy = Policy<bool>.Handle<HttpRequestException>()
+                .OrResult(result => !result)
+                .WaitAndRetryAsync(RetryCount, _ => RetryDelay);
         }
 
         public void Dispose()
@@ -70,14 +78,15 @@
             while (!token.IsCancellationRequested)
             {
                 var helpUris = _unitOfWorkFactory.GetHelpUris();
-                await Task.WhenAll(helpUris.Select(x => ValidateUriAsync(x, token)));
+                var results = await Task.WhenAll(helpUris.Select(x => GetValidResponseAsync(x, token)));
+                HandleHelpResults(results);
                 await Task.Delay(DynamicHelpMonitorTime, token);
             }
         }
 
-        private async Task ValidateUriAsync(Uri uri, CancellationToken token)
+        private void HandleHelpResults(IEnumerable<bool> results)
         {
-            if (await GetValidResponseAsync(uri, token))
+            if (results.All(b => b))
             {
                 _disableManager.Enable(BingoConstants.BingoHostHelpUrlInvalidKey);
             }
@@ -96,15 +105,18 @@
         {
             try
             {
-                var httpResponseMessage = await _httpClient.GetAsync(
-                    uri,
-                    HttpCompletionOption.ResponseContentRead,
-                    token);
-                return IsSuccessful(httpResponseMessage);
+                return await _helpPolicy.ExecuteAsync(GetHelpUrlResponse);
             }
-            catch (Exception e) when (e is InvalidOperationException or HttpRequestException)
+            catch (Exception e) when (e is InvalidOperationException or HttpRequestException ||
+                                      e.InnerException is InvalidOperationException or HttpRequestException)
             {
                 return false;
+            }
+
+            async Task<bool> GetHelpUrlResponse()
+            {
+                var response = await _httpClient.GetAsync(uri, HttpCompletionOption.ResponseContentRead, token);
+                return IsSuccessful(response);
             }
         }
 
