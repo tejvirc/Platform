@@ -150,6 +150,7 @@
                           ScrollViewer.PanningMode="VerticalOnly"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          ScrollViewer.CanContentScroll="True"
                           VirtualizingPanel.IsContainerVirtualizable="True"
                           VirtualizingPanel.VirtualizationMode="Standard"
                           VirtualizingPanel.IsVirtualizingWhenGrouping="True"
