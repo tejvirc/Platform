@@ -3,7 +3,6 @@
     using System;
     using System.Threading.Tasks;
     using Accounting.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Meters;
@@ -35,9 +34,8 @@
             IMessageDisplay messages,
             IPlayerService players,
             ISystemDisableManager systemDisable,
-            IPaymentDeterminationProvider paymentDeterminationProvider,
-            ILockManager lockManager)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, lockManager)
+            IPaymentDeterminationProvider paymentDeterminationProvider)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));

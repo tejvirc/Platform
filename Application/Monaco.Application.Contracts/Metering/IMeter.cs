@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts
 {
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using System;
 
     /// <summary>
@@ -30,7 +29,7 @@
     /// <summary>
     ///     An interface by which a meter can be incremented and its values for each time frame can be retrieved.
     /// </summary>
-    public interface IMeter : IReadWriteLockable
+    public interface IMeter
     {
         /// <summary>
         ///     Gets the name of the meter

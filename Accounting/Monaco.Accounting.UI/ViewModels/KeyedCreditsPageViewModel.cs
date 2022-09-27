@@ -8,7 +8,6 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -27,7 +26,6 @@
         private readonly IPropertiesManager _propertiesManager;
         private readonly IPersistentStorageManager _persistentStorageManager;
         private readonly ITransactionHistory _transactionHistory;
-        private readonly ILockManager _lockManager;
         private decimal _keyedOnCreditAmount;
         private Credit _selectedCredit;
         private List<Credit> _credits;
@@ -41,8 +39,7 @@
                 ServiceManager.GetInstance().TryGetService<IMeterManager>(),
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().TryGetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<ITransactionHistory>(),
-                ServiceManager.GetInstance().GetService<ILockManager>())
+                ServiceManager.GetInstance().GetService<ITransactionHistory>())
         {
         }
 
@@ -52,8 +49,7 @@
             IMeterManager meterManager,
             IPropertiesManager propertiesManager,
             IPersistentStorageManager persistentStorageManager,
-            ITransactionHistory transactionHistory,
-            ILockManager lockManager)
+            ITransactionHistory transactionHistory)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactionCoordinator =
@@ -63,7 +59,6 @@
             _persistentStorageManager = persistentStorageManager ??
                                         throw new ArgumentNullException(nameof(persistentStorageManager));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
 
             ConfirmKeyOnCreditsCommand = new ActionCommand<object>(ConfirmKeyOnCreditsPressed);
             ConfirmKeyOffCreditsCommand = new ActionCommand<object>(ConfirmKeyOffCreditsPressed);
@@ -202,12 +197,9 @@
             {
                 if (_bank.CheckDeposit(accountType, amount, transactionId) && amount > 0)
                 {
-                    using (_lockManager.AcquireExclusiveLock(GetMetersForAccount()))
-                    {
-                        _bank.Deposit(accountType, amount, transactionId);
-                        _meterManager.GetMeter(keyedOnMeterDictionary[accountType].amountMeter).Increment(amount);
-                        _meterManager.GetMeter(keyedOnMeterDictionary[accountType].countMeter).Increment(1);
-                    }
+                    _bank.Deposit(accountType, amount, transactionId);
+                    _meterManager.GetMeter(keyedOnMeterDictionary[accountType].amountMeter).Increment(amount);
+                    _meterManager.GetMeter(keyedOnMeterDictionary[accountType].countMeter).Increment(1);
 
                     _transactionHistory.AddTransaction(
                         new KeyedCreditsTransaction(1, DateTime.UtcNow, accountType, true, amount));
@@ -216,15 +208,6 @@
                 }
 
                 scope.Complete();
-
-                IEnumerable<IMeter> GetMetersForAccount()
-                {
-                    return new List<IMeter>
-                    {
-                        _meterManager.GetMeter(keyedOnMeterDictionary[accountType].amountMeter),
-                        _meterManager.GetMeter(keyedOnMeterDictionary[accountType].countMeter)
-                    };
-                }
             }
 
             _transactionCoordinator.ReleaseTransaction(transactionId);
@@ -268,12 +251,9 @@
                 {
                     if (_bank.CheckWithdraw(accountType, amount, transactionId) && amount > 0)
                     {
-                        using (_lockManager.AcquireExclusiveLock(GetMetersForAccount()))
-                        {
-                            _bank.Withdraw(accountType, amount, transactionId);
-                            _meterManager.GetMeter(keyedOffMeterDictionary[accountType].amountMeter).Increment(amount);
-                            _meterManager.GetMeter(keyedOffMeterDictionary[accountType].countMeter).Increment(1);
-                        }
+                        _bank.Withdraw(accountType, amount, transactionId);
+                        _meterManager.GetMeter(keyedOffMeterDictionary[accountType].amountMeter).Increment(amount);
+                        _meterManager.GetMeter(keyedOffMeterDictionary[accountType].countMeter).Increment(1);
 
                         _transactionHistory.AddTransaction(
                             new KeyedCreditsTransaction(1, DateTime.UtcNow, accountType, false, amount));
@@ -282,15 +262,6 @@
                     }
 
                     scope.Complete();
-
-                    IEnumerable<IMeter> GetMetersForAccount()
-                    {
-                        return new List<IMeter>
-                        {
-                            _meterManager.GetMeter(keyedOffMeterDictionary[accountType].amountMeter),
-                            _meterManager.GetMeter(keyedOffMeterDictionary[accountType].countMeter)
-                        };
-                    }
                 }
 
                 _transactionCoordinator.ReleaseTransaction(transactionId);

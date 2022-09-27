@@ -59,7 +59,7 @@
                     }
                 }
             };
-            
+
             _centralProvider.Setup(m => m.Transactions).Returns(transactions);
 
             _target = new MeterChangeMonitor(
@@ -98,7 +98,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _cashPlayed.Increment(amount);
@@ -116,7 +117,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _cashWon.Increment(amount);
@@ -134,7 +136,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _gamesPlayed.Increment(amount);
@@ -152,9 +155,10 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
-            
+
             _gamesWon.Increment(amount);
             _bingoTransactionReportHandler.Verify();
         }
@@ -170,7 +174,8 @@
                     0,
                     0,
                     0,
-                    0))
+                    0,
+                    string.Empty))
                 .Verifiable();
 
             _cashPlayed.Increment(amount);
@@ -181,7 +186,8 @@
                     0,
                     0,
                     0,
-                    0), Times.Never);
+                    0,
+                    It.IsAny<string>()), Times.Never);
         }
 
         [TestMethod]
@@ -209,15 +215,16 @@
             };
 
             _centralProvider.Setup(m => m.Transactions).Returns(transaction);
-            
+
             _bingoTransactionReportHandler.Setup(
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
+                    denominationId,
+                    gameSerial,
                     0,
-                    denominationId))
+                    string.Empty))
                 .Verifiable();
 
             _gamesWon.Increment(amount);
@@ -225,10 +232,11 @@
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
+                    denominationId,
+                    gameSerial,
                     0,
-                    denominationId), Times.Once);
+                    string.Empty), Times.Once);
         }
 
         [TestMethod]
@@ -257,15 +265,16 @@
             };
 
             _centralProvider.Setup(m => m.Transactions).Returns(transaction);
-            
+
             _bingoTransactionReportHandler.Setup(
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
+                    denominationId,
+                    gameSerial,
                     paytableId,
-                    denominationId))
+                    string.Empty))
                 .Verifiable();
 
             _gamesWon.Increment(amount);
@@ -274,10 +283,11 @@
                 m => m.AddNewTransactionToQueue(
                     TransactionType.GamesWon,
                     amount,
-                    gameSerial,
                     gameTitleId,
+                    denominationId,
+                    gameSerial,
                     paytableId,
-                    denominationId), Times.Once);
+                    string.Empty), Times.Once);
         }
 
         private class TestMeter : IMeter
@@ -298,41 +308,12 @@
 
             public long Session => throw new NotImplementedException();
 
-            public string UniqueLockableName => throw new NotImplementedException();
-
             public event EventHandler<MeterChangedEventArgs> MeterChangedEvent;
-
-            public IDisposable AcquireExclusiveLock()
-            {
-                return new Mock<IDisposable>(MockBehavior.Loose).Object;
-            }
-
-            public IDisposable AcquireReadOnlyLock()
-            {
-                return new Mock<IDisposable>(MockBehavior.Loose).Object;
-            }
 
             public void Increment(long amount)
             {
                 Lifetime = amount;
                 MeterChangedEvent?.Invoke(this, new MeterChangedEventArgs(amount));
-            }
-
-            public void ReleaseLock()
-            {
-                //Do nothing as this is a test class and we dont really need locking mechanism here.
-            }
-
-            public bool TryAcquireExclusiveLock(int timeout, out IDisposable disposableToken)
-            {
-                disposableToken = new Mock<IDisposable>(MockBehavior.Loose).Object;
-                return true;
-            }
-
-            public bool TryAcquireReadOnlyLock(int timeout, out IDisposable disposableToken)
-            {
-                disposableToken = new Mock<IDisposable>(MockBehavior.Loose).Object;
-                return true;
             }
         }
 

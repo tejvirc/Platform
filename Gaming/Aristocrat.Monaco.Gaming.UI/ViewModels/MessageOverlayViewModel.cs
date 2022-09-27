@@ -177,9 +177,9 @@
         }
 
         /// <summary>
-        ///     Gets a value indicating whether we are cashing in (ticket or bill).
+        ///     Gets or sets a value indicating whether we should show the cashing in dialog
         /// </summary>
-        public bool IsCashingInDlgVisible => _lobbyStateManager.ContainsAnyState(LobbyState.CashIn);
+        public bool IsCashingInDlgVisible { get; set; }
 
         public bool LastCashOutForcedByMaxBank;
 
@@ -562,6 +562,7 @@
 
         private void SubscribeToEvents()
         {
+            _eventBus.Subscribe<MissedStartupEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandpayCanceledEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandpayKeyedOffEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandpayStartedEvent>(this, HandleEvent);
@@ -659,6 +660,24 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
 
             HandleMessageOverlayText(string.Empty);
+        }
+
+        private void HandleEvent(MissedStartupEvent evt)
+        {
+            Logger.Debug($"Detected MissedStartupEvent:  {evt.MissedEvent.GetType()}");
+            dynamic param = evt.MissedEvent;
+
+            HandleEvent(param);
+        }
+
+        /// <summary>
+        ///     This is to handle missed events not handled by MessageOverlayViewModel.
+        /// </summary>
+        /// <param name="evt"></param>
+        // ReSharper disable once UnusedParameter.Local
+        private static void HandleEvent(IEvent evt)
+        {
+            // no implementation intentionally
         }
     }
 }

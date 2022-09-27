@@ -6,6 +6,7 @@
     using Application.Contracts.Extensions;
     using Common;
     using Kernel;
+    using Protocol.Common.Storage.Entity;
     using Services.Reporting;
 
     /// <summary>
@@ -16,18 +17,24 @@
     {
         private readonly IReportTransactionQueueService _bingoTransactionReportHandler;
         private readonly IReportEventQueueService _bingoEventQueue;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IPropertiesManager _propertiesManager;
 
         public WatOnCompleteConsumer(
             IEventBus eventBus,
             ISharedConsumer consumerContext,
             IReportTransactionQueueService bingoTransactionReportHandler,
-            IReportEventQueueService bingoEventQueue)
+            IReportEventQueueService bingoEventQueue,
+            IUnitOfWorkFactory unitOfWorkFactory,
+            IPropertiesManager propertiesManager)
             : base(eventBus, consumerContext)
         {
             _bingoTransactionReportHandler =
                 bingoTransactionReportHandler ??
                 throw new ArgumentNullException(nameof(bingoTransactionReportHandler));
             _bingoEventQueue = bingoEventQueue ?? throw new ArgumentNullException(nameof(bingoEventQueue));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
         public override void Consume(WatOnCompleteEvent theEvent)
@@ -57,25 +64,32 @@
                     ? ReportableEvent.PartialTransferInComplete
                     : ReportableEvent.TransferInComplete);
 
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
             if (transaction.TransferredCashableAmount != 0)
             {
                 _bingoTransactionReportHandler.AddNewTransactionToQueue(
                     Common.TransactionType.TransferIn,
-                    transaction.TransferredCashableAmount.MillicentsToCents());
+                    transaction.TransferredCashableAmount.MillicentsToCents(),
+                    (uint)(gameConfiguration?.GameTitleId ?? 0),
+                    (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             }
 
             if (transaction.TransferredPromoAmount != 0)
             {
                 _bingoTransactionReportHandler.AddNewTransactionToQueue(
                     Common.TransactionType.CashPromoTransferIn,
-                    transaction.TransferredPromoAmount.MillicentsToCents());
+                    transaction.TransferredPromoAmount.MillicentsToCents(),
+                    (uint)(gameConfiguration?.GameTitleId ?? 0),
+                    (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             }
 
             if (transaction.TransferredNonCashAmount != 0)
             {
                 _bingoTransactionReportHandler.AddNewTransactionToQueue(
                     Common.TransactionType.NonTransferablePromoTransferIn,
-                    transaction.TransferredNonCashAmount.MillicentsToCents());
+                    transaction.TransferredNonCashAmount.MillicentsToCents(),
+                    (uint)(gameConfiguration?.GameTitleId ?? 0),
+                    (int)(gameConfiguration?.Denomination.MillicentsToCents() ?? 0));
             }
         }
     }

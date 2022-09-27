@@ -1081,12 +1081,17 @@
         public bool MainInfoBarOpenRequested
         {
             get => _mainInfoBarOpenRequested;
-            set => SetProperty(
+            set
+            {
+                SetProperty(
                 ref _mainInfoBarOpenRequested,
                 value,
                 nameof(MainInfoBarOpenRequested),
                 nameof(GameControlHeight),
                 nameof(IsMainInfoBarVisible));
+
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
+            }
         }
 
         /// <summary>
@@ -1101,12 +1106,17 @@
         public bool VbdInfoBarOpenRequested
         {
             get => _vbdInfoBarOpenRequested;
-            set => SetProperty(
+            set
+            {
+                SetProperty(
                 ref _vbdInfoBarOpenRequested,
                 value,
                 nameof(VbdInfoBarOpenRequested),
                 nameof(GameControlHeight),
                 nameof(IsVbdInfoBarVisible));
+
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
+            }
         }
 
         /// <summary>
@@ -1637,7 +1647,11 @@
         public double ReplayNavigationBarHeight
         {
             get => _replayNavigationBarHeight;
-            set => SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
+            set
+            {
+                SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
+            }
         }
 
         public double GameControlHeight
@@ -2152,6 +2166,8 @@
                     GameControlHeight = Math.Floor(newSize.Height);
                     GameControlWidth = Math.Floor(newSize.Height * _aspectRatio);
                 }
+
+                _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
         }
 
@@ -2282,10 +2298,9 @@
                     if (currentGame != null)
                     {
                         LaunchGameFromUi(currentGame);
-                        if (MessageOverlayDisplay.HardErrorMessages.Any())
+                        if (_systemDisableManager.IsDisabled)
                         {
                             SendTrigger(LobbyTrigger.Disable);
-
                             HandleMessageOverlayText();
                         }
                     }
@@ -2500,7 +2515,7 @@
 
             if (!string.IsNullOrEmpty(game.LoadingScreenPath))
             {
-                GameLoadingScreenPath = "pack://siteOfOrigin:,,,/" + game.LoadingScreenPath;
+                GameLoadingScreenPath = "file:///" + game.LoadingScreenPath;
             }
 
             // Disable operator menu during game loading.
@@ -2554,7 +2569,7 @@
             var softLockupButNotRecovery = _systemDisableManager.IsDisabled && !_gameRecovery.IsRecovering;
             var singleGameAndAttract = _lobbyStateManager.AllowSingleGameAutoLaunch && _attractMode;
 
-            if (_systemDisableManager.DisableImmediately ||
+            if (_systemDisableManager.IsDisabled ||
                 (singleGameAndAttract || _gameLaunchOnStartup) &&
                 softLockupButNotRecovery)
             {
@@ -2763,6 +2778,7 @@
         private void OnCashInExit()
         {
             Logger.Debug("Exiting OnCashIn");
+            MessageOverlayDisplay.IsCashingInDlgVisible = false;
             if (BaseState == LobbyState.Chooser)
             {
                 StartAttractTimer(); // In Case Cash-In Failed and Bank == 0
@@ -3014,6 +3030,7 @@
                     RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
                     RaisePropertyChanged(nameof(GameControlHeight));
                     RaisePropertyChanged(nameof(IsMainInfoBarVisible));
+                    _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
                     break;
                 case nameof(MessageOverlayDisplay.IsLockupMessageVisible):
                     RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
@@ -4278,11 +4295,12 @@
             }
         }
 
-        private void CashInStarted(CashInType cashInType)
+        private void CashInStarted(CashInType cashInType, bool showDialog = true)
         {
             _cashInStartZeroCredits = HasZeroCredits;
             Logger.Debug($"Cash In Started at Zero Credits: {_cashInStartZeroCredits}");
             MessageOverlayDisplay.CashInType = cashInType;
+            MessageOverlayDisplay.IsCashingInDlgVisible = showDialog;
             MvvmHelper.ExecuteOnUI(() => _lobbyStateManager.AddFlagState(LobbyState.CashIn, cashInType));
         }
 
@@ -4314,6 +4332,7 @@
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
                 });
+            MessageOverlayDisplay.IsCashingInDlgVisible = false;
         }
 
         private string GetCurrentLanguageButtonResourceKey()
@@ -4508,7 +4527,11 @@
         private void DetermineBashLampState(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            if (ContainsAnyState(LobbyState.GameLoadingForDiagnostics, LobbyState.GameDiagnostics))
+            if (BaseState == LobbyState.GameLoading)
+            {
+                state = null;
+            }
+            else if (ContainsAnyState(LobbyState.GameLoadingForDiagnostics, LobbyState.GameDiagnostics))
             {
                 state = true;
             }
@@ -4530,7 +4553,11 @@
         private void DetermineCollectLampState(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
+            if (BaseState == LobbyState.GameLoading)
+            {
+                state = null;
+            }
+            else if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
             {
                 state = false;
             }
@@ -4548,7 +4575,11 @@
         private void DetermineNavLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
+            if (BaseState == LobbyState.GameLoading)
+            {
+                state = null;
+            }
+            else if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
             {
                 state = false;
             }
@@ -4571,7 +4602,8 @@
         private void DetermineUnusedLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state = false;
-            if (BaseState == LobbyState.Game && !ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
+            if ((BaseState == LobbyState.Game && !ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay)) ||
+                BaseState == LobbyState.GameLoading)
             {
                 state = null;
             }

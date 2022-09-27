@@ -21,7 +21,7 @@
         /// <summary>
         ///     Ends calibration early and rolls back any changes made during the session.
         /// </summary>
-        void AbortCalibration();
+        void AbortCalibration(string displayMessage);
 
         /// <summary>
         ///     True when a calibration session is underway, otherwise false.

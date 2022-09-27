@@ -5,6 +5,7 @@
     using System.Windows;
     using CefSharp;
     using Models;
+    using Monaco.UI.Common.CefHandlers;
     using MVVM;
     using ViewModels.GameOverlay;
 #if DEBUG
@@ -35,8 +36,12 @@
             InitializeComponent();
             DataContext = overlayViewModel;
 
-            BingoHelp.FrameLoadEnd += BingoHelp_OnFrameLoadEnd;
-            BingoHelp.JavascriptMessageReceived += ViewModel.ExitHelp;
+            BingoHelpHost.FrameLoadEnd += BingoHelp_OnFrameLoadEnd;
+            BingoHelpHost.JavascriptMessageReceived += ViewModel.ExitHelp;
+
+            BingoInfoHost.MenuHandler = new DisabledContextMenuHandler();
+            BingoHelpHost.MenuHandler = new DisabledContextMenuHandler();
+            DynamicMessageHost.MenuHandler = new DisabledContextMenuHandler();
 
             // MetroApps issue--need to set in code behind after InitializeComponent.
             AllowsTransparency = true;
@@ -52,13 +57,14 @@
             var window = _bingoConfigurationProvider.GetWindow(_targetWindow);
             ConfigureDisplay(window);
         }
+
         public void BingoHelp_OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             MvvmHelper.ExecuteOnUI(() => { ViewModel.IsHelpLoading = false; });
 
             if (e.Frame.IsMain)
             {
-                BingoHelp.ExecuteScriptAsync(@"
+                BingoHelpHost.ExecuteScriptAsync(@"
                     document.addEventListener('click', function(e) {
                         CefSharp.PostMessage(e.target.id);
                     }, false);
@@ -107,10 +113,12 @@
 #if DEBUG
             KeyDown -= OnKeyDown;
 #endif
-            BingoHelp.JavascriptMessageReceived -= ViewModel.ExitHelp;
-            BingoHelp?.Dispose();
+            BingoHelpHost.JavascriptMessageReceived -= ViewModel.ExitHelp;
+            BingoHelpHost.Dispose();
 
             BingoInfoHost.Dispose();
+
+            DynamicMessageHost.Dispose();
             base.OnClosing(e);
         }
 
@@ -124,15 +132,16 @@
 
             if (_devToolsVisible)
             {
-                BingoHelp.CloseDevTools();
+                BingoHelpHost.CloseDevTools();
                 BingoInfoHost.CloseDevTools();
+                DynamicMessageHost.CloseDevTools();
                 _devToolsVisible = false;
             }
             else
             {
                 if (ViewModel.IsHelpVisible)
                 {
-                    BingoHelp.ShowDevTools();
+                    BingoHelpHost.ShowDevTools();
                 }
                 else
                 {

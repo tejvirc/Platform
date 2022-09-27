@@ -31,16 +31,12 @@
             Property(x => x.ZoneId).IsOptional();
             Property(x => x.Position).IsOptional();
             Property(x => x.LapLevelIDs).IsOptional();
-            Property(x => x.GameTitles).IsOptional();
-            Property(x => x.BonusGames).IsOptional();
-            Property(x => x.EvaluationTypePaytable).IsOptional();
-            Property(x => x.ThemeSkins).IsOptional();
-            Property(x => x.QuickStopMode).IsOptional();
-            Property(x => x.PaytableIds).IsOptional();
             Property(x => x.BallCallService).IsOptional();
             Property(x => x.BingoType).IsOptional();
             Property(x => x.ReadySetGo).IsOptional();
             Property(x => x.WaitingForPlayersMs).IsOptional();
+            Property(x => x.ServerGameConfiguration).IsOptional();
+            Property(x => x.GamesConfigurationText).IsOptional();
         }
     }
 }

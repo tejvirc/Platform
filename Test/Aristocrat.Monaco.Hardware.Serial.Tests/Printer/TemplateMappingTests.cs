@@ -104,13 +104,14 @@
         public void GetSpecificFontTest()
         {
             var originalFont = "8";
-            var expectedFont = "6";
+            var region100ExpectedFont = "6";
+            var region200ExpectedFont = string.Empty;
 
             // should match and give new font
-            Assert.AreEqual(expectedFont, _override.GetSpecificFont(originalFont, "100"));
+            Assert.AreEqual(region100ExpectedFont, _override.GetSpecificFont(originalFont, "100"));
 
             // no match so return original font
-            Assert.AreEqual(originalFont, _override.GetSpecificFont(originalFont, "200"));
+            Assert.AreEqual(region200ExpectedFont, _override.GetSpecificFont(originalFont, "200"));
         }
 
         [TestMethod]

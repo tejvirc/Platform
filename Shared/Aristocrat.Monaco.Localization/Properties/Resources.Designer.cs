@@ -5366,15 +5366,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred, to recover this lockup ....
-		/// </summary>
-		public static string ClearRAMSelfAuditErrorLockup {
-			get {
-				return ResourceManager.GetString("ClearRAMSelfAuditErrorLockup", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -6364,18 +6355,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CreatingPropertyProviders {
 			get {
 				return ResourceManager.GetString("CreatingPropertyProviders", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Creating Self Audit Error Checking Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco
-        /// </remarks>
-		public static string CreatingSelfAuditErrorCheckingService {
-			get {
-				return ResourceManager.GetString("CreatingSelfAuditErrorCheckingService", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -25754,6 +25733,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.Contracts
+        /// </remarks>
+		public static string ReelControllerFaults_RequestError {
+			get {
+				return ResourceManager.GetString("ReelControllerFaults_RequestError", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Reel Controller.
 		/// </summary>
         /// <remarks>
@@ -25810,18 +25801,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReelFaults_ReelTamper {
 			get {
 				return ResourceManager.GetString("ReelFaults_ReelTamper", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Reel Controller Error.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.Contracts
-        /// </remarks>
-		public static string ReelFaults_RequestError {
-			get {
-				return ResourceManager.GetString("ReelFaults_RequestError", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -28003,24 +27982,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string SelectStartDate {
 			get {
 				return ResourceManager.GetString("SelectStartDate", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Self Audit Error.
-		/// </summary>
-		public static string SelfAuditError {
-			get {
-				return ResourceManager.GetString("SelfAuditError", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred. RAM clear is required t....
-		/// </summary>
-		public static string SelfAuditErrorHelpText {
-			get {
-				return ResourceManager.GetString("SelfAuditErrorHelpText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -31518,6 +31479,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrationDisconnectError {
+			get {
+				return ResourceManager.GetString("TouchCalibrationDisconnectError", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to You have {0} touch devices.  Each touch device mus....
 		/// </summary>
         /// <remarks>
@@ -32600,18 +32573,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string UnloadingPropertiesManager {
 			get {
 				return ResourceManager.GetString("UnloadingPropertiesManager", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Unloading Self Audit Provider.
-		/// </summary>
-        /// <remarks>
-        /// Monaco.Accounting
-        /// </remarks>
-		public static string UnloadingSelfAuditProvider {
-			get {
-				return ResourceManager.GetString("UnloadingSelfAuditProvider", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -39803,15 +39764,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Self audit error occurred, to recover this lockup ....
-		/// </summary>
-		public static string ClearRAMSelfAuditErrorLockup {
-			get {
-				return "ClearRAMSelfAuditErrorLockup";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -40801,18 +40753,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CreatingPropertyProviders {
 			get {
 				return "CreatingPropertyProviders";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Creating Self Audit Error Checking Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco
-        /// </remarks>
-		public static string CreatingSelfAuditErrorCheckingService {
-			get {
-				return "CreatingSelfAuditErrorCheckingService";
 			}
 		}
 
@@ -60205,6 +60145,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Reel Controller Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.Contracts
+        /// </remarks>
+		public static string ReelControllerFaults_RequestError {
+			get {
+				return "ReelControllerFaults_RequestError";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Reel Controller.
 		/// </summary>
         /// <remarks>
@@ -60261,18 +60213,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReelFaults_ReelTamper {
 			get {
 				return "ReelFaults_ReelTamper";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Reel Controller Error.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.Contracts
-        /// </remarks>
-		public static string ReelFaults_RequestError {
-			get {
-				return "ReelFaults_RequestError";
 			}
 		}
 
@@ -62454,24 +62394,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string SelectStartDate {
 			get {
 				return "SelectStartDate";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Self Audit Error.
-		/// </summary>
-		public static string SelfAuditError {
-			get {
-				return "SelfAuditError";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Self audit error occurred. RAM clear is required t....
-		/// </summary>
-		public static string SelfAuditErrorHelpText {
-			get {
-				return "SelfAuditErrorHelpText";
 			}
 		}
 
@@ -65974,6 +65896,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrationDisconnectError {
+			get {
+				return "TouchCalibrationDisconnectError";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to You have {0} touch devices.  Each touch device mus....
 		/// </summary>
         /// <remarks>
@@ -67056,18 +66990,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string UnloadingPropertiesManager {
 			get {
 				return "UnloadingPropertiesManager";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Unloading Self Audit Provider.
-		/// </summary>
-        /// <remarks>
-        /// Monaco.Accounting
-        /// </remarks>
-		public static string UnloadingSelfAuditProvider {
-			get {
-				return "UnloadingSelfAuditProvider";
 			}
 		}
 
@@ -71981,10 +71903,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		ClearProgressiveDisconnectError,
 		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred, to recover this lockup ....
-		/// </summary>
-		ClearRAMSelfAuditErrorLockup,
-		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -72547,13 +72465,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		CreatingPropertyProviders,
-		/// <summary>
-		///   Looks up a localized string similar to Creating Self Audit Error Checking Service.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco
-        /// </remarks>
-		CreatingSelfAuditErrorCheckingService,
 		/// <summary>
 		///   Looks up a localized string similar to Creating SerialGat Service.
 		/// </summary>
@@ -83604,6 +83515,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ReelControllerFaults_HardwareError,
 		/// <summary>
+		///   Looks up a localized string similar to Reel Controller Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.Contracts
+        /// </remarks>
+		ReelControllerFaults_RequestError,
+		/// <summary>
 		///   Looks up a localized string similar to Reel Controller.
 		/// </summary>
         /// <remarks>
@@ -83638,13 +83556,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.Contracts
         /// </remarks>
 		ReelFaults_ReelTamper,
-		/// <summary>
-		///   Looks up a localized string similar to Reel Controller Error.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.Contracts
-        /// </remarks>
-		ReelFaults_RequestError,
 		/// <summary>
 		///   Looks up a localized string similar to Reel {0}.
 		/// </summary>
@@ -84891,14 +84802,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		SelectStartDate,
-		/// <summary>
-		///   Looks up a localized string similar to Self Audit Error.
-		/// </summary>
-		SelfAuditError,
-		/// <summary>
-		///   Looks up a localized string similar to Self audit error occurred. RAM clear is required t....
-		/// </summary>
-		SelfAuditErrorHelpText,
 		/// <summary>
 		///   Looks up a localized string similar to Self Test Clear NVM.
 		/// </summary>
@@ -86878,6 +86781,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TouchCalibrationDialogTooltip,
 		/// <summary>
+		///   Looks up a localized string similar to A display was disconnected during calibration.  Pl....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TouchCalibrationDisconnectError,
+		/// <summary>
 		///   Looks up a localized string similar to You have {0} touch devices.  Each touch device mus....
 		/// </summary>
         /// <remarks>
@@ -87498,13 +87408,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Bootstrap
         /// </remarks>
 		UnloadingPropertiesManager,
-		/// <summary>
-		///   Looks up a localized string similar to Unloading Self Audit Provider.
-		/// </summary>
-        /// <remarks>
-        /// Monaco.Accounting
-        /// </remarks>
-		UnloadingSelfAuditProvider,
 		/// <summary>
 		///   Looks up a localized string similar to Unloading Snapshot Manager.
 		/// </summary>

@@ -4,36 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:common="http://monaco.aristocrat.com/common"
+             xmlns:input="clr-namespace:Aristocrat.Monaco.Application.UI.Input"
              mc:Ignorable="d" 
-             BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" Background="White">
-    <Grid x:Name="ContentView">
+             BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" Background="White"
+             d:DataContext="{d:DesignInstance input:SerialTouchCalibrationViewModel}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Visibility="{Binding Visibility, Converter={StaticResource BoolToVisHiddenConverter}}">
         <Viewbox Stretch="None"> 
             <Grid VerticalAlignment="Center"> 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />                    
                 </Grid.RowDefinitions>
-                <Label x:Name="Status" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,10,0,0"/>
-                <Label x:Name="Error" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,10,0,0"/>
+                <Label Content="{Binding Status}" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,10,0,0"/>
+                <Label Content="{Binding Error}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,10,0,0"/>
             </Grid>
         </Viewbox>
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-            <Viewbox Width="100" Height="100" Margin="150, 63">
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Viewbox Width="50" Height="50" Margin="{Binding LeftCrossHairMargin}">
                 <Grid>
-                    <Ellipse x:Name="CrosshairLowerLeftOuterEllipse" Width="100" Height="100" Stroke="Black" StrokeThickness="4" />
-                    <Ellipse x:Name="CrosshairLowerLeftInnerEllipse" Width="50" Height="50" Stroke="Black" StrokeThickness="4" />
-                    <Line x:Name="CrosshairLowerLeftCrosshair1" X1="0" Y1="0" X2="100" Y2="100" Stroke="Black" StrokeThickness="4" />
-                    <Line x:Name="CrosshairLowerLeftCrosshair2" X1="0" Y1="100" X2="100" Y2="0" Stroke="Black" StrokeThickness="4" />
+                    <Ellipse Width="50" Height="50" Stroke="{Binding LowerLeftOuterEllipseStroke}" StrokeThickness="4" />
+                    <Ellipse Width="25" Height="25" Stroke="{Binding LowerLeftInnerEllipseStroke}" StrokeThickness="4" />
+                    <Line X1="0" Y1="0" X2="50" Y2="50" Stroke="{Binding LowerLeftCrosshair1Stroke}" StrokeThickness="4" />
+                    <Line X1="0" Y1="50" X2="50" Y2="0" Stroke="{Binding LowerLeftCrosshair2Stroke}" StrokeThickness="4" />
                 </Grid>
             </Viewbox>
-        </Grid>            
-        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" >
-            <Viewbox Width="100" Height="100" Margin="150, 63">
+        </Grid>
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Viewbox Width="50" Height="50" Margin="{Binding RightCrossHairMargin}">
                 <Grid>
-                    <Ellipse x:Name="CrosshairUpperRightOuterEllipse" Width="100" Height="100" Stroke="Black" StrokeThickness="4" />
-                    <Ellipse x:Name="CrosshairUpperRightInnerEllipse" Width="50" Height="50" Stroke="Black" StrokeThickness="4" />
-                    <Line x:Name="CrosshairUpperRightCrosshair1" X1="0" Y1="0" X2="100" Y2="100" Stroke="Black" StrokeThickness="4" />
-                    <Line x:Name="CrosshairUpperRightCrosshair2" X1="0" Y1="100" X2="100" Y2="0" Stroke="Black" StrokeThickness="4" />
+                    <Ellipse Width="50" Height="50" Stroke="{Binding UpperRightOuterEllipseStroke}" StrokeThickness="4" />
+                    <Ellipse Width="25" Height="25" Stroke="{Binding UpperRightInnerEllipseStroke}" StrokeThickness="4" />
+                    <Line X1="0" Y1="0" X2="50" Y2="50" Stroke="{Binding UpperRightCrosshair1Stroke}" StrokeThickness="4" />
+                    <Line X1="0" Y1="50" X2="50" Y2="0" Stroke="{Binding UpperRightCrosshair2Stroke}" StrokeThickness="4" />
                 </Grid>
             </Viewbox>
         </Grid>

@@ -48,7 +48,10 @@
 
         public IConfigurationRestriction GetActive(string themeId)
         {
-            if (themeId == null) return null;
+            if (themeId == null)
+            {
+                return null;
+            }
 
             if (!_restrictionMap.TryGetValue(themeId, out var name))
             {
@@ -57,14 +60,14 @@
                 {
                     Apply(themeId, defaultRestriction);
                 }
+
                 return defaultRestriction;
             }
 
             var restrictions = _configurations.GetByThemeId(themeId);
-
             return restrictions.FirstOrDefault(r => r.Name == name);
         }
-        
+
         public void Apply(string themeId, IConfigurationRestriction restriction)
         {
             _restrictionMap[themeId] = restriction.Name;

@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Text;
     using Application.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts.SelfAudit;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -31,7 +30,6 @@
         private Mock<IPersistentStorageTransaction> _transaction;
         private Mock<ITransactionCoordinator> _transactionCoordinator;
         private Mock<INoteAcceptorMonitor> _noteAcceptorMonitor;
-        private Mock<ISelfAuditErrorCheckingService> _selfAuditService;
         private Guid _transactionId;
 
         /// <summary>
@@ -45,7 +43,6 @@
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
             _storageAccessor = new Mock<IPersistentStorageAccessor>();
             _transaction = new Mock<IPersistentStorageTransaction>();
-            _selfAuditService = new Mock<ISelfAuditErrorCheckingService>();
 
             _storageAccessor.Setup(m => m.StartTransaction()).Returns(_transaction.Object);
 
@@ -72,9 +69,6 @@
             _transactionCoordinator.Setup(m => m.AbandonTransactions(It.IsAny<Guid>()));
 
             _noteAcceptorMonitor = MoqServiceManager.CreateAndAddService<INoteAcceptorMonitor>(MockBehavior.Default);
-
-            _selfAuditService = MoqServiceManager.CreateAndAddService<ISelfAuditErrorCheckingService>(MockBehavior.Strict);
-            _selfAuditService.Setup(m => m.CheckSelfAuditPassing()).Returns(true);
 
             _target = new Bank();
             _accessor = new DynamicPrivateObject(_target);
@@ -208,25 +202,6 @@
         }
 
         /// <summary>
-        ///     A test to check Withdraw fails when self audit fails.
-        /// </summary>
-        [TestMethod]
-        public void WithdrawTest_Failed_WhenSelfAuditFailed()
-        {
-            var depositAmount = 1000;
-            var withdrawAmount = 500;
-            _eventBus.Setup(m => m.Publish(It.IsAny<BankBalanceChangedEvent>())).Verifiable();
-
-            _target.Deposit(AccountType.Cashable, depositAmount, _transactionId);
-            Assert.AreEqual(depositAmount, _target.QueryBalance(AccountType.Cashable));
-
-            _selfAuditService.Setup(m => m.CheckSelfAuditPassing()).Returns(false);
-            _target.Withdraw(AccountType.Cashable, withdrawAmount, _transactionId);
-            Assert.AreEqual(depositAmount, _target.QueryBalance(AccountType.Cashable));
-            _eventBus.Verify();
-        }
-
-        /// <summary>
         ///     A test for Save.
         /// </summary>
         [TestMethod]
@@ -313,20 +288,6 @@
             Assert.AreEqual(depositAmount, _target.QueryBalance(AccountType.Cashable));
 
             _eventBus.Verify();
-        }
-
-        /// <summary>
-        ///     A test for Deposit failure when self audit does not pass
-        /// </summary>
-        [TestMethod]
-        public void DepositTest_Failed_WhenSelfAuditFailed()
-        {
-            _selfAuditService.Setup(m => m.CheckSelfAuditPassing()).Returns(false);
-
-            var depositAmount = 1000;
-
-            _target.Deposit(AccountType.Cashable, depositAmount, _transactionId);
-            Assert.AreEqual(0, _target.QueryBalance(AccountType.Cashable));
         }
 
         /// <summary>

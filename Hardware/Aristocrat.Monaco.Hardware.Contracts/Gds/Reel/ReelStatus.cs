@@ -15,16 +15,16 @@
         {
         }
 
-        /// <summary>Gets or sets the reserved 1.</summary>
-        /// <value>The reserved 1.</value>
-        [FieldOrder(0)]
-        [FieldBitLength(2)]
-        public byte Reserved1 { get; set; }
-
         /// <summary>Gets or sets the reel id for the status</summary>
-        [FieldOrder(1)]
+        [FieldOrder(0)]
         [FieldBitLength(8)]
         public int ReelId { get; set; }
+
+        /// <summary>Gets or sets the reserved 1.</summary>
+        /// <value>The reserved 1.</value>
+        [FieldOrder(1)]
+        [FieldBitLength(3)]
+        public byte Reserved1 { get; set; }
 
         /// <summary> Gets or sets whether or not the reel has stalled </summary>
         [FieldOrder(2)]
@@ -41,18 +41,13 @@
         [FieldBitLength(1)]
         public bool Connected { get; set; }
 
-        /// <summary> Gets or sets whether or not a reel requested to spin/nudge to goal resulted in a request error </summary>
-        [FieldOrder(5)]
-        [FieldBitLength(1)]
-        public bool RequestError { get; set; }
-
         /// <summary>Gets or sets a value indicating whether or not a reel requested to spin/nudge to goal resulted in low voltage.</summary>
-        [FieldOrder(6)]
+        [FieldOrder(5)]
         [FieldBitLength(1)]
         public bool LowVoltage { get; set; }
 
         /// <summary>Gets or sets a value indicating whether or not a reel requested to home resulted in an error.</summary>
-        [FieldOrder(7)]
+        [FieldOrder(6)]
         [FieldBitLength(1)]
         public bool FailedHome { get; set; }
 
@@ -70,8 +65,8 @@
             return !ReferenceEquals(null, other) &&
                    (ReferenceEquals(this, other) || Reserved1 == other.Reserved1 && ReelId == other.ReelId &&
                        ReelStall == other.ReelStall && ReelTampered == other.ReelTampered &&
-                       Connected == other.Connected && RequestError == other.RequestError &&
-                       LowVoltage == other.LowVoltage && FailedHome == other.FailedHome);
+                       Connected == other.Connected && LowVoltage == other.LowVoltage &&
+                       FailedHome == other.FailedHome);
         }
 
         /// <inheritdoc />
@@ -92,7 +87,6 @@
                 hashCode = (hashCode * 397) ^ ReelStall.GetHashCode();
                 hashCode = (hashCode * 397) ^ ReelTampered.GetHashCode();
                 hashCode = (hashCode * 397) ^ Connected.GetHashCode();
-                hashCode = (hashCode * 397) ^ RequestError.GetHashCode();
                 hashCode = (hashCode * 397) ^ LowVoltage.GetHashCode();
                 hashCode = (hashCode * 397) ^ FailedHome.GetHashCode();
                 return hashCode;
@@ -103,7 +97,7 @@
         public override string ToString()
         {
             return Invariant(
-                $"{GetType()} [ReelId={ReelId}, ReelStall={ReelStall}, ReelTampered={ReelTampered}, Connected={Connected}, RequestError={RequestError}, LowVoltage={LowVoltage}, FailedHome={FailedHome}]");
+                $"{GetType()} [ReelId={ReelId}, ReelStall={ReelStall}, ReelTampered={ReelTampered}, Connected={Connected}, LowVoltage={LowVoltage}, FailedHome={FailedHome}]");
         }
     }
 }

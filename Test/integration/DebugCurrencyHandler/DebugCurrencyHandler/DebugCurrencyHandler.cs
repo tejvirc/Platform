@@ -13,7 +13,6 @@
     using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using log4net;
     using System;
     using System.Collections.Generic;
@@ -227,15 +226,11 @@
 
         private void HandleEvent(DebugCoinEvent coinEvent)
         {
-            var lockManager = ServiceManager.GetInstance().GetService<ILockManager>();
-            using (lockManager.AcquireExclusiveLock(GetUpdateMeters()))
+            if (UpdateBalance(coinEvent.Denomination, AccountType.Cashable))
             {
-                if (UpdateBalance(coinEvent.Denomination, AccountType.Cashable))
-                {
-                    UpdateMeters(AccountType.Cashable, coinEvent.Denomination);
-                    var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                    eventBus.Publish(new CurrencyInCompletedEvent(coinEvent.Denomination));
-                }
+                UpdateMeters(AccountType.Cashable, coinEvent.Denomination);
+                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+                eventBus.Publish(new CurrencyInCompletedEvent(coinEvent.Denomination));
             }
         }
 
@@ -318,20 +313,16 @@
             var denominationToCurrencyMultiplier =
                 (double)propertiesManager.GetProperty(ApplicationConstants.CurrencyMultiplierKey, null);
             var amount = (long)(debugAnyCredit.Amount * denominationToCurrencyMultiplier);
-            var lockManager = ServiceManager.GetInstance().GetService<ILockManager>();
 
-            using (lockManager.AcquireExclusiveLock(GetUpdateMeters()))
+            if (UpdateBalance(amount, debugAnyCredit.CreditType))
             {
-                if (UpdateBalance(amount, debugAnyCredit.CreditType))
-                {
-                    var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                    UpdateMeters(debugAnyCredit.CreditType, amount);
+                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+                UpdateMeters(debugAnyCredit.CreditType, amount);
 
-                    var transaction = RecordVoucherTransaction(amount, debugAnyCredit.CreditType);
-                    if (transaction != null)
-                    {
-                        eventBus?.Publish(new VoucherRedeemedEvent(transaction));
-                    }
+                var transaction = RecordVoucherTransaction(amount, debugAnyCredit.CreditType);
+                if (transaction != null)
+                {
+                    eventBus?.Publish(new VoucherRedeemedEvent(transaction));
                 }
             }
         }
@@ -656,30 +647,11 @@
 
             if (balance < limit)
             {
-                var lockManager = ServiceManager.GetInstance().GetService<ILockManager>();
-                using (lockManager.AcquireExclusiveLock(GetUpdateMeters()))
+                if (UpdateBalance(limit - balance, AccountType.Cashable))
                 {
-                    if (UpdateBalance(limit - balance, AccountType.Cashable))
-                    {
-                        UpdateMeters(AccountType.Cashable, limit - balance);
-                    }
+                    UpdateMeters(AccountType.Cashable, limit - balance);
                 }
             }
-        }
-
-        private IEnumerable<IMeter> GetUpdateMeters()
-        {
-            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
-            return new List<IMeter>()
-            {
-                meterManager.GetMeter(AccountingMeters.VoucherInNonCashableAmount),
-                meterManager.GetMeter(AccountingMeters.VoucherInNonCashableCount),
-                meterManager.GetMeter(AccountingMeters.VoucherInCashableAmount),
-                meterManager.GetMeter(AccountingMeters.VoucherInCashableCount),
-                meterManager.GetMeter(AccountingMeters.VoucherInCashablePromoAmount),
-                meterManager.GetMeter(AccountingMeters.VoucherInCashablePromoCount),
-                meterManager.GetMeter(AccountingMeters.DocumentsAcceptedCount)
-            };
         }
 
         private void ShowModeHandleEvent(HandpayKeyOffPendingEvent _)

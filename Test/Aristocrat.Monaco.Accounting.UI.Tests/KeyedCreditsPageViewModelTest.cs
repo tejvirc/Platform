@@ -6,7 +6,6 @@
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -30,7 +29,6 @@
         private Mock<IPersistentStorageManager> _persistentStorageManager;
         private Mock<ITransactionHistory> _transactionHistory;
         private Guid _transactionGuid;
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         [TestInitialize]
@@ -67,8 +65,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Loose);
             _meterManager.Setup(m => m.GetMeter(It.IsAny<string>()).Increment(It.IsAny<long>()));

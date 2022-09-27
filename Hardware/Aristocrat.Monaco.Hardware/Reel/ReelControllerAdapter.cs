@@ -172,13 +172,20 @@
             }
         }
 
-        public IReadOnlyDictionary<int, int> ReelHomeStops { get; set; } = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+        public IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; } = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
 
         protected override IReelControllerImplementation Implementation => _reelController;
 
         protected override string Description => string.Empty;
 
         protected override string Path => string.Empty;
+
+        private bool CanSendCommand => LogicalState is
+                    not ReelControllerState.Uninitialized and
+                    not ReelControllerState.IdleUnknown and
+                    not ReelControllerState.Inspecting and
+                    not ReelControllerState.Disabled and
+                    not ReelControllerState.Homing;
 
         public Task<bool> SpinReels(params ReelSpinData[] reelData)
         {
@@ -227,7 +234,7 @@
 
         public Task<bool> SetLights(params ReelLampData[] lampData)
         {
-            return Implementation.SetLights(lampData);
+            return CanSendCommand ? Implementation.SetLights(lampData) : Task.FromResult(false);
         }
 
         public Task<IList<int>> GetReelLightIdentifiers()
@@ -237,22 +244,22 @@
 
         public Task<bool> SetReelBrightness(IReadOnlyDictionary<int, int> brightness)
         {
-            return Implementation.SetBrightness(brightness);
+            return CanSendCommand ? Implementation.SetBrightness(brightness) : Task.FromResult(false);
         }
 
         public Task<bool> SetReelBrightness(int brightness)
         {
-            return Implementation.SetBrightness(brightness);
+            return CanSendCommand ? Implementation.SetBrightness(brightness) : Task.FromResult(false);
         }
 
         public Task<bool> SetReelSpeed(params ReelSpeedData[] speedData)
         {
-            return Implementation.SetReelSpeed(speedData);
+            return CanSendCommand ? Implementation.SetReelSpeed(speedData) : Task.FromResult(false);
         }
 
         public async Task<bool> HomeReels()
         {
-            return await HomeReels(ReelHomeStops);
+            return await HomeReels(ReelHomeSteps);
         }
 
         public async Task<bool> HomeReels(IReadOnlyDictionary<int, int> reelOffsets)
@@ -386,7 +393,7 @@
             }
 
             Logger.Debug($"Disabling for {ReasonDisabled}");
-            Implementation?.Disable();
+            Implementation?.Disable()?.WaitForCompletion();
         }
 
         protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)
@@ -395,7 +402,7 @@
             {
                 if (Fire(ReelControllerTrigger.Enable, new EnabledEvent(ReelControllerId, reason)))
                 {
-                    Implementation?.Enable();
+                    Implementation?.Enable()?.WaitForCompletion();
                 }
                 else
                 {
@@ -976,12 +983,12 @@
             Fire(ReelControllerTrigger.Initialized, new InspectedEvent(ReelControllerId));
             if (Enabled)
             {
-                Implementation?.Enable();
+                Implementation?.Enable()?.WaitForCompletion();
             }
             else
             {
                 DisabledDetected();
-                Implementation?.Disable();
+                Implementation?.Disable()?.WaitForCompletion();
             }
         }
 
@@ -1078,27 +1085,22 @@
 
         private void ReelControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)
         {
-            if (e.Faults == ReelControllerFaults.None)
+            if (e.Faults == ReelControllerFaults.None || !AddError(e.Faults))
             {
                 return;
             }
 
-            AddError(e.Faults);
-
             Logger.Info($"ReelControllerFaultOccurred - ADDED {e.Faults} from the error list");
             Disable(DisabledReasons.Error);
-
             PostEvent(new HardwareFaultEvent(e.Faults));
         }
 
         private void ReelControllerFaultCleared(object sender, ReelControllerFaultedEventArgs e)
         {
-            if (e.Faults == ReelControllerFaults.None)
+            if (e.Faults == ReelControllerFaults.None || !ClearError(e.Faults))
             {
                 return;
             }
-
-            ClearError(e.Faults);
 
             Logger.Info($"ReelControllerFaultCleared - REMOVED {e.Faults} from the error list");
             if (!AnyErrors)
@@ -1122,13 +1124,11 @@
             {
                 if (!AddError(value))
                 {
-                    Logger.Info($"ReelControllerFaultOccurred - SKIPPED {value} already added to list for reel {e.ReelId}");
                     continue;
                 }
 
                 Logger.Info($"ReelControllerFaultOccurred - ADDED {value} to the error list for reel {e.ReelId}");
                 Disable(DisabledReasons.Error);
-
                 PostEvent(
                     e.Faults is ReelFaults.ReelStall or ReelFaults.ReelTamper
                         ? new HardwareReelFaultEvent(ReelControllerId, value, e.ReelId)
@@ -1145,12 +1145,10 @@
                 return;
             }
 
-            var clearedFaults = new List<ReelFaults>();
             foreach (var value in e.Faults.GetFlags().Where(x => x != ReelFaults.None))
             {
                 if (!ClearError(value))
                 {
-                    Logger.Info($"ReelControllerFaultCleared - SKIPPED {value} not in list for reel {e.ReelId}");
                     continue;
                 }
 
@@ -1160,12 +1158,7 @@
                     Enable(EnabledReasons.Reset);
                 }
 
-                clearedFaults.Add(value);
-            }
-
-            foreach (var clearedFault in clearedFaults)
-            {
-                PostEvent(new HardwareReelFaultClearEvent(ReelControllerId, clearedFault));
+                PostEvent(new HardwareReelFaultClearEvent(ReelControllerId, value));
             }
         }
 

@@ -75,7 +75,7 @@ as follows:
        "n" = Where n is any logical door id or Aristocrat.Monaco.Hardware.Contracts.Door.DoorLogicalId, door is required for reprint to be enabled.
        "|" = Requiring multiple doors can be accomplished by combining, for example "Main|Logic" will require both Main and Logic door to be open.
 -->  
-  <ReprintLoggedVoucher Behavior="None" TitleOverride="false" DoorOpenRequirement="None"/>
+  <ReprintLoggedVoucher Behavior="None" TitleOverride="true" DoorOpenRequirement="None"/>
   <Handpay>
     <PrintHandpayReceipt Enabled="true" Editable="false"/>
   </Handpay>

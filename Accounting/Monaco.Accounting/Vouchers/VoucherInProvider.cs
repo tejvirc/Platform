@@ -8,7 +8,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Vouchers;
     using Hardware.Contracts.NoteAcceptor;
@@ -36,7 +35,6 @@
         private readonly IIdProvider _idProvider;
         private readonly IMessageDisplay _messageDisplay;
         private readonly IValidationProvider _validationProvider;
-        private readonly ILockManager _lockManager;
 
         private readonly Dictionary<VoucherInExceptionCode, DisplayableMessage> _exceptionDisplayMessageMap =
             new Dictionary<VoucherInExceptionCode, DisplayableMessage>
@@ -226,8 +224,7 @@
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IIdProvider>(),
                 ServiceManager.GetInstance().GetService<IMessageDisplay>(),
-                ServiceManager.GetInstance().GetService<IValidationProvider>(),
-                ServiceManager.GetInstance().GetService<ILockManager>())
+                ServiceManager.GetInstance().GetService<IValidationProvider>())
         {
         }
 
@@ -242,8 +239,7 @@
             IPersistentStorageManager storage,
             IIdProvider idProvider,
             IMessageDisplay messageDisplay,
-            IValidationProvider validationProvider,
-            ILockManager lockManager
+            IValidationProvider validationProvider
             )
             : base(bank, meters, properties)
         {
@@ -258,7 +254,6 @@
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
             _validationProvider = validationProvider ?? throw new ArgumentNullException(nameof(validationProvider));
-            _lockManager = lockManager ?? throw new ArgumentNullException(nameof(lockManager));
         }
 
         private bool TimedOutByHost => _properties.GetValue(AccountingConstants.IsVoucherRedemptionTimedOut, false);
@@ -597,19 +592,16 @@
         {
             using (var scope = _storage.ScopedTransaction())
             {
-                using (_lockManager.AcquireExclusiveLock(GetMetersToUpdate()))
+                if (amount == null)
                 {
-                    if (amount == null)
-                    {
-                        _bank.Deposit(transaction.TypeOfAccount, transaction.Amount, transactionId);
-                    }
-                    else
-                    {
-                        amount.Deposit(_bank, transactionId);
-                    }
-
-                    UpdateMeters(transaction, amount);
+                    _bank.Deposit(transaction.TypeOfAccount, transaction.Amount, transactionId);
                 }
+                else
+                {
+                    amount.Deposit(_bank, transactionId);
+                }
+
+                UpdateMeters(transaction, amount);
 
                 UpdateLaundryLimit(transaction);
 
@@ -626,20 +618,6 @@
             DisplayMessage((VoucherInExceptionCode)transaction.Exception, transaction.Amount);
 
             _bus.Publish(new VoucherRedeemedEvent(transaction));
-
-            IEnumerable<IMeter> GetMetersToUpdate()
-            {
-                return new List<IMeter>()
-                {
-                    _meters.GetMeter(AccountingMeters.VoucherInNonCashableAmount),
-                    _meters.GetMeter(AccountingMeters.VoucherInNonCashableCount),
-                    _meters.GetMeter(AccountingMeters.VoucherInCashableAmount),
-                    _meters.GetMeter(AccountingMeters.VoucherInCashableCount),
-                    _meters.GetMeter(AccountingMeters.VoucherInCashablePromoAmount),
-                    _meters.GetMeter(AccountingMeters.VoucherInCashablePromoCount),
-                    _meters.GetMeter(AccountingMeters.DocumentsAcceptedCount)
-                };
-            }
         }
 
         private void Decline(

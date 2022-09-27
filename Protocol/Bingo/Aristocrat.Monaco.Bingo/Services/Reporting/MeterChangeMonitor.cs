@@ -86,10 +86,10 @@
             _bingoTransactionReportHandler.AddNewTransactionToQueue(
                 transaction,
                 amount,
-                lastBingoDescription.GameSerial,
                 lastBingoDescription.GameTitleId,
-                lastBingoDescription.Patterns.Select(x => x.PaytableId).FirstOrDefault(),
-                lastBingoDescription.DenominationId);
+                lastBingoDescription.DenominationId,
+                lastBingoDescription.GameSerial,
+                lastBingoDescription.Patterns.Select(x => x.PaytableId).FirstOrDefault());
         }
 
         private void OnGamesWonChanged(object sender, MeterChangedEventArgs e)

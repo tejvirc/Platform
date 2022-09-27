@@ -41,7 +41,7 @@
               Height="{Binding Height, Mode=OneWay}"
               VerticalAlignment="Top"
               HorizontalAlignment="Left"
-              Visibility="{Binding IsInfoVisible, Converter={StaticResource BoolToVisConverter}}"
+              Opacity="{Binding InfoOpacity}"
               IsHitTestVisible="{Binding IsHelpVisible, Converter={StaticResource InverseBoolConverter}}">
             <Border BorderThickness="0"
                     HorizontalAlignment="Stretch"
@@ -56,7 +56,27 @@
             </Border>
         </Grid>
 
-        <Grid ZIndex="1" Visibility="{Binding IsHelpVisible, Converter={StaticResource BoolToVisConverter}}"
+        <Grid ZIndex="3"
+              Width="{Binding Width, Mode=OneWay}"
+              Height="{Binding Height, Mode=OneWay}"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Left"
+              Opacity="{Binding DynamicMessageOpacity}"
+              IsHitTestVisible="{Binding IsHelpVisible, Converter={StaticResource InverseBoolConverter}}">
+            <Border BorderThickness="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                <cefsharp:ChromiumWebBrowser x:Name="DynamicMessageHost"
+                                             VerticalAlignment="Top"
+                                             HorizontalAlignment="Left"
+                                             Width="{Binding Width, Mode=OneWay}"
+                                             Height="{Binding Height, Mode=OneWay}"
+                                             Address="{Binding DynamicMessageAddress, Mode=OneWay}"/>
+            </Border>
+        </Grid>
+
+        <Grid ZIndex="1"
+              Opacity="{Binding HelpOpacity}"
               Width="{Binding Width, Mode=OneWay}"
               Height="{Binding Height, Mode=OneWay}">
             <Grid.RowDefinitions>
@@ -70,7 +90,7 @@
                     BorderThickness="0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
-                <cefsharp:ChromiumWebBrowser x:Name="BingoHelp" Address="{Binding BingoHelpAddress, Mode=TwoWay}" 
+                <cefsharp:ChromiumWebBrowser x:Name="BingoHelpHost" Address="{Binding BingoHelpAddress, Mode=TwoWay}"
                                              WebBrowser="{Binding BingoHelpWebBrowser, Mode=OneWayToSource}" />
             </Border>
 

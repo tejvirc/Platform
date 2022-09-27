@@ -7,7 +7,6 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Meters;
@@ -39,9 +38,8 @@
             ITransferOutHandler transferHandler,
             IMessageDisplay messages,
             IPlayerService players,
-            IPaymentDeterminationProvider paymentDeterminationProvider,
-            ILockManager lockManager)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, lockManager)
+            IPaymentDeterminationProvider paymentDeterminationProvider)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider)
 
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
@@ -214,23 +212,6 @@
             _bus.Publish(new PartialBonusPaidEvent(transaction, cashableAmount, nonCashAmount, promoAmount));
 
             CommitIfConsumed(transaction);
-        }
-
-        protected override IEnumerable<IMeter> GetMetersToUpdate(BonusTransaction transaction)
-        {
-            return base.GetMetersToUpdate(transaction).Concat(
-                new[]
-                {
-                    _meters.GetMeter(transaction.GameId, transaction.Denom, GamingMeters.WagerMatchBonusCount),
-                    _meters.GetMeter(
-                        transaction.GameId,
-                        transaction.Denom,
-                        GamingMeters.HandPaidBonusWagerMatchAmount),
-                    _meters.GetMeter(
-                        transaction.GameId,
-                        transaction.Denom,
-                        GamingMeters.EgmPaidBonusWagerMatchAmount)
-                });
         }
 
         private bool CommitIfConsumed(BonusTransaction transaction)

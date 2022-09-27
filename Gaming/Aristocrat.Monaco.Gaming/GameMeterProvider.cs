@@ -118,6 +118,7 @@
 
         private void Initialize()
         {
+            Logger.Debug("Initializing all game meters. This may take a while.");
             var atomicMeters = MonoAddinsHelper.GetSelectedNodes<GameAtomicMeterNode>(GameMeterProviderExtensionPoint);
 
             lock (_lock)
@@ -188,6 +189,7 @@
 
             foreach (var meter in meters)
             {
+                Logger.Debug($"Adding new meter \"{meter.Name}\"");
                 var meterBlockName = blockName + "." + meter.Name;
 
                 var block = _persistentStorage.GetBlock(meterBlockName);

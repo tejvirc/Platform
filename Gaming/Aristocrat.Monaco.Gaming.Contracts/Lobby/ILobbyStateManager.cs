@@ -75,7 +75,7 @@
         bool ResetAttractOnInterruption { get; set; }
 
         /// <summary>
-        ///     Property indicating the last type of cash inserted (Currency vs Voucher
+        ///     Property indicating the last type of cash inserted (Currency vs Voucher vs Wat)
         /// </summary>
         CashInType LastCashInType { get; set; }
 

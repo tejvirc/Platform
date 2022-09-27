@@ -1,5 +1,9 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Accounting.Contracts.Vouchers;
@@ -8,12 +12,8 @@
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
 
-    internal class BalanceOperations : IRobotOperations
+    internal sealed class BalanceOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly StateChecker _sc;
@@ -24,7 +24,7 @@
         private Timer _balanceCheckTimer;
         private bool _disposed;
 
-        public BalanceOperations(IEventBus eventBus,IBank bank, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
+        public BalanceOperations(IEventBus eventBus, IBank bank, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
             _sc = sc;
             _automator = automator;
@@ -34,49 +34,42 @@
             _bank = bank;
         }
 
-        ~BalanceOperations() => Dispose(false);
-
         public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public void Reset()
-        {
-            _disposed = false;
-        }
-
-        public void Execute()
-        {
-            _logger.Info("BalanceOperations Has Been Initiated!", GetType().Name);
-            SubscribeToEvents();
-            _balanceCheckTimer = new Timer(
-                                (sender) =>
-                                {
-                                    CheckBalance();
-                                },
-                                null,
-                                _robotController.Config.Active.IntervalBalanceCheck,
-                                _robotController.Config.Active.IntervalBalanceCheck);
-        }
-
-        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
                 return;
             }
-            if (disposing)
+
+            if (_balanceCheckTimer != null)
             {
-                if (_balanceCheckTimer is not null)
-                {
-                    _balanceCheckTimer.Dispose();
-                }
+                _balanceCheckTimer.Dispose();
                 _balanceCheckTimer = null;
-                _eventBus.UnsubscribeAll(this);
             }
+
+            _eventBus.UnsubscribeAll(this);
+
             _disposed = true;
+        }
+
+        public void Reset()
+        {
+        }
+
+        public void Execute()
+        {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(BalanceOperations));
+            }
+
+            _logger.Info("BalanceOperations Has Been Initiated!", GetType().Name);
+            SubscribeToEvents();
+            _balanceCheckTimer = new Timer(
+                                _ => CheckBalance(),
+                                null,
+                                _robotController.Config.Active.IntervalBalanceCheck,
+                                _robotController.Config.Active.IntervalBalanceCheck);
         }
 
         private void CheckBalance()
@@ -85,16 +78,21 @@
             {
                 return;
             }
-            _logger.Info($"BalanceCheck Requested.", GetType().Name);
+            _logger.Info("BalanceCheck Requested.", GetType().Name);
             CheckNegativeBalance(_bank, _logger);
             InsertCredit();
         }
 
         public void Halt()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(BalanceOperations));
+            }
+
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _balanceCheckTimer?.Dispose();
+            _balanceCheckTimer?.Halt();
         }
 
         private void SubscribeToEvents()

@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.IO;
     using Application.Contracts;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +22,6 @@
         private Mock<IPersistentStorageManager> _persistentStorage;
         private Mock<IPropertiesManager> _propertiesManager;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         private WatOffMetersProvider _target;
@@ -55,8 +53,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _target = new WatOffMetersProvider();
         }

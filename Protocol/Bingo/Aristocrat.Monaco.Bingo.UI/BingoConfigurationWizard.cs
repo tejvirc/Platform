@@ -3,18 +3,21 @@
     using System.Collections.ObjectModel;
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.OperatorMenu;
+    using Application.UI.Loaders;
     using Loaders;
     
     public sealed class BingoConfigurationWizard : IComponentWizard
     {
         public BingoConfigurationWizard()
         {
-            WizardPages = new Collection<IOperatorMenuPageLoader>
+            WizardPages = new Collection<IOperatorMenuPageLoader>();
+            if (!NetworkConfigPageLoader.IsInstantiated)
             {
-                new BingoHostConfigurationLoader(true),
-            };
+                WizardPages.Add(new NetworkConfigPageLoader(true));
+            }
+            WizardPages.Add(new BingoHostConfigurationLoader(true));
         }
-        
+
         public Collection<IOperatorMenuPageLoader> WizardPages { get; }
     }
 }

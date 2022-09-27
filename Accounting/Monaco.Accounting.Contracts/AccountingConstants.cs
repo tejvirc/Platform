@@ -18,11 +18,6 @@
         public const string VoucherInLaundry = "System.VoucherInLaundry";
 
         /// <summary>
-        ///     Self audit error occurred field.
-        /// </summary>
-        public const string SelfAuditErrorOccurred = "System.SelfAuditErrorOccurred";
-
-        /// <summary>
         ///     Current cash in laundry.
         /// </summary>
         public const string CashInLaundry = "System.CashInLaundry";
@@ -686,11 +681,6 @@
         /// Flag for Excessive Document Reject limit Lockup to persist on powercycle.
         /// </summary>
         public const string ExcessiveDocumentRejectLockupEnabled = "ExcessiveDocumentRejectLockupEnabled";
-
-        /// <summary>
-        ///     "true" / "false" to indicate whether we need to run seft audit error checking
-        /// </summary>
-        public const string SelfAuditErrorCheckingEnabled = "SelfAuditErrorChecking.Enabled";
 
         /// <summary>System disable guid for when carrier board is removed/replaced with credits available.</summary>
         public static Guid DisabledDueToCarrierBoardRemovalKey = new Guid("{716969F6-174A-456A-A116-CF8E1DE3C791}");

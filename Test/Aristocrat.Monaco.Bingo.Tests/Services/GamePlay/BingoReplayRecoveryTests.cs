@@ -6,6 +6,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts.Bonus;
     using Bingo.GameEndWin;
     using Bingo.Services.GamePlay;
     using Commands;
@@ -34,6 +36,9 @@
         private readonly Mock<ICommandHandlerFactory> _commandFactory = new();
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new();
         private readonly Mock<GameEndWinFactory> _gameEndWinFactory = new();
+        private readonly Mock<IBonusHandler> _bonusHandler = new();
+        private readonly Mock<ITransactionHistory> _transactionHistory = new();
+
 
         private Action<GameLoadedEvent> _gameLoadedConsumer;
         private Action<GamePlayInitiatedEvent> _gamePlayInitiatedConsumer;
@@ -95,14 +100,15 @@
             _target?.Dispose();
         }
 
-        [DataRow(true, false, false, false, false, false, false, false, DisplayName = "EventBus Null")]
-        [DataRow(false, true, false, false, false, false, false, false, DisplayName = "CentralProvider Null")]
-        [DataRow(false, false, true, false, false, false, false, false, DisplayName = "PropertiesManger Null")]
-        [DataRow(false, false, false, true, false, false, false, false, DisplayName = "GameHistory Null")]
-        [DataRow(false, false, false, false, true, false, false, false, DisplayName = "MessageHandler Null")]
-        [DataRow(false, false, false, false, false, true, false, false, DisplayName = "CommandFactory Null")]
-        [DataRow(false, false, false, false, false, false, true, false, DisplayName = "UnitOfWorkFactory Null")]
-        [DataRow(false, false, false, false, false, false, false, true, DisplayName = "GameEndWinFactory Null")]
+        [DataRow(true, false, false, false, false, false, false, false, false, DisplayName = "EventBus Null")]
+        [DataRow(false, true, false, false, false, false, false, false, false, DisplayName = "CentralProvider Null")]
+        [DataRow(false, false, true, false, false, false, false, false, false, DisplayName = "PropertiesManger Null")]
+        [DataRow(false, false, false, true, false, false, false, false, false, DisplayName = "GameHistory Null")]
+        [DataRow(false, false, false, false, true, false, false, false, false, DisplayName = "MessageHandler Null")]
+        [DataRow(false, false, false, false, false, true, false, false, false, DisplayName = "CommandFactory Null")]
+        [DataRow(false, false, false, false, false, false, true, false, false, DisplayName = "UnitOfWorkFactory Null")]
+        [DataRow(false, false, false, false, false, false, false, true, false, DisplayName = "GameEndWinFactory Null")]
+        [DataRow(false, false, false, false, false, false, false, false, true, DisplayName = "BonusHandler Null")]
         [ExpectedException(typeof(ArgumentNullException))]
         [DataTestMethod]
         public void NullConstructorArgumentsTests(
@@ -113,7 +119,8 @@
             bool nullMessages,
             bool nullCommandFactory,
             bool nullUnitOfWOrk,
-            bool nullGewFactory)
+            bool nullGewFactory,
+            bool nullBonusHandler)
         {
             _ = CreateTarget(
                 nullEvent,
@@ -123,7 +130,8 @@
                 nullMessages,
                 nullCommandFactory,
                 nullUnitOfWOrk,
-                nullGewFactory);
+                nullGewFactory,
+                nullBonusHandler);
         }
 
         [DataRow(false)]
@@ -319,12 +327,22 @@
                 }
             };
 
+            var bonusTransactions = new List<BonusTransaction>
+            {
+                new(1, DateTime.UtcNow, "test", 123, 1000, 345, 3, 1, PayMethod.Credit)
+                {
+                    Mode = BonusMode.GameWin,
+                    AssociatedTransactions = new List<long> { 1235}
+                }
+            };
+
             var log = new Mock<IGameHistoryLog>();
             log.Setup(x => x.GameWinBonus).Returns(500);
             log.Setup(x => x.TransactionId).Returns(gameId);
             _history.Setup(x => x.GetGameHistory()).Returns(new List<IGameHistoryLog> { log.Object });
             _history.Setup(x => x.IsRecoveryNeeded).Returns(true);
             _centralProvider.Setup(x => x.Transactions).Returns(transactions);
+            _bonusHandler.Setup(x => x.Transactions).Returns(bonusTransactions);
             await _target.RecoverDisplay(CancellationToken.None);
             foreach (var card in description.Cards)
             {
@@ -466,13 +484,6 @@
                             : joinedBalls.Take(description.JoinBallIndex).SequenceEqual(e.BallCall.Numbers))));
         }
 
-        [TestMethod]
-        public void GameEndWinMessageCleared()
-        {
-            _gamePlayInitiatedConsumer.Invoke(new GamePlayInitiatedEvent());
-            _messages.Verify(x => x.RemoveMessage(It.IsAny<Guid>()), Times.Once);
-        }
-
         private BingoReplayRecovery CreateTarget(
             bool nullEvent = false,
             bool nullCentralProvider = false,
@@ -481,7 +492,9 @@
             bool nullMessages = false,
             bool nullCommandFactory = false,
             bool nullUnitOfWOrk = false,
-            bool nullGewFactory = false)
+            bool nullGewFactory = false,
+            bool nullBonusHandler = false,
+            bool nulltransactionHistory = false)
         {
             return new BingoReplayRecovery(
                 nullEvent ? null : _eventBus.Object,
@@ -491,7 +504,9 @@
                 nullMessages ? null : _messages.Object,
                 nullCommandFactory ? null : _commandFactory.Object,
                 nullUnitOfWOrk ? null : _unitOfWorkFactory.Object,
-                nullGewFactory ? null : _gameEndWinFactory.Object);
+                nullGewFactory ? null : _gameEndWinFactory.Object,
+                nullBonusHandler ? null : _bonusHandler.Object,
+                nulltransactionHistory ? null : _transactionHistory.Object);
         }
     }
 }

@@ -66,8 +66,12 @@
         {
             while (!token.IsCancellationRequested)
             {
-                var helpUri = _unitOfWorkFactory.GetHelpUri(_propertiesManager);
-                await ValidateUriAsync(helpUri, token);
+                var helpUris = _unitOfWorkFactory.GetHelpUris();
+                foreach (var helpUri in helpUris)
+                {
+                    await ValidateUriAsync(helpUri, token);
+                }
+
                 await Task.Delay(DynamicHelpMonitorTime, token);
             }
         }

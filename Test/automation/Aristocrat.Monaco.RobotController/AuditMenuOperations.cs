@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Test.Automation;
-    using Aristocrat.Monaco.Kernel;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
-    using System.Collections.Generic;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
 
-    internal class AuditMenuOperations : IRobotOperations
+    internal sealed class AuditMenuOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
@@ -27,30 +27,46 @@
             _robotController = robotController;
         }
 
-        ~AuditMenuOperations() => Dispose(false);
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (_loadAuditMenuTimer != null)
+            {
+                _loadAuditMenuTimer.Dispose();
+                _loadAuditMenuTimer = null;
+            }
+
+            if (_exitAuditMenuTimer != null)
+            {
+                _exitAuditMenuTimer.Dispose();
+                _exitAuditMenuTimer = null;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
         }
 
         public void Reset()
         {
-            _disposed = false;
             _automator.ExitAuditMenu();
             _robotController.UnBlockOtherOperations(RobotStateAndOperations.AuditMenuOperation);
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(AuditMenuOperations));
+            }
+
             _logger.Info("AuditMenuOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
             _loadAuditMenuTimer = new Timer(
-                (sender) =>
-                {
-                    RequestAuditMenu();
-                },
+                _ => RequestAuditMenu(),
                 null,
                 _robotController.Config.Active.IntervalLoadAuditMenu,
                 _robotController.Config.Active.IntervalLoadAuditMenu);
@@ -60,32 +76,10 @@
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _loadAuditMenuTimer?.Dispose();
+
+            _loadAuditMenuTimer?.Halt();
+
             _automator.ExitAuditMenu();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                if (_loadAuditMenuTimer is not null)
-                {
-                    _loadAuditMenuTimer.Dispose();
-                }
-                _loadAuditMenuTimer = null;
-                if (_exitAuditMenuTimer is not null)
-                {
-                    _exitAuditMenuTimer.Dispose();
-                }
-                _exitAuditMenuTimer = null;
-                _eventBus.UnsubscribeAll(this);
-            }
-            _disposed = true;
         }
 
         private void RequestAuditMenu()
@@ -94,10 +88,12 @@
             {
                 return;
             }
+
             _logger.Info("Requesting Audit Menu", GetType().Name);
             _automator.LoadAuditMenu();
+
             _exitAuditMenuTimer = new Timer(
-                (sender) =>
+                _ =>
                 {
                     _automator.ExitAuditMenu();
                     _exitAuditMenuTimer.Dispose();
@@ -128,7 +124,7 @@
 
         private bool IsValid()
         {
-            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
             return !isBlocked && _sc.AuditMenuOperationValid;
         }
     }

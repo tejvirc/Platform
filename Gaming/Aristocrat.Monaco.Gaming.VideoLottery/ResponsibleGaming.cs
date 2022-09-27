@@ -334,7 +334,7 @@
                 var time = _sessionLength - _sessionElapsedTime;
                 if (_state == ResponsibleGamingSessionState.Started && _lastTimerTick != DateTime.MinValue)
                 {
-                    // Responsible Gaming only ticks once a minute. 
+                    // Responsible Gaming only ticks once a minute.
                     // Time has passed since the last tick.  Factor it in.
                     time -= DateTime.UtcNow - _lastTimerTick;
                 }
@@ -413,7 +413,7 @@
                         //ALC makes us dismiss the dialog in 1 minute if the user doesn't do anything
                         _dialogShownTime = DateTime.UtcNow;
 
-                        // VLT-4474:  If we are re-displaying the RG dialog while disabled or due to the Operator Menu coming up, then don't start the timer.  
+                        // VLT-4474:  If we are re-displaying the RG dialog while disabled or due to the Operator Menu coming up, then don't start the timer.
                         // it will be started when we come out of lockup.
                         if (!_systemDisableManager.IsDisabled && !_dialogResetDueToOperatorMenu)
                         {
@@ -717,7 +717,7 @@
 
                 if (IsTimeLimitDialogVisible)
                 {
-                    // if we are enabling the system after the dialog is already up, then we should 
+                    // if we are enabling the system after the dialog is already up, then we should
                     // clear this flag, since we are no longer doing the reset.
                     _dialogResetDueToOperatorMenu = false;
                 }
@@ -817,7 +817,7 @@
                     CancellationTokenSource delay = null;
                     lock (_spinGuardLock)
                     {
-                        if (token != null && !token.IsCancellationRequested)
+                        if (!token.IsCancellationRequested)
                         {
                             delay = CancellationTokenSource.CreateLinkedTokenSource(token);
                         }
@@ -841,8 +841,8 @@
                                     {
                                         Task.Run(() => OnForcePendingCheck?.Invoke(this, new EventArgs()), CancellationToken.None);
                                     }
-                                } 
-                            }   
+                                }
+                            }
                         }
                         finally
                         {
@@ -1195,8 +1195,8 @@
             ForceCashOut?.Invoke(this, new EventArgs());
         }
 
-        //Responsible Gaming was written assuming the Time Limit values would be at least whole seconds. 
-        //If the values are fractional seconds, we run into issues.  This will normalize the values to 
+        //Responsible Gaming was written assuming the Time Limit values would be at least whole seconds.
+        //If the values are fractional seconds, we run into issues.  This will normalize the values to
         //the nearest whole second.
         private double[] NormalizeTimeLimits(double[] timeLimits)
         {
@@ -1294,7 +1294,7 @@
             }
 
             return state;
-        }     
+        }
 
         private bool UpdateElapsedTimeFromOverride()
         {

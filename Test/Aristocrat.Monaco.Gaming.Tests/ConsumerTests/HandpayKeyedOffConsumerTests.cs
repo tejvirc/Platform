@@ -8,7 +8,6 @@
     using Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Aristocrat.Monaco.Localization.Properties;
     using Consumers;
     using Contracts;
@@ -30,7 +29,6 @@
         private Mock<IPersistentStorageManager> _persistentStorage;
         private Mock<IMessageDisplay> _messageDisplay;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         private HandpayKeyedOffConsumer _target;
@@ -72,8 +70,6 @@
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _target = new HandpayKeyedOffConsumer(
                 _currencyHandler.Object,

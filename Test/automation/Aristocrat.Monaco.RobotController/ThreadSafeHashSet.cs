@@ -13,7 +13,18 @@
 
         public IEnumerator<T> GetEnumerator()
         {
-            var snapShot = new HashSet<T>(_hashSet);
+            HashSet<T> snapShot;
+
+            _lock.EnterReadLock();
+            try
+            {
+                snapShot = new HashSet<T>(_hashSet);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
+
             return snapShot.GetEnumerator();
         }
 

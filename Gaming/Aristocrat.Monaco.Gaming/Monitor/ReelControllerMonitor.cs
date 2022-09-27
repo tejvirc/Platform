@@ -42,12 +42,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private const string ReelDeviceName = "ReelController";
         private const string FailedHoming = "FailedHoming";
 
-        private static readonly Guid ReelsTiltedGuid = new("{AD46A871-616A-4034-9FB5-962F8DE15E79}");
-        private static readonly Guid ReelsNeedHomingGuid = new("{9613086D-052A-4FCE-9AA0-B279F8C23993}");
-        private static readonly Guid DisabledGuid = new("{B9029021-106D-419B-961F-1B2799817916}");
-        private static readonly Guid FailedHomingGuid = new("{3BD10514-10BA-4A48-826F-41ADFECFD01D}");
-
-        private static readonly PatternParameters DisabledPattern = new SolidColorPatternParameters
+        private static readonly PatternParameters SolidBlackPattern = new SolidColorPatternParameters
         {
             Color = Color.Black,
             Priority = StripPriority.PlatformControlled,
@@ -67,12 +62,12 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             ApplicationConstants.LiveAuthenticationDisableKey,
             ApplicationConstants.OperatorKeyNotRemovedDisableKey,
             ApplicationConstants.OperatorMenuLauncherDisableGuid,
-            ReelsTiltedGuid,
-            ReelsNeedHomingGuid
+            GamingConstants.ReelsTiltedGuid,
+            GamingConstants.ReelsNeedHomingGuid
         };
 
         private readonly IEventBus _eventBus;
-        private readonly IReelController _reelController;
+        private readonly Lazy<IReelController> _reelController;
         private readonly ISystemDisableManager _disableManager;
         private readonly IGamePlayState _gamePlayState;
         private readonly IGameProvider _gameProvider;
@@ -80,10 +75,11 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-        private IEdgeLightToken _disableToken;
+        private IEdgeLightToken _edgeLightToken;
         private bool _disposed;
-        private bool _homeStopsSet;
+        private bool _homeStepsSet;
 
         public ReelControllerMonitor(
             IEventBus eventBus,
@@ -104,8 +100,9 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _operatorMenuLauncher = operatorMenuLauncher ?? throw new ArgumentNullException(nameof(operatorMenuLauncher));
-            _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
-            Initialize().FireAndForget();
+            _reelController = new Lazy<IReelController>(() => ServiceManager.GetInstance().TryGetService<IReelController>());
+            Task.Run(async () => await Initialize(_cancellationTokenSource.Token), _cancellationTokenSource.Token)
+                .FireAndForget();
         }
 
         public override string DeviceName => ReelDeviceName;
@@ -132,6 +129,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             }
         }
 
+        private IReelController ReelController => _reelController.Value;
+
         protected override void Dispose(bool disposing)
         {
             if (_disposed)
@@ -143,15 +142,17 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             {
                 _eventBus.UnsubscribeAll(this);
                 _tiltLock.Dispose();
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
             }
 
             base.Dispose(disposing);
             _disposed = true;
         }
 
-        private async Task Initialize()
+        private async Task Initialize(CancellationToken token)
         {
-            if (_reelController is null)
+            if (ReelController is null)
             {
                 var expectedReelCount = _gameProvider.GetMinimumNumberOfMechanicalReels();
                 if (expectedReelCount > 0)
@@ -159,7 +160,14 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                     ReelMismatchDisable(0, expectedReelCount);
                 }
 
-                return;
+                using var serviceWaiter = new ServiceWaiter(_eventBus);
+                // ReSharper disable once AccessToDisposedClosure
+                using var _ = token.Register(() => serviceWaiter.Dispose());
+                serviceWaiter.AddServiceToWaitFor<IReelController>();
+                if (!serviceWaiter.WaitForServices())
+                {
+                    return;
+                }
             }
 
             foreach (var fault in Enum.GetValues(typeof(ReelControllerFaults)).Cast<ReelControllerFaults>())
@@ -182,19 +190,19 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ReelsTiltedKey,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Normal,
-                ReelsTiltedGuid,
+                GamingConstants.ReelsTiltedGuid,
                 true);
             ManageBinaryCondition(
                 ReelsNeedHomingKey,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Immediate,
-                ReelsNeedHomingGuid,
+                GamingConstants.ReelsNeedHomingGuid,
                 true);
             ManageBinaryCondition(
                 DisabledKey,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Immediate,
-                DisabledGuid,
+                GamingConstants.ReelsDisabledGuid,
                 true);
             ManageBinaryCondition(
                 MismatchedKey,
@@ -206,49 +214,51 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 FailedHoming,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Immediate,
-                FailedHomingGuid,
+                GamingConstants.ReelsFailedHomingGuid,
                 true);
 
             await TiltReels(true);
             SubscribeToEvents();
             await CheckDeviceStatus();
             ValidateReelMismatch();
-            GetReelHomeStops();
+            GetReelHomeSteps();
             await HandleGameInitializationCompleted();
         }
 
         private void HandleGameAddedEvent()
         {
             ValidateReelMismatch();
-            GetReelHomeStops();
+            GetReelHomeSteps();
         }
 
-        private void GetReelHomeStops()
+        private void GetReelHomeSteps()
         {
-            if (_homeStopsSet)
+            if (_homeStepsSet)
             {
                 return;
             }
 
             // this assumes all the games for a cabinet with mechanical reels will have
-            // the same home stops. Normally there will only be one game.
+            // the same home steps. Normally there will only be one game.
+
             var details = _gameProvider.GetGames().FirstOrDefault();
-            var home = details?.MechanicalReelHomeStops;
+            var home = details?.MechanicalReelHomeSteps;
             if (home is null)
             {
-                // in this case the home stops will default to all zeros
+                // in this case the home steps will default to all zeros
+
                 return;
             }
 
-            var homeStops = new Dictionary<int, int>();
+            var homeSteps = new Dictionary<int, int>();
             for (var i = 0; i < home.Length; i++)
             {
-                homeStops[i + 1] = home[i];
-                Logger.Debug($"Set reel {i + 1} home position to {homeStops[i + 1]}");
+                homeSteps[i + 1] = home[i];
+                Logger.Debug($"Set reel {i + 1} home position to {homeSteps[i + 1]}");
             }
 
-            _reelController.ReelHomeStops = homeStops;
-            _homeStopsSet = true;
+            ReelController.ReelHomeSteps = homeSteps;
+            _homeStepsSet = true;
         }
 
         private static bool IsReelFault(Guid guid)
@@ -284,7 +294,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<InspectedEvent>(this, (_, _) => Disconnected(false));
             _eventBus.Subscribe<OperatorMenuEnteredEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<OperatorMenuExitedEvent>(this, (_, _) => HandleOperatorMenuExited());
-            _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearDisableState());
+            _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, _ => ClearEdgeLightRenderer());
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<GameHistoryPageLoadedEvent>(this, HandleGameHistoryPageLoaded);
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
@@ -294,6 +304,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private async Task HandleOperatorMenuExited()
         {
+            ClearEdgeLightRenderer();
+
             if (!ReelsShouldTilt)
             {
                 return;
@@ -305,8 +317,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private async Task HandleGameHistoryPageLoaded(GameHistoryPageLoadedEvent evt, CancellationToken token)
         {
-            var logicalState = _reelController.LogicalState;
-            if (_disableManager.CurrentDisableKeys.Contains(ReelsNeedHomingGuid) ||
+            var logicalState = ReelController.LogicalState;
+            if (_disableManager.CurrentDisableKeys.Contains(GamingConstants.ReelsNeedHomingGuid) ||
                 logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
             {
                 await HomeReels();
@@ -315,13 +327,13 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private void DisableReelLights()
         {
-            _disableToken ??= _edgeLightingController.AddEdgeLightRenderer(DisabledPattern);
+            _edgeLightToken ??= _edgeLightingController.AddEdgeLightRenderer(SolidBlackPattern);
         }
 
         private async Task HandleSystemDisableAddedEvent(SystemDisableAddedEvent evt, CancellationToken token)
         {
-            if (_reelController is not null &&
-                _reelController.LogicalState is not ReelControllerState.Tilted &&
+            if (ReelController is not null &&
+                ReelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
                 await TiltReels(_gamePlayState.InGameRound);
@@ -330,8 +342,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
         private async Task HandleGamePlayDisabledEvent(GamePlayDisabledEvent evt, CancellationToken token)
         {
-            if (_reelController is not null &&
-                _reelController.LogicalState is not ReelControllerState.Tilted &&
+            if (ReelController is not null &&
+                ReelController.LogicalState is not ReelControllerState.Tilted &&
                 ReelsShouldTilt)
             {
                 await TiltReels(_gamePlayState.InGameRound);
@@ -342,12 +354,12 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         {
             Logger.Debug("HandleReelStoppedEvent");
             if (!reelStoppedEvent.IsReelStoppedFromHoming ||
-                !_reelController.ConnectedReels.Contains(reelStoppedEvent.ReelId))
+                !ReelController.ConnectedReels.Contains(reelStoppedEvent.ReelId))
             {
                 return;
             }
 
-            if (_reelController.ReelStates.Select(x => x.Value).Any(state => state != ReelLogicalState.IdleAtStop))
+            if (ReelController.ReelStates.Select(x => x.Value).Any(state => state != ReelLogicalState.IdleAtStop))
             {
                 return;
             }
@@ -355,7 +367,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             Logger.Debug("HandleReelStoppedEvent all reels are stopped, clearing reels tilt");
             SetBinary(ReelsTiltedKey, false);
             SetBinary(ReelsNeedHomingKey, false);
-            ClearDisableState();
+            ClearEdgeLightRenderer();
         }
 
         private async Task HandleGameInitializationCompleted()
@@ -395,8 +407,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
 
                 var expectedReelCount = _gameProvider.GetMinimumNumberOfMechanicalReels();
                 Logger.Debug(
-                    $"Validating Connected Reels count.  Expected={expectedReelCount}, HasCount={_reelController?.ConnectedReels.Count}");
-                var connectedReelsCount = _reelController?.ConnectedReels.Count ?? 0;
+                    $"Validating Connected Reels count.  Expected={expectedReelCount}, HasCount={ReelController?.ConnectedReels.Count}");
+                var connectedReelsCount = ReelController?.ConnectedReels.Count ?? 0;
                 if (expectedReelCount != connectedReelsCount)
                 {
                     ReelMismatchDisable(connectedReelsCount, expectedReelCount);
@@ -428,25 +440,29 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private async Task HandleDoorClose(DoorBaseEvent doorBaseEvent, CancellationToken token)
         {
             SetBinary(FailedHoming, false);
-            if (_reelController is null or { LogicalState: ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected })
+            if (ReelController is null or { LogicalState: ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected })
             {
                 return;
             }
 
             // Perform a self test to attempt to clear any hardware faults
-            await _reelController.SelfTest(false);
-            if (HasReelFaults())
+            await ReelController.SelfTest(false);
+            if (NeedsReelFaultsCleared())
             {
                 // Clear all reel controller faults
                 await HomeReels();
             }
         }
 
-        private bool HasReelFaults()
+        private bool NeedsReelFaultsCleared()
         {
             return _disableManager.CurrentDisableKeys.All(
-                guid => IsReelFault(guid) || guid == ApplicationConstants.LiveAuthenticationDisableKey ||
-                        guid == ReelsTiltedGuid);
+                guid => IsReelFault(guid) ||
+                guid == ApplicationConstants.LiveAuthenticationDisableKey ||
+                guid == ApplicationConstants.OperatorKeyNotRemovedDisableKey ||
+                guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
+                guid == GamingConstants.ReelsNeedHomingGuid ||
+                guid == GamingConstants.ReelsTiltedGuid);
         }
 
         private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys)
@@ -454,8 +470,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             var homeReels = disableKeys.All(guid =>
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                  guid == ApplicationConstants.OperatorMenuLauncherDisableGuid ||
-                 guid == ReelsNeedHomingGuid ||
-                 guid == ReelsTiltedGuid);
+                 guid == GamingConstants.ReelsNeedHomingGuid ||
+                 guid == GamingConstants.ReelsTiltedGuid);
 
             return homeReels;
         }
@@ -469,7 +485,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ? _disableManager.CurrentImmediateDisableKeys
                 : _disableManager.CurrentDisableKeys;
 
-            var logicalState = _reelController.LogicalState;
+            var logicalState = ReelController.LogicalState;
             if (IsHomeReelsCondition(disableKeys) &&
                 logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
             {
@@ -492,17 +508,17 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private async Task CheckDeviceStatus()
         {
             Logger.Debug("CheckDeviceStatus");
-            if (_reelController == null)
+            if (ReelController == null)
             {
                 return;
             }
 
-            if (_reelController.ReelControllerFaults != ReelControllerFaults.None)
+            if (ReelController.ReelControllerFaults != ReelControllerFaults.None)
             {
-                _eventBus.Publish(new HardwareFaultEvent(_reelController.ReelControllerFaults));
+                _eventBus.Publish(new HardwareFaultEvent(ReelController.ReelControllerFaults));
             }
 
-            if (!_reelController.Connected)
+            if (!ReelController.Connected)
             {
                 await Disconnected(true);
             }
@@ -569,7 +585,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             var faults = @event.Fault;
 
             // Ignore reel fault events from reels that are not valid
-            if (_reelController == null)
+            if (ReelController == null)
             {
                 return;
             }
@@ -588,10 +604,13 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             }
         }
 
-        private void ClearDisableState()
+        private void ClearEdgeLightRenderer()
         {
-            _edgeLightingController.RemoveEdgeLightRenderer(_disableToken);
-            _disableToken = null;
+            if (_edgeLightToken != null)
+            {
+                _edgeLightingController.RemoveEdgeLightRenderer(_edgeLightToken);
+                _edgeLightToken = null;
+            }
         }
 
         private async Task TiltReels(bool immediate = false)
@@ -600,10 +619,10 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             {
                 await _tiltLock.WaitAsync();
 
-                if (_reelController is null ||
-                    _reelController.LogicalState is ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected)
+                if (ReelController is null ||
+                    ReelController.LogicalState is ReelControllerState.Uninitialized or ReelControllerState.Inspecting or ReelControllerState.Disconnected)
                 {
-                    Logger.Debug($"TiltReels not able to be executed at this time. State is {_reelController?.LogicalState}");
+                    Logger.Debug($"TiltReels not able to be executed at this time. State is {ReelController?.LogicalState}");
                     return;
                 }
 
@@ -614,7 +633,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 }
 
                 DisableReelLights();
-                await _reelController.TiltReels();
+                await ReelController.TiltReels();
             }
             finally
             {
@@ -631,14 +650,14 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             {
                 await _tiltLock.WaitAsync();
 
-                if (_reelController is null ||
-                    _reelController.LogicalState is ReelControllerState.Uninitialized
+                if (ReelController is null ||
+                    ReelController.LogicalState is ReelControllerState.Uninitialized
                         or ReelControllerState.Inspecting
                         or ReelControllerState.Disconnected
                         or ReelControllerState.Disabled
-                    || (_reelController.LogicalState != ReelControllerState.Tilted && _reelController.LogicalState != ReelControllerState.IdleUnknown && _reelController.LogicalState != ReelControllerState.IdleAtStops))
+                    || (ReelController.LogicalState != ReelControllerState.Tilted && ReelController.LogicalState != ReelControllerState.IdleUnknown && ReelController.LogicalState != ReelControllerState.IdleAtStops))
                 {
-                    Logger.Debug($"HomeReels not able to be executed at this time. State is {_reelController?.LogicalState}");
+                    Logger.Debug($"HomeReels not able to be executed at this time. State is {ReelController?.LogicalState}");
                     return;
                 }
 
@@ -648,7 +667,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                     _gameService.ShutdownBegin();
                 }
 
-                homed = await _reelController.HomeReels();
+                homed = await ReelController.HomeReels();
             }
             finally
             {

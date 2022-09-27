@@ -7,16 +7,6 @@ on:
     branches:
     - main
     - release/*
-    paths:
-    - 'Accounting/**'
-    - 'Application/**'
-    - 'Gaming/**'
-    - 'Hardware/**'
-    - 'Jurisdiction/**'
-    - 'Kernel/**'
-    - 'Protocol/**'
-    - 'Shared/**'
-    - 'Test/**'
 
   pull_request:
     branches:
@@ -25,11 +15,6 @@ on:
 
 jobs:
   build:
-    env:
-      BUILD_COUNTER: ${{ github.run_number }}
-      ENLISTMENT_ROOT: ${{ github.workspace }}
-      SOURCE_PATH: ${{ github.workspace }}
-      DETERMINISTIC: false
     strategy:
       fail-fast: true
       matrix:
@@ -47,9 +32,6 @@ jobs:
       with:
         dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-    - name: Remove TeamCity NuGet Source
-      run: >
-        dotnet nuget remove source TeamCity --configfile ./NuGet.config
     - name: Setup msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Setup NuGet
@@ -82,14 +64,9 @@ jobs:
     - name: Restore
       run: |
         nuget restore .\Monaco.sln
-    - name: Set deterministic build
-      if: matrix.configuration == 'Retail'
-      run: |
-        echo "SOURCE_PATH=C:\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
-        echo "DETERMINISTIC=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
     - name: Build
       run: |
-        msbuild -p:"Configuration=${{ matrix.configuration }}" -p:"Platform=Any CPU" -t:Rebuild -p:"Deterministic=${{ env.DETERMINISTIC }}" -p:"PathMap=${{ env.ENLISTMENT_ROOT }}=${{ env.SOURCE_PATH }}" .\Monaco.sln
+        msbuild -p:"Configuration=${{ matrix.configuration }}" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
     - name: Test
       if: matrix.configuration == 'Debug'
       run: >
@@ -107,17 +84,3 @@ jobs:
         path: "**/*.trx"
         reporter: dotnet-trx
         fail-on-error: true
-    - name: Create Package
-      if: github.event_name != 'pull_request'
-      run: >
-        monaco image new -d ./bin/${{ matrix.configuration }}/Platform/bin -p ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}
-    - name: Create Manifest
-      if: github.event_name != 'pull_request'
-      run: >
-        monaco manifest new image -f ./artifacts/ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}.iso -t platform -v ${{ steps.gitversion.outputs.assemblySemFileVer }}
-    - uses: actions/upload-artifact@v2
-      if: github.event_name != 'pull_request'
-      with:
-        name: ATI_Platform_${{ steps.gitversion.outputs.assemblySemFileVer }}_${{ matrix.configuration }}
-        path: artifacts/
-        if-no-files-found: error

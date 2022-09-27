@@ -49,7 +49,8 @@
                 TestId,
                 0,  // paytable id
                 0,  // denomination id
-                2);
+                2,
+                string.Empty);
 
             Assert.AreEqual(TestId, _target.GetId(message));
         }

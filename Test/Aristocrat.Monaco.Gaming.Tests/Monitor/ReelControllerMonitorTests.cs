@@ -78,7 +78,7 @@
             {
                 new GameDetail()
                 {
-                    Id = 100, MechanicalReels = 3, MechanicalReelHomeStops = new int[] { 118, 56, 132 }
+                    Id = 100, MechanicalReels = 3, MechanicalReelHomeSteps = new int[] { 118, 56, 132 }
                 }
             };
 
@@ -543,8 +543,19 @@
         {
             _reelController = null;
             MoqServiceManager.RemoveService<IReelController>();
-            CreateTarget();
+            using var waiter = new ManualResetEvent(false);
+            _disable.Setup(
+                x => x.Disable(
+                    ApplicationConstants.ReelCountMismatchDisableKey,
+                    It.IsAny<SystemDisablePriority>(),
+                    It.IsAny<Func<string>>(),
+                    It.IsAny<bool>(),
+                    It.IsAny<Func<string>>(),
+                    null))
+                .Callback(() => waiter.Set());
 
+            CreateTarget();
+            Assert.IsTrue(waiter.WaitOne(WaitTIme));
             _disable.Verify(
                 x => x.Disable(
                 ApplicationConstants.ReelCountMismatchDisableKey,
@@ -723,7 +734,6 @@
 
         [DataRow(ReelFaults.ReelStall, true)]
         [DataRow(ReelFaults.ReelTamper, true)]
-        [DataRow(ReelFaults.RequestError, true)]
         [DataRow(ReelFaults.LowVoltage, true)]
         [DataRow(ReelFaults.Disconnected, true)]
         [DataTestMethod]
@@ -755,7 +765,6 @@
         [DataRow(ReelFaults.None, false)]
         [DataRow(ReelFaults.ReelStall, true)]
         [DataRow(ReelFaults.ReelTamper, true)]
-        [DataRow(ReelFaults.RequestError, true)]
         [DataRow(ReelFaults.LowVoltage, true)]
         [DataRow(ReelFaults.Disconnected, true)]
         [DataTestMethod]
@@ -777,7 +786,6 @@
         [DataRow(ReelFaults.None, false)]
         [DataRow(ReelFaults.ReelStall, true)]
         [DataRow(ReelFaults.ReelTamper, true)]
-        [DataRow(ReelFaults.RequestError, true)]
         [DataRow(ReelFaults.LowVoltage, true)]
         [DataRow(ReelFaults.Disconnected, true)]
         [DataTestMethod]
@@ -885,8 +893,8 @@
         {
             InitializeClient(false);
 
-            var expectedHomeStops = new Dictionary<int, int>() { { 1, 118 }, { 2, 56 }, { 3, 132 } };
-            _reelController.SetupSet(x => x.ReelHomeStops = expectedHomeStops).Verifiable();
+            var expectedHomeSteps = new Dictionary<int, int>() { { 1, 118 }, { 2, 56 }, { 3, 132 } };
+            _reelController.SetupSet(x => x.ReelHomeSteps = expectedHomeSteps).Verifiable();
 
             Assert.IsNotNull(_gameAddedEventAction);
             _gameAddedEventAction(new GameAddedEvent(1, "theme"));
@@ -896,37 +904,43 @@
 
         private void InitializeClient(bool areReelsTilted)
         {
-            using (var waiter = new ManualResetEvent(false))
+            using var waiter = new ManualResetEvent(false);
+            if (areReelsTilted)
             {
-                if (areReelsTilted)
-                {
-                    _reelController.SetupSequence(x => x.LogicalState)
-                        .Returns(ReelControllerState.Tilted)
-                        .Returns(ReelControllerState.IdleUnknown);
-                }
-                else
-                {
-                    _reelController.Setup(x => x.LogicalState)
-                        .Returns(ReelControllerState.Tilted);
-                }
-
-                _gamePlayState.Setup(x => x.Enabled).Returns(!areReelsTilted);
-                _gamePlayState.Setup(x => x.InGameRound).Returns(false);
-                _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid> { ApplicationConstants.SystemDisableGuid });
-                if (areReelsTilted)
-                {
-                    _reelController.Setup(x => x.TiltReels()).Returns(Task.FromResult(true))
-                        .Callback(() => waiter.Set());
-                }
-                else
-                {
-                    _reelController.Setup(x => x.HomeReels()).Returns(Task.FromResult(true))
-                        .Callback(() => waiter.Set());
-                }
-
-                CreateTarget();
-                Assert.IsTrue(waiter.WaitOne(WaitTIme));
+                _reelController.SetupSequence(x => x.LogicalState)
+                    .Returns(ReelControllerState.Tilted)
+                    .Returns(ReelControllerState.IdleUnknown);
             }
+            else
+            {
+                _reelController.Setup(x => x.LogicalState)
+                    .Returns(ReelControllerState.Tilted);
+            }
+
+            _gamePlayState.Setup(x => x.Enabled).Returns(!areReelsTilted);
+            _gamePlayState.Setup(x => x.InGameRound).Returns(false);
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid> { ApplicationConstants.SystemDisableGuid });
+            if (areReelsTilted)
+            {
+                var count = 0;
+                _reelController.Setup(x => x.TiltReels())
+                    .Returns(Task.FromResult(true))
+                    .Callback(() =>
+                    {
+                        if (count++ == 1)
+                        {
+                            waiter.Set();
+                        }
+                    });
+            }
+            else
+            {
+                _reelController.Setup(x => x.HomeReels()).Returns(Task.FromResult(true))
+                    .Callback(() => waiter.Set());
+            }
+
+            CreateTarget();
+            Assert.IsTrue(waiter.WaitOne(WaitTIme));
         }
 
         private ReelControllerMonitor CreateTarget(

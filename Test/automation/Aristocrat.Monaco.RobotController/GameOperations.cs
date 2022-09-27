@@ -14,7 +14,7 @@
     using Aristocrat.Monaco.RobotController.Contracts;
     using Aristocrat.Monaco.Test.Automation;
 
-    internal class GameOperations : IRobotOperations
+    internal sealed class GameOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
@@ -46,16 +46,43 @@
             _gameService = gameService;
         }
 
-        ~GameOperations() => Dispose(false);
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (_loadGameTimer != null)
+            {
+                _loadGameTimer.Dispose();
+                _loadGameTimer = null;
+            }
+
+            if (_RgTimer != null)
+            {
+                _RgTimer.Dispose();
+                _RgTimer = null;
+            }
+
+            if (_forceGameExitTimer != null)
+            {
+                _forceGameExitTimer.Dispose();
+                _forceGameExitTimer = null;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(GameOperations));
+            }
+
             _logger.Info("GameOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
 
@@ -92,7 +119,6 @@
 
         public void Reset()
         {
-            _disposed = false;
             _sanityCounter = 0;
             _exitWhenIdle = false;
             _gameIsRunning = _gameService.Running;
@@ -102,40 +128,13 @@
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _loadGameTimer?.Dispose();
-            _RgTimer?.Dispose();
-            _forceGameExitTimer?.Dispose();
+
+            _loadGameTimer?.Halt();
+            _RgTimer?.Halt();
+            _forceGameExitTimer?.Halt();
+
             _automator.EnableExitToLobby(true);
             _automator.EnableCashOut(true);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                if (_loadGameTimer is not null)
-                {
-                    _loadGameTimer.Dispose();
-                }
-                _loadGameTimer = null;
-                if (_RgTimer is not null)
-                {
-                    _RgTimer.Dispose();
-                }
-                _RgTimer = null;
-                if (_forceGameExitTimer is not null)
-                {
-                    _forceGameExitTimer.Dispose();
-                }
-                _forceGameExitTimer = null;
-                _eventBus.UnsubscribeAll(this);
-            }
-            _disposed = true;
         }
 
         private void RequestForceExitToLobby(bool skipTestRecovery = false)
@@ -362,7 +361,7 @@
 
         private void InitGameProcessHungEvent()
         {
-            // If the runtime process hangs, and the setting to not kill it is active, then stop the robot. 
+            // If the runtime process hangs, and the setting to not kill it is active, then stop the robot.
             // This will allow someone to attach a debugger to investigate.
             var doNotKillRuntime = _pm.GetValue("doNotKillRuntime", Common.Constants.False).ToUpperInvariant();
             if (doNotKillRuntime == Common.Constants.True)
@@ -404,7 +403,7 @@
 
         private bool IsExitToLobbyWhenIdleValid()
         {
-            return _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle;
+            return !_sc.IsAllowSingleGameAutoLaunch && _gameIsRunning && (_sc.IsIdle || _sc.IsPresentationIdle) && _exitWhenIdle;
         }
 
         private void BalanceCheckWithDelay(int milliseconds)

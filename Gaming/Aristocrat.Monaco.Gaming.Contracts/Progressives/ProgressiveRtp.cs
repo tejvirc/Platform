@@ -28,9 +28,9 @@
         public decimal Maximum { get; }
 
         /// <summary>
-        ///     Returns the string representation of the rtp
+        ///     Returns the string representation of the rtp range
         /// </summary>
-        public override string ToString()
+        public string GetRtpString()
         {
             return $"{Minimum.GetRtpString()} - {Maximum.GetRtpString()}";
         }

@@ -2,27 +2,17 @@ name: SonarQube
 
 on:
   workflow_dispatch:
-  
+
   push:
     branches:
     - main
     - release/*
-    paths:
-    - 'Accounting/**'
-    - 'Application/**'
-    - 'Gaming/**'
-    - 'Hardware/**'
-    - 'Jurisdiction/**'
-    - 'Kernel/**'
-    - 'Protocol/**'
-    - 'Shared/**'
-    - 'Test/**'
-  
+
   pull_request:
     branches:
     - main
     - release/*
-      
+
 jobs:
   analyze:
     name: Analyze
@@ -38,9 +28,6 @@ jobs:
       with:
         dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-    - name: Remove TeamCity NuGet Source
-      run: >
-        dotnet nuget remove source TeamCity --configfile ./NuGet.config
     - name: Setup msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Setup NuGet
@@ -55,10 +42,10 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
     - name: Setup VSTest Path
       uses: darenm/setup-vstest@v1
-    - name: Setup dotCover
+    - name: Setup OpenCover
       run: |
-        nuget install JetBrains.dotCover.CommandLineTools -Version 2021.1.2 -OutputDirectory .\packages
-        echo "${{ github.workspace }}\packages\JetBrains.dotCover.CommandLineTools.2021.1.2\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        nuget install OpenCover -Version 4.7.1221 -OutputDirectory .\packages
+        echo "${{ github.workspace }}\packages\OpenCover.4.7.1221\tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
     - name: Setup GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.7
       with:
@@ -93,16 +80,45 @@ jobs:
         New-Item -Path .\.sonar\scanner -ItemType Directory -Force
         dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
     - name: Begin scan
+      if: github.event_name != 'pull_request' && github.ref_name == 'main'
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: powershell
       run: >
         .\.sonar\scanner\dotnet-sonarscanner begin
-        /k:"Aristocrat-Monaco-Platform_monaco"
+        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
         /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
         /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
         /d:sonar.cs.vstest.reportsPaths="**/*.trx"
-        /d:sonar.cs.dotcover.reportsPaths="**/coverage.*.html"
+        /d:sonar.cs.opencover.reportsPaths="**/coverage.*.xml"
+    - name: Begin branch scan
+      if: github.event_name != 'pull_request' && github.ref_name != 'main'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: powershell
+      run: >
+        .\.sonar\scanner\dotnet-sonarscanner begin
+        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
+        /d:sonar.branch.name="${{ github.ref_name }}"
+        /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+        /d:sonar.cs.vstest.reportsPaths="**/*.trx"
+        /d:sonar.cs.opencover.reportsPaths="**/coverage.*.xml"
+    - name: Begin pull request scan
+      if: github.event_name == 'pull_request'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: powershell
+      run: >
+        .\.sonar\scanner\dotnet-sonarscanner begin
+        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
+        /d:sonar.pullrequest.key="${{ github.event.number }}"
+        /d:sonar.pullrequest.branch="${{ github.head_ref }}"
+        /d:sonar.pullrequest.base="${{ github.base_ref }}"
+        /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
+        /d:sonar.cs.vstest.reportsPaths="**/*.trx"
+        /d:sonar.cs.opencover.reportsPaths="**/coverage.*.xml"
     - name: Restore
       run: |
         nuget restore .\Monaco.sln
@@ -111,17 +127,17 @@ jobs:
         msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
     - name: Test
       run: >
-        dotCover cover
-        --LogFile="dotCover.log"
-        --TargetExecutable="$((Get-command vstest.console.exe).Path)"
-        --TargetWorkingDir="$((Get-Location).Path)"
-        --Output="CodeCoverage\coverage.dotcover.html"
-        --ReportType=HTML
-        --ExcludeFileMasks=Test/**/*.cs
-        -- "**\bin\Debug\*.Tests.dll"
-        --platform:x64
-        --logger:trx
-        --resultsDirectory:TestResults
+        OpenCover.Console.exe
+        -register:user
+        -mergebyhash
+        -skipautoprops
+        -hideskipped:All
+        -coverbytest:*.Tests.dll
+        -excludebyfile:"*.generated.cs"
+        -filter:"+[Aristocrat.*]* +[Monaco.*]* +[Bootstrap]* +[PRNGLib]* -[*.Tests]* -[Aristocrat.Monaco.Test.Common]* -[Humanizer]*"
+        -output:coverage.opencover.xml
+        -target:"$((Get-command vstest.console.exe).Path)"
+        -targetargs:"**\bin\Debug\*.Tests.dll --platform:x64 --logger:trx --resultsDirectory:TestResults"
         || true
     - name: End Scan
       env:
@@ -130,9 +146,19 @@ jobs:
       run: |
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
     - name: Quality Gate check
+      id: quality-gate-check
       uses: sonarsource/sonarqube-quality-gate-action@master
       timeout-minutes: 10
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         scanMetadataReportFile: .sonarqube/out/.sonar/report-task.txt
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: sonar-artifacts
+        path: .sonarqube/out/.sonar/report-task.txt
+        retention-days: 7
+        if-no-files-found: error
+    - name: Quality Gate Status value
+      run: echo "The Quality Gate status is ${{ steps.quality-gate-check.outputs.quality-gate-status }}"

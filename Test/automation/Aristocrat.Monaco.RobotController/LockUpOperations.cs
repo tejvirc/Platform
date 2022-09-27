@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
 
-    internal class LockUpOperations : IRobotOperations
+    internal sealed class LockUpOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly StateChecker _sc;
@@ -26,21 +26,35 @@
             _robotController = robotController;
         }
 
-        ~LockUpOperations() => Dispose(false);
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (_lockupTimer is not null)
+            {
+                _lockupTimer.Dispose();
+                _lockupTimer = null;
+            }
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
         }
 
         public void Reset()
         {
-            _disposed = false;
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(LockUpOperations));
+            }
+
             _logger.Info("LockUpOperations Has Been Initiated!", GetType().Name);
             if (_robotController.Config.Active.IntervalTriggerLockup == 0)
             {
@@ -48,41 +62,20 @@
             }
 
             _lockupTimer = new Timer(
-            (sender) =>
-            {
-                RequestLockUp();
-            },
-            null,
-            _robotController.Config.Active.IntervalTriggerLockup,
-            _robotController.Config.Active.IntervalTriggerLockup);
+                _ => RequestLockUp(),
+                null,
+                _robotController.Config.Active.IntervalTriggerLockup,
+                _robotController.Config.Active.IntervalTriggerLockup);
         }
 
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _lockupTimer?.Dispose();
+
+            _lockupTimer?.Halt();
+
             _automator.ExitLockup();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                if (_lockupTimer is not null)
-                {
-                    _lockupTimer.Dispose();
-                    _lockupTimer = null;
-                }
-
-                _eventBus.UnsubscribeAll(this);
-            }
-            _disposed = true;
         }
 
         private void RequestLockUp()
@@ -95,8 +88,8 @@
             _robotController.BlockOtherOperations(RobotStateAndOperations.LockUpOperation);
             _logger.Info("RequestLockUp Received!", GetType().Name);
             _automator.EnterLockup();
-            _ = Task.Delay((int)Constants.LockupDuration).ContinueWith(
-            _ =>
+
+            _ = Task.Delay((int)Constants.LockupDuration).ContinueWith(_ =>
             {
                 _automator.ExitLockup();
                 _robotController.UnBlockOtherOperations(RobotStateAndOperations.LockUpOperation);

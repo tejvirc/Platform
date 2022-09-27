@@ -11,7 +11,7 @@
 
     public class TransferOutCompletedConsumer : Consumes<TransferOutCompletedEvent>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGameHistory _history;
         private readonly IBarkeeperHandler _barkeeperHandler;
@@ -39,34 +39,35 @@
         public override void Consume(TransferOutCompletedEvent theEvent)
         {
             _barkeeperHandler.OnCashOutCompleted();
-
             if (!_runtime.Connected)
             {
                 return;
             }
 
             // This is intended to handle a cashout during a game round
-            if (!_gameState.Idle && !_gameState.InPresentationIdle)
+            if (!_gameState.Idle)
             {
                 _history.CompleteCashOut(theEvent.TraceId);
 
                 if (_runtime.GetState() > RuntimeState.Recovery)
                 {
-                _runtime.UpdateBalance(_playerBank.Credits);
+                    _runtime.UpdateBalance(_playerBank.Credits);
                 }
 
-                if (!theEvent.Pending)
+                if (theEvent.Pending)
                 {
-                    Logger.Debug("PendingHandpay set to false");
-                    _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
+                    return;
+                }
 
-                    _runtime.UpdateFlag(RuntimeCondition.AllowSubGameRound, true);
+                Logger.Debug("PendingHandpay set to false");
+                _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
-                    if (_gameState.CurrentState == PlayState.PayGameResults)
-                    {
-                        // This really belongs in the game play state machine, but there is contention on the state.  Need to consider moving this out of the event handler...
-                        _gameState.End(-1);
-                    }
+                _runtime.UpdateFlag(RuntimeCondition.AllowSubGameRound, true);
+
+                if (_gameState.CurrentState == PlayState.PayGameResults)
+                {
+                    // This really belongs in the game play state machine, but there is contention on the state.  Need to consider moving this out of the event handler...
+                    _gameState.End(-1);
                 }
             }
             else if (!_cashoutController.PaperInChuteNotificationActive)

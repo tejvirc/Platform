@@ -79,7 +79,7 @@
         public void AddNewTransactionToQueue()
         {
             Assert.IsTrue(_queue.IsEmpty());
-            _target.AddNewTransactionToQueue(Common.TransactionType.CashIn, Amount);
+            _target.AddNewTransactionToQueue(Common.TransactionType.CashIn, Amount, 0, 0);
 
             Assert.AreEqual(1, _queue.Count());
         }
@@ -93,7 +93,7 @@
                 .Returns(Task.FromResult(_ack));
 
             Assert.IsTrue(_queue.IsEmpty());
-            _target.AddNewTransactionToQueue(Common.TransactionType.CashIn, Amount);
+            _target.AddNewTransactionToQueue(Common.TransactionType.CashIn, Amount, 0, 0);
 
             Assert.AreEqual(1, _queue.Count());
 
@@ -119,7 +119,7 @@
                 .Returns(completion.Task);
 
             Assert.IsTrue(_queue.IsEmpty());
-            _target.AddNewTransactionToQueue(Common.TransactionType.CashIn, Amount);
+            _target.AddNewTransactionToQueue(Common.TransactionType.CashIn, Amount, 0, 0);
 
             Assert.AreEqual(1, _queue.Count());
 

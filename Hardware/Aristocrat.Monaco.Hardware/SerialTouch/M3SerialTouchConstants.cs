@@ -16,11 +16,6 @@
         public const byte ProximityBit = 0x40;
 
         /// <summary>
-        ///     Touch mask used for getting the coordinates
-        /// </summary>
-        public const byte LowOrderBits = 0x0F;
-
-        /// <summary>
         ///     The head for all serial touch commands. <SOH>
         /// </summary>
         public const byte Header = 0x01;
@@ -43,7 +38,7 @@
         /// <summary>
         ///     The number of bytes for a touch
         /// </summary>
-        public const int TouchDataLength = 4;
+        public const int TouchDataLength = 5;
 
         /// <summary>
         ///     The radius for the touch
@@ -59,6 +54,42 @@
         ///     The pressure applied for the touch
         /// </summary>
         public const int TouchPressure = 0; // 0 (default) to 1024
+        
+        /// <summary>
+        ///     The Maximum coordinate range - 14 bits
+        /// </summary>
+        public const int MaxCoordinateRange = 16383;
+
+        /// <summary>
+        ///     The minimum length of a valid command response.
+        /// </summary>
+        public const int MinimumResponseLength = 3;
+
+        /// <summary>
+        ///     The low byte index of the x coordinate in touch data.
+        /// </summary>
+        public const int TouchDataPacketLowXByte = 1;
+
+        /// <summary>
+        ///     The high byte index of the x coordinate in touch data.
+        /// </summary>
+        public const int TouchDataPacketHighXByte = 2;
+        
+        /// <summary>
+        ///     The low byte index of the y coordinate in touch data.
+        /// </summary>
+        public const int TouchDataPacketLowYByte = 3;
+        
+        /// <summary>
+        ///     The high byte index of the y coordinate in touch data.
+        /// </summary>
+        public const int TouchDataPacketHighYByte = 4;
+        
+        /// <summary>
+        ///     The number of bits to shift the high coordinate byte in touch data.
+        ///     The MSB of the low byte is not used so we need to shift the high byte 7 bits.
+        /// </summary>
+        public const int TouchDataPacketHighByteShift = 7;
 
         #region Kortek And EX II (3M Touch) Controller Commands 
 
@@ -87,7 +118,7 @@
         /// <summary>
         ///     A command used for resetting the controller
         /// </summary>
-        /// <remarks>Intializes the hardware and the firmware, causes the controller to
+        /// <remarks>Initializes the hardware and the firmware, causes the controller to
         /// stop sending data, and recalculates the environmental conditions.</remarks>
         public static readonly byte[] ResetCommand = ToMessage("R");
 

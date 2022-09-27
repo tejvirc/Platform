@@ -3,7 +3,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Audio;
@@ -32,7 +31,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         private Mock<IMessageDisplay> _messageDisplay;
         private static Mock<ISystemDisableManager> _systemDisableManager;
 
-        private Mock<ILockManager> _lockManager;
         private Mock<IDisposable> _disposable;
 
         /// <summary>
@@ -89,8 +87,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
-            _lockManager = MoqServiceManager.CreateAndAddService<ILockManager>(MockBehavior.Default);
-            _lockManager.Setup(l => l.AcquireExclusiveLock(It.IsAny<IEnumerable<ILockable>>())).Returns(_disposable.Object);
 
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>()))

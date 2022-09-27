@@ -11074,20 +11074,6 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="MeterNotApplicable" xml:space="preserve">
     <value>N/A</value>
   </data>
-  <data name="SelfAuditError" xml:space="preserve">
-    <value>Self Audit Error</value>
-  </data>
-  <data name="ClearRAMSelfAuditErrorLockup" xml:space="preserve">
-    <value>Self audit error occurred, to recover this lockup an NVRAM Clear is required</value>
-  </data>
-  <data name="CreatingSelfAuditErrorCheckingService" xml:space="preserve">
-    <value>Creating Self Audit Error Checking Service</value>
-    <comment>Aristocrat.Monaco</comment>
-  </data>
-  <data name="UnloadingSelfAuditProvider" xml:space="preserve">
-    <value>Unloading Self Audit Provider</value>
-    <comment>Monaco.Accounting</comment>
-  </data>
   <data name="CashOutHandpayKeyedOffTotalSuffix" xml:space="preserve">
     <value />
     <comment>Empty on purpose</comment>
@@ -11159,9 +11145,6 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="SubstantialWinHandpay" xml:space="preserve">
     <value>Substantial Win Pending - Call Attendant</value>
-  </data>
-  <data name="SelfAuditErrorHelpText" xml:space="preserve">
-    <value>Self audit error occurred. RAM clear is required to release this lockup.</value>
   </data>
   <data name="AttractBeagleBoneLightShowText" xml:space="preserve">
     <value>Attract</value>
@@ -11401,7 +11384,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Reel Was Tampered</value>
     <comment>Aristocrat.Monaco.Application.Contracts</comment>
   </data>
-  <data name="ReelFaults_RequestError" xml:space="preserve">
+  <data name="ReelControllerFaults_RequestError" xml:space="preserve">
     <value>Reel Controller Error</value>
     <comment>Aristocrat.Monaco.Application.Contracts</comment>
   </data>
@@ -11641,5 +11624,9 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="ResponsibleGaming" xml:space="preserve">
     <value>Enable Responsible Gaming</value>  
+  </data>
+  <data name="TouchCalibrationDisconnectError" xml:space="preserve">
+    <value>A display was disconnected during calibration.  Please reconnect displays and try again.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>

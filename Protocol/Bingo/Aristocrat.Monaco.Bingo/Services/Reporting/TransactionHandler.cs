@@ -48,13 +48,13 @@
         public void AddNewTransactionToQueue(
             TransactionType transactionType,
             long amount,
-            long gameSerial = 0,
-            uint gameTitleId = 0,
-            int paytableId = 0,
-            int denominationId = 0)
+            uint gameTitleId,
+            int denominationId,
+            long gameSerial,
+            int paytableId,
+            string barcode)
         {
-            var message = new ReportTransactionMessage
-            (
+            var message = new ReportTransactionMessage(
                 _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty),
                 DateTime.UtcNow,
                 amount,
@@ -63,7 +63,8 @@
                 (int)_idProvider.GetNextLogSequence<TransactionHandler>(),
                 paytableId,
                 denominationId,
-                (int)transactionType);
+                (int)transactionType,
+                barcode);
 
             _queue.Enqueue(message);
         }

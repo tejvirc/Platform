@@ -24,9 +24,7 @@
                 throw new InvalidManifestException("The manifest does not contain a product.");
             }
 
-            // Get the localized text if present, otherwise get the first one
-            var localizedInfo = product.localization.FirstOrDefault(l => IsLocaleMatch(l.localeCode)) ??
-                                product.localization.First();
+            var localizedInfo = GetLocalization(product);
 
             return new Product
             {

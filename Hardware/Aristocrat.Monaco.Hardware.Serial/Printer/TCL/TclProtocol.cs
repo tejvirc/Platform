@@ -621,8 +621,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                     remappedTicket.PrinterTemplateId,
                     remappedTicket.DataFields.ToList());
                 Logger.Debug($"Tcl command is {command}");
-                var hasRegionOfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0) &&
-                                          PrinterSpecificTemplateMappings.SupportsROI;
+                var hasRegionOfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0);
                 return SendPrintMessage(command, hasRegionOfInterest);
             }
         }
@@ -714,8 +713,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                 string templateId = _templateCommands[ticket.Id].Id;
                 string command = CreatePrintCommand(templateId, regionPrintData);
 
-                var hasRegionOfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0) &&
-                                          PrinterSpecificTemplateMappings.SupportsROI;
+                var hasRegionOfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0);
                 return SendPrintMessage(command, hasRegionOfInterest);
             }
         }

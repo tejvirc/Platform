@@ -6,7 +6,7 @@ param (
 
     [Parameter (Mandatory = $false)]
     [String]
-    $OutputDirectory = "$PSScriptRoot\..\NuGetPackages"
+    $OutputDirectory = "$PSScriptRoot\..\packages"
 )
 
 if (-not (Test-Path $OutputDirectory)) {

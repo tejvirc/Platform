@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Test.Automation;
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Automation;
 
-    internal class ServiceRequestOperations : IRobotOperations
+    internal sealed class ServiceRequestOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly StateChecker _sc;
@@ -26,21 +26,21 @@
             _robotController = robotController;
         }
 
-        ~ServiceRequestOperations() => Dispose(false);
 
         public void Reset()
         {
-            _disposed = true;
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(ServiceRequestOperations));
+            }
+
             _logger.Info("ServiceRequestOperations Has Been Initiated!", GetType().Name);
             _serviceRequestTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestService();
-                               },
+                               _ => RequestService(),
                                null,
                                _robotController.Config.Active.IntervalServiceRequest,
                                _robotController.Config.Active.IntervalServiceRequest);
@@ -48,38 +48,37 @@
 
         public void Halt()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(ServiceRequestOperations));
+            }
+
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _serviceRequestTimer?.Dispose();
+            _serviceRequestTimer?.Halt();
             _automator.ServiceButton(false);
         }
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
             if (_disposed)
             {
                 return;
             }
-            if (disposing)
+
+            if (_handlerTimer != null)
             {
-                if (_handlerTimer is not null)
-                {
-                    _handlerTimer.Dispose();
-                }
+                _handlerTimer.Dispose();
                 _handlerTimer = null;
-                if (_serviceRequestTimer is not null)
-                {
-                    _serviceRequestTimer.Dispose();
-                }
-                _serviceRequestTimer = null;
-                _eventBus.UnsubscribeAll(this);
             }
+
+            if (_serviceRequestTimer != null)
+            {
+                _serviceRequestTimer.Dispose();
+                _serviceRequestTimer = null;
+            }
+
+            _eventBus.UnsubscribeAll(this);
             _disposed = true;
         }
 
@@ -89,17 +88,18 @@
             {
                 return;
             }
+
             _logger.Info("RequestService Received!", GetType().Name);
             _automator.ServiceButton(true);
             _handlerTimer = new Timer(
-                (sender) =>
+                _ =>
                 {
                     _automator.ServiceButton(false);
                     _handlerTimer.Dispose();
                 },
                 null,
                 Constants.ServiceRequestDelayDuration,
-                System.Threading.Timeout.Infinite);
+                Timeout.Infinite);
         }
 
         private bool IsValid()

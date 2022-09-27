@@ -6,7 +6,7 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
 
-    internal class PlayerOperations : IRobotOperations
+    internal sealed class PlayerOperations : IRobotOperations
     {
         private readonly Dictionary<Actions, Action<Random>> _actionPlayerFunctions;
         private readonly RobotLogger _logger;
@@ -14,6 +14,7 @@
         private readonly Automation _automator;
         private readonly StateChecker _sc;
         private readonly RobotController _robotController;
+
         private Timer _actionPlayerTimer;
         private bool _disposed;
 
@@ -29,21 +30,31 @@
             InitializeActionPlayer();
         }
 
-        ~PlayerOperations() => Dispose(false);
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            _actionPlayerTimer?.Dispose();
+            _actionPlayerTimer = null;
+
+            _eventBus.UnsubscribeAll(this);
+            _disposed = true;
         }
 
         public void Reset()
         {
-            _disposed = false;
         }
 
         public void Execute()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(PlayerOperations));
+            }
+
             _logger.Info("PlayerOperations Has Been Initiated!", GetType().Name);
             _actionPlayerTimer = new Timer(
                 _ => RequestPlay(),
@@ -56,23 +67,7 @@
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
             _eventBus.UnsubscribeAll(this);
-            _actionPlayerTimer?.Dispose();
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                _actionPlayerTimer?.Dispose();
-                _actionPlayerTimer = null;
-                _eventBus.UnsubscribeAll(this);
-                _disposed = true;
-            }
+            _actionPlayerTimer?.Halt();
         }
 
         private void RequestPlay()
@@ -81,11 +76,12 @@
             {
                 return;
             }
+
             _logger.Info("RequestPlay Received!", GetType().Name);
 
 
             var rng = new Random();
-            var action = _robotController.Config.CurrentGameProfile.RobotActions.GetRandomElement(rng);
+            var action = _robotController.Config.GetRobotActions().GetRandomElement(rng);
             _actionPlayerFunctions[action](rng);
         }
 

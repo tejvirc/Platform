@@ -244,7 +244,7 @@
                 var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
 
                 var restrictions = _gameConfiguration.GetActive(currentGame.ThemeId);
-                if (restrictions != null)
+                if (restrictions?.RestrictionDetails?.Mapping?.Any() ?? false)
                 {
                     var activeDenominations = _gameProvider.GetEnabledGames().Where(g => g.ThemeId == currentGame.ThemeId)
                         .SelectMany(g => g.Denominations.Where(d => d.Active)).ToList();

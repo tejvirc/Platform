@@ -1,7 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Diagnostics.CodeAnalysis;
     using Monaco.Common.Storage;
+    using Newtonsoft.Json;
 
     [SuppressMessage(
         "ReSharper",
@@ -9,6 +12,8 @@
         Justification = "This gets set when reading from the database and will set via the server in the future")]
     public class BingoServerSettingsModel : BaseEntity
     {
+        private string _gamesConfigurationText;
+
         public long? VoucherInLimit { get; set; }
 
         public long? BillAcceptanceLimit { get; set; }
@@ -55,17 +60,32 @@
 
         public string LapLevelIDs { get; set; }
 
-        public string GameTitles { get; set; }
+        [NotMapped]
+        public IEnumerable<BingoGameConfiguration> GamesConfigured { get; private set; }
 
-        public string BonusGames { get; set; }
+        public string ServerGameConfiguration { get; set; }
 
-        public PaytableEvaluation EvaluationTypePaytable { get; set; }
+        public string GamesConfigurationText
+        {
+            get => _gamesConfigurationText;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
 
-        public string ThemeSkins { get; set; }
-
-        public bool? QuickStopMode { get; set; }
-
-        public string PaytableIds { get; set; }
+                try
+                {
+                    GamesConfigured = JsonConvert.DeserializeObject<List<BingoGameConfiguration>>(value);
+                    _gamesConfigurationText = value;
+                }
+                catch (JsonException)
+                {
+                    // Ignore serialization exceptions
+                }
+            }
+        }
 
         public string BallCallService { get; set; }
 

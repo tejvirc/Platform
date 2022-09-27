@@ -7,7 +7,6 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Kernel.Contracts.LockManagement;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Meters;
@@ -42,9 +41,8 @@
             IMessageDisplay messages,
             IPlayerService players,
             IPlayerBank playerBank,
-            IPaymentDeterminationProvider paymentDeterminationProvider,
-            ILockManager lockManager)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, lockManager)
+            IPaymentDeterminationProvider paymentDeterminationProvider)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider)
 
         {
             // TODO: Prevent changing the game, wager, denomination, coins bet per line or lines played until the bonus mode terminates
@@ -276,19 +274,6 @@
 
             var request = JsonConvert.DeserializeObject<MultipleJackpotTimeBonus>(transaction.Request);
             CommitIfComplete(transaction, request);
-        }
-
-        protected override IEnumerable<IMeter> GetMetersToUpdate(BonusTransaction transaction)
-        {
-            return base.GetMetersToUpdate(transaction).Concat(
-                new[]
-                {
-                    _meters.GetMeter(BonusMeters.MjtGamesPlayedCount),
-                    _meters.GetMeter(BonusMeters.HandPaidMjtBonusAmount),
-                    _meters.GetMeter(BonusMeters.HandPaidMjtBonusCount),
-                    _meters.GetMeter(BonusMeters.EgmPaidMjtBonusAmount),
-                    _meters.GetMeter(BonusMeters.EgmPaidMjtBonusCount)
-                });
         }
 
         private void UpdateMeters(BonusTransaction transaction, long paid)

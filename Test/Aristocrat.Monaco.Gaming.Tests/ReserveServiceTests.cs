@@ -23,6 +23,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
         private Action<ExitReserveButtonPressedEvent> _exitReserveButtonPressedHandler;
         private Action<PropertyChangedEvent> _propertyChangedHandler;
         private Action<GambleFeatureActiveEvent> _gambleFeatureActiveHandler;
+        private Action<GameInitializationCompletedEvent> _gameInitializationCompletedEventHandler;
 
         private ReserveService _reserve;
 
@@ -546,6 +547,12 @@ namespace Aristocrat.Monaco.Gaming.Tests
                         It.IsAny<ReserveService>(),
                         It.IsAny<Action<GambleFeatureActiveEvent>>()))
                 .Callback<object, Action<GambleFeatureActiveEvent>>((y, x) => _gambleFeatureActiveHandler = x);
+
+            _eventBus.Setup(
+                    x => x.Subscribe(
+                    It.IsAny<ReserveService>(),
+                    It.IsAny<Action<GameInitializationCompletedEvent>>()))
+                .Callback<object, Action<GameInitializationCompletedEvent>>((y, x) => _gameInitializationCompletedEventHandler = x);
 
             _reserve = new ReserveService(
                 nullEvent ? null : _eventBus.Object,

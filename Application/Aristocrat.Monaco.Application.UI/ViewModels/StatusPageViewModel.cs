@@ -115,8 +115,8 @@
             { ReelControllerFaults.HardwareError.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
             { ReelControllerFaults.LightError.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
             { ReelControllerFaults.LowVoltage.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
+            { ReelControllerFaults.RequestError.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
             { ReelFaults.LowVoltage.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
-            { ReelFaults.RequestError.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
             { ReelFaults.ReelStall.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
             { ReelFaults.ReelTamper.GetAttribute<ErrorGuidAttribute>().Id, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorInfoReelError) },
 
@@ -149,7 +149,6 @@
             { ApplicationConstants.LicenseErrorDisableKey, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LicenseFileErrorFaultMessage) },
             { ApplicationConstants.ReserveDisableKey, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReservedMachineErrorFaultMessage) },
             { ApplicationConstants.ExcessiveMeterIncrementErrorGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClearLockupExcessiveMeterIncrement) },
-            { ApplicationConstants.SelfAuditErrorGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClearRAMSelfAuditErrorLockup) },
             { ApplicationConstants.BellyDoorDiscrepencyGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorDiscrepancy) },
             { ApplicationConstants.MemoryBelowThresholdDisableKey, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessageDescription) },
             { ApplicationConstants.ResponsibleGameLostDisableGuid, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ResponsibleGameLostMessageDescription) },
@@ -162,7 +161,7 @@
         {
             InputStatusText = string.Empty;
 
-            // Initially it should always be active until it's set by the rule access service. 
+            // Initially it should always be active until it's set by the rule access service.
             OutOfServiceModeButtonActive = true;
 
             OutOfServiceModeButtonCommand = new ActionCommand<object>(_ => OutOfServiceModeButtonCommandHandler());
@@ -307,7 +306,7 @@
             {
                 InputStatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfServiceReason);
             }
-            
+
             IsExitReserveButtonVisible = (bool)PropertiesManager.GetProperty(
                 ApplicationConstants.ReserveServiceLockupPresent,
                 false);

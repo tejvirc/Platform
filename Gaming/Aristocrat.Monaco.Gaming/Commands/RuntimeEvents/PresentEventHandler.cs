@@ -17,7 +17,7 @@
 
     public class PresentEventHandler : BaseEventHandler, IRuntimeEventHandler
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPlayerBank _bank;
         private readonly IGameHistory _gameHistory;
@@ -163,9 +163,12 @@
                     return;
                 }
 
-                // If we recovered clear any pending handpay
-                Logger.Debug("PendingHandpay set to false");
-                _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
+                ClearHandpayPendingFlag();
+            }
+            else if (!MeterFreeGames && !_gameCashOutRecovery.HasPending &&
+                     (_gamePlayState.Idle || _gamePlayState.InPresentationIdle))
+            {
+                ClearHandpayPendingFlag();
             }
 
             SetAllowSubgameRound(true);
@@ -184,6 +187,13 @@
             var (game, denomination) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GamePresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
+        }
+
+        private void ClearHandpayPendingFlag()
+        {
+            // If we recovered clear any pending handpay
+            Logger.Debug("PendingHandpay set to false");
+            _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
         }
     }
 }

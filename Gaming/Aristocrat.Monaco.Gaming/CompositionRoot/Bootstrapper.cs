@@ -60,9 +60,9 @@
             var container = new Container();
 
             container.Register<IGameSession, WcfService>(Lifestyle.Singleton);
-            container.Register<RpcService>(Lifestyle.Singleton);
-            container.Register<RpcReelService>(Lifestyle.Singleton);
-            container.Register<RpcPresentationService>(Lifestyle.Singleton);
+            container.Register<SnappService>(Lifestyle.Singleton);
+            container.Register<SnappReelService>(Lifestyle.Singleton);
+            container.Register<SnappPresentationService>(Lifestyle.Singleton);
             container.Register<IRuntime, RuntimeProxy>(Lifestyle.Singleton);
             container.Register<IReelService, ReelServiceProxy>(Lifestyle.Singleton);
             container.Register<IPresentationService, PresentationServiceProxy>(Lifestyle.Singleton);
@@ -72,7 +72,7 @@
             container.Collection.Register<IServerEndpoint>(
                 new[]
                 {
-                    Lifestyle.Singleton.CreateRegistration(typeof(RpcServer), container),
+                    Lifestyle.Singleton.CreateRegistration(typeof(SnappServer), container),
                     Lifestyle.Singleton.CreateRegistration(typeof(WcfServer), container)
                 });
             
@@ -134,6 +134,7 @@
             container.Register<ISapProvider, StandaloneProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IProtocolLinkedProgressiveAdapter, ProtocolLinkedProgressiveAdapter>(Lifestyle.Singleton);
             container.Register<IHandpayRuntimeFlagsHelper, HandpayRuntimeFlagsHelper>(Lifestyle.Singleton);
+            container.Register<IReplayRuntimeEventHandler, ReplayRuntimeEventHandler>(Lifestyle.Singleton);
             container.Register<ReelControllerMonitor>(Lifestyle.Singleton);
 
             var progressiveCalculatorFactory = new ProgressiveCalculatorFactory(container);

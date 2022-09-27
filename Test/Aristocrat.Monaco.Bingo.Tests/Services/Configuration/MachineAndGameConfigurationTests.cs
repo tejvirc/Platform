@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests.Services.Configuration
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using Application.Contracts;
     using Bingo.Services.Configuration;
@@ -9,40 +11,88 @@
     using Common.Exceptions;
     using Common.Storage.Model;
     using Gaming.Contracts;
+    using Gaming.Contracts.Configuration;
     using Google.Protobuf.Collections;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using ServerApiGateway;
-    using Test.Common;
 
     [TestClass]
     public class MachineAndGameConfigurationTests
     {
+        private const string GamesConfigurationString = @"[
+  {
+    GameTitleId: ""272"",
+    ThemeSkinId: ""294"",
+    PaytableId: ""12414"",
+    Denomination: ""2"",
+    QuickStopMode: ""false"",
+    EvaluationTypePaytable: ""APP"",
+    Bets: [
+      18, 36, 54, 72, 90, 108, 126, 144, 162, 180, 198, 216, 234, 252, 270, 288,
+      306, 324, 342, 360,
+    ],
+  },
+  {
+    GameTitleId: ""272"",
+    ThemeSkinId: ""294"",
+    PaytableId: ""46082"",
+    Denomination: ""1"",
+    QuickStopMode: ""false"",
+    EvaluationTypePaytable: ""APP"",
+    Bets: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99, 108,
+      117, 126, 135, 144, 153, 162, 171, 180,
+    ],
+  },
+]";
+
+        private const string GamesConfigurationChangedString = @"[
+  {
+    GameTitleId: ""272"",
+    ThemeSkinId: ""294"",
+    PaytableId: ""12414"",
+    Denomination: ""2"",
+    QuickStopMode: ""false"",
+    EvaluationTypePaytable: ""APP"",
+    Bets: [
+      18, 36, 54, 72, 90, 108, 126, 144, 162, 180, 198, 216, 234, 252, 270, 288,
+      306, 324, 342, 360,
+    ],
+  }
+]";
+
         private MachineAndGameConfiguration _target;
         private readonly BingoServerSettingsModel _model = new();
-        private Mock<IPropertiesManager> _propertiesManager = new();
-        private readonly Mock<ISystemDisableManager> _disableManager = new();
+        private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
+        private readonly Mock<ISystemDisableManager> _disableManager = new(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
+        private readonly Mock<IConfigurationProvider> _configurationProvider = new(MockBehavior.Default);
 
         [TestInitialize]
         public void Initialize()
         {
-            MoqServiceManager.CreateInstance(MockBehavior.Default);
-            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
-            _target = new MachineAndGameConfiguration(_propertiesManager.Object, _disableManager.Object);
+            _target = CreateTarget();
         }
 
-        [DataRow(true, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, true, DisplayName = "DisableManager null")]
+        [DataRow(true, false, false, false)]
+        [DataRow(false, true, false, false)]
+        [DataRow(false, false, true, false)]
+        [DataRow(false, false, false, true)]
         [DataTestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void ConstructorTest(
-            bool propertiesManagerNull,
-            bool disableManagerNull)
+        public void NullConstructorArgumentsTest(
+            bool nullProperties,
+            bool nullDisable,
+            bool nullGameProvider,
+            bool nullRestrictions)
         {
-            _target = new MachineAndGameConfiguration(
-                propertiesManagerNull ? null : _propertiesManager.Object,
-                disableManagerNull ? null : _disableManager.Object);
+            Assert.ThrowsException<ArgumentNullException>(
+                () => _ = CreateTarget(
+                    nullProperties,
+                    nullDisable,
+                    nullGameProvider,
+                    nullRestrictions));
         }
 
         [TestMethod]
@@ -54,20 +104,13 @@
             const string locationId = "1";
             const string locationBankValue = "15";
             const string locationPositionValue = "7";
-            const string initialQuickStopMode = "0";
-            const bool expectedQuickStopMode = false;
-            const string gameTitleId = "1";
-            const string bonusGameValue = "0";
-            const string initialPaytableEvalType = "1";
-            const PaytableEvaluation expectedPaytableEvalType = PaytableEvaluation.HPP;
-            const string themeSkinValue = "0";
-            const string paytableId = "1";
             const string expectedBingoCardPlacement = MachineAndGameConfigurationConstants.EgmSetting;
             const string initialBingoCardPlacement = MachineAndGameConfigurationConstants.EgmSetting;
             const bool expectedDispBingoCard = true;
             const string initialDispBingoCard = BingoConstants.ServerSettingOn;
             const bool expectedHideWhenInactive = true;
             const string initialHideWhenInactive = BingoConstants.ServerSettingOn;
+            const string themeId = "TestTheme";
             var initialBingoHelpUri = "file:///" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace('\\', '/') + "/www/bingo";
 
             var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
@@ -86,36 +129,11 @@
                 },
                 new ConfigurationResponse.Types.ClientAttribute
                 {
-                    Value = gameTitleId, Name = MachineAndGameConfigurationConstants.GameTitleId
-                },
-                new ConfigurationResponse.Types.ClientAttribute
-                {
-                    Value = bonusGameValue, Name = MachineAndGameConfigurationConstants.BonusGame
-                },
-                new ConfigurationResponse.Types.ClientAttribute
-                {
-                    Value = initialPaytableEvalType,
-                    Name = MachineAndGameConfigurationConstants.EvaluationTypePaytable
-                },
-                new ConfigurationResponse.Types.ClientAttribute
-                {
-                    Value = themeSkinValue, Name = MachineAndGameConfigurationConstants.ThemeSkin
-                },
-                new ConfigurationResponse.Types.ClientAttribute
-                {
-                    Value = paytableId, Name = MachineAndGameConfigurationConstants.PaytableId
-                },
-                new ConfigurationResponse.Types.ClientAttribute
-                {
                     Value = locationBankValue, Name = MachineAndGameConfigurationConstants.LocationBank
                 },
                 new ConfigurationResponse.Types.ClientAttribute
                 {
                     Value = locationPositionValue, Name = MachineAndGameConfigurationConstants.LocationPosition
-                },
-                new ConfigurationResponse.Types.ClientAttribute
-                {
-                    Value = initialQuickStopMode, Name = MachineAndGameConfigurationConstants.QuickStopMode
                 },
                 new ConfigurationResponse.Types.ClientAttribute
                 {
@@ -133,6 +151,10 @@
                 new ConfigurationResponse.Types.ClientAttribute
                 {
                     Value = initialBingoHelpUri, Name = MachineAndGameConfigurationConstants.BingoHelpUri
+                },
+                new ConfigurationResponse.Types.ClientAttribute
+                {
+                    Value = GamesConfigurationString, Name = MachineAndGameConfigurationConstants.GamesConfigured
                 }
             };
 
@@ -144,21 +166,24 @@
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.BingoCardPlacement, initialBingoCardPlacement)).Verifiable();
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.DisplayBingoCardEgm, initialDispBingoCard)).Verifiable();
             _propertiesManager.Setup(m => m.SetProperty(BingoConstants.BingoHelpUri, initialBingoHelpUri)).Verifiable();
-            _propertiesManager.Setup(m => m.SetProperty(GamingConstants.ReelStopEnabled, expectedQuickStopMode)).Verifiable();
+
+            var mockGame = new Mock<IGameDetail>();
+            mockGame.Setup(x => x.CdsThemeId).Returns("272");
+            mockGame.Setup(x => x.SupportedDenominations).Returns(new[] { 1000L, 2000L });
+            mockGame.Setup(x => x.ThemeId).Returns(themeId);
+            mockGame.Setup(x => x.Active).Returns(true);
+            _gameProvider.Setup(x => x.GetGames()).Returns(new List<IGameDetail> { mockGame.Object });
+            _configurationProvider.Setup(x => x.GetByThemeId(themeId))
+                .Returns(Enumerable.Empty<IConfigurationRestriction>());
 
             _target.Configure(messageConfigurationAttribute, _model);
 
             _propertiesManager.Verify();
 
             Assert.AreEqual(locationZoneId, _model.ZoneId);
-            Assert.AreEqual(paytableId, _model.PaytableIds);
-            Assert.AreEqual(themeSkinValue, _model.ThemeSkins);
+            Assert.AreEqual(GamesConfigurationString, _model.ServerGameConfiguration);
             Assert.AreEqual(locationBankValue, _model.BankId);
             Assert.AreEqual(locationPositionValue, _model.Position);
-            Assert.AreEqual(expectedQuickStopMode, _model.QuickStopMode);
-            Assert.AreEqual(bonusGameValue, _model.BonusGames);
-            Assert.AreEqual(gameTitleId, _model.GameTitles);
-            Assert.AreEqual(expectedPaytableEvalType, _model.EvaluationTypePaytable);
             Assert.AreEqual(expectedBingoCardPlacement, _model.BingoCardPlacement);
             Assert.AreEqual(expectedDispBingoCard, _model.DisplayBingoCard);
             Assert.AreEqual(expectedHideWhenInactive, _model.HideBingoCardWhenInactive);
@@ -190,26 +215,17 @@
             _disableManager.Verify();
         }
 
-        [DataRow("-1", MachineAndGameConfigurationConstants.GameTitleId, DisplayName = "Invalid Setting GameTitleId < 0")]
-        [DataRow("", MachineAndGameConfigurationConstants.GameTitleId, DisplayName = "Invalid Setting GameTitleId Empty")]
         [DataRow("0", MachineAndGameConfigurationConstants.MachineSerial, DisplayName = "Invalid Setting MachineSerial < 1")]
         [DataRow("", MachineAndGameConfigurationConstants.MachineSerial, DisplayName = "Invalid Setting MachineSerial Empty")]
         [DataRow("-1", MachineAndGameConfigurationConstants.LocationId, DisplayName = "Invalid Setting LocationId < 0")]
         [DataRow("-1", MachineAndGameConfigurationConstants.MachineTypeId, DisplayName = "Invalid Setting MachineTypeId < 0")]
         [DataRow("-1", MachineAndGameConfigurationConstants.CreditsManager, DisplayName = "Invalid Setting CreditsManager < 0")]
-        [DataRow("0", MachineAndGameConfigurationConstants.NumGamesConfigured, DisplayName = "Invalid Setting NumGamesConfigured < 1")]
-        [DataRow("-1", MachineAndGameConfigurationConstants.ThemeSkin, DisplayName = "Invalid Setting ThemeSkin < 0")]
-        [DataRow("-1", MachineAndGameConfigurationConstants.PaytableId, DisplayName = "Invalid Setting PaytableId < 0")]
-        [DataRow("-1", MachineAndGameConfigurationConstants.DenominationId, DisplayName = "Invalid Setting DenominationId < 0")]
-        [DataRow("JunkData", MachineAndGameConfigurationConstants.QuickStopMode, DisplayName = "Invalid Setting QuickStopMode is not Type bool")]
         [DataRow("Any Screen", MachineAndGameConfigurationConstants.BingoCardPlacement, DisplayName = "Invalid Setting Unknown BingoCardPlacement")]
         [DataRow("No Bingo Card", MachineAndGameConfigurationConstants.DispBingoCard, DisplayName = "Invalid Setting Unknown DispBingoCard")]
         [DataRow("No Bingo Card", MachineAndGameConfigurationConstants.HideBingoCardWhenInactive, DisplayName = "Invalid Setting Unknown HideBingoCardWhenInactive")]
-        [DataRow(PaytableEvaluation.Unknown, MachineAndGameConfigurationConstants.EvaluationTypePaytable, DisplayName = "Invalid Setting Unknown PaytableEvaluation")]
-        [DataRow(PaytableEvaluation.MaxPaytableMethod, MachineAndGameConfigurationConstants.EvaluationTypePaytable, DisplayName = "Invalid Setting Unknown PaytableEvaluation")]
         [DataRow("", MachineAndGameConfigurationConstants.BingoHelpUri, DisplayName = "Invalid Setting BingoHelpUri Empty")]
+        [DataRow("", MachineAndGameConfigurationConstants.GamesConfigured, DisplayName = "Invalid Setting GamesConfigured Empty")]
         [DataTestMethod]
-        [ExpectedException(typeof(ConfigurationException))]
         public void InvalidSettingTest(object value, string name)
         {
             var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
@@ -217,29 +233,69 @@
                 new ConfigurationResponse.Types.ClientAttribute { Value = value?.ToString(), Name = name}
             };
 
-            // should throw exception
-            _target.Configure(messageConfigurationAttribute, _model);
+            Assert.ThrowsException<ConfigurationException>(() => _target.Configure(messageConfigurationAttribute, _model));
         }
 
-        [DataRow("1", MachineAndGameConfigurationConstants.GameTitleId, "2", "GameTitles", DisplayName = "Invalid Setting GameTitleId Can Only Be Set Once")]
-        [DataRow("0", MachineAndGameConfigurationConstants.BonusGame, "1", "BonusGames", DisplayName = "Invalid Setting BonusGame Can Only Be Set Once")]
-        [DataRow("1", MachineAndGameConfigurationConstants.ThemeSkin, "2", "ThemeSkins", DisplayName = "Invalid Setting ThemeSkin Can Only Be Set Once")]
-        [DataRow(false, MachineAndGameConfigurationConstants.QuickStopMode, "1", "QuickStopMode", DisplayName = "Invalid Setting QuickStopMode Can Only Be Set Once")]
-        [DataRow("1", MachineAndGameConfigurationConstants.PaytableId, "2", "PaytableIds", DisplayName = "Invalid Setting PaytableId Can Only Be Set Once")]
-        [DataRow(PaytableEvaluation.APP, MachineAndGameConfigurationConstants.EvaluationTypePaytable, "1", "EvaluationTypePaytable", DisplayName = "Invalid Setting EvaluationTypePaytable Can Only Be Set Once")]
+        [DataRow(GamesConfigurationString, MachineAndGameConfigurationConstants.GamesConfigured, GamesConfigurationChangedString, nameof(BingoServerSettingsModel.ServerGameConfiguration), DisplayName = "Invalid Setting Games can only be set once")]
         [DataTestMethod]
-        [ExpectedException(typeof(ConfigurationException))]
         public void SettingChangedTest(object value, string name, object newValue, string propertyName)
         {
-            _model.GetType().GetProperty(propertyName).SetValue(_model, value);
+            _model.GetType().GetProperty(propertyName)?.SetValue(_model, value);
 
             var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
             {
                 new ConfigurationResponse.Types.ClientAttribute { Value = newValue?.ToString(), Name = name}
             };
 
-            // should throw exception
-            _target.Configure(messageConfigurationAttribute, _model);
+            Assert.ThrowsException<ConfigurationException>(() => _target.Configure(messageConfigurationAttribute, _model));
+        }
+
+        [TestMethod]
+        public void GamesDenomRestrictionTest()
+        {
+            const string themeId = "TestTheme";
+            var mockGame = new Mock<IGameDetail>();
+            mockGame.Setup(x => x.CdsThemeId).Returns("272");
+            mockGame.Setup(x => x.SupportedDenominations).Returns(new[] { 1000L, 2000L });
+            mockGame.Setup(x => x.ThemeId).Returns(themeId);
+            mockGame.Setup(x => x.Active).Returns(true);
+            _gameProvider.Setup(x => x.GetGames()).Returns(new List<IGameDetail> { mockGame.Object });
+
+            var mockRestrictions = new Mock<IConfigurationRestriction>();
+            var mockRestrictionDetails = new Mock<IRestrictionDetails>();
+            mockRestrictionDetails.Setup(x => x.MaxDenomsEnabled).Returns(1);
+            mockRestrictionDetails.Setup(x => x.Mapping).Returns(Enumerable.Empty<IDenomToPaytable>());
+            mockRestrictions.Setup(x => x.RestrictionDetails).Returns(mockRestrictionDetails.Object);
+            _configurationProvider.Setup(x => x.GetByThemeId(themeId))
+                .Returns(new List<IConfigurationRestriction>
+                {
+                    mockRestrictions.Object
+                });
+
+            var messageConfigurationAttribute = new RepeatedField<ConfigurationResponse.Types.ClientAttribute>
+            {
+                new ConfigurationResponse.Types.ClientAttribute
+                {
+                    Value = GamesConfigurationString,
+                    Name = MachineAndGameConfigurationConstants.GamesConfigured
+                }
+            };
+
+            Assert.ThrowsException<ConfigurationException>(
+                () => _target.Configure(messageConfigurationAttribute, _model));
+        }
+
+        private MachineAndGameConfiguration CreateTarget(
+            bool nullProperties = false,
+            bool nullDisable = false,
+            bool nullGameProvider = false,
+            bool nullRestrictions = false)
+        {
+            return new MachineAndGameConfiguration(
+                nullProperties ? null : _propertiesManager.Object,
+                nullDisable ? null : _disableManager.Object,
+                nullGameProvider ? null : _gameProvider.Object,
+                nullRestrictions ? null : _configurationProvider.Object);
         }
     }
 }

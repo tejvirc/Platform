@@ -98,13 +98,13 @@
         public int MechanicalReels { get; set; }
 
         /// <summary>
-        ///     Gets or sets the home stops for mechanical reels
+        ///     Gets or sets the home steps for mechanical reels
         /// </summary>
         /// <value>
-        ///     array of numbers representing the stops.
-        ///     array[0] is the stop for the leftmost reel
+        ///     array of numbers representing the steps.
+        ///     array[0] is the step for the leftmost reel
         /// </value>
-        public int[] MechanicalReelHomeStops { get; set; }
+        public int[] MechanicalReelHomeSteps { get; set; }
 
         /// <summary>
         ///     Gets or sets the uninstall sequence.

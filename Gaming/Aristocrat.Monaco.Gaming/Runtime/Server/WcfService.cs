@@ -167,7 +167,7 @@
             Logger.Debug(
                 $"BeginGameRoundResult({pendingJackpotTriggers.Count}, {gameRoundDetails?.PresentationIndex})");
 
-            if (pendingJackpotTriggers.IsNullOrEmpty())
+            if (!pendingJackpotTriggers.IsNullOrEmpty())
             {
                 var command = new PendingTrigger(pendingJackpotTriggers.Select(l => (int)l).ToList());
                 _handlerFactory.Create<PendingTrigger>().Handle(command);
@@ -200,12 +200,10 @@
                 _handlerFactory.Create<GameRoundEvent>()
                     .Handle(new GameRoundEvent((GameRoundEventState)eventType, (GameRoundEventAction)stage, (Client.PlayMode)playMode, gameRoundInfo, bet, win, stake, data));
             }
-            else if (playMode == GameRoundPlayMode.Replay
-                     && eventType == GameRoundEventType.Present
-                     && stage == GameRoundEventStage.Invoked)
+            else if (playMode == GameRoundPlayMode.Replay)
             {
-                // The end of replay.
-                _eventBus.Publish(new GameReplayCompletedEvent());
+                _handlerFactory.Create<ReplayGameRoundEvent>()
+                    .Handle(new ReplayGameRoundEvent((GameRoundEventState)eventType, (GameRoundEventAction)stage, gameRoundInfo));
             }
         }
 

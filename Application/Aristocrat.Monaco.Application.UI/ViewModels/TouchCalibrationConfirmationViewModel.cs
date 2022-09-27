@@ -23,7 +23,6 @@
         /// </summary>
         public TouchCalibrationConfirmationViewModel()
         {
-            EventBus.Subscribe<SystemDownEvent>(this, HandleEvent);
             EventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
  
             _cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
@@ -78,7 +77,7 @@
             Save();
         }
 
-        private void HandleEvent(SystemDownEvent downEvent)
+        protected override void HandleEvent(SystemDownEvent downEvent)
         {
             if (downEvent.LogicalId == (int)ButtonLogicalId.Play && downEvent.Enabled == false)
             {

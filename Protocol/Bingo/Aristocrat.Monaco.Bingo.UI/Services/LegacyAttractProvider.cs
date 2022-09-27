@@ -27,18 +27,17 @@
         private const string BallsWithInAmountFormatParameter = "ballsInFormat";
         private const string UseCreditsParameter = "useCredits";
         private const string PatternCycleTimeParameter = "patternCycleMs";
+        private const string PatternsUrlFormatParameter = "patternsUrlFormat";
+        private const string DefaultAttractPatternJsFile = "scripts/pattern.js";
 
         private readonly IPropertiesManager _propertiesManager;
-        private readonly IGameProvider _gameProvider;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
         public LegacyAttractProvider(
             IPropertiesManager propertiesManager,
-            IGameProvider gameProvider,
             IUnitOfWorkFactory unitOfWorkFactory)
         {
             _propertiesManager = propertiesManager;
-            _gameProvider = gameProvider;
             _unitOfWorkFactory = unitOfWorkFactory;
         }
 
@@ -57,10 +56,10 @@
 
         private IDictionary<string, string> GetUrlParameters(BingoDisplayConfigurationBingoAttractSettings attractSettings)
         {
-            var gameId = _propertiesManager.GetValue(GamingConstants.SelectedGameId, 0);
-            var game = _gameProvider.GetGame(gameId);
+            var (game, denomination) = _propertiesManager.GetActiveGame();
             var serverSettings = _unitOfWorkFactory.Invoke(
-                x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault());
+                    x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())?.GamesConfigured
+                ?.FirstOrDefault(c => c.PlatformGameId == game.Id && c.Denomination == denomination.Value);
 
             var numberFormat = CurrencyExtensions.CurrencyCultureInfo.NumberFormat;
             var helpUri = new UriBuilder(_unitOfWorkFactory.GetHelpUri(_propertiesManager))
@@ -71,8 +70,8 @@
 
             return new Dictionary<string, string>
             {
-                { GameNameParameter, serverSettings?.GameTitles ?? game.ThemeName },
-                { PaytableNameParameter, serverSettings?.PaytableIds ?? game.PaytableId },
+                { GameNameParameter, serverSettings?.GameTitleId.ToString() ?? game.ThemeName },
+                { PaytableNameParameter, serverSettings?.PaytableId.ToString() ?? game.PaytableId },
                 { BaseUrlParameter, helpUri.ToString() },
                 { MajorUnitSeparatorParameter, numberFormat.CurrencyGroupSeparator },
                 { MinorUnitSeparatorParameter, numberFormat.CurrencyDecimalSeparator },
@@ -81,7 +80,8 @@
                 { BetAmountFormatParameter, attractSettings.BetAmountFormattingText },
                 { PayAmountFormatParameter, attractSettings.PayAmountFormattingText },
                 { UseCreditsParameter, attractSettings.DisplayAmountsAsCredits.ToString() },
-                { PatternCycleTimeParameter, attractSettings.PatternCycleTimeMilliseconds.ToString() }
+                { PatternCycleTimeParameter, attractSettings.PatternCycleTimeMilliseconds.ToString() },
+                { PatternsUrlFormatParameter, $"{BingoConstants.DefaultBingoHelpUriFormat}/{DefaultAttractPatternJsFile}" }
             };
         }
     }

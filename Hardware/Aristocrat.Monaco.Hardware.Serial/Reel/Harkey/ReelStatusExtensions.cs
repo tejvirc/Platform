@@ -14,9 +14,7 @@
                 ReelId = reelId,
                 Connected = status.IsReelConnected() || ignoreConnected,
                 ReelStall = (status & ReelStatus.Stalled) == ReelStatus.Stalled,
-                ReelTampered = (status & ReelStatus.ReelOutOfSync) == ReelStatus.ReelOutOfSync,
-                RequestError = (status & ReelStatus.ReelInError) == ReelStatus.ReelInError ||
-                               (status & ReelStatus.ReelOutOfSync) == ReelStatus.ReelOutOfSync
+                ReelTampered = (status & ReelStatus.ReelOutOfSync) == ReelStatus.ReelOutOfSync
             };
         }
     }

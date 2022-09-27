@@ -55,47 +55,6 @@
         ///     Location Position
         /// </summary>
         public const string LocationPosition = "LocationPosition";
-
-        /// <summary>
-        ///     Number of Games Configured
-        /// </summary>
-        public const string NumGamesConfigured = "NumGamesConfigured";
-
-        /// <summary>
-        ///     Game Title Id
-        /// </summary>
-        public const string GameTitleId = "GameTitleId";
-
-        /// <summary>
-        ///     Theme Skin
-        /// </summary>
-        public const string ThemeSkin = "ThemeSkin";
-
-        /// <summary>
-        ///     Paytable Id
-        /// </summary>
-        public const string PaytableId = "PaytableId";
-
-        /// <summary>
-        ///     Paytable Id
-        /// </summary>
-        public const string BonusGame = "BonusGame";
-
-        /// <summary>
-        ///     Evaluation Type Paytable for APP or HPP
-        /// </summary>
-        public const string EvaluationTypePaytable = "EvaluationTypePaytable";
-
-        /// <summary>
-        ///     Denomination Id
-        /// </summary>
-        public const string DenominationId = "DenominationId";
-
-        /// <summary>
-        ///     QuickStop Mode, allows the player to slam the reels with the play button
-        /// </summary>
-        public const string QuickStopMode = "QuickStopMode";
-
         /// <summary>
         ///     Facade Type
         /// </summary>
@@ -116,6 +75,11 @@
         /// <remarks>Valid settings are: EGM Setting, Top Screen</remarks>
         /// </summary>
         public const string BingoCardPlacement = "BingoCardPlacement";
+
+        /// <summary>
+        ///     The games configuration attribute.  This data is in a JSON array and contains all the data needed to enable games
+        /// </summary>
+        public const string GamesConfigured = "Games";
 
         /// <summary>
         ///     Indicates the behavior of the bingo card display (EGM - will override global setting)

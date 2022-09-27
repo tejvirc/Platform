@@ -48,18 +48,6 @@
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
-  <Extension path="/Accounting/CreditMetersProvider">
-    <CreditMetersProvider type="Aristocrat.Monaco.Accounting.SelfAudit.AccountingCreditMetersProvider" />
-  </Extension>
-
-  <Extension path="/Accounting/DebitMetersProvider">
-    <DebitMetersProvider type="Aristocrat.Monaco.Accounting.SelfAudit.AccountingDebitMetersProvider" />
-  </Extension>
-
-  <Extension path="/Accounting/SelfAuditRunAdviceProvider">
-    <SelfAuditRunAdviceProvider type="Aristocrat.Monaco.Accounting.SelfAudit.AccountingSelfAuditRunAdviceProvider" />
-  </Extension>
-
   <Extension path="/Accounting/Bank">
     <Bank type="Aristocrat.Monaco.Accounting.Bank" />
   </Extension>

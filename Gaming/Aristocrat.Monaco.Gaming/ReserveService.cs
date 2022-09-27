@@ -153,7 +153,8 @@
                 return;
             }
 
-            CreateLockup();
+            CreateLockup(true);
+            _eventBus?.Subscribe<GameInitializationCompletedEvent>(this, HandleEvent);
         }
 
         private void Dispose(bool disposing)
@@ -246,7 +247,13 @@
             }
         }
 
-        private bool CreateLockup()
+        private void HandleEvent(GameInitializationCompletedEvent evt)
+        {
+            _eventBus.Unsubscribe<GameInitializationCompletedEvent>(this);
+            _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+        }
+
+        private bool CreateLockup(bool lockupOnStartup = false)
         {
             ShowLockup();
             IsMachineReserved = true;
@@ -260,7 +267,11 @@
                 _remainingSeconds = _timeoutInSeconds;
             }
 
-            _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            //while reserving the machine on startup, don't start timer immediately as game will take
+            //some time to initialize , will do that when initialization is completed.
+            if (!lockupOnStartup)
+                _reserveServiceLockupTimer.Change(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+
             return true;
         }
     }

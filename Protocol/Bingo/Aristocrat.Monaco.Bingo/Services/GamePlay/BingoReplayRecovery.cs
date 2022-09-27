@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Accounting.Contracts;
     using Accounting.Contracts.Transactions;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -26,7 +27,6 @@
 
     public class BingoReplayRecovery : IBingoReplayRecovery, IDisposable
     {
-        private static readonly Guid RecoveryGameEndWinMessageKey = new("{13fc85f5-8146-4049-8589-83ff711607a0}");
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
@@ -37,9 +37,13 @@
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IUnitOfWorkFactory _unitOfWork;
         private readonly GameEndWinFactory _gewFactory;
+        private readonly IBonusHandler _bonusHandler;
+        private readonly ITransactionHistory _transactionHistory;
+
+        private Guid _recoveryMessageId;
+        private long _recoveredTransactionId;
 
         private bool _disposed;
-        private string _recoveredGameEndWinMessage;
 
         public BingoReplayRecovery(
             IEventBus bus,
@@ -49,7 +53,9 @@
             IMessageDisplay messages,
             ICommandHandlerFactory commandFactory,
             IUnitOfWorkFactory unitOfWork,
-            GameEndWinFactory gewFactory)
+            GameEndWinFactory gewFactory,
+            IBonusHandler bonusHandler,
+            ITransactionHistory transactionHistory)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _centralProvider = centralProvider ?? throw new ArgumentNullException(nameof(centralProvider));
@@ -59,8 +65,11 @@
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _gewFactory = gewFactory ?? throw new ArgumentNullException(nameof(gewFactory));
+            _bonusHandler = bonusHandler ?? throw new ArgumentNullException(nameof(bonusHandler));
+            _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
 
             _bus.Subscribe<GamePlayInitiatedEvent>(this, _ => ClearGameEndWinMessage());
+            _bus.Subscribe<BankBalanceChangedEvent>(this, Handle);
         }
 
         public Task RecoverDisplay(CancellationToken token)
@@ -186,30 +195,56 @@
                 return;
             }
 
-            _recoveredGameEndWinMessage = Localizer.For(CultureFor.Player).FormatString(ResourceKeys.GameEndWinAward,
+            var gewBonus = _bonusHandler.Transactions.FirstOrDefault(
+                t => t.Mode is BonusMode.GameWin && t.AssociatedTransactions.Contains(playedGame.TransactionId));
+            if (gewBonus is null || gewBonus.DisplayMessageId == Guid.Empty)
+            {
+                return;
+            }
+
+            var gameEndWinMessage = Localizer.For(CultureFor.Player).FormatString(ResourceKeys.GameEndWinAward,
                 playedGame.GameWinBonus.CentsToDollars().FormattedCurrencyString());
+            _recoveredTransactionId = gewBonus.TransactionId;
 
-            Logger.Debug($"Recover GEW: '{_recoveredGameEndWinMessage}'");
-
+            Logger.Debug($"Recover GEW: '{gameEndWinMessage}'");
+            _recoveryMessageId = gewBonus.DisplayMessageId;
             var displayMessage = new DisplayableMessage(
-                GetGameEndWinMessage,
+                () => gameEndWinMessage,
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Normal,
                 typeof(BonusAwardedEvent),
-                RecoveryGameEndWinMessageKey);
+                gewBonus.DisplayMessageId);
 
             _messages.DisplayMessage(displayMessage);
         }
 
         private void ClearGameEndWinMessage()
         {
-            _recoveredGameEndWinMessage = "";
-            _messages.RemoveMessage(RecoveryGameEndWinMessageKey);
+            if (_recoveredTransactionId == 0)
+            {
+                return;
+            }
+
+            var gewBonus = _bonusHandler.Transactions.FirstOrDefault(
+                t => t.Mode is BonusMode.GameWin && t.TransactionId == _recoveredTransactionId);
+            if (gewBonus is null)
+            {
+                return;
+            }
+
+            gewBonus.DisplayMessageId = Guid.Empty;
+            _transactionHistory.UpdateTransaction(gewBonus);
+
+            _messages.RemoveMessage(_recoveryMessageId);
+            _recoveredTransactionId = 0;
         }
 
-        private string GetGameEndWinMessage()
+        private void Handle(BankBalanceChangedEvent evt)
         {
-            return _recoveredGameEndWinMessage;
+            if (evt.NewBalance == 0)
+            {
+                ClearGameEndWinMessage();
+            }
         }
     }
 }

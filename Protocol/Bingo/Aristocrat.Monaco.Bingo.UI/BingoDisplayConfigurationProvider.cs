@@ -6,7 +6,6 @@
     using System.IO;
     using System.Linq;
     using System.Windows;
-    using System.Xml.Serialization;
     using Application.Contracts.Localization;
     using Common;
     using Events;
@@ -97,6 +96,17 @@
             return _windowSettings[window];
         }
 
+        public BingoDisplayConfigurationBingoWindowSettings GetSettings(BingoWindow window, int gameId)
+        {
+            var game = _gameProvider.GetGame(gameId);
+            if (game is null || !_displayConfigurations.TryGetValue(game.ThemeId, out var settings))
+            {
+                return GetDefaultSettings();
+            }
+
+            return settings.BingoInfoWindowSettings?.FirstOrDefault() ?? GetDefaultSettings();
+        }
+
         /// <inheritdoc />
         public Window GetWindow(BingoWindow window)
         {
@@ -125,60 +135,6 @@
                 RaiseChangeEvent(_currentWindow);
             }
         }
-
-        /// <inheritdoc />
-        public void LoadFromFile(string path)
-        {
-            var settingsArray = CreateSettingsFromFile(path);
-            LoadFromSettings(settingsArray);
-        }
-
-#if !RETAIL
-        public void OverrideHelpAppearance(BingoDisplayConfigurationHelpAppearance helpAppearance)
-        {
-            if (helpAppearance is null)
-            {
-                return;
-            }
-
-            _helpAppearance = helpAppearance;
-            RaiseChangeEvent(_currentWindow);
-        }
-
-        public void OverrideSettings(BingoWindow window, BingoDisplayConfigurationBingoWindowSettings settings)
-        {
-            if (settings is null || !_windowSettings.ContainsKey(window))
-            {
-                return;
-            }
-
-            _windowSettings[window] = settings;
-            RaiseChangeEvent(window);
-        }
-
-        public void RestoreSettings(BingoWindow window)
-        {
-            RestoreSettingsForWindow(window);
-        }
-
-        /// <inheritdoc />
-        public void SaveToFile(string path)
-        {
-            var config = new BingoDisplayConfiguration
-            {
-                BingoAttractSettings = _attractSettings,
-                BingoInfoWindowSettings = _windowSettings.Values.ToArray(),
-                HelpAppearance = _helpAppearance,
-                Version = _version,
-                PresentationOverrideMessageFormats = _presentationOverrideMessageFormats.ToArray()
-            };
-
-            var serializer = new XmlSerializer(config.GetType());
-            var writer = new StreamWriter(path);
-            serializer.Serialize(writer, config);
-            writer.Close();
-        }
-#endif
 
         public void LobbyInitialized()
         {
@@ -237,6 +193,11 @@
 
         private void LoadSettings(BingoWindow window)
         {
+            _windowSettings[window] = GetDefaultSettings();
+        }
+
+        private BingoDisplayConfigurationBingoWindowSettings GetDefaultSettings()
+        {
             _attractSettings = new BingoDisplayConfigurationBingoAttractSettings();
             _helpAppearance = _defaultHelpAppearance;
             _presentationOverrideMessageFormats = new List<PresentationOverrideMessageFormat>();
@@ -263,13 +224,13 @@
                 }.ToArray()
             };
 
-            _windowSettings[window] = appearance;
+            return appearance;
         }
 
         private void ScanForGameFiles()
         {
             var allGames = _gameProvider.GetAllGames().Where(
-                game => game?.Folder is not null && !_displayConfigurations.ContainsKey(game.Folder));
+                game => game?.Folder is not null && !_displayConfigurations.ContainsKey(game.ThemeId));
             foreach (var game in allGames)
             {
                 var file = Path.Combine(game.Folder, DisplayConfigurationFile);
@@ -280,7 +241,7 @@
 
                 var bingoDisplayConfiguration = CreateSettingsFromFile(file);
                 _displayConfigurations.AddOrUpdate(
-                    game.Folder,
+                    game.ThemeId,
                     _ => bingoDisplayConfiguration,
                     (_, _) => bingoDisplayConfiguration);
             }
@@ -321,13 +282,6 @@
             }
         }
 
-        private void RestoreSettingsForWindow(BingoWindow window)
-        {
-            LoadSettings(window);
-
-            RaiseChangeEvent(window);
-        }
-
         private void Handle(GameSelectedEvent evt)
         {
             if (evt.GameId == _selectedGameId)
@@ -337,7 +291,7 @@
 
             _selectedGameId = evt.GameId;
             var currentGame = _gameProvider.GetGame(_selectedGameId);
-            if (currentGame != null && _displayConfigurations.TryGetValue(currentGame.Folder, out var configuration))
+            if (currentGame != null && _displayConfigurations.TryGetValue(currentGame.ThemeId, out var configuration))
             {
                 LoadFromSettings(configuration);
             }
@@ -357,8 +311,6 @@
                         _windowMap[changedWindow],
                         _windowSettings[changedWindow]));
             }
-
-            _eventBus.Publish(new BingoDisplayHelpAppearanceChangedEvent(_helpAppearance));
         }
     }
 }

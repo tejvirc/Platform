@@ -11,19 +11,6 @@
     public abstract class GsaManifest
     {
         /// <summary>
-        ///     Checks for a locale match based on the current culture
-        /// </summary>
-        /// <param name="localeCode">The locale code from the manifest</param>
-        /// <returns>Returns true if the value matches the current locale</returns>
-        protected static bool IsLocaleMatch(string localeCode)
-        {
-            return string.Equals(
-                localeCode.Replace(@"_", "-"),
-                CultureInfo.CurrentCulture.Name,
-                StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        /// <summary>
         ///     Parses the file to a GSA manifest
         /// </summary>
         /// <param name="file">The file to parse</param>
@@ -73,6 +60,39 @@
             {
                 throw new InvalidManifestException("The manifest does not contain a product.");
             }
+        }
+
+        /// <summary>
+        ///     Gets the localized text, if present.
+        /// </summary>
+        /// <param name="product">The related product.</param>
+        /// <returns>The matching localization.</returns>
+        protected localization GetLocalization(product product)
+        {
+            return product.localization.FirstOrDefault(IsLocaleMatch) ??
+                   product.localization.First();
+
+            static bool IsLocaleMatch(localization locale)
+            {
+                return string.Equals(
+                    locale.localeCode.Replace(@"_", "-"),
+                    CultureInfo.CurrentCulture.Name,
+                    StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
+
+        /// <summary>
+        ///     Gets the mechanical reel home steps.
+        /// </summary>
+        /// <param name="product">The related product.</param>
+        /// <returns>The mechnical reel home steps.</returns>
+        protected int[] GetMechanicalReelHomeSteps(product product)
+        {
+            var steps = string.IsNullOrWhiteSpace(product.mechanicalReelHomeStops)
+                ? product.mechanicalReelHomeSteps
+                : product.mechanicalReelHomeStops;
+
+            return steps?.Split(' ').Select(int.Parse).ToArray();
         }
     }
 }

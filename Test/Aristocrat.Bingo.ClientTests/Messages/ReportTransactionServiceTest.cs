@@ -14,6 +14,7 @@
     public class ReportTransactionServiceTest
     {
         private const int TransactionId = 123;
+        private const string TestBarcode = "TestBarcode";
         private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _endpointProvider =
             new Mock<IClientEndpointProvider<ClientApi.ClientApiClient>>(MockBehavior.Default);
 
@@ -26,7 +27,8 @@
             TransactionId,
             12345,
             1000,
-            1);
+            1,
+            TestBarcode);
         private ReportTransactionService _target;
 
         [TestInitialize]
