@@ -80,7 +80,7 @@
         /// <summary>
         /// true if we have overrides for printer template mappings
         /// </summary>
-        protected bool UsePrinterDefinedTemplates => PrinterSpecificTemplateMappings?.PrinterTemplateMappings != null && PrinterSpecificTemplateMappings.UsePrinterDefinedTemplates;
+        protected bool UsePrinterDefinedTemplates => PrinterSpecificTemplateMappings is { PrinterTemplateMappings: { }, UsePrinterDefinedTemplates: true };
 
         /// <summary>
         /// Get or set the PrinterStatus

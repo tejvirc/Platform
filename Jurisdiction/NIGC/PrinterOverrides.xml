@@ -151,11 +151,7 @@ Please update the confluence page when new elements and attributes are added.
     </PrinterTemplateMappings>
   </Override>
 
-  <Override Protocol="Nanoptix TCL" FirmwareBase="PAY-6.10D">
-    <Replacements>
-      <GlobalRegionTextReplace>
-        <GlobalReplace Replace="\n" With="\n\n" OnlyFirstOccurrencePerLine="true"/>
-      </GlobalRegionTextReplace>
-    </Replacements>
+  <Override Protocol="Nanoptix TCL" FirmwareBase="PAY-6.">
+    <AuditTickets PlatformTemplateIds="101 105"/>
   </Override>
 </Overrides>

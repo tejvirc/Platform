@@ -158,10 +158,14 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
         protected override void CalculateCrc()
         {
             if (FirmwareCrc != UnknownCrc)
+            {
                 return;
+            }
 
             if (!RequestStatus())
+            {
                 return;
+            }
 
             EnableTemplatePrintingMode();
 
@@ -422,7 +426,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
             // <da_len>|<pa_len>|<unused1>|<rot>|<just>|<obj_id>|
             // <mul_1>|<mul_2>|<obj_att>|<pr_att>|<pr_data>|^
 
-            StringBuilder command = new StringBuilder(TclProtocolConstants.TransmitCode);
+            var command = new StringBuilder(TclProtocolConstants.TransmitCode);
 
             AppendTclSegmentGroup(command, TclProtocolConstants.RegionCode);
             AppendTclSegmentGroup(command, regionId);
@@ -460,8 +464,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
         {
             // Command format:
             // ^T|<t_id>|<targ_mem>|<t_dim_da>|<t_dim_pa>|<pr#1>|<pr#2>|...|<pr#n>|^
-
-            StringBuilder command = new StringBuilder(TclProtocolConstants.TransmitCode);
+            var command = new StringBuilder(TclProtocolConstants.TransmitCode);
 
             AppendTclSegmentGroup(command, TclProtocolConstants.TemplateCode);
             AppendTclSegmentGroup(command, templateId);
@@ -471,7 +474,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
 
             lock (Lock)
             {
-                foreach (string regionId in regionIds)
+                foreach (var regionId in regionIds)
                 {
                     AppendTclSegmentGroup(command, _regionCommands[regionId].Id);
                 }
@@ -595,8 +598,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
         {
             Logger.Debug($"UsePrinterDefinedTemplates is {UsePrinterDefinedTemplates}");
             return UsePrinterDefinedTemplates
-                ? RenderPrinterDefinedPrintData(ticket)
-                : RenderPlatformDefinedPrintData(ticket);
+                    ? RenderPrinterDefinedPrintData(ticket)
+                    : RenderPlatformDefinedPrintData(ticket);
         }
 
         private bool RenderPrinterDefinedPrintData(PrintCommand ticket)
@@ -702,16 +705,21 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                     return false;
                 }
 
+                if (PrinterSpecificTemplateMappings is not null && PrinterSpecificTemplateMappings.IsAuditTicket(ticket))
+                {
+                    return Render3ColumnTicketData(ticket);
+                }
+
                 if (_templateCommands[ticket.Id].RegionCount < ticket.DataFields.Length)
                 {
                     Logger.Debug("RenderPrintData not enough region definitions");
                 }
 
-                List<PrintDataField> regionPrintData = ticket.DataFields.ToList();
+                var regionPrintData = ticket.DataFields.ToList();
                 regionPrintData = PreRenderPrintRegions(ticket.Id, regionPrintData);
 
-                string templateId = _templateCommands[ticket.Id].Id;
-                string command = CreatePrintCommand(templateId, regionPrintData);
+                var templateId = _templateCommands[ticket.Id].Id;
+                var command = CreatePrintCommand(templateId, regionPrintData);
 
                 var hasRegionOfInterest = ticket.DataFields.Any(x => x.IsRegionOfInterest > 0);
                 return SendPrintMessage(command, hasRegionOfInterest);
@@ -768,8 +776,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
 
                     CalculateRegionDimensions(ref regionData, pdlRegion);
 
-                    string regionId = GetNextPrintableObjectId(ref _currentRegionId);
-                    PrintableObject printerRegion = CreatePrinterRegion(regionId, regionData);
+                    var regionId = GetNextPrintableObjectId(ref _currentRegionId);
+                    var printerRegion = CreatePrinterRegion(regionId, regionData);
                     _regionCommands[pdlRegion.id] = printerRegion;
                 }
 
@@ -806,7 +814,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                 Logger.Debug($"RenderTemplateDefinition: template is {pdlTemplate.id} templateCommands has {_templateCommands.Count} elements");
                 if (!_templateCommands.ContainsKey(pdlTemplate.id))
                 {
-                    string templateId = GetNextPrintableObjectId(ref _currentTemplateId);
+                    var templateId = GetNextPrintableObjectId(ref _currentTemplateId);
                     var regionIds = new List<string>(
                         pdlTemplate.Value.Split(new[] { ' ' },
                             StringSplitOptions.RemoveEmptyEntries));
@@ -814,7 +822,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                     CacheBarcodeRegionIndexes(pdlTemplate.id, regionIds);
 
                     regionIds = PreRenderTemplateRegions(regionIds);
-                    PrintableObject printerTemplate = CreatePrinterTemplate(templateId, regionIds);
+                    var printerTemplate = CreatePrinterTemplate(templateId, regionIds);
                     _templateCommands[pdlTemplate.id] = printerTemplate;
                 }
 
@@ -871,11 +879,11 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
                     TclProtocolConstants.VersionOffset,
                     TclProtocolConstants.VersionLength);
 
-                long statusBits = response[TclProtocolConstants.StatusOffset] +                     // status1
-                                  ((long)response[TclProtocolConstants.StatusOffset + 2] << 8) +    // status2
-                                  ((long)response[TclProtocolConstants.StatusOffset + 4] << 16) +   // status3
-                                  ((long)response[TclProtocolConstants.StatusOffset + 6] << 24) +   // status4
-                                  ((long)response[TclProtocolConstants.StatusOffset + 8] << 32);    // status5
+                var statusBits = response[TclProtocolConstants.StatusOffset] +                     // status1
+                                 ((long)response[TclProtocolConstants.StatusOffset + 2] << 8) +    // status2
+                                 ((long)response[TclProtocolConstants.StatusOffset + 4] << 16) +   // status3
+                                 ((long)response[TclProtocolConstants.StatusOffset + 6] << 24) +   // status4
+                                 ((long)response[TclProtocolConstants.StatusOffset + 8] << 32);    // status5
 
                 return (TclProtocolConstants.TclStatus)statusBits;
             }
@@ -1005,7 +1013,6 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
 
             var centerColumn = ticket.DataFields[1].Data;
             NotSupportedCharacterReplacement(ref centerColumn);
-
 
             var rightColumn = ticket.DataFields[2].Data;
             NotSupportedCharacterReplacement(ref rightColumn);
