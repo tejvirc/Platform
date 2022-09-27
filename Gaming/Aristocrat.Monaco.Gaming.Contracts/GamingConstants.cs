@@ -366,6 +366,21 @@
         public static string MinimumGameRoundDuration = @"MinimumGameRoundDuration";
 
         /// <summary>
+        /// ResponsibleGamingCount
+        /// </summary>
+        public static string ResponsibleGamingCount = "GamePreferences.ResponsibleGamingCount";
+
+        /// <summary>
+        /// IsResponsibleGaming
+        /// </summary>
+        public static string IsResponsibleGaming = "GamePreferences.IsResponsibleGaming";
+
+        /// <summary>
+        /// SuccessiveResponsibleGameLossCount
+        /// </summary>
+        public static string SuccessiveResponsibleGameLossCount = "GamePreferences.SuccessiveResponsibleGameLossCount";
+
+        /// <summary>
         ///     Default minimum game round duration that can be configured
         /// </summary>
         public static readonly int DefaultMinimumGameRoundDurationMs = 100;

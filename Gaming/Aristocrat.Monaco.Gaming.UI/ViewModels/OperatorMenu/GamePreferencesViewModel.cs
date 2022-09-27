@@ -67,6 +67,8 @@
         private GameStartMethodOption _gameStartMethod;
         private bool _showProgramPinRequired;
         private string _showProgramPin;
+        private bool _IsResponsibleGaming;
+        private int _responsibleGamingCount;
         private bool _showProgramEnableResetCredits;
         private bool _attractOptionsEnabled;
         private bool _attractEnabled;
@@ -162,6 +164,10 @@
             var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container
                 ?.GetInstance<ILobbyStateManager>();
             IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+            IsResponsibleGamingEnable = GetConfigSetting(OperatorMenuSetting.ShowResponsibleGaming, false);
+            IsResponsibleGaming = PropertiesManager.GetValue(GamingConstants.IsResponsibleGaming, false);
+            //Set default val
+            ResponsibleGamingCount = 5;
         }
 
         public List<GameStartMethodInfo> GameStartMethods => new List<GameStartMethodInfo>
@@ -234,6 +240,8 @@
         public bool IsGameStartMethodSettingVisible { get; }
 
         public bool IsShowProgramPinConfigurable { get; }
+
+        public bool IsResponsibleGamingEnable { get; set; }
 
         public IList<(string Color, string BackgroundFilePath)> BackgroundPreviewFiles { get; } = new List<(string, string)>();
 
@@ -363,6 +371,38 @@
                 _showProgramPin = value;
                 RaisePropertyChanged(nameof(ShowProgramPin));
                 ValidateShowProgramPin();
+            }
+        }
+
+        public bool IsResponsibleGaming
+        {
+            get => _IsResponsibleGaming;
+            set
+            {
+                if (_IsResponsibleGaming == value)
+                {
+                    return;
+                }
+
+                _IsResponsibleGaming = value;
+                RaisePropertyChanged(nameof(IsResponsibleGaming));
+                Save(GamingConstants.IsResponsibleGaming, _IsResponsibleGaming);
+            }
+        }
+
+        public int ResponsibleGamingCount
+        {
+            get => _responsibleGamingCount;
+            set
+            {
+                if (_responsibleGamingCount == value)
+                {
+                    return;
+                }
+
+                _responsibleGamingCount = value;
+                RaisePropertyChanged(nameof(ResponsibleGamingCount));
+                Save(GamingConstants.ResponsibleGamingCount, _responsibleGamingCount);
             }
         }
 

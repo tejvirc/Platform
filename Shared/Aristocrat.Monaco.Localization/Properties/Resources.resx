@@ -11622,7 +11622,11 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>To clear this lockup, restart the machine.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="HiddenValue" xml:space="preserve">
+  <data name="ResponsibleGameLostMessageDescription" xml:space="preserve">
+    <value>To clear this lockup, Toggle the jackpot key.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+	<data name="HiddenValue" xml:space="preserve">
     <value>Hidden Value</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
@@ -11634,5 +11638,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="Hash" xml:space="preserve">
     <value>Hash</value>
+  </data>
+  <data name="ResponsibleGaming" xml:space="preserve">
+    <value>Enable Responsible Gaming</value>  
   </data>
 </root>

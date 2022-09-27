@@ -333,6 +333,11 @@
         public static Guid OperatorMenuLauncherDisableGuid => new Guid("{38B2CB9B-3113-4B6A-9F3F-91356BD5B8F8}");
 
         /// <summary>
+        ///     Gets the ISystemDisableManager key used when the operator menu is launched.
+        /// </summary>
+        public static Guid ResponsibleGameLostDisableGuid => new Guid("{7c377a58-7fe1-4038-ba57-176d5d6d6b09}");
+
+        /// <summary>
         ///     Key used to disable the operator menu during initialization
         /// </summary>
         /// <remarks>

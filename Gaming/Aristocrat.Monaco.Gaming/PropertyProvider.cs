@@ -268,7 +268,10 @@
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
-                { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) }
+                { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
+                { GamingConstants.IsResponsibleGaming, (InitFromStorage(GamingConstants.IsResponsibleGaming), true) },
+                { GamingConstants.ResponsibleGamingCount, (InitFromStorage(GamingConstants.ResponsibleGamingCount), true) },
+                { GamingConstants.SuccessiveResponsibleGameLossCount, (InitFromStorage(GamingConstants.SuccessiveResponsibleGameLossCount), true) }
             };
 
             if (!blockExists)
@@ -293,6 +296,10 @@
                 SetProperty(GamingConstants.ShowTopPickBanners,true);
                 SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
                 SetProperty(GamingConstants.LaunchGameAfterReboot, false);
+                
+                SetProperty(GamingConstants.IsResponsibleGaming, false);
+                SetProperty(GamingConstants.ResponsibleGamingCount, 5);
+                SetProperty(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
                 if (machineSettingsImported == ImportMachineSettings.None)

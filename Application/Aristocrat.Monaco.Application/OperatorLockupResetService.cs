@@ -163,6 +163,7 @@
         {
             lock (_lockObject)
             {
+                _bus.Publish(evt);
                 if (!_operatorResetLockupActive)
                 {
                     return;

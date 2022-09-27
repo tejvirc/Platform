@@ -258,7 +258,7 @@
                 <TextBlock x:Name="ShowProgramOptionsTextBlock"
                            Margin="0 30 0 0"
                            Text="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramOptionsLabel}}"
-                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}"/> 
+                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}"/>               
 
                 <!-- Enable Show Program PIN Section -->
                 <CheckBox x:Name="ShowProgramPinRequiredCheckBox"
@@ -304,6 +304,21 @@
                           IsChecked="{Binding ShowProgramEnableResetCredits}"
                           IsEnabled="{Binding FieldAccessEnabled}" 
                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource BoolToVisConverter}}"/>
+
+                <!-- Show Responsible Gaming Section -->
+                
+                <CheckBox x:Name="ResponsibleGamingCheckBox" 
+                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ResponsibleGaming}}"   
+                          IsChecked="{Binding IsResponsibleGaming}"
+                          IsEnabled="True" 
+                          Visibility="{Binding Path=IsResponsibleGamingEnable, Converter={StaticResource BoolToVisConverter}}"/>
+                <StackPanel  Margin="5 15 0 0" Orientation="Horizontal" Visibility="{Binding ElementName=ResponsibleGamingCheckBox, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}">
+                <TextBlock>Responsible Gaming Numbers :</TextBlock>
+                    <TextBox Width="50" Margin="0,0,0,0" HorizontalContentAlignment="Right" IsReadOnly="False" MaxLength="2"                             
+                              Text="{Binding ResponsibleGamingCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
+                    </TextBox>
+                </StackPanel>
+
             </StackPanel>
 
             <!-- Middle Grid Section -->

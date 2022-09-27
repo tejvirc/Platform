@@ -104,6 +104,8 @@
         /// <summary/>
         public const string ShowWagerCategoryMeters = "ShowWagerCategoryMeters";
         /// <summary/>
+        public const string ShowResponsibleGaming = "ShowResponsibleGaming";
+        /// <summary/>
         public const string ShowCashableVoucherExpiration = "ShowCashableVoucherExpiration";
         /// <summary/>
         public const string EnableAllowVoucherOut = "EnableAllowVoucherOut";

@@ -6,6 +6,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Aristocrat.Monaco.Application.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Commands;
     using Contracts;
     using Contracts.Bonus;
@@ -208,6 +210,11 @@
         }
 
         private bool AllowGamePlayOnNormalLockup => _properties.GetValue(GamingConstants.AdditionalInfoGameInProgress, false);
+        private bool IsResponsibleGaming => _properties.GetValue(GamingConstants.IsResponsibleGaming, false);
+        private int ResponsibleGamingCount => _properties.GetValue(GamingConstants.ResponsibleGamingCount, 5);
+        private bool isGameWin = false;
+
+
 
         /// <inheritdoc />
         public void Initialize()
@@ -737,13 +744,43 @@
             }
         }
 
+        private void HandleEvent(DownEvent evt)
+        {
+            if (evt.LogicalId == JackpotKeyLogicalId && _properties.GetValue(GamingConstants.SuccessiveResponsibleGameLossCount,0) > 0)
+            {
+                _systemDisableManager.Enable(ApplicationConstants.ResponsibleGameLostDisableGuid);
+                _properties.SetProperty(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
+            }
+        }
+
+        public static int JackpotKeyLogicalId = 130;
         private void OnPrimaryGameStarted(long wager, byte[] data)
         {
+            if (IsResponsibleGaming)
+            {
+                var lostGameCount = _properties.GetValue(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
+                if (lostGameCount >= ResponsibleGamingCount)
+                {
+                    _systemDisableManager.Disable(ApplicationConstants.ResponsibleGameLostDisableGuid, SystemDisablePriority.Immediate, () => ResponsibleGameLostDisableMsg());
+                    _eventBus.Subscribe<DownEvent>(this, HandleEvent);                   
+                    //var command = new GameEnded();
+                    //_handlerFactory.Create<GameEnded>().Handle(command);
+                    return;
+                }
+            }
+
             _handlerFactory.Create<PrimaryGameStarted>().Handle(new PrimaryGameStarted(_gameId, _denom, wager, data));
 
             _eventBus.Publish(new PrimaryGameStartedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
 
             _moneyLaunderingMonitor.NotifyGameStarted();
+        }
+
+
+
+        private string ResponsibleGameLostDisableMsg()
+        {
+            return "Game play has been discontinued.";
         }
 
         private void OnSecondaryGameChoice(StateMachine<PlayState, Trigger>.Transition transition)
@@ -764,6 +801,7 @@
 
         private void OnPayGameResult(long win, StateMachine<PlayState, Trigger>.Transition transition)
         {
+
             HandleGameEndTransition(transition.Source, win);
 
             var results = new PayGameResults(win);
@@ -776,6 +814,12 @@
             {
                 HandleBonusEvents(Trigger.GameEnded);
             }
+
+            if (IsResponsibleGaming && win > 0)
+            {
+                isGameWin = true;
+                _properties.SetProperty(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
+            }
         }
 
         private void OnGameEnded(StateMachine<PlayState, Trigger>.Transition transition)
@@ -786,6 +830,21 @@
             _handlerFactory.Create<GameEnded>().Handle(command);
 
             HandleBonusEvents(Trigger.GameIdle);
+
+            if (!IsResponsibleGaming)
+            {
+                return;
+            }
+
+            if (!isGameWin)
+            {
+                var count = _properties.GetValue(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
+                _properties.SetProperty(GamingConstants.SuccessiveResponsibleGameLossCount, count + 1);
+            }
+            else
+            {
+                isGameWin = false;
+            }
         }
 
         private void HandleGameEndTransition(PlayState source, long win)

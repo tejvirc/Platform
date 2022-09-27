@@ -28647,14 +28647,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 				return ResourceManager.GetString("ShowProgramOptionsLabel", resourceCulture) ?? string.Empty;
 			}
 		}
+        /// <summary>
+        ///  Looks up a localized string similar to Responsible Gaming.
+        /// </summary>
+        public static string ResponsibleGaming
+        {
+            get
+            {
+                return ResourceManager.GetString("ResponsibleGaming", resourceCulture) ?? string.Empty;
+            }
+        }
 
-		/// <summary>
-		///   Looks up a localized string similar to Show Program PIN.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Show Program PIN.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		public static string ShowProgramPin {
+        public static string ShowProgramPin {
 			get {
 				return ResourceManager.GetString("ShowProgramPin", resourceCulture) ?? string.Empty;
 			}
@@ -56970,13 +56980,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///		Looks up a localized string similar to Out Of Service.
+        /// <summary>
+		///Looks up a localized string similar to To clear this lockup, restart the machine..
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ResponsibleGameLostMessageDescription
+        {
+            get
+            {
+                return "ResponsibleGameLostMessageDescription";
+            }
+        }
+
+        /// <summary>
+        ///		Looks up a localized string similar to Out Of Service.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application
         /// </remarks>
-		public static string OutOfService {
+        public static string OutOfService {
 			get {
 				return "OutOfService";
 			}
@@ -63075,13 +63099,28 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///		Looks up a localized string similar to Show Program PIN.
-		/// </summary>
+
+        /// <summary>
+        ///		Looks up a localized string similar to Responsible Gaming.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		public static string ShowProgramPin {
+        public static string ResponsibleGaming
+        {
+            get
+            {
+                return "ResponsibleGaming";
+            }
+        }        
+
+        /// <summary>
+        ///		Looks up a localized string similar to Show Program PIN.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        public static string ShowProgramPin {
 			get {
 				return "ShowProgramPin";
 			}
@@ -85219,13 +85258,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		ShowProgramOptionsLabel,
-		/// <summary>
-		///   Looks up a localized string similar to Show Program PIN.
-		/// </summary>
+
+        /// <summary>
+        ///  Looks up a localized string similar to Responsible Gaming.
+        /// </summary>
+        ResponsibleGaming,
+        /// <summary>
+        ///   Looks up a localized string similar to Show Program PIN.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		ShowProgramPin,
+        ShowProgramPin,
 		/// <summary>
 		///   Looks up a localized string similar to Show Service Button.
 		/// </summary>
