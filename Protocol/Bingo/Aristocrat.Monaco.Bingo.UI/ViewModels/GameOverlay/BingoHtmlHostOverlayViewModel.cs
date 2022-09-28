@@ -920,7 +920,8 @@
                 {
                     BallCallNumbers = _ballCallNumbers,
                     BingoCardNumbers = _bingoCardNumbers,
-                    BingoPatterns = GetBingoPatternForOverlay(_cyclingPatterns)
+                    BingoPatterns = GetBingoPatternForOverlay(_cyclingPatterns),
+                    SceneName = _lastGameScene
                 }).FireAndForget();
 #if !(RETAIL)
             _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(_cyclingPatterns)));
