@@ -117,10 +117,6 @@
                     ? string.Format(Localizer.For(CultureFor.Operator).GetString(e.ResourceKey), e.Error)
                     : Localizer.For(CultureFor.Operator).GetString(e.ResourceKey);
             }
-            else
-            {
-                Status = string.Empty;
-            }
 
             SetLowerLeftCrosshair(e.CrosshairColorLowerLeft);
             SetUpperRightCrosshair(e.CrosshairColorUpperRight);

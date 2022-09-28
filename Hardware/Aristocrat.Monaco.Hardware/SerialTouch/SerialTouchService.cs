@@ -130,9 +130,6 @@
         /// <inheritdoc />
         public bool PendingCalibration { get; private set; }
 
-        /// <inheritdoc />
-        public string Status { get; set; }
-
         private CalibrationCrosshairColors CrosshairColorLowerLeft { get; set; }
 
         private CalibrationCrosshairColors CrosshairColorUpperRight { get; set; }
@@ -258,7 +255,7 @@
             {
                 CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
                 CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
-                _eventBus.Publish(new SerialTouchCalibrationStatusEvent(Model + " " + FirmwareVersion, ResourceKeys.TouchCalibrateModel, CrosshairColorLowerLeft, CrosshairColorUpperRight));
+                _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
             }
 
             _transmitQueue?.Add(M3SerialTouchConstants.ResetCommand);
@@ -454,15 +451,13 @@
                     _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.TouchLowerLeftCrosshair, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 }
 
-                Status = "CALIBRATE EXTENDED...TOUCH LOWER LEFT CROSSHAIR";
                 Fire(SerialTouchTrigger.LowerLeftTarget);
             }
             else
             {
                 Fire(SerialTouchTrigger.Error);
                 var error = status.ToString("X2");
-                Status = $"ERROR - Calibrate Extended (CX) command failed with code {error}";
-                Logger.Error($"HandleCalibrateExtended - {Status}");
+                Logger.Error($"HandleCalibrateExtended - ERROR - Calibrate Extended (CX) command failed with code {error}");
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedCommandFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
                 SendResetCommand(PendingCalibration);
@@ -493,11 +488,9 @@
                 {
                     CrosshairColorLowerLeft = CalibrationCrosshairColors.Acknowledged;
                     _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
-                    Status = "CALIBRATE EXTENDED LOWER LEFT OK";
                     Thread.Sleep(CalibrationDelayMs);
                     CrosshairColorLowerLeft = CalibrationCrosshairColors.Inactive;
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Active;
-                    Status = "CALIBRATE EXTENDED...TOUCH UPPER RIGHT CROSSHAIR";
                     _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.TouchUpperRightCrosshair, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 }
 
@@ -507,8 +500,7 @@
             {
                 Fire(SerialTouchTrigger.Error);
                 var error = status.ToString("X2");
-                Status = $"ERROR - Calibrate Extended (CX) lower left target failed with code {error}";
-                Logger.Error($"HandleLowerLeftTarget - {Status}");
+                Logger.Error($"HandleLowerLeftTarget - ERROR - Calibrate Extended (CX) lower left target failed with code {error}");
                 CrosshairColorLowerLeft = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedLowerLeftTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;
@@ -521,14 +513,12 @@
         {
             if (status == M3SerialTouchConstants.StatusGood)
             {
-                Status = "NULL COMMAND OK";
                 Fire(SerialTouchTrigger.NullCompleted);
             }
             else
             {
                 Fire(SerialTouchTrigger.Error);
-                Status = $"ERROR - Null (Z) command failed with code {status}";
-                Logger.Error($"HandleNull - {Status}");
+                Logger.Error($"HandleNull - ERROR - Null (Z) command failed with code {status}");
             }
         }
 
@@ -572,7 +562,6 @@
         {
             if (status == M3SerialTouchConstants.StatusGood)
             {
-                Status = "RESET COMMAND OK";
                 Fire(SerialTouchTrigger.Name);
             }
             else
@@ -588,7 +577,6 @@
         {
             if (status == M3SerialTouchConstants.StatusGood)
             {
-                Status = "RESET COMMAND OK";
                 if (_resetForRecovery)
                 {
                     _resetForRecovery = false;
@@ -615,8 +603,7 @@
                     if (PendingCalibration)
                     {
                         var error = status.ToString("X2");
-                        Status = $"ERROR - Reset (R) command failed with code {error}";
-                        Logger.Error($"HandleReset - {Status}");
+                        Logger.Error($"HandleReset - ERROR - Reset (R) command failed with code {error}");
                         _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateResetCommandFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                         Thread.Sleep(CalibrationDelayMs);
                     }
@@ -626,8 +613,7 @@
                 else
                 {
                     Fire(SerialTouchTrigger.Error);
-                    Status = $"ERROR - Reset (R) command failed with code {status}";
-                    Logger.Error($"HandleReset - {Status}");
+                    Logger.Error($"HandleReset - ERROR - Reset (R) command failed with code {status}");
                 }
             }
         }
@@ -681,7 +667,6 @@
         {
             if (status == M3SerialTouchConstants.StatusGood)
             {
-                Status = "RESTORE DEFAULTS COMMAND OK";
                 if (PendingCalibration)
                 {
                     SendCalibrateExtendedCommand();
@@ -694,8 +679,7 @@
             else
             {
                 Fire(SerialTouchTrigger.Error);
-                Status = $"ERROR - Restore Defaults (RD) command failed with code {status}";
-                Logger.Error($"HandleRestoreDefaults - {Status}");
+                Logger.Error($"HandleRestoreDefaults - ERROR - Restore Defaults (RD) command failed with code {status}");
             }
         }
 
@@ -708,14 +692,12 @@
                 {
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Acknowledged;
                     _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, string.Empty, CrosshairColorLowerLeft, CrosshairColorUpperRight));
-                    Status = "CALIBRATE EXTENDED UPPER RIGHT OK";
                     Thread.Sleep(CalibrationDelayMs);
                     CrosshairColorUpperRight = CalibrationCrosshairColors.Inactive;
                 }
 
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(string.Empty, ResourceKeys.CalibrationComplete, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 Thread.Sleep(CalibrationDelayMs);
-                Status = "CALIBRATION COMPLETE";
                 Fire(SerialTouchTrigger.InterpretTouch);
                 _eventBus.Publish(new SerialTouchCalibrationCompletedEvent(true, string.Empty));
             }
@@ -723,8 +705,7 @@
             {
                 Fire(SerialTouchTrigger.Error);
                 var error = status.ToString("X2");
-                Status = $"ERROR - Calibrate Extended (CX) upper right target failed with code {error}";
-                Logger.Error($"HandleUpperRightTarget - {Status}");
+                Logger.Error($"HandleUpperRightTarget - ERROR - Calibrate Extended (CX) upper right target failed with code {error}");
                 CrosshairColorUpperRight = CalibrationCrosshairColors.Error;
                 _eventBus.Publish(new SerialTouchCalibrationStatusEvent(error, ResourceKeys.TouchCalibrateExtendedUpperRightTargetFailed, CrosshairColorLowerLeft, CrosshairColorUpperRight));
                 _resetForRecovery = true;

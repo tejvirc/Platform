@@ -81,10 +81,5 @@
         ///     Cancels any active serial touch calibration
         /// </summary>
         void CancelCalibration();
-
-        /// <summary>
-        ///     Gets or sets the status of the connected serial touch device
-        /// </summary>
-        string Status { get; set; }
     }
 }

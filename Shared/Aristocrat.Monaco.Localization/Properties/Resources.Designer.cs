@@ -31373,7 +31373,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Calibrate Extended (CX) command failed with code {....
+		///   Looks up a localized string similar to Calibration failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -31385,7 +31385,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Calibrate Extended (CX) lower left target failed w....
+		///   Looks up a localized string similar to Calibration of lower left target failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -31397,7 +31397,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Calibrate Extended (CX) upper right target failed ....
+		///   Looks up a localized string similar to Calibration of upper right target failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -31429,6 +31429,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchCalibrateResetCommandFailed {
 			get {
 				return ResourceManager.GetString("TouchCalibrateResetCommandFailed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Please Wait....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrateWait {
+			get {
+				return ResourceManager.GetString("TouchCalibrateWait", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -65761,7 +65773,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Calibrate Extended (CX) command failed with code {....
+		///		Looks up a localized string similar to Calibration failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -65773,7 +65785,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Calibrate Extended (CX) lower left target failed w....
+		///		Looks up a localized string similar to Calibration of lower left target failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -65785,7 +65797,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Calibrate Extended (CX) upper right target failed ....
+		///		Looks up a localized string similar to Calibration of upper right target failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -65817,6 +65829,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchCalibrateResetCommandFailed {
 			get {
 				return "TouchCalibrateResetCommandFailed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Please Wait....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TouchCalibrateWait {
+			get {
+				return "TouchCalibrateWait";
 			}
 		}
 
@@ -86681,21 +86705,21 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		TotalWins,
 		/// <summary>
-		///   Looks up a localized string similar to Calibrate Extended (CX) command failed with code {....
+		///   Looks up a localized string similar to Calibration failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TouchCalibrateExtendedCommandFailed,
 		/// <summary>
-		///   Looks up a localized string similar to Calibrate Extended (CX) lower left target failed w....
+		///   Looks up a localized string similar to Calibration of lower left target failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TouchCalibrateExtendedLowerLeftTargetFailed,
 		/// <summary>
-		///   Looks up a localized string similar to Calibrate Extended (CX) upper right target failed ....
+		///   Looks up a localized string similar to Calibration of upper right target failed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -86715,6 +86739,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TouchCalibrateResetCommandFailed,
+		/// <summary>
+		///   Looks up a localized string similar to Please Wait....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TouchCalibrateWait,
 		/// <summary>
 		///   Looks up a localized string similar to Press the PLAY button to enter Touch Calibration o....
 		/// </summary>
