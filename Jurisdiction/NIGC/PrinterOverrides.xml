@@ -95,6 +95,35 @@ Please update the confluence page when new elements and attributes are added.
     </PrinterTemplateMappings>
   </Override>
 
+  <Override Protocol="JCM TCL" FirmwareBase="GUR001AI2" UsePrinterDefinedTemplates="true">
+    <AuditTickets PlatformTemplateIds="101 105"/>
+
+    <Replacements>
+      <RegionTextReplace>
+        <TextReplace RegionId="125" Description="MachineId" Replace="#:" With="#"/>
+        <TextReplace RegionId="106" Description="Title" Replace=".+VOUCHER\sREPRINT" With="DUPLICATE VOUCHER" IsReplaceRegexString="true"/>
+        <TextReplace RegionId="106" Description="Title" Replace=".+RECEIPT\sREPRINT" With="DUPLICATE RECEIPT" IsReplaceRegexString="true"/>
+      </RegionTextReplace>
+      <TextSplitForRegion>
+        <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}"/>
+        <Split RegionId="127" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})"/>
+        <Split RegionId="126" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}"/>
+        <Split RegionId="126" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})"/>
+      </TextSplitForRegion>
+      <TextCombine>
+        <RegionTextCombine PlatformTemplateIds="106 107" RegionIds="131 132" NewRegionId="3" JoinText="\r\n"/>
+      </TextCombine>
+    </Replacements>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="2" Regions="107 121 123 106 0 120 119 1 2 124 115 114 118 0 125 117 0"/>
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="F" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130 0"/>
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="F" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130 0"/>
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="0" Regions="0 121 123 106 0 0 0 1 2 128 3 129 118 0 125 0"/>
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="0" Regions="0 121 123 106 0 0 0 1 2 128 3 129 118 0 125 0"/>
+    </PrinterTemplateMappings>
+  </Override>
+
   <Override Protocol="JCM TCL" FirmwareBase="*" UsePrinterDefinedTemplates="true">
     <AuditTickets PlatformTemplateIds="101 105"/>
 

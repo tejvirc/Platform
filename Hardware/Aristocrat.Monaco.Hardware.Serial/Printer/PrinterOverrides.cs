@@ -389,6 +389,8 @@ namespace Aristocrat.Monaco.Hardware.Serial {
         
         private string withField;
         
+        private bool isReplaceRegexStringField;
+        
         private string leadingTextField;
         
         public OverridesOverrideReplacementsTextReplace() {
@@ -449,6 +451,17 @@ namespace Aristocrat.Monaco.Hardware.Serial {
             }
             set {
                 this.withField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool IsReplaceRegexString {
+            get {
+                return this.isReplaceRegexStringField;
+            }
+            set {
+                this.isReplaceRegexStringField = value;
             }
         }
         
