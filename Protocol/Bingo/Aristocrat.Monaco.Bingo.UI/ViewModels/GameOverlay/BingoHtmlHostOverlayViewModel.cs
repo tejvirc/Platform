@@ -719,13 +719,16 @@
             SaveDaubState(false);
         }
 
-        private void Handle(PresentationOverrideDataChangedEvent e)
+        private async Task Handle(PresentationOverrideDataChangedEvent e, CancellationToken token)
         {
             var data = e.PresentationOverrideData;
             if (data == null || data.Count == 0)
             {
-                DynamicMessageOpacity = GetVisibleOpacity(false);
-                NavigateToDynamicMessage(string.Empty, BingoConstants.DefaultInitialOverlayScene, string.Empty, false, false);
+                await _dispatcher.ExecuteAndWaitOnUIThread(() =>
+                {
+                    DynamicMessageOpacity = GetVisibleOpacity(false);
+                    NavigateToDynamicMessage(string.Empty, BingoConstants.DefaultInitialOverlayScene, string.Empty, false, false);
+                });
             }
             else
             {
@@ -740,9 +743,11 @@
                 var meterMessage = GetFormattedCreditBalance(configuration.MeterFormat, _playerBank.Balance);
                 var showDynamicMessage = !message.IsEmpty();
                 var showMeter = !meterMessage.IsEmpty();
-
-                NavigateToDynamicMessage(message, configuration.MessageScene, meterMessage, showDynamicMessage, showMeter);
-                DynamicMessageOpacity = GetVisibleOpacity(true);
+                await _dispatcher.ExecuteAndWaitOnUIThread(() =>
+                {
+                    NavigateToDynamicMessage(message, configuration.MessageScene, meterMessage, showDynamicMessage, showMeter);
+                    DynamicMessageOpacity = GetVisibleOpacity(true);
+                });
             }
         }
 
