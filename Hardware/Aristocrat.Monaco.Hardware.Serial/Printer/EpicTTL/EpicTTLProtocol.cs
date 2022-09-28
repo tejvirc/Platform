@@ -225,20 +225,20 @@
 
                 GeneratePrinterStatus(status);
 
-                CheckPrintIsCompleted(status);
+                CheckIfPrintIsCompleted(status);
 
-                CheckIsPrintStarted();
+                CheckIfPrintIsStarted();
 
                 return true;
             }
         }
 
-        private void CheckIsPrintStarted()
+        private void CheckIfPrintIsStarted()
         {
             _isPrintStarted = _isPrinting && !PrinterStatus.TopOfForm;
         }
 
-        private void CheckPrintIsCompleted(EpicTTLProtocolConstants.EpicTTLStatus status)
+        private void CheckIfPrintIsCompleted(EpicTTLProtocolConstants.EpicTTLStatus status)
         {
             if (_isPrinting &&
                 status.HasFlag(EpicTTLProtocolConstants.EpicTTLStatus.NotPrinting) && _isPrintStarted)
