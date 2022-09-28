@@ -368,6 +368,7 @@
             _lobbyStateManager.OnStateExit = OnStateExit;
             _lobbyStateManager.GameLoadedWhileDisabled = GameLoadedWhileDisabled;
             _lobbyStateManager.UpdateLobbyUI = UpdateUI;
+            _lobbyStateManager.UpdateLamps = UpdateLampsCashOutFinished;
 
             _ageWarningTimer = new AgeWarningTimer(_lobbyStateManager);
 
@@ -2556,18 +2557,12 @@
             if (!_gameDiagnostics.IsActive)
             {
                 IsDisableCountdownMessageSuppressed = false;
-                if (_justCashedOut)
-                { 
-                    UpdateLamps();
-                }
             }
             else
             {
                 UpdateLamps();
                 _buttonLamps.EnableLamps();
             }
-
-           _justCashedOut = false;
 
             UpdateLcdButtonDeckRenderSetting(false);
             UpdateLcdButtonDeckDisableSetting(false);
@@ -2582,6 +2577,7 @@
             {
                 SendTrigger(LobbyTrigger.Disable);
             }
+            
             _gameLaunchOnStartup = false;
         }
 
@@ -4621,6 +4617,12 @@
             DetermineBashLampState(ref buttonsLampState);
             DetermineCollectLampState(ref buttonsLampState);
             _buttonLamps?.SetLampState(buttonsLampState);
+        }
+
+        private void UpdateLampsCashOutFinished()
+        {
+            UpdateLamps();
+            _justCashedOut = false;
         }
 
         private void SendLanguageChangedEvent(bool initializing = false)
