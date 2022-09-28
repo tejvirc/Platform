@@ -11,7 +11,7 @@ if exist "%InstallDir%\Common7\Tools\vsdevcmd.bat" (
 
     @cd /d "%~dp0"
 
-    set Monaco_DisableCodeAnlysis=true
+    set Monaco_DisableCodeAnalysis=true
     start /b "Launching..." "%InstallDir%\Common7\IDE\devenv.exe" Monaco.sln
 )
 

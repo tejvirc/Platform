@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Monaco_DisableCodeAnlysis>true</Monaco_DisableCodeAnlysis>
+    <Monaco_DisableCodeAnalysis>true</Monaco_DisableCodeAnalysis>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />

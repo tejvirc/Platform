@@ -3,5 +3,6 @@
   <PropertyGroup>
     <DotNetReproducibleBuildsVersion>1.1.1</DotNetReproducibleBuildsVersion>
     <NetAnalyzersVersion>5.0.3</NetAnalyzersVersion>
+    <SonarAnalyzerVersion>8.45.0.54064</SonarAnalyzerVersion>
   </PropertyGroup>
 </Project>

@@ -24,7 +24,8 @@
     <EnableNETAnalyzers>false</EnableNETAnalyzers>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <AnalysisMode>Minimum</AnalysisMode>
-    <AnalysisLevel>5</AnalysisLevel>
+    <AnalysisLevel>5.0-minimum</AnalysisLevel>
+    <CodeAnalysisRuleSet>$(SolutionDir)Monaco.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <Import Project="$(MSBuildThisFileDirectory)versions.props" />
@@ -33,7 +34,11 @@
 
   <ItemGroup>
     <PackageReference Include="DotNet.ReproducibleBuilds" Version="$(DotNetReproducibleBuildsVersion)" PrivateAssets="All"/>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="$(NetAnalyzersVersion)" Condition="'(Monaco_DisableCodeAnlysis)' == ''">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="$(NetAnalyzersVersion)" Condition="'$(Monaco_DisableCodeAnalysis)' == ''">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="$(SonarAnalyzerVersion)" Condition="'$(Monaco_DisableCodeAnalysis)' == ''">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

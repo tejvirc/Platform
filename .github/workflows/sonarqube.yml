@@ -80,41 +80,12 @@ jobs:
         New-Item -Path .\.sonar\scanner -ItemType Directory -Force
         dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
     - name: Begin scan
-      if: github.event_name != 'pull_request' && github.ref_name == 'main'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: powershell
       run: >
         .\.sonar\scanner\dotnet-sonarscanner begin
         /k:"${{ secrets.SONAR_PROJECT_KEY }}"
-        /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-        /d:sonar.cs.vstest.reportsPaths="**/*.trx"
-        /d:sonar.cs.opencover.reportsPaths="**/coverage.*.xml"
-    - name: Begin branch scan
-      if: github.event_name != 'pull_request' && github.ref_name != 'main'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      shell: powershell
-      run: >
-        .\.sonar\scanner\dotnet-sonarscanner begin
-        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
-        /d:sonar.branch.name="${{ github.ref_name }}"
-        /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
-        /d:sonar.cs.vstest.reportsPaths="**/*.trx"
-        /d:sonar.cs.opencover.reportsPaths="**/coverage.*.xml"
-    - name: Begin pull request scan
-      if: github.event_name == 'pull_request'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      shell: powershell
-      run: >
-        .\.sonar\scanner\dotnet-sonarscanner begin
-        /k:"${{ secrets.SONAR_PROJECT_KEY }}"
-        /d:sonar.pullrequest.key="${{ github.event.number }}"
-        /d:sonar.pullrequest.branch="${{ github.head_ref }}"
-        /d:sonar.pullrequest.base="${{ github.base_ref }}"
         /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
         /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}"
         /d:sonar.cs.vstest.reportsPaths="**/*.trx"
