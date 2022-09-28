@@ -124,10 +124,14 @@
 			<Field FieldName="GamePlay.ShowTopPickBanners" DataType="Bool"/>
 			<Field FieldName="GamePlay.ShowPlayerMenuPopup" DataType="Bool"/>
 			<Field FieldName="GamePlay.Gamble.WinLimit" DataType="Int64" />
-			<Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>
+			<Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>    
+    </Fields>
+	</BlockFormat>
+  <BlockFormat version="11" Name="Aristocrat.Monaco.Gaming.PropertyProvider">
+    <Fields>
       <Field FieldName="GamePreferences.ResponsibleGamingCount" DataType="Int32"/>
       <Field FieldName="GamePreferences.IsResponsibleGaming" DataType="Bool"/>
       <Field FieldName="GamePreferences.SuccessiveResponsibleGameLossCount" DataType="Int32"/>
     </Fields>
-	</BlockFormat>
+  </BlockFormat>
 </ArrayOfBlockFormat>

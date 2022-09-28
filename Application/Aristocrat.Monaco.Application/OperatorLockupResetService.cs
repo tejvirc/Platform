@@ -162,8 +162,13 @@
         private void HandleEvent(DownEvent evt)
         {
             lock (_lockObject)
-            {
-                _bus.Publish(evt);
+            {                
+                if (_properties.GetValue("GamePreferences.SuccessiveResponsibleGameLossCount", 0) > 0)
+                {
+                    _systemDisableManager.Enable(ApplicationConstants.ResponsibleGameLostDisableGuid);
+                    _properties.SetProperty("GamePreferences.SuccessiveResponsibleGameLossCount", 0);
+                }
+
                 if (!_operatorResetLockupActive)
                 {
                     return;

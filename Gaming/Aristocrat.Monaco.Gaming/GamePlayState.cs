@@ -745,30 +745,8 @@
             }
         }
 
-        private void HandleEvent(DownEvent evt)
-        {
-            if (evt.LogicalId == JackpotKeyLogicalId && _properties.GetValue(GamingConstants.SuccessiveResponsibleGameLossCount,0) > 0)
-            {
-                _systemDisableManager.Enable(ApplicationConstants.ResponsibleGameLostDisableGuid);
-                _properties.SetProperty(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
-            }
-        }
-
-        public static int JackpotKeyLogicalId = 130;
         private void OnPrimaryGameStarted(long wager, byte[] data)
-        {
-            if (IsResponsibleGaming)
-            {
-                var lostGameCount = _properties.GetValue(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
-                if (lostGameCount >= ResponsibleGamingCount)
-                {
-                    _systemDisableManager.Disable(ApplicationConstants.ResponsibleGameLostDisableGuid, SystemDisablePriority.Immediate, () => ResponsibleGameLostDisableMsg());
-                    _eventBus.Subscribe<DownEvent>(this, HandleEvent);                   
-                    //var command = new GameEnded();
-                    //_handlerFactory.Create<GameEnded>().Handle(command);
-                    return;
-                }
-            }
+        {          
 
             _gamePlayDuration.Restart();
             _handlerFactory.Create<PrimaryGameStarted>().Handle(new PrimaryGameStarted(_gameId, _denom, wager, data));
@@ -824,6 +802,22 @@
             }
         }
 
+        private void ShowLockup()
+        {
+            if (IsResponsibleGaming)
+            {
+                var lostGameCount = _properties.GetValue(GamingConstants.SuccessiveResponsibleGameLossCount, 0);
+                if (lostGameCount >= ResponsibleGamingCount)
+                {
+                    _systemDisableManager.Disable(ApplicationConstants.ResponsibleGameLostDisableGuid, SystemDisablePriority.Immediate, () => ResponsibleGameLostDisableMsg());
+                    //_eventBus.Subscribe<DownEvent>(this, HandleEvent);
+                    //var command = new GameEnded();
+                    //_handlerFactory.Create<GameEnded>().Handle(command);
+                    return;
+                }
+            }
+        }
+
         private void OnGameEnded(StateMachine<PlayState, Trigger>.Transition transition)
         {
             HandleGameEndTransition(transition.Source, 0);
@@ -847,6 +841,7 @@
             {
                 isGameWin = false;
             }
+            ShowLockup();
         }
 
         private void HandleGameEndTransition(PlayState source, long win)
