@@ -84,6 +84,7 @@
         private double _infoOpacity;
         private double _gameControlledHeight;
         private double _dynamicMessageOpacity;
+        private IGameDetail _lastSelectedGame; 
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -493,8 +494,9 @@
 
         private async Task Handle(GameSelectedEvent e, CancellationToken token)
         {
+            _lastSelectedGame = _gameProvider.GetGame(e.GameId);
             await SetInfoVisibility(false);
-            await InitializeOverlay(_gameProvider.GetGame(e.GameId));
+            await InitializeOverlay(_lastSelectedGame);
         }
 
         private async Task Handle(BingoGameBallCallEvent e, CancellationToken token)
@@ -776,11 +778,16 @@
                 return;
             }
 
+            var (game, _) = _propertiesManager.GetActiveGame();
+            if (game != null)
+            {
+                _lastSelectedGame = game;
+            }
+
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
             await UpdateAppearance();
             await _overlayServer.StopAsync();
-            var (game, _) = _propertiesManager.GetActiveGame();
-            await InitializeOverlay(game);
+            await InitializeOverlay(_lastSelectedGame);
             await SetInfoVisibility(true);
         }
 
