@@ -9,7 +9,7 @@
 
     public class BeagleBonePageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BeagleBoneLabel);
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LsEdgeLightsLabel);
 
         protected override IOperatorMenuPage CreatePage()
         {

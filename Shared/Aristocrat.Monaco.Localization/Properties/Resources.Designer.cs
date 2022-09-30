@@ -1948,18 +1948,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Beagle Bone.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string BeagleBoneLabel {
-			get {
-				return ResourceManager.GetString("BeagleBoneLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Before Game Start.
 		/// </summary>
         /// <remarks>
@@ -18631,6 +18619,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LowVoltage {
 			get {
 				return ResourceManager.GetString("LowVoltage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to LS Edge Lights.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LsEdgeLightsLabel {
+			get {
+				return ResourceManager.GetString("LsEdgeLightsLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36349,18 +36349,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Beagle Bone.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		public static string BeagleBoneLabel {
-			get {
-				return "BeagleBoneLabel";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Before Game Start.
 		/// </summary>
         /// <remarks>
@@ -53031,6 +53019,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LowVoltage {
 			get {
 				return "LowVoltage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to LS Edge Lights.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LsEdgeLightsLabel {
+			get {
+				return "LsEdgeLightsLabel";
 			}
 		}
 
@@ -69935,13 +69935,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		BatteryLowTilt,
 		/// <summary>
-		///   Looks up a localized string similar to Beagle Bone.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
-		BeagleBoneLabel,
-		/// <summary>
 		///   Looks up a localized string similar to Before Game Start.
 		/// </summary>
         /// <remarks>
@@ -79441,6 +79434,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		LowVoltage,
+		/// <summary>
+		///   Looks up a localized string similar to LS Edge Lights.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		LsEdgeLightsLabel,
 		/// <summary>
 		///   Looks up a localized string similar to MAC.
 		/// </summary>

@@ -37,7 +37,7 @@
         {
             // set up mocks for constructor
             _propertiesManager.Setup(m => m.GetProperty("BeagleBoneEnabled", false)).Returns(true);
-            const string expected = "Beagle Bone";
+            const string expected = "LS Edge Lights";
 
             var target = new BeagleBonePageLoader();
 
