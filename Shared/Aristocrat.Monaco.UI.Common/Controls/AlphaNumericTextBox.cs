@@ -53,6 +53,12 @@
                         tb.Text,
                         IsAlphaNumeric ? "[^a-zA-Z0-9]" : AllowNegatives ? "[^\\-0-9]" : "[^0-9]",
                         "");
+
+                    //Remove any emoji
+                    tb.Text = Regex.Replace(
+                        tb.Text,
+                        "[\u1F30-\u1F5F]",
+                        "");
                 }
 
                 tb.CaretIndex = cursorPosition;
