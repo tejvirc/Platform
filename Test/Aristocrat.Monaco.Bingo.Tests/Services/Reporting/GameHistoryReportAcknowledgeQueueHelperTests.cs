@@ -119,7 +119,7 @@
             Assert.AreEqual(description.DenominationId, outcomeMessage.DenominationId);
             Assert.AreEqual(description.FacadeKey, outcomeMessage.FacadeKey);
             Assert.AreEqual(description.GameSerial, outcomeMessage.GameSerial);
-            Assert.AreEqual(41, outcomeMessage.JoinBall);
+            Assert.AreEqual(40, outcomeMessage.JoinBall);
             Assert.AreEqual(joinTime, outcomeMessage.JoinTime);
             Assert.AreEqual(machineSerial, outcomeMessage.MachineSerial);
             Assert.AreEqual(winAmount, outcomeMessage.PaidAmount);

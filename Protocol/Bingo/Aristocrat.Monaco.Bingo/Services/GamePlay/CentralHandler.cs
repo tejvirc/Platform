@@ -96,32 +96,14 @@
         private BingoGameDescription GameDescription =>
             CurrentTransaction?.Descriptions?.FirstOrDefault() as BingoGameDescription ?? new BingoGameDescription();
 
-        public async Task<bool> ProcessGameOutcome(GameOutcome outcome, CancellationToken token)
+        public Task<bool> ProcessGameOutcome(GameOutcome outcome, CancellationToken token)
         {
-            try
+            if (outcome == null)
             {
-                token.ThrowIfCancellationRequested();
-                if (!outcome.IsSuccessful || !_gameState.InGameRound)
-                {
-                    CheckForOutcomeResponseFailure();
-                    return false;
-                }
-
-                await HandleBingoOutcomes(outcome, token);
-            }
-            catch (Exception e) when (e is OperationCanceledException or ObjectDisposedException)
-            {
-                Logger.Warn("Game outcome cancelled", e);
-                return false;
-            }
-            catch (Exception e)
-            {
-                Logger.Error("Game outcome format error", e);
-                CheckForOutcomeResponseFailure();
-                return false;
+                throw new ArgumentNullException(nameof(outcome));
             }
 
-            return true;
+            return ProcessGameOutcomeInternal(outcome, token);
         }
 
         public async Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token)
@@ -157,8 +139,9 @@
                 _unitOfWorkFactory.Invoke(
                         x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())
                     ?.GameEndingPrize ?? GameEndWinStrategy.BonusCredits;
-            var accepted = await _gewStrategyFactory.Create(winStrategy)
-                .ProcessWin(gewPattern.WinAmount.CentsToMillicents(), token);
+            var gameEndWinStrategy = _gewStrategyFactory.Create(winStrategy);
+            var accepted = await gameEndWinStrategy.ProcessWin(gewPattern.WinAmount.CentsToMillicents(), token)
+                .ConfigureAwait(false);
 
             lock (_lock)
             {
@@ -172,28 +155,14 @@
         }
 
         /// <inheritdoc />
-        public async Task RequestOutcomes(CentralTransaction transaction, bool isRecovering = false)
+        public Task RequestOutcomes(CentralTransaction transaction, bool isRecovering = false)
         {
             if (transaction == null)
             {
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            _cancellationTokenSource?.Cancel();
-            var lastGame = _currentGamePlayTask ?? Task.CompletedTask;
-            await lastGame.ContinueWith(
-                t =>
-                {
-                    if (!t.IsFaulted)
-                    {
-                        return;
-                    }
-
-                    Logger.Warn("An error occurred on the previous game", t.Exception);
-                    t.Exception?.Handle(_ => true);
-                });
-
-            await (_currentGamePlayTask = HandleOutcomeRequest(transaction));
+            return RequestOutcomesInternal(transaction);
         }
 
         public void Dispose()
@@ -226,7 +195,7 @@
 
         private static Outcome GetLosingGameOutcome(GameOutcome outcome) => new Outcome(
             DateTime.UtcNow.Ticks,
-            outcome.GameTitleId,
+            outcome.GameDetails.GameTitleId,
             0,
             OutcomeReference.Direct,
             OutcomeType.Standard,
@@ -242,6 +211,54 @@
             return transferredAmount > 0;
         }
 
+        private async Task RequestOutcomesInternal(CentralTransaction transaction)
+        {
+            _cancellationTokenSource?.Cancel();
+            var lastGame = _currentGamePlayTask ?? Task.CompletedTask;
+            await lastGame.ContinueWith(
+                t =>
+                {
+                    if (!t.IsFaulted)
+                    {
+                        return;
+                    }
+
+                    Logger.Warn("An error occurred on the previous game", t.Exception);
+                    t.Exception?.Handle(_ => true);
+                }).ConfigureAwait(false);
+
+            var gamePlayTask = _currentGamePlayTask = HandleOutcomeRequest(transaction);
+            await gamePlayTask.ConfigureAwait(false);
+        }
+
+        private async Task<bool> ProcessGameOutcomeInternal(GameOutcome outcome, CancellationToken token)
+        {
+            try
+            {
+                token.ThrowIfCancellationRequested();
+                if (!outcome.IsSuccessful || !_gameState.InGameRound)
+                {
+                    CheckForOutcomeResponseFailure();
+                    return false;
+                }
+
+                await HandleBingoOutcomes(outcome, token).ConfigureAwait(false);
+            }
+            catch (Exception e) when (e is OperationCanceledException or ObjectDisposedException)
+            {
+                Logger.Warn("Game outcome cancelled", e);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Game outcome format error", e);
+                CheckForOutcomeResponseFailure();
+                return false;
+            }
+
+            return true;
+        }
+
         private async Task HandleBingoOutcomes(GameOutcome outcome, CancellationToken token)
         {
             var outcomeTasks = new List<Task>();
@@ -253,10 +270,10 @@
                 // Feed the card overlay. We only care about new card data in the outcome response.
                 var newCard = ProcessBingoCards(outcome, description);
                 var outcomes = new List<Outcome>();
-                if (outcome.WinResults.Any() || newCard)
+                if (outcome.WinDetails.WinResults.Any() || newCard)
                 {
                     outcomeTasks.AddRange(
-                        outcome.WinResults.Select(
+                        outcome.WinDetails.WinResults.Select(
                             winResult => ProcessWins(outcome, winResult, outcomes, description, token)));
                     if (outcomes.Any())
                     {
@@ -267,7 +284,7 @@
                 token.ThrowIfCancellationRequested();
 
                 // When waiting for players, the server sends a game outcome with an empty ball call.
-                if (!outcome.BallCall.Any())
+                if (!outcome.BingoDetails.BallCall.Any())
                 {
                     _eventBus.Publish(new BingoGamePatternEvent(description.Patterns.ToList()));
                 }
@@ -276,12 +293,12 @@
                     if (_waitingForPlayersTask?.TrySetResult(true) ?? false)
                     {
                         description.JoinTime = DateTime.UtcNow;
-                        description.GameSerial = outcome.GameSerial;
-                        description.GameTitleId = outcome.GameTitleId;
-                        description.ThemeId = outcome.ThemeId;
-                        description.DenominationId = outcome.DenominationId;
-                        description.Paytable = outcome.Paytable;
-                        description.GameEndWinEligibility = outcome.GameEndWinEligibility;
+                        description.GameSerial = outcome.GameDetails.GameSerial;
+                        description.GameTitleId = outcome.GameDetails.GameTitleId;
+                        description.ThemeId = outcome.GameDetails.ThemeId;
+                        description.DenominationId = outcome.GameDetails.DenominationId;
+                        description.Paytable = outcome.GameDetails.Paytable;
+                        description.GameEndWinEligibility = outcome.BingoDetails.GameEndWinEligibility;
                         _eventBus.Publish(new PlayersFoundEvent());
                         if (!outcomes.Any())
                         {
@@ -295,7 +312,7 @@
                 }
             }
 
-            await Task.WhenAll(outcomeTasks);
+            await Task.WhenAll(outcomeTasks).ConfigureAwait(false);
         }
 
         private void UpdateCentralTransaction(
@@ -323,7 +340,7 @@
         {
             var newCard = false;
             var cards = description.Cards.ToList();
-            foreach (var cardPlayed in outcome.CardsPlayed)
+            foreach (var cardPlayed in outcome.BingoDetails.CardsPlayed)
             {
                 var bingoCard = cards.FirstOrDefault(c => c.SerialNumber == cardPlayed.SerialNumber);
                 if (bingoCard is null)
@@ -380,7 +397,7 @@
                         details.NumberLines,
                         details.Ante,
                         currentGame.CdsThemeId ?? currentGame.ThemeName),
-                    source.Token);
+                    source.Token).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -403,7 +420,7 @@
         {
             try
             {
-                _waitingForPlayersTask?.TrySetCanceled();
+                _waitingForPlayersTask?.TrySetCanceled(CancellationToken.None);
                 _waitingForPlayersTask = new TaskCompletionSource<bool>();
                 using var registration = token.Register(() => _waitingForPlayersTask?.TrySetCanceled());
                 var waitingForPlayersTime =
@@ -412,14 +429,14 @@
                         ?.WaitingForPlayersMs?.Milliseconds() ?? BingoConstants.DefaultWaitForPlayersSeconds.Seconds();
                 var playersEvent = new WaitingForPlayersEvent(DateTime.UtcNow, waitingForPlayersTime);
                 _eventBus.Publish(playersEvent);
-                await _waitingForPlayersTask.TimeoutAfter(playersEvent.WaitingDuration);
+                await _waitingForPlayersTask!.TimeoutAfter(playersEvent.WaitingDuration).ConfigureAwait(false);
             }
             catch (TimeoutException)
             {
                 if (CheckForOutcomeResponseFailure(centralTransaction, OutcomeException.TimedOut))
                 {
                     _eventBus.Publish(new NoPlayersFoundEvent());
-                    _waitingForPlayersTask.TrySetResult(false);
+                    _waitingForPlayersTask?.TrySetResult(false);
                 }
             }
             finally
@@ -528,10 +545,10 @@
                 await _commandFactory.Execute(
                     new ClaimWinCommand(
                         _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty),
-                        outcome.GameSerial,
+                        outcome.GameDetails.GameSerial,
                         pattern.CardSerial,
                         CurrentTransaction.WagerAmount.MillicentsToCents()),
-                    token);
+                    token).ConfigureAwait(false);
             }
             // Otherwise it's a standard win.
             else
@@ -539,7 +556,7 @@
                 outcomes.Add(
                     new Outcome(
                         DateTime.UtcNow.Ticks,
-                        outcome.GameTitleId,
+                        outcome.GameDetails.GameTitleId,
                         winResult.PaytableId,
                         OutcomeReference.Direct,
                         OutcomeType.Standard,
@@ -558,9 +575,10 @@
 
         private void AddBalls(GameOutcome outcome, BingoGameDescription description)
         {
-            var balls = outcome.BallCall.ToList();
+            var balls = outcome.BingoDetails.BallCall.ToList();
             if (!balls.Any())
             {
+                description.JoinBallIndex = -1;
                 return;
             }
 
@@ -573,12 +591,12 @@
 
             var ballCall = new BingoBallCall(bingoNumbers);
             description.BallCallNumbers = bingoNumbers;
-            if (description.JoinBallIndex <= 0)
+            if (description.JoinBallIndex < 0)
             {
-                description.JoinBallIndex = bingoNumbers.Count;
+                description.JoinBallIndex = outcome.BingoDetails.JoinBallNumber;
             }
 
-            _eventBus.Publish(new BingoGameBallCallEvent(ballCall, outcome.CardsPlayed.First().BitPattern));
+            _eventBus.Publish(new BingoGameBallCallEvent(ballCall, outcome.BingoDetails.CardsPlayed.First().BitPattern));
         }
 
         private bool AllowCombinedOutcomes(IReadOnlyCollection<Outcome> outcomes)

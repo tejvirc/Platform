@@ -1,8 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.GamePlay
 {
-    using System.Collections.Generic;
+    using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
 
     [SuppressMessage(
         "ReSharper",
@@ -12,79 +11,30 @@
     {
         public GameOutcome(
             ResponseCode code,
-            string machineSerial,
-            long totalWin,
-            string progressiveLevels,
-            int facadeKey,
-            uint gameTitleId,
-            uint themeId,
-            int denominationId,
-            long gameSerial,
-            string statusMessage,
+            GameOutcomeWinDetails winDetails,
+            GameOutcomeGameDetails gameDetails,
+            GameOutcomeBingoDetails bingoDetails,
             bool isSuccessful,
-            string paytable,
-            int gameEndWinEligibility,
-            IEnumerable<CardPlayed> cardsPlayed,
-            IEnumerable<int> ballCall,
-            IEnumerable<WinResult> winResults,
             bool isFinal)
         {
             ResponseCode = code;
-            MachineSerial = machineSerial;
-            TotalWin = totalWin;
-            ProgressiveLevels = progressiveLevels;
-            FacadeKey = facadeKey;
-            GameTitleId = gameTitleId;
-            ThemeId = themeId;
-            DenominationId = denominationId;
-            GameSerial = gameSerial;
-            StatusMessage = statusMessage;
+            WinDetails = winDetails ?? throw new ArgumentNullException(nameof(winDetails));
+            GameDetails = gameDetails ?? throw new ArgumentNullException(nameof(gameDetails));
+            BingoDetails = bingoDetails ?? throw new ArgumentNullException(nameof(bingoDetails));
             IsSuccessful = isSuccessful;
-            Paytable = paytable;
-            GameEndWinEligibility = gameEndWinEligibility;
-            CardsPlayed = cardsPlayed.ToList();
-            BallCall = ballCall.ToList();
-            WinResults = winResults.ToList();
             IsFinal = isFinal;
-        }
-
-        public GameOutcome(ResponseCode code)
-        {
-            ResponseCode = code;
         }
 
         public ResponseCode ResponseCode { get; }
 
-        public string MachineSerial { get; }
+        public GameOutcomeWinDetails WinDetails { get; }
 
-        public long TotalWin { get; }
+        public GameOutcomeGameDetails GameDetails { get; }
 
-        public string ProgressiveLevels { get; }
-
-        public int FacadeKey { get; }
-
-        public uint GameTitleId { get; }
-
-        public uint ThemeId { get; }
-
-        public int DenominationId { get; }
-
-        public long GameSerial { get; }
-
-        public string StatusMessage { get; }
-
-        public bool IsSuccessful { get; }
-
-        public string Paytable { get; }
-
-        public int GameEndWinEligibility { get; }
-
-        public IReadOnlyCollection<CardPlayed> CardsPlayed { get; }
-
-        public IReadOnlyCollection<int> BallCall { get; }
-
-        public IReadOnlyCollection<WinResult> WinResults { get; }
+        public GameOutcomeBingoDetails BingoDetails { get; }
 
         public bool IsFinal { get; }
+
+        public bool IsSuccessful { get; }
     }
 }

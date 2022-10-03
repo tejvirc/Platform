@@ -22,18 +22,5 @@
                 : bingoGame.BallCallNumbers.Count();
             return bingoGame.BallCallNumbers.Take(joinBallIndex);
         }
-
-        /// <summary>
-        ///     Gets the last ball that occurred when the game was initially joined
-        /// </summary>
-        /// <param name="bingoGame">The bingo game description to get the joined balls</param>
-        /// <returns>The joined bingo number for the game</returns>
-        public static BingoNumber GetJoiningBall(this BingoGameDescription bingoGame)
-        {
-            var joinBallIndex = bingoGame.JoinBallIndex > 0
-                ? bingoGame.JoinBallIndex
-                : bingoGame.BallCallNumbers.Count();
-            return bingoGame.BallCallNumbers.ElementAtOrDefault(joinBallIndex);
-        }
     }
 }

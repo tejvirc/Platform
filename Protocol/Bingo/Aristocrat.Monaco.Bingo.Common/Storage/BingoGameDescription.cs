@@ -37,7 +37,7 @@
         /// <summary>
         ///     The index of the first ball called when this game round was active.
         /// </summary>
-        public int JoinBallIndex { get; set; }
+        public int JoinBallIndex { get; set; } = -1;
 
         /// <summary>
         ///     Whether or not the Game End Win was claimed and approved for the round.
