@@ -126,6 +126,7 @@ as follows:
         <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
         <Page TabType="CombinationTestViewLoader" Visible="false"/>
         <Page TabType="GamePerformanceViewLoader" Visible="false" />
+        <Page TabType="GameStatisticsViewLoader" Visible="false" />
     </Menu>
     <Menu Type="CommsMainPageLoader">
         <Page Type="NetworkConfigPageViewModel" Access="GameIdleZeroCredits"/>
