@@ -115,6 +115,7 @@
                 new BingoNumber[BingoConstants.BingoCardDimension, BingoConstants.BingoCardDimension],
                 2,
                 0,
+                0,
                 false);
 
             for (var i = 0; i < BingoConstants.BingoCardDimension; i++)

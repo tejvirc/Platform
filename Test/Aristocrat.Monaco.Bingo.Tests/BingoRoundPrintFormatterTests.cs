@@ -319,7 +319,7 @@
                 BallCallNumbers =
                     _ballCallNumbers.GetRange(0, ballCallSize)
                         .Select(x => new BingoNumber(x, BingoNumberState.BallCallInitial)),
-                Cards = new List<BingoCard> { new(CreateBingoNumbers(), CardSerial, 0x45, false) },
+                Cards = new List<BingoCard> { new(CreateBingoNumbers(), CardSerial, 0x45, 0x45, false) },
                 Patterns = new List<BingoPattern>()
             };
 

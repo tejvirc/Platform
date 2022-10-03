@@ -333,7 +333,7 @@
                 return;
             }
 
-            _bingoCard = new BingoCard { SerialNumber = CardSerial };
+            _bingoCard = new BingoCard(CardSerial);
 
             for (var i = 0; i < BingoConstants.BingoCardDimension; i++)
             {

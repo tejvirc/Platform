@@ -22,7 +22,7 @@
         public BingoCard GetCardBySerial(uint cardSerial)
         {
             _mersenneRng.Seed(cardSerial);
-            var card = new BingoCard { SerialNumber = cardSerial };
+            var card = new BingoCard(cardSerial);
 
             // used to prevent duplicate numbers on the bingo card
             var isNumberAlreadyUsed = new HashSet<int>();

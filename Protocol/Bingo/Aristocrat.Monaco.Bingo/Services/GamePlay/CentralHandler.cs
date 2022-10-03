@@ -193,7 +193,7 @@
             _disposed = true;
         }
 
-        private static Outcome GetLosingGameOutcome(GameOutcome outcome) => new Outcome(
+        private static Outcome GetLosingGameOutcome(GameOutcome outcome) => new(
             DateTime.UtcNow.Ticks,
             outcome.GameDetails.GameTitleId,
             0,
@@ -304,6 +304,11 @@
                         {
                             // We need to send an outcome otherwise we can't recover correctly
                             outcomes.Add(GetLosingGameOutcome(outcome));
+                        }
+
+                        foreach (var card in description.Cards)
+                        {
+                            card.InitialDaubedBits = card.DaubedBits;
                         }
                     }
 

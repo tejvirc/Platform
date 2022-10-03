@@ -74,7 +74,7 @@
             log.Setup(x => x.StartDateTime).Returns(startTime);
             log.Setup(x => x.TransactionId).Returns(gameTransactionId);
 
-            var bingoCard = new BingoCard { DaubedBits = 562, IsGameEndWin = false, SerialNumber = 123456 };
+            var bingoCard = new BingoCard(123456) { DaubedBits = 562, IsGameEndWin = false };
             var bingoPattern = new BingoPattern("Test Pattern1", 563, 123456, winAmount, 25, 222, false, 562, 1);
             var description = new BingoGameDescription
             {
