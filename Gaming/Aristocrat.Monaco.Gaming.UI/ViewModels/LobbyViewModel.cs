@@ -127,6 +127,7 @@
         private readonly DisplayableMessage _disableCountdownMessage;
         private readonly string _disableCountdownTimeFormat = "m\\:ss";
         private bool _broadcastDisableCountdownMessagePending;
+        private bool _justCashedOut;
 
         private IResponsibleGaming _responsibleGaming;
         private IEventBus _eventBus;
@@ -367,6 +368,7 @@
             _lobbyStateManager.OnStateExit = OnStateExit;
             _lobbyStateManager.GameLoadedWhileDisabled = GameLoadedWhileDisabled;
             _lobbyStateManager.UpdateLobbyUI = UpdateUI;
+            _lobbyStateManager.UpdateLamps = UpdateLampsCashOutFinished;
 
             _ageWarningTimer = new AgeWarningTimer(_lobbyStateManager);
 
@@ -2575,6 +2577,7 @@
             {
                 SendTrigger(LobbyTrigger.Disable);
             }
+            
             _gameLaunchOnStartup = false;
         }
 
@@ -2783,12 +2786,14 @@
             {
                 StartAttractTimer(); // In Case Cash-In Failed and Bank == 0
             }
+
             OnUserInteraction();
         }
 
         private void OnCashOutEnter()
         {
             Logger.Debug("Entering OnCashOut");
+            _justCashedOut = true;
             PlayerMenuPopupViewModel.IsMenuVisible = false;
             OnUserInteraction();
         }
@@ -2801,6 +2806,7 @@
             {
                 StartAttractTimer();
             }
+            
             OnUserInteraction();
         }
 
@@ -3529,6 +3535,7 @@
                 {
                     ExitResponsibleGamingInfoDialog();
                 }
+
                 ExecuteOnUserCashOut();
             }
         }
@@ -3991,6 +3998,7 @@
             {
                 return new ButtonLampState((int)lampName, lampState.Value);
             }
+
             return null;
         }
 
@@ -4541,12 +4549,13 @@
             }
             else if (BaseState == LobbyState.Game)
             {
-                state = null;
+                state = _justCashedOut ? CashOutEnabled : null;
             }
             else
             {
                 state = true;
             }
+
             buttonsLampState.Add(SetLampState(LampName.Bash, state));
         }
 
@@ -4563,12 +4572,13 @@
             }
             else if (BaseState == LobbyState.Game)
             {
-                state = null;
+                state = _justCashedOut ? CashOutEnabled : null;
             }
             else
             {
                 state = CashOutEnabled;
             }
+            
             buttonsLampState.Add(SetLampState(LampName.Collect, state));
         }
 
@@ -4585,7 +4595,7 @@
             }
             else if (BaseState == LobbyState.Game)
             {
-                state = null;
+                state = _justCashedOut ? CashOutEnabled : null;
             }
             else
             {
@@ -4605,7 +4615,7 @@
             if ((BaseState == LobbyState.Game && !ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay)) ||
                 BaseState == LobbyState.GameLoading)
             {
-                state = null;
+                state = _justCashedOut ? CashOutEnabled : null;
             }
 
             buttonsLampState.Add(SetLampState(LampName.Bet1, state));
@@ -4622,6 +4632,12 @@
             _buttonLamps?.SetLampState(buttonsLampState);
         }
 
+        private void UpdateLampsCashOutFinished()
+        {
+            UpdateLamps();
+            _justCashedOut = false;
+        }
+
         private void SendLanguageChangedEvent(bool initializing = false)
         {
             Logger.Debug($"SendLanguageChangedEvent.  Initializing: {initializing}");
@@ -4634,6 +4650,7 @@
                 // todo let player culture provider manage multi-language support for lobby
                 _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
             }
+            
             _initialLanguageEventSent = true;
         }
 
