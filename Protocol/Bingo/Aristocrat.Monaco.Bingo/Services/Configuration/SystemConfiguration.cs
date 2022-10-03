@@ -30,7 +30,7 @@
                 new Dictionary<string, (string, Func<string, object>)>
                 {
                     {
-                        SystemConfigurationConstants.MaxVoucherIn,
+                        SystemConfigurationConstants.Gen8MaxVoucherIn,
                         (AccountingConstants.VoucherInLimit, val => long.Parse(val).CentsToMillicents())
                     },
                     {
@@ -70,7 +70,7 @@
             RequiredSettings =
                 new HashSet<string>
                 {
-                    SystemConfigurationConstants.MaxVoucherIn,
+                    SystemConfigurationConstants.Gen8MaxVoucherIn,
                     SystemConfigurationConstants.HandpayReceipt,
                     SystemConfigurationConstants.TicketReprint,
                     SystemConfigurationConstants.Gen8MaxCashIn,
@@ -95,7 +95,7 @@
         {
             switch (name)
             {
-                case SystemConfigurationConstants.MaxVoucherIn:
+                case SystemConfigurationConstants.Gen8MaxVoucherIn:
                     model.VoucherInLimit = long.Parse(value);
                     break;
                 case SystemConfigurationConstants.HandpayReceipt:
@@ -150,7 +150,7 @@
                 SystemConfigurationConstants.MinHandpayValue => !long.TryParse(value, out var result) || result <= 0,
                 SystemConfigurationConstants.TransferLimit => !long.TryParse(value, out var result) || result < 0,
                 SystemConfigurationConstants.VoucherThreshold => !long.TryParse(value, out var result) || result < 0,
-                SystemConfigurationConstants.MaxVoucherIn => !long.TryParse(value, out var result) || result < 0,
+                SystemConfigurationConstants.Gen8MaxVoucherIn => !long.TryParse(value, out var result) || result < 0,
                 SystemConfigurationConstants.BadCountThreshold => !int.TryParse(value, out var result) || result < 0,
                 SystemConfigurationConstants.JackpotHandlingStrategy =>
                     !Enum.TryParse<JackpotStrategy>(value, out var jackpotStrategy) ||
