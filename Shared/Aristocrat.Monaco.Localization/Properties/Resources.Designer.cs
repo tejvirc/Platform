@@ -25547,6 +25547,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Receipt Printing Failed.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string ReceiptPrintingFailed {
+			get {
+				return ResourceManager.GetString("ReceiptPrintingFailed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Open Main Door, check the printer device and remov....
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string ReceiptPrintingFailedInfo {
+			get {
+				return ResourceManager.GetString("ReceiptPrintingFailedInfo", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Receipt #.
 		/// </summary>
         /// <remarks>
@@ -32797,15 +32821,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Validating {
 			get {
 				return ResourceManager.GetString("Validating", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Validating Handpay....
-		/// </summary>
-		public static string ValidatingHandpay {
-			get {
-				return ResourceManager.GetString("ValidatingHandpay", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -59941,6 +59956,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Receipt Printing Failed.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string ReceiptPrintingFailed {
+			get {
+				return "ReceiptPrintingFailed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Open Main Door, check the printer device and remov....
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string ReceiptPrintingFailedInfo {
+			get {
+				return "ReceiptPrintingFailedInfo";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Receipt #.
 		/// </summary>
         /// <remarks>
@@ -67191,15 +67230,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Validating {
 			get {
 				return "Validating";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Validating Handpay....
-		/// </summary>
-		public static string ValidatingHandpay {
-			get {
-				return "ValidatingHandpay";
 			}
 		}
 
@@ -83382,6 +83412,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Recalibrate,
 		/// <summary>
+		///   Looks up a localized string similar to Receipt Printing Failed.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		ReceiptPrintingFailed,
+		/// <summary>
+		///   Looks up a localized string similar to Open Main Door, check the printer device and remov....
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		ReceiptPrintingFailedInfo,
+		/// <summary>
 		///   Looks up a localized string similar to Receipt #.
 		/// </summary>
         /// <remarks>
@@ -87505,10 +87549,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Validating,
-		/// <summary>
-		///   Looks up a localized string similar to Validating Handpay....
-		/// </summary>
-		ValidatingHandpay,
 		/// <summary>
 		///   Looks up a localized string similar to Validation.
 		/// </summary>

@@ -239,7 +239,9 @@
                 _systemDisable.Disable(
                     ApplicationConstants.HandpayPendingDisableKey,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.ValidatingHandpay));
+                    () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.ReceiptPrintingFailed),
+                    true,
+                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReceiptPrintingFailedInfo));
             }
 
             _bus.Publish(new HandpayKeyedOffEvent(transaction));

@@ -11512,8 +11512,9 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communication.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
-  <data name="ValidatingHandpay" xml:space="preserve">
-    <value>Validating Handpay...</value>
+  <data name="ReceiptPrintingFailed" xml:space="preserve">
+    <value>Receipt Printing Failed</value>
+    <comment>Monaco.Accounting</comment>
   </data>
   <data name="ReelController_IdleUnknown" xml:space="preserve">
     <value>Idle Unknown</value>
@@ -11623,5 +11624,9 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="GameStartMethodLineReelorMaxBetButton" xml:space="preserve">
     <value>Line/Reel/Max Bet Button</value>
+  </data>
+  <data name="ReceiptPrintingFailedInfo" xml:space="preserve">
+    <value>Open Main Door, check the printer device and remove any paper jams.  You may need to disconnect and reconnect the printer.</value>
+    <comment>Monaco.Accounting</comment>
   </data>
 </root>
